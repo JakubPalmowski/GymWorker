@@ -7,5 +7,6 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class ExerciseController : ControllerBase
     {
+        //test
     }
 }
