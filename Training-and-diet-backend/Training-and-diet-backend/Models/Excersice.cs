@@ -2,10 +2,10 @@
 
 namespace Training_and_diet_backend.Models
 {
-    public class Excersice
+    public class Exercise
     {
         [Key]
-       public int Id_Excerise { get; set; }
+       public int Id_Excise { get; set; }
        public string Name { get; set; }
        public string Details { get; set; }
     }
