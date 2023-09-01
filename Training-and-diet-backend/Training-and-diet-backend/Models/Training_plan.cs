@@ -19,6 +19,15 @@ namespace Training_and_diet_backend.Models
         public DateTime End_date { get; set; }
         public TimeSpan Plan_duration { get; set; }
 
+        [ForeignKey("Trainer")]
+        public int Id_Trainer { get; set; }
+        [ForeignKey("Pupil")]
+        public int Id_Pupil { get; set; }
+
+        public virtual User Trainer { get; set; }
+
+        public virtual User Pupil { get; set; }
+
         public virtual ICollection<Trainee_exercise> Trainee_Exercises { get; set; }
     }
 }

@@ -25,7 +25,12 @@ namespace Training_and_diet_backend.Models
         [Column(TypeName = "varchar(10)")]
         public string Sex { get; set; }
 
-       
+        [InverseProperty("Pupil")]
+        public virtual ICollection<Training_plan> Pupil_Training_plans { get; set; }
+        [InverseProperty("Trainer")]
+        public virtual ICollection<Training_plan> Trainer_Training_plans { get; set; }
+
+
 
     }
 }
