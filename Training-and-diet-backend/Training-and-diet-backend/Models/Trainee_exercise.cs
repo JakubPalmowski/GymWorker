@@ -18,7 +18,11 @@ namespace Training_and_diet_backend.Models
         public TimeSpan Exercise_duration { get; set; }
         [ForeignKey("Exercise")]
         public int Id_Exercise { get; set; }
+        [ForeignKey("Training_plan")]
+        public int Id_Training_plan { get; set; }
 
         public virtual Exercise Exercise { get; set; }
+
+        public virtual Training_plan Training_plan { get; set; }
     }
 }
