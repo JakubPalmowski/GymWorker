@@ -14,5 +14,6 @@ namespace Training_and_diet_backend.Context
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Trainee_exercise> Trainee_exercises { get; set; }
         public DbSet<Training_plan> Training_plans { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
