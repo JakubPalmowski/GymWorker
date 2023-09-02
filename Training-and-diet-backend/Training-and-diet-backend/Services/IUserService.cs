@@ -4,6 +4,7 @@ namespace Training_and_diet_backend.Controllers
 {
     public interface IUserService
     {
-        IQueryable<User> GetPupilsByTrainerId(int TrainderId);
+        Task<IQueryable<User>> GetPupilsByTrainerId(int TrainderId);
+        Task<List<Exercise>> GetTrainerExercises(int TrainderId);
     }
 }
