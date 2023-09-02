@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ExercisesListComponent } from './components/exercises/exercises-list/exercises-list.component';
 import { TrainingPlansListComponent } from './components/traininig-plans/training-plans-list/training-plans-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { TrainingPlansListComponent } from './components/traininig-plans/trainin
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
