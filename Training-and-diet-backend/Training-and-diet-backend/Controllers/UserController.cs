@@ -14,7 +14,17 @@ namespace Training_and_diet_backend.Controllers
             _service = userService;
         }
 
+        [HttpGet("{TrainerId}")]
 
+        public async Task<IActionResult> GetTrainerExercises(int TrainerId)
+        {
+            var exercises = await _service.GetTrainerExercises(TrainerId);
+
+            if (exercises.Count == 0)
+                return NotFound("There are no exercises assigned to this trainer");
+
+            return Ok(exercises);
+        }
         
 
     }

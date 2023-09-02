@@ -21,7 +21,7 @@ namespace Training_and_diet_backend.Controllers
             var exist = await _service.GetExerciseById(ExerciseId).FirstOrDefaultAsync();
             
             if (exist == null) {
-            return NotFound("Nie ma takiego ćwiczenia");
+            return NotFound("There is no such a exercise");
             }
             return Ok(exist);
         }

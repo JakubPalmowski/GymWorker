@@ -1,4 +1,5 @@
-﻿using Training_and_diet_backend.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Training_and_diet_backend.Context;
 using Training_and_diet_backend.Controllers;
 using Training_and_diet_backend.Models;
 
@@ -13,13 +14,26 @@ namespace Training_and_diet_backend.Services
             _context = context;
         }
 
-        public IQueryable<User> GetPupilsByTrainerId(int TrainderId)
+        public Task<IQueryable<User>> GetPupilsByTrainerId(int TrainderId)
         {
-            var query = from user in _context.Users
+            throw new NotImplementedException();
+            /*var query = from user in _context.Users
                         join pupil_mentor in _context.Pupil_mentors
                         on TrainderId equals pupil_mentor.Id_Mentor
-                        select new { user.Id_User,  user.Name, user.Last_name
+                        select new
+                        {
+                            user.Id_User,
+                            user.Name,
+                            user.Last_name,
+
                         };
+
+            return query;*/
+        }
+
+        public async Task<List<Exercise>> GetTrainerExercises(int TrainderId)
+        {
+            var query = await _context.Exercises.Where(e => e.Id_Trainer == TrainderId).ToListAsync();
 
             return query;
 
