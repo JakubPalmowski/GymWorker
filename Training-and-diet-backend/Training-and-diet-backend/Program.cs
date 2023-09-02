@@ -16,6 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 builder.Services.AddScoped<IExerciseService,ExerciseService>();
 builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<ITrainingPlanService,TrainingPlanService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
