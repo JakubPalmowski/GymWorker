@@ -1,4 +1,5 @@
-﻿using Training_and_diet_backend.Models;
+﻿using Training_and_diet_backend.DTOs;
+using Training_and_diet_backend.Models;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -6,6 +7,6 @@ namespace Training_and_diet_backend.Controllers
     {
         public Task<List<User>> GetPupilsByTrainerId(int id_trainer);
         Task<List<Exercise>> GetTrainerExercises(int TrainderId);
-        public Task<List<Training_plan>> GetTrainerTrainingPlans(int id_trainer);
+        public Task<List<GetTrainingPlanGeneralInfoDTO>> GetTrainerTrainingPlans(int id_trainer);
     }
 }

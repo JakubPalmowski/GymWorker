@@ -30,7 +30,6 @@ namespace Training_and_diet_backend.Controllers
                 Type = TrainingPlan.Type,
                 Start_date = TrainingPlan.Start_date,
                 End_date = TrainingPlan.End_date,
-                Plan_duration = TrainingPlan.Plan_duration,
                 Id_Trainer = TrainingPlan.Id_Trainer,
 
             };
