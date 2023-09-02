@@ -9,11 +9,7 @@ import { TrainingPlanService } from 'src/app/services/training-plan.service';
 })
 export class TrainingPlansListComponent implements OnInit{
   
-  trainingPlans:TrainingPlan[]=[
-    
-   
-    
-  ];
+  trainingPlans:TrainingPlan[]=[];
   constructor(private trainingPlanService:TrainingPlanService){}
 
   ngOnInit(): void {

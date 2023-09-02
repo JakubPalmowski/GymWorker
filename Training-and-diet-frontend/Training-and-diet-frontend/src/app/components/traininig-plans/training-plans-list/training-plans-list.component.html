@@ -10,12 +10,12 @@
         </thead>
         <tbody>
             <tr *ngFor="let trainingPlan of trainingPlans">
-                <td>{{ trainingPlan.name }}</td>
+                <td><a [routerLink]="['edit',trainingPlan.id ]">{{ trainingPlan.name }}</a></td>
                 <td>{{ trainingPlan.duration }}</td>
             </tr>
         </tbody>
     </table>
     <p *ngIf="!trainingPlans || trainingPlans.length <=0">Nie posiadasz planów treningowych</p>
-    <a href="training-plans/add" class="nav-link px-0 align-middle">
+    <a routerLink="/training-plans/add" class="nav-link px-0 align-middle">
         <i class="fs-4 bi-people"></i> <span class="newPlanButton">Dodaj nowy plan</span> </a>
 </div>

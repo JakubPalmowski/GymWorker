@@ -8,6 +8,7 @@ import { TrainingPlansListComponent } from './components/traininig-plans/trainin
 import { HttpClientModule } from '@angular/common/http';
 import { AddTrainingPlanComponent } from './components/traininig-plans/add-training-plan/add-training-plan.component';
 import { FormsModule } from '@angular/forms';
+import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     ExercisesListComponent,
     TrainingPlansListComponent,
-    AddTrainingPlanComponent
+    AddTrainingPlanComponent,
+    EditTrainingPlanComponent
     
   ],
   imports: [

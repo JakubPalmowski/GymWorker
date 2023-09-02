@@ -1,4 +1,6 @@
 import { Component,OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { NewTrainingPlan } from 'src/app/models/new-training-plan.model';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 
@@ -19,7 +21,7 @@ export class AddTrainingPlanComponent implements OnInit{
     end_date:new Date(),
 
   }
-  constructor(private trainingPlanService:TrainingPlanService){}
+  constructor(private trainingPlanService:TrainingPlanService, private router:Router){}
   ngOnInit(): void {
     
   }
@@ -29,6 +31,7 @@ export class AddTrainingPlanComponent implements OnInit{
     this.trainingPlanService.addTrainingPlan(this.addTrainingPlanRequest).subscribe({
       next:(newTrainingPlan)=>{
         console.log(newTrainingPlan);
+        this.router.navigate(['/training-plans/edit/'+newTrainingPlan]);
       },
       error: (response)=>{
         console.log(response);
