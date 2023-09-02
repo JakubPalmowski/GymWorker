@@ -38,5 +38,9 @@ namespace Training_and_diet_backend.Services
             return query;
 
         }
+        public async Task<List<Training_plan>> GetTrainerTrainingPlans(int id_trainer)
+        {
+            return await _context.Training_plans.Where(e => e.Id_Trainer == id_trainer).ToListAsync();
+        }
     }
 }
