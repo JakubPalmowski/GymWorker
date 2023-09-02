@@ -6,7 +6,6 @@
         public string Type { get; set; }
         public DateTime Start_date { get; set; }
         public DateTime End_date { get; set; }
-        public TimeSpan Plan_duration { get; set; }
         public int Id_Trainer { get; set; }
     }
 }

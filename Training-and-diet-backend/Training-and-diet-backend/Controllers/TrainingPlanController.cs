@@ -17,25 +17,26 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTrainingPlan([FromBody] PostTrainingPlanDTO TrainingPlan)
+        public async Task<IActionResult> CreateTrainingPlan([FromBody] PostTrainingPlanDTO trainingPlan)
         {
-            if (TrainingPlan == null)
+            if (trainingPlan == null)
             {
                 return BadRequest();
             }
-
+            
+            
             var plan = new Training_plan
             {
-                Name = TrainingPlan.Name,
-                Type = TrainingPlan.Type,
-                Start_date = TrainingPlan.Start_date,
-                End_date = TrainingPlan.End_date,
-                Id_Trainer = TrainingPlan.Id_Trainer,
+                Name = trainingPlan.Name,
+                Type = trainingPlan.Type,
+                Start_date = trainingPlan.Start_date,
+                End_date = trainingPlan.End_date,
+                Id_Trainer = trainingPlan.Id_Trainer,
 
             };
 
-            _service.AddTrainingPlan(plan);
-            return Ok(TrainingPlan);
+            await _service.AddTrainingPlan(plan);
+            return Ok(plan.Id_Training_plan);
         }
     }
 }
