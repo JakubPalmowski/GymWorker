@@ -117,6 +117,7 @@ namespace Training_and_diet_backend.Context
             modelBuilder.Entity<Exercise>().HasData(exercise, exercise1, exercise2);
             modelBuilder.Entity<Training_plan>().HasData(trainingPlan, trainingPlan1);
             modelBuilder.Entity<Trainee_exercise>().HasData(traineeExercise, traineeExercise1, traineeExercise2);
+            modelBuilder.Entity<Pupil_mentor>().HasKey(pm => new { pm.Id_Mentor, pm.Id_Pupil });
             base.OnModelCreating(modelBuilder);
         }
     }
