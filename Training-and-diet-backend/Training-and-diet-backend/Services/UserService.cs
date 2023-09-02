@@ -48,5 +48,19 @@ namespace Training_and_diet_backend.Services
             return result;
 
         }
+        public async Task<List<GetExercisesByTrainerIdDTO>> GetExercisesByTrainerId(int id_trainer)
+        {
+            var exercises = await _context.Exercises.Where(e => e.Id_Trainer == id_trainer)
+                .Select(exercise =>
+                new GetExercisesByTrainerIdDTO
+                {
+                    ExerciseName = exercise.Name,
+                    Id_Exercise = exercise.Id_Exercise,
+                }
+            
+                ).ToListAsync();
+
+            return exercises;
+        }
     }
 }

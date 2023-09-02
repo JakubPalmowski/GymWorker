@@ -16,7 +16,11 @@ namespace Training_and_diet_backend.Controllers
             _service = userService;
         }
 
-        [HttpGet("{TrainerId}/exercises")]
+
+
+        // POBIERA WSZYSTKIE CWICZENIA TRENERA PO ID, WYSWIETLA WSZYSTKIE DANE CWICZENIA
+
+        /*[HttpGet("{TrainerId}/exercises")]
 
         public async Task<IActionResult> GetTrainerExercises(int TrainerId)
         {
@@ -26,7 +30,7 @@ namespace Training_and_diet_backend.Controllers
                 return NotFound("There are no exercises assigned to this trainer");
 
             return Ok(exercises);
-        }
+        }*/
 
         [HttpGet("{id_trainer}/trainingPlans")]
         public async Task<ActionResult<IEnumerable<GetTrainingPlanGeneralInfoDTO>>> GetTrainerTrainingPlans(int id_trainer)
@@ -50,6 +54,21 @@ namespace Training_and_diet_backend.Controllers
                 return NotFound("The trainer has no pupils");
             }
             return Ok(trainerPupils);
+        }
+
+        // POBIERA WSZYSTKIE CWICZENIA TRENERA PO ID, WYSWIETLA TYLKO NAME I ID CWICZENIA
+
+        [HttpGet("{TrainerId}/exercises")]
+        public async Task<IActionResult> GetExercisesByTrainerId(int TrainerId)
+        {
+            var exercises = await _service.GetExercisesByTrainerId(TrainerId);
+
+            if (exercises.Count == 0)
+            {
+                return NotFound("The Trainer has no exercises");
+            }
+
+            return Ok(exercises);
         }
 
 
