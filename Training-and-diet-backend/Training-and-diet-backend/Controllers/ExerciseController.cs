@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Services;
 
@@ -25,5 +24,21 @@ namespace Training_and_diet_backend.Controllers
             }
             return Ok(exist);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllExercises()
+        {
+            var exercises = await _service.GetAllExercises();
+
+            if (exercises.Count == 0)
+            {
+                return NotFound("There is no such a exercise");
+            }
+
+            return Ok(exercises);
+
+        }
+
+        
     }
 }

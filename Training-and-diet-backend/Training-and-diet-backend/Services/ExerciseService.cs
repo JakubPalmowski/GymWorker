@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Training_and_diet_backend.DTOs;
 
 namespace Training_and_diet_backend.Services
 {
@@ -16,6 +17,20 @@ namespace Training_and_diet_backend.Services
         {
             _context = context;
         }
+
+        public async Task<List<GetAllExercisesDTO>> GetAllExercises()
+        {
+            var result = await _context.Exercises
+                .Select(exercise => new GetAllExercisesDTO
+                {
+                    Name = exercise.Name,
+                    Id_Exercise = exercise.Id_Exercise
+                })
+                .ToListAsync();
+
+            return result;
+        }
+
 
         public IQueryable<Exercise> GetExerciseById(int ExerciseId)
         {
