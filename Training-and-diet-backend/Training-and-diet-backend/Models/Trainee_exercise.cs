@@ -15,7 +15,7 @@ namespace Training_and_diet_backend.Models
         public string? Comments { get; set; }
         [Column(TypeName = "Date")]
         public DateTime Date { get; set; }
-        public TimeSpan Exercise_duration { get; set; }
+
         [ForeignKey("Exercise")]
         public int Id_Exercise { get; set; }
         [ForeignKey("Training_plan")]

@@ -86,7 +86,6 @@ namespace Training_and_diet_backend.Context
                 Series_number = 3,
                 Repetitions_number = 12,
                 Date = new DateTime(2023, 09, 12),
-                Exercise_duration = TimeSpan.FromMinutes(30),
                 Id_Exercise = 1,
                 Id_Training_plan = 1
             };
@@ -97,7 +96,6 @@ namespace Training_and_diet_backend.Context
                 Series_number = 4,
                 Repetitions_number = 10,
                 Date = new DateTime(2023, 09, 15),
-                Exercise_duration = TimeSpan.FromMinutes(35),
                 Id_Exercise = 2,
                 Id_Training_plan = 1
             };
@@ -108,7 +106,6 @@ namespace Training_and_diet_backend.Context
                 Series_number = 2,
                 Repetitions_number = 15,
                 Date = new DateTime(2023, 09, 20),
-                Exercise_duration = TimeSpan.FromMinutes(25),
                 Id_Exercise = 3,
                 Id_Training_plan = 2
             };
