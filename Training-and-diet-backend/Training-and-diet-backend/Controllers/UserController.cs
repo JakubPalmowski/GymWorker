@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Training_and_diet_backend.DTOs;
 using Training_and_diet_backend.Models;
 
 namespace Training_and_diet_backend.Controllers
@@ -28,7 +29,7 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("{id_trainer}/trainingPlans")]
-        public async Task<ActionResult<IEnumerable<Training_plan>>> GetTrainerTrainingPlans(int id_trainer)
+        public async Task<ActionResult<IEnumerable<GetTrainingPlanGeneralInfoDTO>>> GetTrainerTrainingPlans(int id_trainer)
         {
             var trainingPlans = await _service.GetTrainerTrainingPlans(id_trainer);
             if (trainingPlans.Count == 0)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Context;
 using Training_and_diet_backend.Controllers;
+using Training_and_diet_backend.DTOs;
 using Training_and_diet_backend.Models;
 
 namespace Training_and_diet_backend.Services
@@ -27,9 +28,25 @@ namespace Training_and_diet_backend.Services
             return query;
 
         }
-        public async Task<List<Training_plan>> GetTrainerTrainingPlans(int id_trainer)
+        public async Task<List<GetTrainingPlanGeneralInfoDTO>> GetTrainerTrainingPlans(int id_trainer)
         {
-            return await _context.Training_plans.Where(e => e.Id_Trainer == id_trainer).ToListAsync();
+            var trainingPlans = await _context.Training_plans.Where(e => e.Id_Trainer == id_trainer).ToListAsync();
+            var result = new List<GetTrainingPlanGeneralInfoDTO>();
+
+            foreach (var trainingPlan in trainingPlans)
+            {
+                var dto = new GetTrainingPlanGeneralInfoDTO
+                {
+                    Id = trainingPlan.Id_Training_plan,
+                    Name = trainingPlan.Name,
+                    Duration = (int)(trainingPlan.End_date-trainingPlan.Start_date).TotalDays
+                };
+
+                result.Add(dto);
+            }
+
+            return result;
+
         }
     }
 }

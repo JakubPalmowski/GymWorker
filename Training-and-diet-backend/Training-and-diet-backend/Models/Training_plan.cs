@@ -17,7 +17,6 @@ namespace Training_and_diet_backend.Models
         public DateTime Start_date { get; set; }
         [Column(TypeName = "Date")]
         public DateTime End_date { get; set; }
-        public TimeSpan Plan_duration { get; set; }
 
         [ForeignKey("Trainer")]
         public int Id_Trainer { get; set; }

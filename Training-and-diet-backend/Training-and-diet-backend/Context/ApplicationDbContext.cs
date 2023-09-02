@@ -61,7 +61,6 @@ namespace Training_and_diet_backend.Context
                 Type = "Siłowy",
                 Start_date = new DateTime(2023, 09, 10),
                 End_date = new DateTime(2023, 09, 30),
-                Plan_duration = TimeSpan.FromDays(21),
                 Id_Trainer = 1,
                 Id_Pupil = 2
             };
@@ -73,7 +72,6 @@ namespace Training_and_diet_backend.Context
                 Type = "Cardio",
                 Start_date = new DateTime(2023, 10, 1),
                 End_date = new DateTime(2023, 10, 31),
-                Plan_duration = TimeSpan.FromDays(31),
                 Id_Trainer = 1,
                 Id_Pupil = 2
             };
