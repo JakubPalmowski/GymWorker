@@ -1,19 +1,21 @@
 <div class="container my-5">
+    <h3>Moje plany</h3>
     <table class="table" *ngIf="trainingPlans && trainingPlans.length > 0" >
         <thead>
             <tr>
                 <th>Nazwa</th>
-                <th>Długość</th>
-                <th>Ilość ćwiczeń</th>
+                <th>Ilość dni</th>
+   
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let trainingPlan of trainingPlans">
                 <td>{{ trainingPlan.name }}</td>
-                <td>{{ trainingPlan.training_duration }}</td>
-                <td>{{ trainingPlan.number_of_exercises }}</td>
+                <td>{{ trainingPlan.duration }}</td>
             </tr>
         </tbody>
     </table>
     <p *ngIf="!trainingPlans || trainingPlans.length <=0">Nie posiadasz planów treningowych</p>
+    <a href="training-plans/add" class="nav-link px-0 align-middle">
+        <i class="fs-4 bi-people"></i> <span class="newPlanButton">Dodaj nowy plan</span> </a>
 </div>
