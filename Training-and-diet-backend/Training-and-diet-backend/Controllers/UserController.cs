@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Training_and_diet_backend.Models;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -14,7 +15,7 @@ namespace Training_and_diet_backend.Controllers
             _service = userService;
         }
 
-        [HttpGet("{TrainerId}")]
+        [HttpGet("{TrainerId}/exercises")]
 
         public async Task<IActionResult> GetTrainerExercises(int TrainerId)
         {
@@ -25,7 +26,19 @@ namespace Training_and_diet_backend.Controllers
 
             return Ok(exercises);
         }
-        
+
+        [HttpGet("{id_trainer}/trainingPlans")]
+        public async Task<ActionResult<IEnumerable<Training_plan>>> GetTrainerTrainingPlans(int id_trainer)
+        {
+            var trainingPlans = await _service.GetTrainerTrainingPlans(id_trainer);
+            if (trainingPlans.Count == 0)
+            {
+                return NotFound("There are no training plans for the trainer");
+            }
+            return Ok(trainingPlans);
+
+        }
+
 
     }
 }
