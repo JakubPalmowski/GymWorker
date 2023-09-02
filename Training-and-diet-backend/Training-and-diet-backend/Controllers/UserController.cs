@@ -40,5 +40,17 @@ namespace Training_and_diet_backend.Controllers
         }
 
 
+        [HttpGet("{id_trainer}/pupils")]
+        public async Task<ActionResult<IEnumerable<User>>> GetPupilsByTrainerId(int id_trainer)
+        {
+            var trainerPupils = await _service.GetPupilsByTrainerId(id_trainer);
+            if (trainerPupils.Count == 0)
+            {
+                return NotFound("The trainer has no pupils");
+            }
+            return Ok(trainerPupils);
+        }
+
+
     }
 }

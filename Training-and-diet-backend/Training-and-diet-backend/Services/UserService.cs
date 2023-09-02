@@ -14,21 +14,10 @@ namespace Training_and_diet_backend.Services
             _context = context;
         }
 
-        public Task<IQueryable<User>> GetPupilsByTrainerId(int TrainderId)
+        public async Task<List<User>> GetPupilsByTrainerId(int id_trainer)
         {
-            throw new NotImplementedException();
-            /*var query = from user in _context.Users
-                        join pupil_mentor in _context.Pupil_mentors
-                        on TrainderId equals pupil_mentor.Id_Mentor
-                        select new
-                        {
-                            user.Id_User,
-                            user.Name,
-                            user.Last_name,
+            return await _context.Users.Where(u => _context.Pupil_mentors.Where(e => e.Id_Mentor == id_trainer).Select(e => e.Id_Pupil).Contains(u.Id_User)).ToListAsync();
 
-                        };
-
-            return query;*/
         }
 
         public async Task<List<Exercise>> GetTrainerExercises(int TrainderId)
