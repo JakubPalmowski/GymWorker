@@ -22,7 +22,7 @@ namespace Training_and_diet_backend.Models
         [ForeignKey("Trainer")]
         public int Id_Trainer { get; set; }
         [ForeignKey("Pupil")]
-        public int Id_Pupil { get; set; }
+        public int? Id_Pupil { get; set; }
 
         public virtual User Trainer { get; set; }
 

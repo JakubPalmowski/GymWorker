@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Training_and_diet_backend.Context;
@@ -11,9 +12,11 @@ using Training_and_diet_backend.Context;
 namespace Training_and_diet_backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230902110808_SeededDataDbMigration")]
+    partial class SeededDataDbMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,25 +83,6 @@ namespace Training_and_diet_backend.Data.Migrations
                             Id_Trainer = 1,
                             Name = "Plank"
                         });
-                });
-
-            modelBuilder.Entity("Training_and_diet_backend.Models.Pupil_mentor", b =>
-                {
-                    b.Property<int>("Id_Mentor")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnOrder(0);
-
-                    b.Property<int>("Id_Pupil")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnOrder(1);
-
-                    b.HasKey("Id_Mentor", "Id_Pupil");
-
-                    b.HasIndex("Id_Pupil");
-
-                    b.ToTable("Pupil_mentor");
                 });
 
             modelBuilder.Entity("Training_and_diet_backend.Models.Trainee_exercise", b =>
@@ -184,7 +168,7 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Property<DateTime>("End_date")
                         .HasColumnType("Date");
 
-                    b.Property<int?>("Id_Pupil")
+                    b.Property<int>("Id_Pupil")
                         .HasColumnType("integer");
 
                     b.Property<int>("Id_Trainer")
@@ -332,25 +316,6 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Navigation("Trainer");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.Pupil_mentor", b =>
-                {
-                    b.HasOne("Training_and_diet_backend.Models.User", "Mentor")
-                        .WithMany("Mentor_Pupils")
-                        .HasForeignKey("Id_Mentor")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Training_and_diet_backend.Models.User", "Pupil")
-                        .WithMany("Pupil_Mentors")
-                        .HasForeignKey("Id_Pupil")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Mentor");
-
-                    b.Navigation("Pupil");
-                });
-
             modelBuilder.Entity("Training_and_diet_backend.Models.Trainee_exercise", b =>
                 {
                     b.HasOne("Training_and_diet_backend.Models.Exercise", "Exercise")
@@ -374,7 +339,9 @@ namespace Training_and_diet_backend.Data.Migrations
                 {
                     b.HasOne("Training_and_diet_backend.Models.User", "Pupil")
                         .WithMany("Pupil_Training_plans")
-                        .HasForeignKey("Id_Pupil");
+                        .HasForeignKey("Id_Pupil")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Training_and_diet_backend.Models.User", "Trainer")
                         .WithMany("Trainer_Training_plans")
@@ -400,10 +367,6 @@ namespace Training_and_diet_backend.Data.Migrations
             modelBuilder.Entity("Training_and_diet_backend.Models.User", b =>
                 {
                     b.Navigation("Exercises");
-
-                    b.Navigation("Mentor_Pupils");
-
-                    b.Navigation("Pupil_Mentors");
 
                     b.Navigation("Pupil_Training_plans");
 
