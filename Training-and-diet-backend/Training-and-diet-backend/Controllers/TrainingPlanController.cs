@@ -38,5 +38,17 @@ namespace Training_and_diet_backend.Controllers
             await _service.AddTrainingPlan(plan);
             return Ok(plan.Id_Training_plan);
         }
+
+        [HttpGet("{PlanId}")]
+        public async Task<IActionResult> GetTrainingPlanById (int PlanId)
+        {
+            var plan = await _service.GetTrainingPlanById(PlanId);
+
+            if (plan.Count == 0)
+            {
+                return BadRequest("There are no training plans with given trainer");
+            }
+            return Ok(plan);
+        }
     }
 }
