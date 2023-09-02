@@ -32,6 +32,12 @@ namespace Training_and_diet_backend.Models
         public virtual ICollection<Exercise> Exercises { get; set; }
 
 
+        [InverseProperty("Pupil")]
+        public virtual ICollection<Pupil_mentor> Pupil_Mentors { get; set; }
+        [InverseProperty("Mentor")]
+        public virtual ICollection<Pupil_mentor> Mentor_Pupils { get; set; }
+
+
 
     }
 }
