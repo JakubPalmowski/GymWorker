@@ -112,11 +112,23 @@ namespace Training_and_diet_backend.Context
                 Id_Training_plan = 2
             };
 
+            var pupilMentor1 = new Pupil_mentor
+            {
+                Id_Mentor = 1,
+                Id_Pupil = 2
+            };
+            var pupilMentor2 = new Pupil_mentor
+            {
+                Id_Mentor = 1,
+                Id_Pupil = 3
+            };
+
 
             modelBuilder.Entity<User>().HasData(user, user1, user2);
             modelBuilder.Entity<Exercise>().HasData(exercise, exercise1, exercise2);
             modelBuilder.Entity<Training_plan>().HasData(trainingPlan, trainingPlan1);
             modelBuilder.Entity<Trainee_exercise>().HasData(traineeExercise, traineeExercise1, traineeExercise2);
+            modelBuilder.Entity<Pupil_mentor>().HasData(pupilMentor1,pupilMentor2);
             modelBuilder.Entity<Pupil_mentor>().HasKey(pm => new { pm.Id_Mentor, pm.Id_Pupil });
             base.OnModelCreating(modelBuilder);
         }
