@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Training_and_diet_backend.Context;
@@ -11,9 +12,11 @@ using Training_and_diet_backend.Context;
 namespace Training_and_diet_backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230902110808_SeededDataDbMigration")]
+    partial class SeededDataDbMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,7 +168,7 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Property<DateTime>("End_date")
                         .HasColumnType("Date");
 
-                    b.Property<int?>("Id_Pupil")
+                    b.Property<int>("Id_Pupil")
                         .HasColumnType("integer");
 
                     b.Property<int>("Id_Trainer")
@@ -336,7 +339,9 @@ namespace Training_and_diet_backend.Data.Migrations
                 {
                     b.HasOne("Training_and_diet_backend.Models.User", "Pupil")
                         .WithMany("Pupil_Training_plans")
-                        .HasForeignKey("Id_Pupil");
+                        .HasForeignKey("Id_Pupil")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Training_and_diet_backend.Models.User", "Trainer")
                         .WithMany("Trainer_Training_plans")
