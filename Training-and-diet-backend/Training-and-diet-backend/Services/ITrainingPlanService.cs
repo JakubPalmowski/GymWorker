@@ -9,6 +9,8 @@ namespace Training_and_diet_backend.Services
         Task AddTrainingPlan(Training_plan training_Plan);
         Task<List<GetExerciseGeneralInfoDTO>> GetExercisesFromTrainingPlan(int id_training_plan);
 
+        Task<List<GetTrainingPlanByIdDTO>> GetTrainingPlanById(int trainingPlanId);
+
 
     }
 }
