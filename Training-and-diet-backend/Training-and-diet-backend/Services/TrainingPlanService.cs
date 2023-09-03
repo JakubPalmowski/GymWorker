@@ -32,6 +32,21 @@ namespace Training_and_diet_backend.Services
         })
             .ToListAsync();
         }
+        public async Task<List<GetTrainingPlanByIdDTO>> GetTrainingPlanById(int trainingPlanId)
+        {
+            return await _context.Training_plans
+                .Where(plan => plan.Id_Training_plan == trainingPlanId)
+                .Select(plan => new GetTrainingPlanByIdDTO
+                {
+                    IdTrainingPlan = trainingPlanId,
+                    Name = plan.Name,
+                    Type = plan.Type,
+                    StartDate = plan.Start_date,
+                    EndDate = plan.End_date,
 
-}
+                }).ToListAsync();
+        }
+
+
+    }
 }
