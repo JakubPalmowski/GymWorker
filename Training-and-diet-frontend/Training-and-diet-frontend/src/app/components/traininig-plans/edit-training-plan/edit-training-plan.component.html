@@ -4,20 +4,20 @@
         <div class="col-6">
             <form #form="ngForm" >
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" clas="form-control" id="name" name="name" disabled>
+                    <label for="name" class="form-label">Nazwa:</label>
+                    <input type="text" clas="form-control" id="name" name="name" value={{trainingPlan.name}} disabled>
                 </div>
                 <div class="mb-3">
                     <label for="type" class="form-label">Typ:</label>
-                    <input type="text" clas="form-control" id="type" name="type" disabled>
+                    <input type="text" clas="form-control" id="type" name="type" value={{trainingPlan.type}} disabled>
                 </div>
                 <div class="mb-3">
                     <label for="start_date" class="form-label">Data rozpoczęcia:</label>
-                    <input type="date" clas="form-control" id="start_date" name="start_date" disabled>
+                    <input type="date" clas="form-control" id="start_date" name="start_date" value={{formStartDate}} disabled>
                 </div>
                 <div class="mb-3">
                     <label for="end_date" class="form-label">Data zakończenia:</label>
-                    <input type="date" clas="form-control" id="end_date" name="end_date" disabled>
+                    <input type="date" clas="form-control" id="end_date" name="end_date" value={{formEndDate}} disabled>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Edytuj</button>
@@ -42,7 +42,7 @@
             </tbody>
         </table>
         <p *ngIf="!trainingPlanExercises || trainingPlanExercises.length <=0">Ten plan treningowy nie zawiera ćwiczeń</p>
-        <a routerLink="/exercises-list" [queryParams]="{idTraining: test}" class="nav-link px-0 align-middle">
+        <a routerLink="/exercises-list" [queryParams]="{id: idTraining}" class="nav-link px-0 align-middle">
             <i class="fs-4 bi-people"></i> <span class="newPlanButton">Dodaj ćwiczenie do planu</span> </a>
     </div>
     

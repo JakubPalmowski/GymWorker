@@ -1,1 +1,27 @@
-<p>new-training-exercise works!</p>
+<div class="container my-5">
+    <h3>Dodawanie ćwiczenia: {{exercise.name}} do planu</h3>
+    <div class="row">
+        <div class="col-6">
+            <form #form="ngForm" (ngSubmit)="addTrainingExercise()">
+                <div class="mb-3">
+                    <label for="series_Number" class="form-label">Liczba serii:</label>
+                    <input type="number" clas="form-control" id="series_Number" name="series_Number" [(ngModel)]="newTrainingExerciseRequest.series_Number">
+                </div>
+                <div class="mb-3">
+                    <label for="repetitions_number" class="form-label">Liczba powtórzeń:</label>
+                    <input type="number" clas="form-control" id="repetitions_number" name="repetitions_number" [(ngModel)]="newTrainingExerciseRequest.repetitions_number">
+                </div>
+                <div class="mb-3">
+                    <label for="comments" class="form-label">Komentarz:</label>
+                    <input type="text" clas="form-control" id="comments" name="comments" [(ngModel)]="newTrainingExerciseRequest.comments">
+                </div>
+                <div class="mb-3">
+                    <label for="ate" class="form-label">Data:</label>
+                    <input type="date" clas="form-control" id="date" name="ate" [(ngModel)]="newTrainingExerciseRequest.date">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Stwórz</button>
+            </form>
+        </div>
+    </div>
+</div>

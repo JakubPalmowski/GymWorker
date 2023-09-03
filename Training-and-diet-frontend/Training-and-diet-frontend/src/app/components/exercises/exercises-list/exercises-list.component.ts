@@ -16,11 +16,16 @@ export class ExercisesListComponent implements OnInit{
    
   ];
 
-  constructor(private exerciseServise:ExercisesService){}
+  id_training:string='';
+
+  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute){}
 
   ngOnInit(): void {
-    
+   
+    this.id_training=this.route.snapshot.queryParams['id'];
+   
 
+      //TODO: 2 oddzielne listy: trenera i wszystkie 
     this.exerciseServise.getTrainerExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.trainingPlanExercises=trainingPlanExercises;

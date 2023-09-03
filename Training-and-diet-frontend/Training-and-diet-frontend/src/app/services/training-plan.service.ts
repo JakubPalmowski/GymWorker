@@ -5,6 +5,7 @@ import { TrainingPlan } from '../models/trainingPlan.model';
 import { NewLineKind } from 'typescript';
 import { NewTrainingPlan } from '../models/new-training-plan.model';
 import { TrainingPlanExercise } from '../models/trainingPlanExercise.model';
+import { EditTrainingPlan } from '../models/edit-training-plan.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class TrainingPlanService {
   getTrainerPlans():Observable<TrainingPlan[]>{
    return this.http.get<TrainingPlan[]>('https://localhost:7259/api/User/1/trainingPlans');
   }
+
+  getTrainingPlanById(idPlan:string):Observable<EditTrainingPlan[]>{
+    return this.http.get<EditTrainingPlan[]>('https://localhost:7259/api/TrainingPlan/'+idPlan);
+   }
 
   addTrainingPlan(addTrainingPlanRequest: NewTrainingPlan):Observable<NewTrainingPlan>{
     return this.http.post<NewTrainingPlan>('https://localhost:7259/api/TrainingPlan',addTrainingPlanRequest);

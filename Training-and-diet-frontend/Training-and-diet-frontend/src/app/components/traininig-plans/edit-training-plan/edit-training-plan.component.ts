@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { EditTrainingPlan } from 'src/app/models/edit-training-plan.model';
+import { TrainingPlan } from 'src/app/models/trainingPlan.model';
 import { TrainingPlanExercise } from 'src/app/models/trainingPlanExercise.model';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 
@@ -14,7 +16,19 @@ export class EditTrainingPlanComponent implements OnInit{
    
   ];
 
-  test:string='1';
+  trainingPlan:EditTrainingPlan={
+    idTrainingPlan:0,
+    name:'',
+    type:'',
+    startDate:new Date(),
+    endDate:new Date()
+
+  }
+
+  formStartDate:string='';
+  formEndDate:string='';
+
+  idTraining:string='';
 
   constructor(private route:ActivatedRoute, private trainingPlanService:TrainingPlanService){}
 
@@ -26,6 +40,24 @@ export class EditTrainingPlanComponent implements OnInit{
         
         if(id){
           console.log(id);
+          this.idTraining=id;
+          this.trainingPlanService.getTrainingPlanById(this.idTraining).subscribe({
+            next:(plan)=>{
+              this.trainingPlan=plan[0];
+              //console.log(this.trainingPlan);
+              console.log(plan);
+              console.log(this.trainingPlan.type);
+              this.formStartDate=this.trainingPlan.startDate.toString().split('T')[0];
+              this.formEndDate=this.trainingPlan.endDate.toString().split('T')[0];
+              
+             
+             console.log(this.formEndDate);
+            },
+            error: (response)=>{
+              console.log(response);
+            }
+          })
+
           this.trainingPlanService.getExercisesByPlanId(id).subscribe({
             next:(trainingPlanExercises)=>{
               this.trainingPlanExercises=trainingPlanExercises;
