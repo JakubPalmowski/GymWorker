@@ -34,7 +34,7 @@ namespace Training_and_diet_backend.Controllers
             };
 
             await _service.AddTraineeExercises(data);
-            return Ok(data.Id_Exercise);
+            return Ok(data.Id_Trainee_exercise);
         }
     }
 }
