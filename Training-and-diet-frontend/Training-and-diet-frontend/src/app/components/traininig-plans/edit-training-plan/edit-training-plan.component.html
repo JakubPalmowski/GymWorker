@@ -42,7 +42,7 @@
             </tbody>
         </table>
         <p *ngIf="!trainingPlanExercises || trainingPlanExercises.length <=0">Ten plan treningowy nie zawiera ćwiczeń</p>
-        <a routerLink="/exercises-list" class="nav-link px-0 align-middle">
+        <a routerLink="/exercises-list" [queryParams]="{idTraining: test}" class="nav-link px-0 align-middle">
             <i class="fs-4 bi-people"></i> <span class="newPlanButton">Dodaj ćwiczenie do planu</span> </a>
     </div>
     

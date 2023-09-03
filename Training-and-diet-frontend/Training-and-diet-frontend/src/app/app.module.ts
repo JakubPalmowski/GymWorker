@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddTrainingPlanComponent } from './components/traininig-plans/add-training-plan/add-training-plan.component';
 import { FormsModule } from '@angular/forms';
 import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
+import { NewTrainingExerciseComponent } from './components/exercises/new-training-exercise/new-training-exercise.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { EditTrainingPlanComponent } from './components/traininig-plans/edit-tra
     ExercisesListComponent,
     TrainingPlansListComponent,
     AddTrainingPlanComponent,
-    EditTrainingPlanComponent
+    EditTrainingPlanComponent,
+    NewTrainingExerciseComponent
     
   ],
   imports: [

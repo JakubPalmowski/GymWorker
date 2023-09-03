@@ -4,6 +4,7 @@ import { ExercisesListComponent } from './components/exercises/exercises-list/ex
 import { TrainingPlansListComponent } from './components/traininig-plans/training-plans-list/training-plans-list.component';
 import { AddTrainingPlanComponent } from './components/traininig-plans/add-training-plan/add-training-plan.component';
 import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
+import { NewTrainingExerciseComponent } from './components/exercises/new-training-exercise/new-training-exercise.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'exercises-list',
     component: ExercisesListComponent
+  },
+  {
+    path: 'training-exercise/add',
+    component: NewTrainingExerciseComponent
   }
 ];
 
