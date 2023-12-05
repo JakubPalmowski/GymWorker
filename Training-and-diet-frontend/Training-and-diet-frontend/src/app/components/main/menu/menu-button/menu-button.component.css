@@ -1,0 +1,17 @@
+.button-container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 15px;
+    margin: 0px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.button-container:hover{
+    background-color:#3244A0;
+}
+
+.text{
+    color: #EBE7E7;
+}
+
