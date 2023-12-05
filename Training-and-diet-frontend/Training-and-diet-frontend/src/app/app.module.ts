@@ -14,7 +14,6 @@ import { TrainerListComponent } from './components/mentorsLists/trainer-list/tra
 import { DieteticianListComponent } from './components/mentorsLists/dietetician-list/dietetician-list.component';
 import { DieteticianWindowComponent } from './components/mentorsLists/dietetician-list/dietetician-window/dietetician-window.component';
 import { SearchOptionsDieteticianComponent } from './components/mentorsLists/dietetician-list/search-options-dietetician/search-options-dietetician.component';
-import { DropdownSelectDieteticianComponent } from './components/mentorsLists/dietetician-list/search-options-dietetician/dropdown-select-dietetician/dropdown-select-dietetician.component';
 import { TrainerWindowComponent } from './components/mentorsLists/trainer-list/trainer-window/trainer-window.component';
 import { SearchOptionsTrainerComponent } from './components/mentorsLists/trainer-list/search-options-trainer/search-options-trainer.component';
 import { DropdownSelectTrainerComponent } from './components/mentorsLists/trainer-list/search-options-trainer/dropdown-select-trainer/dropdown-select-trainer.component';
@@ -28,6 +27,7 @@ import { MenuComponent } from './components/main/menu/menu.component';
 import { SearchComponent } from './components/main/search/search.component';
 import { FooterComponent } from './components/main/footer/footer.component';
 import { MenuButtonComponent } from './components/main/menu/menu-button/menu-button.component';
+import { SelectDeteticianComponent } from './components/mentorsLists/dietetician-list/search-options-dietetician/select-detetician/select-detetician.component';
 
 
   
@@ -44,7 +44,6 @@ import { MenuButtonComponent } from './components/main/menu/menu-button/menu-but
     DieteticianListComponent,
     DieteticianWindowComponent,
     SearchOptionsDieteticianComponent,
-    DropdownSelectDieteticianComponent,
     TrainerWindowComponent,
     SearchOptionsTrainerComponent,
     DropdownSelectTrainerComponent,
@@ -56,7 +55,8 @@ import { MenuButtonComponent } from './components/main/menu/menu-button/menu-but
     MenuComponent,
     SearchComponent,
     FooterComponent,
-    MenuButtonComponent
+    MenuButtonComponent,
+    SelectDeteticianComponent
     
   ],
   imports: [

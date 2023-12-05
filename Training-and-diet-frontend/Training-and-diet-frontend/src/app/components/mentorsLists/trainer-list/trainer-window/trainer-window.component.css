@@ -1,0 +1,76 @@
+.trainer-window-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    width: 220px;
+    height: 380px; 
+    border-radius: 10px 10px 10px 10px;
+    background: #D9D9D9;
+}
+
+.user-img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.star-img{
+    width: 40px;
+    height: 40px;
+}
+
+.top-window-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.top-right-window-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.opinion-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.bottom-window-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.name-span{
+    font-weight: bold;
+}
+
+.bio-container{
+    width:75%;
+    display:flex;
+    align-items: center;
+}
+
+button{
+    font-size: 80%;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    width: 70%;
+    height: 30px;
+    background-color: #3244A0;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.bio-span{
+    text-align: center;
+}
