@@ -1,16 +1,12 @@
-.fs-5{
-    color: white;
-    text-align: center;
-    margin-top: 50px;
+
+.footer{
+    margin-left: 16%;
 }
 
-
-
-.ms-1{
-    color:white;
-}
-
-.newPlanButton{
-    background-color: lightgray;
-  
+.content{
+    margin-top: 30px;
+    margin-left: 18%;
+    margin-right: 2%;
+    height: 70vh;
+    width: 70vw;
 }

@@ -1,0 +1,18 @@
+<div class="container">
+    <app-search></app-search>
+    <div class="list-container">
+    <app-search-options-trainer></app-search-options-trainer>
+        <div class="trainers-container">
+    <app-trainer-window *ngFor="let trainer of trainers" 
+    [name]="trainer.name"
+    [lastName]="trainer.lastName"
+    [biography]="'Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne'"
+    [phoneNumber]="trainer.phoneNumber"
+    [city]="trainer.address.city"
+    [photoPath]="trainer.photoUrl"
+    [trainer]="trainer"
+    >
+    </app-trainer-window>
+        </div>
+    </div>
+    </div>

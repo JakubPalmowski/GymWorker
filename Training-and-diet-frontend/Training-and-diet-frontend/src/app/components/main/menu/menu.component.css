@@ -1,0 +1,45 @@
+.logo-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0px 10px;
+}
+.logo{
+    margin: 0px 10px;
+}
+
+.text{
+    color: #EBE7E7;
+}
+
+
+.container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 16%;
+    background-color: #0F1A50;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.line-container{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.top-menu{
+    display:flex;
+    flex-direction: column;
+}
+
+.login-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 5px;
+}
