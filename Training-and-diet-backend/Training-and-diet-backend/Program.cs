@@ -20,12 +20,9 @@ builder.Services.AddScoped<IExerciseService,ExerciseService>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<ITrainingPlanService,TrainingPlanService>();
 builder.Services.AddScoped<IDietService, DietService>();
-builder.Services.AddScoped<IMealService, MealService>();
-builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<IDietService,DietService>();
 builder.Services.AddScoped<IMealService,MealService>();
-builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<ITraineeExercisesService, TraineeExercisesService>();
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
