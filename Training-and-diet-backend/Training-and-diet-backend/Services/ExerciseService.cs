@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Training_and_diet_backend.DTOs;
+using Training_and_diet_backend.Exceptions;
 
 namespace Training_and_diet_backend.Services
 {
