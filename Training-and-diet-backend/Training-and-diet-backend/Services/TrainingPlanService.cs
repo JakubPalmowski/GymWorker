@@ -1,4 +1,4 @@
-﻿using Humanizer;
+using Humanizer;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Context;
@@ -46,7 +46,5 @@ namespace Training_and_diet_backend.Services
 
                 }).ToListAsync();
         }
-
-
     }
 }

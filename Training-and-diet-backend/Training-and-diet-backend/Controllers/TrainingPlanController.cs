@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs;
 using Training_and_diet_backend.Models;
@@ -38,6 +38,7 @@ namespace Training_and_diet_backend.Controllers
             await _service.AddTrainingPlan(plan);
             return Ok(plan.Id_Training_plan);
         }
+        
         [HttpGet("{id_training_plan}/exercises")]
         public async Task<IActionResult> GetExercisesFromTrainingPlan(int id_training_plan)
         {
@@ -47,8 +48,8 @@ namespace Training_and_diet_backend.Controllers
                 return NotFound("There are no exercises assigned to this training plan");
             }
             return Ok(exercises);
-
         }
+        
         [HttpGet("{PlanId}")]
         public async Task<IActionResult> GetTrainingPlanById(int PlanId)
         {
@@ -56,7 +57,7 @@ namespace Training_and_diet_backend.Controllers
 
             if (plan.Count == 0)
             {
-                return BadRequest("There are no training plans with given TrainingPlanId");
+                return BadRequest("There are no training plans with given trainer");
             }
             return Ok(plan);
         }
