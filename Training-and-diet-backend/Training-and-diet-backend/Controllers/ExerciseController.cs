@@ -38,5 +38,7 @@ namespace Training_and_diet_backend.Controllers
             return Ok(exercises);
 
         }
+
+        
     }
 }

@@ -1,0 +1,22 @@
+<div class="trainer-window-container">
+    <div class="top-window-container">
+    <img [src]="photoPath" class="user-img">
+    <div class="top-right-window-container">
+        <div class="opinion-container">
+    <img src="../../../assets/icons/star.png" class="star-img">
+    <span>5.0</span>
+</div>
+    <span>(127 opinii)</span>
+</div>
+    </div>
+    <div class="bottom-window-container">
+        <span class="name-span">{{ name + ' ' + lastName }}</span>
+        <div class="bio-container">
+        <span class="bio-span">{{ biography }}</span>
+        </div>
+        <button routerLink="/TrainerProfile" (click)="OnClickDetailsButton()">Szczegóły</button>
+        <span>{{ phoneNumber }}</span>
+        <span>{{ city }}</span>
+
+    </div>
+</div>

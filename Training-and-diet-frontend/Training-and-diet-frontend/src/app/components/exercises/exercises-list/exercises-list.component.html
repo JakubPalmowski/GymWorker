@@ -1,1 +1,43 @@
-<p>exercises-list works!</p>
+<div class="container my-5">
+    <h3>Ćwiczenia</h3>
+    <div>
+        <button type="button" >Moje ćwiczenia</button>
+        <button type="button" >Wszystkie ćwiczenia</button>
+        <div class="col-6">
+            <form #form="ngForm" >
+                <div >
+                    
+                    <input type="text" clas="form-control" id="name" name="name">
+                    <button type="submit" class="btn btn-primary">Szukaj</button>
+                </div>
+
+                
+            </form>
+        </div>
+    </div>
+    <a routerLink="#" class="nav-link px-0 align-middle">
+        <i class="fs-4 bi-people"></i> <span class="newPlanButton">Stwórz nowe ćwiczenie</span> </a>
+    <div class="container my-5">
+        <table class="table"  *ngIf="trainingPlanExercises && trainingPlanExercises.length > 0">
+            <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Dodaj do planu</th>
+                    <th>Edycja</th>
+                    <th>Szczegóły</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trainingPlanExercise of trainingPlanExercises">
+                    <td>{{trainingPlanExercise.exerciseName}}</td>
+                    <td><a routerLink="/training-exercise/add" [queryParams]="{exerciseId:trainingPlanExercise.id_Exercise,trainingId:id_training}">[+]</a></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="!trainingPlanExercises || trainingPlanExercises.length <=0">Nie znaleziono żadnych ćwiczeń</p>
+        
+    </div>
+    
+</div>

@@ -1,0 +1,43 @@
+<div class="container" *ngIf="selectedTrainer">
+
+    <div class="top-container">
+        <a routerLink="/TrainersList">< Powrót do listy trenerów</a>
+          <div class="trainer-info">
+            <img [src]="selectedTrainer.photoUrl" class="user-image">
+            <div class="top-container-middle">
+            <span class="span-bold name-text">{{ selectedTrainer.name + ' ' + selectedTrainer.lastName}}</span>
+            <span class="span-bold trainer-text">{{ selectedTrainer.role}}</span>
+            <button class="message-button">Napisz wiadomość</button>
+          </div>
+          <div class="vertical-line">
+          </div>
+          <div class="top-container-right">
+            <span>{{ selectedTrainer.address.city +', '+selectedTrainer.address.street }}</span>
+            <span>{{ selectedTrainer.phoneNumber}}</span>
+          </div>
+    
+          </div>
+      </div>
+    
+      <div class="bottom-container">
+    
+        <div class="bottom-left-container">
+          <span class="trainer-text">O mnie</span>
+          <span class="bio-text span-center">Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne. Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne. Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne</span>
+        </div>
+    
+        <div class="bottom-right-container">
+          <span class="opinion-text">Opinie</span>
+          <div class="opinion">
+          <img src="../../../assets/icons/star.png" class="star-img">
+          <span class="stars-number">5.0</span>
+          <span class="opinion-text">(127 opinii)</span>
+          </div>
+          <app-trainer-opinion></app-trainer-opinion>
+          <app-trainer-opinion></app-trainer-opinion>
+          <app-trainer-opinion></app-trainer-opinion>
+        </div>
+    
+    
+      </div>
+    </div>

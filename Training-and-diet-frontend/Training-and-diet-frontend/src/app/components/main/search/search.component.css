@@ -1,0 +1,39 @@
+.search {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    gap: 0px;
+    border: black;
+    width: 80vw;
+  }
+  
+  .searchInput {
+    width: 90%;
+    height: 60px;
+    background-color: #D9D9D9;
+    border-radius: 0px 5px 5px 0;
+    font-size: 20px;
+    border: none;
+  }
+ 
+  
+  .searchButton {
+    width: 50px;
+    height: 60px;
+    border: none;
+    text-align: center;
+    background-color: #D9D9D9;
+    border-radius: 5px 0px 0px 5px;
+    cursor: pointer;
+  }
+
+.searchInput:focus {
+    outline: none; 
+  }
+  
+  .searchIcon:hover{
+    width: 70%;
+    height: 60%;
+  }
+  
+ 

@@ -10,5 +10,8 @@ namespace Training_and_diet_backend.Services
     {
         IQueryable<Exercise> GetExerciseById(int ExerciseId);
         Task<List<GetAllExercisesDTO>> GetAllExercises();
+       
+
+
     }
 }

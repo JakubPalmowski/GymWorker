@@ -1,0 +1,54 @@
+.container{
+    gap: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container{
+    width: 400px;
+    height: 500px;
+    background: #0F1A50;
+    border-radius: 5px 5px 5px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+span, a{
+    color: white;
+}
+
+.login-text{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+input{
+    width: 60%;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+button{
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    width: 200px;
+    height: 50px;
+    background-color: #3244A0;
+    border-radius: 10px 10px 10px 10px;
+}
+
+a{
+    font-weight: bold;
+}
+
+.search{
+    margin-left: 18%;
+    margin-right: 2%;
+}

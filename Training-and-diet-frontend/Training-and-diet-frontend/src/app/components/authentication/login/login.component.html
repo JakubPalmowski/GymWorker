@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="search">
+        <app-search [placeholderText]="'Wyszukaj trenera lub dietetyka'"></app-search>
+    </div>
+    <div class="login-container">
+        <img src="../../../assets/icons/user.png" width="90" height="90">
+        <span class="login-text">Logowanie</span>
+        <input type="text" class="searchInput" placeholder="Adres e-mail">
+        <input type="text" class="searchInput" placeholder="Hasło">
+        <button>Zaloguj się</button>
+        <div>
+            <span>Nie masz konta? </span>
+            <a routerLink="/Register">Zarejestruj się</a>
+        </div>
+        <div>
+            <span>Zapomniałeś hasła? </span>
+            <a routerLink="/PasswordRecovery">Zresetuj hasło</a>
+        </div>
+    </div>
+    </div>
+    
