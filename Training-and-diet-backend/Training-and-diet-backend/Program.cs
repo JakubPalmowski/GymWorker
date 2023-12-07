@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Context;
 using Training_and_diet_backend.Controllers;
+using Training_and_diet_backend.Middlewares;
 using Training_and_diet_backend.Services;
+using Training_and_diet_backend.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IExerciseService,ExerciseService>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<ITrainingPlanService,TrainingPlanService>();
+builder.Services.AddScoped<IDietService,DietService>();
+builder.Services.AddScoped<IMealService,MealService>();
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -29,6 +34,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -2,6 +2,7 @@
 using Training_and_diet_backend.Context;
 using Training_and_diet_backend.Controllers;
 using Training_and_diet_backend.DTOs;
+using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
 
 namespace Training_and_diet_backend.Services
@@ -24,6 +25,9 @@ namespace Training_and_diet_backend.Services
         public async Task<List<Exercise>> GetTrainerExercises(int TrainderId)
         {
             var query = await _context.Exercises.Where(e => e.Id_Trainer == TrainderId).ToListAsync();
+
+            if (query.Count == 0)
+                throw new NotFoundException("Trainer with given id was not found in database");
 
             return query;
 
