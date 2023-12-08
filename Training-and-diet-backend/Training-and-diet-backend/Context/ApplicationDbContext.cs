@@ -22,9 +22,33 @@ namespace Training_and_diet_backend.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var user = new User { Id_User = 1, Role = UserRole.Trainer, Name = "Michał", Last_name = "Emczyk", Email = "michal@gmail.com", Phone_number = "48777888777", Email_validated = true, Sex = "Male" };
-            var user1 = new User { Id_User = 2, Role = UserRole.Pupil, Name = "Anna", Last_name = "Kowalska", Email = "anna@gmail.com", Phone_number = "48666778888", Email_validated = true, Sex = "Female" };
-            var user2 = new User { Id_User = 3, Role = UserRole.Pupil, Name = "John", Last_name = "Doe", Email = "john@gmail.com", Phone_number = "48555667777", Email_validated = true, Sex = "Male" };
+            var roles = new List<Role>()
+            {
+                new Role()
+                {
+                    Id = 1,
+                    Name = "Admin"
+                },
+                new Role()
+                {
+                    Id = 2,
+                    Name = "Pupil"
+                },
+                new Role()
+                {
+                    Id = 3,
+                    Name = "Trainer"
+                },
+                new Role()
+                {
+                    Id = 4,
+                    Name = "User"
+                }
+            };
+
+            var user = new User { Id_User = 1, Id_Role = 1, Name = "Michał", Last_name = "Emczyk", Email = "michal@gmail.com", Phone_number = "48777888777", Email_validated = true, Sex = "Male" };
+            var user1 = new User { Id_User = 2, Id_Role = 2,Name = "Anna", Last_name = "Kowalska", Email = "anna@gmail.com", Phone_number = "48666778888", Email_validated = true, Sex = "Female" };
+            var user2 = new User { Id_User = 3, Id_Role = 3, Name = "John", Last_name = "Doe", Email = "john@gmail.com", Phone_number = "48555667777", Email_validated = true, Sex = "Male" };
 
             var exercise = new Exercise
             {
@@ -177,6 +201,7 @@ namespace Training_and_diet_backend.Context
             modelBuilder.Entity<Pupil_mentor>().HasData(pupilMentor1,pupilMentor2);
             modelBuilder.Entity<Pupil_mentor>().HasKey(pm => new { pm.Id_Mentor, pm.Id_Pupil });
             modelBuilder.Entity<Meal_Diet>().HasKey(md=> new { md.Id_Meal, md.Id_Diet});
+            modelBuilder.Entity<Role>().HasData(roles);
             base.OnModelCreating(modelBuilder);
         }
     }
