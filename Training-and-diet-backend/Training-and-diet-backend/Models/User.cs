@@ -8,9 +8,6 @@ namespace Training_and_diet_backend.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int Id_User { get; set; }
-        [EnumDataType(typeof(UserRole))]
-        public UserRole Role { get; set; }
-
         public string Name { get; set; }
         public string Last_name { get; set; }
         public string Email { get; set; }
@@ -38,6 +35,11 @@ namespace Training_and_diet_backend.Models
         public virtual ICollection<Pupil_mentor> Mentor_Pupils { get; set; }
         public virtual ICollection<Diet> DietsAsDietician { get; set; }
         public virtual ICollection<Diet> DietsAsPupil { get; set; }
+
+        [ForeignKey("Id_Role")]
+        public virtual Role Role { get; set; }
+
+        public int Id_Role { get; set; }
 
 
 
