@@ -3,10 +3,10 @@ using Training_and_diet_backend.Models;
 
 namespace Training_and_diet_backend.Context
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        :base(options)
+        : base(options)
         {
 
         }
@@ -19,36 +19,63 @@ namespace Training_and_diet_backend.Context
         public DbSet<Meal> Meals { get; set; }
         public DbSet<Meal_Diet> Meal_Diets { get; set; }
         public DbSet<Diet> Diets { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Opinion> Opinions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var roles = new List<Role>()
+             {
+                 new Role()
+                 {
+                     Id = 1,
+                     Name = "Admin"
+                 },
+                 new Role()
+                 {
+                     Id = 2,
+                     Name = "Pupil"
+                 },
+                 new Role()
+                 {
+                     Id = 3,
+                     Name = "Trainer"
+                 },
+                 new Role()
+                 {
+                     Id = 4,
+                     Name = "User"
+                 }
+             };
+
+            var address = new Address { Id_Address = 1, City = "Warszawa", Postal_code = "02-222", Street = "Zlota" };
+            var address2 = new Address { Id_Address = 2, City = "Białystok", Postal_code = "02-324", Street = "Kryształowa" };
+            var address3 = new Address { Id_Address = 3, City = "Kraków", Postal_code = "02-421", Street = "Mendelejewa" };
+
+            var user = new User { Id_User = 1, Id_Role = 1, Name = "Michał", Last_name = "Emczyk", Email = "michal@gmail.com", Phone_number = "48777888777", Email_validated = true, Sex = "Male", Id_Address = 3 };
+            var user1 = new User { Id_User = 2, Id_Role = 2, Name = "Anna", Last_name = "Kowalska", Email = "anna@gmail.com", Phone_number = "48666778888", Email_validated = true, Sex = "Female", Id_Address = 2 };
+            var user2 = new User { Id_User = 3, Id_Role = 3, Name = "John", Last_name = "Doe", Email = "john@gmail.com", Phone_number = "48555667777", Email_validated = true, Sex = "Male", Id_Address = 1 };
+
+
+            var opinion = new Opinion
             {
-                new Role()
-                {
-                    Id = 1,
-                    Name = "Admin"
-                },
-                new Role()
-                {
-                    Id = 2,
-                    Name = "Pupil"
-                },
-                new Role()
-                {
-                    Id = 3,
-                    Name = "Trainer"
-                },
-                new Role()
-                {
-                    Id = 4,
-                    Name = "User"
-                }
+                Id_Pupil = 2,
+                Id_Mentor = 1,
+                Content =
+                    "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                Opinion_date = new DateTime(2023, 10, 15),
+                Rate = 5
             };
 
-            var user = new User { Id_User = 1, Id_Role = 1, Name = "Michał", Last_name = "Emczyk", Email = "michal@gmail.com", Phone_number = "48777888777", Email_validated = true, Sex = "Male" };
-            var user1 = new User { Id_User = 2, Id_Role = 2,Name = "Anna", Last_name = "Kowalska", Email = "anna@gmail.com", Phone_number = "48666778888", Email_validated = true, Sex = "Female" };
-            var user2 = new User { Id_User = 3, Id_Role = 3, Name = "John", Last_name = "Doe", Email = "john@gmail.com", Phone_number = "48555667777", Email_validated = true, Sex = "Male" };
+            var opinion2 = new Opinion
+            {
+                Id_Pupil = 3,
+                Id_Mentor = 1,
+                Content =
+                    "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                Opinion_date = new DateTime(2023, 10, 30),
+                Rate = 2
+            };
 
             var exercise = new Exercise
             {
@@ -148,8 +175,13 @@ namespace Training_and_diet_backend.Context
             modelBuilder.Entity<Meal>().HasData(
                 new Meal
                 {
-                    Id_Meal = 1, Id_Dietetician = 1, Name = "Placki ziemniaczane", Ingredients = "{\"ingredient1\": \"ziemniaki\", \"ingredient2\": \"cebula\", \"ingredient3\":  \"mąka\" }"
-                    , Prepare_Steps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }", Kcal = "{\"kcal\": \"651\", \"Białko\": \"16\", \"Węglowodany\":  \"160\" , \"Tłuszcze\": \"30\" }"
+                    Id_Meal = 1,
+                    Id_Dietetician = 1,
+                    Name = "Placki ziemniaczane",
+                    Ingredients = "{\"ingredient1\": \"ziemniaki\", \"ingredient2\": \"cebula\", \"ingredient3\":  \"mąka\" }"
+                    ,
+                    Prepare_Steps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }",
+                    Kcal = "{\"kcal\": \"651\", \"Białko\": \"16\", \"Węglowodany\":  \"160\" , \"Tłuszcze\": \"30\" }"
                 },
                 new Meal
                 {
@@ -174,15 +206,20 @@ namespace Training_and_diet_backend.Context
             );
 
             modelBuilder.Entity<Diet>().HasData(
-                new Diet { Id_Diet = 1, Id_Dietician = 1, Id_Pupil = 2, Start_Date = new DateTime(2023, 12 , 20), End_Date = new DateTime(2023, 12, 20), DietDuration = "1", Total_kcal = 3000 },
+                new Diet { Id_Diet = 1, Id_Dietician = 1, Id_Pupil = 2, Start_Date = new DateTime(2023, 12, 20), End_Date = new DateTime(2023, 12, 20), DietDuration = "1", Total_kcal = 3000 },
                 new Diet { Id_Diet = 2, Id_Dietician = 1, Id_Pupil = 2, Start_Date = new DateTime(2023, 10, 20), End_Date = new DateTime(2023, 11, 20), DietDuration = "30", Total_kcal = 2000 },
                 new Diet { Id_Diet = 3, Id_Dietician = 1, Id_Pupil = 2, Start_Date = new DateTime(2023, 11, 30), End_Date = new DateTime(2023, 12, 30), DietDuration = "30", Total_kcal = 2500 }
             );
             modelBuilder.Entity<Meal_Diet>().HasData(
-                new Meal_Diet { Id_Meal_Diet = 1, Id_Meal = 1, Id_Diet = 1, Date = new DateTime(2023,12,07)},
-                new Meal_Diet { Id_Meal_Diet = 2, Id_Meal = 2, Id_Diet = 1, Date = new DateTime(2023,6,07)},
-                new Meal_Diet { Id_Meal_Diet = 3, Id_Meal = 1, Id_Diet = 2, Date = new DateTime(2023,5,07),
-           } );
+                new Meal_Diet { Id_Meal_Diet = 1, Id_Meal = 1, Id_Diet = 1, Date = new DateTime(2023, 12, 07) },
+                new Meal_Diet { Id_Meal_Diet = 2, Id_Meal = 2, Id_Diet = 1, Date = new DateTime(2023, 6, 07) },
+                new Meal_Diet
+                {
+                    Id_Meal_Diet = 3,
+                    Id_Meal = 1,
+                    Id_Diet = 2,
+                    Date = new DateTime(2023, 5, 07),
+                });
 
             modelBuilder.Entity<Diet>()
                 .HasOne(d => d.Dietician)
@@ -194,13 +231,16 @@ namespace Training_and_diet_backend.Context
                 .WithMany(u => u.DietsAsPupil)
                 .HasForeignKey(d => d.Id_Pupil);
 
+            modelBuilder.Entity<Address>().HasData(address, address2, address3);
+            modelBuilder.Entity<Opinion>().HasData(opinion, opinion2);
             modelBuilder.Entity<User>().HasData(user, user1, user2);
             modelBuilder.Entity<Exercise>().HasData(exercise, exercise1, exercise2);
             modelBuilder.Entity<Training_plan>().HasData(trainingPlan, trainingPlan1);
             modelBuilder.Entity<Trainee_exercise>().HasData(traineeExercise, traineeExercise1, traineeExercise2);
-            modelBuilder.Entity<Pupil_mentor>().HasData(pupilMentor1,pupilMentor2);
+            modelBuilder.Entity<Pupil_mentor>().HasData(pupilMentor1, pupilMentor2);
             modelBuilder.Entity<Pupil_mentor>().HasKey(pm => new { pm.Id_Mentor, pm.Id_Pupil });
-            modelBuilder.Entity<Meal_Diet>().HasKey(md=> new { md.Id_Meal, md.Id_Diet});
+            modelBuilder.Entity<Meal_Diet>().HasKey(md => new { md.Id_Meal, md.Id_Diet });
+            modelBuilder.Entity<Opinion>().HasKey(o => new { o.Id_Pupil, o.Id_Mentor });
             modelBuilder.Entity<Role>().HasData(roles);
             base.OnModelCreating(modelBuilder);
         }
