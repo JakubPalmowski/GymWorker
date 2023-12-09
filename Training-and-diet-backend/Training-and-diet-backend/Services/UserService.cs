@@ -4,6 +4,7 @@ using Training_and_diet_backend.Controllers;
 using Training_and_diet_backend.DTOs;
 using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Training_and_diet_backend.Services
 {
@@ -65,6 +66,63 @@ namespace Training_and_diet_backend.Services
                 ).ToListAsync();
 
             return exercises;
+        }
+
+        public async Task<List<GetTrainersDTO>> GetTrainers()
+        {
+            return await _context.Users
+                .Where(u => u.Id_Role == 3)
+                .Select(trainer =>
+                    new GetTrainersDTO
+                    {
+                        Id_trainer = trainer.Id_User,
+                        Bio = trainer.Bio,
+                        Last_name = trainer.Last_name,
+                        Name = trainer.Name,
+                        Phone_number = trainer.Phone_number,
+                        City = trainer.Address.City,
+                        Opinion_number = trainer.Mentor_Opinions.Count(),
+                        Rate = trainer.Mentor_Opinions.Any() == true
+                            ? trainer.Mentor_Opinions.Average(o => o.Rate) : 0m
+        }).ToListAsync();
+
+
+        }
+
+
+        public async Task<GetTrainerWithOpinionsByIdDTO> GetTrainerWithOpinionsById(int id_trainer)
+        {
+            var trainer = await _context.Users.Where(u => u.Id_User == id_trainer && u.Id_Role==3).Select(
+
+                trainer =>
+                    new GetTrainerWithOpinionsByIdDTO
+                    {
+                        Id=trainer.Id_User,
+                        Name=trainer.Name,
+                        LastName = trainer.Last_name,
+                        Role = trainer.Role.Name,
+                        Street = trainer.Address.Street,
+                        City = trainer.Address.City,
+                        PhoneNumber = trainer.Phone_number,
+                        Bio = trainer.Bio,
+                        Opinion_number = trainer.Mentor_Opinions.Count(),
+                        TotalRate = trainer.Mentor_Opinions.Any() == true
+                            ? trainer.Mentor_Opinions.Average(o => o.Rate) : 0m,
+                        Opinions = trainer.Mentor_Opinions.Select(opinion=>
+                            new OpinionDTO
+                            {
+                                PupilName = opinion.Pupil.Name,
+                                Rate = opinion.Rate,
+                                Content = opinion.Content,
+                                Opinion_date = opinion.Opinion_date.ToString("dd-MM-yyyy")
+                            }
+                        ).ToList()
+
+                    }).FirstOrDefaultAsync();
+            if (trainer==null)
+                throw new NotFoundException("Trainer with given id was not found in database");
+
+            return trainer;
         }
     }
 }

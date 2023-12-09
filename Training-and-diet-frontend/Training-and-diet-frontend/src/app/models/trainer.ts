@@ -1,11 +1,10 @@
-import { Address } from "./address";
-
 export interface Trainer{
-    id: number;
-    role: string;
+    id_trainer: number;
+    bio: string;
+    last_name: string;
     name: string;
-    lastName: string;
-    address: Address;
-    phoneNumber: string;
-    photoUrl: string;
+    phone_number: string;
+    city: string;
+    opinion_number: number;
+    rate: number;
 }

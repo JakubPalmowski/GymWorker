@@ -70,6 +70,23 @@ namespace Training_and_diet_backend.Controllers
             return Ok(exercises);
         }
 
+        // POBIERA lISTĘ TRENENRÓW
+        [HttpGet("trainers")]
+        public async Task<ActionResult<IEnumerable<GetTrainersDTO>>> GetTrainers()
+        {
+            var trainers = await _service.GetTrainers();
+            return Ok(trainers);
+        }
+
+        //Pobiera trenera wraz z jego opiniami po Id
+        [HttpGet("trainers/{id}")]
+        public async Task<ActionResult<GetTrainerWithOpinionsByIdDTO>> GetTrainerWithOpinionsByTrainerId(int id)
+        {
+            var trainer = await _service.GetTrainerWithOpinionsById(id);
+            return Ok(trainer);
+        }
+
+
 
     }
 }

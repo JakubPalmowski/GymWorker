@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-trainer-opinion',
@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./trainer-opinion.component.css']
 })
 export class TrainerOpinionComponent {
+  @Input()
+  rate:number=0;
+
+  @Input()
+  pupilName:string='';
+
+  @Input()
+  content:string='';
+
+  @Input()
+  date:string="";
+
 
 }

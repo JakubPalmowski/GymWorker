@@ -23,6 +23,8 @@ namespace Training_and_diet_backend.Models
         public int? Age { get; set; }
         [Column(TypeName = "varchar(10)")]
         public string Sex { get; set; }
+        [Column(TypeName = "varchar(500)")]
+        public string Bio { get; set; }
 
         [InverseProperty("Pupil")]
         public virtual ICollection<Training_plan> Pupil_Training_plans { get; set; }

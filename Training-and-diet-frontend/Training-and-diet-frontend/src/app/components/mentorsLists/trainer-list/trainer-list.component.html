@@ -4,13 +4,14 @@
     <app-search-options-trainer></app-search-options-trainer>
         <div class="trainers-container">
     <app-trainer-window *ngFor="let trainer of trainers" 
+    [id]="trainer.id_trainer"
+    [biography]="trainer.bio"
+    [lastName]="trainer.last_name"
     [name]="trainer.name"
-    [lastName]="trainer.lastName"
-    [biography]="'Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne'"
-    [phoneNumber]="trainer.phoneNumber"
-    [city]="trainer.address.city"
-    [photoPath]="trainer.photoUrl"
-    [trainer]="trainer"
+    [phoneNumber]="trainer.phone_number"
+    [city]="trainer.city"
+    [opinionNumber]="trainer.opinion_number"
+    [rate]="trainer.rate"
     >
     </app-trainer-window>
         </div>

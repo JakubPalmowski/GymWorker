@@ -13,6 +13,9 @@ export class TrainerWindowComponent {
   }
 
   @Input()
+  id: number=0;
+
+  @Input()
 name: string = '';
 
 @Input()
@@ -28,15 +31,13 @@ phoneNumber: string = '';
 city: string = '';
 
 @Input()
-photoPath: string = '';
+opinionNumber: number = 0;
 
 @Input()
-trainer: Trainer | undefined;
+rate: number = 0;
 
   OnClickDetailsButton(){
-    if (this.trainer) {
-      this.trainerService.setTrainer(this.trainer);
-    }
+      this.trainerService.setTrainerId(this.id);
   }
 
 }
