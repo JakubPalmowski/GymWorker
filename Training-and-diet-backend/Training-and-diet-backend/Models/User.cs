@@ -8,6 +8,8 @@ namespace Training_and_diet_backend.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int Id_User { get; set; }
+        [ForeignKey("Address")]
+        public int Id_Address { get; set; }
         public string Name { get; set; }
         public string Last_name { get; set; }
         public string Email { get; set; }
@@ -15,7 +17,7 @@ namespace Training_and_diet_backend.Models
         public string Phone_number { get; set; }
         public bool Email_validated { get; set; }
         [Column(TypeName = "decimal(3,2)")]
-        public  decimal? Weight { get; set; }
+        public decimal? Weight { get; set; }
         [Column(TypeName = "decimal(3,2)")]
         public decimal? Height { get; set; }
         public int? Age { get; set; }
@@ -41,6 +43,13 @@ namespace Training_and_diet_backend.Models
 
         public int Id_Role { get; set; }
 
+        [InverseProperty("Mentor")]
+        public virtual ICollection<Opinion> Mentor_Opinions { get; set; }
+
+        [InverseProperty("Pupil")]
+        public virtual ICollection<Opinion> Pupil_Opinions { get; set; }
+
+        public virtual Address Address { get; set; }
 
 
     }
