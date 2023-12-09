@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { Trainer } from 'src/app/models/trainer';
+import { TrainerProfile } from 'src/app/models/trainerProfile';
 import { TrainerService } from 'src/app/services/trainer.service';
 
 
@@ -13,9 +13,22 @@ export class TrainerProfileComponent implements OnInit {
   constructor(private trainerService: TrainerService){
 
   }
-  selectedTrainer: Trainer | undefined;
 
-  ngOnInit(){
-    this.selectedTrainer=this.trainerService.getTrainer();
+  trainerId:number=0;
+  trainer:TrainerProfile | undefined;
+
+  ngOnInit():void{
+    this.trainerId=this.trainerService.getTrainerId();
+    this.trainerService.GetTrainerWithOpinionsById(this.trainerId.toString()).subscribe(
+      {
+        next:(trainerInfo)=>{
+          this.trainer=trainerInfo;
+        },
+        error: (response)=>{
+          console.log(response);
+        }
+      }
+    )
+    
   }
 }

@@ -1,19 +1,19 @@
-<div class="container" *ngIf="selectedTrainer">
+<div class="container" *ngIf="trainer">
 
     <div class="top-container">
         <a routerLink="/TrainersList">< Powrót do listy trenerów</a>
           <div class="trainer-info">
-            <img [src]="selectedTrainer.photoUrl" class="user-image">
+            <img class="user-image">
             <div class="top-container-middle">
-            <span class="span-bold name-text">{{ selectedTrainer.name + ' ' + selectedTrainer.lastName}}</span>
-            <span class="span-bold trainer-text">{{ selectedTrainer.role}}</span>
+            <span class="span-bold name-text">{{ trainer.name + ' ' + trainer.lastName}}</span>
+            <span class="span-bold trainer-text">{{ trainer.role}}</span>
             <button class="message-button">Napisz wiadomość</button>
           </div>
           <div class="vertical-line">
           </div>
           <div class="top-container-right">
-            <span>{{ selectedTrainer.address.city +', '+selectedTrainer.address.street }}</span>
-            <span>{{ selectedTrainer.phoneNumber}}</span>
+            <span>{{ trainer.city +', '+trainer.street }}</span>
+            <span>{{ trainer.phoneNumber}}</span>
           </div>
     
           </div>
@@ -23,19 +23,17 @@
     
         <div class="bottom-left-container">
           <span class="trainer-text">O mnie</span>
-          <span class="bio-text span-center">Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne. Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne. Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne</span>
+          <span class="bio-text span-center">{{ trainer.bio }}</span>
         </div>
     
         <div class="bottom-right-container">
           <span class="opinion-text">Opinie</span>
           <div class="opinion">
           <img src="../../../assets/icons/star.png" class="star-img">
-          <span class="stars-number">5.0</span>
-          <span class="opinion-text">(127 opinii)</span>
+          <span class="stars-number">{{trainer.totalRate}}</span>
+          <span class="opinion-text">({{trainer.opinion_number}} opinie)</span>
           </div>
-          <app-trainer-opinion></app-trainer-opinion>
-          <app-trainer-opinion></app-trainer-opinion>
-          <app-trainer-opinion></app-trainer-opinion>
+          <app-trainer-opinion *ngFor="let opinion of trainer.opinions" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinion_date"></app-trainer-opinion>
         </div>
     
     

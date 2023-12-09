@@ -65,7 +65,7 @@ import { SelectDeteticianComponent } from './components/mentorsLists/dietetician
     HttpClientModule,
     FormsModule,
   ],
-  providers: [TrainerService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -52,9 +52,9 @@ namespace Training_and_diet_backend.Context
             var address2 = new Address { Id_Address = 2, City = "Białystok", Postal_code = "02-324", Street = "Kryształowa" };
             var address3 = new Address { Id_Address = 3, City = "Kraków", Postal_code = "02-421", Street = "Mendelejewa" };
 
-            var user = new User { Id_User = 1, Id_Role = 1, Name = "Michał", Last_name = "Emczyk", Email = "michal@gmail.com", Phone_number = "48777888777", Email_validated = true, Sex = "Male", Id_Address = 3 };
-            var user1 = new User { Id_User = 2, Id_Role = 2, Name = "Anna", Last_name = "Kowalska", Email = "anna@gmail.com", Phone_number = "48666778888", Email_validated = true, Sex = "Female", Id_Address = 2 };
-            var user2 = new User { Id_User = 3, Id_Role = 3, Name = "John", Last_name = "Doe", Email = "john@gmail.com", Phone_number = "48555667777", Email_validated = true, Sex = "Male", Id_Address = 1 };
+            var user = new User { Id_User = 1, Id_Role = 1, Name = "Michał", Last_name = "Emczyk", Email = "michal@gmail.com", Phone_number = "48777888777", Email_validated = true, Sex = "Male", Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", Id_Address = 3 };
+            var user1 = new User { Id_User = 2, Id_Role = 2, Name = "Anna", Last_name = "Kowalska", Email = "anna@gmail.com", Phone_number = "48666778888", Email_validated = true, Sex = "Female", Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", Id_Address = 2 };
+            var user2 = new User { Id_User = 3, Id_Role = 3, Name = "John", Last_name = "Doe", Email = "john@gmail.com", Phone_number = "48555667777", Email_validated = true, Sex = "Male", Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", Id_Address = 1 };
 
 
             var opinion = new Opinion
