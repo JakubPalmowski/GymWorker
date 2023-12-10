@@ -39,7 +39,7 @@ const routes: Routes = [
   {path:'Register', component: RegisterComponent},
   {path: 'TrainersList', component: TrainerListComponent},
   {path: 'DieteticiansList', component: DieteticianListComponent},
-  {path: 'TrainerProfile', component: TrainerProfileComponent}
+  {path: 'TrainerProfile/:id', component: TrainerProfileComponent}
 ];
 
 @NgModule({

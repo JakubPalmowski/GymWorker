@@ -55,7 +55,23 @@ namespace Training_and_diet_backend.Context
             var user = new User { Id_User = 1, Id_Role = 1, Name = "Michał", Last_name = "Emczyk", Email = "michal@gmail.com", Phone_number = "48777888777", Email_validated = true, Sex = "Male", Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", Id_Address = 3 };
             var user1 = new User { Id_User = 2, Id_Role = 2, Name = "Anna", Last_name = "Kowalska", Email = "anna@gmail.com", Phone_number = "48666778888", Email_validated = true, Sex = "Female", Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", Id_Address = 2 };
             var user2 = new User { Id_User = 3, Id_Role = 3, Name = "John", Last_name = "Doe", Email = "john@gmail.com", Phone_number = "48555667777", Email_validated = true, Sex = "Male", Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", Id_Address = 1 };
-
+            var user3 = new User { Id_User = 4, Id_Role = 3, Name = "Charlie", Last_name = "Brown", Email = "charlie@gmail.com", Phone_number = "48554567890", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Charlie. Let's stay active and have fun!", Id_Address = 1 };
+            var user4 = new User { Id_User = 5, Id_Role = 3, Name = "Diana", Last_name = "Miller", Email = "diana@gmail.com", Phone_number = "48555678901", Email_validated = true, Sex = "Female", Bio = "Hello, I'm Diana. Fitness is my passion!", Id_Address = 2 };
+            var user5 = new User { Id_User = 6, Id_Role = 3, Name = "Frank", Last_name = "Davis", Email = "frank@gmail.com", Phone_number = "48556789012", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Frank. Let's achieve our fitness goals together!", Id_Address = 3 };
+            var user6 = new User { Id_User = 7, Id_Role = 3, Name = "Grace", Last_name = "Anderson", Email = "grace@gmail.com", Phone_number = "48557890123", Email_validated = true, Sex = "Female", Bio = "Hello, I'm Grace. Fitness is my lifestyle!", Id_Address = 1 };
+            var user7=new User { Id_User = 8, Id_Role = 3, Name = "Harry", Last_name = "Moore", Email = "harry@gmail.com", Phone_number = "48558901234", Email_validated = true, Sex = "Male", Bio = "Hey, I'm Harry. Let's push our limits in every workout!", Id_Address = 2 };
+            var user8 = new User { Id_User = 9, Id_Role = 3, Name = "Ivy", Last_name = "Turner", Email = "ivy@gmail.com", Phone_number = "48559012345", Email_validated = true, Sex = "Female", Bio = "Hi, I'm Ivy. Fitness is my passion and I'm here to inspire!", Id_Address = 3 };
+            var user9 = new User { Id_User = 10, Id_Role = 3, Name = "Jack", Last_name = "White", Email = "jack@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hello, I'm Jack. Let's make every workout count!", Id_Address = 1 };
+            var user10 = new User { Id_User = 11, Id_Role = 3, Name = "Kelly", Last_name = "Martin", Email = "kelly@gmail.com", Phone_number = "48551234567", Email_validated = true, Sex = "Female", Bio = "Hi, I'm Kelly. Fitness is the key to a healthy life!", Id_Address = 2 };
+            var user11 = new User { Id_User = 12, Id_Role = 3, Name = "Leo", Last_name = "Baker", Email = "leo@gmail.com", Phone_number = "48552345678", Email_validated = true, Sex = "Male", Bio = "Hey, I'm Leo. Let's crush our fitness goals!", Id_Address = 3 };
+            var user12 = new User { Id_User = 13, Id_Role = 3, Name = "Mia", Last_name = "Collins", Email = "mia@gmail.com", Phone_number = "48553456789", Email_validated = true, Sex = "Female", Bio = "Hello, I'm Mia. Fitness is not just a hobby, it's a way of life!", Id_Address = 1 };
+            var user13 = new User { Id_User = 14, Id_Role = 3, Name = "Nathan", Last_name = "Ward", Email = "nathan@gmail.com", Phone_number = "48554567890", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Nathan. Let's embrace a fit and healthy lifestyle!", Id_Address = 2 };
+            var user14 = new User { Id_User = 15, Id_Role = 3, Name = "Olivia", Last_name = "Perry", Email = "olivia@gmail.com", Phone_number = "48555678901", Email_validated = true, Sex = "Female", Bio = "Hey, I'm Olivia. Fitness enthusiast and advocate!", Id_Address = 3 };
+            var user15 = new User { Id_User = 16, Id_Role = 3, Name = "Peter", Last_name = "Cooper", Email = "peter@gmail.com", Phone_number = "48556789012", Email_validated = true, Sex = "Male", Bio = "Hello, I'm Peter. Let's make fitness a fun journey!", Id_Address = 1 };
+            var user16 = new User { Id_User = 17, Id_Role = 3, Name = "Quinn", Last_name = "Barnes", Email = "quinn@gmail.com", Phone_number = "48557890123", Email_validated = true, Sex = "Female", Bio = "Hi, I'm Quinn. Fitness is my daily dose of happiness!", Id_Address = 2 };
+            var user17 = new User { Id_User = 18, Id_Role = 3, Name = "Ryan", Last_name = "Fisher", Email = "ryan@gmail.com", Phone_number = "48558901234", Email_validated = true, Sex = "Male", Bio = "Hey, I'm Ryan. Fitness is the key to a balanced life!", Id_Address = 3 };
+            var user18 = new User { Id_User = 19, Id_Role = 3, Name = "Sophie", Last_name = "Turner", Email = "sophie@gmail.com", Phone_number = "48559012345", Email_validated = true, Sex = "Female", Bio = "Hello, I'm Sophie. Let's stay fit and fabulous!", Id_Address = 1 };
+            var user19 = new User { Id_User = 20, Id_Role = 3, Name = "Tom", Last_name = "Harris", Email = "tom@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Tom. Fitness is my lifestyle choice!", Id_Address = 2 };
 
             var opinion = new Opinion
             {
@@ -233,7 +249,7 @@ namespace Training_and_diet_backend.Context
 
             modelBuilder.Entity<Address>().HasData(address, address2, address3);
             modelBuilder.Entity<Opinion>().HasData(opinion, opinion2);
-            modelBuilder.Entity<User>().HasData(user, user1, user2);
+            modelBuilder.Entity<User>().HasData(user, user1, user2,user3, user4,user5,user6,user7,user8,user9,user10,user11,user12,user13,user14,user15,user16,user17,user18,user19);
             modelBuilder.Entity<Exercise>().HasData(exercise, exercise1, exercise2);
             modelBuilder.Entity<Training_plan>().HasData(trainingPlan, trainingPlan1);
             modelBuilder.Entity<Trainee_exercise>().HasData(traineeExercise, traineeExercise1, traineeExercise2);

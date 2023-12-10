@@ -14,15 +14,6 @@ export class TrainerService{
     
   constructor(private http: HttpClient) { }
   
-      trainerId:number=0;
-      setTrainerId(id: number){
-        this.trainerId=id;
-      }
-
-      getTrainerId(){
-        return this.trainerId;
-      }
-
       GetAllTrainers():Observable<Trainer[]>{
         return this.http.get<Trainer[]>('https://localhost:7259/api/User/trainers');
       }
