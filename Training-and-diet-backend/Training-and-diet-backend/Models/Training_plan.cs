@@ -18,6 +18,8 @@ namespace Training_and_diet_backend.Models
         [Column(TypeName = "Date")]
         public DateTime End_date { get; set; }
 
+        public int? Plan_Duration { get; private set; }
+
         [ForeignKey("Trainer")]
         public int Id_Trainer { get; set; }
         [ForeignKey("Pupil")]
@@ -28,5 +30,11 @@ namespace Training_and_diet_backend.Models
         public virtual User Pupil { get; set; }
 
         public virtual ICollection<Trainee_exercise> Trainee_Exercises { get; set; }
+
+
+        public void CalculatePlanDuration()
+        {
+            Plan_Duration = (End_date - Start_date).Days;
+        }
     }
 }

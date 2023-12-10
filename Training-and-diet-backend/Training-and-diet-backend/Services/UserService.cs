@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Context;
 using Training_and_diet_backend.Controllers;
 using Training_and_diet_backend.DTOs;
@@ -11,15 +12,27 @@ namespace Training_and_diet_backend.Services
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public UserService(ApplicationDbContext context)
+        public UserService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-
+        
         public async Task<List<User>> GetPupilsByTrainerId(int id_trainer)
         {
-            return await _context.Users.Where(u => _context.Pupil_mentors.Where(e => e.Id_Mentor == id_trainer).Select(e => e.Id_Pupil).Contains(u.Id_User)).ToListAsync();
+            var pupils =  await _context.Users
+                .Where(u => _context.Pupil_mentors
+                    .Where(e => e.Id_Mentor == id_trainer)
+                    .Select(e => e.Id_Pupil)
+                    .Contains(u.Id_User))
+                .ToListAsync();
+
+            if (pupils.Count == 0)
+                throw new NotFoundException("Trainer with given id was not found in database");
+
+            return pupils;
 
         }
 
@@ -33,39 +46,24 @@ namespace Training_and_diet_backend.Services
             return query;
 
         }
+
+        // Tu skonczyłem, filip
         public async Task<List<GetTrainingPlanGeneralInfoDTO>> GetTrainerTrainingPlans(int id_trainer)
         {
             var trainingPlans = await _context.Training_plans.Where(e => e.Id_Trainer == id_trainer).ToListAsync();
-            var result = new List<GetTrainingPlanGeneralInfoDTO>();
 
-            foreach (var trainingPlan in trainingPlans)
-            {
-                var dto = new GetTrainingPlanGeneralInfoDTO
-                {
-                    Id = trainingPlan.Id_Training_plan,
-                    Name = trainingPlan.Name,
-                    Duration = (int)(trainingPlan.End_date-trainingPlan.Start_date).TotalDays
-                };
+           if(trainingPlans.Count == 0) throw new NotFoundException("There are no trainingPlans with given trainer_id");  
 
-                result.Add(dto);
-            }
-
-            return result;
+           return _mapper.Map<List<GetTrainingPlanGeneralInfoDTO>>(trainingPlans);
 
         }
         public async Task<List<GetExercisesByTrainerIdDTO>> GetExercisesByTrainerId(int id_trainer)
         {
-            var exercises = await _context.Exercises.Where(e => e.Id_Trainer == id_trainer)
-                .Select(exercise =>
-                new GetExercisesByTrainerIdDTO
-                {
-                    ExerciseName = exercise.Name,
-                    Id_Exercise = exercise.Id_Exercise,
-                }
-            
-                ).ToListAsync();
+            var exercises = await _context.Exercises.Where(e => e.Id_Trainer == id_trainer).ToListAsync();
 
-            return exercises;
+            if(exercises.Count == 0) throw new NotFoundException("There are no exercises with given trainer_id");
+
+            return _mapper.Map<List<GetExercisesByTrainerIdDTO>>(exercises);
         }
 
         public async Task<List<GetTrainersDTO>> GetTrainers()

@@ -2,7 +2,7 @@
 {
     public class GetTrainingPlanByIdDTO
     {
-        public int IdTrainingPlan { get; set; }
+        public int Id_Training_plan { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public DateTime StartDate { get; set; }

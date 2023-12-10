@@ -23,6 +23,7 @@ builder.Services.AddScoped<IDietService, DietService>();
 builder.Services.AddScoped<IMealService,MealService>();
 builder.Services.AddScoped<ITraineeExercisesService, TraineeExercisesService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

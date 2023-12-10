@@ -6,7 +6,7 @@ namespace Training_and_diet_backend.Services
 {
     public interface ITrainingPlanService
     {
-        Task AddTrainingPlan(Training_plan training_Plan);
+        Task<int> AddTrainingPlan(PostTrainingPlanDTO training_PlanDTO);
 
         Task<List<GetExerciseGeneralInfoDTO>> GetExercisesFromTrainingPlan(int id_training_plan);
 

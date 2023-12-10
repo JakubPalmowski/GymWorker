@@ -19,10 +19,7 @@ namespace Training_and_diet_backend.Controllers
 
             var exist = await _service.GetExerciseById(ExerciseId).FirstOrDefaultAsync();
 
-            if (exist == null)
-            {
-                return NotFound("There is no such a exercise");
-            }
+            
             return Ok(exist);
         }
 
@@ -30,11 +27,6 @@ namespace Training_and_diet_backend.Controllers
         public async Task<IActionResult> GetAllExercises()
         {
             var exercises = await _service.GetAllExercises();
-
-            if (exercises.Count == 0)
-            {
-                return NotFound("There is no such a exercise");
-            }
 
             return Ok(exercises);
 

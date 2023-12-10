@@ -29,14 +29,26 @@ namespace Training_and_diet_backend.Services
                 })
                 .ToListAsync();
 
+            if (result == null)
+            {
+                throw new NotFoundException("Exercises not found");
+            }
+
             return result;
         }
 
 
         public IQueryable<Exercise> GetExerciseById(int ExerciseId)
         {
-            return _context.Exercises
+            var query =  _context.Exercises
                 .Where(e => e.Id_Exercise == ExerciseId);
+
+            if (query == null)
+            {
+                throw new NotFoundException("Exercise not found");
+            }
+
+            return query;
         }
     }
 }

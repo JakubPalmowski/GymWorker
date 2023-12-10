@@ -16,7 +16,14 @@ namespace Training_and_diet_backend.Services
 
         public async Task<List<Meal>> GetMeals()
         {
-            return await _context.Meals.ToListAsync();
+            var query =  await _context.Meals.ToListAsync();
+
+            if(query.Count == 0)
+                throw new Exception("No meals found");
+
+            return query;
+
+            
         }
     }
 }

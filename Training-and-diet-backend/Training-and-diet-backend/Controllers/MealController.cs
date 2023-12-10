@@ -20,9 +20,6 @@ namespace Training_and_diet_backend.Controllers
         {
             var meals = await _service.GetMeals();
 
-            if (meals.Count == 0)
-                return NotFound("There is no diets in database");
-
             return Ok(meals);
         }
     }

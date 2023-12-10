@@ -19,34 +19,17 @@ namespace Training_and_diet_backend.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTrainingPlan([FromBody] PostTrainingPlanDTO trainingPlan)
         {
-            if (trainingPlan == null)
-            {
-                return BadRequest();
-            }
+            
+            var id = await _service.AddTrainingPlan(trainingPlan);
+            return Created($"/api/trainingplan/{id}", new { id });
 
-
-            var plan = new Training_plan
-            {
-                Name = trainingPlan.Name,
-                Type = trainingPlan.Type,
-                Start_date = trainingPlan.Start_date,
-                End_date = trainingPlan.End_date,
-                Id_Trainer = trainingPlan.Id_Trainer,
-
-            };
-
-            await _service.AddTrainingPlan(plan);
-            return Ok(plan.Id_Training_plan);
         }
-        
+
         [HttpGet("{id_training_plan}/exercises")]
         public async Task<IActionResult> GetExercisesFromTrainingPlan(int id_training_plan)
         {
             var exercises = await _service.GetExercisesFromTrainingPlan(id_training_plan);
-            if (exercises.Count == 0)
-            {
-                return NotFound("There are no exercises assigned to this training plan");
-            }
+            
             return Ok(exercises);
         }
         
@@ -55,10 +38,6 @@ namespace Training_and_diet_backend.Controllers
         {
             var plan = await _service.GetTrainingPlanById(PlanId);
 
-            if (plan.Count == 0)
-            {
-                return BadRequest("There are no training plans with given trainer");
-            }
             return Ok(plan);
         }
     }

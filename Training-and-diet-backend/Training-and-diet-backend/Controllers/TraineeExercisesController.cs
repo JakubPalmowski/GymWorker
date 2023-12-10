@@ -19,8 +19,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPost]
         public async Task <IActionResult> AddTraineeExercises([FromBody] PostTraineeExerciseDTO traineeExercise)
         {
-            if (traineeExercise == null)
-                return BadRequest("Post should have a body");
+           
 
             var data = new Trainee_exercise
             {

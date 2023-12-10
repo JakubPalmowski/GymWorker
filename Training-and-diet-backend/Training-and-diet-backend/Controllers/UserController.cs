@@ -35,10 +35,7 @@ namespace Training_and_diet_backend.Controllers
         public async Task<ActionResult<IEnumerable<GetTrainingPlanGeneralInfoDTO>>> GetTrainerTrainingPlans(int id_trainer)
         {
             var trainingPlans = await _service.GetTrainerTrainingPlans(id_trainer);
-            if (trainingPlans.Count == 0)
-            {
-                return NotFound("There are no training plans for the trainer");
-            }
+            
             return Ok(trainingPlans);
 
         }
@@ -48,10 +45,7 @@ namespace Training_and_diet_backend.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetPupilsByTrainerId(int id_trainer)
         {
             var trainerPupils = await _service.GetPupilsByTrainerId(id_trainer);
-            if (trainerPupils.Count == 0)
-            {
-                return NotFound("The trainer has no pupils");
-            }
+           
             return Ok(trainerPupils);
         }
 
@@ -62,10 +56,6 @@ namespace Training_and_diet_backend.Controllers
         {
             var exercises = await _service.GetExercisesByTrainerId(TrainerId);
 
-            if (exercises.Count == 0)
-            {
-                return NotFound("The Trainer has no exercises");
-            }
 
             return Ok(exercises);
         }

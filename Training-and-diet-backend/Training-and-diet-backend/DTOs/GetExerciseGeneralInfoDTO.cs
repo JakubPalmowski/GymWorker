@@ -2,7 +2,7 @@
 {
     public class GetExerciseGeneralInfoDTO
     {
-        public int Id { get; set; }
+        public int Id_Exercise { get; set; }
         public string Name { get; set; }
     }
 }

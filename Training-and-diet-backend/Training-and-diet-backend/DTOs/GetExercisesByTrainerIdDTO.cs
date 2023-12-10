@@ -3,6 +3,6 @@
     public class GetExercisesByTrainerIdDTO
     {
         public int Id_Exercise { get; set; }
-        public string ExerciseName { get; set; }
+        public string Name { get; set; }
     }
 }
