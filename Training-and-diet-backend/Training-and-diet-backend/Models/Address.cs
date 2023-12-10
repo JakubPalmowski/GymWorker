@@ -16,6 +16,7 @@ namespace Training_and_diet_backend.Models
         public string Postal_code { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Gym> Gyms { get; set; }
 
         
     }

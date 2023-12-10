@@ -21,6 +21,9 @@ namespace Training_and_diet_backend.Context
         public DbSet<Diet> Diets { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Opinion> Opinions { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Gym> Gyms { get; set; }
+        public DbSet<Trainer_Gym> Trainer_Gyms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -237,6 +240,18 @@ namespace Training_and_diet_backend.Context
                     Date = new DateTime(2023, 5, 07),
                 });
 
+            //generate 3 records for each model: Gym, Trainer_Gym, give random gym names
+            for (int i = 1; i <= 3; i++)
+            {
+                modelBuilder.Entity<Gym>().HasData(
+                                       new Gym { Id_Gym = i, Id_Address = i, Name = "Gym" + i }
+                                                      );
+                modelBuilder.Entity<Trainer_Gym>().HasData(
+                                       new Trainer_Gym { Id_Trainer = i, Id_Gym = i }
+                                                      );
+            }
+
+
             modelBuilder.Entity<Diet>()
                 .HasOne(d => d.Dietician)
                 .WithMany(u => u.DietsAsDietician)
@@ -257,6 +272,7 @@ namespace Training_and_diet_backend.Context
             modelBuilder.Entity<Pupil_mentor>().HasKey(pm => new { pm.Id_Mentor, pm.Id_Pupil });
             modelBuilder.Entity<Meal_Diet>().HasKey(md => new { md.Id_Meal, md.Id_Diet });
             modelBuilder.Entity<Opinion>().HasKey(o => new { o.Id_Pupil, o.Id_Mentor });
+            modelBuilder.Entity<Trainer_Gym>().HasKey(o => new { o.Id_Gym, o.Id_Trainer});
             modelBuilder.Entity<Role>().HasData(roles);
             base.OnModelCreating(modelBuilder);
         }
