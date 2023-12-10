@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TrainerProfile } from 'src/app/models/trainerProfile';
 import { TrainerService } from 'src/app/services/trainer.service';
 
@@ -10,16 +11,18 @@ import { TrainerService } from 'src/app/services/trainer.service';
 
 })
 export class TrainerProfileComponent implements OnInit {
-  constructor(private trainerService: TrainerService){
+  constructor(private trainerService: TrainerService, private route:ActivatedRoute){
 
   }
 
-  trainerId:number=0;
+  trainerId:string='';
   trainer:TrainerProfile | undefined;
 
   ngOnInit():void{
-    this.trainerId=this.trainerService.getTrainerId();
-    this.trainerService.GetTrainerWithOpinionsById(this.trainerId.toString()).subscribe(
+    this.trainerId = this.route.snapshot.params['id'];
+    console.log(this.trainerId);
+    
+    this.trainerService.GetTrainerWithOpinionsById(this.trainerId).subscribe(
       {
         next:(trainerInfo)=>{
           this.trainer=trainerInfo;

@@ -36,8 +36,5 @@ opinionNumber: number = 0;
 @Input()
 rate: number = 0;
 
-  OnClickDetailsButton(){
-      this.trainerService.setTrainerId(this.id);
-  }
 
 }
