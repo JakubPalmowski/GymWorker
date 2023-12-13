@@ -1,6 +1,6 @@
 ﻿namespace Training_and_diet_backend.DTOs
 {
-    public class GetTrainersDTO
+    public class GetUsersDTO
     {
         public int Id_trainer { get; set; }
         public string Name { get; set; }

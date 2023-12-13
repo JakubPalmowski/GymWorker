@@ -66,12 +66,21 @@ namespace Training_and_diet_backend.Services
             return _mapper.Map<List<GetExercisesByTrainerIdDTO>>(exercises);
         }
 
-        public async Task<List<GetTrainersDTO>> GetTrainers()
+        public async Task<List<GetUsersDTO>> GetUsers(string roleName)
         {
-            return await _context.Users
-                .Where(u => u.Id_Role == 3)
+            
+            var role = await _context.Roles.AnyAsync(r => r.Name == roleName);
+            if (!role) throw new NotFoundException($"There is no role with name {roleName} in database");
+
+
+
+
+
+
+            var list = await _context.Users
+                .Where(u => u.Role.Name == roleName)
                 .Select(trainer =>
-                    new GetTrainersDTO
+                    new GetUsersDTO
                     {
                         Id_trainer = trainer.Id_User,
                         Bio = trainer.Bio,
@@ -84,16 +93,28 @@ namespace Training_and_diet_backend.Services
                             ? trainer.Mentor_Opinions.Average(o => o.Rate) : 0m
         }).ToListAsync();
 
+            
+
+            if(list.Count == 0) throw new NotFoundException($"There are no {roleName} in database");
+
+            return list;
+
 
         }
 
 
-        public async Task<GetTrainerWithOpinionsByIdDTO> GetTrainerWithOpinionsById(int id_trainer)
+        public async Task<GetUserWithOpinionsByIdDTO> GetUsersWithOpinionsById(string roleName, int id)
         {
-            var trainer = await _context.Users.Where(u => u.Id_User == id_trainer && u.Id_Role==3).Select(
+
+            var role = await _context.Roles.AnyAsync(r => r.Name == roleName);
+            if (!role) throw new NotFoundException($"There is no role with name {roleName} in database");
+
+
+
+            var users = await _context.Users.Where(u => u.Id_User == id && u.Role.Name == roleName).Select(
 
                 trainer =>
-                    new GetTrainerWithOpinionsByIdDTO
+                    new GetUserWithOpinionsByIdDTO
                     {
                         Id=trainer.Id_User,
                         Name=trainer.Name,
@@ -117,10 +138,10 @@ namespace Training_and_diet_backend.Services
                         ).ToList()
 
                     }).FirstOrDefaultAsync();
-            if (trainer==null)
-                throw new NotFoundException("Trainer with given id was not found in database");
+            if (users==null)
+                throw new NotFoundException("User with given id was not found in database");
 
-            return trainer;
+            return users;
         }
     }
 }

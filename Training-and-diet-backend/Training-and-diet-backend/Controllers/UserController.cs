@@ -60,19 +60,19 @@ namespace Training_and_diet_backend.Controllers
             return Ok(exercises);
         }
 
-        // POBIERA lISTĘ TRENENRÓW
-        [HttpGet("trainers")]
-        public async Task<ActionResult<IEnumerable<GetTrainersDTO>>> GetTrainers()
+        // POBIERA lISTĘ UZYTKOWNIKOW Z PODANEJ ROLI
+        [HttpGet("{RoleName}")]
+        public async Task<ActionResult<IEnumerable<GetUsersDTO>>> GetUsers([FromRoute]string RoleName)
         {
-            var trainers = await _service.GetTrainers();
+            var trainers = await _service.GetUsers(RoleName);
             return Ok(trainers);
         }
 
         //Pobiera trenera wraz z jego opiniami po Id
-        [HttpGet("trainers/{id}")]
-        public async Task<ActionResult<GetTrainerWithOpinionsByIdDTO>> GetTrainerWithOpinionsByTrainerId(int id)
+        [HttpGet("{RoleName}/{id}")]
+        public async Task<ActionResult<GetUserWithOpinionsByIdDTO>> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
         {
-            var trainer = await _service.GetTrainerWithOpinionsById(id);
+            var trainer = await _service.GetUsersWithOpinionsById(roleName,id);
             return Ok(trainer);
         }
 
