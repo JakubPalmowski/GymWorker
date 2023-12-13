@@ -21,6 +21,12 @@ namespace Training_and_diet_backend.Middlewares
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(notFoundException.Message);
             }
+            catch (BadRequestException badRequestException)
+            {
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(badRequestException.Message);
+            }
+             
 
             
         }

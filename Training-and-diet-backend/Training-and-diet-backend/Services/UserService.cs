@@ -68,9 +68,9 @@ namespace Training_and_diet_backend.Services
 
         public async Task<List<GetUsersDTO>> GetUsers(string roleName)
         {
-            
-            var role = await _context.Roles.AnyAsync(r => r.Name == roleName);
-            if (!role) throw new NotFoundException($"There is no role with name {roleName} in database");
+
+            if (roleName != "Trainer" && roleName != "Dietician" && roleName != "Dietician-Trainer")
+                throw new BadRequestException("Role name must be Trainer, Dietician or Dietician-Trainer");
 
 
 
@@ -106,8 +106,9 @@ namespace Training_and_diet_backend.Services
         public async Task<GetUserWithOpinionsByIdDTO> GetUsersWithOpinionsById(string roleName, int id)
         {
 
-            var role = await _context.Roles.AnyAsync(r => r.Name == roleName);
-            if (!role) throw new NotFoundException($"There is no role with name {roleName} in database");
+            if (roleName != "Trainer" && roleName != "Dietician" && roleName != "Dietician-Trainer")
+                throw new BadRequestException("Role name must be Trainer, Dietician or Dietician-Trainer");
+
 
 
 
