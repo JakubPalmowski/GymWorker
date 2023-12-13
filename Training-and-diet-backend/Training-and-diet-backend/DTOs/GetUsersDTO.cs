@@ -2,7 +2,7 @@
 {
     public class GetUsersDTO
     {
-        public int Id_trainer { get; set; }
+        public int Id_user { get; set; }
         public string Name { get; set; }
         public string Last_name { get; set; }
         public string Phone_number { get; set; }
