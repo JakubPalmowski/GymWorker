@@ -1,5 +1,5 @@
-export interface Trainer{
-    id_trainer: number;
+export interface Mentor{
+    id_user: number;
     bio: string;
     last_name: string;
     name: string;

@@ -3,17 +3,7 @@
     <div class="list-container">
     <app-search-options-dietetician></app-search-options-dietetician>
         <div class="dieteticians-container">
-            <app-dietetician-window></app-dietetician-window>
-            <app-dietetician-window></app-dietetician-window>
-            <app-dietetician-window></app-dietetician-window>
-            <app-dietetician-window></app-dietetician-window>
-            <app-dietetician-window></app-dietetician-window>
-            <app-dietetician-window></app-dietetician-window>
-            <app-dietetician-window></app-dietetician-window>
-            <app-dietetician-window></app-dietetician-window>
-            <app-dietetician-window></app-dietetician-window>
-            <app-dietetician-window></app-dietetician-window>
-            <app-dietetician-window></app-dietetician-window>
+            <app-dietetician-window *ngFor="let dietetician of dieteticians"></app-dietetician-window>
         </div>
     </div>
     </div>  

@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TrainerProfile } from 'src/app/models/trainerProfile';
-import { TrainerService } from 'src/app/services/trainer.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { TrainerService } from 'src/app/services/trainer.service';
 
 })
 export class TrainerProfileComponent implements OnInit {
-  constructor(private trainerService: TrainerService, private route:ActivatedRoute){
+  constructor(private trainerService: UserService, private route:ActivatedRoute){
 
   }
 

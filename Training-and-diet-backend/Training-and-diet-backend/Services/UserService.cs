@@ -82,7 +82,7 @@ namespace Training_and_diet_backend.Services
                 .Select(trainer =>
                     new GetUsersDTO
                     {
-                        Id_trainer = trainer.Id_User,
+                        Id_user = trainer.Id_User,
                         Bio = trainer.Bio,
                         Last_name = trainer.Last_name,
                         Name = trainer.Name,

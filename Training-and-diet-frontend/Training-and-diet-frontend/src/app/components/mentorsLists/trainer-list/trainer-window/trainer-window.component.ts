@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Trainer } from 'src/app/models/trainer';
-import { TrainerService } from 'src/app/services/trainer.service';
+import { Mentor } from 'src/app/models/mentor';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-trainer-window',
@@ -8,7 +8,7 @@ import { TrainerService } from 'src/app/services/trainer.service';
   styleUrls: ['./trainer-window.component.css']
 })
 export class TrainerWindowComponent {
-  constructor(private trainerService: TrainerService){
+  constructor(private trainerService: UserService){
 
   }
 

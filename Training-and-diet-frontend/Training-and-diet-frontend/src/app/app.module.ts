@@ -17,7 +17,7 @@ import { SearchOptionsDieteticianComponent } from './components/mentorsLists/die
 import { TrainerWindowComponent } from './components/mentorsLists/trainer-list/trainer-window/trainer-window.component';
 import { SearchOptionsTrainerComponent } from './components/mentorsLists/trainer-list/search-options-trainer/search-options-trainer.component';
 import { DropdownSelectTrainerComponent } from './components/mentorsLists/trainer-list/search-options-trainer/dropdown-select-trainer/dropdown-select-trainer.component';
-import { TrainerService } from './services/trainer.service';
+import { UserService } from './services/user.service';
 import { TrainerProfileComponent } from './components/mentorsLists/trainer-profile/trainer-profile.component';
 import { TrainerOpinionComponent } from './components/mentorsLists/trainer-profile/trainer-opinion/trainer-opinion.component';
 import { LoginComponent } from './components/authentication/login/login.component';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TrainerService } from 'src/app/services/trainer.service';
-import { Trainer } from 'src/app/models/trainer';
+import { UserService } from 'src/app/services/user.service';
+import { Mentor } from 'src/app/models/mentor';
 
 
 @Component({
@@ -10,10 +10,10 @@ import { Trainer } from 'src/app/models/trainer';
 })
 export class TrainerListComponent implements OnInit{
 
-  constructor(private trainerService: TrainerService){
+  constructor(private trainerService: UserService){
     
   }
-  trainers: Trainer[]=[];
+  trainers: Mentor[]=[];
 
 ngOnInit(): void{
   this.trainerService.GetAllTrainers().subscribe({
