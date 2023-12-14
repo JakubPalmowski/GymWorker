@@ -1,0 +1,18 @@
+<div [ngClass]="{'search-options-container-t': role=='trainersList', 'search-options-container-d': role=='dieticiansList'}">
+    <div class="option-container">
+<app-select [inputLabel]="'Miasto'" [options]="['New York', 'Los Angeles', 'Chicago', 'Houston', 'Miami', 'San Francisco', 'Seattle']"></app-select>
+    </div>
+    <div class="option-container">
+<app-select [inputLabel]="'Dzielnica'" [options]="['Brooklyn', 'Queens', 'Manhattan', 'Bronx', 'Staten Island', 'Harlem', 'Astoria']"></app-select>
+    </div>
+
+    <div class="option-container" *ngIf="role == 'trainersList' ">
+<app-select [inputLabel]="'Klub'" [options]="['Fitness First', '24 Hour Fitness', 'Planet Fitness', 'Anytime Fitness', 'Gold\'s Gym', 'Equinox', 'LA Fitness']"></app-select>
+    </div>
+    <div class="line">
+    </div>
+<div class="option-container">
+    <app-select [inputLabel]="'Sortuj po'" [options]="['cena','odleglosc']"></app-select>
+</div>
+    <button>Szukaj</button>
+</div>

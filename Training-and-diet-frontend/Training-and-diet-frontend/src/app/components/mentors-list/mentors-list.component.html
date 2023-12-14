@@ -1,0 +1,20 @@
+<div class="container">
+    <app-search></app-search>
+    <div class="list-container">
+    <app-search-options [role]="role"></app-search-options>
+        <div class="trainers-container">
+    <app-mentor-window *ngFor="let mentor of mentors" 
+    [id]="mentor.id_user"
+    [biography]="mentor.bio"
+    [lastName]="mentor.last_name"
+    [name]="mentor.name"
+    [phoneNumber]="mentor.phone_number"
+    [city]="mentor.city"
+    [opinionNumber]="mentor.opinion_number"
+    [rate]="mentor.rate"
+    [role]="role"
+    >
+    </app-mentor-window>
+        </div>
+    </div>
+    </div>
