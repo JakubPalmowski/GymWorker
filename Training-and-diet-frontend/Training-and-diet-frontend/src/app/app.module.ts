@@ -10,16 +10,7 @@ import { AddTrainingPlanComponent } from './components/traininig-plans/add-train
 import { FormsModule } from '@angular/forms';
 import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
 import { NewTrainingExerciseComponent } from './components/exercises/new-training-exercise/new-training-exercise.component';
-import { TrainerListComponent } from './components/mentorsLists/trainer-list/trainer-list.component';
-import { DieteticianListComponent } from './components/mentorsLists/dietetician-list/dietetician-list.component';
-import { DieteticianWindowComponent } from './components/mentorsLists/dietetician-list/dietetician-window/dietetician-window.component';
-import { SearchOptionsDieteticianComponent } from './components/mentorsLists/dietetician-list/search-options-dietetician/search-options-dietetician.component';
-import { TrainerWindowComponent } from './components/mentorsLists/trainer-list/trainer-window/trainer-window.component';
-import { SearchOptionsTrainerComponent } from './components/mentorsLists/trainer-list/search-options-trainer/search-options-trainer.component';
-import { DropdownSelectTrainerComponent } from './components/mentorsLists/trainer-list/search-options-trainer/dropdown-select-trainer/dropdown-select-trainer.component';
 import { UserService } from './services/user.service';
-import { TrainerProfileComponent } from './components/mentorsLists/trainer-profile/trainer-profile.component';
-import { TrainerOpinionComponent } from './components/mentorsLists/trainer-profile/trainer-opinion/trainer-opinion.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { PasswordRecoveryComponent } from './components/authentication/password-recovery/password-recovery.component';
@@ -27,7 +18,12 @@ import { MenuComponent } from './components/main/menu/menu.component';
 import { SearchComponent } from './components/main/search/search.component';
 import { FooterComponent } from './components/main/footer/footer.component';
 import { MenuButtonComponent } from './components/main/menu/menu-button/menu-button.component';
-import { SelectDeteticianComponent } from './components/mentorsLists/dietetician-list/search-options-dietetician/select-detetician/select-detetician.component';
+import { MentorsListComponent } from './components/mentors-list/mentors-list.component';
+import { MentorProfileComponent } from './components/mentor-profile/mentor-profile.component';
+import { MentorWindowComponent } from './components/mentors-list/mentor-window/mentor-window.component';
+import { SearchOptionsComponent } from './components/mentors-list/search-options/search-options.component';
+import { SelectComponent } from './components/mentors-list/search-options/select/select.component';
+import { TrainerOpinionComponent } from './components/mentor-profile/trainer-opinion/trainer-opinion.component';
 
 
   
@@ -40,15 +36,6 @@ import { SelectDeteticianComponent } from './components/mentorsLists/dietetician
     AddTrainingPlanComponent,
     EditTrainingPlanComponent,
     NewTrainingExerciseComponent,
-    TrainerListComponent,
-    DieteticianListComponent,
-    DieteticianWindowComponent,
-    SearchOptionsDieteticianComponent,
-    TrainerWindowComponent,
-    SearchOptionsTrainerComponent,
-    DropdownSelectTrainerComponent,
-    TrainerProfileComponent,
-    TrainerOpinionComponent,
     LoginComponent,
     RegisterComponent,
     PasswordRecoveryComponent,
@@ -56,7 +43,12 @@ import { SelectDeteticianComponent } from './components/mentorsLists/dietetician
     SearchComponent,
     FooterComponent,
     MenuButtonComponent,
-    SelectDeteticianComponent
+    MentorsListComponent,
+    MentorProfileComponent,
+    MentorWindowComponent,
+    SearchOptionsComponent,
+    SelectComponent,
+    TrainerOpinionComponent
     
   ],
   imports: [

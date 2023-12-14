@@ -1,0 +1,46 @@
+<div class="container" *ngIf="mentor">
+
+    <div class="top-container">
+      <ng-container *ngIf="role=='trainerProfile'">
+        <a routerLink="/trainersList">< Powrót do listy trenerów</a>
+      </ng-container>
+      <ng-container *ngIf="role=='dieticianProfile'">
+        <a routerLink="/dieticiansList">< Powrót do listy dietetyków</a>
+      </ng-container>
+          <div class="trainer-info">
+            <img class="user-image">
+            <div class="top-container-middle">
+            <span class="span-bold name-text">{{ mentor.name + ' ' + mentor.lastName}}</span>
+            <span class="span-bold trainer-text">{{ mentor.role}}</span>
+            <button class="message-button">Napisz wiadomość</button>
+          </div>
+          <div class="vertical-line">
+          </div>
+          <div class="top-container-right">
+            <span>{{ mentor.city +', '+mentor.street }}</span>
+            <span>{{ mentor.phoneNumber}}</span>
+          </div>
+    
+          </div>
+      </div>
+    
+      <div class="bottom-container">
+    
+        <div class="bottom-left-container">
+          <span class="trainer-text">O mnie</span>
+          <span class="bio-text span-center">{{ mentor.bio }}</span>
+        </div>
+    
+        <div class="bottom-right-container">
+          <span class="opinion-text">Opinie</span>
+          <div class="opinion">
+          <img src="../../../assets/icons/star.png" class="star-img">
+          <span class="stars-number">{{mentor.totalRate}}</span>
+          <span class="opinion-text">({{mentor.opinion_number}} opinie)</span>
+          </div>
+          <app-trainer-opinion *ngFor="let opinion of mentor.opinions" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinion_date"></app-trainer-opinion>
+        </div>
+    
+    
+      </div>
+    </div>
