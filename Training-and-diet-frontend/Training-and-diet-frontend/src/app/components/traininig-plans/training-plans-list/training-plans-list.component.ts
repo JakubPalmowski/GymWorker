@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TrainingPlan } from 'src/app/models/trainingPlan.model';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 
+
 @Component({
   selector: 'app-training-plans-list',
   templateUrl: './training-plans-list.component.html',

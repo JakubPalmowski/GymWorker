@@ -17,7 +17,6 @@ import { MenuComponent } from './components/main/menu/menu.component';
 import { SearchComponent } from './components/main/search/search.component';
 import { FooterComponent } from './components/main/footer/footer.component';
 import { MenuButtonComponent } from './components/main/menu/menu-button/menu-button.component';
-import { SelectDeteticianComponent } from './components/mentorsLists/dietetician-list/search-options-dietetician/select-detetician/select-detetician.component';
 import { MentorsListComponent } from './components/mentors-list/mentors-list.component';
 import { MentorProfileComponent } from './components/mentor-profile/mentor-profile.component';
 import { MentorWindowComponent } from './components/mentors-list/mentor-window/mentor-window.component';
@@ -41,7 +40,6 @@ import { TrainerOpinionComponent } from './components/mentor-profile/trainer-opi
     SearchComponent,
     FooterComponent,
     MenuButtonComponent,
-    SelectDeteticianComponent,
     MentorsListComponent,
     MentorProfileComponent,
     MentorWindowComponent,

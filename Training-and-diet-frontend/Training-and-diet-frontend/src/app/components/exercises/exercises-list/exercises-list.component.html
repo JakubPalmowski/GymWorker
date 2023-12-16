@@ -32,7 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let trainingPlanExercise of trainingPlanExercises">
+                <tr *ngFor="let trainingPlanExercise of filteredPlanExercises">
                     <td>{{trainingPlanExercise.name}}</td>
                     <td><a routerLink="/training-exercise/add" [queryParams]="{exerciseId:trainingPlanExercise.id_Exercise,trainingId:id_training}">[+]</a></td>
                     <td>TODO</td>

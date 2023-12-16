@@ -12,9 +12,8 @@ import { ExercisesService } from 'src/app/services/exercises.service';
 })
 export class ExercisesListComponent implements OnInit{
  
-  trainingPlanExercises:ExerciseShort[]=[
-   
-  ];
+  trainingPlanExercises:ExerciseShort[]=[];
+  filteredPlanExercises:ExerciseShort[]=[];
 
 
   id_training:string='';
@@ -30,6 +29,7 @@ export class ExercisesListComponent implements OnInit{
     this.exerciseServise.getTrainerExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.trainingPlanExercises=trainingPlanExercises;
+        this.filteredPlanExercises=this.trainingPlanExercises;
       },
       error: (response)=>{
         console.log(response);
@@ -38,8 +38,15 @@ export class ExercisesListComponent implements OnInit{
   }
 
   filterResults(text: string){
-
+    if (!text) {
+      this.filteredPlanExercises = this.trainingPlanExercises;
+    }
+  
+    this.filteredPlanExercises = this.trainingPlanExercises.filter(
+      trainingPlanExercises => trainingPlanExercises?.name.toLowerCase().includes(text.toLowerCase())
+    );
   }
+  
 
   MyExercises(){
     console.log("my");
@@ -49,7 +56,7 @@ export class ExercisesListComponent implements OnInit{
    
   this.exerciseServise.getTrainerExercises().subscribe({
     next:(trainingPlanExercises)=>{
-      this.trainingPlanExercises=trainingPlanExercises;
+      this.filteredPlanExercises=trainingPlanExercises;
 
       const allExercisesElement = document.getElementById("all-exercises");
       const myExercisesElement = document.getElementById("my-exercises");
@@ -72,7 +79,7 @@ export class ExercisesListComponent implements OnInit{
    
   this.exerciseServise.getAllExercises().subscribe({
     next:(trainingPlanExercises)=>{
-      this.trainingPlanExercises=trainingPlanExercises;
+      this.filteredPlanExercises=trainingPlanExercises;
 
       const allExercisesElement = document.getElementById("all-exercises");
       const myExercisesElement = document.getElementById("my-exercises");
