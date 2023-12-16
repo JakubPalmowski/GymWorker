@@ -10,7 +10,7 @@ namespace Training_and_diet_backend.Controllers
         public Task<List<GetTrainingPlanGeneralInfoDTO>> GetTrainerTrainingPlans(int id_trainer);
 
         Task<List<GetExercisesByTrainerIdDTO>> GetExercisesByTrainerId(int id_trainer);
-        public Task<List<GetUsersDTO>> GetUsers(string roleName);
+        Task<PageResult<GetUsersDTO>> GetUsers(string roleName, UserQuery? query);
         public Task<GetUserWithOpinionsByIdDTO> GetUsersWithOpinionsById(string roleName,int id);
     }
 }

@@ -62,9 +62,13 @@ namespace Training_and_diet_backend.Controllers
 
         // POBIERA lISTĘ UZYTKOWNIKOW Z PODANEJ ROLI
         [HttpGet("{RoleName}")]
-        public async Task<ActionResult<IEnumerable<GetUsersDTO>>> GetUsers([FromRoute]string RoleName)
+        public async Task<ActionResult<IEnumerable<GetUsersDTO>>> GetUsers([FromRoute]string RoleName, [FromQuery] UserQuery query = null)
         {
-            var trainers = await _service.GetUsers(RoleName);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var trainers = await _service.GetUsers(RoleName, query);
             return Ok(trainers);
         }
 

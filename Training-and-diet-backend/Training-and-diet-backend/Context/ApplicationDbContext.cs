@@ -81,7 +81,9 @@ namespace Training_and_diet_backend.Context
             var user18 = new User { Id_User = 19, Id_Role = 3, Name = "Sophie", Last_name = "Turner", Email = "sophie@gmail.com", Phone_number = "48559012345", Email_validated = true, Sex = "Female", Bio = "Hello, I'm Sophie. Let's stay fit and fabulous!", Id_Address = 1 };
             var user19 = new User { Id_User = 20, Id_Role = 3, Name = "Tom", Last_name = "Harris", Email = "tom@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Tom. Fitness is my lifestyle choice!", Id_Address = 2 };
             var user20 = new User { Id_User = 21, Id_Role = 4, Name = "Filip", Last_name = "W", Email = "filipwgmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Filip. Fitness is my hobby!", Id_Address = 2 };
-            var user21 = new User { Id_User = 22, Id_Role = 4, Name = "Jakub", Last_name = "S", Email = "jakubs@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Jakub. Fitness is my passion!", Id_Address = 2 };
+            var user22 = new User { Id_User = 22, Id_Role = 3, Name = "test", Last_name = "test", Email = "jakubs@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Jakub. Fitness is my passion!", Id_Address = 2 };
+            var user23 = new User { Id_User = 23, Id_Role = 3, Name = "test", Last_name = "test", Email = "jakubs@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Jakub. Fitness is my passion!", Id_Address = 2 };
+            var user24 = new User { Id_User = 24, Id_Role = 3, Name = "test", Last_name = "test", Email = "jakubs@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Jakub. Fitness is my passion!", Id_Address = 2 };
 
             var opinion = new Opinion
             {
@@ -101,6 +103,42 @@ namespace Training_and_diet_backend.Context
                     "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
                 Opinion_date = new DateTime(2023, 10, 30),
                 Rate = 2
+            };
+            var opinion3= new Opinion
+            {
+                Id_Pupil = 5,
+                Id_Mentor = 22,
+                Content =
+                    "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                Opinion_date = new DateTime(2023, 10, 30),
+                Rate = 4
+            };
+            var opinion4 = new Opinion
+            {
+                Id_Pupil = 6,
+                Id_Mentor = 22,
+                Content =
+                    "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                Opinion_date = new DateTime(2023, 10, 30),
+                Rate = 5
+            };
+            var opinion5 = new Opinion
+            {
+                Id_Pupil = 7,
+                Id_Mentor = 23,
+                Content =
+                    "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                Opinion_date = new DateTime(2023, 10, 30),
+                Rate = 2
+            };
+            var opinion6 = new Opinion
+            {
+                Id_Pupil = 8,
+                Id_Mentor = 23,
+                Content =
+                    "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                Opinion_date = new DateTime(2023, 10, 30),
+                Rate = 4
             };
 
             var exercise = new Exercise
@@ -270,8 +308,8 @@ namespace Training_and_diet_backend.Context
                 .HasForeignKey(d => d.Id_Pupil);
 
             modelBuilder.Entity<Address>().HasData(address, address2, address3);
-            modelBuilder.Entity<Opinion>().HasData(opinion, opinion2);
-            modelBuilder.Entity<User>().HasData(user, user1, user2,user3, user4,user5,user6,user7,user8,user9,user10,user11,user12,user13,user14,user15,user16,user17,user18,user19,user20,user21);
+            modelBuilder.Entity<Opinion>().HasData(opinion, opinion2,opinion3,opinion4,opinion5,opinion6);
+            modelBuilder.Entity<User>().HasData(user, user1, user2,user3, user4,user5,user6,user7,user8,user9,user10,user11,user12,user13,user14,user15,user16,user17,user18,user19,user20,user22,user23,user24);
             modelBuilder.Entity<Exercise>().HasData(exercise, exercise1, exercise2);
             modelBuilder.Entity<Training_plan>().HasData(trainingPlan, trainingPlan1);
             modelBuilder.Entity<Trainee_exercise>().HasData(traineeExercise, traineeExercise1, traineeExercise2);
