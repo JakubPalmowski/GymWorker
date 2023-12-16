@@ -1,23 +1,27 @@
-<div class="container my-5">
-    <h3>Ćwiczenia</h3>
-    <div>
-        <button type="button" >Moje ćwiczenia</button>
-        <button type="button" >Wszystkie ćwiczenia</button>
+<div class="container">
+    <a [routerLink]="['/training-plans/edit',id_training]">< Powrót do edycji planu</a>
+    <div class="container-top">
+        <button type="button" class="exercise-button" id="my-exercises" (click)="MyExercises()">Moje ćwiczenia</button>
+        <button type="button" class="exercise-button" id="all-exercises" (click)="AllExercises()">Wszystkie ćwiczenia</button>
         <div class="col-6">
             <form #form="ngForm" >
                 <div >
                     
-                    <input type="text" clas="form-control" id="name" name="name">
-                    <button type="submit" class="btn btn-primary">Szukaj</button>
+                    <button class="filter-button" type="button" (click)="filterResults(filter.value)">
+                        <img src="../../../../assets/icons/search.png" class="search-icon">
+                    </button>
+                    
+                    <input class="filter-input" type="text" placeholder=" Wyszukaj ćwiczenie" #filter>
                 </div>
 
                 
             </form>
         </div>
+        <a routerLink="#" class="create-exercise-link">
+            <span class="button-create">Stwórz nowe ćwiczenie +</span> </a>
     </div>
-    <a routerLink="#" class="nav-link px-0 align-middle">
-        <i class="fs-4 bi-people"></i> <span class="newPlanButton">Stwórz nowe ćwiczenie</span> </a>
-    <div class="container my-5">
+
+    <div class="container-table">
         <table class="table"  *ngIf="trainingPlanExercises && trainingPlanExercises.length > 0">
             <thead>
                 <tr>
@@ -29,10 +33,10 @@
             </thead>
             <tbody>
                 <tr *ngFor="let trainingPlanExercise of trainingPlanExercises">
-                    <td>{{trainingPlanExercise.exerciseName}}</td>
+                    <td>{{trainingPlanExercise.name}}</td>
                     <td><a routerLink="/training-exercise/add" [queryParams]="{exerciseId:trainingPlanExercise.id_Exercise,trainingId:id_training}">[+]</a></td>
-                    <td></td>
-                    <td></td>
+                    <td>TODO</td>
+                    <td>TODO</td>
                 </tr>
             </tbody>
         </table>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ExercisesListComponent } from './components/exercises/exercises-list/exercises-list.component';
@@ -18,6 +17,7 @@ import { MenuComponent } from './components/main/menu/menu.component';
 import { SearchComponent } from './components/main/search/search.component';
 import { FooterComponent } from './components/main/footer/footer.component';
 import { MenuButtonComponent } from './components/main/menu/menu-button/menu-button.component';
+import { SelectDeteticianComponent } from './components/mentorsLists/dietetician-list/search-options-dietetician/select-detetician/select-detetician.component';
 import { MentorsListComponent } from './components/mentors-list/mentors-list.component';
 import { MentorProfileComponent } from './components/mentor-profile/mentor-profile.component';
 import { MentorWindowComponent } from './components/mentors-list/mentor-window/mentor-window.component';
@@ -25,8 +25,6 @@ import { SearchOptionsComponent } from './components/mentors-list/search-options
 import { SelectComponent } from './components/mentors-list/search-options/select/select.component';
 import { TrainerOpinionComponent } from './components/mentor-profile/trainer-opinion/trainer-opinion.component';
 
-
-  
 
 @NgModule({
   declarations: [
@@ -43,13 +41,13 @@ import { TrainerOpinionComponent } from './components/mentor-profile/trainer-opi
     SearchComponent,
     FooterComponent,
     MenuButtonComponent,
+    SelectDeteticianComponent,
     MentorsListComponent,
     MentorProfileComponent,
     MentorWindowComponent,
     SearchOptionsComponent,
     SelectComponent,
     TrainerOpinionComponent
-    
   ],
   imports: [
     BrowserModule,

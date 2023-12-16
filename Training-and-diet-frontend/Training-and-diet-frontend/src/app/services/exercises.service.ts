@@ -22,7 +22,7 @@ export class ExercisesService {
    }
 
    getAllExercises():Observable<ExerciseShort[]>{
-    return this.http.get<ExerciseShort[]>('');
+    return this.http.get<ExerciseShort[]>('https://localhost:7259/api/Exercise');
    }
 
    addTrainingExercise(addTrainingExerciseRequest: NewTrainingExercise):Observable<NewTrainingExercise>{

@@ -16,6 +16,7 @@ export class ExercisesListComponent implements OnInit{
    
   ];
 
+
   id_training:string='';
 
   constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute){}
@@ -34,5 +35,54 @@ export class ExercisesListComponent implements OnInit{
         console.log(response);
       }
     })
+  }
+
+  filterResults(text: string){
+
+  }
+
+  MyExercises(){
+    console.log("my");
+    this.id_training=this.route.snapshot.queryParams['id'];
+
+
+   
+  this.exerciseServise.getTrainerExercises().subscribe({
+    next:(trainingPlanExercises)=>{
+      this.trainingPlanExercises=trainingPlanExercises;
+
+      const allExercisesElement = document.getElementById("all-exercises");
+      const myExercisesElement = document.getElementById("my-exercises");
+      
+      myExercisesElement?.classList.add("selected-all-my");
+      allExercisesElement?.classList.remove("selected-all-my");
+    },
+    error: (response)=>{
+      console.log(response);
+    }
+  })
+  }
+  
+
+  AllExercises(){
+    console.log("all");
+    this.id_training=this.route.snapshot.queryParams['id'];
+
+
+   
+  this.exerciseServise.getAllExercises().subscribe({
+    next:(trainingPlanExercises)=>{
+      this.trainingPlanExercises=trainingPlanExercises;
+
+      const allExercisesElement = document.getElementById("all-exercises");
+      const myExercisesElement = document.getElementById("my-exercises");
+  
+      allExercisesElement?.classList.add("selected-all-my");
+      myExercisesElement?.classList.remove("selected-all-my");
+    },
+    error: (response)=>{
+      console.log(response);
+    }
+  })
   }
 }

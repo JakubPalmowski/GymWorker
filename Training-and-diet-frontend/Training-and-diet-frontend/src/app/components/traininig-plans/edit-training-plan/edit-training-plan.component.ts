@@ -44,27 +44,27 @@ export class EditTrainingPlanComponent implements OnInit{
           this.trainingPlanService.getTrainingPlanById(this.idTraining).subscribe({
             next:(plan)=>{
               this.trainingPlan=plan[0];
-              //console.log(this.trainingPlan);
+              console.log(this.trainingPlan);
               console.log(plan);
               console.log(this.trainingPlan.type);
               this.formStartDate=this.trainingPlan.startDate.toString().split('T')[0];
               this.formEndDate=this.trainingPlan.endDate.toString().split('T')[0];
               
              
-             console.log(this.formEndDate);
+            // console.log(this.formEndDate);
             },
             error: (response)=>{
-              console.log(response);
+             // console.log(response);
             }
           })
 
           this.trainingPlanService.getExercisesByPlanId(id).subscribe({
             next:(trainingPlanExercises)=>{
               this.trainingPlanExercises=trainingPlanExercises;
-              console.log(trainingPlanExercises);
+             // console.log(trainingPlanExercises);
             },
             error: (response)=>{
-              console.log(response);
+              console.log("here"+response);
             }
           })
 

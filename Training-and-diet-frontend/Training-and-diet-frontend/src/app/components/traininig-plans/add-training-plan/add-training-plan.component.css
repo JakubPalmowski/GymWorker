@@ -1,9 +1,61 @@
-.form-label{
-    width: 200px;
+.container-slim
+{
+    background-color: #D9D9D9;
+   
+    border-radius: 10px;
+    width: 60%;
+    flex: content;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid black;
+    border-radius: 10px;
+    
+    
+    
 }
 
 
-input{
-    width: 300px;
+
+form{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.container-form{
     
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+}
+
+h3{
+    font-size: 38px;
+    text-align: center;
+}
+
+.form-label{
+    font-weight: bold;
+
+}
+
+.form-control{
+    height: 30px;
+    width: 400px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.button-create{
+    margin: 10px 0px;
+    font-size: 24px;
+    padding: 10px 20px ;
+    background-color: #52CE50;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+
 }
