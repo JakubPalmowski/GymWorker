@@ -16,6 +16,10 @@ namespace Training_and_diet_backend
 
             CreateMap<Exercise, GetExercisesByTrainerIdDTO>();
 
+            CreateMap<Training_plan, GetTrainingPlanByIdDTO>();
+
+
+
 
 
 
