@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Context;
 using Training_and_diet_backend.Controllers;
@@ -66,38 +67,46 @@ namespace Training_and_diet_backend.Services
             return _mapper.Map<List<GetExercisesByTrainerIdDTO>>(exercises);
         }
 
-        public async Task<List<GetUsersDTO>> GetUsers(string roleName)
+        public async Task<PageResult<GetUsersDTO>> GetUsers(string roleName, UserQuery query)
         {
 
             if (roleName != "Trainer" && roleName != "Dietician" && roleName != "Dietician-Trainer")
                 throw new BadRequestException("Role name must be Trainer, Dietician or Dietician-Trainer");
 
+            var baseQuery = _context.Users
+                .Include(u => u.Mentor_Opinions)
+                .Where(u => u.Role.Name == roleName &&
+                            (query.SearchPhrase == null ||
+                             u.Name.ToLower().Contains(query.SearchPhrase.ToLower()) ||
+                             u.Last_name.ToLower().Contains(query.SearchPhrase.ToLower())));
+
+
+            if (!string.IsNullOrEmpty(query.SortBy) && query.SortBy == "Mentor_Opinions")
+            {
+
+                baseQuery = baseQuery
+                    .OrderByDescending(u => u.Mentor_Opinions.Any()
+                        ? u.Mentor_Opinions.Average(mo => mo.Rate)
+                        : 0);
+            }
 
 
 
+            var list = await baseQuery
+                .Skip(9 * (query.PageNumber-1))
+                .Take(9)
+                .ToListAsync();
+
+           var totalItemsCount =  baseQuery.Count();
+
+           var usersDtos = _mapper.Map<List<GetUsersDTO>>(list);
+
+           var result = new PageResult<GetUsersDTO>(usersDtos, totalItemsCount,query.PageNumber);
 
 
-            var list = await _context.Users
-                .Where(u => u.Role.Name == roleName)
-                .Select(trainer =>
-                    new GetUsersDTO
-                    {
-                        Id_user = trainer.Id_User,
-                        Bio = trainer.Bio,
-                        Last_name = trainer.Last_name,
-                        Name = trainer.Name,
-                        Phone_number = trainer.Phone_number,
-                        City = trainer.Address.City,
-                        Opinion_number = trainer.Mentor_Opinions.Count(),
-                        Rate = trainer.Mentor_Opinions.Any() == true
-                            ? trainer.Mentor_Opinions.Average(o => o.Rate) : 0m
-        }).ToListAsync();
+            if (list.Count == 0) throw new NotFoundException($"There are no {roleName} in database");
 
-            
-
-            if(list.Count == 0) throw new NotFoundException($"There are no {roleName} in database");
-
-            return list;
+            return result;
 
 
         }
