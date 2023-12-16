@@ -17,7 +17,7 @@
                 
             </form>
         </div>
-        <a routerLink="#" class="create-exercise-link">
+        <a routerLink="/exercises/add" class="create-exercise-link">
             <span class="button-create">Stwórz nowe ćwiczenie +</span> </a>
     </div>
 
@@ -26,7 +26,7 @@
             <thead>
                 <tr>
                     <th>Nazwa</th>
-                    <th>Dodaj do planu</th>
+                    <th *ngIf="id_training!=undefined">Dodaj do planu</th>
                     <th>Edycja</th>
                     <th>Szczegóły</th>
                 </tr>
@@ -34,8 +34,8 @@
             <tbody>
                 <tr *ngFor="let trainingPlanExercise of filteredPlanExercises">
                     <td>{{trainingPlanExercise.name}}</td>
-                    <td><a routerLink="/training-exercise/add" [queryParams]="{exerciseId:trainingPlanExercise.id_Exercise,trainingId:id_training}">[+]</a></td>
-                    <td>TODO</td>
+                    <td *ngIf="id_training!=undefined"><a routerLink="/training-exercise/add" [queryParams]="{exerciseId:trainingPlanExercise.id_Exercise,trainingId:id_training}">[+]</a></td>
+                    <td><a [routerLink]="['/exercises/edit',trainingPlanExercise.id_Exercise]"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
                     <td>TODO</td>
                 </tr>
             </tbody>

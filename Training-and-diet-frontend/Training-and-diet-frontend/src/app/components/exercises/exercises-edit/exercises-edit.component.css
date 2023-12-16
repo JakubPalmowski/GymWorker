@@ -31,12 +31,14 @@ form{
 }
 
 h3{
-    font-size: 38px;
+    font-size: 32px;
     text-align: center;
+    padding: 10px 0px;
 }
 
 .form-label{
     font-weight: bold;
+  
 
 }
 
@@ -46,17 +48,35 @@ h3{
     border: 1px solid black;
     border-radius: 10px;
     font-size: 20px;
+    margin-bottom: 15px;
     padding-left: 5px;
 }
 
-.button-create{
+.button-edit{
     margin: 10px 0px;
     font-size: 24px;
     padding: 10px 20px ;
-    background-color: #52CE50;
+    background-color:#3244A0;
     color: white;
     font-weight: bold;
     border: none;
     border-radius: 20px;
+    width: 50%;
 
+}
+
+#steps{
+    height: 200px;
+    
+    
+    
+}
+
+#description{
+    height: 120px;
+}
+
+#image{
+    font-size: 16px;
+    border: none;
 }

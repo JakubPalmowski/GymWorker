@@ -23,6 +23,8 @@ import { MentorWindowComponent } from './components/mentors-list/mentor-window/m
 import { SearchOptionsComponent } from './components/mentors-list/search-options/search-options.component';
 import { SelectComponent } from './components/mentors-list/search-options/select/select.component';
 import { TrainerOpinionComponent } from './components/mentor-profile/trainer-opinion/trainer-opinion.component';
+import { ExercisesEditComponent } from './components/exercises/exercises-edit/exercises-edit.component';
+import { ExercisesAddComponent } from './components/exercises/exercises-add/exercises-add.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { TrainerOpinionComponent } from './components/mentor-profile/trainer-opi
     MentorWindowComponent,
     SearchOptionsComponent,
     SelectComponent,
-    TrainerOpinionComponent
+    TrainerOpinionComponent,
+    ExercisesEditComponent,
+    ExercisesAddComponent
   ],
   imports: [
     BrowserModule,
