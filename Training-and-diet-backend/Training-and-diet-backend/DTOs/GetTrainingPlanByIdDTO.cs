@@ -14,5 +14,7 @@ namespace Training_and_diet_backend.DTOs
         [Column(TypeName = "Date")]
         public DateTime End_date { get; set; }
 
+        public int? Plan_Duration { get; set; }
+
     }
 }
