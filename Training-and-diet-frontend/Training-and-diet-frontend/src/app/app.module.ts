@@ -28,8 +28,6 @@ import { SearchComponent } from './components/main/search/search.component';
 import { FooterComponent } from './components/main/footer/footer.component';
 import { MenuButtonComponent } from './components/main/menu/menu-button/menu-button.component';
 import { SelectDeteticianComponent } from './components/mentorsLists/dietetician-list/search-options-dietetician/select-detetician/select-detetician.component';
-
-
   
 
 @NgModule({
@@ -56,8 +54,7 @@ import { SelectDeteticianComponent } from './components/mentorsLists/dietetician
     SearchComponent,
     FooterComponent,
     MenuButtonComponent,
-    SelectDeteticianComponent
-    
+    SelectDeteticianComponent,
   ],
   imports: [
     BrowserModule,

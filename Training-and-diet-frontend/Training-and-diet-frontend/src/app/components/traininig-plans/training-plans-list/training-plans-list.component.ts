@@ -10,17 +10,29 @@ import { TrainingPlanService } from 'src/app/services/training-plan.service';
 export class TrainingPlansListComponent implements OnInit{
   
   trainingPlans:TrainingPlan[]=[];
+  filteredTrainingPlans:TrainingPlan[]=[];
+
   constructor(private trainingPlanService:TrainingPlanService){}
 
   ngOnInit(): void {
     this.trainingPlanService.getTrainerPlans().subscribe({
       next:(trainingPlans)=>{
         this.trainingPlans=trainingPlans;
+        this.filteredTrainingPlans=this.trainingPlans;
       },
       error: (response)=>{
         console.log(response);
       }
     })
-    
+  }
+
+  filterResults(text: string) {
+    if (!text) {
+      this.filteredTrainingPlans = this.trainingPlans;
+    }
+  
+    this.filteredTrainingPlans = this.trainingPlans.filter(
+      trainingPlan => trainingPlan?.name.toLowerCase().includes(text.toLowerCase())
+    );
   }
 }

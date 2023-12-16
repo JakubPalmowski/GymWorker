@@ -1,26 +1,27 @@
-<div class="container my-5">
-    <h3>Nowy plan</h3>
+<a [routerLink]='"/training-plans"'> < Powrót do listy planów</a>
+<div class="container-slim">
+    <h3>Nowy plan</h3> 
     <div class="row">
-        <div class="col-6">
+        <div class="container-form">
             <form #form="ngForm" (ngSubmit)="addTrainingPlan()">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" clas="form-control" id="name" name="name" [(ngModel)]="addTrainingPlanRequest.name">
+                    <label for="name" class="form-label">Nazwa:</label><br>
+                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="addTrainingPlanRequest.name">
                 </div>
                 <div class="mb-3">
-                    <label for="type" class="form-label">Typ:</label>
-                    <input type="text" clas="form-control" id="type" name="type" [(ngModel)]="addTrainingPlanRequest.type">
+                    <label for="type" class="form-label">Typ:</label><br>
+                    <input type="text" class="form-control" id="type" name="type" [(ngModel)]="addTrainingPlanRequest.type">
                 </div>
                 <div class="mb-3">
-                    <label for="start_date" class="form-label">Data rozpoczęcia:</label>
-                    <input type="date" clas="form-control" id="start_date" name="start_date" [(ngModel)]="addTrainingPlanRequest.start_date">
+                    <label for="start_date" class="form-label">Data rozpoczęcia:</label><br>
+                    <input type="date" class="form-control" id="start_date" name="start_date" [(ngModel)]="addTrainingPlanRequest.start_date">
                 </div>
                 <div class="mb-3">
-                    <label for="end_date" class="form-label">Data zakończenia:</label>
-                    <input type="date" clas="form-control" id="end_date" name="end_date" [(ngModel)]="addTrainingPlanRequest.end_date">
+                    <label for="end_date" class="form-label">Data zakończenia:</label><br>
+                    <input type="date" class="form-control" id="end_date" name="end_date" [(ngModel)]="addTrainingPlanRequest.end_date">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Stwórz</button>
+                <button type="submit" class="button-create">Stwórz</button>
             </form>
         </div>
     </div>

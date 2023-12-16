@@ -1,21 +1,29 @@
-<div class="container my-5">
-    <h3>Moje plany</h3>
-    <table class="table" *ngIf="trainingPlans && trainingPlans.length > 0" >
-        <thead>
-            <tr>
-                <th>Nazwa</th>
-                <th>Ilość dni</th>
-   
+<div class="container">
+    <div class="container-head">
+        <h3>Moje plany</h3>
+        <button class="filter-button" type="button" (click)="filterResults(filter.value)">
+            <img src="../../../../assets/icons/search.png" class="search-icon">
+        </button>
+        
+        <input class="filter-input" type="text" placeholder="Wyszukaj plan" #filter>
+    </div>
+    <div class="container-body">
+        <table class="table" *ngIf="trainingPlans && trainingPlans.length > 0" >
+            <thead >
+                <tr >
+                    <th>Nazwa</th>
+                    <th>Ilość dni</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let trainingPlan of filteredTrainingPlans">
+                <td><a [routerLink]="['edit',trainingPlan.id_Training_plan]">{{ trainingPlan.name }}</a></td>
+                <td>{{ trainingPlan.plan_Duration }}</td>
             </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let trainingPlan of trainingPlans">
-                <td><a [routerLink]="['edit',trainingPlan.id ]">{{ trainingPlan.name }}</a></td>
-                <td>{{ trainingPlan.duration }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <p *ngIf="!trainingPlans || trainingPlans.length <=0">Nie posiadasz planów treningowych</p>
-    <a routerLink="/training-plans/add" class="nav-link px-0 align-middle">
-        <i class="fs-4 bi-people"></i> <span class="newPlanButton">Dodaj nowy plan</span> </a>
+        </table>
+        <p *ngIf="!trainingPlans || trainingPlans.length <=0" class="no-plans-message">Nie posiadasz planów treningowych</p>
+        <div class="test">
+            <a routerLink="/training-plans/add" class="new-plan-link">
+                <span class="new-plan-span">+<br>Dodaj nowy plan</span> </a>
+        </div>
+    </div>
 </div>
