@@ -66,14 +66,23 @@ namespace Training_and_diet_backend.Services
             return _mapper.Map<List<GetExercisesByTrainerIdDTO>>(exercises);
         }
 
-        public async Task<List<GetTrainersDTO>> GetTrainers()
+        public async Task<List<GetUsersDTO>> GetUsers(string roleName)
         {
-            return await _context.Users
-                .Where(u => u.Id_Role == 3)
+
+            if (roleName != "Trainer" && roleName != "Dietician" && roleName != "Dietician-Trainer")
+                throw new BadRequestException("Role name must be Trainer, Dietician or Dietician-Trainer");
+
+
+
+
+
+
+            var list = await _context.Users
+                .Where(u => u.Role.Name == roleName)
                 .Select(trainer =>
-                    new GetTrainersDTO
+                    new GetUsersDTO
                     {
-                        Id_trainer = trainer.Id_User,
+                        Id_user = trainer.Id_User,
                         Bio = trainer.Bio,
                         Last_name = trainer.Last_name,
                         Name = trainer.Name,
@@ -84,16 +93,29 @@ namespace Training_and_diet_backend.Services
                             ? trainer.Mentor_Opinions.Average(o => o.Rate) : 0m
         }).ToListAsync();
 
+            
+
+            if(list.Count == 0) throw new NotFoundException($"There are no {roleName} in database");
+
+            return list;
+
 
         }
 
 
-        public async Task<GetTrainerWithOpinionsByIdDTO> GetTrainerWithOpinionsById(int id_trainer)
+        public async Task<GetUserWithOpinionsByIdDTO> GetUsersWithOpinionsById(string roleName, int id)
         {
-            var trainer = await _context.Users.Where(u => u.Id_User == id_trainer && u.Id_Role==3).Select(
+
+            if (roleName != "Trainer" && roleName != "Dietician" && roleName != "Dietician-Trainer")
+                throw new BadRequestException("Role name must be Trainer, Dietician or Dietician-Trainer");
+
+
+
+
+            var users = await _context.Users.Where(u => u.Id_User == id && u.Role.Name == roleName).Select(
 
                 trainer =>
-                    new GetTrainerWithOpinionsByIdDTO
+                    new GetUserWithOpinionsByIdDTO
                     {
                         Id=trainer.Id_User,
                         Name=trainer.Name,
@@ -117,10 +139,10 @@ namespace Training_and_diet_backend.Services
                         ).ToList()
 
                     }).FirstOrDefaultAsync();
-            if (trainer==null)
-                throw new NotFoundException("Trainer with given id was not found in database");
+            if (users==null)
+                throw new NotFoundException("User with given id was not found in database");
 
-            return trainer;
+            return users;
         }
     }
 }

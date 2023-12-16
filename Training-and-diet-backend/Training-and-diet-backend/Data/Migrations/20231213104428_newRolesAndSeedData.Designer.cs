@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Training_and_diet_backend.Context;
@@ -11,9 +12,11 @@ using Training_and_diet_backend.Context;
 namespace Training_and_diet_backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231213104428_newRolesAndSeedData")]
+    partial class newRolesAndSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -471,11 +474,16 @@ namespace Training_and_diet_backend.Data.Migrations
                         new
                         {
                             Id = 4,
-                            Name = "Dietician"
+                            Name = "User"
                         },
                         new
                         {
                             Id = 5,
+                            Name = "Dietician"
+                        },
+                        new
+                        {
+                            Id = 6,
                             Name = "Dietician-Trainer"
                         });
                 });
@@ -977,7 +985,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             Email = "filipwgmail.com",
                             Email_validated = true,
                             Id_Address = 2,
-                            Id_Role = 4,
+                            Id_Role = 5,
                             Last_name = "W",
                             Name = "Filip",
                             Phone_number = "48550123456",
@@ -990,7 +998,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             Email = "jakubs@gmail.com",
                             Email_validated = true,
                             Id_Address = 2,
-                            Id_Role = 4,
+                            Id_Role = 5,
                             Last_name = "S",
                             Name = "Jakub",
                             Phone_number = "48550123456",

@@ -8,9 +8,8 @@ import { NewTrainingExerciseComponent } from './components/exercises/new-trainin
 import { LoginComponent } from './components/authentication/login/login.component';
 import { PasswordRecoveryComponent } from './components/authentication/password-recovery/password-recovery.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
-import { TrainerListComponent } from './components/mentorsLists/trainer-list/trainer-list.component';
-import { DieteticianListComponent } from './components/mentorsLists/dietetician-list/dietetician-list.component';
-import { TrainerProfileComponent } from './components/mentorsLists/trainer-profile/trainer-profile.component';
+import { MentorsListComponent } from './components/mentors-list/mentors-list.component';
+import { MentorProfileComponent } from './components/mentor-profile/mentor-profile.component';
 
 
 const routes: Routes = [
@@ -35,11 +34,12 @@ const routes: Routes = [
     component: NewTrainingExerciseComponent
   }, 
   {path: '', component: LoginComponent},
-  {path: 'PasswordRecovery', component: PasswordRecoveryComponent},
-  {path:'Register', component: RegisterComponent},
-  {path: 'TrainersList', component: TrainerListComponent},
-  {path: 'DieteticiansList', component: DieteticianListComponent},
-  {path: 'TrainerProfile/:id', component: TrainerProfileComponent}
+  {path: 'passwordRecovery', component: PasswordRecoveryComponent},
+  {path:'register', component: RegisterComponent},
+  {path: 'trainersList', component: MentorsListComponent},
+  {path: 'dieticiansList', component: MentorsListComponent},
+  {path: 'trainerProfile/:id', component: MentorProfileComponent},
+  {path: 'dieticianProfile/:id', component: MentorProfileComponent}
 ];
 
 @NgModule({
