@@ -22,8 +22,11 @@ export class ExercisesListComponent implements OnInit{
 
   ngOnInit(): void {
    
+
     this.id_training=this.route.snapshot.queryParams['id'];
    
+    console.log(this.id_training);
+    
 
       //TODO: 2 oddzielne listy: trenera i wszystkie 
     this.exerciseServise.getTrainerExercises().subscribe({

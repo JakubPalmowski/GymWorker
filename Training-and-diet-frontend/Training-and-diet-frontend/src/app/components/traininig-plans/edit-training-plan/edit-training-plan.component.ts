@@ -50,8 +50,9 @@ export class EditTrainingPlanComponent implements OnInit{
               this.formStartDate=this.trainingPlan.startDate.toString().split('T')[0];
               this.formEndDate=this.trainingPlan.endDate.toString().split('T')[0];
               
-             
-            // console.log(this.formEndDate);
+             console.log(this.trainingPlan.endDate);
+             console.log(this.formEndDate);
+             console.log(this.trainingPlan);
             },
             error: (response)=>{
              // console.log(response);

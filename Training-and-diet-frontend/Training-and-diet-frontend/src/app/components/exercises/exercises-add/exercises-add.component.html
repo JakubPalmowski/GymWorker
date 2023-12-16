@@ -1,0 +1,28 @@
+<a [routerLink]='"/exercises-list"'> < Powrót do listy ćwiczeń</a>
+<div class="container-slim">
+    <h3>Dodawanie nowego ćwiczenia</h3> 
+    <div class="row">
+        <div class="container-form">
+            <form #form="ngForm" >
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nazwa:</label><br>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Opis</label><br>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="steps" class="form-label">Sposób wykonania</label><br>
+                    <textarea class="form-control" id="steps" name="steps" ></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label" >Zdjęcie</label><br>
+                    <input type="file" class="form-control" id="image" name="image">
+                </div>
+
+                <button type="submit" class="button-create">Dodaj</button>
+            </form>
+        </div>
+    </div>
+</div>
