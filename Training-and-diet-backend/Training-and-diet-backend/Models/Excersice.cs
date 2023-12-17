@@ -9,10 +9,11 @@ namespace Training_and_diet_backend.Models
         [Key, Column(Order = 0)]
         public int Id_Exercise { get; set; }
         [Column(TypeName = "varchar(50)")]
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Details { get; set; }
-
-        [Column(TypeName = "jsonb")]
+        [Required]
         public string Exercise_steps { get; set; }
 
         public byte[]? Image { get; set; }

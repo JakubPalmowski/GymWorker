@@ -7,16 +7,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Training_and_diet_backend.DTOs;
 using Training_and_diet_backend.Exceptions;
+using AutoMapper;
 
 namespace Training_and_diet_backend.Services
 {
     public class ExerciseService:IExerciseService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ExerciseService(ApplicationDbContext context)
+        public ExerciseService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<List<GetAllExercisesDTO>> GetAllExercises()
@@ -38,6 +41,7 @@ namespace Training_and_diet_backend.Services
         }
 
 
+
         public IQueryable<Exercise> GetExerciseById(int ExerciseId)
         {
             var query =  _context.Exercises
@@ -49,6 +53,16 @@ namespace Training_and_diet_backend.Services
             }
 
             return query;
+        }
+
+        public async Task<int> CreateExercise(PostExerciseDTO exerciseDTO)
+        {
+           var exerciseToAdd = _mapper.Map<Exercise>(exerciseDTO);
+
+            await _context.Exercises.AddAsync(exerciseToAdd);
+            await _context.SaveChangesAsync();
+            return exerciseToAdd.Id_Exercise;
+
         }
     }
 }

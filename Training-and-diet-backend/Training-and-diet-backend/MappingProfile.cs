@@ -10,6 +10,8 @@ namespace Training_and_diet_backend
         {
             CreateMap<PostTrainingPlanDTO, Training_plan>();
 
+            CreateMap<PostExerciseDTO, Exercise>();
+
             CreateMap<Exercise, GetExerciseGeneralInfoDTO>();
 
             CreateMap<Training_plan, GetTrainingPlanGeneralInfoDTO>();

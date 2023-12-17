@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Training_and_diet_backend.Context;
@@ -11,9 +12,11 @@ using Training_and_diet_backend.Context;
 namespace Training_and_diet_backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231217002243_MakeIdTrainerNullable")]
+    partial class MakeIdTrainerNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,7 +160,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Id_Trainer")
+                    b.Property<int?>("Id_Trainer")
                         .HasColumnType("integer");
 
                     b.Property<byte[]>("Image")
@@ -1079,9 +1082,7 @@ namespace Training_and_diet_backend.Data.Migrations
                 {
                     b.HasOne("Training_and_diet_backend.Models.User", "Trainer")
                         .WithMany("Exercises")
-                        .HasForeignKey("Id_Trainer")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Id_Trainer");
 
                     b.Navigation("Trainer");
                 });

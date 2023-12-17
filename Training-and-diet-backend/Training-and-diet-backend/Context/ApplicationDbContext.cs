@@ -156,7 +156,9 @@ namespace Training_and_diet_backend.Context
                 Id_Exercise = 2,
                 Name = "Przysiady",
                 Details = "Ćwiczenie wzmacniające mięśnie nóg, pośladków i dolnej części pleców.",
-                Exercise_steps = "[{\"Step\": 1, \"Description\": \"Stań prosto, nogi ustawione na szerokość bioder.\"}, {\"Step\": 2, \"Description\": \"Opuszczaj biodra w dół, jakbyś siadał na niewidzialne krzesło.\"}, {\"Step\": 3, \"Description\": \"Powoli wracaj do pozycji wyjściowej, naciskając pięty w podłogę.\"}]",
+                Exercise_steps = "Step1: Stań prosto, nogi ustawione na szerokość bioder Step 2:" +
+                                 " Opuszczaj biodra w dół, jakbyś siadał na niewidzialne krzesło " +
+                                 "Step: 3,Powoli wracaj do pozycji wyjściowej, naciskając pięty w podłogę.",
                 Image = null,
                 Id_Trainer = 1
             };

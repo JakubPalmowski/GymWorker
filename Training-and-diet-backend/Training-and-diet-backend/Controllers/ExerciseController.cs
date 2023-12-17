@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Training_and_diet_backend.DTOs;
 using Training_and_diet_backend.Services;
 
 namespace Training_and_diet_backend.Controllers
@@ -32,6 +33,13 @@ namespace Training_and_diet_backend.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> PostExercise(PostExerciseDTO exercise)
+        {
+            var result = await _service.CreateExercise(exercise);
+
+            return Ok(result);
+        }
         
     }
 }
