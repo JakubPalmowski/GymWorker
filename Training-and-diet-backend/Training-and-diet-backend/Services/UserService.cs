@@ -10,6 +10,16 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Training_and_diet_backend.Services
 {
+    public interface IUserService
+    {
+        public Task<List<User>> GetPupilsByTrainerId(int id_trainer);
+        Task<List<Exercise>> GetTrainerExercises(int TrainderId);
+        public Task<List<GetTrainingPlanGeneralInfoDTO>> GetTrainerTrainingPlans(int id_trainer);
+
+        Task<List<GetExercisesByTrainerIdDTO>> GetExercisesByTrainerId(int id_trainer);
+        Task<PageResult<GetUsersDTO>> GetUsers(string roleName, UserQuery? query);
+        public Task<GetUserWithOpinionsByIdDTO> GetUsersWithOpinionsById(string roleName, int id);
+    }
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
@@ -153,5 +163,7 @@ namespace Training_and_diet_backend.Services
 
             return users;
         }
+        
+
     }
 }

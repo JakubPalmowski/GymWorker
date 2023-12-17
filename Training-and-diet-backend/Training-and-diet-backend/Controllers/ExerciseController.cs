@@ -18,7 +18,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("{ExerciseId}")]
         public async Task<IActionResult> GetExerciseById(int ExerciseId) {
 
-            var exist = await _service.GetExerciseById(ExerciseId).FirstOrDefaultAsync();
+            var exist = await _service.GetExerciseById(ExerciseId);
 
             
             return Ok(exist);
@@ -34,9 +34,17 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostExercise(PostExerciseDTO exercise)
+        public async Task<IActionResult> PostExercise(ExerciseDTO exercise)
         {
             var result = await _service.CreateExercise(exercise);
+
+            return Ok(result);
+        }
+
+        [HttpPut("{ExerciseId}")]
+        public async Task<IActionResult> PutExercise([FromBody] ExerciseDTO ExerciseDTO, int ExerciseId)
+        {
+            var result = await _service.UpdateExercise(ExerciseDTO, ExerciseId);
 
             return Ok(result);
         }

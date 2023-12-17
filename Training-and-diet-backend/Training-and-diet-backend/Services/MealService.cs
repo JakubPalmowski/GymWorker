@@ -5,6 +5,10 @@ using Training_and_diet_backend.Services.Interfaces;
 
 namespace Training_and_diet_backend.Services
 {
+    public interface IMealService
+    {
+        Task<List<Meal>> GetMeals();
+    }
     public class MealService : IMealService
     {
         private readonly ApplicationDbContext _context;

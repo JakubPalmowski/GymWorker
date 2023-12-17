@@ -9,6 +9,14 @@ using Training_and_diet_backend.Models;
 
 namespace Training_and_diet_backend.Services
 {
+    public interface ITrainingPlanService
+    {
+        Task<int> AddTrainingPlan(PostTrainingPlanDTO training_PlanDTO);
+
+        Task<List<GetExerciseGeneralInfoDTO>> GetExercisesFromTrainingPlan(int id_training_plan);
+
+        Task<List<GetTrainingPlanByIdDTO>> GetTrainingPlanById(int trainingPlanId);
+    }
     public class TrainingPlanService : ITrainingPlanService
     {
 

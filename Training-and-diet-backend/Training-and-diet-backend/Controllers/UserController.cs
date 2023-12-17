@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs;
 using Training_and_diet_backend.Models;
+using Training_and_diet_backend.Services;
 
 namespace Training_and_diet_backend.Controllers
 {
