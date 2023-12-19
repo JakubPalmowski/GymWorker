@@ -21,4 +21,27 @@
           </app-mentor-window>
         </div>
       </div>
+
+      <div class="row mt-auto">
+      <nav class="d-flex justify-content-center">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" [ngClass]="{'disabled': currentPage === 1}" (click)="goToPage(currentPage-1)" >Previous</a></li>
+          <ng-container *ngIf="currentPage!=1">
+          <li class="page-item"><a class="page-link" (click)="goToPage(currentPage-1)">{{currentPage-1}}</a></li>
+          </ng-container>
+
+          <li class="page-item"><a class="page-link disabled">{{currentPage}}</a></li>
+
+          <ng-container *ngIf="currentPage!==totalPages">
+          <li class="page-item"><a class="page-link" (click)="goToPage(currentPage+1)">{{currentPage+1}}</a></li>
+        </ng-container>
+        
+        <ng-container *ngIf="totalPages-currentPage>=2">
+          <li class="page-item"><a class="page-link" (click)="goToPage(currentPage+2)">{{currentPage+2}}</a></li>
+        </ng-container>
+
+          <li class="page-item"><a class="page-link" [ngClass]="{'disabled': currentPage === totalPages}" (click)="goToPage(currentPage+1)">Next</a></li>
+        </ul>
+      </nav>
+    </div>
     </div>
