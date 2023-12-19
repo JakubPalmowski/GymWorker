@@ -1,18 +1,32 @@
-<div [ngClass]="{'search-options-container-t': role=='trainersList', 'search-options-container-d': role=='dieticiansList'}">
-    <div class="option-container">
-<app-select [inputLabel]="'Miasto'" [options]="['New York', 'Los Angeles', 'Chicago', 'Houston', 'Miami', 'San Francisco', 'Seattle']"></app-select>
-    </div>
-    <div class="option-container">
-<app-select [inputLabel]="'Dzielnica'" [options]="['Brooklyn', 'Queens', 'Manhattan', 'Bronx', 'Staten Island', 'Harlem', 'Astoria']"></app-select>
+<div class="row bg-secondary py-2 my-3 mx-0 rounded-3 sort-border justify-content-around">
+    <div class="col-3 d-flex flex-column align-items-center">
+<label for="city">Miasto</label>
+<input type="text" id="city" name="username" class="w70">
     </div>
 
-    <div class="option-container" *ngIf="role == 'trainersList' ">
-<app-select [inputLabel]="'Klub'" [options]="['Fitness First', '24 Hour Fitness', 'Planet Fitness', 'Anytime Fitness', 'Gold\'s Gym', 'Equinox', 'LA Fitness']"></app-select>
+    <ng-container *ngIf="role === 'trainersList'">
+    <div class="col-3 d-flex flex-column align-items-center">
+        <label for="gym">Siłownia</label>
+        <select id="gym" class="w70 h-100">
+            <option>Total fitness</option>
+            <option>City Fit</option>
+            <option>Just Gym</option>
+            <option>Calypso</option>
+        </select>
     </div>
-    <div class="line">
-    </div>
-<div class="option-container">
-    <app-select [inputLabel]="'Sortuj po'" [options]="['cena','odleglosc']"></app-select>
-</div>
-    <button>Szukaj</button>
+</ng-container>
+
+<div class="col-1 vertical-line"></div>
+            <div class="col-3 d-flex flex-column align-items-center">
+                <label for="sort">Sortuj po</label>
+                <select id="sort" class="w70 h-100">
+                    <option>Cena</option>
+                    <option>Ocena</option>
+                </select>
+            </div>
+
+            <div class="col-2 d-flex align-items-end justify-content-center">
+                <button class="btn btn-primary search-button r">Szukaj</button>
+            </div>
+
 </div>

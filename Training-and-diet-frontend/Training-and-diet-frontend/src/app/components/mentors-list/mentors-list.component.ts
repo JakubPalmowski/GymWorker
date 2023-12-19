@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class MentorsListComponent implements OnInit{
 
+
     constructor(private userService: UserService,  private router:ActivatedRoute){
       
     }

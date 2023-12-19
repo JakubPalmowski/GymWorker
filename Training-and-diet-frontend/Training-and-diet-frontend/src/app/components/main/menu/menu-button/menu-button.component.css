@@ -1,6 +1,7 @@
 .button-container{
     display: flex;
     flex-direction: row;
+    width: auto;
     gap: 20px;
     padding: 15px;
     margin: 0px 5px;

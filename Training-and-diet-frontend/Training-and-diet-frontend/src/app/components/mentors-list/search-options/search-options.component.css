@@ -1,49 +1,22 @@
-.search-options-container-t{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    border: 2px solid black;
-    width: 200px;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    border-radius: 10px 10px 10px 10px;
-    background: #D9D9D9;
+.search-button{
+    width:80%;
+    height:70%;
 }
 
-.search-options-container-d{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    border: 2px solid black;
-    width: 200px;
-    height: 350px; 
-    padding-top: 20px;
-    border-radius: 10px 10px 10px 10px;
-    background: #D9D9D9;
+.w70{
+    width:70%;
 }
 
-.option-container{
-    width: 90%
+.sort-border{
+border: 1px solid black;
 }
 
-.line{
-    border-top: 2px solid black;
-    width: 100%;
-}
-
-button{
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    width: 70%;
-    height: 40px;
-    background-color: #3244A0;
-    border-radius: 10px 10px 10px 10px;
-}
-
-select{
-    width: 100%;
+.vertical-line{
+    background: linear-gradient(to right, 
+	                              transparent 0%, 
+	                              transparent calc(50% - 0.81px), 
+	                              black calc(50% - 0.8px), 
+	                              black calc(50% + 0.8px), 
+	                              transparent calc(50% + 0.81px), 
+	                              transparent 100%); 
 }
