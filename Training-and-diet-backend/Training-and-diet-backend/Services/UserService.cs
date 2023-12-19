@@ -103,8 +103,8 @@ namespace Training_and_diet_backend.Services
 
 
             var list = await baseQuery
-                .Skip(9 * (query.PageNumber-1))
-                .Take(9)
+                .Skip(4 * (query.PageNumber-1))
+                .Take(4)
                 .ToListAsync();
 
            var totalItemsCount =  baseQuery.Count();
