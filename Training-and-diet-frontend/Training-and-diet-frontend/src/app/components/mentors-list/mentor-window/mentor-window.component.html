@@ -1,4 +1,4 @@
-<div class="trainer-window-container">
+
     <div class="top-window-container">
     <img class="user-img">
     <div class="top-right-window-container">
@@ -12,7 +12,9 @@
     <div class="bottom-window-container">
         <span class="name-span">{{ name + ' ' + lastName }}</span>
         <div class="bio-container">
-        <span class="bio-span">{{ biography }}</span>
+        <span class="bio-span">Dr. Aleksandra Nowak to ceniona trenerka życiowa i ekspertka rozwoju osobistego,
+             specjalizująca się w inspirowaniu innych do osiągania swojego pełnego potencjału. Urodzona 15 marca 1975
+              roku w Warszawie, Aleksandra od zawsze wykazywała zainteresowanie psychologią i rozwojem osobistym.</span>
         </div>
         <ng-container *ngIf="role=='trainersList'">
         <button routerLink="/trainerProfile/{{id}}">Szczegóły</button>
@@ -24,4 +26,3 @@
         <span>{{ city }}</span>
 
     </div>
-</div>

@@ -1,21 +1,27 @@
-<div class="container">
-    <div class="search">
+<div class="container-fluid">
+
         <app-search [placeholderText]="'Wyszukaj trenera lub dietetyka'"></app-search>
-    </div>
-    <div class="login-container">
-        <img src="../../../assets/icons/user.png" width="90" height="90">
-        <span class="login-text">Logowanie</span>
-        <input type="text" class="searchInput" placeholder="Adres e-mail">
-        <input type="text" class="searchInput" placeholder="Hasło">
-        <button>Zaloguj się</button>
-        <div>
-            <span>Nie masz konta? </span>
-            <a routerLink="/register">Zarejestruj się</a>
+    
+        <div class="container-fluid d-flex justify-content-center align-items-center mh1000">
+
+
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4 d-flex flex-column bg-primary rounded-4 py-4 align-items-center mb-5">
+        <img src="../../../assets/icons/user.png" width="30%" height="auto" class="mt-4">
+        <span class="fw-bold fs-1 text-white">Logowanie</span>
+        <input type="text" class="fs-4 rounded-3 p-1" placeholder="Adres e-mail">
+        <input type="text" class="fs-4 rounded-3 mt-1 p-1" placeholder="Hasło">
+        <button class="bg-button p-2 text-lg text-white fs-4 my-3 rounded-3 fw-bold">Zaloguj się</button>
+        <div class="fs-5 text-center mt-2">
+            <span class="text-white">Nie masz konta? </span>
+            <a routerLink="/register" class="fw-bold text-white">Zarejestruj się</a>
         </div>
-        <div>
-            <span>Zapomniałeś hasła? </span>
-            <a routerLink="/passwordRecovery">Zresetuj hasło</a>
+        <div class="fs-5 text-center mb-3">
+            <span class="text-white">Zapomniałeś hasła? </span>
+            <a routerLink="/passwordRecovery" class="fw-bold text-white">Zresetuj hasło</a>
         </div>
     </div>
+    
+    </div>
+
     </div>
     
