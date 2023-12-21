@@ -12,8 +12,8 @@ using Training_and_diet_backend.Context;
 namespace Training_and_diet_backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231217002807_id_trainerIsNotNullable")]
-    partial class id_trainerIsNotNullable
+    [Migration("20231221221346_newExerciseWithNullIdTrainer")]
+    partial class newExerciseWithNullIdTrainer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,7 +160,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Id_Trainer")
+                    b.Property<int?>("Id_Trainer")
                         .HasColumnType("integer");
 
                     b.Property<byte[]>("Image")
@@ -198,7 +198,6 @@ namespace Training_and_diet_backend.Data.Migrations
                             Id_Exercise = 3,
                             Details = "Ćwiczenie wzmacniające mięśnie brzucha, pleców i ramion.",
                             Exercise_steps = "[{\"Step\": 1, \"Description\": \"Połóż się na brzuchu, opierając się na przedramionach i palcach u stóp.\"}, {\"Step\": 2, \"Description\": \"Utrzymuj prostą linię od głowy do pięt, napinając mięśnie brzucha.\"}, {\"Step\": 3, \"Description\": \"Utrzymuj tę pozycję przez określony czas.\"}]",
-                            Id_Trainer = 1,
                             Name = "Plank"
                         });
                 });
@@ -1082,9 +1081,7 @@ namespace Training_and_diet_backend.Data.Migrations
                 {
                     b.HasOne("Training_and_diet_backend.Models.User", "Trainer")
                         .WithMany("Exercises")
-                        .HasForeignKey("Id_Trainer")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Id_Trainer");
 
                     b.Navigation("Trainer");
                 });

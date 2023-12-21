@@ -170,8 +170,49 @@ namespace Training_and_diet_backend.Context
                 Details = "Ćwiczenie wzmacniające mięśnie brzucha, pleców i ramion.",
                 Exercise_steps = "[{\"Step\": 1, \"Description\": \"Połóż się na brzuchu, opierając się na przedramionach i palcach u stóp.\"}, {\"Step\": 2, \"Description\": \"Utrzymuj prostą linię od głowy do pięt, napinając mięśnie brzucha.\"}, {\"Step\": 3, \"Description\": \"Utrzymuj tę pozycję przez określony czas.\"}]",
                 Image = null,
-                Id_Trainer = 1
+                Id_Trainer = null
             };
+
+            var exercise3 = new Exercise
+            {
+                Id_Exercise = 14,
+                Name = "Przysiady",
+                Details = "Ćwiczenie wzmacniające mięśnie nóg i pośladków",
+                Exercise_steps = "1. Stań w rozkroku i ugnij nogi w kolanach",
+                Image = null,
+                Id_Trainer = null
+            };
+            var exercise4 = new Exercise
+            {
+                Id_Exercise = 15,
+                Name = "Pompki",
+                Details = "Ćwiczenie wzmacniające mięśnie piersiowe, pleców i rąk.",
+                Exercise_steps = "W podporze przodem ugnij ręcę w łokciach",
+                Image = null,
+                Id_Trainer = null
+            };
+            var exercise5 = new Exercise
+            {
+                Id_Exercise = 16,
+                Name = "Boczny plank",
+                Details = "Ćwiczenie wzmacniające mięśnie boczne tułowia oraz ramiona.",
+                Exercise_steps = "Połóż się na boku i podnieś biodra, tworząc prostą linię od stóp do głowy.",
+                Image = null,
+                Id_Trainer = null
+            };
+
+            var exercise6 = new Exercise
+            {
+                Id_Exercise = 17,
+                Name = "Plank z podnoszeniem nóg",
+                Details = "Ćwiczenie angażujące głębokie mięśnie brzucha oraz stabilizujące biodra.",
+                Exercise_steps = "W pozycji planku na przedramionach, unieś na przemian każdą nogę.",
+                Image = null,
+                Id_Trainer = null
+            };
+
+
+
 
 
             var trainingPlan = new Training_plan
@@ -312,7 +353,7 @@ namespace Training_and_diet_backend.Context
             modelBuilder.Entity<Address>().HasData(address, address2, address3);
             modelBuilder.Entity<Opinion>().HasData(opinion, opinion2,opinion3,opinion4,opinion5,opinion6);
             modelBuilder.Entity<User>().HasData(user, user1, user2,user3, user4,user5,user6,user7,user8,user9,user10,user11,user12,user13,user14,user15,user16,user17,user18,user19,user20,user22,user23,user24);
-            modelBuilder.Entity<Exercise>().HasData(exercise, exercise1, exercise2);
+            modelBuilder.Entity<Exercise>().HasData(exercise, exercise1, exercise2, exercise3, exercise4, exercise5, exercise6);
             modelBuilder.Entity<Training_plan>().HasData(trainingPlan, trainingPlan1);
             modelBuilder.Entity<Trainee_exercise>().HasData(traineeExercise, traineeExercise1, traineeExercise2);
             modelBuilder.Entity<Pupil_mentor>().HasData(pupilMentor1, pupilMentor2);
