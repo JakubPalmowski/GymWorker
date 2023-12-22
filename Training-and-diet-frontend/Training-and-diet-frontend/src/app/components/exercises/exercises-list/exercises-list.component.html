@@ -1,5 +1,5 @@
 <div class="container">
-    <a [routerLink]="['/training-plans/edit',id_training]">< Powrót do edycji planu</a>
+    <a (click)="back()">< Powrót</a>
     <div class="container-top">
         <button type="button" class="exercise-button" id="my-exercises" (click)="MyExercises()">Moje ćwiczenia</button>
         <button type="button" class="exercise-button" id="all-exercises" (click)="AllExercises()">Wszystkie ćwiczenia</button>

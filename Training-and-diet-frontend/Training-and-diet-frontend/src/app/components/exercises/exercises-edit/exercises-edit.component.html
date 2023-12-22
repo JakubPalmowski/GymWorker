@@ -3,22 +3,22 @@
     <h3>Edycja ćwiczenia</h3> 
     <div class="row">
         <div class="container-form">
-            <form #form="ngForm" >
+            <form #form="ngForm" (ngSubmit)="edit()">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nazwa:</label><br>
-                    <input type="text" class="form-control" id="name" name="name">
+                    <label for="name" class="form-label-custom">Nazwa:</label><br>
+                    <input type="text" class="form-input" id="name" name="name" value={{exerciseEdit.name}} [(ngModel)]="exerciseEdit.name">
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Opis</label><br>
-                    <textarea class="form-control" id="description" name="description"></textarea>
+                    <label for="description" class="form-label-custom">Opis</label><br>
+                    <textarea class="form-input" id="description" name="description" [(ngModel)]="exerciseEdit.details">{{exerciseEdit.details}}</textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="steps" class="form-label">Sposób wykonania</label><br>
-                    <textarea class="form-control" id="steps" name="steps" ></textarea>
+                    <label for="steps" class="form-label-custom">Sposób wykonania</label><br>
+                    <textarea class="form-input" id="steps" name="steps" [(ngModel)]="exerciseEdit.exercise_steps">{{exerciseEdit.exercise_steps}}</textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="image" class="form-label" >Zdjęcie</label><br>
-                    <input type="file" class="form-control" id="image" name="image">
+                    <label for="image" class="form-label-custom" >Zdjęcie</label><br>
+                    <input type="file" class="form-input" id="image" name="image" [(ngModel)]="exerciseEdit.image">
                 </div>
 
                 <button type="submit" class="button-edit">Edytuj</button>
