@@ -46,7 +46,17 @@ app-root {
     max-width:1500px;
 }
 
+.form-input{
+    height: 30px;
+    width: 50%;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    padding-left: 5px;
+}
 
-
+.form-label-custom{
+    font-weight: bold;
+}
 
 

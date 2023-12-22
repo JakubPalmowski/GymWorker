@@ -9,11 +9,7 @@
     margin-right: auto;
     border: 2px solid black;
     border-radius: 10px;
-    
-    
-    
 }
-
 
 
 form{
@@ -23,33 +19,14 @@ form{
 }
 
 .container-form{
-    
     margin-left: auto;
     margin-right: auto;
-    
-    
 }
 
 h3{
     font-size: 32px;
     text-align: center;
     padding: 10px 0px;
-}
-
-.form-label{
-    font-weight: bold;
-  
-
-}
-
-.form-control{
-    height: 30px;
-    width: 400px;
-    border: 1px solid black;
-    border-radius: 10px;
-    font-size: 20px;
-    margin-bottom: 15px;
-    padding-left: 5px;
 }
 
 .button-edit{

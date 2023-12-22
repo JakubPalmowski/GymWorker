@@ -4,6 +4,7 @@ import { response } from 'express';
 import { ExerciseShort } from 'src/app/models/exercise-short.model';
 import { TrainingPlanExercise } from 'src/app/models/trainingPlanExercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-exercises-list',
@@ -17,22 +18,24 @@ export class ExercisesListComponent implements OnInit{
 
 
   id_training:string='';
+  source:string='';
 
-  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute){}
+  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location){}
 
   ngOnInit(): void {
-   
+   console.log(this.source);
 
     this.id_training=this.route.snapshot.queryParams['id'];
-   
+    this.source=this.route.snapshot.queryParams['source'];
     console.log(this.id_training);
     
-
-      //TODO: 2 oddzielne listy: trenera i wszystkie 
     this.exerciseServise.getTrainerExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.trainingPlanExercises=trainingPlanExercises;
         this.filteredPlanExercises=this.trainingPlanExercises;
+
+        const myExercisesElement = document.getElementById("my-exercises");
+        myExercisesElement?.classList.add("selected-all-my");
       },
       error: (response)=>{
         console.log(response);
@@ -52,47 +55,43 @@ export class ExercisesListComponent implements OnInit{
   
 
   MyExercises(){
-    console.log("my");
-    this.id_training=this.route.snapshot.queryParams['id'];
+    
+    this.exerciseServise.getTrainerExercises().subscribe({
+      next:(trainingPlanExercises)=>{
+        this.filteredPlanExercises=trainingPlanExercises;
 
-
-   
-  this.exerciseServise.getTrainerExercises().subscribe({
-    next:(trainingPlanExercises)=>{
-      this.filteredPlanExercises=trainingPlanExercises;
-
-      const allExercisesElement = document.getElementById("all-exercises");
-      const myExercisesElement = document.getElementById("my-exercises");
-      
-      myExercisesElement?.classList.add("selected-all-my");
-      allExercisesElement?.classList.remove("selected-all-my");
-    },
-    error: (response)=>{
-      console.log(response);
-    }
-  })
+        const allExercisesElement = document.getElementById("all-exercises");
+        const myExercisesElement = document.getElementById("my-exercises");
+        
+        myExercisesElement?.classList.add("selected-all-my");
+        allExercisesElement?.classList.remove("selected-all-my");
+      },
+      error: (response)=>{
+        console.log(response);
+      }
+    })
   }
   
 
   AllExercises(){
-    console.log("all");
-    this.id_training=this.route.snapshot.queryParams['id'];
+      
+    this.exerciseServise.getAllExercises().subscribe({
+      next:(trainingPlanExercises)=>{
+        this.filteredPlanExercises=trainingPlanExercises;
 
+        const allExercisesElement = document.getElementById("all-exercises");
+        const myExercisesElement = document.getElementById("my-exercises");
+    
+        allExercisesElement?.classList.add("selected-all-my");
+        myExercisesElement?.classList.remove("selected-all-my");
+      },
+      error: (response)=>{
+        console.log(response);
+      }
+    })
+  }
 
-   
-  this.exerciseServise.getAllExercises().subscribe({
-    next:(trainingPlanExercises)=>{
-      this.filteredPlanExercises=trainingPlanExercises;
-
-      const allExercisesElement = document.getElementById("all-exercises");
-      const myExercisesElement = document.getElementById("my-exercises");
-  
-      allExercisesElement?.classList.add("selected-all-my");
-      myExercisesElement?.classList.remove("selected-all-my");
-    },
-    error: (response)=>{
-      console.log(response);
-    }
-  })
+  back(): void{
+    this.location.back();
   }
 }

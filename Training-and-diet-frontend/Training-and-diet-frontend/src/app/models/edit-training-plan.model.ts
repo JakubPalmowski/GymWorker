@@ -2,7 +2,7 @@ export interface EditTrainingPlan{
     idTrainingPlan:number;
     name: string;
     type:string;
-    startDate:Date;
-    endDate:Date;
+    start_date:Date;
+    end_date:Date;
     
 }
