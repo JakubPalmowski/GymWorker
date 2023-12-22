@@ -84,6 +84,7 @@ namespace Training_and_diet_backend.Context
             var user22 = new User { Id_User = 22, Id_Role = 3, Name = "test", Last_name = "test", Email = "jakubs@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Jakub. Fitness is my passion!", Id_Address = 2 };
             var user23 = new User { Id_User = 23, Id_Role = 3, Name = "test", Last_name = "test", Email = "jakubs@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Jakub. Fitness is my passion!", Id_Address = 2 };
             var user24 = new User { Id_User = 24, Id_Role = 3, Name = "test", Last_name = "test", Email = "jakubs@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Jakub. Fitness is my passion!", Id_Address = 2 };
+            var user25 = new User { Id_User = 25, Id_Role = 5, Name = "Dietician-Trainer", Last_name = "test", Email = "jakubs@gmail.com", Phone_number = "48550123456", Email_validated = true, Sex = "Male", Bio = "Hi, I'm Jakub. Fitness is my passion!", Id_Address = 2 };
 
             var opinion = new Opinion
             {
@@ -352,7 +353,7 @@ namespace Training_and_diet_backend.Context
 
             modelBuilder.Entity<Address>().HasData(address, address2, address3);
             modelBuilder.Entity<Opinion>().HasData(opinion, opinion2,opinion3,opinion4,opinion5,opinion6);
-            modelBuilder.Entity<User>().HasData(user, user1, user2,user3, user4,user5,user6,user7,user8,user9,user10,user11,user12,user13,user14,user15,user16,user17,user18,user19,user20,user22,user23,user24);
+            modelBuilder.Entity<User>().HasData(user, user1, user2,user3, user4,user5,user6,user7,user8,user9,user10,user11,user12,user13,user14,user15,user16,user17,user18,user19,user20,user22,user23,user24, user25);
             modelBuilder.Entity<Exercise>().HasData(exercise, exercise1, exercise2, exercise3, exercise4, exercise5, exercise6);
             modelBuilder.Entity<Training_plan>().HasData(trainingPlan, trainingPlan1);
             modelBuilder.Entity<Trainee_exercise>().HasData(traineeExercise, traineeExercise1, traineeExercise2);
