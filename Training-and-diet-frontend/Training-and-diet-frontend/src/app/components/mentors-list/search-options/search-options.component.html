@@ -8,6 +8,7 @@
     <div class="col-3 d-flex flex-column align-items-center">
         <label for="gym">Siłownia</label>
         <select id="gym" class="w70 h-100">
+            <option value="">--- Wybierz siłownię ---</option>
             <option>Total fitness</option>
             <option>City Fit</option>
             <option>Just Gym</option>
@@ -19,14 +20,28 @@
 <div class="col-1 vertical-line"></div>
             <div class="col-3 d-flex flex-column align-items-center">
                 <label for="sort">Sortuj po</label>
-                <select id="sort" class="w70 h-100">
-                    <option>Cena</option>
-                    <option>Ocena</option>
+                <select id="sort" class="w70 h-100 text-center"[(ngModel)]="sortOptions.sort">
+                    <option value="">--- Wybierz ---</option>
+                    <option value="Mentor_Opinions">Ocena</option>
                 </select>
             </div>
 
             <div class="col-2 d-flex align-items-end justify-content-center">
-                <button class="btn btn-primary search-button r">Szukaj</button>
+                <button class="btn btn-primary search-button" (click)="onFilterData('filter')">Filtruj</button>
             </div>
 
+</div>
+<div class="row mx-3 gap-2">
+    <ng-container *ngIf="searchPhrase">
+    <div class="bg-info w-auto rounded-3 py-0 px-1" style="border: 1px solid black;">
+        <span>{{searchPhrase}} <i class="bi bi-x" style="cursor: pointer;" (click)="onDeletePhrase()"></i></span>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="sortOptionsView.sort">
+    <div class="bg-info w-auto rounded-3 py-0 px-1" style="border: 1px solid black;">
+        <span>{{sortOptionsView.sort}} <i class="bi bi-x" style="cursor: pointer;" (click)="onFilterData('deleteSort')"></i></span>
+    </div>
+</ng-container>
+    
 </div>
