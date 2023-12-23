@@ -28,8 +28,8 @@ namespace Training_and_diet_backend
                 .ForMember(dest => dest.Rate,
                     opt => opt.MapFrom(src =>
                         src.Mentor_Opinions.Any() ? src.Mentor_Opinions.Average(o => o.Rate) : 0m));
-
-
+            CreateMap<Gym,GymDto>().ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
 
 
 

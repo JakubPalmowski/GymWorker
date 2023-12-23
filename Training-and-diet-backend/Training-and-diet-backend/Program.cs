@@ -26,6 +26,7 @@ builder.Services.AddScoped<ITrainingPlanService,TrainingPlanService>();
 builder.Services.AddScoped<IDietService, DietService>();
 builder.Services.AddScoped<IMealService,MealService>();
 builder.Services.AddScoped<ITraineeExercisesService, TraineeExercisesService>();
+builder.Services.AddScoped<IGymService, GymService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IValidator<UserQuery>,UserQueryValidator>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
