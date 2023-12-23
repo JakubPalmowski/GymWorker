@@ -20,8 +20,8 @@ export class EditTrainingPlanComponent implements OnInit{
     idTrainingPlan:0,
     name:'',
     type:'',
-    startDate:new Date(),
-    endDate:new Date()
+    start_date:new Date(),
+    end_date:new Date()
 
   }
 
@@ -44,18 +44,14 @@ export class EditTrainingPlanComponent implements OnInit{
           this.trainingPlanService.getTrainingPlanById(this.idTraining).subscribe({
             next:(plan)=>{
               this.trainingPlan=plan[0];
-              console.log(this.trainingPlan);
-              console.log(plan);
-              console.log(this.trainingPlan.type);
-              this.formStartDate=this.trainingPlan.startDate.toString().split('T')[0];
-              this.formEndDate=this.trainingPlan.endDate.toString().split('T')[0];
+             
+              this.formStartDate=this.trainingPlan.start_date.toString().split('T')[0];
+              this.formEndDate=this.trainingPlan.end_date.toString().split('T')[0];
               
-             console.log(this.trainingPlan.endDate);
-             console.log(this.formEndDate);
-             console.log(this.trainingPlan);
+          
             },
             error: (response)=>{
-             // console.log(response);
+             console.log(response);
             }
           })
 

@@ -19,8 +19,8 @@ namespace Training_and_diet_backend.Models
         public byte[]? Image { get; set; }
 
         [ForeignKey("Trainer")]
-        public int Id_Trainer { get; set; }
-        public virtual User Trainer { get; set; }
+        public int? Id_Trainer { get; set; }
+        public virtual User? Trainer { get; set; }
         public virtual ICollection<Trainee_exercise> Trainee_Exercises { get; set; }
     }
 }

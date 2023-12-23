@@ -50,6 +50,7 @@ app-root {
     max-width:1500px;
 }
 
+
 .vertical-line{
     background: linear-gradient(to right, 
 	                              transparent 0%, 
@@ -63,8 +64,18 @@ app-root {
 .round-picture{
     clip-path: circle(50%); 
     object-fit: cover;
+
+.form-input{
+    height: 30px;
+    width: 50%;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    padding-left: 5px;
 }
 
-
+.form-label-custom{
+    font-weight: bold;
+}
 
 

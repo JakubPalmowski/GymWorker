@@ -1,9 +1,9 @@
 .container{
-    position: fixed;
+    
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    
 }
 
 .container-head, .container-body{
