@@ -1,10 +1,12 @@
 <div class="container-fluid mw1500">
  
-    <app-search></app-search>
-    <app-search-options [role]="role"></app-search-options>
+    <app-search (searchMentor)="searchMentorByPhrase($event)" [searchInput]="searchPhrase"></app-search>
+
+    <app-search-options [role]="role" [searchPhrase]="searchPhrase" (deletePhrase)="deletePhrase()" (filterData)="filterData($event)" ></app-search-options>
     
     
-        
+        <ng-container *ngIf="mentors.length>0">
+
     <div class="row d-flex justify-content-center">
         <div *ngFor="let mentor of mentors" class="col-8 col-sm-7 col-md-6 col-lg-5 col-xl-4 col-xxl-3 window-border m-4 rounded-3 bg-secondary">
           <app-mentor-window
@@ -37,4 +39,6 @@
         </ul>
       </nav>
     </div>
+
+  </ng-container>
     </div>

@@ -15,8 +15,11 @@ export class UserService{
     
   constructor(private http: HttpClient) { }
   
-      GetAllTrainers(pageNumber: number):Observable<MentorList>{
-    const params = new HttpParams().set('PageNumber', pageNumber.toString());
+      GetAllTrainers(pageNumber: number, searchPhrase: string):Observable<MentorList>{
+    const params = new HttpParams()
+                      .set('PageNumber', pageNumber.toString())
+                      .set('SearchPhrase', searchPhrase);
+                
 
         const options = { params: params };
 
@@ -38,4 +41,6 @@ export class UserService{
       GetDieticianWithOpinionsById(id:string):Observable<MentorProfile>{
         return this.http.get<MentorProfile>('https://localhost:7259/api/User/Dietician/'+id)
       }
+
+     
 }
