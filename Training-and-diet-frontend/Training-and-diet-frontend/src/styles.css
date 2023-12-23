@@ -64,6 +64,7 @@ app-root {
 .round-picture{
     clip-path: circle(50%); 
     object-fit: cover;
+}
 
 .form-input{
     height: 30px;
