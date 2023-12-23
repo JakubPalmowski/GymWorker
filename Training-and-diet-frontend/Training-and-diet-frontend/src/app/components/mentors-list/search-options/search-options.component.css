@@ -11,12 +11,3 @@
 border: 1px solid black;
 }
 
-.vertical-line{
-    background: linear-gradient(to right, 
-	                              transparent 0%, 
-	                              transparent calc(50% - 0.81px), 
-	                              black calc(50% - 0.8px), 
-	                              black calc(50% + 0.8px), 
-	                              transparent calc(50% + 0.81px), 
-	                              transparent 100%); 
-}

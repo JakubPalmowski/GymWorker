@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Training_and_diet_backend.Context;
@@ -11,9 +12,11 @@ using Training_and_diet_backend.Context;
 namespace Training_and_diet_backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231221175746_AlterPicesColumnsNamesInUserTable")]
+    partial class AlterPicesColumnsNamesInUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,7 +160,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("Id_Trainer")
+                    b.Property<int>("Id_Trainer")
                         .HasColumnType("integer");
 
                     b.Property<byte[]>("Image")
@@ -195,35 +198,8 @@ namespace Training_and_diet_backend.Data.Migrations
                             Id_Exercise = 3,
                             Details = "Ćwiczenie wzmacniające mięśnie brzucha, pleców i ramion.",
                             Exercise_steps = "[{\"Step\": 1, \"Description\": \"Połóż się na brzuchu, opierając się na przedramionach i palcach u stóp.\"}, {\"Step\": 2, \"Description\": \"Utrzymuj prostą linię od głowy do pięt, napinając mięśnie brzucha.\"}, {\"Step\": 3, \"Description\": \"Utrzymuj tę pozycję przez określony czas.\"}]",
+                            Id_Trainer = 1,
                             Name = "Plank"
-                        },
-                        new
-                        {
-                            Id_Exercise = 14,
-                            Details = "Ćwiczenie wzmacniające mięśnie nóg i pośladków",
-                            Exercise_steps = "1. Stań w rozkroku i ugnij nogi w kolanach",
-                            Name = "Przysiady"
-                        },
-                        new
-                        {
-                            Id_Exercise = 15,
-                            Details = "Ćwiczenie wzmacniające mięśnie piersiowe, pleców i rąk.",
-                            Exercise_steps = "W podporze przodem ugnij ręcę w łokciach",
-                            Name = "Pompki"
-                        },
-                        new
-                        {
-                            Id_Exercise = 16,
-                            Details = "Ćwiczenie wzmacniające mięśnie boczne tułowia oraz ramiona.",
-                            Exercise_steps = "Połóż się na boku i podnieś biodra, tworząc prostą linię od stóp do głowy.",
-                            Name = "Boczny plank"
-                        },
-                        new
-                        {
-                            Id_Exercise = 17,
-                            Details = "Ćwiczenie angażujące głębokie mięśnie brzucha oraz stabilizujące biodra.",
-                            Exercise_steps = "W pozycji planku na przedramionach, unieś na przemian każdą nogę.",
-                            Name = "Plank z podnoszeniem nóg"
                         });
                 });
 
@@ -1098,19 +1074,6 @@ namespace Training_and_diet_backend.Data.Migrations
                             Name = "test",
                             Phone_number = "48550123456",
                             Sex = "Male"
-                        },
-                        new
-                        {
-                            Id_User = 25,
-                            Bio = "Hi, I'm Jakub. Fitness is my passion!",
-                            Email = "jakubs@gmail.com",
-                            Email_validated = true,
-                            Id_Address = 2,
-                            Id_Role = 5,
-                            Last_name = "test",
-                            Name = "Dietician-Trainer",
-                            Phone_number = "48550123456",
-                            Sex = "Male"
                         });
                 });
 
@@ -1137,7 +1100,9 @@ namespace Training_and_diet_backend.Data.Migrations
                 {
                     b.HasOne("Training_and_diet_backend.Models.User", "Trainer")
                         .WithMany("Exercises")
-                        .HasForeignKey("Id_Trainer");
+                        .HasForeignKey("Id_Trainer")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Trainer");
                 });

@@ -24,6 +24,7 @@ namespace Training_and_diet_backend
 
             CreateMap<User, GetUsersDTO>().ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
                 .ForMember(dest => dest.Opinion_number, opt => opt.MapFrom(src => src.Mentor_Opinions.Count))
+                .ForMember(dest=>dest.Role_name, opt=>opt.MapFrom(src=>src.Role.Name))
                 .ForMember(dest => dest.Rate,
                     opt => opt.MapFrom(src =>
                         src.Mentor_Opinions.Any() ? src.Mentor_Opinions.Average(o => o.Rate) : 0m));
