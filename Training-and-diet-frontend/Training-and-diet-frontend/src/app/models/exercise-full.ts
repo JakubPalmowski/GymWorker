@@ -1,4 +1,5 @@
-export interface Exercise{
+export interface ExerciseFull{
+    id_Exercise:number;
     name: string;
     details:string;
     exercise_steps:string;

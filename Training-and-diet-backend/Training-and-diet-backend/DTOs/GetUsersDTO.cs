@@ -1,4 +1,6 @@
-﻿namespace Training_and_diet_backend.DTOs
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Training_and_diet_backend.DTOs
 {
     public class GetUsersDTO
     {
@@ -12,6 +14,13 @@
 
         public int Opinion_number { get; set; }
         public decimal Rate { get; set; }
+        public string Role_name { get; set; }
+        public decimal? Training_plan_price_from { get; set; }
+        public decimal? Training_plan_price_to { get; set; }
+        public decimal? Personal_training_price_from { get; set; }
+        public decimal? Personal_training_price_to { get; set; }
+        public decimal? Diet_price_from { get; set; }
+        public decimal? Diet_price_to { get; set; }
 
     }
 

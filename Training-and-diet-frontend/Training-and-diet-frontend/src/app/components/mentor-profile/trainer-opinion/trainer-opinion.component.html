@@ -1,17 +1,27 @@
-<div class="container">
-    <div class="left-container">
-        <img src="../../../assets/icons/user.png" class="user-img">
+<div class="bg-white my-3 p-4 rounded-3 container">
+    <div class="row">
+
+
+    <div class="col-2 d-flex flex-column align-items-center gap-2">
+        <img src="/assets/images/diho2.png" class="round-picture" width="80px" height="80px">
         <span>{{ pupilName }}</span>
-        <span>{{ date }}</span>
+        <span style="width:max-content;">{{ date }}</span>
     </div>
 
-    <div class="right-container">
-        <div class="right-top-container">
-            <span>Ocena</span>
-            <img src="../../../assets/icons/star.png" class="star-img">
-        <span>{{ rate }}</span>
+
+    <div class="col">
+
+        <div class="d-flex align-items-center gap-2 mb-2">
+
+        <span>Ocena</span>
+            <img src="../../../assets/icons/star.png" width="40px" height="auto">
+            <span>{{ rate }}</span>
         </div>
-        <span>{{ content }}</span>
-    </div>
 
+            <span>{{ content }}</span>
+
+        </div> 
+        
+        
+</div>  
 </div>

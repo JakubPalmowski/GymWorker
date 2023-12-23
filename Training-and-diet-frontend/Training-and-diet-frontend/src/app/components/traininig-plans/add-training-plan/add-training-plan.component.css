@@ -35,20 +35,6 @@ h3{
     text-align: center;
 }
 
-.form-label{
-    font-weight: bold;
-
-}
-
-.form-control{
-    height: 30px;
-    width: 400px;
-    border: 1px solid black;
-    border-radius: 10px;
-    font-size: 20px;
-    padding-left: 5px;
-}
-
 .button-create{
     margin: 10px 0px;
     font-size: 24px;

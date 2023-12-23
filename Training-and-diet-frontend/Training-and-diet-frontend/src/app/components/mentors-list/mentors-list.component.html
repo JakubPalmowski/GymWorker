@@ -8,14 +8,7 @@
     <div class="row d-flex justify-content-center">
         <div *ngFor="let mentor of mentors" class="col-8 col-sm-7 col-md-6 col-lg-5 col-xl-4 col-xxl-3 window-border m-4 rounded-3 bg-secondary">
           <app-mentor-window
-            [id]="mentor.id_user"
-            [biography]="mentor.bio"
-            [lastName]="mentor.last_name"
-            [name]="mentor.name"
-            [phoneNumber]="mentor.phone_number"
-            [city]="mentor.city"
-            [opinionNumber]="mentor.opinion_number"
-            [rate]="mentor.rate"
+            [mentor]="mentor"
             [role]="role"
           >
           </app-mentor-window>
