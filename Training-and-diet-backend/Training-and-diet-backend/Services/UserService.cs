@@ -85,6 +85,7 @@ namespace Training_and_diet_backend.Services
 
             var baseQuery = _context.Users
                 .Include(u => u.Mentor_Opinions)
+                .Include(u=>u.Role)
                 .Where(u => u.Role.Name == roleName &&
                             (query.SearchPhrase == null ||
                              u.Name.ToLower().Contains(query.SearchPhrase.ToLower()) ||

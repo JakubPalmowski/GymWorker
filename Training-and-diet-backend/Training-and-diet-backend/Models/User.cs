@@ -26,6 +26,20 @@ namespace Training_and_diet_backend.Models
         [Column(TypeName = "varchar(500)")]
         public string Bio { get; set; }
 
+        [Column(TypeName = "decimal(4,2)")]
+        public decimal? Training_plan_price_from { get; set; }
+        [Column(TypeName = "decimal(4,2)")]
+        public decimal? Training_plan_price_to { get; set; }
+        [Column(TypeName = "decimal(4,2)")]
+        public decimal? Personal_training_price_from { get; set; }
+        [Column(TypeName = "decimal(4,2)")]
+        public decimal? Personal_training_price_to { get; set; }
+        [Column(TypeName = "decimal(4,2)")]
+        public decimal? Diet_price_from { get; set; }
+        [Column(TypeName = "decimal(4,2)")]
+        public decimal? Diet_price_to { get; set; }
+
+
         [InverseProperty("Pupil")]
         public virtual ICollection<Training_plan> Pupil_Training_plans { get; set; }
         [InverseProperty("Trainer")]

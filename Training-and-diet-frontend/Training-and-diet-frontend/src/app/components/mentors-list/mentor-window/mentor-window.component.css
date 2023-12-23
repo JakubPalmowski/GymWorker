@@ -79,3 +79,6 @@ button{
   -webkit-line-clamp: 3;
     text-overflow: ellipsis;
 }
+.prices-component{
+    height: 80px;
+}

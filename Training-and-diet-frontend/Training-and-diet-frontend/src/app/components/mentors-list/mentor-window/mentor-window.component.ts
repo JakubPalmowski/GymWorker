@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Mentor } from 'src/app/models/mentor';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -8,30 +9,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class MentorWindowComponent {
 
-  @Input()
-  id: number=0;
-
-  @Input()
-name: string = '';
-
-@Input()
-lastName: string = '';
-
-@Input()
-biography: string = '';
-
-@Input()
-phoneNumber: string = '';
-
-@Input()
-city: string = '';
-
-@Input()
-opinionNumber: number = 0;
-
-@Input()
-rate: number = 0;
-
+ @Input()
+ mentor:Mentor|undefined;
+ 
 @Input()
 role:string|undefined='';
 

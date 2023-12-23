@@ -28,6 +28,10 @@ body, html{
     background-color:#3244A0;
 }
 
+.bg-btn-orange{
+    background-color: #FF8A00;
+}
+
 .container-fluid {
     height: 100%;
     display: flex;
@@ -46,6 +50,20 @@ app-root {
     max-width:1500px;
 }
 
+.vertical-line{
+    background: linear-gradient(to right, 
+	                              transparent 0%, 
+	                              transparent calc(50% - 0.81px), 
+	                              black calc(50% - 0.8px), 
+	                              black calc(50% + 0.8px), 
+	                              transparent calc(50% + 0.81px), 
+	                              transparent 100%); 
+}
+
+.round-picture{
+    clip-path: circle(50%); 
+    object-fit: cover;
+}
 
 
 

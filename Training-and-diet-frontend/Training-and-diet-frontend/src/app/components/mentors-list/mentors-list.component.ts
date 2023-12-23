@@ -34,7 +34,12 @@ export class MentorsListComponent implements OnInit{
 }
 
 goToPage(page : number) {
+if(this.role == 'trainersList'){
   this.router.navigate(['/trainersList'], { queryParams: { PageNumber: page } });
+}
+if(this.role == 'dieticiansList'){
+  this.router.navigate(['/dieticiansList'],{queryParams: {PageNumber: page}});
+}
   this.loadData(page);
   }
 

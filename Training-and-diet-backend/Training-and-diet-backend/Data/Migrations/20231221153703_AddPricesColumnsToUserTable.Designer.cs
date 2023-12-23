@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Training_and_diet_backend.Context;
@@ -11,9 +12,11 @@ using Training_and_diet_backend.Context;
 namespace Training_and_diet_backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231221153703_AddPricesColumnsToUserTable")]
+    partial class AddPricesColumnsToUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -698,10 +701,10 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(500)");
 
-                    b.Property<decimal?>("Diet_price_from")
+                    b.Property<decimal?>("DietPriceFrom")
                         .HasColumnType("decimal(4,2)");
 
-                    b.Property<decimal?>("Diet_price_to")
+                    b.Property<decimal?>("DietPriceTo")
                         .HasColumnType("decimal(4,2)");
 
                     b.Property<string>("Email")
@@ -728,10 +731,10 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal?>("Personal_training_price_from")
+                    b.Property<decimal?>("PersonalTrainingPriceFrom")
                         .HasColumnType("decimal(4,2)");
 
-                    b.Property<decimal?>("Personal_training_price_to")
+                    b.Property<decimal?>("PersonalTrainingPriceTo")
                         .HasColumnType("decimal(4,2)");
 
                     b.Property<string>("Phone_number")
@@ -742,10 +745,10 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(10)");
 
-                    b.Property<decimal?>("Training_plan_price_from")
+                    b.Property<decimal?>("TrainingPlanPriceFrom")
                         .HasColumnType("decimal(4,2)");
 
-                    b.Property<decimal?>("Training_plan_price_to")
+                    b.Property<decimal?>("TrainingPlanPriceTo")
                         .HasColumnType("decimal(4,2)");
 
                     b.Property<decimal?>("Weight")
