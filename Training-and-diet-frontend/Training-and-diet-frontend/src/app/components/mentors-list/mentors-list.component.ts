@@ -21,6 +21,7 @@ export class MentorsListComponent implements OnInit{
     currentPage: number = 1;
     totalPages: number=0;
     searchPhrase: string='';
+    sort: string='';
   
   ngOnInit(): void{
    
@@ -107,7 +108,7 @@ export class MentorsListComponent implements OnInit{
   }
 
   filterData(sortOptions:Sort){
-
+    this.sort=sortOptions.sort;
   }
 }
   

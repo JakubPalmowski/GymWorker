@@ -39,7 +39,7 @@ export class SearchOptionsComponent {
         }
     if(action=="deleteSort"){
       this.sortOptions.sort='';
-      this.sortOptionsView.sort = this.sortOptions.sort;
+      this.sortOptionsView.sort = '';
       this.filterData.emit(this.sortOptions)
     }
     
