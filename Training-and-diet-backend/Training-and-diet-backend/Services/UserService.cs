@@ -1,12 +1,9 @@
-﻿using System.Linq.Expressions;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Context;
-using Training_and_diet_backend.Controllers;
 using Training_and_diet_backend.DTOs;
 using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Training_and_diet_backend.Services
 {

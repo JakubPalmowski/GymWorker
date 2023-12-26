@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Context;
+using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
-using Training_and_diet_backend.Services.Interfaces;
+using Training_and_diet_backend.Repositories;
 
 namespace Training_and_diet_backend.Services
 {
@@ -11,23 +12,21 @@ namespace Training_and_diet_backend.Services
     }
     public class MealService : IMealService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IMealRepository _mealRepository;
 
-        public MealService(ApplicationDbContext context)
+        public MealService(IMealRepository mealRepository)
         {
-            _context = context;
+            _mealRepository = mealRepository;
         }
 
         public async Task<List<Meal>> GetMeals()
         {
-            var query =  await _context.Meals.ToListAsync();
+            var meals = await _mealRepository.GetMealsAsync();
 
-            if(query.Count == 0)
-                throw new Exception("No meals found");
+            if (meals.Count == 0)
+                throw new NotFoundException("No meals found");
 
-            return query;
-
-            
+            return meals;
         }
     }
 }
