@@ -24,7 +24,10 @@ export class PreviousUrlService {
       const previousUrlTree: UrlTree = this.router.parseUrl(this.previousUrl);
       const params: ListQueryParams = {
         pageNumber: +previousUrlTree.queryParams['PageNumber'] || 1,
-        searchPhrase: previousUrlTree.queryParams['SearchPhrase'] || ''
+        searchPhrase: previousUrlTree.queryParams['SearchPhrase'] || '',
+        sortBy: previousUrlTree.queryParams['SortBy'] || '',
+        gymCityPhrase: previousUrlTree.queryParams['GymCityPhrase'] || '',
+        gymNamePhrase: previousUrlTree.queryParams['GymNamePhrase'] || ''
       };
   
       return params;

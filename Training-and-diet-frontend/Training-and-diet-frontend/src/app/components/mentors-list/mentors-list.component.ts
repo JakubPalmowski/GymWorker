@@ -22,7 +22,12 @@ export class MentorsListComponent implements OnInit{
 
     currentPage: number = 1;
     searchPhrase: string='';
-    sort: string='';
+    sortBy: Sort={
+      sort:'',
+      gymCity:'',
+      gymName:''
+    }
+    
   
   ngOnInit(): void{
    
@@ -36,8 +41,19 @@ export class MentorsListComponent implements OnInit{
     this.route.queryParams.subscribe(params => {
       this.currentPage = +params['PageNumber'] || 1;
     });
+
     this.route.queryParams.subscribe(params => {
       this.searchPhrase = params['SearchPhrase'] || '';
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.sortBy.sort = params['SortBy'] || '';
+    });
+    this.route.queryParams.subscribe(params => {
+      this.sortBy.gymCity = params['GymCityPhrase'] || '';
+    });
+    this.route.queryParams.subscribe(params => {
+      this.sortBy.gymName = params['GymNamePhrase'] || '';
     });
     
     
@@ -53,11 +69,17 @@ export class MentorsListComponent implements OnInit{
     if(this.searchPhrase){
       queryParams.SearchPhrase = this.searchPhrase;
     }
-    if(this.sort){
-      queryParams.SortBy = this.role;
+    if(this.sortBy.sort){
+      queryParams.SortBy = this.sortBy.sort;
     }
 
   if(this.role == 'trainersList'){
+    if(this.sortBy.gymCity){
+      queryParams.GymCityPhrase = this.sortBy.gymCity;
+    }
+    if(this.sortBy.gymName){
+      queryParams.GymNamePhrase = this.sortBy.gymName;
+    }
     this.router.navigate(['/trainersList'], { queryParams: queryParams});
   }
 
@@ -67,7 +89,7 @@ export class MentorsListComponent implements OnInit{
 
     
     if(this.role=="trainersList"){
-    this.userService.GetAllTrainers(this.currentPage, this.searchPhrase, this.sort).subscribe({
+    this.userService.GetAllTrainers(this.currentPage, this.searchPhrase, this.sortBy.sort, this.sortBy.gymCity, this.sortBy.gymName).subscribe({
       next:(response)=>{
         this.response=response;
         this.mentors=response.items;
@@ -82,7 +104,7 @@ export class MentorsListComponent implements OnInit{
 
 
   if(this.role=="dieticiansList"){
-    this.userService.GetAllDieteticians(this.currentPage, this.searchPhrase, this.sort).subscribe({
+    this.userService.GetAllDieteticians(this.currentPage, this.searchPhrase, this.sortBy.sort).subscribe({
       next:(response)=>{
         this.response=response;
         this.mentors=response.items;
@@ -117,8 +139,10 @@ export class MentorsListComponent implements OnInit{
   }
 
   filterData(sortOptions:Sort){
-    this.sort=sortOptions.sort;
-    console.log(sortOptions.sort);
+    this.sortBy.sort=sortOptions.sort;
+    this.sortBy.gymCity=sortOptions.gymCity;
+    this.sortBy.gymName=sortOptions.gymName;
+    this.currentPage=1;
     this.loadData();
   }
 }

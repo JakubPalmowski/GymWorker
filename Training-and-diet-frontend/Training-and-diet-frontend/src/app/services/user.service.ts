@@ -15,11 +15,13 @@ export class UserService{
     
   constructor(private http: HttpClient) { }
   
-      GetAllTrainers(pageNumber: number, searchPhrase: string, sortBy: string):Observable<MentorList>{
+      GetAllTrainers(pageNumber: number, searchPhrase: string, sortBy: string, gymCityPhrase: string, gymNamePhrase: string):Observable<MentorList>{
     const params = new HttpParams()
                       .set('PageNumber', pageNumber.toString())
                       .set('SearchPhrase', searchPhrase)
-                      .set('SortBy', sortBy);
+                      .set('SortBy', sortBy)
+                      .set('GymCityPhrase', gymCityPhrase)
+                      .set('GymNamePhrase', gymNamePhrase);
 
         const options = { params: params };
 

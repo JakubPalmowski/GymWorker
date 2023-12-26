@@ -62,6 +62,15 @@ export class MentorProfileComponent implements OnInit {
       if(params.searchPhrase){
         queryParams.SearchPhrase = params.searchPhrase;
       }
+      if(params.sortBy){
+        queryParams.SortBy = params.sortBy;
+      }
+      if(params.gymCityPhrase){
+        queryParams.GymCityPhrase = params.gymCityPhrase;
+      }
+      if(params.gymNamePhrase){
+        queryParams.GymNamePhrase = params.gymNamePhrase;
+      }
       this.router.navigate(['/trainersList'], { queryParams: queryParams});
     }else{
       this.router.navigate(['/trainersList']);
@@ -77,6 +86,9 @@ export class MentorProfileComponent implements OnInit {
       const queryParams: any = { PageNumber: params.pageNumber };
       if(params.searchPhrase){
         queryParams.SearchPhrase = params.searchPhrase;
+      }
+      if(params.sortBy){
+        queryParams.SortBy = params.sortBy;
       }
       this.router.navigate(['/dieticiansList'], { queryParams: queryParams});
     }else{
