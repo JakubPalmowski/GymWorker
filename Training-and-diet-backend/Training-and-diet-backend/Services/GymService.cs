@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Context;
 using Training_and_diet_backend.DTOs;
 using Training_and_diet_backend.Models;
+using Training_and_diet_backend.Repositories;
 
 namespace Training_and_diet_backend.Services
 {
@@ -13,24 +14,23 @@ namespace Training_and_diet_backend.Services
     }
     public class GymService : IGymService
     {
-        private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IGymRepository _gymRepository;
 
-        public GymService(ApplicationDbContext context, IMapper mapper)
+        public GymService(IGymRepository gymRepository, IMapper mapper)
         {
-            _context = context;
+            _gymRepository = gymRepository;
             _mapper = mapper;
         }
 
 
         public async Task<List<GymDto>> GetGyms()
         {
-            var gyms = await  _context.Gyms.Include(g => g.Address).ToListAsync();
+            var gyms = await _gymRepository.GetGymsAsync();
             if (!gyms.Any())
                 throw new Exception("No gyms found");
 
             return _mapper.Map<List<GymDto>>(gyms);
-
         }
     }
 }

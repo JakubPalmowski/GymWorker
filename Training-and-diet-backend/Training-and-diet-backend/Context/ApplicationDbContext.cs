@@ -22,7 +22,7 @@ namespace Training_and_diet_backend.Context
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Opinion> Opinions { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Gym> Gyms { get; set; }
+        public virtual DbSet<Gym> Gyms { get; set; }
         public DbSet<Trainer_Gym> Trainer_Gyms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
