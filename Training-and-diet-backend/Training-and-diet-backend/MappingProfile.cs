@@ -22,7 +22,7 @@ namespace Training_and_diet_backend
 
             CreateMap<Training_plan, GetTrainingPlanByIdDTO>();
 
-            CreateMap<User, GetUsersDTO>().ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
+            CreateMap<User, GetUsersDTO>()
                 .ForMember(dest => dest.Opinion_number, opt => opt.MapFrom(src => src.Mentor_Opinions.Count))
                 .ForMember(dest=>dest.Role_name, opt=>opt.MapFrom(src=>src.Role.Name))
                 .ForMember(dest => dest.Rate,

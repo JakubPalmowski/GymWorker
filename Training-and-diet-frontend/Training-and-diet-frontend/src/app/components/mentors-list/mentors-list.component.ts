@@ -18,8 +18,9 @@ export class MentorsListComponent implements OnInit{
     response: MentorList | undefined;
     mentors: Mentor[]=[];
     role: string|undefined='';
-    currentPage: number = 1;
     totalPages: number=0;
+
+    currentPage: number = 1;
     searchPhrase: string='';
     sort: string='';
   
@@ -40,30 +41,33 @@ export class MentorsListComponent implements OnInit{
     });
     
     
-   this.loadData(this.currentPage, this.searchPhrase);
+   this.loadData();
 }
 
 
 
-  private loadData(page: number, searchPhrase: string){
-  this.currentPage=page;
-  this.searchPhrase=searchPhrase;
+  private loadData(){
 
-  if(this.role == 'trainersList'){
-    const queryParams: any = { PageNumber: page };
+
+    const queryParams: any = { PageNumber: this.currentPage };
     if(this.searchPhrase){
       queryParams.SearchPhrase = this.searchPhrase;
     }
+    if(this.sort){
+      queryParams.SortBy = this.role;
+    }
+
+  if(this.role == 'trainersList'){
     this.router.navigate(['/trainersList'], { queryParams: queryParams});
   }
 
   if(this.role == 'dieticiansList'){
-    this.router.navigate(['/dieticiansList'],{queryParams: {PageNumber: page}});
+    this.router.navigate(['/dieticiansList'],{queryParams: queryParams});
   }
 
     
     if(this.role=="trainersList"){
-    this.userService.GetAllTrainers(this.currentPage, this.searchPhrase).subscribe({
+    this.userService.GetAllTrainers(this.currentPage, this.searchPhrase, this.sort).subscribe({
       next:(response)=>{
         this.response=response;
         this.mentors=response.items;
@@ -75,22 +79,25 @@ export class MentorsListComponent implements OnInit{
     })
 
   }
+
+
   if(this.role=="dieticiansList"){
-    this.userService.GetAllDieteticians(this.currentPage).subscribe({
+    this.userService.GetAllDieteticians(this.currentPage, this.searchPhrase, this.sort).subscribe({
       next:(response)=>{
         this.response=response;
         this.mentors=response.items;
         this.totalPages=response.totalPages;
       },
       error: (response)=>{
-        console.log(response);
+        this.mentors=[];
       }
     })
   }
   }
 
   goToPage(page : number) {
-    this.loadData(page, this.searchPhrase);
+    this.currentPage = page;
+    this.loadData();
     }
 
 
@@ -98,17 +105,21 @@ export class MentorsListComponent implements OnInit{
 
   searchMentorByPhrase(phrase: string){
     this.searchPhrase=phrase;
-    this.loadData(1, this.searchPhrase);
+    this.currentPage=1;
+    this.loadData();
   }
 
 
   deletePhrase(){
     this.searchPhrase='';
-    this.loadData(1, this.searchPhrase);
+    this.currentPage=1;
+    this.loadData();
   }
 
   filterData(sortOptions:Sort){
     this.sort=sortOptions.sort;
+    console.log(sortOptions.sort);
+    this.loadData();
   }
 }
   

@@ -8,8 +8,6 @@ namespace Training_and_diet_backend.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int Id_User { get; set; }
-        [ForeignKey("Address")]
-        public int Id_Address { get; set; }
         public string Name { get; set; }
         public string Last_name { get; set; }
         public string Email { get; set; }
@@ -65,7 +63,7 @@ namespace Training_and_diet_backend.Models
         [InverseProperty("Pupil")]
         public virtual ICollection<Opinion> Pupil_Opinions { get; set; }
 
-        public virtual Address Address { get; set; }
+        public virtual ICollection<Trainer_Gym> Trainer_Gyms { get; set; }
 
 
     }

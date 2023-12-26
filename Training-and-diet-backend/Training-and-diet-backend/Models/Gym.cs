@@ -16,7 +16,7 @@ namespace Training_and_diet_backend.Models
         [ForeignKey("Id_Address")]
         public virtual Address Address { get; set; }
 
-        public virtual ICollection<Trainer_Gym> Gyms { get; set; }
+        public virtual ICollection<Trainer_Gym> Trainer_Gyms { get; set; }
 
 
     }
