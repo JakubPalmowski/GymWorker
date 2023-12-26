@@ -1,12 +1,36 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Gym } from 'src/app/models/gym';
 import { Sort } from 'src/app/models/sort';
+import { GymService } from 'src/app/services/gym.service';
 
 @Component({
   selector: 'app-search-options',
   templateUrl: './search-options.component.html',
   styleUrls: ['./search-options.component.css']
 })
-export class SearchOptionsComponent {
+export class SearchOptionsComponent implements OnInit{
+
+  constructor(private gymService: GymService){}
+
+  gym:Gym[]=[];
+  gymCities:string[]=[];
+  gymClubsNames:string[]=[];
+
+  ngOnInit(): void {
+    this.gymService.GetAllGyms().subscribe({
+      next:(response)=>{
+        this.gymCities=response.map(gym=>gym.cityName);
+        this.gymClubsNames=response.map(gym=>gym.name);
+        console.log(this.gymCities);
+        console.log(this.gymClubsNames);
+      },
+      error:(error)=>{
+
+      }
+    })
+    
+  }
+
   @Input()
   role:string|undefined='';
 

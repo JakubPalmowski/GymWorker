@@ -1249,7 +1249,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Training_and_diet_backend.Models.User", "Trainer")
-                        .WithMany()
+                        .WithMany("Trainer_Gyms")
                         .HasForeignKey("Id_Trainer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1344,6 +1344,8 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Navigation("Pupil_Opinions");
 
                     b.Navigation("Pupil_Training_plans");
+
+                    b.Navigation("Trainer_Gyms");
 
                     b.Navigation("Trainer_Training_plans");
                 });

@@ -83,11 +83,26 @@ namespace Training_and_diet_backend.Services
             var baseQuery = _context.Users
                 .Include(u => u.Mentor_Opinions)
                 .Include(u=>u.Role)
+                .Include(u=>u.Trainer_Gyms)
+                .ThenInclude(tg=>tg.Gym)
+                .ThenInclude(g=>g.Address)
                 .Where(u => (u.Role.Name == roleName || u.Role.Name == "Dietician-Trainer") &&
 
                             (query.SearchPhrase == null ||
                              u.Name.ToLower().Contains(query.SearchPhrase.ToLower()) ||
                              u.Last_name.ToLower().Contains(query.SearchPhrase.ToLower())));
+
+
+
+           if (!string.IsNullOrEmpty(query.GymCityPhrase))
+                {
+                    baseQuery = baseQuery.Where(u => u.Trainer_Gyms.Any(g => g.Gym.Address.City.ToLower().Contains(query.GymCityPhrase.ToLower())));
+                }
+
+                if (!string.IsNullOrEmpty(query.GymNamePhrase))
+                {
+                    baseQuery = baseQuery.Where(u => u.Trainer_Gyms.Any(g => g.Gym.Name.ToLower().Contains(query.GymNamePhrase.ToLower())));
+                }
 
 
             if (!string.IsNullOrEmpty(query.SortBy) && query.SortBy == "Mentor_Opinions")
@@ -139,8 +154,6 @@ namespace Training_and_diet_backend.Services
                         Name=trainer.Name,
                         LastName = trainer.Last_name,
                         Role = trainer.Role.Name,
-                        Street = trainer.Address.Street,
-                        City = trainer.Address.City,
                         PhoneNumber = trainer.Phone_number,
                         Bio = trainer.Bio,
                         Opinion_number = trainer.Mentor_Opinions.Count(),

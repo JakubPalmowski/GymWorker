@@ -1,4 +1,5 @@
 
+
 <div class="row py-2 mt-3 mb-2 mx-0 rounded-3 sort-border" [ngClass]="{'bg-secondary': role === 'trainersList', 'justify-content-around': role === 'trainersList'}">
 
 
@@ -9,14 +10,28 @@
             <div class="d-flex w-100 gap-3 p-2" style="border-top: 1px solid black;">
                 
                 <div class="d-flex flex-column align-items-center pb-1" style="width: -webkit-fill-available;">
+                    <div class="ui-widget">
                     <label for="city">Miasto</label>
-                    <input class="w-100" id="city" />
+                    <ng-container *ngIf="gymCities.length>0">
+                    <input [appAutocomplete]="gymCities" class="w-100" id="city" />
+                    </ng-container>
+                    <ng-container *ngIf="gymCities.length==0">
+                        <input class="w-100" id="city" />
+                        </ng-container>
+                </div>
                 </div>
 
                 <div class="d-flex flex-column align-items-center" style="width: -webkit-fill-available;">
+                    <div class="ui-widget">
                     <label for="club">Klub</label>
+                    <ng-container *ngIf="gymCities.length>0">
+                    <input [appAutocomplete]="gymClubsNames" class="w-100" id="club" placeholder="np. Total Fitness"/>
+                </ng-container>
+                <ng-container *ngIf="gymCities.length==0">
                     <input class="w-100" id="club" placeholder="np. Total Fitness"/>
+                </ng-container>
                 </div>
+            </div>
 
               
                  
@@ -74,3 +89,5 @@
 </ng-container>
     
 </div>
+
+
