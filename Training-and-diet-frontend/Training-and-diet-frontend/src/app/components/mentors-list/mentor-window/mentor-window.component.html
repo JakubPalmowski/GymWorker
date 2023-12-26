@@ -41,14 +41,11 @@
         </ng-container>
     
         <ng-container *ngIf="role=='trainersList'">
-        <button routerLink="/trainerProfile/{{mentor.id_user}}">Szczegóły</button>
+        <button class="mb-4" routerLink="/trainerProfile/{{mentor.id_user}}">Szczegóły</button>
     </ng-container>
     <ng-container *ngIf="role=='dieticiansList'">
-        <button routerLink="/dieticianProfile/{{mentor.id_user}}">Szczegóły</button>
+        <button class="mb-4" routerLink="/dieticianProfile/{{mentor.id_user}}">Szczegóły</button>
     </ng-container>
-        <span>{{ mentor.phone_number }}</span>
-        <span>{{ mentor.city }}</span>
-
     </div>
 </ng-container>
 

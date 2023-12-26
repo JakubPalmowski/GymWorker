@@ -5,8 +5,6 @@ export interface MentorProfile{
     name: string;
     lastName: string;
     role: string;
-    street: string;
-    city: string;
     phoneNumber: string;
     bio: string;
     opinion_number: number;
