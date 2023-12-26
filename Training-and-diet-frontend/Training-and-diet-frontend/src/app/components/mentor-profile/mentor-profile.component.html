@@ -4,10 +4,10 @@
     <div class="row mt-3 mb-3">
       <div class="col">
       <ng-container *ngIf="role=='trainerProfile'">
-        <a routerLink="/trainersList">< Powrót do listy trenerów</a>
+        <a (click)="goToTrainersList()">< Powrót do listy trenerów</a>
       </ng-container>
       <ng-container *ngIf="role=='dieticianProfile'">
-        <a routerLink="/dieticiansList">< Powrót do listy dietetyków</a>
+        <a (click)="goToDieticiansList()">< Powrót do listy dietetyków</a>
       </ng-container>
     </div>
     </div>

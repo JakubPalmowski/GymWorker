@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MentorProfile } from 'src/app/models/mentorProfile';
+import { PreviousUrlService } from 'src/app/services/previous-url.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,17 +10,19 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./mentor-profile.component.css']
 })
 export class MentorProfileComponent implements OnInit {
-  constructor(private userService: UserService, private router:ActivatedRoute){
+  constructor(private userService: UserService, private route:ActivatedRoute, private previousUrlService: PreviousUrlService, private router: Router){
 
   }
 
   mentorId:string='';
   mentor:MentorProfile | undefined;
   role: string|undefined='';
+  previousUrl: string='';
 
   ngOnInit():void{
-    this.mentorId = this.router.snapshot.params['id'];
-    this.router.url.subscribe(segments => {
+
+    this.mentorId = this.route.snapshot.params['id'];
+    this.route.url.subscribe(segments => {
       const roleSegment = segments[segments.length - 2];
       this.role = roleSegment.path;})
 
@@ -50,5 +53,34 @@ export class MentorProfileComponent implements OnInit {
       }
 
     
+  }
+
+  goToTrainersList(){
+    const params = this.previousUrlService.getPreviousUrlParamsMentorList();
+    if(params!=null){
+      const queryParams: any = { PageNumber: params.pageNumber };
+      if(params.searchPhrase){
+        queryParams.SearchPhrase = params.searchPhrase;
+      }
+      this.router.navigate(['/trainersList'], { queryParams: queryParams});
+    }else{
+      this.router.navigate(['/trainersList']);
+    }
+    }
+  
+  
+  
+
+  goToDieticiansList(){
+    const params = this.previousUrlService.getPreviousUrlParamsMentorList();
+    if(params!=null){
+      const queryParams: any = { PageNumber: params.pageNumber };
+      if(params.searchPhrase){
+        queryParams.SearchPhrase = params.searchPhrase;
+      }
+      this.router.navigate(['/dieticiansList'], { queryParams: queryParams});
+    }else{
+      this.router.navigate(['/dieticiansList']);
+    }
   }
 }
