@@ -1,5 +1,5 @@
 export interface Sort{
-/*     city: string;
-    gym: string; */
+    gymCity: string;
+    gymName: string;
     sort: string;
 }

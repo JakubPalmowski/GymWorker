@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Gym } from 'src/app/models/gym';
 import { Sort } from 'src/app/models/sort';
 import { GymService } from 'src/app/services/gym.service';
@@ -10,19 +11,32 @@ import { GymService } from 'src/app/services/gym.service';
 })
 export class SearchOptionsComponent implements OnInit{
 
-  constructor(private gymService: GymService){}
+  constructor(private gymService: GymService, private route:ActivatedRoute){}
 
-  gym:Gym[]=[];
   gymCities:string[]=[];
   gymClubsNames:string[]=[];
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.sortOptions.sort = params['SortBy'] || '';
+      if(this.sortOptions.sort=="Mentor_Opinions"){
+        this.sortOptionsView.sort = "Ocena";
+      }
+      
+    });
+    this.route.queryParams.subscribe(params => {
+      this.sortOptions.gymCity = params['GymCityPhrase'] || '';
+      this.sortOptionsView.gymCity = params['GymCityPhrase'] || '';
+    });
+    this.route.queryParams.subscribe(params => {
+      this.sortOptions.gymName = params['GymNamePhrase'] || '';
+      this.sortOptionsView.gymName = params['GymNamePhrase'] || '';
+    });
+
     this.gymService.GetAllGyms().subscribe({
       next:(response)=>{
         this.gymCities=response.map(gym=>gym.cityName);
         this.gymClubsNames=response.map(gym=>gym.name);
-        console.log(this.gymCities);
-        console.log(this.gymClubsNames);
       },
       error:(error)=>{
 
@@ -40,13 +54,17 @@ export class SearchOptionsComponent implements OnInit{
   @Output()
   deletePhrase: EventEmitter<void> = new EventEmitter<void>()
 
-
+  @Input()
   sortOptionsView: Sort={
-    sort:''
+    sort:'',
+    gymCity:'',
+    gymName:''
   }
-
+  @Input()
   sortOptions: Sort={
-    sort: ''
+    sort:'',
+    gymCity:'',
+    gymName:''
   }
 
   @Output()
@@ -56,9 +74,11 @@ export class SearchOptionsComponent implements OnInit{
   onFilterData(action: string){
     if(action=="filter"){
         if(this.sortOptions.sort=="Mentor_Opinions"){
-      this.sortOptionsView.sort = "Ocena";
+          this.sortOptionsView.sort = "Ocena";
         }
-      this.filterData.emit(this.sortOptions)
+      this.sortOptionsView.gymCity = this.sortOptions.gymCity;
+      this.sortOptionsView.gymName = this.sortOptions.gymName;
+      this.filterData.emit(this.sortOptions);
        
         }
     if(action=="deleteSort"){
@@ -66,12 +86,29 @@ export class SearchOptionsComponent implements OnInit{
       this.sortOptionsView.sort = '';
       this.filterData.emit(this.sortOptions)
     }
+    if(action=="deleteGymCity"){
+      this.sortOptions.gymCity = '';
+      this.sortOptionsView.gymCity = '';
+      this.filterData.emit(this.sortOptions)
+    }
+    if(action=="deleteGymName"){
+      this.sortOptions.gymName = '';
+      this.sortOptionsView.gymName = '';
+      this.filterData.emit(this.sortOptions)
+    }
     
 }
   
+  onSelectGymCity(selectedCity: string) {
+    this.sortOptions.gymCity = selectedCity;
+  }
+
+  onSelectGymName(selectedName: string){
+    this.sortOptions.gymName = selectedName;
+  }
+
 
   onDeletePhrase(){
     this.deletePhrase.emit();
   }
-
 }

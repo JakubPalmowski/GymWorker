@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/autocomplete';
 
@@ -6,13 +6,17 @@ import 'jquery-ui/ui/widgets/autocomplete';
   selector: '[appAutocomplete]'
 })
 export class AutocompleteDirective implements OnInit {
-  @Input() appAutocomplete: string[] | undefined; // dane wejściowe
+  @Input() appAutocomplete: string[] | undefined; 
+  @Output() selectedOption = new EventEmitter<string>(); 
 
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
     (<any>$(this.el.nativeElement)).autocomplete({
-      source: this.appAutocomplete || []
+      source: this.appAutocomplete || [],
+      select: (event: any, ui: { item: { value: string | undefined; }; }) => {
+        this.selectedOption.emit(ui.item.value);
+      }
     });
-}
+  }
 }

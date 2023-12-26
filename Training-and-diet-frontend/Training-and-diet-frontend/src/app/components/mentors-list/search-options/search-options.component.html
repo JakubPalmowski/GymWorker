@@ -13,10 +13,10 @@
                     <div class="ui-widget">
                     <label for="city">Miasto</label>
                     <ng-container *ngIf="gymCities.length>0">
-                    <input [appAutocomplete]="gymCities" class="w-100" id="city" />
+                    <input [appAutocomplete]="gymCities" (selectedOption)="onSelectGymCity($event)" [(ngModel)]="sortOptions.gymCity"  class="w-100" id="city" />
                     </ng-container>
                     <ng-container *ngIf="gymCities.length==0">
-                        <input class="w-100" id="city" />
+                        <input [appAutocomplete]="gymCities" (selectedOption)="onSelectGymCity($event)" [(ngModel)]="sortOptions.gymCity" class="w-100" id="city" />
                         </ng-container>
                 </div>
                 </div>
@@ -24,11 +24,11 @@
                 <div class="d-flex flex-column align-items-center" style="width: -webkit-fill-available;">
                     <div class="ui-widget">
                     <label for="club">Klub</label>
-                    <ng-container *ngIf="gymCities.length>0">
-                    <input [appAutocomplete]="gymClubsNames" class="w-100" id="club" placeholder="np. Total Fitness"/>
+                    <ng-container *ngIf="gymClubsNames.length>0">
+                    <input [(ngModel)]="sortOptions.gymName" (selectedOption)="onSelectGymName($event)" [appAutocomplete]="gymClubsNames" class="w-100" id="club" placeholder="np. Total Fitness"/>
                 </ng-container>
-                <ng-container *ngIf="gymCities.length==0">
-                    <input class="w-100" id="club" placeholder="np. Total Fitness"/>
+                <ng-container *ngIf="gymClubsNames.length==0">
+                    <input [(ngModel)]="sortOptions.gymName" (selectedOption)="onSelectGymName($event)" [appAutocomplete]="gymClubsNames" class="w-100" id="club" placeholder="np. Total Fitness"/>
                 </ng-container>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <div class="col-6 bg-secondary rounded-3 d-flex p-2">
                 <div class="d-flex flex-column align-items-center" style="width: -webkit-fill-available;">
                 <label for="sort">Sortuj po</label>
-                <select id="sort" class="text-center"[(ngModel)]="sortOptions.sort" style="width: 70%; height:30px;">
+                <select id="sort" class="text-center" [(ngModel)]="sortOptions.sort" style="width: 70%; height:30px;">
                     <option value="">--- Wybierz ---</option>
                     <option value="Mentor_Opinions">Ocena</option>
                 </select>
@@ -85,6 +85,18 @@
 <ng-container *ngIf="sortOptionsView.sort">
     <div class="bg-info w-auto rounded-3 py-0 px-1" style="border: 1px solid black;">
         <span>{{sortOptionsView.sort}} <i class="bi bi-x" style="cursor: pointer;" (click)="onFilterData('deleteSort')"></i></span>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="sortOptionsView.gymCity">
+    <div class="bg-info w-auto rounded-3 py-0 px-1" style="border: 1px solid black;">
+        <span>{{sortOptionsView.gymCity}} <i class="bi bi-x" style="cursor: pointer;" (click)="onFilterData('deleteGymCity')"></i></span>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="sortOptionsView.gymName">
+    <div class="bg-info w-auto rounded-3 py-0 px-1" style="border: 1px solid black;">
+        <span>{{sortOptionsView.gymName}} <i class="bi bi-x" style="cursor: pointer;" (click)="onFilterData('deleteGymName')"></i></span>
     </div>
 </ng-container>
     
