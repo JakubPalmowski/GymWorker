@@ -10,11 +10,13 @@ namespace Training_and_diet_backend
         {
             CreateMap<PostTrainingPlanDTO, Training_plan>();
 
-            CreateMap<ExerciseDTO, Exercise>();
+            CreateMap<ExerciseDTO, Exercise>().ForMember(dest => dest.Id_Exercise, opt => opt.Ignore());
 
             CreateMap<Exercise,ExerciseDTO>();
 
             CreateMap<Exercise, GetExerciseGeneralInfoDTO>();
+
+            CreateMap<Exercise, GetAllExercisesDTO>();
 
             CreateMap<Training_plan, GetTrainingPlanGeneralInfoDTO>();
 

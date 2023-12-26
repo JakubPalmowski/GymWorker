@@ -19,8 +19,6 @@ namespace Training_and_diet_backend.Services
         public async Task AddTraineeExercises(Trainee_exercise TraineeExercise)
         {
 
-
-
             await _context.Trainee_exercises.AddAsync(TraineeExercise);
 
             await _context.SaveChangesAsync();

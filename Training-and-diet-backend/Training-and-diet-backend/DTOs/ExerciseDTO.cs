@@ -2,7 +2,7 @@
 {
     public class ExerciseDTO
     {
-        public int Id_Exercise { get; set; }
+        public int Id_Exercise { get; private set; }
         public string Name { get; set; }
         public string Details { get; set; }
         public string Exercise_steps { get; set; }
