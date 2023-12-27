@@ -50,7 +50,7 @@ import { AutocompleteDirective } from './directives/autocompleteDirective';
     TrainerOpinionComponent,
     ExercisesEditComponent,
     ExercisesAddComponent,
-    ExercisesDetailsComponent
+    ExercisesDetailsComponent,
     AutocompleteDirective
   ],
   imports: [
