@@ -25,6 +25,7 @@ import { SelectComponent } from './components/mentors-list/search-options/select
 import { TrainerOpinionComponent } from './components/mentor-profile/trainer-opinion/trainer-opinion.component';
 import { ExercisesEditComponent } from './components/exercises/exercises-edit/exercises-edit.component';
 import { ExercisesAddComponent } from './components/exercises/exercises-add/exercises-add.component';
+import { ExercisesDetailsComponent } from './components/exercises/exercises-details/exercises-details.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { ExercisesAddComponent } from './components/exercises/exercises-add/exer
     SelectComponent,
     TrainerOpinionComponent,
     ExercisesEditComponent,
-    ExercisesAddComponent
+    ExercisesAddComponent,
+    ExercisesDetailsComponent
   ],
   imports: [
     BrowserModule,
