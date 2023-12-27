@@ -1,22 +1,15 @@
 .search-button{
     width:80%;
-    height:70%;
 }
 
 .w70{
     width:70%;
 }
 
-.sort-border{
-border: 1px solid black;
+.h30p{
+    height:30px;
 }
 
-.vertical-line{
-    background: linear-gradient(to right, 
-	                              transparent 0%, 
-	                              transparent calc(50% - 0.81px), 
-	                              black calc(50% - 0.8px), 
-	                              black calc(50% + 0.8px), 
-	                              transparent calc(50% + 0.81px), 
-	                              transparent 100%); 
+.h35{
+    height:35%;
 }

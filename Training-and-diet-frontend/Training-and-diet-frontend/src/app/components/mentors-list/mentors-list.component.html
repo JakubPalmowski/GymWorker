@@ -1,21 +1,16 @@
 <div class="container-fluid mw1500">
  
-    <app-search></app-search>
-    <app-search-options [role]="role"></app-search-options>
+    <app-search (searchMentor)="searchMentorByPhrase($event)" [searchInput]="searchPhrase"></app-search>
+
+    <app-search-options [role]="role" [searchPhrase]="searchPhrase" (deletePhrase)="deletePhrase()" (filterData)="filterData($event)" ></app-search-options>
     
     
-        
+        <ng-container *ngIf="mentors.length>0">
+
     <div class="row d-flex justify-content-center">
         <div *ngFor="let mentor of mentors" class="col-8 col-sm-7 col-md-6 col-lg-5 col-xl-4 col-xxl-3 window-border m-4 rounded-3 bg-secondary">
           <app-mentor-window
-            [id]="mentor.id_user"
-            [biography]="mentor.bio"
-            [lastName]="mentor.last_name"
-            [name]="mentor.name"
-            [phoneNumber]="mentor.phone_number"
-            [city]="mentor.city"
-            [opinionNumber]="mentor.opinion_number"
-            [rate]="mentor.rate"
+            [mentor]="mentor"
             [role]="role"
           >
           </app-mentor-window>
@@ -26,6 +21,11 @@
       <nav class="d-flex justify-content-center">
         <ul class="pagination">
           <li class="page-item"><a class="page-link" [ngClass]="{'disabled': currentPage === 1}" (click)="goToPage(currentPage-1)" >Previous</a></li>
+
+          <ng-container *ngIf="currentPage==totalPages && totalPages>=3">
+            <li class="page-item"><a class="page-link" (click)="goToPage(currentPage-2)">{{currentPage-2}}</a></li>
+          </ng-container>
+
           <ng-container *ngIf="currentPage!=1">
           <li class="page-item"><a class="page-link" (click)="goToPage(currentPage-1)">{{currentPage-1}}</a></li>
           </ng-container>
@@ -36,12 +36,15 @@
           <li class="page-item"><a class="page-link" (click)="goToPage(currentPage+1)">{{currentPage+1}}</a></li>
         </ng-container>
         
-        <ng-container *ngIf="totalPages-currentPage>=2">
+        <ng-container *ngIf="currentPage==1 && totalPages>=3">
           <li class="page-item"><a class="page-link" (click)="goToPage(currentPage+2)">{{currentPage+2}}</a></li>
         </ng-container>
+        
 
           <li class="page-item"><a class="page-link" [ngClass]="{'disabled': currentPage === totalPages}" (click)="goToPage(currentPage+1)">Next</a></li>
         </ul>
       </nav>
     </div>
+
+  </ng-container>
     </div>

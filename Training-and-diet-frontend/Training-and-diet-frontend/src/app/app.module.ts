@@ -9,7 +9,6 @@ import { AddTrainingPlanComponent } from './components/traininig-plans/add-train
 import { FormsModule } from '@angular/forms';
 import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
 import { NewTrainingExerciseComponent } from './components/exercises/new-training-exercise/new-training-exercise.component';
-import { UserService } from './services/user.service';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { PasswordRecoveryComponent } from './components/authentication/password-recovery/password-recovery.component';
@@ -21,11 +20,12 @@ import { MentorsListComponent } from './components/mentors-list/mentors-list.com
 import { MentorProfileComponent } from './components/mentor-profile/mentor-profile.component';
 import { MentorWindowComponent } from './components/mentors-list/mentor-window/mentor-window.component';
 import { SearchOptionsComponent } from './components/mentors-list/search-options/search-options.component';
-import { SelectComponent } from './components/mentors-list/search-options/select/select.component';
 import { TrainerOpinionComponent } from './components/mentor-profile/trainer-opinion/trainer-opinion.component';
 import { ExercisesEditComponent } from './components/exercises/exercises-edit/exercises-edit.component';
 import { ExercisesAddComponent } from './components/exercises/exercises-add/exercises-add.component';
 import { ExercisesDetailsComponent } from './components/exercises/exercises-details/exercises-details.component';
+import { AutocompleteDirective } from './directives/autocompleteDirective';
+
 
 
 @NgModule({
@@ -47,17 +47,17 @@ import { ExercisesDetailsComponent } from './components/exercises/exercises-deta
     MentorProfileComponent,
     MentorWindowComponent,
     SearchOptionsComponent,
-    SelectComponent,
     TrainerOpinionComponent,
     ExercisesEditComponent,
     ExercisesAddComponent,
     ExercisesDetailsComponent
+    AutocompleteDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

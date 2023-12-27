@@ -1,46 +1,73 @@
-<div class="container" *ngIf="mentor">
+<div class="container-fluid" *ngIf="mentor">
 
-    <div class="top-container">
+
+    <div class="row mt-3 mb-3">
+      <div class="col">
       <ng-container *ngIf="role=='trainerProfile'">
-        <a routerLink="/trainersList">< Powrót do listy trenerów</a>
+        <a (click)="goToTrainersList()">< Powrót do listy trenerów</a>
       </ng-container>
       <ng-container *ngIf="role=='dieticianProfile'">
-        <a routerLink="/dieticiansList">< Powrót do listy dietetyków</a>
+        <a (click)="goToDieticiansList()">< Powrót do listy dietetyków</a>
       </ng-container>
-          <div class="trainer-info">
-            <img class="user-image">
-            <div class="top-container-middle">
-            <span class="span-bold name-text">{{ mentor.name + ' ' + mentor.lastName}}</span>
-            <span class="span-bold trainer-text">{{ mentor.role}}</span>
-            <button class="message-button">Napisz wiadomość</button>
+    </div>
+    </div>
+
+
+      <div class="row bg-secondary d-flex align-items-center py-4 px-2 rounded-3 mb-3" style="border: 2px solid black;">
+       
+          <div class="col-3 d-flex justify-content-center align-items-center">
+            <img width="140px" height="140px" src="/assets/images/diho1.png" class="round-picture">
           </div>
-          <div class="vertical-line">
+          
+            <div class="col-3 d-flex flex-column">
+            <span class="fs-2">{{ mentor.name + ' ' + mentor.lastName}}</span>
+            <span class="fs-2">{{ mentor.role}}</span>
+            <button class="p-2 bg-btn-orange rounded-3 m-1" style="width: fit-content;">Napisz wiadomość</button>
           </div>
-          <div class="top-container-right">
-            <span>{{ mentor.city +', '+mentor.street }}</span>
-            <span>{{ mentor.phoneNumber}}</span>
+
+          <div class="col-2 vertical-line" style="height:90%;">
           </div>
     
+          <div class="col-4 d-flex flex-column">
+            <span class="fs-3">{{ mentor.phoneNumber}}</span>
+            <span class="fs-3">Mail</span>
           </div>
-      </div>
+   
+    </div>
+
     
-      <div class="bottom-container">
+      
     
-        <div class="bottom-left-container">
-          <span class="trainer-text">O mnie</span>
-          <span class="bio-text span-center">{{ mentor.bio }}</span>
+        <div class="row">
+
+          <div class="col-4 p-0">
+            <div class="bg-secondary d-flex flex-column  me-4 rounded-3 gap-3 p-3" style="border: 2px solid black;">
+          <span class="text-center fs-2 fw-bold">O mnie</span>
+          <span >{{ mentor.bio }}</span>
         </div>
-    
-        <div class="bottom-right-container">
-          <span class="opinion-text">Opinie</span>
-          <div class="opinion">
-          <img src="../../../assets/icons/star.png" class="star-img">
-          <span class="stars-number">{{mentor.totalRate}}</span>
-          <span class="opinion-text">({{mentor.opinion_number}} opinie)</span>
           </div>
-          <app-trainer-opinion *ngFor="let opinion of mentor.opinions" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinion_date"></app-trainer-opinion>
-        </div>
     
+        <div class="col p-0">
+          
+          <div class="d-flex flex-column bg-secondary rounded-3 p-3" style="border: 2px solid black;">
+            <div class="mb-1">
+              <span class="fs-2 fw-bold">Opinie</span>
+            </div>
+
+
+           <div class="d-flex align-items-center gap-2">
+            <img src="../../../assets/icons/star.png" width="40px" height="auto" >
+            <span class="fs-3">{{mentor.totalRate}}</span>
+          <span class="fs-3 fw-bold">({{mentor.opinion_number}} opinie)</span>
+        </div>
+      
+         
+        <app-trainer-opinion *ngFor="let opinion of mentor.opinions" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinion_date"></app-trainer-opinion>
+      </div>
+          </div>
+          
+       
     
       </div>
+     
     </div>

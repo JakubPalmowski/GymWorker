@@ -5,92 +5,76 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Training_and_diet_backend.DTOs;
 using Training_and_diet_backend.Exceptions;
 using AutoMapper;
+using Training_and_diet_backend.Repositories;
+using Training_and_diet_backend.DTOs.Exercise;
 
 namespace Training_and_diet_backend.Services
 {
     public interface IExerciseService
     {
-        Task<ExerciseDTO> GetExerciseById(int ExerciseId);
-        Task<List<GetAllExercisesDTO>> GetAllExercises();
-        Task<int> CreateExercise(ExerciseDTO exerciseDTO);
+        Task<ExerciseDto> GetExerciseById(int ExerciseId);
+        Task<List<ExerciseNameDto>> GetAllExercises();
+        Task<int> CreateExercise(ExerciseDto exerciseDTO);
 
 
-        Task<ExerciseDTO> UpdateExercise(ExerciseDTO exercise, int ExerciseId);
+        Task<ExerciseDto> UpdateExercise(ExerciseDto exercise, int ExerciseId);
     }
-    public class ExerciseService:IExerciseService
+    public class ExerciseService : IExerciseService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IExerciseRepository _exerciseRepository;
         private readonly IMapper _mapper;
 
-        public ExerciseService(ApplicationDbContext context, IMapper mapper)
+        public ExerciseService(IExerciseRepository exerciseRepository, IMapper mapper)
         {
-            _context = context;
+            _exerciseRepository = exerciseRepository;
             _mapper = mapper;
         }
 
-        public async Task<List<GetAllExercisesDTO>> GetAllExercises()
+        public async Task<List<ExerciseNameDto>> GetAllExercises()
         {
-            var result = await _context.Exercises
-                .Select(exercise => new GetAllExercisesDTO
-                {
-                    Name = exercise.Name,
-                    Id_Exercise = exercise.Id_Exercise
-                })
-                .ToListAsync();
+            var exercises = await _exerciseRepository.GetAllExercisesAsync();
 
-            if (result == null)
+            if (exercises == null)
             {
                 throw new NotFoundException("Exercises not found");
             }
 
-            return result;
+            return _mapper.Map<List<ExerciseNameDto>>(exercises);
         }
 
-        public async Task<ExerciseDTO> GetExerciseById(int ExerciseId)
+        public async Task<ExerciseDto> GetExerciseById(int ExerciseId)
         {
-            var query = await _context.Exercises
-                .Where(e => e.Id_Exercise == ExerciseId).FirstOrDefaultAsync();
+            var exercise = await _exerciseRepository.GetExerciseByIdAsync(ExerciseId);
 
-            if (query == null)
+            if (exercise == null)
             {
                 throw new NotFoundException("Exercise not found");
             }
 
-            var result = _mapper.Map<ExerciseDTO>(query);
-
-            return result;
+            return _mapper.Map<ExerciseDto>(exercise);
         }
 
-        public async Task<int> CreateExercise(ExerciseDTO exerciseDTO)
+        public async Task<int> CreateExercise(ExerciseDto exerciseDTO)
         {
-           var exerciseToAdd = _mapper.Map<Exercise>(exerciseDTO);
-
-            await _context.Exercises.AddAsync(exerciseToAdd);
-            await _context.SaveChangesAsync();
-            return exerciseToAdd.Id_Exercise;
-
+            var exercise = _mapper.Map<Exercise>(exerciseDTO);
+            return await _exerciseRepository.CreateExerciseAsync(exercise);
         }
 
-        public async Task<ExerciseDTO> UpdateExercise(ExerciseDTO exerciseDTO, int ExerciseId)
+        public async Task<ExerciseDto> UpdateExercise(ExerciseDto exerciseDTO, int ExerciseId)
         {
-           var exercise = await _context.Exercises.FindAsync(ExerciseId);
+            var exercise = await _exerciseRepository.GetExerciseByIdAsync(ExerciseId);
 
-           if (exercise == null)
-           {
+            if (exercise == null)
+            {
                 throw new NotFoundException("Exercise not found");
-           }
-           exerciseDTO.Id_Exercise = ExerciseId;
+            }
 
-           _mapper.Map(exerciseDTO, exercise);
-           _context.Exercises.Update(exercise);
-           await _context.SaveChangesAsync();
+            _mapper.Map(exerciseDTO, exercise);
+            await _exerciseRepository.UpdateExerciseAsync(exercise);
 
-           var result = _mapper.Map<ExerciseDTO>(exercise);
-
-            return result;
+            return _mapper.Map<ExerciseDto>(exercise);
         }
     }
 }

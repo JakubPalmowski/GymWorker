@@ -1,6 +1,6 @@
-﻿namespace Training_and_diet_backend.DTOs
+﻿namespace Training_and_diet_backend.DTOs.TraineeExercise
 {
-    public class PostTraineeExerciseDTO
+    public class TraineeExerciseDto
     {
         public int Series_Number { get; set; }
         public int Repetitions_number { get; set; }

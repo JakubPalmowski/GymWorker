@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.DTOs;
+using Training_and_diet_backend.DTOs.TraineeExercise;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Services;
 
@@ -15,9 +15,9 @@ namespace Training_and_diet_backend.Controllers
         {
             _service = service;
         }
-
+        // do zmiany
         [HttpPost]
-        public async Task <IActionResult> AddTraineeExercises([FromBody] PostTraineeExerciseDTO traineeExercise)
+        public async Task <IActionResult> AddTraineeExercises([FromBody] TraineeExerciseDto traineeExercise)
         {
            
 

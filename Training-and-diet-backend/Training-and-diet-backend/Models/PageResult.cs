@@ -12,9 +12,9 @@
         {
             Items = items;
             TotalItemsCount = totalCount;
-            ItemsFrom = 4 * (pageNumber - 1) + 1;
-            ItemsTo = ItemsFrom + 4 - 1;
-            TotalPages = (int) Math.Ceiling(totalCount / (double) 4);
+            ItemsFrom = 9 * (pageNumber - 1) + 1;
+            ItemsTo = ItemsFrom + 9 - 1;
+            TotalPages = (int) Math.Ceiling(totalCount / (double) 9);
         }
 
 

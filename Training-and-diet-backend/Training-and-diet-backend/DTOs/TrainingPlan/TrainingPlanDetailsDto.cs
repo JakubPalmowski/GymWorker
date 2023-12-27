@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Training_and_diet_backend.DTOs
+namespace Training_and_diet_backend.DTOs.TrainingPlan
 {
-    public class GetTrainingPlanByIdDTO
+    public class TrainingPlanDetailsDto
     {
         public int Id_Training_plan { get; set; }
         public string Name { get; set; }

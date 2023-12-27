@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.Services.Interfaces;
+using Training_and_diet_backend.Services;
 
 namespace Training_and_diet_backend.Controllers
 {

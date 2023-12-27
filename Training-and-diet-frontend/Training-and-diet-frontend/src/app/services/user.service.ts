@@ -15,8 +15,13 @@ export class UserService{
     
   constructor(private http: HttpClient) { }
   
-      GetAllTrainers(pageNumber: number):Observable<MentorList>{
-    const params = new HttpParams().set('PageNumber', pageNumber.toString());
+      GetAllTrainers(pageNumber: number, searchPhrase: string, sortBy: string, gymCityPhrase: string, gymNamePhrase: string):Observable<MentorList>{
+    const params = new HttpParams()
+                      .set('PageNumber', pageNumber.toString())
+                      .set('SearchPhrase', searchPhrase)
+                      .set('SortBy', sortBy)
+                      .set('GymCityPhrase', gymCityPhrase)
+                      .set('GymNamePhrase', gymNamePhrase);
 
         const options = { params: params };
 
@@ -28,8 +33,11 @@ export class UserService{
       }
 
       //Do ogarnięcia
-      GetAllDieteticians(pageNumber: number):Observable<MentorList>{
-        const params = new HttpParams().set('PageNumber', pageNumber.toString());
+      GetAllDieteticians(pageNumber: number, searchPhrase: string, sortBy: string):Observable<MentorList>{
+        const params = new HttpParams()
+                            .set('PageNumber', pageNumber.toString())
+                            .set('SearchPhrase', searchPhrase)
+                            .set('SortBy', sortBy);
 
         const options = { params: params };
         return this.http.get<MentorList>('https://localhost:7259/api/User/Dietician', options);
@@ -38,4 +46,6 @@ export class UserService{
       GetDieticianWithOpinionsById(id:string):Observable<MentorProfile>{
         return this.http.get<MentorProfile>('https://localhost:7259/api/User/Dietician/'+id)
       }
+
+     
 }

@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Context;
-using Training_and_diet_backend.Exceptions;
+﻿using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
+using Training_and_diet_backend.Repositories;
 
-namespace Training_and_diet_backend.Services.Interfaces
+namespace Training_and_diet_backend.Services
 {
     public interface IDietService
     {
@@ -11,16 +10,16 @@ namespace Training_and_diet_backend.Services.Interfaces
     }
     public class DietService : IDietService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDietRepository _dietRepository;
 
-        public DietService(ApplicationDbContext context)
+        public DietService(IDietRepository dietRepository)
         {
-            _context = context;
+            _dietRepository = dietRepository;
         }
 
         public async Task<List<Diet>> GetDiets()
         {
-            var diets =  await _context.Diets.ToListAsync();
+            var diets = await _dietRepository.GetDietsAsync();
             if (diets.Count == 0)
                 throw new NotFoundException("There is no diets in database");
 

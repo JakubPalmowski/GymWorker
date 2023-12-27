@@ -725,6 +725,12 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(500)");
 
+                    b.Property<decimal?>("Diet_price_from")
+                        .HasColumnType("decimal(4,2)");
+
+                    b.Property<decimal?>("Diet_price_to")
+                        .HasColumnType("decimal(4,2)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -749,6 +755,12 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<decimal?>("Personal_training_price_from")
+                        .HasColumnType("decimal(4,2)");
+
+                    b.Property<decimal?>("Personal_training_price_to")
+                        .HasColumnType("decimal(4,2)");
+
                     b.Property<string>("Phone_number")
                         .IsRequired()
                         .HasColumnType("char(11)");
@@ -756,6 +768,12 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Property<string>("Sex")
                         .IsRequired()
                         .HasColumnType("varchar(10)");
+
+                    b.Property<decimal?>("Training_plan_price_from")
+                        .HasColumnType("decimal(4,2)");
+
+                    b.Property<decimal?>("Training_plan_price_to")
+                        .HasColumnType("decimal(4,2)");
 
                     b.Property<decimal?>("Weight")
                         .HasColumnType("decimal(3,2)");
@@ -1231,7 +1249,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Training_and_diet_backend.Models.User", "Trainer")
-                        .WithMany()
+                        .WithMany("Trainer_Gyms")
                         .HasForeignKey("Id_Trainer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1326,6 +1344,8 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Navigation("Pupil_Opinions");
 
                     b.Navigation("Pupil_Training_plans");
+
+                    b.Navigation("Trainer_Gyms");
 
                     b.Navigation("Trainer_Training_plans");
                 });

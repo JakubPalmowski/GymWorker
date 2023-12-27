@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.DTOs;
+using Training_and_diet_backend.DTOs.TrainingPlan;
+using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Services;
 
@@ -33,7 +34,7 @@ namespace Training_and_diet_backend.Controllers
         }*/
 
         [HttpGet("{id_trainer}/trainingPlans")]
-        public async Task<ActionResult<IEnumerable<GetTrainingPlanGeneralInfoDTO>>> GetTrainerTrainingPlans(int id_trainer)
+        public async Task<ActionResult<IEnumerable<TrainingPlanNameDto>>> GetTrainerTrainingPlans(int id_trainer)
         {
             var trainingPlans = await _service.GetTrainerTrainingPlans(id_trainer);
             
@@ -63,7 +64,7 @@ namespace Training_and_diet_backend.Controllers
 
         // POBIERA lISTĘ UZYTKOWNIKOW Z PODANEJ ROLI
         [HttpGet("{RoleName}")]
-        public async Task<ActionResult<IEnumerable<GetUsersDTO>>> GetUsers([FromRoute]string RoleName, [FromQuery] UserQuery query = null)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers([FromRoute]string RoleName, [FromQuery] UserQuery query = null)
         {
             if (!ModelState.IsValid)
             {
@@ -75,7 +76,7 @@ namespace Training_and_diet_backend.Controllers
 
         //Pobiera trenera wraz z jego opiniami po Id
         [HttpGet("{RoleName}/{id}")]
-        public async Task<ActionResult<GetUserWithOpinionsByIdDTO>> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
+        public async Task<ActionResult<UserWithOpinionDto>> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
         {
             var trainer = await _service.GetUsersWithOpinionsById(roleName,id);
             return Ok(trainer);
