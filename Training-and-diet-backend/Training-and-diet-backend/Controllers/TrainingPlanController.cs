@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.DTOs;
+using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Services;
 
@@ -17,7 +17,7 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTrainingPlan([FromBody] PostTrainingPlanDTO trainingPlan)
+        public async Task<IActionResult> CreateTrainingPlan([FromBody] TrainingPlanCreateDto trainingPlan)
         {
             
             var id = await _service.AddTrainingPlan(trainingPlan);

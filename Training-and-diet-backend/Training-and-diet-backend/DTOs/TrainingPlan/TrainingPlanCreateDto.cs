@@ -1,8 +1,8 @@
 ﻿using Training_and_diet_backend.Models;
 
-namespace Training_and_diet_backend.DTOs
+namespace Training_and_diet_backend.DTOs.TrainingPlan
 {
-    public class PostTrainingPlanDTO
+    public class TrainingPlanCreateDto
     {
         public string Name { get; set; }
         public string Type { get; set; }

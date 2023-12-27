@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Training_and_diet_backend.DTOs
+namespace Training_and_diet_backend.DTOs.User
 {
-    public class GetUsersDTO
+    public class UserDto
     {
         public int Id_user { get; set; }
         public string Name { get; set; }

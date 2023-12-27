@@ -1,6 +1,6 @@
-﻿namespace Training_and_diet_backend.DTOs
+﻿namespace Training_and_diet_backend.DTOs.Opinion
 {
-    public class OpinionDTO
+    public class OpinionDto
     {
         public string PupilName { get; set; }
         public decimal Rate { get; set; }

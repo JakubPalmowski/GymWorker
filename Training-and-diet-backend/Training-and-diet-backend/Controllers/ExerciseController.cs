@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.DTOs;
+using Training_and_diet_backend.DTOs.Exercise;
 using Training_and_diet_backend.Services;
 
 namespace Training_and_diet_backend.Controllers
@@ -34,7 +34,7 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostExercise(ExerciseDTO exercise)
+        public async Task<IActionResult> PostExercise(ExerciseDto exercise)
         {
             var result = await _service.CreateExercise(exercise);
 
@@ -42,7 +42,7 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpPut("{ExerciseId}")]
-        public async Task<IActionResult> PutExercise([FromBody] ExerciseDTO ExerciseDTO, int ExerciseId)
+        public async Task<IActionResult> PutExercise([FromBody] ExerciseDto ExerciseDTO, int ExerciseId)
         {
             var result = await _service.UpdateExercise(ExerciseDTO, ExerciseId);
 

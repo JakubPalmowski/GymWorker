@@ -1,6 +1,6 @@
-﻿namespace Training_and_diet_backend.DTOs
+﻿namespace Training_and_diet_backend.DTOs.Exercise
 {
-    public class ExerciseDTO
+    public class ExerciseDto
     {
         public int Id_Exercise { get; private set; }
         public string Name { get; set; }
