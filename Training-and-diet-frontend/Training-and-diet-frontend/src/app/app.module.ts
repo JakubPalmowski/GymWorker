@@ -23,6 +23,7 @@ import { SearchOptionsComponent } from './components/mentors-list/search-options
 import { TrainerOpinionComponent } from './components/mentor-profile/trainer-opinion/trainer-opinion.component';
 import { ExercisesEditComponent } from './components/exercises/exercises-edit/exercises-edit.component';
 import { ExercisesAddComponent } from './components/exercises/exercises-add/exercises-add.component';
+import { ExercisesDetailsComponent } from './components/exercises/exercises-details/exercises-details.component';
 import { AutocompleteDirective } from './directives/autocompleteDirective';
 
 
@@ -48,7 +49,8 @@ import { AutocompleteDirective } from './directives/autocompleteDirective';
     SearchOptionsComponent,
     TrainerOpinionComponent,
     ExercisesEditComponent,
-    ExercisesAddComponent, 
+    ExercisesAddComponent,
+    ExercisesDetailsComponent
     AutocompleteDirective
   ],
   imports: [

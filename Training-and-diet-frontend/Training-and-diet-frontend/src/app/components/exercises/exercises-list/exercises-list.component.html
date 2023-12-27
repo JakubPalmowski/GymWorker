@@ -25,10 +25,10 @@
         <table class="table"  *ngIf="trainingPlanExercises && trainingPlanExercises.length > 0">
             <thead>
                 <tr>
-                    <th>Nazwa</th>
-                    <th *ngIf="id_training!=undefined">Dodaj do planu</th>
-                    <th>Edycja</th>
-                    <th>Szczegóły</th>
+                    <th class="table-head-big">Nazwa</th>
+                    <th class="table-head-small" *ngIf="id_training!=undefined">Dodaj do planu</th>
+                    <th class="table-head-small">Edycja</th>
+                    <th class="table-head-small">Szczegóły</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                     <td>{{trainingPlanExercise.name}}</td>
                     <td *ngIf="id_training!=undefined"><a routerLink="/training-exercise/add" [queryParams]="{exerciseId:trainingPlanExercise.id_Exercise,trainingId:id_training}">[+]</a></td>
                     <td><a [routerLink]="['/exercises/edit',trainingPlanExercise.id_Exercise]"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
-                    <td>TODO</td>
+                    <td><a [routerLink]="['/exercises/details',trainingPlanExercise.id_Exercise]"><img src="../../../../assets/icons/details.png" id="edit-icon"></a></td>
                 </tr>
             </tbody>
         </table>

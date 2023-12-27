@@ -12,6 +12,7 @@ import { MentorsListComponent } from './components/mentors-list/mentors-list.com
 import { MentorProfileComponent } from './components/mentor-profile/mentor-profile.component';
 import { ExercisesEditComponent } from './components/exercises/exercises-edit/exercises-edit.component';
 import { ExercisesAddComponent } from './components/exercises/exercises-add/exercises-add.component';
+import { ExercisesDetailsComponent } from './components/exercises/exercises-details/exercises-details.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path: 'exercises/add',
     component: ExercisesAddComponent
+  },
+  {
+    path: 'exercises/details/:id',
+    component: ExercisesDetailsComponent
   },
   {
     path: 'training-exercise/add',
