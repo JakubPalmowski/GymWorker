@@ -61,4 +61,8 @@ export class ExercisesEditComponent implements OnInit{
     });
   }
 
+
+  back(): void{
+    this.location.back();
+  }
 }
