@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs.TraineeExercise;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Services;

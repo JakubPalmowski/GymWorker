@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs.TrainingPlan;
-using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
-using Training_and_diet_backend.Services;
+using TrainingAndDietApp.BLL.Services;
+using TrainingAndDietApp.Common.DTOs.User;
+
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -12,8 +12,9 @@ namespace Training_and_diet_backend.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
+      
 
-        public UserController (IUserService userService)
+        public UserController(IUserService userService)
         {
             _service = userService;
         }
@@ -22,22 +23,22 @@ namespace Training_and_diet_backend.Controllers
 
         // POBIERA WSZYSTKIE CWICZENIA TRENERA PO ID, WYSWIETLA WSZYSTKIE DANE CWICZENIA
 
-        /*[HttpGet("{TrainerId}/exercises")]
+        [HttpGet("{TrainerId}/exercises")]
 
         public async Task<IActionResult> GetTrainerExercises(int TrainerId)
         {
-            var exercises = await _service.GetTrainerExercises(TrainerId);
+            var exercises = await _service.GetExercisesByTrainerId(TrainerId);
 
-            
+
 
             return Ok(exercises);
-        }*/
+        }
 
         [HttpGet("{id_trainer}/trainingPlans")]
         public async Task<ActionResult<IEnumerable<TrainingPlanNameDto>>> GetTrainerTrainingPlans(int id_trainer)
         {
             var trainingPlans = await _service.GetTrainerTrainingPlans(id_trainer);
-            
+
             return Ok(trainingPlans);
 
         }
@@ -47,24 +48,13 @@ namespace Training_and_diet_backend.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetPupilsByTrainerId(int id_trainer)
         {
             var trainerPupils = await _service.GetPupilsByTrainerId(id_trainer);
-           
+
             return Ok(trainerPupils);
-        }
-
-        // POBIERA WSZYSTKIE CWICZENIA TRENERA PO ID, WYSWIETLA TYLKO NAME I ID CWICZENIA
-
-        [HttpGet("{TrainerId}/exercises")]
-        public async Task<IActionResult> GetExercisesByTrainerId(int TrainerId)
-        {
-            var exercises = await _service.GetExercisesByTrainerId(TrainerId);
-
-
-            return Ok(exercises);
         }
 
         // POBIERA lISTĘ UZYTKOWNIKOW Z PODANEJ ROLI
         [HttpGet("{RoleName}")]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers([FromRoute]string RoleName, [FromQuery] UserQuery query = null)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers([FromRoute] string RoleName, [FromQuery] UserQuery query = null)
         {
             if (!ModelState.IsValid)
             {
@@ -78,7 +68,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("{RoleName}/{id}")]
         public async Task<ActionResult<UserWithOpinionDto>> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
         {
-            var trainer = await _service.GetUsersWithOpinionsById(roleName,id);
+            var trainer = await _service.GetUsersWithOpinionsById(roleName, id);
             return Ok(trainer);
         }
 

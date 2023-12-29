@@ -9,6 +9,7 @@ namespace Training_and_diet_backend.Controllers
     public class DietController : ControllerBase
     {
         private readonly IDietService _service;
+        
 
         public DietController(IDietService service)
         {

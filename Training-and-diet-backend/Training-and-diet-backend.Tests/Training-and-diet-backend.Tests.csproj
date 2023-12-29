@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Training-and-diet-backend\Training-and-diet-backend.csproj" />
+    <ProjectReference Include="..\Training-and-diet-backend\TrainingAndDietApp.WebAPI.csproj" />
   </ItemGroup>
 
 </Project>

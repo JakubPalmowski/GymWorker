@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.DTOs.Exercise;
 using Training_and_diet_backend.Services;
+using TrainingAndDietApp.BLL.Services;
+using TrainingAndDietApp.Common.DTOs.Exercise;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -12,15 +13,16 @@ namespace Training_and_diet_backend.Controllers
         private readonly IExerciseService _service;
         public ExerciseController(IExerciseService service)
         {
-            _service=service;
+            _service = service;
         }
 
         [HttpGet("{ExerciseId}")]
-        public async Task<IActionResult> GetExerciseById(int ExerciseId) {
+        public async Task<IActionResult> GetExerciseById(int ExerciseId)
+        {
 
             var exist = await _service.GetExerciseById(ExerciseId);
 
-            
+
             return Ok(exist);
         }
 
@@ -48,6 +50,6 @@ namespace Training_and_diet_backend.Controllers
 
             return Ok(result);
         }
-        
+
     }
 }
