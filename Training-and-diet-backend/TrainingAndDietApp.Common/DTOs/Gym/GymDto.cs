@@ -1,4 +1,4 @@
-﻿namespace Training_and_diet_backend.DTOs.Gym
+﻿namespace TrainingAndDietApp.Common.DTOs.Gym
 {
     public class GymDto
     {

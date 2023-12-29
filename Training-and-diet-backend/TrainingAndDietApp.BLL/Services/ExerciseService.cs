@@ -1,22 +1,19 @@
-﻿using Training_and_diet_backend.Context;
+﻿using AutoMapper;
 using Training_and_diet_backend.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Training_and_diet_backend.Exceptions;
-using AutoMapper;
-using Training_and_diet_backend.DTOs.Exercise;
 using Training_and_diet_backend.Repositories;
+using TrainingAndDietApp.Common.DTOs.Exercise;
+using TrainingAndDietApp.Common.Exceptions;
 
-namespace Training_and_diet_backend.Services
+namespace TrainingAndDietApp.BLL.Services
 {
     public interface IExerciseService
     {
         Task<ExerciseDto> GetExerciseById(int ExerciseId);
         Task<List<ExerciseNameDto>> GetAllExercises();
         Task<int> CreateExercise(ExerciseDto exerciseDTO);
+
+        // zmieniony typ na dto
+        Task<List<ExerciseDto>> GetTrainerExercises(int TrainderId);
 
 
         Task<ExerciseDto> UpdateExercise(ExerciseDto exercise, int ExerciseId);
@@ -60,6 +57,18 @@ namespace Training_and_diet_backend.Services
         {
             var exercise = _mapper.Map<Exercise>(exerciseDTO);
             return await _exerciseRepository.CreateExerciseAsync(exercise);
+        }
+
+        public async Task<List<ExerciseDto>> GetTrainerExercises(int TrainderId)
+        {
+            var exercises = await _exerciseRepository.GetTrainerExercisesAsync(TrainderId);
+
+            if (!exercises.Any())
+                throw new NotFoundException("Exercises not found");
+
+
+            return _mapper.Map<List<ExerciseDto>>(exercises);
+
         }
 
         public async Task<ExerciseDto> UpdateExercise(ExerciseDto exerciseDTO, int ExerciseId)

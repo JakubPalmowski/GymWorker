@@ -1,10 +1,12 @@
 using AutoMapper;
 using FluentAssertions;
 using Moq;
-using Training_and_diet_backend.DTOs.Gym;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
 using Training_and_diet_backend.Services;
+using TrainingAndDietApp.BLL.Services;
+using TrainingAndDietApp.Common.DTOs.Gym;
+using TrainingAndDietApp.DAL.Repositories;
 
 public class GymServiceTests
 {

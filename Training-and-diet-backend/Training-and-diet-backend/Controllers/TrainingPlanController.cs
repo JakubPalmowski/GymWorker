@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Services;
+using TrainingAndDietApp.BLL.Services;
 
 namespace Training_and_diet_backend.Controllers
 {

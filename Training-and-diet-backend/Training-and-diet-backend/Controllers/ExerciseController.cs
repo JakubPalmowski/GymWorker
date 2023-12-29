@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.DTOs.Exercise;
 using Training_and_diet_backend.Services;
+using TrainingAndDietApp.BLL.Services;
+using TrainingAndDietApp.Common.DTOs.Exercise;
 
 namespace Training_and_diet_backend.Controllers
 {

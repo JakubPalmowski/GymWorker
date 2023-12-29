@@ -1,6 +1,6 @@
 ﻿using Training_and_diet_backend.DTOs.Opinion;
 
-namespace Training_and_diet_backend.DTOs.User
+namespace TrainingAndDietApp.Common.DTOs.User
 {
     public class UserWithOpinionDto
     {

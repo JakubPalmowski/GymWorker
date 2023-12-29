@@ -1,12 +1,14 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Context;
 using Training_and_diet_backend.Middlewares;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
 using Training_and_diet_backend.Services;
 using Training_and_diet_backend.Validators;
+using TrainingAndDietApp.BLL.Services;
+using TrainingAndDietApp.DAL.Context;
+using TrainingAndDietApp.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IExerciseRepository,ExerciseRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITrainingPlanService, TrainingPlanService>();
 builder.Services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
 builder.Services.AddScoped<IDietService, DietService>();

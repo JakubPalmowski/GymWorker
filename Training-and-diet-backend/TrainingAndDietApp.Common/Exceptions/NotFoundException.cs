@@ -1,4 +1,4 @@
-﻿namespace Training_and_diet_backend.Exceptions
+﻿namespace TrainingAndDietApp.Common.Exceptions
 {
     public class NotFoundException : Exception
     {

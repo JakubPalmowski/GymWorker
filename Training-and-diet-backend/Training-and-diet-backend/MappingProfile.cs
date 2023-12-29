@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Training_and_diet_backend.DTOs.Exercise;
-using Training_and_diet_backend.DTOs.Gym;
 using Training_and_diet_backend.DTOs.MealDto;
 using Training_and_diet_backend.DTOs.TrainingPlan;
-using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.BLL.Models;
+using TrainingAndDietApp.Common.DTOs.Exercise;
+using TrainingAndDietApp.Common.DTOs.Gym;
+using TrainingAndDietApp.Common.DTOs.User;
 
 namespace Training_and_diet_backend
 {

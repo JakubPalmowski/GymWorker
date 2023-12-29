@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Context;
-using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.Common.Exceptions;
+using TrainingAndDietApp.DAL.Context;
 
 namespace Training_and_diet_backend.Repositories
 {
@@ -11,6 +11,8 @@ namespace Training_and_diet_backend.Repositories
         Task<Exercise?> GetExerciseByIdAsync(int exerciseId);
         Task<int> CreateExerciseAsync(Exercise exercise);
         Task UpdateExerciseAsync(Exercise exercise);
+
+        Task <List<Exercise>> GetTrainerExercisesAsync(int trainerId);
     }
     public class ExerciseRepository : IExerciseRepository
     {
@@ -55,6 +57,12 @@ namespace Training_and_diet_backend.Repositories
             _context.Exercises.Update(exercise);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Exercise>> GetTrainerExercisesAsync(int trainerId)
+        {
+            return await _context.Exercises.Where(e => e.Id_Trainer == trainerId).ToListAsync();
+        }
+
         private async Task<bool> TrainerExists(int? trainerId)
         {
             return await _context.Users.AnyAsync(t => t.Id_User == trainerId);

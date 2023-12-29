@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Context;
-using Training_and_diet_backend.DTOs.Gym;
-using Training_and_diet_backend.Models;
-using Training_and_diet_backend.Repositories;
+using TrainingAndDietApp.Common.DTOs.Gym;
+using TrainingAndDietApp.DAL.Repositories;
 
-namespace Training_and_diet_backend.Services
+namespace TrainingAndDietApp.BLL.Services
 {
 
     public interface IGymService

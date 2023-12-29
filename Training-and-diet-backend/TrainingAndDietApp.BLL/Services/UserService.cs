@@ -1,20 +1,21 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Context;
-using Training_and_diet_backend.DTOs;
-using Training_and_diet_backend.DTOs.Exercise;
 using Training_and_diet_backend.DTOs.Opinion;
 using Training_and_diet_backend.DTOs.TrainingPlan;
-using Training_and_diet_backend.DTOs.User;
-using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.Common.DTOs.Exercise;
+using TrainingAndDietApp.Common.DTOs.User;
+using TrainingAndDietApp.Common.Exceptions;
+using TrainingAndDietApp.DAL.Context;
+using TrainingAndDietApp.DAL.Repositories;
 
-namespace Training_and_diet_backend.Services
+namespace TrainingAndDietApp.BLL.Services
 {
     public interface IUserService
     {
-        public Task<List<User>> GetPupilsByTrainerId(int id_trainer);
-        Task<List<Exercise>> GetTrainerExercises(int TrainderId);
+        // zmienione na dto
+        public Task<List<UserDto>> GetPupilsByTrainerId(int id_trainer);
+       
         public Task<List<TrainingPlanNameDto>> GetTrainerTrainingPlans(int id_trainer);
 
         Task<List<ExerciseNameDto>> GetExercisesByTrainerId(int id_trainer);
@@ -24,40 +25,42 @@ namespace Training_and_diet_backend.Services
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IUserRepository _repository;
         private readonly IMapper _mapper;
 
-        public UserService(ApplicationDbContext context, IMapper mapper)
+        public UserService(ApplicationDbContext context, IMapper mapper, IUserRepository repository)
         {
             _context = context;
             _mapper = mapper;
+            _repository = repository;
         }
 
-        public async Task<List<User>> GetPupilsByTrainerId(int id_trainer)
+        // zmienione na dto
+        public async Task<List<UserDto>> GetPupilsByTrainerId(int id_trainer)
         {
-            var pupils = await _context.Users
-                .Where(u => _context.Pupil_mentors
-                    .Where(e => e.Id_Mentor == id_trainer)
-                    .Select(e => e.Id_Pupil)
-                    .Contains(u.Id_User))
-                .ToListAsync();
+            if (!await CheckRole("Trainer", id_trainer))
+                throw new BadRequestException("User with given id is not a trainer!");
 
-            if (pupils.Count == 0)
-                throw new NotFoundException("Trainer with given id was not found in database");
+            var pupils = await _repository.GetPupilsByTrainerIdAsync(id_trainer);
 
-            return pupils;
+            if (!pupils.Any())
+                throw new NotFoundException("Trainer with given id does not have any pupils");
+
+            
+
+            return _mapper.Map<List<UserDto>>(pupils);
 
         }
 
-        public async Task<List<Exercise>> GetTrainerExercises(int TrainderId)
+        private async Task<bool> CheckRole(string roleName, int id)
         {
-            var query = await _context.Exercises.Where(e => e.Id_Trainer == TrainderId).ToListAsync();
-
-            if (query.Count == 0)
-                throw new NotFoundException("Trainer with given id was not found in database");
-
-            return query;
+            var user = await _repository.GetUserByIdAsync(id);
+                          
+            return user != null && user.Role.Name.Equals(roleName);
 
         }
+
+       
 
         // Tu skonczyłem, filip
         public async Task<List<TrainingPlanNameDto>> GetTrainerTrainingPlans(int id_trainer)

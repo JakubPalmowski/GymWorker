@@ -1,13 +1,11 @@
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Context;
-using Training_and_diet_backend.DTOs.Exercise;
 using Training_and_diet_backend.DTOs.TrainingPlan;
-using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
+using TrainingAndDietApp.Common.DTOs.Exercise;
+using TrainingAndDietApp.Common.Exceptions;
 
-namespace Training_and_diet_backend.Services
+namespace TrainingAndDietApp.BLL.Services
 {
     public interface ITrainingPlanService
     {

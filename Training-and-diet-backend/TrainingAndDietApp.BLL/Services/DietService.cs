@@ -1,6 +1,6 @@
-﻿using Training_and_diet_backend.Exceptions;
-using Training_and_diet_backend.Models;
+﻿using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
+using TrainingAndDietApp.Common.Exceptions;
 
 namespace Training_and_diet_backend.Services
 {

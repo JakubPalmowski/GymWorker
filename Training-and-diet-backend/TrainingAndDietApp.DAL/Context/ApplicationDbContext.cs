@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Models;
 
-namespace Training_and_diet_backend.Context
+namespace TrainingAndDietApp.DAL.Context
 {
     public class ApplicationDbContext : DbContext
     {

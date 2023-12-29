@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Context;
 using Training_and_diet_backend.DTOs.MealDto;
-using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
 using TrainingAndDietApp.BLL.Models;
+using TrainingAndDietApp.Common.Exceptions;
 
 namespace Training_and_diet_backend.Services
 {

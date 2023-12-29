@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs.TrainingPlan;
-using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
-using Training_and_diet_backend.Services;
+using TrainingAndDietApp.BLL.Services;
+using TrainingAndDietApp.Common.DTOs.User;
+
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -12,6 +12,7 @@ namespace Training_and_diet_backend.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
+      
 
         public UserController(IUserService userService)
         {
@@ -26,7 +27,7 @@ namespace Training_and_diet_backend.Controllers
 
         public async Task<IActionResult> GetTrainerExercises(int TrainerId)
         {
-            var exercises = await _service.GetTrainerExercises(TrainerId);
+            var exercises = await _service.GetExercisesByTrainerId(TrainerId);
 
 
 

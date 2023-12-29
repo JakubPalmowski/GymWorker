@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Training_and_diet_backend.DTOs.User
+﻿namespace TrainingAndDietApp.Common.DTOs.User
 {
     public class UserDto
     {
