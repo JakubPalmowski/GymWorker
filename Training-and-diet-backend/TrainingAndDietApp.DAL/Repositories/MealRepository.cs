@@ -11,6 +11,7 @@ namespace Training_and_diet_backend.Repositories
         Task<Meal?> GetMealByIdAsync(int mealId);
         Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId);
         Task<int> AddMealAsync(Meal meal);
+        
     }
     public class MealRepository : IMealRepository
     {

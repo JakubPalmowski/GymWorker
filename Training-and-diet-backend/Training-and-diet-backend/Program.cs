@@ -19,10 +19,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("TestConnection"));
 });
-builder.Services.AddScoped<IExerciseService,ExerciseService>();
+builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IExerciseRepository,ExerciseRepository>();
-builder.Services.AddScoped<IUserService,UserService>();
-builder.Services.AddScoped<ITrainingPlanService,TrainingPlanService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITrainingPlanService, TrainingPlanService>();
 builder.Services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
 builder.Services.AddScoped<IDietService, DietService>();
 builder.Services.AddScoped<IDietRepository, DietRepository>();

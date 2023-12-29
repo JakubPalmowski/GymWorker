@@ -5,12 +5,13 @@ using Training_and_diet_backend.DTOs.MealDto;
 using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
+using TrainingAndDietApp.BLL.Models;
 
 namespace Training_and_diet_backend.Services
 {
     public interface IMealService
     {
-        Task<List<Meal>> GetMeals();
+        Task<List<MealDto>> GetMeals();
         Task<MealDto?> GetMealById(int mealId);
         Task<List<MealDto>> GetMealsByDieticianId(int dieticianId);
         Task<int> CreateMeal(MealDto mealDto);
@@ -26,14 +27,20 @@ namespace Training_and_diet_backend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Meal>> GetMeals()
+        public async Task<List<MealDto>> GetMeals()
         {
-            var meals = await _mealRepository.GetMealsAsync();
-
-            if (meals.Count == 0)
+            var mealEntities = await _mealRepository.GetMealsAsync();
+            if (mealEntities.Count == 0)
                 throw new NotFoundException("No meals found");
 
-            return meals;
+            // Map entities to domain models
+            var mealDomainModels = _mapper.Map<List<MealDto>>(mealEntities);
+
+            return mealDomainModels;
+
+
+
+
         }
         public async Task<MealDto?> GetMealById(int mealId)
         {

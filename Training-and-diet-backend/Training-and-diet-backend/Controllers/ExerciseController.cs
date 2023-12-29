@@ -12,15 +12,16 @@ namespace Training_and_diet_backend.Controllers
         private readonly IExerciseService _service;
         public ExerciseController(IExerciseService service)
         {
-            _service=service;
+            _service = service;
         }
 
         [HttpGet("{ExerciseId}")]
-        public async Task<IActionResult> GetExerciseById(int ExerciseId) {
+        public async Task<IActionResult> GetExerciseById(int ExerciseId)
+        {
 
             var exist = await _service.GetExerciseById(ExerciseId);
 
-            
+
             return Ok(exist);
         }
 
@@ -48,6 +49,6 @@ namespace Training_and_diet_backend.Controllers
 
             return Ok(result);
         }
-        
+
     }
 }

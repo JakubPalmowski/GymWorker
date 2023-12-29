@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.Context;
+﻿using Training_and_diet_backend.Context;
 using Training_and_diet_backend.Models;
 
 namespace Training_and_diet_backend.Services

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.VisualStudio.Web.CodeGeneration.Templating;
 
 namespace Training_and_diet_backend.Models
 {

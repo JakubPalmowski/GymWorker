@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs.MealDto;
 using Training_and_diet_backend.Services;
@@ -10,18 +11,23 @@ namespace Training_and_diet_backend.Controllers
     public class MealController : ControllerBase
     {
         private readonly IMealService _service;
+        private readonly IMapper _mapper;
 
-        public MealController(IMealService service)
+        public MealController(IMealService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllMeals()
         {
-            var meals = await _service.GetMeals();
+            var mealDomainModels = await _service.GetMeals();
 
-            return Ok(meals);
+            // Convert domain models to DTOs
+            var mealDTOs = _mapper.Map<List<MealDto>>(mealDomainModels);
+
+            return Ok(mealDTOs);
         }
 
         [HttpGet("{mealId}")]

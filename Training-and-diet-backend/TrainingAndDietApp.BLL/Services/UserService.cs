@@ -31,10 +31,10 @@ namespace Training_and_diet_backend.Services
             _context = context;
             _mapper = mapper;
         }
-        
+
         public async Task<List<User>> GetPupilsByTrainerId(int id_trainer)
         {
-            var pupils =  await _context.Users
+            var pupils = await _context.Users
                 .Where(u => _context.Pupil_mentors
                     .Where(e => e.Id_Mentor == id_trainer)
                     .Select(e => e.Id_Pupil)
@@ -64,16 +64,16 @@ namespace Training_and_diet_backend.Services
         {
             var trainingPlans = await _context.Training_plans.Where(e => e.Id_Trainer == id_trainer).ToListAsync();
 
-           if(trainingPlans.Count == 0) throw new NotFoundException("There are no trainingPlans with given trainer_id");  
+            if (trainingPlans.Count == 0) throw new NotFoundException("There are no trainingPlans with given trainer_id");
 
-           return _mapper.Map<List<TrainingPlanNameDto>>(trainingPlans);
+            return _mapper.Map<List<TrainingPlanNameDto>>(trainingPlans);
 
         }
         public async Task<List<ExerciseNameDto>> GetExercisesByTrainerId(int id_trainer)
         {
             var exercises = await _context.Exercises.Where(e => e.Id_Trainer == id_trainer).ToListAsync();
 
-            if(exercises.Count == 0) throw new NotFoundException("There are no exercises with given trainer_id");
+            if (exercises.Count == 0) throw new NotFoundException("There are no exercises with given trainer_id");
 
             return _mapper.Map<List<ExerciseNameDto>>(exercises);
         }
@@ -86,10 +86,10 @@ namespace Training_and_diet_backend.Services
 
             var baseQuery = _context.Users
                 .Include(u => u.Mentor_Opinions)
-                .Include(u=>u.Role)
-                .Include(u=>u.Trainer_Gyms)
-                .ThenInclude(tg=>tg.Gym)
-                .ThenInclude(g=>g.Address)
+                .Include(u => u.Role)
+                .Include(u => u.Trainer_Gyms)
+                .ThenInclude(tg => tg.Gym)
+                .ThenInclude(g => g.Address)
                 .Where(u => (u.Role.Name == roleName || u.Role.Name == "Dietician-Trainer") &&
 
                             (query.SearchPhrase == null ||
@@ -98,15 +98,15 @@ namespace Training_and_diet_backend.Services
 
 
 
-           if (!string.IsNullOrEmpty(query.GymCityPhrase))
-                {
-                    baseQuery = baseQuery.Where(u => u.Trainer_Gyms.Any(g => g.Gym.Address.City.ToLower().Contains(query.GymCityPhrase.ToLower())));
-                }
+            if (!string.IsNullOrEmpty(query.GymCityPhrase))
+            {
+                baseQuery = baseQuery.Where(u => u.Trainer_Gyms.Any(g => g.Gym.Address.City.ToLower().Contains(query.GymCityPhrase.ToLower())));
+            }
 
-                if (!string.IsNullOrEmpty(query.GymNamePhrase))
-                {
-                    baseQuery = baseQuery.Where(u => u.Trainer_Gyms.Any(g => g.Gym.Name.ToLower().Contains(query.GymNamePhrase.ToLower())));
-                }
+            if (!string.IsNullOrEmpty(query.GymNamePhrase))
+            {
+                baseQuery = baseQuery.Where(u => u.Trainer_Gyms.Any(g => g.Gym.Name.ToLower().Contains(query.GymNamePhrase.ToLower())));
+            }
 
 
             if (!string.IsNullOrEmpty(query.SortBy) && query.SortBy == "Mentor_Opinions")
@@ -121,15 +121,15 @@ namespace Training_and_diet_backend.Services
 
 
             var list = await baseQuery
-                .Skip(9 * (query.PageNumber-1))
+                .Skip(9 * (query.PageNumber - 1))
                 .Take(9)
                 .ToListAsync();
 
-           var totalItemsCount =  baseQuery.Count();
+            var totalItemsCount = baseQuery.Count();
 
-           var usersDtos = _mapper.Map<List<UserDto>>(list);
+            var usersDtos = _mapper.Map<List<UserDto>>(list);
 
-           var result = new PageResult<UserDto>(usersDtos, totalItemsCount,query.PageNumber);
+            var result = new PageResult<UserDto>(usersDtos, totalItemsCount, query.PageNumber);
 
 
             if (list.Count == 0) throw new NotFoundException($"There are no {roleName} in database");
@@ -154,8 +154,8 @@ namespace Training_and_diet_backend.Services
                 trainer =>
                     new UserWithOpinionDto
                     {
-                        Id=trainer.Id_User,
-                        Name=trainer.Name,
+                        Id = trainer.Id_User,
+                        Name = trainer.Name,
                         LastName = trainer.Last_name,
                         Role = trainer.Role.Name,
                         PhoneNumber = trainer.Phone_number,
@@ -163,7 +163,7 @@ namespace Training_and_diet_backend.Services
                         Opinion_number = trainer.Mentor_Opinions.Count(),
                         TotalRate = trainer.Mentor_Opinions.Any() == true
                             ? trainer.Mentor_Opinions.Average(o => o.Rate) : 0m,
-                        Opinions = trainer.Mentor_Opinions.Select(opinion=>
+                        Opinions = trainer.Mentor_Opinions.Select(opinion =>
                             new OpinionDto
                             {
                                 PupilName = opinion.Pupil.Name,
@@ -174,12 +174,12 @@ namespace Training_and_diet_backend.Services
                         ).ToList()
 
                     }).FirstOrDefaultAsync();
-            if (users==null)
+            if (users == null)
                 throw new NotFoundException("User with given id was not found in database");
 
             return users;
         }
-        
+
 
     }
 }

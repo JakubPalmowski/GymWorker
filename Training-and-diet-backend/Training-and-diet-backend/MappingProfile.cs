@@ -5,6 +5,7 @@ using Training_and_diet_backend.DTOs.MealDto;
 using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.BLL.Models;
 
 namespace Training_and_diet_backend
 {
@@ -21,6 +22,8 @@ namespace Training_and_diet_backend
             CreateMap<Exercise, ExerciseNameDto>();
 
             CreateMap<Training_plan, TrainingPlanNameDto>();
+            CreateMap<Meal, MealDomainModel>();
+            CreateMap<MealDomainModel, MealDto>();
 
 
             CreateMap<Training_plan, TrainingPlanDetailsDto>();

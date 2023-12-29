@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Context;
-using Training_and_diet_backend.Exceptions;
 using Training_and_diet_backend.Models;
 
 namespace Training_and_diet_backend.Repositories

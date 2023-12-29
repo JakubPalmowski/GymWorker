@@ -1,6 +1,4 @@
 using AutoMapper;
-using Humanizer;
-using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Context;
 using Training_and_diet_backend.DTOs.Exercise;

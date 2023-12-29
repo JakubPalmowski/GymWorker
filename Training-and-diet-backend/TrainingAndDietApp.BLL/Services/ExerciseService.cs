@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Training_and_diet_backend.Exceptions;
 using AutoMapper;
-using Training_and_diet_backend.Repositories;
 using Training_and_diet_backend.DTOs.Exercise;
+using Training_and_diet_backend.Repositories;
 
 namespace Training_and_diet_backend.Services
 {

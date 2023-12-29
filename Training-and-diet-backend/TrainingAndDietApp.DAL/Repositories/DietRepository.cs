@@ -17,7 +17,7 @@ namespace Training_and_diet_backend.Repositories
         {
             _context = context;
         }
-
+        // do zmiany na DietDTO
         public async Task<List<Diet>> GetDietsAsync()
         {
             return await _context.Diets.ToListAsync();
