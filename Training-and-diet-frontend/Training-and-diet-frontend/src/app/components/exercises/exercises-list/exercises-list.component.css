@@ -83,7 +83,6 @@ td ,th{
   
 th{
     font-size: 18px;
-    
 }
 
 
@@ -91,12 +90,7 @@ td{
     background-color: #FAFAFA;
     font-size: 16px;
     padding: 5px;
-    
-}
-
-.table-head-small{
-    width: 15%;
-}
+  }
 
   .container-table{
     margin-top: 20px;

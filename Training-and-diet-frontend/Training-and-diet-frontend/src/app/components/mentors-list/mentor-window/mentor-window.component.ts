@@ -12,8 +12,8 @@ export class MentorWindowComponent {
  @Input()
  mentor:Mentor|undefined;
  
-@Input()
-role:string|undefined='';
+ @Input()
+ role:string|undefined='';
 
 
 }

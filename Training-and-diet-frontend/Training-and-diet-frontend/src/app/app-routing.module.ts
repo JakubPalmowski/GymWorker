@@ -12,11 +12,7 @@ import { MentorsListComponent } from './components/mentors-list/mentors-list.com
 import { MentorProfileComponent } from './components/mentor-profile/mentor-profile.component';
 import { ExercisesEditComponent } from './components/exercises/exercises-edit/exercises-edit.component';
 import { ExercisesAddComponent } from './components/exercises/exercises-add/exercises-add.component';
-import { ExercisesDetailsComponent } from './components/exercises/exercises-details/exercises-details.component';
-import { MealsListComponent } from './components/meals/meals-list/meals-list.component';
-import { MealsAddComponent } from './components/meals/meals-add/meals-add.component';
-import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
-import { MealsDetailsComponent } from './components/meals/meals-details/meals-details.component';
+import { PupilProfileComponent } from './components/pupil-profile/pupil-profile.component';
 
 
 const routes: Routes = [
@@ -45,28 +41,8 @@ const routes: Routes = [
     component: ExercisesAddComponent
   },
   {
-    path: 'exercises/details/:id',
-    component: ExercisesDetailsComponent
-  },
-  {
     path: 'training-exercise/add',
     component: NewTrainingExerciseComponent
-  }, 
-  {
-    path: 'meals-list',
-    component: MealsListComponent
-  }, 
-  {
-    path: 'meals/add',
-    component: MealsAddComponent
-  }, 
-  {
-    path: 'meals/edit/:id',
-    component: MealsEditComponent
-  }, 
-  {
-    path: 'meals/details/:id',
-    component: MealsDetailsComponent
   }, 
   {path: '', component: LoginComponent},
   {path: 'passwordRecovery', component: PasswordRecoveryComponent},
@@ -74,7 +50,8 @@ const routes: Routes = [
   {path: 'trainersList', component: MentorsListComponent},
   {path: 'dieticiansList', component: MentorsListComponent},
   {path: 'trainerProfile/:id', component: MentorProfileComponent},
-  {path: 'dieticianProfile/:id', component: MentorProfileComponent}
+  {path: 'dieticianProfile/:id', component: MentorProfileComponent},
+  {path: 'pupilProfile/:id', component: PupilProfileComponent}
 ];
 
 @NgModule({

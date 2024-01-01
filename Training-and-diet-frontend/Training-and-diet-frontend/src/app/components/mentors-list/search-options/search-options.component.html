@@ -5,12 +5,12 @@
 
     <ng-container *ngIf="role === 'trainersList'">
        
-        <div class="col-6">
+        <div class="col-lg-6 col-12">
             <span class="fs-5">Siłownia Trenera</span>
-            <div class="d-flex w-100 gap-3 p-2" style="border-top: 1px solid black;">
+            <div class="d-lg-flex w-100 gap-3 p-2" style="border-top: 1px solid black;">
                 
                 <div class="d-flex flex-column align-items-center pb-1" style="width: -webkit-fill-available;">
-                    <div class="ui-widget">
+                    <div class="ui-widget size text-center">
                     <label for="city">Miasto</label>
                     <ng-container *ngIf="gymCities.length>0">
                     <input [appAutocomplete]="gymCities" (selectedOption)="onSelectGymCity($event)" [(ngModel)]="sortOptions.gymCity"  class="w-100" id="city" />
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="d-flex flex-column align-items-center" style="width: -webkit-fill-available;">
-                    <div class="ui-widget">
+                    <div class="ui-widget size text-center">
                     <label for="club">Klub</label>
                     <ng-container *ngIf="gymClubsNames.length>0">
                     <input [(ngModel)]="sortOptions.gymName" (selectedOption)="onSelectGymName($event)" [appAutocomplete]="gymClubsNames" class="w-100" id="club" placeholder="np. Total Fitness"/>
@@ -41,34 +41,54 @@
 
 
     
-<div class="col-1 vertical-line"></div>
+<div class="col-1 vertical-line d-none d-lg-block"></div>
+<div class="d-lg-none">
+<div class="horizontal-line-black w-100" style="height: 1px;"></div>
+</div>
 
 
-            <div class="col-3 d-flex flex-column align-items-center justify-content-end mb-2">
+            <div class="col-lg-3 col-8 d-flex flex-column align-items-center justify-content-end mb-2 size">
                 <label for="sort">Sortuj po</label>
-                <select id="sort" class="w70 text-center"[(ngModel)]="sortOptions.sort" style="height:35px">
+                <select id="sort" class="text-center w-100"[(ngModel)]="sortValue" style="height: 35px;">
                     <option value="">--- Wybierz ---</option>
-                    <option value="Mentor_Opinions">Ocena</option>
+                    <option value="Mentor_Opinions_DESC">Ocena(od najlepszych)</option>
+                    <option value="Mentor_Opinions_ASC">Ocena(od najgorszych)</option>
+                    <option value="Plan_Price_DESC">Cena planu(od najdroższych)</option>
+                    <option value="Plan_Price_ASC">Cena planu(od najtańszych)</option>
+                    <option value="Training_Price_DESC">Cena treningu(od najdroższych)</option>
+                    <option value="Training_Price_ASC">Cena treningu(od najtańszych)</option>
+                    <option value="Diet_Price_DESC">Cena diety(od najdroższych)</option>
+                    <option value="Diet_Price_ASC">Cena diety(od najtańszych)</option>
+
                 </select>
             </div>
 
-            <div class="col-2 d-flex justify-content-center align-items-end mb-2">
-                <button class="btn btn-primary search-button" (click)="onFilterData('filter')" >Filtruj</button>
+            <div class="col-lg-2 col-6 d-flex justify-content-center align-items-end mb-2 size">
+                <button class="btn btn-primary search-button" (click)="onFilterData('filter')" style="height:35px;">Filtruj</button>
             </div>
 
         </ng-container>
 
         <ng-container *ngIf="role === 'dieticiansList'">
-            <div class="col-6 bg-secondary rounded-3 d-flex p-2">
-                <div class="d-flex flex-column align-items-center" style="width: -webkit-fill-available;">
+            <div class="col-12 col-lg-6 bg-secondary rounded-3 d-block d-sm-flex p-2 gap-5">
+                <div class="d-flex flex-column align-items-center ms-sm-3 mb-3 mb-sm-0" style="width: -webkit-fill-available;">
                 <label for="sort">Sortuj po</label>
-                <select id="sort" class="text-center" [(ngModel)]="sortOptions.sort" style="width: 70%; height:30px;">
+                <select id="sort" class="text-center w-100" [(ngModel)]="sortValue" style="height:30px;">
                     <option value="">--- Wybierz ---</option>
-                    <option value="Mentor_Opinions">Ocena</option>
+                    <option value="Mentor_Opinions_DESC">Ocena(od najlepszych)</option>
+                    <option value="Mentor_Opinions_ASC">Ocena(od najgorszych)</option>
+                    <option value="Diet_Price_DESC">Cena diety(od najdroższych)</option>
+                    <option value="Diet_Price_ASC">Cena diety(od najtańszych)</option>
+                    <option value="Plan_Price_DESC">Cena planu(od najdroższych)</option>
+                    <option value="Plan_Price_ASC">Cena planu(od najtańszych)</option>
+                    <option value="Training_Price_DESC">Cena treningu(od najdroższych)</option>
+                    <option value="Training_Price_ASC">Cena treningu(od najtańszych)</option>
+
+                    
                 </select>
             </div>
-            <div class="d-flex align-items-end justify-content-center" style="width: -webkit-fill-available;">
-                <button class="btn btn-primary w-50" (click)="onFilterData('filter')" >Filtruj</button>
+            <div class="d-flex align-items-end justify-content-center w-100" >
+                <button class="btn btn-primary" (click)="onFilterData('filter')" style="width: 80%;">Filtruj</button>
             </div>
             </div>
         </ng-container>

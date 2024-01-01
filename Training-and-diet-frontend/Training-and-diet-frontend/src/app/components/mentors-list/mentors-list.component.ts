@@ -19,19 +19,20 @@ export class MentorsListComponent implements OnInit{
     mentors: Mentor[]=[];
     role: string|undefined='';
     totalPages: number=0;
+    isDataLoaded: boolean=true;
 
     currentPage: number = 1;
     searchPhrase: string='';
     sortBy: Sort={
       sort:'',
       gymCity:'',
-      gymName:''
+      gymName:'',
+      sortDirection:''
     }
     
   
   ngOnInit(): void{
    
-    
 
     this.route.url.subscribe(segments => {
       const lastSegment = segments[segments.length - 1];
@@ -55,6 +56,9 @@ export class MentorsListComponent implements OnInit{
     this.route.queryParams.subscribe(params => {
       this.sortBy.gymName = params['GymNamePhrase'] || '';
     });
+    this.route.queryParams.subscribe(params => {
+      this.sortBy.sortDirection = params['SortDirection'] || '';
+    });
     
     
    this.loadData();
@@ -71,6 +75,9 @@ export class MentorsListComponent implements OnInit{
     }
     if(this.sortBy.sort){
       queryParams.SortBy = this.sortBy.sort;
+    }
+    if(this.sortBy.sortDirection){
+      queryParams.SortDirection = this.sortBy.sortDirection;
     }
 
   if(this.role == 'trainersList'){
@@ -89,14 +96,15 @@ export class MentorsListComponent implements OnInit{
 
     
     if(this.role=="trainersList"){
-    this.userService.GetAllTrainers(this.currentPage, this.searchPhrase, this.sortBy.sort, this.sortBy.gymCity, this.sortBy.gymName).subscribe({
+    this.userService.GetAllTrainers(this.currentPage, this.searchPhrase, this.sortBy.sort, this.sortBy.sortDirection, this.sortBy.gymCity, this.sortBy.gymName).subscribe({
       next:(response)=>{
         this.response=response;
         this.mentors=response.items;
         this.totalPages=response.totalPages;
+        this.isDataLoaded=true;
       },
       error: (response)=>{
-        this.mentors=[];
+        this.isDataLoaded=false;
       }
     })
 
@@ -104,14 +112,15 @@ export class MentorsListComponent implements OnInit{
 
 
   if(this.role=="dieticiansList"){
-    this.userService.GetAllDieteticians(this.currentPage, this.searchPhrase, this.sortBy.sort).subscribe({
+    this.userService.GetAllDieteticians(this.currentPage, this.searchPhrase, this.sortBy.sort, this.sortBy.sortDirection).subscribe({
       next:(response)=>{
         this.response=response;
         this.mentors=response.items;
         this.totalPages=response.totalPages;
+        this.isDataLoaded=true;
       },
       error: (response)=>{
-        this.mentors=[];
+        this.isDataLoaded=false;
       }
     })
   }
@@ -120,6 +129,7 @@ export class MentorsListComponent implements OnInit{
   goToPage(page : number) {
     this.currentPage = page;
     this.loadData();
+    document.documentElement.scrollTop = 0;
     }
 
 
@@ -142,6 +152,7 @@ export class MentorsListComponent implements OnInit{
     this.sortBy.sort=sortOptions.sort;
     this.sortBy.gymCity=sortOptions.gymCity;
     this.sortBy.gymName=sortOptions.gymName;
+    this.sortBy.sortDirection=sortOptions.sortDirection;
     this.currentPage=1;
     this.loadData();
   }
