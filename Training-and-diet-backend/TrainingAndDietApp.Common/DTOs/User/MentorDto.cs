@@ -1,6 +1,6 @@
 ﻿namespace TrainingAndDietApp.Common.DTOs.User
 {
-    public class UserDto
+    public class MentorDto
     {
         public int Id_user { get; set; }
         public string Name { get; set; }
