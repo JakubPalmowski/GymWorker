@@ -4,4 +4,5 @@ export interface ListQueryParams{
     sortBy: string;
     gymCityPhrase: string;
     gymNamePhrase: string;
+    sortDirection: string;
 }

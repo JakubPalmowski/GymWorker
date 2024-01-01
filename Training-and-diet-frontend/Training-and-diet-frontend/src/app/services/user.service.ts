@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { MentorProfile } from '../models/mentorProfile';
 import { MentorList } from '../models/mentorList';
+import { PupilProfile } from '../models/pupilProfile';
 
 
 @Injectable({
@@ -15,29 +16,30 @@ export class UserService{
     
   constructor(private http: HttpClient) { }
   
-      GetAllTrainers(pageNumber: number, searchPhrase: string, sortBy: string, gymCityPhrase: string, gymNamePhrase: string):Observable<MentorList>{
+  GetAllTrainers(pageNumber: number, searchPhrase: string, sortBy: string, sortDirection: string, gymCityPhrase: string, gymNamePhrase: string): Observable<MentorList> {
     const params = new HttpParams()
                       .set('PageNumber', pageNumber.toString())
                       .set('SearchPhrase', searchPhrase)
                       .set('SortBy', sortBy)
+                      .set('SortDirection', sortDirection)
                       .set('GymCityPhrase', gymCityPhrase)
                       .set('GymNamePhrase', gymNamePhrase);
+  
+    const options = { params: params };
+  
+    return this.http.get<MentorList>('https://localhost:7259/api/User/Trainer', options);
+  }
+  
+  GetTrainerWithOpinionsById(id:string):Observable<MentorProfile>{
+    return this.http.get<MentorProfile>('https://localhost:7259/api/User/Trainer/'+id)
+  }
 
-        const options = { params: params };
-
-        return this.http.get<MentorList>('https://localhost:7259/api/User/Trainer', options);
-      }
-
-      GetTrainerWithOpinionsById(id:string):Observable<MentorProfile>{
-        return this.http.get<MentorProfile>('https://localhost:7259/api/User/Trainer/'+id)
-      }
-
-      //Do ogarnięcia
-      GetAllDieteticians(pageNumber: number, searchPhrase: string, sortBy: string):Observable<MentorList>{
+      GetAllDieteticians(pageNumber: number, searchPhrase: string, sortBy: string, sortDirection: string):Observable<MentorList>{
         const params = new HttpParams()
                             .set('PageNumber', pageNumber.toString())
                             .set('SearchPhrase', searchPhrase)
-                            .set('SortBy', sortBy);
+                            .set('SortBy', sortBy)
+                            .set('SortDirection', sortDirection);
 
         const options = { params: params };
         return this.http.get<MentorList>('https://localhost:7259/api/User/Dietician', options);
@@ -46,6 +48,12 @@ export class UserService{
       GetDieticianWithOpinionsById(id:string):Observable<MentorProfile>{
         return this.http.get<MentorProfile>('https://localhost:7259/api/User/Dietician/'+id)
       }
+
+      GetPupilById(id: string):Observable<PupilProfile>{
+        return this.http.get<PupilProfile>('https://localhost:7259/api/User/Pupil/'+id)
+      }
+
+    
 
      
 }

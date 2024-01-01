@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PreviousUrlService } from './services/previous-url.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Training-and-diet-frontend';
+  constructor(previousUrl: PreviousUrlService){}
 }

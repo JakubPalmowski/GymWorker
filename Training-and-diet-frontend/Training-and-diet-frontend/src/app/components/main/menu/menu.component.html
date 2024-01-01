@@ -1,25 +1,203 @@
-<div class="container bg-primary">
-    
-    <div class="top-menu">
-    <div class="logo-container">
-    <img src="../../../assets/icons/dumbbell.png" width="50" height="50" class="logo">
-    <span class="text">GYMWORKER</span>
-    </div>
-    <app-menu-button [name]='"Strona główna"' [routePath]='"/"'></app-menu-button>
-    <app-menu-button [name]='"Trenerzy"' [routePath]='"/trainersList"'></app-menu-button>
-    <app-menu-button [name]='"Dietetycy"' [routePath]='"/dieticiansList"'></app-menu-button>
-
-    <div class="my-4" style="border-bottom: 1px solid #ddd;"></div>
-    
-    <app-menu-button [name]='"Chat"' [imagePath]='"../../../assets/icons/chat.png"' [routePath]='"/Chat"'></app-menu-button>
-    <app-menu-button [name]='"Podopieczni"' [routePath]='""'></app-menu-button>
-    <app-menu-button [name]='"Moi Podopieczni"' [routePath]='""'></app-menu-button>
-    <app-menu-button [name]='"Ćwiczenia"' [routePath]='"/exercises-list"'></app-menu-button>
-    <app-menu-button [name]='"Moje plany"' [routePath]='"/training-plans"'></app-menu-button>
+<div class="container bg-primary" style="z-index: 2;">
+  <div class="d-flex d-xxl-none justify-content-center mt-3">
+    <i class="bi bi-list text-white" style="font-size: 50px; cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#menu"></i>
 </div>
 
-    <div class="login-container text">
-        <img src="../../../assets/icons/user.png" width="25" height="25">
-        <span>Zaloguj się</span>
+
+
+<div class="offcanvas offcanvas-start" id="menu">
+  <div class="offcanvas-body bg-primary">
+
+    <div class="d-flex flex-column w-100 justify-content-between h-100">
+
+ <div class="d-flex justify-content-center w-100">
+  <ul class="d-flex flex-column text-white p-0 w-100">
+    <li>
+      <div class="d-flex gap-2 mt-2 mb-3 justify-content-center align-items-center">
+        <img src="../../../assets/icons/dumbbell.png" width="50" height="50">
+        <span class="text-white" style="font-size: 20px;">GYMWORKER</span>
+       <i class="bi bi-x-lg ms-5 ps-5 fs-2" data-bs-dismiss="offcanvas" style="cursor: pointer;"></i>
     </div>
+    </li>
+      <li>
+          <div class="menu-link" (click)="goToMainPage()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute==''}">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+              <a>Strona glowna</a>
+          </div>    
+          
+      </li>
+
+      <li>
+        <div class="menu-link" (click)="goToTrainersList()" data-bs-dismiss="offcanvas"  [ngClass]="{'active': activeRoute=='trainersList' || activeRoute=='trainerProfile'}">
+          <img src="../../../assets/icons/record.png" width="20" height="20">
+        <a>Trenerzy</a>
+        </div>
+      </li>
+
+      <li>
+        <div class="menu-link" (click)="goToDieticiansList()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='dieticiansList' || activeRoute=='dieticianProfile'}">
+          <img src="../../../assets/icons/record.png" width="20" height="20">
+        <a>Dietetycy</a>
+        </div>
+      </li>
+
+      <li>
+        <div class="horizontal-line w-100 text-white py-3" style="height: 2px;"></div>
+      </li>
+
+      <li>
+        <div class="menu-link" data-bs-dismiss="offcanvas">
+          <img src="../../../assets/icons/record.png" width="20" height="20">
+        <a>Czat</a>
+        </div>
+      </li>
+
+
+      <li>
+        <div class="menu-link" data-bs-dismiss="offcanvas">
+          <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Podopieczni</a>
+          </div>
+        </li>
+
+
+        <li>
+          <div class="menu-link" data-bs-dismiss="offcanvas">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Moi podopieczni</a>
+          </div>
+        </li>
+
+        <li>
+          <div class="menu-link" (click)="goToExercices()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='exercises-list'}">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Cwiczenia</a>
+          </div>
+        </li>
+
+        <li>
+          <div class="menu-link" (click)="goToTrainingPlans()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='training-plans'}">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Moje plany</a>
+          </div>
+        </li>
+
+    </ul>
+
+ </div>
+
+ <div style="padding: 15px;">
+  <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2 text-truncate" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="https://github.com/mdo.png" width="40" height="40" class="round-picture">
+      <span>Filip</span>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+      <li><a class="dropdown-item" href="#">Mój profil</a></li>
+      <li>
+          <hr class="dropdown-divider">
+      </li>
+      <li><a class="dropdown-item" href="#">Wyloguj się</a></li>
+  </ul>
+</div>
+
+
+
+
+</div>
+
+ 
+  </div>
+</div>
+
+
+
+    <div class="d-none d-xxl-flex justify-content-center">
+    <ul class="d-flex flex-column text-white p-0 w-100">
+      <li>
+        <div class="d-flex gap-2 mt-2 mb-3 justify-content-center align-items-center">
+          <img src="../../../assets/icons/dumbbell.png" width="50" height="50">
+          <span class="text-white" style="font-size: 20px;">GYMWORKER</span>
+      </div>
+      </li>
+        <li>
+            <div class="menu-link" (click)="goToMainPage()"  [ngClass]="{'active': activeRoute==''}">
+                <img src="../../../assets/icons/record.png" width="20" height="20">
+                <a>Strona glowna</a>
+            </div>    
+            
+        </li>
+
+        <li>
+          <div class="menu-link" (click)="goToTrainersList()"  [ngClass]="{'active': activeRoute=='trainersList' || activeRoute=='trainerProfile'}">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Trenerzy</a>
+          </div>
+        </li>
+
+        <li>
+          <div class="menu-link" (click)="goToDieticiansList()"  [ngClass]="{'active': activeRoute=='dieticiansList' || activeRoute=='dieticianProfile'}">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Dietetycy</a>
+          </div>
+        </li>
+
+        <li>
+          <div class="horizontal-line w-100 text-white py-3" style="height: 2px;"></div>
+        </li>
+
+        <li>
+          <div class="menu-link">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Czat</a>
+          </div>
+        </li>
+
+
+        <li>
+          <div class="menu-link">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <a>Podopieczni</a>
+            </div>
+          </li>
+
+
+          <li>
+            <div class="menu-link">
+              <img src="../../../assets/icons/record.png" width="20" height="20">
+            <a>Moi podopieczni</a>
+            </div>
+          </li>
+
+          <li>
+            <div class="menu-link" (click)="goToExercices()"  [ngClass]="{'active': activeRoute=='exercises-list'}">
+              <img src="../../../assets/icons/record.png" width="20" height="20">
+            <a>Cwiczenia</a>
+            </div>
+          </li>
+
+          <li>
+            <div class="menu-link" (click)="goToTrainingPlans()"  [ngClass]="{'active': activeRoute=='training-plans'}">
+              <img src="../../../assets/icons/record.png" width="20" height="20">
+            <a>Moje plany</a>
+            </div>
+          </li>
+
+      </ul>
+
+    </div>
+    
+    <div class="d-none d-xxl-flex" style="padding: 15px;">
+      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2 text-truncate" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="https://github.com/mdo.png" width="40" height="40" class="round-picture">
+          <span>Filip</span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+          <li><a class="dropdown-item" href="#">Mój profil</a></li>
+          <li>
+              <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="#">Wyloguj się</a></li>
+      </ul>
+  </div>
+
 </div>

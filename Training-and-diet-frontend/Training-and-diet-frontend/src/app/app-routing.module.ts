@@ -12,6 +12,7 @@ import { MentorsListComponent } from './components/mentors-list/mentors-list.com
 import { MentorProfileComponent } from './components/mentor-profile/mentor-profile.component';
 import { ExercisesEditComponent } from './components/exercises/exercises-edit/exercises-edit.component';
 import { ExercisesAddComponent } from './components/exercises/exercises-add/exercises-add.component';
+import { PupilProfileComponent } from './components/pupil-profile/pupil-profile.component';
 
 
 const routes: Routes = [
@@ -49,7 +50,8 @@ const routes: Routes = [
   {path: 'trainersList', component: MentorsListComponent},
   {path: 'dieticiansList', component: MentorsListComponent},
   {path: 'trainerProfile/:id', component: MentorProfileComponent},
-  {path: 'dieticianProfile/:id', component: MentorProfileComponent}
+  {path: 'dieticianProfile/:id', component: MentorProfileComponent},
+  {path: 'pupilProfile/:id', component: PupilProfileComponent}
 ];
 
 @NgModule({

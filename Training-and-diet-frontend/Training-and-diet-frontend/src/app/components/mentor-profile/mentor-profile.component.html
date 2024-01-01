@@ -4,10 +4,10 @@
     <div class="row mt-3 mb-3">
       <div class="col">
       <ng-container *ngIf="role=='trainerProfile'">
-        <a (click)="goToTrainersList()">< Powrót do listy trenerów</a>
+        <a class="p-1 rounded-3 text-decoration-none bg-btn-orange text-black" (click)="goToTrainersList()" style="border: 1px solid black; cursor: pointer;"><i class="bi bi-arrow-left"></i> Powrót do listy trenerów</a>
       </ng-container>
       <ng-container *ngIf="role=='dieticianProfile'">
-        <a (click)="goToDieticiansList()">< Powrót do listy dietetyków</a>
+        <a class="p-1 rounded-3 text-decoration-none bg-btn-orange text-black" (click)="goToDieticiansList()" style="border: 1px solid black; cursor: pointer;"><i class="bi bi-arrow-left"></i> Powrót do listy dietetyków</a>
       </ng-container>
     </div>
     </div>
@@ -15,35 +15,65 @@
 
       <div class="row bg-secondary d-flex align-items-center py-4 px-2 rounded-3 mb-3" style="border: 2px solid black;">
        
-          <div class="col-3 d-flex justify-content-center align-items-center">
+          <div class="col-lg-2 col-md-6 col-12 d-flex justify-content-center align-items-center">
             <img width="140px" height="140px" src="/assets/images/diho1.png" class="round-picture">
           </div>
           
-            <div class="col-3 d-flex flex-column">
+            <div class="col-lg-4 col-md-6 col-12 d-flex flex-column align-items-center align-items-lg-start">
             <span class="fs-2">{{ mentor.name + ' ' + mentor.lastName}}</span>
-            <span class="fs-2">{{ mentor.role}}</span>
-            <button class="p-2 bg-btn-orange rounded-3 m-1" style="width: fit-content;">Napisz wiadomość</button>
+
+            <ng-container [ngSwitch]="mentor.role">
+              <span class="fs-2" *ngSwitchCase="'Trainer'">Trener</span>
+              <span class="fs-2" *ngSwitchCase="'Dietician'">Dietetyk</span>
+              <span class="fs-2" *ngSwitchCase="'Dietician-Trainer'">Trener i dietetyk</span>
+            </ng-container>
+          
+            <button class="p-2 bg-btn-orange rounded-3 mt-3 m-lg-1" style="width: fit-content;">Napisz wiadomość</button>
           </div>
 
-          <div class="col-2 vertical-line" style="height:90%;">
+          <div class="col-lg-1 d-none d-lg-block vertical-line" style="height:90%;">
           </div>
+          <div class="horizontal-line-black d-lg-none py-5" style="height: 2px;"></div>
     
-          <div class="col-4 d-flex flex-column">
-            <span class="fs-3">{{ mentor.phoneNumber}}</span>
-            <span class="fs-3">Mail</span>
+          <div class="col-lg-5 d-flex flex-column align-items-center align-items-lg-start">
+            <span class="fs-4"><strong>Dane kontaktowe:</strong></span>
+            <span class="fs-4">{{ mentor.phoneNumber}}</span>
+            <span class="fs-4">{{ mentor.email }}</span>
           </div>
    
     </div>
 
-    
+    <div class="row bg-secondary mb-3 rounded-3 py-2" style="border:2px solid black;">
+      <div class="col-12 col-md d-flex flex-column ms-1 align-items-center align-items-md-start">
+        <span><strong>Cennik:</strong></span>
+        <ng-container *ngIf="mentor.role=='Trainer'">
+        <span>Plan treningowy: {{(mentor.training_plan_price_from !== null && mentor.training_plan_price_to !== null) ? mentor.training_plan_price_from + '-' + mentor.training_plan_price_to : '-' }}</span>
+        <span>Trening personalny: {{(mentor.personal_training_price_from !== null && mentor.personal_training_price_to !== null) ? mentor.personal_training_price_from + '-' + mentor.personal_training_price_to : '-' }}</span>
+      </ng-container>
+      <ng-container *ngIf="mentor.role=='Dietician'">
+        <span>Dieta: {{(mentor.diet_price_from !== null && mentor.diet_price_to !== null) ? mentor.diet_price_from + '-' + mentor.diet_price_to: '-' }}</span>
+      </ng-container>
+      <ng-container *ngIf="mentor.role=='Dietician-Trainer'">
+        <span>Plan treningowy: {{(mentor.training_plan_price_from !== null && mentor.training_plan_price_to !== null) ? mentor.training_plan_price_from + '-' + mentor.training_plan_price_to : '-' }}</span>
+        <span>Trening personalny: {{(mentor.personal_training_price_from !== null && mentor.personal_training_price_to !== null) ? mentor.personal_training_price_from + '-' + mentor.personal_training_price_to : '-' }}</span>
+        <span>Dieta: {{(mentor.diet_price_from !== null && mentor.diet_price_to !== null) ? mentor.diet_price_from + '-' + mentor.diet_price_to: '-' }}</span>
+      </ng-container>
+      </div>
+      <div class="col-12 mt-3 mt-md-0 col-md d-flex flex-column align-items-center align-items-md-start">
+        <ng-container *ngIf="mentor.trainerGyms!=null && mentor.trainerGyms.length>0">
+        <span><strong>Preferowane siłownie:</strong></span>
+        <span *ngFor="let gym of mentor.trainerGyms">{{ gym.name +', '+gym.cityName +', '+gym.street }}</span>
+      </ng-container>
+      </div>
+    </div>
       
     
         <div class="row">
 
-          <div class="col-4 p-0">
-            <div class="bg-secondary d-flex flex-column  me-4 rounded-3 gap-3 p-3" style="border: 2px solid black;">
+          <div class="col-12 col-lg-4 p-0">
+            <div class="bg-secondary d-flex flex-column mb-3 mb-lg-0 me-lg-4 rounded-3 gap-3 p-3" style="border: 2px solid black;">
           <span class="text-center fs-2 fw-bold">O mnie</span>
-          <span >{{ mentor.bio }}</span>
+          <span class="text-center">{{ mentor.bio }}</span>
         </div>
           </div>
     
@@ -62,7 +92,32 @@
         </div>
       
          
-        <app-trainer-opinion *ngFor="let opinion of mentor.opinions" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinion_date"></app-trainer-opinion>
+        <app-mentor-opinion *ngFor="let opinion of mentor.opinions | slice:0:2" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinion_date"></app-mentor-opinion>
+        <ng-container *ngIf="mentor.opinions.length>2">
+
+          <div class="d-flex justify-content-center">
+        <a class="px-2 bg-btn-orange rounded-3 text-black text-decoration-none" style="cursor: pointer; border: 1px solid black;" data-bs-toggle="modal" data-bs-target="#opinionModal">Pokaż wszystkie</a>
+      </div>
+        <div class="modal fade" id="opinionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Opinie ({{mentor.opinion_number}})</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <div class="modal-body bg-secondary">
+                <app-mentor-opinion *ngFor="let opinion of mentor.opinions" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinion_date"></app-mentor-opinion>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+        </ng-container>
+
       </div>
           </div>
           

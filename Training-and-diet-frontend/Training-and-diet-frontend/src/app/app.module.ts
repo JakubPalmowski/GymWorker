@@ -15,15 +15,15 @@ import { PasswordRecoveryComponent } from './components/authentication/password-
 import { MenuComponent } from './components/main/menu/menu.component';
 import { SearchComponent } from './components/main/search/search.component';
 import { FooterComponent } from './components/main/footer/footer.component';
-import { MenuButtonComponent } from './components/main/menu/menu-button/menu-button.component';
 import { MentorsListComponent } from './components/mentors-list/mentors-list.component';
 import { MentorProfileComponent } from './components/mentor-profile/mentor-profile.component';
 import { MentorWindowComponent } from './components/mentors-list/mentor-window/mentor-window.component';
 import { SearchOptionsComponent } from './components/mentors-list/search-options/search-options.component';
-import { TrainerOpinionComponent } from './components/mentor-profile/trainer-opinion/trainer-opinion.component';
+import { MentorOpinionComponent } from './components/mentor-profile/mentor-opinion/mentor-opinion.component';
 import { ExercisesEditComponent } from './components/exercises/exercises-edit/exercises-edit.component';
 import { ExercisesAddComponent } from './components/exercises/exercises-add/exercises-add.component';
 import { AutocompleteDirective } from './directives/autocompleteDirective';
+import { PupilProfileComponent } from './components/pupil-profile/pupil-profile.component';
 
 
 
@@ -41,15 +41,14 @@ import { AutocompleteDirective } from './directives/autocompleteDirective';
     MenuComponent,
     SearchComponent,
     FooterComponent,
-    MenuButtonComponent,
     MentorsListComponent,
     MentorProfileComponent,
     MentorWindowComponent,
     SearchOptionsComponent,
-    TrainerOpinionComponent,
+    MentorOpinionComponent,
     ExercisesEditComponent,
     ExercisesAddComponent, 
-    AutocompleteDirective
+    AutocompleteDirective, PupilProfileComponent
   ],
   imports: [
     BrowserModule,

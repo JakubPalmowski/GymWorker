@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-trainer-opinion',
-  templateUrl: './trainer-opinion.component.html',
-  styleUrls: ['./trainer-opinion.component.css']
+  selector: 'app-mentor-opinion',
+  templateUrl: './mentor-opinion.component.html',
+  styleUrls: ['./mentor-opinion.component.css']
 })
-export class TrainerOpinionComponent {
+export class MentorOpinionComponent {
   
   @Input()
   rate:number=0;

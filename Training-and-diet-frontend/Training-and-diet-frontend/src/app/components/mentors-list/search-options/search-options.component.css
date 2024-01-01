@@ -13,3 +13,10 @@
 .h35{
     height:35%;
 }
+
+@media (max-width: 991px) {
+.size{
+    width: 80%;
+    margin-top: 20px;
+}
+}
