@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Training_and_diet_backend.DTOs.MealDto;
 using Training_and_diet_backend.DTOs.TrainingPlan;
+using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.DTOs.Exercise;
@@ -24,11 +25,12 @@ namespace Training_and_diet_backend
             CreateMap<Training_plan, TrainingPlanNameDto>();
             CreateMap<Meal, MealDomainModel>();
             CreateMap<MealDomainModel, MealDto>();
-
+            
+            CreateMap<User, PupilDto>();
 
             CreateMap<Training_plan, TrainingPlanDetailsDto>();
 
-            CreateMap<User, UserDto>()
+            CreateMap<User, MentorDto>()
                 .ForMember(dest => dest.Opinion_number, opt => opt.MapFrom(src => src.Mentor_Opinions.Count))
                 .ForMember(dest => dest.Role_name, opt => opt.MapFrom(src => src.Role.Name))
                 .ForMember(dest => dest.Rate,
