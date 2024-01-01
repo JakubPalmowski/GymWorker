@@ -1,24 +1,47 @@
 import { Injectable } from '@angular/core';
-import { Router, NavigationEnd, UrlTree, UrlSegmentGroup, UrlSegment } from '@angular/router';
+import { Router, NavigationEnd, UrlTree, UrlSegmentGroup, UrlSegment, ActivatedRoute } from '@angular/router';
 import { ListQueryParams } from '../models/listQueryParams';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PreviousUrlService {
 
-  private previousUrl:string='';
-  private currentUrl:string='';
+  private previousUrl: string = '';
+  private currentUrl: string = '';
+  private firstSegment: string = '';
+  private firstSegmentSubject = new BehaviorSubject<string>(this.firstSegment);
 
-  constructor(private router : Router) {
-    this.router.events.subscribe((event) => {
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.previousUrl = this.currentUrl;
         this.currentUrl = event.url;
+        this.updateFirstSegment();
       }
     });
   }
 
+  private updateFirstSegment(): void {
+    if (this.currentUrl) {
+        const urlTree: UrlTree = this.router.parseUrl(this.currentUrl);
+        const segments = urlTree.root.children['primary'] ? urlTree.root.children['primary'].segments : [];
+        const newFirstSegment = segments.length > 0 ? segments[0].toString() : '';
+        if (newFirstSegment !== this.firstSegment) {
+            this.firstSegment = newFirstSegment;
+            this.firstSegmentSubject.next(this.firstSegment);
+        }
+       
+    }
+}
+
+
+  public getFirstSegmentObservable() {
+    return this.firstSegmentSubject.asObservable();
+  }
+
+ 
   public getPreviousUrlParamsMentorList(){
     if (this.previousUrl) {
       const previousUrlTree: UrlTree = this.router.parseUrl(this.previousUrl);
@@ -27,7 +50,8 @@ export class PreviousUrlService {
         searchPhrase: previousUrlTree.queryParams['SearchPhrase'] || '',
         sortBy: previousUrlTree.queryParams['SortBy'] || '',
         gymCityPhrase: previousUrlTree.queryParams['GymCityPhrase'] || '',
-        gymNamePhrase: previousUrlTree.queryParams['GymNamePhrase'] || ''
+        gymNamePhrase: previousUrlTree.queryParams['GymNamePhrase'] || '',
+        sortDirection: previousUrlTree.queryParams['SortDirection'] || ''
       };
   
       return params;
@@ -35,6 +59,12 @@ export class PreviousUrlService {
 
     return null;
   }
+
+  
+
+ 
+
+  
 
 
 }

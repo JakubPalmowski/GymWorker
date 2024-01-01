@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MentorProfile } from 'src/app/models/mentorProfile';
+import { PupilProfile } from 'src/app/models/pupilProfile';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,21 +15,20 @@ export class MentorProfileComponent implements OnInit {
 
   }
 
-  mentorId:string='';
+ 
   mentor:MentorProfile | undefined;
   role: string|undefined='';
-  previousUrl: string='';
+  
 
   ngOnInit():void{
 
-    this.mentorId = this.route.snapshot.params['id'];
+    const mentorId = this.route.snapshot.params['id'];
     this.route.url.subscribe(segments => {
-      const roleSegment = segments[segments.length - 2];
-      this.role = roleSegment.path;})
+      this.role = segments[0].path;})
 
     
     if(this.role=="trainerProfile"){
-    this.userService.GetTrainerWithOpinionsById(this.mentorId).subscribe(
+    this.userService.GetTrainerWithOpinionsById(mentorId).subscribe(
       {
         next:(trainerInfo)=>{
           this.mentor=trainerInfo;
@@ -40,7 +40,7 @@ export class MentorProfileComponent implements OnInit {
     )
     }
     if(this.role=="dieticianProfile"){
-      this.userService.GetDieticianWithOpinionsById(this.mentorId).subscribe(
+      this.userService.GetDieticianWithOpinionsById(mentorId).subscribe(
         {
           next:(dieticianInfo)=>{
             this.mentor=dieticianInfo;
@@ -51,6 +51,7 @@ export class MentorProfileComponent implements OnInit {
         }
       )
       }
+      
 
     
   }
@@ -71,6 +72,9 @@ export class MentorProfileComponent implements OnInit {
       if(params.gymNamePhrase){
         queryParams.GymNamePhrase = params.gymNamePhrase;
       }
+      if(params.sortDirection){
+        queryParams.SortDirection = params.sortDirection;
+      }
       this.router.navigate(['/trainersList'], { queryParams: queryParams});
     }else{
       this.router.navigate(['/trainersList']);
@@ -89,6 +93,9 @@ export class MentorProfileComponent implements OnInit {
       }
       if(params.sortBy){
         queryParams.SortBy = params.sortBy;
+      }
+      if(params.sortDirection){
+        queryParams.SortDirection = params.sortDirection;
       }
       this.router.navigate(['/dieticiansList'], { queryParams: queryParams});
     }else{

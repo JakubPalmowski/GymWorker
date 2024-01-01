@@ -63,6 +63,26 @@ app-root {
 	                              transparent 100%); 
 }
 
+.horizontal-line {
+    background: linear-gradient(to bottom, 
+                                transparent 0%, 
+                                transparent calc(50% - 0.81px), 
+                                white calc(50% - 0.8px), 
+                                white calc(50% + 0.8px), 
+                                transparent calc(50% + 0.81px), 
+                                transparent 100%);
+}
+
+.horizontal-line-black {
+    background: linear-gradient(to bottom, 
+                                transparent 0%, 
+                                transparent calc(50% - 0.81px), 
+                                black calc(50% - 0.8px), 
+                                black calc(50% + 0.8px), 
+                                transparent calc(50% + 0.81px), 
+                                transparent 100%);
+}
+
 .round-picture{
     clip-path: circle(50%); 
     object-fit: cover;
@@ -85,3 +105,9 @@ app-root {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.text-truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

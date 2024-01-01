@@ -19,11 +19,48 @@ export class SearchOptionsComponent implements OnInit{
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.sortOptions.sort = params['SortBy'] || '';
-      if(this.sortOptions.sort=="Mentor_Opinions"){
-        this.sortOptionsView.sort = "Ocena";
-      }
-      
     });
+    this.route.queryParams.subscribe(params => {
+      this.sortOptions.sortDirection = params['SortDirection'] || '';
+    });
+
+    switch (this.sortOptions.sort + "_" + this.sortOptions.sortDirection) {
+    case "Mentor_Opinions_DESC":
+        this.sortOptionsView.sort = "Ocena(od najlepszych)";
+        this.sortValue = "Mentor_Opinions_DESC";
+        break;
+    case "Mentor_Opinions_ASC":
+        this.sortOptionsView.sort = "Ocena(od najgorszych)";
+        this.sortValue = "Mentor_Opinions_ASC";
+        break;
+    case "Plan_Price_ASC":
+        this.sortOptionsView.sort = "Cena planu(od najtańszych)";
+        this.sortValue = "Plan_Price_ASC";
+        break;
+    case "Plan_Price_DESC":
+        this.sortOptionsView.sort = "Cena planu(od najdroższych)";
+        this.sortValue = "Plan_Price_DESC";
+        break;
+    case "Training_Price_ASC":
+          this.sortOptionsView.sort = "Cena treningu(od najtańszych)";
+          this.sortValue = "Training_Price_ASC";
+          break;
+    case "Training_Price_DESC":
+          this.sortOptionsView.sort = "Cena treningu(od najdroższych)";
+          this.sortValue = "Plan_Price_DESC";
+          break;
+    case "Diet_Price_ASC":
+            this.sortOptionsView.sort = "Cena diety(od najtańszych)";
+            this.sortValue = "Diet_Price_ASC";
+            break;
+    case "Diet_Price_DESC":
+            this.sortOptionsView.sort = "Cena diety(od najdroższych)";
+            this.sortValue = "Diet_Price_DESC";
+            break;
+    
+    }
+
+
     this.route.queryParams.subscribe(params => {
       this.sortOptions.gymCity = params['GymCityPhrase'] || '';
       this.sortOptionsView.gymCity = params['GymCityPhrase'] || '';
@@ -54,18 +91,22 @@ export class SearchOptionsComponent implements OnInit{
   @Output()
   deletePhrase: EventEmitter<void> = new EventEmitter<void>()
 
-  @Input()
+  
   sortOptionsView: Sort={
     sort:'',
     gymCity:'',
-    gymName:''
+    gymName:'',
+    sortDirection:''
   }
-  @Input()
+  
   sortOptions: Sort={
     sort:'',
     gymCity:'',
-    gymName:''
+    gymName:'',
+    sortDirection:''
   }
+
+  sortValue: string='';
 
   @Output()
   filterData: EventEmitter<Sort> = new EventEmitter<Sort>()
@@ -73,9 +114,48 @@ export class SearchOptionsComponent implements OnInit{
 
   onFilterData(action: string){
     if(action=="filter"){
-        if(this.sortOptions.sort=="Mentor_Opinions"){
-          this.sortOptionsView.sort = "Ocena";
-        }
+      switch (this.sortValue) {
+        case "Mentor_Opinions_DESC":
+            this.sortOptionsView.sort = "Ocena(od najlepszych)";
+            this.sortOptions.sort = "Mentor_Opinions";
+            this.sortOptions.sortDirection = "DESC";
+            break;
+        case "Mentor_Opinions_ASC":
+            this.sortOptionsView.sort = "Ocena(od najgorszych)";
+            this.sortOptions.sort = "Mentor_Opinions";
+            this.sortOptions.sortDirection = "ASC";
+            break;
+        case "Plan_Price_ASC":
+            this.sortOptionsView.sort = "Cena planu(od najtańszych)";
+            this.sortOptions.sort = "Plan_Price";
+            this.sortOptions.sortDirection = "ASC";
+            break;
+        case "Plan_Price_DESC":
+            this.sortOptionsView.sort = "Cena planu(od najdroższych)";
+            this.sortOptions.sort = "Plan_Price";
+            this.sortOptions.sortDirection = "DESC";
+            break;
+        case "Training_Price_ASC":
+              this.sortOptionsView.sort = "Cena treningu(od najtańszych)";
+              this.sortOptions.sort = "Training_Price";
+              this.sortOptions.sortDirection = "ASC";
+              break;
+        case "Training_Price_DESC":
+              this.sortOptionsView.sort = "Cena treningu(od najdroższych)";
+              this.sortOptions.sort = "Training_Price";
+              this.sortOptions.sortDirection = "DESC";
+              break;
+        case "Diet_Price_ASC":
+                this.sortOptionsView.sort = "Cena diety(od najtańszych)";
+                this.sortOptions.sort = "Diet_Price";
+                this.sortOptions.sortDirection = "ASC";
+                break;
+        case "Diet_Price_DESC":
+                this.sortOptionsView.sort = "Cena diety(od najdroższych)";
+                this.sortOptions.sort = "Diet_Price";
+                this.sortOptions.sortDirection = "DESC";
+                break;
+      }
       this.sortOptionsView.gymCity = this.sortOptions.gymCity;
       this.sortOptionsView.gymName = this.sortOptions.gymName;
       this.filterData.emit(this.sortOptions);
@@ -84,6 +164,8 @@ export class SearchOptionsComponent implements OnInit{
     if(action=="deleteSort"){
       this.sortOptions.sort='';
       this.sortOptionsView.sort = '';
+      this.sortOptions.sortDirection='';
+      this.sortValue='';
       this.filterData.emit(this.sortOptions)
     }
     if(action=="deleteGymCity"){

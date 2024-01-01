@@ -4,4 +4,16 @@
     right:0;
     width: 84%;
     height: 50px;
+    z-index: 1;
+}
+
+@media (max-width: 1400px) {
+    .footer{
+        position: fixed;
+        bottom: 0;
+        right:0;
+        width: 92%;
+        height: 50px;
+        z-index: 1;
+    }
 }

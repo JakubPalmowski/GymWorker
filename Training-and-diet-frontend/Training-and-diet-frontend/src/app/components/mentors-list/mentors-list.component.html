@@ -4,8 +4,11 @@
 
     <app-search-options [role]="role" [searchPhrase]="searchPhrase" (deletePhrase)="deletePhrase()" (filterData)="filterData($event)" ></app-search-options>
     
-    
-        <ng-container *ngIf="mentors.length>0">
+    <ng-container *ngIf="!isDataLoaded">
+      <span class="fs-3 text-center mt-5">Brak wyników</span>
+    </ng-container>
+
+        <ng-container *ngIf="mentors.length>0 && isDataLoaded">
 
     <div class="row d-flex justify-content-center">
         <div *ngFor="let mentor of mentors" class="col-8 col-sm-7 col-md-6 col-lg-5 col-xl-4 col-xxl-3 window-border m-4 rounded-3 bg-secondary">
