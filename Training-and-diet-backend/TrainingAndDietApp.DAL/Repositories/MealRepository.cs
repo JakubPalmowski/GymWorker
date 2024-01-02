@@ -29,25 +29,25 @@ namespace Training_and_diet_backend.Repositories
         public async Task<Meal?> GetMealByIdAsync(int mealId)
         {
             return await _context.Meals
-                .Where(m => m.Id_Meal == mealId)
+                .Where(m => m.IdMeal == mealId)
                 .FirstOrDefaultAsync();
         }
 
         public async Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId)
         {
             return await _context.Meals
-                .Where(m => m.Id_Dietetician == dieticianId)
+                .Where(m => m.IdDietician == dieticianId)
                 .ToListAsync();
         }
         //refactor, wrzucic exception do service
         public async Task<int> AddMealAsync(Meal meal)
         {
-            if (!await DieticianExists(meal.Id_Dietetician))
-                throw new NotFoundException($"Dietician with ID {meal.Id_Dietetician} not found");
+            if (!await DieticianExists(meal.IdDietician))
+                throw new NotFoundException($"Dietician with ID {meal.IdDietician} not found");
 
             await _context.Meals.AddAsync(meal);
             await _context.SaveChangesAsync();
-            return meal.Id_Meal;
+            return meal.IdMeal;
         }
 
         private async Task<bool> DieticianExists(int? dieticianId)

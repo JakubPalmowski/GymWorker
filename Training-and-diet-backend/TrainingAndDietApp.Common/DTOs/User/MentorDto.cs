@@ -2,20 +2,20 @@
 {
     public class MentorDto
     {
-        public int Id_user { get; set; }
+        public int IdUser { get; set; }
         public string Name { get; set; }
-        public string Last_name { get; set; }
-        public string Phone_number { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
         public string Bio { get; set; }
-        public int Opinion_number { get; set; }
+        public int OpinionNumber { get; set; }
         public decimal Rate { get; set; }
-        public string Role_name { get; set; }
-        public decimal? Training_plan_price_from { get; set; }
-        public decimal? Training_plan_price_to { get; set; }
-        public decimal? Personal_training_price_from { get; set; }
-        public decimal? Personal_training_price_to { get; set; }
-        public decimal? Diet_price_from { get; set; }
-        public decimal? Diet_price_to { get; set; }
+        public string RoleName { get; set; }
+        public decimal? TrainingPlanPriceFrom { get; set; }
+        public decimal? TrainingPlanPriceTo { get; set; }
+        public decimal? PersonalTrainingPriceFrom { get; set; }
+        public decimal? PersonalTrainingPriceTo { get; set; }
+        public decimal? DietPriceFrom { get; set; }
+        public decimal? DietPriceTo { get; set; }
 
     }
 

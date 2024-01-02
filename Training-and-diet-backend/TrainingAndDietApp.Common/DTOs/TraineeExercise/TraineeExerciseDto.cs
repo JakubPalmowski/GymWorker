@@ -2,12 +2,12 @@
 {
     public class TraineeExerciseDto
     {
-        public int Series_Number { get; set; }
-        public int Repetitions_number { get; set; }
+        public int SeriesNumber { get; set; }
+        public int RepetitionsNumber { get; set; }
         public string? Comments { get; set; }
         public DateTime Date { get; set; }
-        public int Id_Exercise { get; set; }
-        public int Id_Training_plan { get; set; }
+        public int IdExercise { get; set; }
+        public int IdTrainingPlan { get; set; }
 
     }
 }

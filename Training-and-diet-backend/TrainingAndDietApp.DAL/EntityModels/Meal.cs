@@ -7,16 +7,16 @@ namespace Training_and_diet_backend.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
-        public int Id_Meal { get; set; }
+        public int IdMeal { get; set; }
 
-        public int Id_Dietetician { get; set; }
+        public int IdDietician { get; set; }
         public string Name { get; set; }
         public string Ingredients { get; set; }
-        public string Prepare_Steps { get; set; }
+        public string PrepareSteps { get; set; }
         public byte[]? Image { get; set; }
 
         public string Kcal { get; set; }
-        [ForeignKey("Id_Dietetician")]
+        [ForeignKey("IdDietician")]
         public virtual User Dietetician { get; set; }
 
         public virtual ICollection<MealDiet> Meals { get; set; }

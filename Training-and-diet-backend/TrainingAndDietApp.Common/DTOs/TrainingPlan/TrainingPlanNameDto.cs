@@ -2,8 +2,8 @@
 {
     public class TrainingPlanNameDto
     {
-        public int Id_Training_plan { get; set; }
+        public int IdTrainingPlan { get; set; }
         public string Name { get; set; }
-        public int Plan_Duration { get; set; }
+        public int PlanDuration { get; set; }
     }
 }

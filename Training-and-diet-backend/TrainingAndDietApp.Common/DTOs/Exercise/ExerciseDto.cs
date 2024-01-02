@@ -2,11 +2,11 @@
 {
     public class ExerciseDto
     {
-        public int Id_Exercise { get; private set; }
+        public int IdExercise { get; private set; }
         public string Name { get; set; }
         public string Details { get; set; }
-        public string Exercise_steps { get; set; }
+        public string ExerciseSteps { get; set; }
         public byte[]? Image { get; set; }
-        public int? Id_Trainer { get; set; }
+        public int? IdTrainer { get; set; }
     }
 }
