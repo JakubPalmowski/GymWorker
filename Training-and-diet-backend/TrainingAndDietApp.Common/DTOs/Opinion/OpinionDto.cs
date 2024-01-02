@@ -5,6 +5,6 @@
         public string PupilName { get; set; }
         public decimal Rate { get; set; }
         public string Content { get; set; }
-        public string Opinion_date { get; set; }
+        public string OpinionDate { get; set; }
     }
 }

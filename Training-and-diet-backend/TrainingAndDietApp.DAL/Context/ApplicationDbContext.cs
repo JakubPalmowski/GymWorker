@@ -283,32 +283,32 @@ namespace TrainingAndDietApp.DAL.Context
             modelBuilder.Entity<Meal>().HasData(
                 new Meal
                 {
-                    Id_Meal = 1,
-                    Id_Dietetician = 1,
+                    IdMeal = 1,
+                    IdDietician = 1,
                     Name = "Placki ziemniaczane",
                     Ingredients = "{\"ingredient1\": \"ziemniaki\", \"ingredient2\": \"cebula\", \"ingredient3\":  \"mąka\" }"
                     ,
-                    Prepare_Steps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }",
+                    PrepareSteps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }",
                     Kcal = "{\"kcal\": \"651\", \"Białko\": \"16\", \"Węglowodany\":  \"160\" , \"Tłuszcze\": \"30\" }"
                 },
                 new Meal
                 {
-                    Id_Meal = 2,
-                    Id_Dietetician = 1,
+                    IdMeal = 2,
+                    IdDietician = 1,
                     Name = "Owsianka",
                     Ingredients = "{\"ingredient1\": \"platki owsiane\", \"ingredient2\": \"mleko\", \"ingredient3\":  \"cukier\" }"
                     ,
-                    Prepare_Steps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }",
+                    PrepareSteps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }",
                     Kcal = "{\"kcal\": \"765\", \"Białko\": \"20\", \"Węglowodany\":  \"165\" , \"Tłuszcze\": \"20\" }"
                 },
                 new Meal
                 {
-                    Id_Meal = 3,
-                    Id_Dietetician = 2,
+                    IdMeal = 3,
+                    IdDietician = 2,
                     Name = "Kanapki z szynką",
                     Ingredients = "{\"ingredient1\": \"szynka\", \"ingredient2\": \"chleb\", \"ingredient3\":  \"masło\" }"
                     ,
-                    Prepare_Steps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }",
+                    PrepareSteps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }",
                     Kcal = "{\"kcal\": \"700\", \"Białko\": \"30\", \"Węglowodany\":  \"200\" , \"Tłuszcze\": \"26\" }"
                 }
             );

@@ -12,14 +12,14 @@ namespace TrainingAndDietApp.Common.DTOs.User
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Bio { get; set; }
-        public int Opinion_number { get; set; }
+        public int OpinionNumber { get; set; }
         public decimal TotalRate { get; set; }
-        public decimal? Training_plan_price_from { get; set; }
-        public decimal? Training_plan_price_to { get; set; }
-        public decimal? Personal_training_price_from { get; set; }
-        public decimal? Personal_training_price_to { get; set; }
-        public decimal? Diet_price_from { get; set; }
-        public decimal? Diet_price_to { get; set; }
+        public decimal? TrainingPlanPriceFrom { get; set; }
+        public decimal? TrainingPlanPriceTo { get; set; }
+        public decimal? PersonalTrainingPriceFrom { get; set; }
+        public decimal? PersonalTrainingPriceTo { get; set; }
+        public decimal? DietPriceFrom { get; set; }
+        public decimal? DietPriceTo { get; set; }
         public List<OpinionDto> Opinions { get; set; }
         public List<GymDto> TrainerGyms {get; set; }
 

@@ -3,6 +3,6 @@
     public class ExerciseNameDto
     {
         public string Name { get; set; }
-        public int Id_Exercise { get; set; }
+        public int IdExercise { get; set; }
     }
 }

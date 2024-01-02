@@ -22,12 +22,12 @@ namespace Training_and_diet_backend.Controllers
 
             var data = new TraineeExercise
             {
-                SeriesNumber = traineeExercise.Series_Number,
-                RepetitionsNumber = traineeExercise.Repetitions_number,
+                SeriesNumber = traineeExercise.SeriesNumber,
+                RepetitionsNumber = traineeExercise.RepetitionsNumber,
                 Comments = traineeExercise.Comments,
                 Date = traineeExercise.Date, 
-                IdExercise = traineeExercise.Id_Exercise,
-                IdTrainingPlan = traineeExercise.Id_Training_plan
+                IdExercise = traineeExercise.IdExercise,
+                IdTrainingPlan = traineeExercise.IdTrainingPlan
 
             };
 

@@ -213,22 +213,22 @@ if (!string.IsNullOrEmpty(query.SortBy))
                         Email = trainer.Email,
                         PhoneNumber = trainer.PhoneNumber,
                         Bio = trainer.Bio,
-                        Opinion_number = trainer.MentorOpinions.Count(),
+                        OpinionNumber = trainer.MentorOpinions.Count(),
                         TotalRate = trainer.MentorOpinions.Any() == true
                             ? trainer.MentorOpinions.Average(o => o.Rate) : 0m,
-                        Training_plan_price_from = trainer.TrainingPlanPriceFrom,
-                        Training_plan_price_to = trainer.TrainingPlanPriceTo,
-                        Diet_price_from = trainer.DietPriceFrom,
-                        Diet_price_to = trainer.DietPriceTo,
-                        Personal_training_price_from = trainer.PersonalTrainingPriceFrom,
-                        Personal_training_price_to = trainer.PersonalTrainingPriceTo,
+                        TrainingPlanPriceFrom = trainer.TrainingPlanPriceFrom,
+                        TrainingPlanPriceTo = trainer.TrainingPlanPriceTo,
+                        DietPriceFrom = trainer.DietPriceFrom,
+                        DietPriceTo = trainer.DietPriceTo,
+                        PersonalTrainingPriceFrom = trainer.PersonalTrainingPriceFrom,
+                        PersonalTrainingPriceTo = trainer.PersonalTrainingPriceTo,
                         Opinions = trainer.MentorOpinions.Select(opinion=>
                             new OpinionDto
                             {
                                 PupilName = opinion.Pupil.Name,
                                 Rate = opinion.Rate,
                                 Content = opinion.Content,
-                                Opinion_date = opinion.OpinionDate.ToString("dd-MM-yyyy")
+                                OpinionDate = opinion.OpinionDate.ToString("dd-MM-yyyy")
                             }
                         ).ToList(),
                         TrainerGyms = trainer.TrainerGyms.Select(gym => 

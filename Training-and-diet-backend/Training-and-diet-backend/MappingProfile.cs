@@ -31,8 +31,8 @@ namespace Training_and_diet_backend
             CreateMap<TrainingPlan, TrainingPlanDetailsDto>();
 
             CreateMap<User, MentorDto>()
-                .ForMember(dest => dest.Opinion_number, opt => opt.MapFrom(src => src.MentorOpinions.Count))
-                .ForMember(dest => dest.Role_name, opt => opt.MapFrom(src => src.Role.Name))
+                .ForMember(dest => dest.OpinionNumber, opt => opt.MapFrom(src => src.MentorOpinions.Count))
+                .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name))
                 .ForMember(dest => dest.Rate,
                     opt => opt.MapFrom(src =>
                         src.MentorOpinions.Any() ? src.MentorOpinions.Average(o => o.Rate) : 0m));

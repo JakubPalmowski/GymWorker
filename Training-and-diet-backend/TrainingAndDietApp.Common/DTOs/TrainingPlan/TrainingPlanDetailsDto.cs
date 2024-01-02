@@ -4,17 +4,17 @@ namespace Training_and_diet_backend.DTOs.TrainingPlan
 {
     public class TrainingPlanDetailsDto
     {
-        public int Id_Training_plan { get; set; }
+        public int IdTrainingPlan { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
 
         [Column(TypeName = "Date")]
-        public DateTime Start_date { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Column(TypeName = "Date")]
-        public DateTime End_date { get; set; }
+        public DateTime EndDate { get; set; }
 
-        public int? Plan_Duration { get; set; }
+        public int? PlanDuration { get; set; }
 
     }
 }
