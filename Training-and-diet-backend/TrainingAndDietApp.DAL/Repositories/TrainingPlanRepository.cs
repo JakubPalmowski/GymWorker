@@ -6,9 +6,9 @@ namespace Training_and_diet_backend.Repositories
 {
     public interface ITrainingPlanRepository
     {
-        Task<int> AddTrainingPlanAsync(Training_plan trainingPlan);
+        Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan);
         Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int trainingPlanId);
-        Task<List<Training_plan>> GetTrainingPlanByIdAsync(int trainingPlanId);
+        Task<List<TrainingPlan>> GetTrainingPlanByIdAsync(int trainingPlanId);
     }
 
     public class TrainingPlanRepository : ITrainingPlanRepository
@@ -20,28 +20,28 @@ namespace Training_and_diet_backend.Repositories
             _context = context;
         }
 
-        public async Task<int> AddTrainingPlanAsync(Training_plan trainingPlan)
+        public async Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan)
         {
             _context.Training_plans.Add(trainingPlan);
             await _context.SaveChangesAsync();
-            return trainingPlan.Id_Training_plan;
+            return trainingPlan.IdTrainingPlan;
         }
         public async Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int trainingPlanId)
         {
             var planExercises = await _context.Trainee_exercises
-                .Where(e => e.Id_Training_plan == trainingPlanId)
-                .Select(e => e.Id_Exercise)
+                .Where(e => e.IdTrainingPlan == trainingPlanId)
+                .Select(e => e.IdExercise)
                 .ToListAsync();
 
             return await _context.Exercises
-                .Where(e => planExercises.Contains(e.Id_Exercise))
+                .Where(e => planExercises.Contains(e.IdExercise))
                 .ToListAsync();
         }
 
-        public async Task<List<Training_plan>> GetTrainingPlanByIdAsync(int trainingPlanId)
+        public async Task<List<TrainingPlan>> GetTrainingPlanByIdAsync(int trainingPlanId)
         {
            var trainingPlan =  await _context.Training_plans
-                .Where(plan => plan.Id_Training_plan == trainingPlanId)
+                .Where(plan => plan.IdTrainingPlan == trainingPlanId)
                 .ToListAsync();
 
            return trainingPlan;

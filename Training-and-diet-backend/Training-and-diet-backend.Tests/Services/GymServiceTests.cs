@@ -30,33 +30,33 @@ public class GymServiceTests
         {
             new Gym
             {
-                Id_Gym = 1,
+                IdGym = 1,
                 Name = "Si³ownia 1",
                 Address = new Address
                 {
-                    Id_Address = 1,
+                    IdAddress = 1,
                     City = "Warszawa",
                     Street = "Marsza³kowska"
                 }
             },
             new Gym
             {
-                Id_Gym = 2,
+                IdGym = 2,
                 Name = "Si³ownia 2",
                 Address = new Address
                 {
-                    Id_Address = 2,
+                    IdAddress = 2,
                     City = "Warszawa",
                     Street = "Marsza³kowska"
                 }
             },
             new Gym
             {
-                Id_Gym = 3,
+                IdGym = 3,
                 Name = "Si³ownia 3",
                 Address = new Address
                 {
-                    Id_Address = 3,
+                    IdAddress = 3,
                     City = "Warszawa",
                     Street = "Marsza³kowska"
                 }

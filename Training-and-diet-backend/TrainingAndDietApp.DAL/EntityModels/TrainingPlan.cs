@@ -3,38 +3,38 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Training_and_diet_backend.Models
 {
-    public class Training_plan
+    public class TrainingPlan
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
-        public int Id_Training_plan { get; set; }
+        public int IdTrainingPlan { get; set; }
 
         [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
         [Column(TypeName = "varchar(50)")]
         public string Type { get; set; }
         [Column(TypeName = "Date")]
-        public DateTime Start_date { get; set; }
+        public DateTime StartDate { get; set; }
         [Column(TypeName = "Date")]
-        public DateTime End_date { get; set; }
+        public DateTime EndDate { get; set; }
 
-        public int? Plan_Duration { get; private set; }
+        public int? PlanDuration { get; private set; }
 
         [ForeignKey("Trainer")]
-        public int Id_Trainer { get; set; }
+        public int IdTrainer { get; set; }
         [ForeignKey("Pupil")]
-        public int? Id_Pupil { get; set; }
+        public int? IdPupil { get; set; }
 
         public virtual User Trainer { get; set; }
 
         public virtual User Pupil { get; set; }
 
-        public virtual ICollection<Trainee_exercise> Trainee_Exercises { get; set; }
+        public virtual ICollection<TraineeExercise> TraineeExercises { get; set; }
 
 
         public void CalculatePlanDuration()
         {
-            Plan_Duration = (End_date - Start_date).Days;
+            PlanDuration = (EndDate - StartDate).Days;
         }
     }
 }

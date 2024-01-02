@@ -7,16 +7,16 @@ namespace Training_and_diet_backend.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
-        public int Id_Gym { get; set; }
+        public int IdGym { get; set; }
 
-        public int Id_Address { get; set; }
+        public int IdAddress { get; set; }
         public string Name { get; set; }
 
 
-        [ForeignKey("Id_Address")]
+        [ForeignKey("IdAddress")]
         public virtual Address Address { get; set; }
 
-        public virtual ICollection<Trainer_Gym> Trainer_Gyms { get; set; }
+        public virtual ICollection<TrainerGym> TrainerGyms { get; set; }
 
 
     }

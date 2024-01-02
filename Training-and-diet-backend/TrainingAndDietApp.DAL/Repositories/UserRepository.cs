@@ -29,9 +29,9 @@ namespace TrainingAndDietApp.DAL.Repositories
         {
             return await _context.Users
                 .Where(u => _context.Pupil_mentors
-                    .Where(e => e.Id_Mentor == id_trainer)
-                    .Select(e => e.Id_Pupil)
-                    .Contains(u.Id_User))
+                    .Where(e => e.IdMentor == id_trainer)
+                    .Select(e => e.IdPupil)
+                    .Contains(u.IdUser))
                 .ToListAsync();
         }
 
@@ -39,7 +39,7 @@ namespace TrainingAndDietApp.DAL.Repositories
         {
             var user =  await _context.Users
                 .Include(u => u.Role)
-                .FirstOrDefaultAsync(u => u.Id_User == id);
+                .FirstOrDefaultAsync(u => u.IdUser == id);
 
             if(user == null)
                 throw new NotFoundException("User with given id does not exist!");

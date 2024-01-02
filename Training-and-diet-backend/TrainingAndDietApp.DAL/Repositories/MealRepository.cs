@@ -52,7 +52,7 @@ namespace Training_and_diet_backend.Repositories
 
         private async Task<bool> DieticianExists(int? dieticianId)
         {
-            return await _context.Users.AnyAsync(d => d.Id_User == dieticianId);
+            return await _context.Users.AnyAsync(d => d.IdUser == dieticianId);
         }
     }
 }
