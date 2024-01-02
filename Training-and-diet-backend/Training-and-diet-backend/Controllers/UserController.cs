@@ -46,7 +46,7 @@ namespace Training_and_diet_backend.Controllers
 
 
         [HttpGet("{id_trainer}/pupils")]
-        public async Task<ActionResult<IEnumerable<User>>> GetPupilsByTrainerId(int id_trainer)
+        public async Task<ActionResult<IEnumerable<UserEntity>>> GetPupilsByTrainerId(int id_trainer)
         {
             var trainerPupils = await _service.GetPupilsByTrainerId(id_trainer);
 

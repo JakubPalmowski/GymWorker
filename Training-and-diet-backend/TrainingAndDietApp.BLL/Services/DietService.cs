@@ -1,12 +1,13 @@
 ﻿using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
 using TrainingAndDietApp.Common.Exceptions;
+using TrainingAndDietApp.DAL.EntityModels;
 
 namespace Training_and_diet_backend.Services
 {
     public interface IDietService
     {
-        Task<List<Diet>> GetDiets();
+        Task<List<DietEntity>> GetDiets();
     }
     public class DietService : IDietService
     {
@@ -17,7 +18,7 @@ namespace Training_and_diet_backend.Services
             _dietRepository = dietRepository;
         }
 
-        public async Task<List<Diet>> GetDiets()
+        public async Task<List<DietEntity>> GetDiets()
         {
             var diets = await _dietRepository.GetDietsAsync();
             if (diets.Count == 0)

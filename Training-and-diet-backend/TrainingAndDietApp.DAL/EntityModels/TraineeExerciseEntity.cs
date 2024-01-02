@@ -4,7 +4,8 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Training_and_diet_backend.Models
 {
-    public class TraineeExercise
+    [Table("TraineeExercise")]
+    public class TraineeExerciseEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
@@ -21,8 +22,8 @@ namespace Training_and_diet_backend.Models
         [ForeignKey("TrainingPlan")]
         public int IdTrainingPlan { get; set; }
 
-        public virtual Exercise Exercise { get; set; }
+        public virtual ExerciseEntity Exercise { get; set; }
 
-        public virtual TrainingPlan TrainingPlan { get; set; }
+        public virtual TrainingPlanEntity TrainingPlan { get; set; }
     }
 }

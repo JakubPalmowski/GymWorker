@@ -14,34 +14,34 @@ namespace Training_and_diet_backend
     {
         public MappingProfile()
         {
-            CreateMap<TrainingPlanCreateDto, TrainingPlan>();
+            CreateMap<TrainingPlanCreateDto, TrainingPlanEntity>();
 
-            CreateMap<ExerciseDto, Exercise>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
+            CreateMap<ExerciseDto, ExerciseEntity>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
 
-            CreateMap<Exercise, ExerciseDto>();
+            CreateMap<ExerciseEntity, ExerciseDto>();
 
-            CreateMap<Exercise, ExerciseNameDto>();
+            CreateMap<ExerciseEntity, ExerciseNameDto>();
 
-            CreateMap<TrainingPlan, TrainingPlanNameDto>();
-            CreateMap<Meal, MealDomainModel>();
+            CreateMap<TrainingPlanEntity, TrainingPlanNameDto>();
+            CreateMap<MealEntity, MealDomainModel>();
             CreateMap<MealDomainModel, MealDto>();
             
-            CreateMap<User, PupilDto>();
+            CreateMap<UserEntity, PupilDto>();
 
-            CreateMap<TrainingPlan, TrainingPlanDetailsDto>();
+            CreateMap<TrainingPlanEntity, TrainingPlanDetailsDto>();
 
-            CreateMap<User, MentorDto>()
+            CreateMap<UserEntity, MentorDto>()
                 .ForMember(dest => dest.OpinionNumber, opt => opt.MapFrom(src => src.MentorOpinions.Count))
-                .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name))
+                .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.RoleEntity.Name))
                 .ForMember(dest => dest.Rate,
                     opt => opt.MapFrom(src =>
                         src.MentorOpinions.Any() ? src.MentorOpinions.Average(o => o.Rate) : 0m));
-            CreateMap<Gym, GymDto>().ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City))
-                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
+            CreateMap<GymEntity, GymDto>().ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.AddressEntity.City))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.AddressEntity.Street));
 
-            CreateMap<Meal, MealDto>();
+            CreateMap<MealEntity, MealDto>();
 
-            CreateMap<MealDto, Meal>();
+            CreateMap<MealDto, MealEntity>();
 
 
 

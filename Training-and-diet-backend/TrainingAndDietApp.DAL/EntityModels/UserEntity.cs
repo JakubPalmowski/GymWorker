@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TrainingAndDietApp.DAL.EntityModels;
 
 namespace Training_and_diet_backend.Models
 {
-    public class User
+    [Table("User")]
+    public class UserEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
@@ -39,31 +41,31 @@ namespace Training_and_diet_backend.Models
 
 
         [InverseProperty("Pupil")]
-        public virtual ICollection<TrainingPlan> PupilTrainingPlans { get; set; }
+        public virtual ICollection<TrainingPlanEntity> PupilTrainingPlans { get; set; }
         [InverseProperty("Trainer")]
-        public virtual ICollection<TrainingPlan> TrainerTrainingPlans { get; set; }
-        public virtual ICollection<Exercise> Exercises { get; set; }
+        public virtual ICollection<TrainingPlanEntity> TrainerTrainingPlans { get; set; }
+        public virtual ICollection<ExerciseEntity> Exercises { get; set; }
 
 
         [InverseProperty("Pupil")]
-        public virtual ICollection<PupilMentor> PupilMentors { get; set; }
+        public virtual ICollection<PupilMentorEntity> PupilMentors { get; set; }
         [InverseProperty("Mentor")]
-        public virtual ICollection<PupilMentor> MentorPupils { get; set; }
-        public virtual ICollection<Diet> DietsAsDietician { get; set; }
-        public virtual ICollection<Diet> DietsAsPupil { get; set; }
+        public virtual ICollection<PupilMentorEntity> MentorPupils { get; set; }
+        public virtual ICollection<DietEntity> DietsAsDietician { get; set; }
+        public virtual ICollection<DietEntity> DietsAsPupil { get; set; }
 
         [ForeignKey("IdRole")]
-        public virtual Role Role { get; set; }
+        public virtual RoleEntity RoleEntity { get; set; }
 
         public int IdRole { get; set; }
 
         [InverseProperty("Mentor")]
-        public virtual ICollection<Opinion> MentorOpinions { get; set; }
+        public virtual ICollection<OpinionEntity> MentorOpinions { get; set; }
 
         [InverseProperty("Pupil")]
-        public virtual ICollection<Opinion> PupilOpinions { get; set; }
+        public virtual ICollection<OpinionEntity> PupilOpinions { get; set; }
 
-        public virtual ICollection<TrainerGym> TrainerGyms { get; set; }
+        public virtual ICollection<TrainerGymEntity> TrainerGyms { get; set; }
 
 
     }

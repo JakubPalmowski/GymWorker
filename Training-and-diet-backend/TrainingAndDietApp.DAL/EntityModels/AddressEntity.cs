@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Training_and_diet_backend.Models
 {
-    public class Address
+    [Table("Address")]
+    public class AddressEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
@@ -14,7 +15,7 @@ namespace Training_and_diet_backend.Models
         public string Street { get; set; }
         [Column(TypeName = "char(6)")]
         public string PostalCode { get; set; }
-        public virtual ICollection<Gym> Gyms { get; set; }
+        public virtual ICollection<GymEntity> Gyms { get; set; }
 
         
     }

@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TrainingAndDietApp.DAL.EntityModels;
 
 namespace Training_and_diet_backend.Models
 {
-    public class MealDiet
+    [Table("MealDiet")]
+    public class MealDietEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
@@ -17,9 +19,9 @@ namespace Training_and_diet_backend.Models
         [Column(TypeName = "varchar(200)")]
         public string? Comments { get; set; }
         [ForeignKey("IdMeal")]
-        public virtual Meal Meal { get; set; }
+        public virtual MealEntity MealEntity { get; set; }
         [ForeignKey("IdDiet")]
-        public virtual Diet Diet { get; set; }
+        public virtual DietEntity DietEntity { get; set; }
 
        
 

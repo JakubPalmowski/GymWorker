@@ -42,7 +42,7 @@ namespace TrainingAndDietApp.BLL.Services
         public async Task<List<MentorDto>> GetPupilsByTrainerId(int id_trainer)
         {
             if (!await CheckRole("Trainer", id_trainer))
-                throw new BadRequestException("User with given id is not a trainer!");
+                throw new BadRequestException("UserEntity with given id is not a trainer!");
 
             var pupils = await _repository.GetPupilsByTrainerIdAsync(id_trainer);
 
@@ -59,7 +59,7 @@ namespace TrainingAndDietApp.BLL.Services
         {
             var user = await _repository.GetUserByIdAsync(id);
                           
-            return user != null && user.Role.Name.Equals(roleName);
+            return user != null && user.RoleEntity.Name.Equals(roleName);
 
         }
 
@@ -88,15 +88,15 @@ namespace TrainingAndDietApp.BLL.Services
         {
 
             if (roleName != "Trainer" && roleName != "Dietician")
-                throw new BadRequestException("Role name must be Trainer, Dietician");
+                throw new BadRequestException("RoleEntity name must be Trainer, Dietician");
 
             var baseQuery = _context.Users
                 .Include(u => u.MentorOpinions)
-                .Include(u=>u.Role)
+                .Include(u=>u.RoleEntity)
                 .Include(u=>u.TrainerGyms)
-                .ThenInclude(tg=>tg.Gym)
-                .ThenInclude(g=>g.Address)
-                .Where(u => (u.Role.Name == roleName || u.Role.Name == "Dietician-Trainer") &&
+                .ThenInclude(tg=>tg.GymEntity)
+                .ThenInclude(g=>g.AddressEntity)
+                .Where(u => (u.RoleEntity.Name == roleName || u.RoleEntity.Name == "Dietician-Trainer") &&
 
                             (query.SearchPhrase == null ||
                              u.Name.ToLower().Contains(query.SearchPhrase.ToLower()) ||
@@ -106,12 +106,12 @@ namespace TrainingAndDietApp.BLL.Services
 
            if (!string.IsNullOrEmpty(query.GymCityPhrase))
                 {
-                    baseQuery = baseQuery.Where(u => u.TrainerGyms.Any(g => g.Gym.Address.City.ToLower().Contains(query.GymCityPhrase.ToLower())));
+                    baseQuery = baseQuery.Where(u => u.TrainerGyms.Any(g => g.GymEntity.AddressEntity.City.ToLower().Contains(query.GymCityPhrase.ToLower())));
                 }
 
                 if (!string.IsNullOrEmpty(query.GymNamePhrase))
                 {
-                    baseQuery = baseQuery.Where(u => u.TrainerGyms.Any(g => g.Gym.Name.ToLower().Contains(query.GymNamePhrase.ToLower())));
+                    baseQuery = baseQuery.Where(u => u.TrainerGyms.Any(g => g.GymEntity.Name.ToLower().Contains(query.GymNamePhrase.ToLower())));
                 }
 
 if (!string.IsNullOrEmpty(query.SortBy))
@@ -196,12 +196,12 @@ if (!string.IsNullOrEmpty(query.SortBy))
         {
 
             if (roleName != "Trainer" && roleName != "Dietician")
-                throw new BadRequestException("Role name must be Trainer, Dietician");
+                throw new BadRequestException("RoleEntity name must be Trainer, Dietician");
 
 
 
 
-            var users = await _context.Users.Where(u => u.IdUser == id && (u.Role.Name == roleName || "Dietician-Trainer" == u.Role.Name)).Select(
+            var users = await _context.Users.Where(u => u.IdUser == id && (u.RoleEntity.Name == roleName || "Dietician-Trainer" == u.RoleEntity.Name)).Select(
 
                 trainer =>
                     new MentorWithOpinionDto
@@ -209,7 +209,7 @@ if (!string.IsNullOrEmpty(query.SortBy))
                         Id=trainer.IdUser,
                         Name=trainer.Name,
                         LastName = trainer.LastName,
-                        Role = trainer.Role.Name,
+                        Role = trainer.RoleEntity.Name,
                         Email = trainer.Email,
                         PhoneNumber = trainer.PhoneNumber,
                         Bio = trainer.Bio,
@@ -234,9 +234,9 @@ if (!string.IsNullOrEmpty(query.SortBy))
                         TrainerGyms = trainer.TrainerGyms.Select(gym => 
                         new GymDto
                         {
-                            Name = gym.Gym.Name,
-                            CityName = gym.Gym.Address.City,
-                            Street = gym.Gym.Address.Street
+                            Name = gym.GymEntity.Name,
+                            CityName = gym.GymEntity.AddressEntity.City,
+                            Street = gym.GymEntity.AddressEntity.Street
                         }
                         ).ToList()
 
@@ -245,13 +245,13 @@ if (!string.IsNullOrEmpty(query.SortBy))
 
                     }).FirstOrDefaultAsync();
             if (users==null)
-                throw new NotFoundException("User with given id was not found in database");
+                throw new NotFoundException("UserEntity with given id was not found in database");
 
             return users;
         }
 
         public async Task<PupilDto> GetPupilById(int id){
-         var pupil = await _context.Users.Where(u=>u.IdUser==id && u.Role.Name=="Pupil").FirstOrDefaultAsync();
+         var pupil = await _context.Users.Where(u=>u.IdUser==id && u.RoleEntity.Name=="Pupil").FirstOrDefaultAsync();
          if(pupil==null){
             throw new NotFoundException("Pupil with given id was not found in database");
          }
