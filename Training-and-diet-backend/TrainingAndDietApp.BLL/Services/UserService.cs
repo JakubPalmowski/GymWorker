@@ -68,7 +68,7 @@ namespace TrainingAndDietApp.BLL.Services
         // Tu skonczyłem, filip
         public async Task<List<TrainingPlanNameDto>> GetTrainerTrainingPlans(int id_trainer)
         {
-            var trainingPlans = await _context.Training_plans.Where(e => e.Id_Trainer == id_trainer).ToListAsync();
+            var trainingPlans = await _context.Training_plans.Where(e => e.IdTrainer == id_trainer).ToListAsync();
 
             if (trainingPlans.Count == 0) throw new NotFoundException("There are no trainingPlans with given trainer_id");
 
@@ -77,7 +77,7 @@ namespace TrainingAndDietApp.BLL.Services
         }
         public async Task<List<ExerciseNameDto>> GetExercisesByTrainerId(int id_trainer)
         {
-            var exercises = await _context.Exercises.Where(e => e.Id_Trainer == id_trainer).ToListAsync();
+            var exercises = await _context.Exercises.Where(e => e.IdTrainer == id_trainer).ToListAsync();
 
             if (exercises.Count == 0) throw new NotFoundException("There are no exercises with given trainer_id");
 
@@ -91,27 +91,27 @@ namespace TrainingAndDietApp.BLL.Services
                 throw new BadRequestException("Role name must be Trainer, Dietician");
 
             var baseQuery = _context.Users
-                .Include(u => u.Mentor_Opinions)
+                .Include(u => u.MentorOpinions)
                 .Include(u=>u.Role)
-                .Include(u=>u.Trainer_Gyms)
+                .Include(u=>u.TrainerGyms)
                 .ThenInclude(tg=>tg.Gym)
                 .ThenInclude(g=>g.Address)
                 .Where(u => (u.Role.Name == roleName || u.Role.Name == "Dietician-Trainer") &&
 
                             (query.SearchPhrase == null ||
                              u.Name.ToLower().Contains(query.SearchPhrase.ToLower()) ||
-                             u.Last_name.ToLower().Contains(query.SearchPhrase.ToLower())));
+                             u.LastName.ToLower().Contains(query.SearchPhrase.ToLower())));
 
 
 
            if (!string.IsNullOrEmpty(query.GymCityPhrase))
                 {
-                    baseQuery = baseQuery.Where(u => u.Trainer_Gyms.Any(g => g.Gym.Address.City.ToLower().Contains(query.GymCityPhrase.ToLower())));
+                    baseQuery = baseQuery.Where(u => u.TrainerGyms.Any(g => g.Gym.Address.City.ToLower().Contains(query.GymCityPhrase.ToLower())));
                 }
 
                 if (!string.IsNullOrEmpty(query.GymNamePhrase))
                 {
-                    baseQuery = baseQuery.Where(u => u.Trainer_Gyms.Any(g => g.Gym.Name.ToLower().Contains(query.GymNamePhrase.ToLower())));
+                    baseQuery = baseQuery.Where(u => u.TrainerGyms.Any(g => g.Gym.Name.ToLower().Contains(query.GymNamePhrase.ToLower())));
                 }
 
 if (!string.IsNullOrEmpty(query.SortBy))
@@ -122,46 +122,46 @@ if (!string.IsNullOrEmpty(query.SortBy))
             if (query.SortDirection == SortDirection.ASC)
             {
                 baseQuery = baseQuery
-                    .OrderBy(u => u.Mentor_Opinions.Any()
-                        ? u.Mentor_Opinions.Average(mo => mo.Rate)
+                    .OrderBy(u => u.MentorOpinions.Any()
+                        ? u.MentorOpinions.Average(mo => mo.Rate)
                         : 0);
             }
             else
             {
                 baseQuery = baseQuery
-                    .OrderByDescending(u => u.Mentor_Opinions.Any()
-                        ? u.Mentor_Opinions.Average(mo => mo.Rate)
+                    .OrderByDescending(u => u.MentorOpinions.Any()
+                        ? u.MentorOpinions.Average(mo => mo.Rate)
                         : 0);
             }
             break;
 
         case "Plan_Price":
             if(query.SortDirection == SortDirection.ASC){
-                baseQuery = baseQuery.OrderBy(u => u.Training_plan_price_from == null)
-                             .ThenBy(u => u.Training_plan_price_from ?? 0);
+                baseQuery = baseQuery.OrderBy(u => u.TrainingPlanPriceFrom == null)
+                             .ThenBy(u => u.TrainingPlanPriceFrom ?? 0);
             } else {
                 baseQuery = baseQuery
-                             .OrderByDescending(u => u.Training_plan_price_to ?? 0);
+                             .OrderByDescending(u => u.TrainingPlanPriceTo ?? 0);
             }
             break;
 
 
         case "Training_Price":
             if(query.SortDirection == SortDirection.ASC){
-                baseQuery = baseQuery.OrderBy(u => u.Personal_training_price_from == null)
-                             .ThenBy(u => u.Personal_training_price_from ?? 0);
+                baseQuery = baseQuery.OrderBy(u => u.PersonalTrainingPriceFrom == null)
+                             .ThenBy(u => u.PersonalTrainingPriceFrom ?? 0);
             }else{
                 baseQuery = baseQuery
-                             .OrderByDescending(u => u.Personal_training_price_to ?? 0);
+                             .OrderByDescending(u => u.PersonalTrainingPriceTo ?? 0);
             }
             break;
 
         case "Diet_Price":
             if(query.SortDirection == SortDirection.ASC){
-                baseQuery = baseQuery.OrderBy(u => u.Diet_price_from == null)
-                            .ThenBy(u => u.Diet_price_from ?? 0);
+                baseQuery = baseQuery.OrderBy(u => u.DietPriceFrom == null)
+                            .ThenBy(u => u.DietPriceFrom ?? 0);
             }else{
-                baseQuery = baseQuery.OrderByDescending(u => u.Diet_price_to ?? 0);
+                baseQuery = baseQuery.OrderByDescending(u => u.DietPriceTo ?? 0);
             }
             break;
     }
@@ -201,37 +201,37 @@ if (!string.IsNullOrEmpty(query.SortBy))
 
 
 
-            var users = await _context.Users.Where(u => u.Id_User == id && (u.Role.Name == roleName || "Dietician-Trainer" == u.Role.Name)).Select(
+            var users = await _context.Users.Where(u => u.IdUser == id && (u.Role.Name == roleName || "Dietician-Trainer" == u.Role.Name)).Select(
 
                 trainer =>
                     new MentorWithOpinionDto
                     {
-                        Id=trainer.Id_User,
+                        Id=trainer.IdUser,
                         Name=trainer.Name,
-                        LastName = trainer.Last_name,
+                        LastName = trainer.LastName,
                         Role = trainer.Role.Name,
                         Email = trainer.Email,
-                        PhoneNumber = trainer.Phone_number,
+                        PhoneNumber = trainer.PhoneNumber,
                         Bio = trainer.Bio,
-                        Opinion_number = trainer.Mentor_Opinions.Count(),
-                        TotalRate = trainer.Mentor_Opinions.Any() == true
-                            ? trainer.Mentor_Opinions.Average(o => o.Rate) : 0m,
-                        Training_plan_price_from = trainer.Training_plan_price_from,
-                        Training_plan_price_to = trainer.Training_plan_price_to,
-                        Diet_price_from = trainer.Diet_price_from,
-                        Diet_price_to = trainer.Diet_price_to,
-                        Personal_training_price_from = trainer.Personal_training_price_from,
-                        Personal_training_price_to = trainer.Personal_training_price_to,
-                        Opinions = trainer.Mentor_Opinions.Select(opinion=>
+                        Opinion_number = trainer.MentorOpinions.Count(),
+                        TotalRate = trainer.MentorOpinions.Any() == true
+                            ? trainer.MentorOpinions.Average(o => o.Rate) : 0m,
+                        Training_plan_price_from = trainer.TrainingPlanPriceFrom,
+                        Training_plan_price_to = trainer.TrainingPlanPriceTo,
+                        Diet_price_from = trainer.DietPriceFrom,
+                        Diet_price_to = trainer.DietPriceTo,
+                        Personal_training_price_from = trainer.PersonalTrainingPriceFrom,
+                        Personal_training_price_to = trainer.PersonalTrainingPriceTo,
+                        Opinions = trainer.MentorOpinions.Select(opinion=>
                             new OpinionDto
                             {
                                 PupilName = opinion.Pupil.Name,
                                 Rate = opinion.Rate,
                                 Content = opinion.Content,
-                                Opinion_date = opinion.Opinion_date.ToString("dd-MM-yyyy")
+                                Opinion_date = opinion.OpinionDate.ToString("dd-MM-yyyy")
                             }
                         ).ToList(),
-                        TrainerGyms = trainer.Trainer_Gyms.Select(gym => 
+                        TrainerGyms = trainer.TrainerGyms.Select(gym => 
                         new GymDto
                         {
                             Name = gym.Gym.Name,
@@ -251,7 +251,7 @@ if (!string.IsNullOrEmpty(query.SortBy))
         }
 
         public async Task<PupilDto> GetPupilById(int id){
-         var pupil = await _context.Users.Where(u=>u.Id_User==id && u.Role.Name=="Pupil").FirstOrDefaultAsync();
+         var pupil = await _context.Users.Where(u=>u.IdUser==id && u.Role.Name=="Pupil").FirstOrDefaultAsync();
          if(pupil==null){
             throw new NotFoundException("Pupil with given id was not found in database");
          }

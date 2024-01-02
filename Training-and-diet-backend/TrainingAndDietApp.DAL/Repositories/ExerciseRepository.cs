@@ -31,27 +31,27 @@ namespace Training_and_diet_backend.Repositories
         public async Task<Exercise?> GetExerciseByIdAsync(int exerciseId)
         {
             return await _context.Exercises
-                .Where(e => e.Id_Exercise == exerciseId)
+                .Where(e => e.IdExercise == exerciseId)
                 .FirstOrDefaultAsync();
         }
 
         public async Task<int> CreateExerciseAsync(Exercise exercise)
         {
-            if (!await TrainerExists(exercise.Id_Trainer))
+            if (!await TrainerExists(exercise.IdTrainer))
             {
-                throw new NotFoundException($"Trainer with ID {exercise.Id_Trainer} not found");
+                throw new NotFoundException($"Trainer with ID {exercise.IdTrainer} not found");
             }
 
             _context.Exercises.Add(exercise);
             await _context.SaveChangesAsync();
-            return exercise.Id_Exercise;
+            return exercise.IdExercise;
         }
 
         public async Task UpdateExerciseAsync(Exercise exercise)
         {
-            if (!await TrainerExists(exercise.Id_Trainer))
+            if (!await TrainerExists(exercise.IdTrainer))
             {
-                throw new NotFoundException($"Trainer with ID {exercise.Id_Trainer} not found");
+                throw new NotFoundException($"Trainer with ID {exercise.IdTrainer} not found");
             }
 
             _context.Exercises.Update(exercise);
@@ -60,12 +60,12 @@ namespace Training_and_diet_backend.Repositories
 
         public async Task<List<Exercise>> GetTrainerExercisesAsync(int trainerId)
         {
-            return await _context.Exercises.Where(e => e.Id_Trainer == trainerId).ToListAsync();
+            return await _context.Exercises.Where(e => e.IdTrainer == trainerId).ToListAsync();
         }
 
         private async Task<bool> TrainerExists(int? trainerId)
         {
-            return await _context.Users.AnyAsync(t => t.Id_User == trainerId);
+            return await _context.Users.AnyAsync(t => t.IdUser == trainerId);
         }
     }
 }

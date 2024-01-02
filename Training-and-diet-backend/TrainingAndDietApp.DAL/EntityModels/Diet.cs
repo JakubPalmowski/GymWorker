@@ -24,6 +24,6 @@ namespace Training_and_diet_backend.Models
         [ForeignKey("Id_Pupil")]
         public virtual User Pupil { get; set; }
 
-        public virtual ICollection<Meal_Diet> MealsInDiet { get; set; }
+        public virtual ICollection<MealDiet> MealsInDiet { get; set; }
     }
 }

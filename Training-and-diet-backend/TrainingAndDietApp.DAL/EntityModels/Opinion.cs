@@ -6,16 +6,16 @@ namespace Training_and_diet_backend.Models
     public class Opinion
     {
         [ForeignKey("Pupil")]
-        public int Id_Pupil { get; set; }
+        public int IdPupil { get; set; }
 
         [ForeignKey("Mentor")]
-        public int Id_Mentor { get; set; }
+        public int IdMentor { get; set; }
 
         [Column(TypeName = "varchar(1000)")]
         public string Content { get; set; }
 
         [Column(TypeName = "Date")]
-        public DateTime Opinion_date { get; set; }
+        public DateTime OpinionDate { get; set; }
 
         [Column(TypeName = "decimal(2,1)")]
         public decimal Rate { get; set; }

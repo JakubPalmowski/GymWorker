@@ -20,19 +20,19 @@ namespace Training_and_diet_backend.Controllers
         {
            
 
-            var data = new Trainee_exercise
+            var data = new TraineeExercise
             {
-                Series_number = traineeExercise.Series_Number,
-                Repetitions_number = traineeExercise.Repetitions_number,
+                SeriesNumber = traineeExercise.Series_Number,
+                RepetitionsNumber = traineeExercise.Repetitions_number,
                 Comments = traineeExercise.Comments,
                 Date = traineeExercise.Date, 
-                Id_Exercise = traineeExercise.Id_Exercise,
-                Id_Training_plan = traineeExercise.Id_Training_plan
+                IdExercise = traineeExercise.Id_Exercise,
+                IdTrainingPlan = traineeExercise.Id_Training_plan
 
             };
 
             await _service.AddTraineeExercises(data);
-            return Ok(data.Id_Trainee_exercise);
+            return Ok(data.IdTraineeExercise);
         }
     }
 }

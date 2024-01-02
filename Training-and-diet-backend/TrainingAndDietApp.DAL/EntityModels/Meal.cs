@@ -19,6 +19,6 @@ namespace Training_and_diet_backend.Models
         [ForeignKey("Id_Dietetician")]
         public virtual User Dietetician { get; set; }
 
-        public virtual ICollection<Meal_Diet> Meals { get; set; }
+        public virtual ICollection<MealDiet> Meals { get; set; }
     }
 }

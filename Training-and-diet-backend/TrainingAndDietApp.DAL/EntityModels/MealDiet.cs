@@ -3,22 +3,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Training_and_diet_backend.Models
 {
-    public class Meal_Diet
+    public class MealDiet
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
-        public int Id_Meal_Diet { get; set; }
+        public int IdMealDiet { get; set; }
      
-        public int Id_Meal { get; set; }
+        public int IdMeal { get; set; }
     
-        public int Id_Diet { get; set; }
+        public int IdDiet { get; set; }
         [Column(TypeName = "Date")]
         public DateTime Date { get; set; }
         [Column(TypeName = "varchar(200)")]
         public string? Comments { get; set; }
-        [ForeignKey("Id_Meal")]
+        [ForeignKey("IdMeal")]
         public virtual Meal Meal { get; set; }
-        [ForeignKey("Id_Diet")]
+        [ForeignKey("IdDiet")]
         public virtual Diet Diet { get; set; }
 
        
