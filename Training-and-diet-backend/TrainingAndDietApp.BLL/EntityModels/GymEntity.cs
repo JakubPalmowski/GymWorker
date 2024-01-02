@@ -9,10 +9,12 @@ using Training_and_diet_backend.Models;
 
 namespace TrainingAndDietApp.BLL.Models
 {
-    public class TrainerGym
+    public class GymEntity
     {
-        public int IdTrainerGym { get; set; }
-        public Gym GymEntity { get; set; }
-        public Trainer Trainer { get; set; }
+        public int IdGym { get; set; }
+        public string Name { get; set; }
+        public string CityName { get; set; }
+        public string Street { get; set; }
+        public virtual ICollection<TrainerGymEntity> TrainerGyms { get; set; }
     }
 }

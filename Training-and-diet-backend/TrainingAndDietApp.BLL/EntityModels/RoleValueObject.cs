@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrainingAndDietApp.BLL.Models
 {
-    public class Role
+    public class RoleValueObject
     {
         public string Name { get; set; }
     }

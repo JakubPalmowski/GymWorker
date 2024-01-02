@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrainingAndDietApp.BLL.Models
 {
-    public class MealDomainModel
+    public class MealEntity
     {
         public int Id_Meal { get; set; }
         public int Id_Dietetician { get; set; }

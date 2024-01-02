@@ -6,16 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.BLL.EntityModels;
 
 namespace TrainingAndDietApp.BLL.Models
 {
-    public class Gym
+    public class TrainerGymEntity
     {
-        public int IdGym { get; set; }
-        public string Name { get; set; }
-
-        public AddressValueObject AddressValueObject { get; set; }
-
-        public virtual ICollection<TrainerGym> TrainerGyms { get; set; }
+        public int IdTrainerGym { get; set; }
+        public GymEntity GymEntity { get; set; }
+        public TrainerEntity TrainerEntity { get; set; }
     }
 }

@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.BLL.EntityModels;
 
 namespace TrainingAndDietApp.BLL.Models
 {
-    public class Exercise
+    public class ExerciseEntity
     {
         public int IdExercise { get; set; }
     
@@ -21,7 +22,7 @@ namespace TrainingAndDietApp.BLL.Models
 
         public byte[]? Image { get; set; }
 
-        public Trainer? Trainer { get; set; }
-        public virtual ICollection<TraineeExercise> TraineeExercises { get; set; }
+        public TrainerEntity? Trainer { get; set; }
+        public virtual ICollection<TraineeExerciseEntity> TraineeExercises { get; set; }
     }
 }

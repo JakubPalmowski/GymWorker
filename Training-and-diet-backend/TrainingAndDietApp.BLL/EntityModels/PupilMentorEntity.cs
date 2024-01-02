@@ -2,11 +2,11 @@
 
 namespace TrainingAndDietApp.BLL.Models
 {
-    public class PupilMentor
+    public class PupilMentorEntity
     {
         // do zmiany
         public virtual User Mentor { get; set; }
 
-        public Pupil Pupil { get; set; }
+        public PupilEntity PupilEntity { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.DTOs.Gym;
 using TrainingAndDietApp.DAL.Repositories;
 
@@ -7,7 +8,7 @@ namespace TrainingAndDietApp.BLL.Services
 
     public interface IGymService
     {
-        public Task<List<GymDto>> GetGyms();
+        public Task<List<GymEntity>> GetGyms();
     }
     public class GymService : IGymService
     {
@@ -21,13 +22,15 @@ namespace TrainingAndDietApp.BLL.Services
         }
 
 
-        public async Task<List<GymDto>> GetGyms()
+        public async Task<List<GymEntity>> GetGyms()
         {
             var gyms = await _gymRepository.GetGymsAsync();
             if (!gyms.Any())
                 throw new Exception("No gyms found");
 
-            return _mapper.Map<List<GymDto>>(gyms);
+
+
+            return _mapper.Map<List<GymEntity>>(gyms);
         }
     }
 }

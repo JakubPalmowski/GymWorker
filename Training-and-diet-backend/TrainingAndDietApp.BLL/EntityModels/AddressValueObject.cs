@@ -5,6 +5,6 @@
         public string City { get; set; }
         public string Street { get; set; }
         public string PostalCode { get; set; }
-        public ICollection<Gym> Gyms { get; set; }
+        public ICollection<GymEntity> Gyms { get; set; }
     }
 }
