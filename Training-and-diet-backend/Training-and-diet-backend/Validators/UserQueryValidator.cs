@@ -5,7 +5,7 @@ namespace Training_and_diet_backend.Validators
 {
     public class UserQueryValidator : AbstractValidator<UserQuery>
     {
-        private string[] allowedSortByColumnNames = {  nameof(User.MentorOpinions) };
+        private string[] allowedSortByColumnNames = {  nameof(UserEntity.MentorOpinions) };
         public UserQueryValidator()
         {
             RuleFor(x => x.PageNumber).GreaterThanOrEqualTo(1);

@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Training_and_diet_backend.Models;
 
-namespace Training_and_diet_backend.Models
+namespace TrainingAndDietApp.DAL.EntityModels
 {
-    public class PupilMentor
+    [Table("PupilMentor")]
+    public class PupilMentorEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
@@ -15,8 +17,8 @@ namespace Training_and_diet_backend.Models
         [ForeignKey("Pupil")]
         public int IdPupil { get; set; }
 
-        public virtual User Mentor { get; set; }
+        public virtual UserEntity Mentor { get; set; }
 
-        public virtual User Pupil { get; set; }
+        public virtual UserEntity Pupil { get; set; }
     }
 }

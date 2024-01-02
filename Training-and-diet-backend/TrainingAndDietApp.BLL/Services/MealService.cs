@@ -46,7 +46,7 @@ namespace Training_and_diet_backend.Services
             var meal = await _mealRepository.GetMealByIdAsync(mealId);
 
             if (meal == null)
-                throw new NotFoundException("Meal not found");
+                throw new NotFoundException("MealEntity not found");
 
             return _mapper.Map<MealDto>(meal);
         }
@@ -63,7 +63,7 @@ namespace Training_and_diet_backend.Services
 
         public async Task<int> CreateMeal(MealDto mealDto)
         {
-            var meal = _mapper.Map<Meal>(mealDto);
+            var meal = _mapper.Map<MealEntity>(mealDto);
 
             return await _mealRepository.AddMealAsync(meal);
         }

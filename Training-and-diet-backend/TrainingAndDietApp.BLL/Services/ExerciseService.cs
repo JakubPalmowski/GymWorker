@@ -8,15 +8,14 @@ namespace TrainingAndDietApp.BLL.Services
 {
     public interface IExerciseService
     {
-        Task<ExerciseDto> GetExerciseById(int ExerciseId);
+        Task<ExerciseDto> GetExerciseById(int exerciseId);
         Task<List<ExerciseNameDto>> GetAllExercises();
-        Task<int> CreateExercise(ExerciseDto exerciseDTO);
+        Task<int> CreateExercise(ExerciseDto exerciseDto);
 
-        // zmieniony typ na dto
-        Task<List<ExerciseDto>> GetTrainerExercises(int TrainderId);
+        Task<List<ExerciseDto>> GetTrainerExercises(int trainerId);
 
 
-        Task<ExerciseDto> UpdateExercise(ExerciseDto exercise, int ExerciseId);
+        Task<ExerciseDto> UpdateExercise(ExerciseDto exercise, int exerciseId);
     }
     public class ExerciseService : IExerciseService
     {
@@ -47,7 +46,7 @@ namespace TrainingAndDietApp.BLL.Services
 
             if (exercise == null)
             {
-                throw new NotFoundException("Exercise not found");
+                throw new NotFoundException("ExerciseEntity not found");
             }
 
             return _mapper.Map<ExerciseDto>(exercise);
@@ -55,13 +54,13 @@ namespace TrainingAndDietApp.BLL.Services
 
         public async Task<int> CreateExercise(ExerciseDto exerciseDTO)
         {
-            var exercise = _mapper.Map<Exercise>(exerciseDTO);
+            var exercise = _mapper.Map<ExerciseEntity>(exerciseDTO);
             return await _exerciseRepository.CreateExerciseAsync(exercise);
         }
 
-        public async Task<List<ExerciseDto>> GetTrainerExercises(int TrainderId)
+        public async Task<List<ExerciseDto>> GetTrainerExercises(int trainerId)
         {
-            var exercises = await _exerciseRepository.GetTrainerExercisesAsync(TrainderId);
+            var exercises = await _exerciseRepository.GetTrainerExercisesAsync(trainerId);
 
             if (!exercises.Any())
                 throw new NotFoundException("Exercises not found");
@@ -77,7 +76,7 @@ namespace TrainingAndDietApp.BLL.Services
 
             if (exercise == null)
             {
-                throw new NotFoundException("Exercise not found");
+                throw new NotFoundException("ExerciseEntity not found");
             }
 
             _mapper.Map(exerciseDTO, exercise);

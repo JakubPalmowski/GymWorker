@@ -20,7 +20,7 @@ namespace Training_and_diet_backend.Controllers
         {
            
 
-            var data = new TraineeExercise
+            var data = new TraineeExerciseEntity
             {
                 SeriesNumber = traineeExercise.SeriesNumber,
                 RepetitionsNumber = traineeExercise.RepetitionsNumber,

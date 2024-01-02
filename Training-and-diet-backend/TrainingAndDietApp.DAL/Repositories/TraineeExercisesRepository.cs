@@ -5,7 +5,7 @@ namespace Training_and_diet_backend.Repositories
 {
     public interface ITraineeExercisesRepository
     {
-        Task AddTraineeExercisesAsync(TraineeExercise traineeExercise);
+        Task AddTraineeExercisesAsync(TraineeExerciseEntity traineeExerciseEntity);
     }
     public class TraineeExercisesRepository : ITraineeExercisesRepository
     {
@@ -16,9 +16,9 @@ namespace Training_and_diet_backend.Repositories
             _context = context;
         }
 
-        public async Task AddTraineeExercisesAsync(TraineeExercise traineeExercise)
+        public async Task AddTraineeExercisesAsync(TraineeExerciseEntity traineeExerciseEntity)
         {
-            await _context.Trainee_exercises.AddAsync(traineeExercise);
+            await _context.Trainee_exercises.AddAsync(traineeExerciseEntity);
 
             await _context.SaveChangesAsync();
         }

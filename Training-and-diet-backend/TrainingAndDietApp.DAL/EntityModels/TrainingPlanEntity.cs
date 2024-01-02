@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Training_and_diet_backend.Models
 {
-    public class TrainingPlan
+    [Table("TrainingPlan")]
+    public class TrainingPlanEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
@@ -25,11 +26,11 @@ namespace Training_and_diet_backend.Models
         [ForeignKey("Pupil")]
         public int? IdPupil { get; set; }
 
-        public virtual User Trainer { get; set; }
+        public virtual UserEntity Trainer { get; set; }
 
-        public virtual User Pupil { get; set; }
+        public virtual UserEntity Pupil { get; set; }
 
-        public virtual ICollection<TraineeExercise> TraineeExercises { get; set; }
+        public virtual ICollection<TraineeExerciseEntity> TraineeExercises { get; set; }
 
 
         public void CalculatePlanDuration()
