@@ -6,7 +6,7 @@ namespace TrainingAndDietApp.DAL.Repositories
 {
     public interface IGymRepository
     {
-        Task<List<GymEntity>> GetGymsAsync();
+        Task<List<Gym>> GetGymsAsync();
     }
 
     public class GymRepository : IGymRepository
@@ -18,9 +18,9 @@ namespace TrainingAndDietApp.DAL.Repositories
             _context = context;
         }
 
-        public async Task<List<GymEntity>> GetGymsAsync()
+        public async Task<List<Gym>> GetGymsAsync()
         {
-            return await _context.Gyms.Include(g => g.AddressEntity).ToListAsync();
+            return await _context.Gyms.Include(g => g.Address).ToListAsync();
         }
 
     }

@@ -26,35 +26,35 @@ public class GymServiceTests
     [Fact]
     public async Task GetGyms_ReturnsListOfGymDto_WhenGymsExist()
     {
-        var gyms = new List<GymEntity>
+        var gyms = new List<Gym>
         {
-            new GymEntity
+            new Gym
             {
                 IdGym = 1,
                 Name = "Si³ownia 1",
-                AddressEntity = new AddressEntity
+                Address = new Address
                 {
                     IdAddress = 1,
                     City = "Warszawa",
                     Street = "Marsza³kowska"
                 }
             },
-            new GymEntity
+            new Gym
             {
                 IdGym = 2,
                 Name = "Si³ownia 2",
-                AddressEntity = new AddressEntity
+                Address = new Address
                 {
                     IdAddress = 2,
                     City = "Warszawa",
                     Street = "Marsza³kowska"
                 }
             },
-            new GymEntity
+            new Gym
             {
                 IdGym = 3,
                 Name = "Si³ownia 3",
-                AddressEntity = new AddressEntity
+                Address = new Address
                 {
                     IdAddress = 3,
                     City = "Warszawa",
@@ -66,12 +66,12 @@ public class GymServiceTests
         var expectedGymDtos = gyms.Select(g => new GymDto
         {
             Name = g.Name,
-            CityName = g.AddressEntity.City,
-            Street = g.AddressEntity.Street
+            CityName = g.Address.City,
+            Street = g.Address.Street
         }).ToList();
 
         _mockGymRepository.Setup(repo => repo.GetGymsAsync()).ReturnsAsync(gyms);
-        _mockMapper.Setup(mapper => mapper.Map<List<GymDto>>(It.IsAny<List<GymEntity>>()))
+        _mockMapper.Setup(mapper => mapper.Map<List<GymDto>>(It.IsAny<List<Gym>>()))
             .Returns(expectedGymDtos); 
 
    
@@ -85,7 +85,7 @@ public class GymServiceTests
     [Fact]
     public async Task GetGyms_ThrowsException_WhenNoGymsFound()
     {
-        _mockGymRepository.Setup(repo => repo.GetGymsAsync()).ReturnsAsync(new List<GymEntity>());
+        _mockGymRepository.Setup(repo => repo.GetGymsAsync()).ReturnsAsync(new List<Gym>());
 
         await Assert.ThrowsAsync<Exception>(() => _gymService.GetGyms());
     }

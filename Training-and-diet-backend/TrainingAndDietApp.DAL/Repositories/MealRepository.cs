@@ -7,10 +7,10 @@ namespace Training_and_diet_backend.Repositories
 {
     public interface IMealRepository
     {
-        Task<List<MealEntity>> GetMealsAsync();
-        Task<MealEntity?> GetMealByIdAsync(int mealId);
-        Task<List<MealEntity>> GetMealsByDieticianIdAsync(int dieticianId);
-        Task<int> AddMealAsync(MealEntity mealEntity);
+        Task<List<Meal>> GetMealsAsync();
+        Task<Meal?> GetMealByIdAsync(int mealId);
+        Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId);
+        Task<int> AddMealAsync(Meal meal);
         
     }
     public class MealRepository : IMealRepository
@@ -22,32 +22,32 @@ namespace Training_and_diet_backend.Repositories
             _context = context;
         }
 
-        public async Task<List<MealEntity>> GetMealsAsync()
+        public async Task<List<Meal>> GetMealsAsync()
         {
             return await _context.Meals.ToListAsync();
         }
-        public async Task<MealEntity?> GetMealByIdAsync(int mealId)
+        public async Task<Meal?> GetMealByIdAsync(int mealId)
         {
             return await _context.Meals
                 .Where(m => m.IdMeal == mealId)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<List<MealEntity>> GetMealsByDieticianIdAsync(int dieticianId)
+        public async Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId)
         {
             return await _context.Meals
                 .Where(m => m.IdDietician == dieticianId)
                 .ToListAsync();
         }
         //refactor, wrzucic exception do service
-        public async Task<int> AddMealAsync(MealEntity mealEntity)
+        public async Task<int> AddMealAsync(Meal meal)
         {
-            if (!await DieticianExists(mealEntity.IdDietician))
-                throw new NotFoundException($"Dietician with ID {mealEntity.IdDietician} not found");
+            if (!await DieticianExists(meal.IdDietician))
+                throw new NotFoundException($"Dietician with ID {meal.IdDietician} not found");
 
-            await _context.Meals.AddAsync(mealEntity);
+            await _context.Meals.AddAsync(meal);
             await _context.SaveChangesAsync();
-            return mealEntity.IdMeal;
+            return meal.IdMeal;
         }
 
         private async Task<bool> DieticianExists(int? dieticianId)

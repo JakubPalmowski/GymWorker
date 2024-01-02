@@ -28,7 +28,7 @@ namespace TrainingAndDietApp.BLL.Services
 
         public async Task<int> AddTrainingPlan(TrainingPlanCreateDto training_PlanDTO)
         {
-            var trainingPlan = _mapper.Map<TrainingPlanEntity>(training_PlanDTO);
+            var trainingPlan = _mapper.Map<TrainingPlan>(training_PlanDTO);
             trainingPlan.CalculatePlanDuration();
             return await _trainingPlanRepository.AddTrainingPlanAsync(trainingPlan);
         }

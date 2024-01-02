@@ -4,8 +4,7 @@ using TrainingAndDietApp.DAL.EntityModels;
 
 namespace Training_and_diet_backend.Models
 {
-    [Table("MealDiet")]
-    public class MealDietEntity
+    public class MealDiet
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
@@ -19,9 +18,9 @@ namespace Training_and_diet_backend.Models
         [Column(TypeName = "varchar(200)")]
         public string? Comments { get; set; }
         [ForeignKey("IdMeal")]
-        public virtual MealEntity MealEntity { get; set; }
+        public virtual Meal Meal { get; set; }
         [ForeignKey("IdDiet")]
-        public virtual DietEntity DietEntity { get; set; }
+        public virtual Diet Diet { get; set; }
 
        
 

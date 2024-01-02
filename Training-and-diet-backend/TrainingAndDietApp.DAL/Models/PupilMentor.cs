@@ -4,8 +4,7 @@ using Training_and_diet_backend.Models;
 
 namespace TrainingAndDietApp.DAL.EntityModels
 {
-    [Table("PupilMentor")]
-    public class PupilMentorEntity
+    public class PupilMentor
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
@@ -17,8 +16,8 @@ namespace TrainingAndDietApp.DAL.EntityModels
         [ForeignKey("Pupil")]
         public int IdPupil { get; set; }
 
-        public virtual UserEntity Mentor { get; set; }
+        public virtual User Mentor { get; set; }
 
-        public virtual UserEntity Pupil { get; set; }
+        public virtual User Pupil { get; set; }
     }
 }

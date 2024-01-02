@@ -46,7 +46,7 @@ namespace TrainingAndDietApp.BLL.Services
 
             if (exercise == null)
             {
-                throw new NotFoundException("ExerciseEntity not found");
+                throw new NotFoundException("Exercise not found");
             }
 
             return _mapper.Map<ExerciseDto>(exercise);
@@ -54,7 +54,7 @@ namespace TrainingAndDietApp.BLL.Services
 
         public async Task<int> CreateExercise(ExerciseDto exerciseDTO)
         {
-            var exercise = _mapper.Map<ExerciseEntity>(exerciseDTO);
+            var exercise = _mapper.Map<Exercise>(exerciseDTO);
             return await _exerciseRepository.CreateExerciseAsync(exercise);
         }
 
@@ -76,7 +76,7 @@ namespace TrainingAndDietApp.BLL.Services
 
             if (exercise == null)
             {
-                throw new NotFoundException("ExerciseEntity not found");
+                throw new NotFoundException("Exercise not found");
             }
 
             _mapper.Map(exerciseDTO, exercise);

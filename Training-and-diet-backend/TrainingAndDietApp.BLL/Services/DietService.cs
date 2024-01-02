@@ -7,7 +7,7 @@ namespace Training_and_diet_backend.Services
 {
     public interface IDietService
     {
-        Task<List<DietEntity>> GetDiets();
+        Task<List<Diet>> GetDiets();
     }
     public class DietService : IDietService
     {
@@ -18,7 +18,7 @@ namespace Training_and_diet_backend.Services
             _dietRepository = dietRepository;
         }
 
-        public async Task<List<DietEntity>> GetDiets()
+        public async Task<List<Diet>> GetDiets()
         {
             var diets = await _dietRepository.GetDietsAsync();
             if (diets.Count == 0)

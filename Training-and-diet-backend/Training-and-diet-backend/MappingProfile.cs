@@ -7,6 +7,9 @@ using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.DTOs.Exercise;
 using TrainingAndDietApp.Common.DTOs.Gym;
 using TrainingAndDietApp.Common.DTOs.User;
+using Exercise = Training_and_diet_backend.Models.Exercise;
+using Gym = Training_and_diet_backend.Models.Gym;
+using TrainingPlan = Training_and_diet_backend.Models.TrainingPlan;
 
 namespace Training_and_diet_backend
 {
@@ -14,34 +17,34 @@ namespace Training_and_diet_backend
     {
         public MappingProfile()
         {
-            CreateMap<TrainingPlanCreateDto, TrainingPlanEntity>();
+            CreateMap<TrainingPlanCreateDto, TrainingPlan>();
 
-            CreateMap<ExerciseDto, ExerciseEntity>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
+            CreateMap<ExerciseDto, Exercise>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
 
-            CreateMap<ExerciseEntity, ExerciseDto>();
+            CreateMap<Exercise, ExerciseDto>();
 
-            CreateMap<ExerciseEntity, ExerciseNameDto>();
+            CreateMap<Exercise, ExerciseNameDto>();
 
-            CreateMap<TrainingPlanEntity, TrainingPlanNameDto>();
-            CreateMap<MealEntity, MealDomainModel>();
+            CreateMap<TrainingPlan, TrainingPlanNameDto>();
+            CreateMap<Meal, MealDomainModel>();
             CreateMap<MealDomainModel, MealDto>();
             
-            CreateMap<UserEntity, PupilDto>();
+            CreateMap<User, PupilDto>();
 
-            CreateMap<TrainingPlanEntity, TrainingPlanDetailsDto>();
+            CreateMap<TrainingPlan, TrainingPlanDetailsDto>();
 
-            CreateMap<UserEntity, MentorDto>()
+            CreateMap<User, MentorDto>()
                 .ForMember(dest => dest.OpinionNumber, opt => opt.MapFrom(src => src.MentorOpinions.Count))
-                .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.RoleEntity.Name))
+                .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name))
                 .ForMember(dest => dest.Rate,
                     opt => opt.MapFrom(src =>
                         src.MentorOpinions.Any() ? src.MentorOpinions.Average(o => o.Rate) : 0m));
-            CreateMap<GymEntity, GymDto>().ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.AddressEntity.City))
-                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.AddressEntity.Street));
+            CreateMap<Gym, GymDto>().ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
 
-            CreateMap<MealEntity, MealDto>();
+            CreateMap<Meal, MealDto>();
 
-            CreateMap<MealDto, MealEntity>();
+            CreateMap<MealDto, Meal>();
 
 
 

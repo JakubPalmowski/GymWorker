@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Training_and_diet_backend.Models
 {
-    [Table("TrainerGym")]
-    public class TrainerGymEntity
+  
+    public class TrainerGym
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
@@ -13,9 +13,9 @@ namespace Training_and_diet_backend.Models
         public int IdTrainer { get; set; }
 
         [ForeignKey("IdGym")]
-        public virtual GymEntity GymEntity { get; set; }
+        public virtual Gym Gym { get; set; }
 
         [ForeignKey("IdTrainer")]
-        public virtual UserEntity Trainer { get; set; }
+        public virtual User Trainer { get; set; }
     }
 }
