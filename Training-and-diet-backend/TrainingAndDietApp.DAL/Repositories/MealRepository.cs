@@ -40,20 +40,14 @@ namespace Training_and_diet_backend.Repositories
                 .Where(m => m.IdDietician == dieticianId)
                 .ToListAsync();
         }
-        //refactor, wrzucic exception do service
+        
         public async Task<int> AddMealAsync(Meal meal)
         {
-            if (!await DieticianExists(meal.IdDietician))
-                throw new NotFoundException($"Dietician with ID {meal.IdDietician} not found");
-
             await _context.Meals.AddAsync(meal);
             await _context.SaveChangesAsync();
             return meal.IdMeal;
         }
-
-        private async Task<bool> DieticianExists(int? dieticianId)
-        {
-            return await _context.Users.AnyAsync(d => d.IdUser == dieticianId);
-        }
+       
+        
     }
 }

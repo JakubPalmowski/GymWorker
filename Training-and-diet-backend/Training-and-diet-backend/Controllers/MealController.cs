@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs.MealDto;
 using Training_and_diet_backend.Services;
+using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.BLL.Services;
+using TrainingAndDietApp.DAL.Models;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -48,9 +50,10 @@ namespace Training_and_diet_backend.Controllers
             return Ok(mealsDto);
         }
         [HttpPost]
-        public async Task<IActionResult> PostMeal(MealDto meal)
+        public async Task<ActionResult<int>> PostMeal(MealDto meal)
         {
-            var result = await _service.CreateMeal(meal);
+            var mealEntity = _mapper.Map<MealEntity>(meal);
+            var result = await _service.CreateMeal(mealEntity);
 
             return Ok(result);
         }

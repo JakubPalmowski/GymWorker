@@ -13,17 +13,20 @@ namespace TrainingAndDietApp.BLL.Services
         Task<List<MealEntity>> GetMeals();
         Task<MealEntity?> GetMealById(int mealId);
         Task<List<MealEntity>> GetMealsByDieticianId(int dieticianId);
-        Task<int> CreateMeal(MealDto mealDto);
+        Task<int> CreateMeal(MealEntity mealEntity);
     }
     public class MealService : IMealService
     {
         private readonly IMealRepository _mealRepository;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
+       
 
-        public MealService(IMealRepository mealRepository, IMapper mapper)
+        public MealService(IMealRepository mealRepository, IMapper mapper, IUserService userService)
         {
             _mealRepository = mealRepository;
             _mapper = mapper;
+            _userService = userService;
         }
 
         public async Task<List<MealEntity>> GetMeals()
@@ -60,10 +63,16 @@ namespace TrainingAndDietApp.BLL.Services
 
             
         }
-        // zastanowic sie nad MealEntity zamiast dto
-        public async Task<int> CreateMeal(MealDto mealDto)
+       
+        public async Task<int> CreateMeal(MealEntity mealEntity)
         {
-            var meal = _mapper.Map<Meal>(mealDto);
+            if (!await _userService.UserExists(mealEntity.IdDietician))
+                throw new NotFoundException("User does not exist");
+
+            if (!await _userService.UserIsDietician(mealEntity.IdDietician))
+                throw new BadRequestException("User is not a dietician");
+
+            var meal = _mapper.Map<Meal>(mealEntity);
 
             return await _mealRepository.AddMealAsync(meal);
         }

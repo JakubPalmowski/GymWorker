@@ -33,6 +33,8 @@ namespace Training_and_diet_backend
 
             CreateMap<Meal, MealEntity>();
             CreateMap<MealEntity, MealDto>();
+            CreateMap<MealDto, MealEntity>();
+            CreateMap<MealEntity, Meal>();
 
 
 

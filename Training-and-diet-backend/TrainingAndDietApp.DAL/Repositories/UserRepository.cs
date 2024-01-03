@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Training_and_diet_backend.Models;
@@ -14,6 +15,7 @@ namespace TrainingAndDietApp.DAL.Repositories
     {
         Task<List<User>> GetPupilsByTrainerIdAsync(int id_trainer);
         Task<User?> GetUserByIdAsync(int id);
+        Task<bool> AnyAsync(Expression<Func<User, bool>> predicate);
     }
     public class UserRepository : IUserRepository
     {
@@ -45,6 +47,11 @@ namespace TrainingAndDietApp.DAL.Repositories
                 throw new NotFoundException("User with given id does not exist!");
 
             return user;
+        }
+
+        public async Task<bool> AnyAsync(Expression<Func<User, bool>> predicate)
+        {
+            return await _context.Users.AnyAsync(predicate);
         }
     }
 }
