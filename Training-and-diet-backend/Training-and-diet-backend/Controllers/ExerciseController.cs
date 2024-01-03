@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Services;
+using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.BLL.Services;
 using TrainingAndDietApp.Common.DTOs.Exercise;
 
@@ -11,42 +13,47 @@ namespace Training_and_diet_backend.Controllers
     public class ExerciseController : ControllerBase
     {
         private readonly IExerciseService _service;
-        public ExerciseController(IExerciseService service)
+        private readonly IMapper _mapper;
+        public ExerciseController(IExerciseService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
-        [HttpGet("{ExerciseId}")]
-        public async Task<IActionResult> GetExerciseById(int ExerciseId)
+        [HttpGet("{exerciseId}")]
+        public async Task<ActionResult<ExerciseNameDto>> GetExerciseById(int exerciseId)
         {
+            var exerciseDomainModels = await _service.GetExerciseById(exerciseId);
+            var exerciseDTO = _mapper.Map<ExerciseNameDto>(exerciseDomainModels);
 
-            var exist = await _service.GetExerciseById(ExerciseId);
 
-
-            return Ok(exist);
+            return Ok(exerciseDTO);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllExercises()
+        public async Task<ActionResult<ExerciseNameDto>> GetAllExercises()
         {
-            var exercises = await _service.GetAllExercises();
+            var exercisesDomainModels = await _service.GetAllExercises();
+            var exerciseDto = _mapper.Map<List<ExerciseNameDto>>(exercisesDomainModels);
 
-            return Ok(exercises);
+            return Ok(exerciseDto);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostExercise(ExerciseDto exercise)
+        public async Task<ActionResult<int>> PostExercise(ExerciseDto exercise)
         {
-            var result = await _service.CreateExercise(exercise);
+            var exerciseEntity = _mapper.Map<ExerciseEntity>(exercise);
+            var result = await _service.CreateExercise(exerciseEntity);
 
             return Ok(result);
         }
 
-        [HttpPut("{ExerciseId}")]
-        public async Task<IActionResult> PutExercise([FromBody] ExerciseDto ExerciseDTO, int ExerciseId)
+        [HttpPut("{exerciseId}")]
+        public async Task<ActionResult<int>> PutExercise([FromBody] ExerciseDto exerciseDto, int exerciseId)
         {
-            var result = await _service.UpdateExercise(ExerciseDTO, ExerciseId);
+            var exerciseEntity = _mapper.Map<ExerciseEntity>(exerciseDto);
+            var result = await _service.UpdateExercise(exerciseEntity, exerciseId);
 
             return Ok(result);
         }

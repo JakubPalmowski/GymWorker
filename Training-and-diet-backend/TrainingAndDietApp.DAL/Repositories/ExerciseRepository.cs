@@ -10,7 +10,7 @@ namespace TrainingAndDietApp.DAL.Repositories
         Task<List<Exercise>> GetAllExercisesAsync();
         Task<Exercise?> GetExerciseByIdAsync(int exerciseId);
         Task<int> CreateExerciseAsync(Exercise exercise);
-        Task UpdateExerciseAsync(Exercise exercise);
+        Task<int> UpdateExerciseAsync(Exercise exercise);
 
         Task <List<Exercise>> GetTrainerExercisesAsync(int trainerId);
     }
@@ -25,47 +25,48 @@ namespace TrainingAndDietApp.DAL.Repositories
 
         public async Task<List<Exercise>> GetAllExercisesAsync()
         {
-            return await _context.Exercises.ToListAsync();
+            var exercises =  await _context.Exercises.ToListAsync();
+            if (!exercises.Any())
+                throw new NotFoundException("Exercises not found");
+            return exercises;
         }
 
         public async Task<Exercise?> GetExerciseByIdAsync(int exerciseId)
         {
-            return await _context.Exercises
+            var exercise =  await _context.Exercises
                 .Where(e => e.IdExercise == exerciseId)
                 .FirstOrDefaultAsync();
+            if (exercise == null)
+                throw new NotFoundException("Exercise not found");
+
+            return exercise;
         }
 
         public async Task<int> CreateExerciseAsync(Exercise exercise)
         {
-            if (!await TrainerExists(exercise.IdTrainer))
-                throw new NotFoundException($"Trainer with ID {exercise.IdTrainer} not found");
-            
+
             _context.Exercises.Add(exercise);
             await _context.SaveChangesAsync();
             return exercise.IdExercise;
         }
 
-        public async Task UpdateExerciseAsync(Exercise exercise)
+        public async Task<int> UpdateExerciseAsync(Exercise exercise)
         {
-            if (!await TrainerExists(exercise.IdTrainer))
-            {
-                throw new NotFoundException($"Trainer with ID {exercise.IdTrainer} not found");
-            }
-
             _context.Exercises.Update(exercise);
             await _context.SaveChangesAsync();
+            return exercise.IdExercise;
         }
 
         public async Task<List<Exercise>> GetTrainerExercisesAsync(int trainerId)
         {
-            return await _context.Exercises.Where(e => e.IdTrainer == trainerId).ToListAsync();
+            var exercises =  await _context.Exercises.Where(e => e.IdTrainer == trainerId).ToListAsync();
+
+            if (!exercises.Any())
+                throw new NotFoundException("Exercises not found");
+
+            return exercises;
         }
 
 
-
-        private async Task<bool> TrainerExists(int? trainerId)
-        {
-            return await _context.Users.AnyAsync(t => t.IdUser == trainerId);
-        }
     }
 }

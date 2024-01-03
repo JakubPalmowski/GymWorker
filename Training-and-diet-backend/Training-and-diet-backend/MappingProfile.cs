@@ -3,6 +3,7 @@ using Training_and_diet_backend.DTOs.MealDto;
 using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.DTOs.Diet;
 using TrainingAndDietApp.Common.DTOs.Exercise;
@@ -39,8 +40,14 @@ namespace Training_and_diet_backend
 
 
             CreateMap<ExerciseDto, Exercise>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
-
-            CreateMap<Exercise, ExerciseDto>();
+            CreateMap<Exercise, ExerciseEntity>();
+            CreateMap<ExerciseEntity, ExerciseNameDto>();
+            
+            //post
+            CreateMap<ExerciseDto, ExerciseEntity>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
+            CreateMap<ExerciseEntity, Exercise>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
+           
+           
 
             CreateMap<Exercise, ExerciseNameDto>();
 
