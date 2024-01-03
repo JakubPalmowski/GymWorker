@@ -1,8 +1,8 @@
 export interface NewTrainingExercise{
-    series_Number: number,
-    repetitions_number: number,
+    seriesNumber: number,
+    repetitionsNumber: number,
     comments: string,
     date: Date,
-    id_Exercise: number,
-    id_Training_plan:number
+    idExercise: number,
+    idTrainingPlan:number
 }

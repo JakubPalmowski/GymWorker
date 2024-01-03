@@ -16,12 +16,12 @@ export class NewTrainingExerciseComponent implements OnInit{
   id_exercise:string='';
 
   newTrainingExerciseRequest:NewTrainingExercise={
-    series_Number:0,
-    repetitions_number:0,
+    seriesNumber:0,
+    repetitionsNumber:0,
     comments:'',
     date:new Date(),
-    id_Exercise:0,
-    id_Training_plan:0
+    idExercise:0,
+    idTrainingPlan:0
   }
 
   exercise:ExerciseGetById={
@@ -51,8 +51,8 @@ export class NewTrainingExerciseComponent implements OnInit{
   }
 
   addTrainingExercise(){
-    this.newTrainingExerciseRequest.id_Exercise=parseInt(this.id_exercise);
-    this.newTrainingExerciseRequest.id_Training_plan=parseInt(this.id_training);
+    this.newTrainingExerciseRequest.idExercise=parseInt(this.id_exercise);
+    this.newTrainingExerciseRequest.idTrainingPlan=parseInt(this.id_training);
     console.log(this.newTrainingExerciseRequest);
     this.exerciseServise.addTrainingExercise(this.newTrainingExerciseRequest).subscribe({
       next:(newTrainingExercise)=>{

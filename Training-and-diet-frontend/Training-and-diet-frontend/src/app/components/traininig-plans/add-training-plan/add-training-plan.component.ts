@@ -13,12 +13,12 @@ import { TrainingPlanService } from 'src/app/services/training-plan.service';
 export class AddTrainingPlanComponent implements OnInit{
   
   addTrainingPlanRequest: NewTrainingPlan={
-    id_Training_plan:0,
-    id_Trainer:1,
+    idTrainingPlan:0,
+    idTrainer:1,
     name:'',
     type:'',
-    start_date:new Date(),
-    end_date:new Date(),
+    startDate:new Date(),
+    endDate:new Date(),
 
   }
   constructor(private trainingPlanService:TrainingPlanService, private router:Router){}
