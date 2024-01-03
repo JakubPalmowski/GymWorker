@@ -20,8 +20,8 @@ export class EditTrainingPlanComponent implements OnInit{
     idTrainingPlan:0,
     name:'',
     type:'',
-    start_date:new Date(),
-    end_date:new Date()
+    startDate:new Date(),
+    endDate:new Date()
 
   }
 
@@ -45,8 +45,8 @@ export class EditTrainingPlanComponent implements OnInit{
             next:(plan)=>{
               this.trainingPlan=plan[0];
              
-              this.formStartDate=this.trainingPlan.start_date.toString().split('T')[0];
-              this.formEndDate=this.trainingPlan.end_date.toString().split('T')[0];
+              this.formStartDate=this.trainingPlan.startDate.toString().split('T')[0];
+              this.formEndDate=this.trainingPlan.endDate.toString().split('T')[0];
               
           
             },

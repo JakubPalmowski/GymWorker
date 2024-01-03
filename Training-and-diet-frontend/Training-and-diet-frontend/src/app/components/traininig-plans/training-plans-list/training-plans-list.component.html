@@ -16,8 +16,8 @@
                 </tr>
             </thead>
             <tr *ngFor="let trainingPlan of filteredTrainingPlans">
-                <td><a [routerLink]="['edit',trainingPlan.id_Training_plan]">{{ trainingPlan.name }}</a></td>
-                <td>{{ trainingPlan.plan_Duration }}</td>
+                <td><a [routerLink]="['edit',trainingPlan.idTrainingPlan]">{{ trainingPlan.name }}</a></td>
+                <td>{{ trainingPlan.planDuration }}</td>
             </tr>
         </table>
         <p *ngIf="!trainingPlans || trainingPlans.length <=0" class="no-plans-message">Nie posiadasz planów treningowych</p>

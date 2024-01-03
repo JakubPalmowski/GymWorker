@@ -1,8 +1,8 @@
 import { Time } from "@angular/common";
 
 export interface TrainingPlan{
-    id_Training_plan: number;
+    idTrainingPlan: number;
     name: string;
-    plan_Duration:number ;
+    planDuration:number ;
     
 }

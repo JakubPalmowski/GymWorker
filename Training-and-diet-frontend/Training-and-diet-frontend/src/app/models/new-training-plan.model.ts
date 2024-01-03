@@ -1,9 +1,9 @@
 export interface NewTrainingPlan{
-    id_Training_plan:number;
-    id_Trainer: number;
+    idTrainingPlan:number;
+    idTrainer: number;
     name: string;
     type:string;
-    start_date:Date;
-    end_date:Date;
+    startDate:Date;
+    endDate:Date;
     
 }

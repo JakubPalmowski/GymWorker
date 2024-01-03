@@ -6,11 +6,11 @@
             <form #form="ngForm" (ngSubmit)="addTrainingExercise()">
                 <div class="mb-3">
                     <label for="series_Number" class="form-label">Liczba serii:</label><br>
-                    <input type="number" class="form-control" id="series_Number" name="series_Number" [(ngModel)]="newTrainingExerciseRequest.series_Number">
+                    <input type="number" class="form-control" id="series_Number" name="series_Number" [(ngModel)]="newTrainingExerciseRequest.seriesNumber">
                 </div>
                 <div class="mb-3">
                     <label for="repetitions_number" class="form-label">Liczba powtórzeń:</label><br>
-                    <input type="number" class="form-control" id="repetitions_number" name="repetitions_number" [(ngModel)]="newTrainingExerciseRequest.repetitions_number">
+                    <input type="number" class="form-control" id="repetitions_number" name="repetitions_number" [(ngModel)]="newTrainingExerciseRequest.repetitionsNumber">
                 </div>
                 <div class="mb-3">
                     <label for="comments" class="form-label">Komentarz:</label><br>
