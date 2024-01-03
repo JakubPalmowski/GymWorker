@@ -15,6 +15,6 @@ namespace TrainingAndDietApp.BLL.Models
         public string Name { get; set; }
         public string CityName { get; set; }
         public string Street { get; set; }
-        public virtual ICollection<TrainerGymEntity> TrainerGyms { get; set; }
+        public ICollection<TrainerGymEntity> TrainerGyms { get; set; }
     }
 }

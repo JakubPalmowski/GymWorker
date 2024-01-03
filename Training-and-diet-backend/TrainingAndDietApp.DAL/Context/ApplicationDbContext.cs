@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.DAL.EntityModels;
+using TrainingAndDietApp.DAL.Models;
 
 namespace TrainingAndDietApp.DAL.Context
 {

@@ -9,6 +9,7 @@ using TrainingAndDietApp.Common.DTOs.Exercise;
 using TrainingAndDietApp.Common.DTOs.Gym;
 using TrainingAndDietApp.Common.DTOs.User;
 using TrainingAndDietApp.DAL.EntityModels;
+using TrainingAndDietApp.DAL.Models;
 using Exercise = Training_and_diet_backend.Models.Exercise;
 using Gym = Training_and_diet_backend.Models.Gym;
 using TrainingPlan = Training_and_diet_backend.Models.TrainingPlan;
@@ -29,6 +30,11 @@ namespace Training_and_diet_backend
 
 
             CreateMap<GymEntity, GymDto>();
+
+            CreateMap<Meal, MealEntity>();
+            CreateMap<MealEntity, MealDto>();
+
+
 
             CreateMap<ExerciseDto, Exercise>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
 

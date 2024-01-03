@@ -40,9 +40,9 @@ namespace TrainingAndDietApp.BLL.Services
             return _mapper.Map<List<ExerciseNameDto>>(exercises);
         }
 
-        public async Task<ExerciseDto> GetExerciseById(int ExerciseId)
+        public async Task<ExerciseDto> GetExerciseById(int exerciseId)
         {
-            var exercise = await _exerciseRepository.GetExerciseByIdAsync(ExerciseId);
+            var exercise = await _exerciseRepository.GetExerciseByIdAsync(exerciseId);
 
             if (exercise == null)
             {
@@ -70,9 +70,9 @@ namespace TrainingAndDietApp.BLL.Services
 
         }
 
-        public async Task<ExerciseDto> UpdateExercise(ExerciseDto exerciseDTO, int ExerciseId)
+        public async Task<ExerciseDto> UpdateExercise(ExerciseDto exerciseDTO, int exerciseId)
         {
-            var exercise = await _exerciseRepository.GetExerciseByIdAsync(ExerciseId);
+            var exercise = await _exerciseRepository.GetExerciseByIdAsync(exerciseId);
 
             if (exercise == null)
             {
