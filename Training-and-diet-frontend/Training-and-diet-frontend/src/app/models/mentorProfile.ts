@@ -9,14 +9,14 @@ export interface MentorProfile{
     phoneNumber: string;
     email: string;
     bio: string;
-    opinion_number: number;
+    opinionNumber: number;
     totalRate: number;
-    training_plan_price_from?: number;
-    training_plan_price_to?: number;
-    personal_training_price_from?: number;
-    personal_training_price_to?: number;
-    diet_price_from?: number;
-    diet_price_to?: number;
+    trainingPlanPriceFrom?: number;
+    trainingPlanPriceTo?: number;
+    personalTrainingPriceFrom?: number;
+    personalTrainingPriceTo?: number;
+    dietPriceFrom?: number;
+    dietPriceTo?: number;
     opinions: Opinion[];
     trainerGyms: Gym[]
 }

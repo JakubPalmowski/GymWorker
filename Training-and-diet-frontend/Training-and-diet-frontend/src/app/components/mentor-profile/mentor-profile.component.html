@@ -47,16 +47,16 @@
       <div class="col-12 col-md d-flex flex-column ms-1 align-items-center align-items-md-start">
         <span><strong>Cennik:</strong></span>
         <ng-container *ngIf="mentor.role=='Trainer'">
-        <span>Plan treningowy: {{(mentor.training_plan_price_from !== null && mentor.training_plan_price_to !== null) ? mentor.training_plan_price_from + '-' + mentor.training_plan_price_to : '-' }}</span>
-        <span>Trening personalny: {{(mentor.personal_training_price_from !== null && mentor.personal_training_price_to !== null) ? mentor.personal_training_price_from + '-' + mentor.personal_training_price_to : '-' }}</span>
+        <span>Plan treningowy: {{(mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null) ? mentor.trainingPlanPriceFrom + '-' + mentor.trainingPlanPriceTo : '-' }}</span>
+        <span>Trening personalny: {{(mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null) ? mentor.personalTrainingPriceFrom + '-' + mentor.personalTrainingPriceTo : '-' }}</span>
       </ng-container>
       <ng-container *ngIf="mentor.role=='Dietician'">
-        <span>Dieta: {{(mentor.diet_price_from !== null && mentor.diet_price_to !== null) ? mentor.diet_price_from + '-' + mentor.diet_price_to: '-' }}</span>
+        <span>Dieta: {{(mentor.dietPriceFrom !== null && mentor.dietPriceTo !== null) ? mentor.dietPriceFrom + '-' + mentor.dietPriceTo: '-' }}</span>
       </ng-container>
       <ng-container *ngIf="mentor.role=='Dietician-Trainer'">
-        <span>Plan treningowy: {{(mentor.training_plan_price_from !== null && mentor.training_plan_price_to !== null) ? mentor.training_plan_price_from + '-' + mentor.training_plan_price_to : '-' }}</span>
-        <span>Trening personalny: {{(mentor.personal_training_price_from !== null && mentor.personal_training_price_to !== null) ? mentor.personal_training_price_from + '-' + mentor.personal_training_price_to : '-' }}</span>
-        <span>Dieta: {{(mentor.diet_price_from !== null && mentor.diet_price_to !== null) ? mentor.diet_price_from + '-' + mentor.diet_price_to: '-' }}</span>
+        <span>Plan treningowy: {{(mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null) ? mentor.trainingPlanPriceFrom + '-' + mentor.trainingPlanPriceTo : '-' }}</span>
+        <span>Trening personalny: {{(mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null) ? mentor.personalTrainingPriceFrom + '-' + mentor.personalTrainingPriceTo : '-' }}</span>
+        <span>Dieta: {{(mentor.dietPriceFrom !== null && mentor.dietPriceTo !== null) ? mentor.dietPriceFrom + '-' + mentor.dietPriceTo: '-' }}</span>
       </ng-container>
       </div>
       <div class="col-12 mt-3 mt-md-0 col-md d-flex flex-column align-items-center align-items-md-start">
@@ -88,11 +88,11 @@
            <div class="d-flex align-items-center gap-2">
             <img src="../../../assets/icons/star.png" width="40px" height="auto" >
             <span class="fs-3">{{mentor.totalRate}}</span>
-          <span class="fs-3 fw-bold">({{mentor.opinion_number}} opinie)</span>
+          <span class="fs-3 fw-bold">({{mentor.opinionNumber}} opinie)</span>
         </div>
       
          
-        <app-mentor-opinion *ngFor="let opinion of mentor.opinions | slice:0:2" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinion_date"></app-mentor-opinion>
+        <app-mentor-opinion *ngFor="let opinion of mentor.opinions | slice:0:2" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinionDate"></app-mentor-opinion>
         <ng-container *ngIf="mentor.opinions.length>2">
 
           <div class="d-flex justify-content-center">
@@ -103,12 +103,12 @@
             <div class="modal-content">
 
               <div class="modal-header">
-                <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Opinie ({{mentor.opinion_number}})</h5>
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Opinie ({{mentor.opinionNumber}})</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
 
               <div class="modal-body bg-secondary">
-                <app-mentor-opinion *ngFor="let opinion of mentor.opinions" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinion_date"></app-mentor-opinion>
+                <app-mentor-opinion *ngFor="let opinion of mentor.opinions" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinionDate"></app-mentor-opinion>
               </div>
 
 

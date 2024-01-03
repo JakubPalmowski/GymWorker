@@ -1,4 +1,4 @@
 export interface ExerciseGetById{
-    id_Exercise: number;
+    idExercise: number;
     name: string;
 }

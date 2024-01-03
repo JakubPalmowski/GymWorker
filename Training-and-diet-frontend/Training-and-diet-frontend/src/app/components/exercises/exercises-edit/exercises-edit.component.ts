@@ -12,12 +12,12 @@ import { Location } from '@angular/common';
 export class ExercisesEditComponent implements OnInit{
   
   exerciseEdit:ExerciseFull={
-    id_Exercise:0,
+    idExercise:0,
     name:'',
     details:'',
-    exercise_steps:'',
+    exerciseSteps:'',
     image:'',
-    id_Trainer:1
+    idTrainer:1
   }
   
   idExercise:string='';
@@ -59,6 +59,10 @@ export class ExercisesEditComponent implements OnInit{
         console.log(response);
       }
     });
+  }
+
+  back(): void{
+    this.location.back();
   }
 
 }

@@ -71,6 +71,13 @@
         <li>
           <div class="menu-link" (click)="goToExercices()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='exercises-list'}">
             <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Posiłki</a>
+          </div>
+        </li>
+
+        <li>
+          <div class="menu-link" (click)="goToExercices()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='exercises-list'}">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
           <a>Cwiczenia</a>
           </div>
         </li>
@@ -165,6 +172,13 @@
             <div class="menu-link">
               <img src="../../../assets/icons/record.png" width="20" height="20">
             <a>Moi podopieczni</a>
+            </div>
+          </li>
+
+          <li>
+            <div class="menu-link" (click)="goToMeals()"  [ngClass]="{'active': activeRoute=='meals-list'}">
+              <img src="../../../assets/icons/record.png" width="20" height="20">
+            <a>Posiłki</a>
             </div>
           </li>
 

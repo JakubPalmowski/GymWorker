@@ -1,4 +1,4 @@
 export interface ExerciseShort{
-    id_Exercise: number;
+    idExercise: number;
     name: string;
 }

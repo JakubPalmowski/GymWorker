@@ -1,0 +1,29 @@
+<div class="container">
+    <a (click)="back()">< Powrót</a>
+        <div class="top-container">
+              <div class="exercise-name">
+                <span class="span-bold name-text">{{DieteticianMealData.name}}</span>
+              </div>
+              <div class="parts">
+                <span class="">Kcal {{kcal}} | Białka: {{proteins}}g | Tłuszcze {{fats}}g | Węglowodany {{carbs}}g</span><br> </div>
+              </div>
+          <div class="bottom-container">
+            <div class="bottom-left-container">
+
+                <div class="bottm-left-steps">
+                    <span class="header-text">Sposób wykonania:<br></span>
+                    <span class="bio-text span-center">{{DieteticianMealData.prepareSteps}}</span>
+                </div>
+            </div>
+            <div class="bottom-right-container">
+
+                <div class="bottom-right-details-container">
+                    <span class="header-text">Składniki:<br></span>
+                    <span class="bio-text span-center">{{DieteticianMealData.ingredients}}</span>
+                </div>
+                <div class="bottom-right-image-container">
+                 <img class="exercise-image" src="../../../../assets/icons/pizza.jpg">
+                </div>
+            </div>
+          </div>
+</div>

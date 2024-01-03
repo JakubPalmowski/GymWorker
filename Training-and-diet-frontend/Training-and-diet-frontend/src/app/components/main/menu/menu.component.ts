@@ -49,11 +49,18 @@ goToMainPage() {
     }
     }
 
+    goToMeals() {
+      if(!(this.activeRoute=='meals-list')){
+        this.router.navigateByUrl('meals-list');
+      }
+    }
+
     goToExercices() {
       if(!(this.activeRoute=='exercises-list')){
         this.router.navigateByUrl('exercises-list');
       }
     }
+
 
     goToTrainingPlans() {
       if(!(this.activeRoute=='training-plans')){
