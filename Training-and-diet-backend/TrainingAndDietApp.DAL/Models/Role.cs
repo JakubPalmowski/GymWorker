@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Training_and_diet_backend.Models
 {
     [Table("Role")]
-    public class RoleEntity
+    public class Role
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]

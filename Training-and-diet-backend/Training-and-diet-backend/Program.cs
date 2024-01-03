@@ -8,6 +8,7 @@ using Training_and_diet_backend.Services;
 using Training_and_diet_backend.Validators;
 using TrainingAndDietApp.BLL.Services;
 using TrainingAndDietApp.DAL.Context;
+using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);

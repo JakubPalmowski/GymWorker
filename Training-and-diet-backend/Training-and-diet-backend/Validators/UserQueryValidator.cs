@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.DAL.EntityModels;
 
 namespace Training_and_diet_backend.Validators
 {
     public class UserQueryValidator : AbstractValidator<UserQuery>
     {
-        private string[] allowedSortByColumnNames = {  nameof(UserEntity.MentorOpinions) };
+        private string[] allowedSortByColumnNames = {  nameof(User.MentorOpinions) };
         public UserQueryValidator()
         {
             RuleFor(x => x.PageNumber).GreaterThanOrEqualTo(1);

@@ -6,9 +6,9 @@ namespace Training_and_diet_backend.Repositories
 {
     public interface ITrainingPlanRepository
     {
-        Task<int> AddTrainingPlanAsync(TrainingPlanEntity trainingPlanEntity);
-        Task<List<ExerciseEntity>> GetExercisesFromTrainingPlanAsync(int trainingPlanId);
-        Task<List<TrainingPlanEntity>> GetTrainingPlanByIdAsync(int trainingPlanId);
+        Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan);
+        Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int trainingPlanId);
+        Task<List<TrainingPlan>> GetTrainingPlanByIdAsync(int trainingPlanId);
     }
 
     public class TrainingPlanRepository : ITrainingPlanRepository
@@ -20,13 +20,13 @@ namespace Training_and_diet_backend.Repositories
             _context = context;
         }
 
-        public async Task<int> AddTrainingPlanAsync(TrainingPlanEntity trainingPlanEntity)
+        public async Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan)
         {
-            _context.Training_plans.Add(trainingPlanEntity);
+            _context.Training_plans.Add(trainingPlan);
             await _context.SaveChangesAsync();
-            return trainingPlanEntity.IdTrainingPlan;
+            return trainingPlan.IdTrainingPlan;
         }
-        public async Task<List<ExerciseEntity>> GetExercisesFromTrainingPlanAsync(int trainingPlanId)
+        public async Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int trainingPlanId)
         {
             var planExercises = await _context.Trainee_exercises
                 .Where(e => e.IdTrainingPlan == trainingPlanId)
@@ -38,7 +38,7 @@ namespace Training_and_diet_backend.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<TrainingPlanEntity>> GetTrainingPlanByIdAsync(int trainingPlanId)
+        public async Task<List<TrainingPlan>> GetTrainingPlanByIdAsync(int trainingPlanId)
         {
            var trainingPlan =  await _context.Training_plans
                 .Where(plan => plan.IdTrainingPlan == trainingPlanId)

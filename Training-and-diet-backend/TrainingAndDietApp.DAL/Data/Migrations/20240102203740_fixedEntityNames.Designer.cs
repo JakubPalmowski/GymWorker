@@ -12,8 +12,8 @@ using TrainingAndDietApp.DAL.Context;
 namespace Training_and_diet_backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240102191944_smallNameFixes")]
-    partial class smallNameFixes
+    [Migration("20240102203740_fixedEntityNames")]
+    partial class fixedEntityNames
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Training_and_diet_backend.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.DietEntity", b =>
+            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.Diet", b =>
                 {
                     b.Property<int>("IdDiet")
                         .ValueGeneratedOnAdd()
@@ -59,7 +59,7 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.HasIndex("IdPupil");
 
-                    b.ToTable("Diet");
+                    b.ToTable("Diets");
 
                     b.HasData(
                         new
@@ -110,7 +110,7 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.HasIndex("IdPupil");
 
-                    b.ToTable("PupilMentor");
+                    b.ToTable("Pupil_mentors");
 
                     b.HasData(
                         new
@@ -125,7 +125,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.AddressEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Address", b =>
                 {
                     b.Property<int>("IdAddress")
                         .ValueGeneratedOnAdd()
@@ -148,7 +148,7 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.HasKey("IdAddress");
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
 
                     b.HasData(
                         new
@@ -174,7 +174,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.ExerciseEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Exercise", b =>
                 {
                     b.Property<int>("IdExercise")
                         .ValueGeneratedOnAdd()
@@ -205,7 +205,7 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.HasIndex("IdTrainer");
 
-                    b.ToTable("Exercise");
+                    b.ToTable("Exercises");
 
                     b.HasData(
                         new
@@ -261,7 +261,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.GymEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Gym", b =>
                 {
                     b.Property<int>("IdGym")
                         .ValueGeneratedOnAdd()
@@ -281,81 +281,30 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.HasIndex("IdAddress");
 
-                    b.ToTable("Gym");
+                    b.ToTable("Gyms");
 
                     b.HasData(
                         new
                         {
                             IdGym = 1,
                             IdAddress = 1,
-                            Name = "GymEntity1"
+                            Name = "Gym1"
                         },
                         new
                         {
                             IdGym = 2,
                             IdAddress = 2,
-                            Name = "GymEntity2"
+                            Name = "Gym2"
                         },
                         new
                         {
                             IdGym = 3,
                             IdAddress = 3,
-                            Name = "GymEntity3"
+                            Name = "Gym3"
                         });
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.MealDietEntity", b =>
-                {
-                    b.Property<int>("IdMeal")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("IdDiet")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("Date");
-
-                    b.Property<int>("IdMealDiet")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnOrder(0);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdMealDiet"));
-
-                    b.HasKey("IdMeal", "IdDiet");
-
-                    b.HasIndex("IdDiet");
-
-                    b.ToTable("MealDiet");
-
-                    b.HasData(
-                        new
-                        {
-                            IdMeal = 1,
-                            IdDiet = 1,
-                            Date = new DateTime(2023, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdMealDiet = 1
-                        },
-                        new
-                        {
-                            IdMeal = 2,
-                            IdDiet = 1,
-                            Date = new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdMealDiet = 2
-                        },
-                        new
-                        {
-                            IdMeal = 1,
-                            IdDiet = 2,
-                            Date = new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdMealDiet = 3
-                        });
-                });
-
-            modelBuilder.Entity("Training_and_diet_backend.Models.MealEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Meal", b =>
                 {
                     b.Property<int>("IdMeal")
                         .ValueGeneratedOnAdd()
@@ -390,7 +339,7 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.HasIndex("IdDietician");
 
-                    b.ToTable("Meal");
+                    b.ToTable("Meals");
 
                     b.HasData(
                         new
@@ -422,7 +371,58 @@ namespace Training_and_diet_backend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.OpinionEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.MealDiet", b =>
+                {
+                    b.Property<int>("IdMeal")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IdDiet")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("Date");
+
+                    b.Property<int>("IdMealDiet")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnOrder(0);
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdMealDiet"));
+
+                    b.HasKey("IdMeal", "IdDiet");
+
+                    b.HasIndex("IdDiet");
+
+                    b.ToTable("Meal_Diets");
+
+                    b.HasData(
+                        new
+                        {
+                            IdMeal = 1,
+                            IdDiet = 1,
+                            Date = new DateTime(2023, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IdMealDiet = 1
+                        },
+                        new
+                        {
+                            IdMeal = 2,
+                            IdDiet = 1,
+                            Date = new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IdMealDiet = 2
+                        },
+                        new
+                        {
+                            IdMeal = 1,
+                            IdDiet = 2,
+                            Date = new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IdMealDiet = 3
+                        });
+                });
+
+            modelBuilder.Entity("Training_and_diet_backend.Models.Opinion", b =>
                 {
                     b.Property<int>("IdPupil")
                         .HasColumnType("integer");
@@ -497,7 +497,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.RoleEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -542,7 +542,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.TraineeExerciseEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.TraineeExercise", b =>
                 {
                     b.Property<int>("IdTraineeExercise")
                         .ValueGeneratedOnAdd()
@@ -575,7 +575,7 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.HasIndex("IdTrainingPlan");
 
-                    b.ToTable("TraineeExercise");
+                    b.ToTable("Trainee_exercises");
 
                     b.HasData(
                         new
@@ -607,7 +607,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.TrainerGymEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.TrainerGym", b =>
                 {
                     b.Property<int>("IdGym")
                         .HasColumnType("integer");
@@ -626,7 +626,7 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.HasIndex("IdTrainer");
 
-                    b.ToTable("TrainerGym");
+                    b.ToTable("Trainer_Gyms");
 
                     b.HasData(
                         new
@@ -649,7 +649,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.TrainingPlanEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.TrainingPlan", b =>
                 {
                     b.Property<int>("IdTrainingPlan")
                         .ValueGeneratedOnAdd()
@@ -687,7 +687,7 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.HasIndex("IdTrainer");
 
-                    b.ToTable("TrainingPlan");
+                    b.ToTable("Training_plans");
 
                     b.HasData(
                         new
@@ -712,7 +712,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.UserEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.User", b =>
                 {
                     b.Property<int>("IdUser")
                         .ValueGeneratedOnAdd()
@@ -782,7 +782,7 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.HasIndex("IdRole");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
@@ -1087,15 +1087,15 @@ namespace Training_and_diet_backend.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.DietEntity", b =>
+            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.Diet", b =>
                 {
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Dietician")
+                    b.HasOne("Training_and_diet_backend.Models.User", "Dietician")
                         .WithMany("DietsAsDietician")
                         .HasForeignKey("IdDietician")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Pupil")
+                    b.HasOne("Training_and_diet_backend.Models.User", "Pupil")
                         .WithMany("DietsAsPupil")
                         .HasForeignKey("IdPupil")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1108,13 +1108,13 @@ namespace Training_and_diet_backend.Data.Migrations
 
             modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.PupilMentor", b =>
                 {
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Mentor")
+                    b.HasOne("Training_and_diet_backend.Models.User", "Mentor")
                         .WithMany("MentorPupils")
                         .HasForeignKey("IdMentor")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Pupil")
+                    b.HasOne("Training_and_diet_backend.Models.User", "Pupil")
                         .WithMany("PupilMentors")
                         .HasForeignKey("IdPupil")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1125,48 +1125,29 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Navigation("Pupil");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.ExerciseEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Exercise", b =>
                 {
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Trainer")
+                    b.HasOne("Training_and_diet_backend.Models.User", "Trainer")
                         .WithMany("Exercises")
                         .HasForeignKey("IdTrainer");
 
                     b.Navigation("Trainer");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.GymEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Gym", b =>
                 {
-                    b.HasOne("Training_and_diet_backend.Models.AddressEntity", "AddressEntity")
+                    b.HasOne("Training_and_diet_backend.Models.Address", "Address")
                         .WithMany("Gyms")
                         .HasForeignKey("IdAddress")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AddressEntity");
+                    b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.MealDietEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Meal", b =>
                 {
-                    b.HasOne("TrainingAndDietApp.DAL.EntityModels.DietEntity", "DietEntity")
-                        .WithMany("MealsInDiet")
-                        .HasForeignKey("IdDiet")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Training_and_diet_backend.Models.MealEntity", "MealEntity")
-                        .WithMany("Meals")
-                        .HasForeignKey("IdMeal")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DietEntity");
-
-                    b.Navigation("MealEntity");
-                });
-
-            modelBuilder.Entity("Training_and_diet_backend.Models.MealEntity", b =>
-                {
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Dietetician")
+                    b.HasOne("Training_and_diet_backend.Models.User", "Dietetician")
                         .WithMany()
                         .HasForeignKey("IdDietician")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1175,15 +1156,34 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Navigation("Dietetician");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.OpinionEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.MealDiet", b =>
                 {
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Mentor")
+                    b.HasOne("TrainingAndDietApp.DAL.EntityModels.Diet", "Diet")
+                        .WithMany("MealsInDiet")
+                        .HasForeignKey("IdDiet")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Training_and_diet_backend.Models.Meal", "Meal")
+                        .WithMany("Meals")
+                        .HasForeignKey("IdMeal")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Diet");
+
+                    b.Navigation("Meal");
+                });
+
+            modelBuilder.Entity("Training_and_diet_backend.Models.Opinion", b =>
+                {
+                    b.HasOne("Training_and_diet_backend.Models.User", "Mentor")
                         .WithMany("MentorOpinions")
                         .HasForeignKey("IdMentor")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Pupil")
+                    b.HasOne("Training_and_diet_backend.Models.User", "Pupil")
                         .WithMany("PupilOpinions")
                         .HasForeignKey("IdPupil")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1194,15 +1194,15 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Navigation("Pupil");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.TraineeExerciseEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.TraineeExercise", b =>
                 {
-                    b.HasOne("Training_and_diet_backend.Models.ExerciseEntity", "Exercise")
+                    b.HasOne("Training_and_diet_backend.Models.Exercise", "Exercise")
                         .WithMany("TraineeExercises")
                         .HasForeignKey("IdExercise")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Training_and_diet_backend.Models.TrainingPlanEntity", "TrainingPlan")
+                    b.HasOne("Training_and_diet_backend.Models.TrainingPlan", "TrainingPlan")
                         .WithMany("TraineeExercises")
                         .HasForeignKey("IdTrainingPlan")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1213,32 +1213,32 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Navigation("TrainingPlan");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.TrainerGymEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.TrainerGym", b =>
                 {
-                    b.HasOne("Training_and_diet_backend.Models.GymEntity", "GymEntity")
+                    b.HasOne("Training_and_diet_backend.Models.Gym", "Gym")
                         .WithMany("TrainerGyms")
                         .HasForeignKey("IdGym")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Trainer")
+                    b.HasOne("Training_and_diet_backend.Models.User", "Trainer")
                         .WithMany("TrainerGyms")
                         .HasForeignKey("IdTrainer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("GymEntity");
+                    b.Navigation("Gym");
 
                     b.Navigation("Trainer");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.TrainingPlanEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.TrainingPlan", b =>
                 {
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Pupil")
+                    b.HasOne("Training_and_diet_backend.Models.User", "Pupil")
                         .WithMany("PupilTrainingPlans")
                         .HasForeignKey("IdPupil");
 
-                    b.HasOne("Training_and_diet_backend.Models.UserEntity", "Trainer")
+                    b.HasOne("Training_and_diet_backend.Models.User", "Trainer")
                         .WithMany("TrainerTrainingPlans")
                         .HasForeignKey("IdTrainer")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1249,48 +1249,48 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Navigation("Trainer");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.UserEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.User", b =>
                 {
-                    b.HasOne("Training_and_diet_backend.Models.RoleEntity", "RoleEntity")
+                    b.HasOne("Training_and_diet_backend.Models.Role", "Role")
                         .WithMany()
                         .HasForeignKey("IdRole")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("RoleEntity");
+                    b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.DietEntity", b =>
+            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.Diet", b =>
                 {
                     b.Navigation("MealsInDiet");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.AddressEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Address", b =>
                 {
                     b.Navigation("Gyms");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.ExerciseEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Exercise", b =>
                 {
                     b.Navigation("TraineeExercises");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.GymEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Gym", b =>
                 {
                     b.Navigation("TrainerGyms");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.MealEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.Meal", b =>
                 {
                     b.Navigation("Meals");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.TrainingPlanEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.TrainingPlan", b =>
                 {
                     b.Navigation("TraineeExercises");
                 });
 
-            modelBuilder.Entity("Training_and_diet_backend.Models.UserEntity", b =>
+            modelBuilder.Entity("Training_and_diet_backend.Models.User", b =>
                 {
                     b.Navigation("DietsAsDietician");
 

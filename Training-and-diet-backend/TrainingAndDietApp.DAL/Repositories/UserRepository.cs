@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Training_and_diet_backend.Models;
@@ -12,8 +13,9 @@ namespace TrainingAndDietApp.DAL.Repositories
 {
     public interface IUserRepository
     {
-        Task<List<UserEntity>> GetPupilsByTrainerIdAsync(int id_trainer);
-        Task<UserEntity?> GetUserByIdAsync(int id);
+        Task<List<User>> GetPupilsByTrainerIdAsync(int id_trainer);
+        Task<User?> GetUserByIdAsync(int id);
+        Task<bool> AnyAsync(Expression<Func<User, bool>> predicate);
     }
     public class UserRepository : IUserRepository
     {
@@ -25,7 +27,7 @@ namespace TrainingAndDietApp.DAL.Repositories
         }
         
 
-        public async Task<List<UserEntity>> GetPupilsByTrainerIdAsync(int id_trainer)
+        public async Task<List<User>> GetPupilsByTrainerIdAsync(int id_trainer)
         {
             return await _context.Users
                 .Where(u => _context.Pupil_mentors
@@ -35,16 +37,21 @@ namespace TrainingAndDietApp.DAL.Repositories
                 .ToListAsync();
         }
 
-        public async Task<UserEntity?> GetUserByIdAsync(int id)
+        public async Task<User?> GetUserByIdAsync(int id)
         {
             var user =  await _context.Users
-                .Include(u => u.RoleEntity)
+                .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.IdUser == id);
 
             if(user == null)
-                throw new NotFoundException("UserEntity with given id does not exist!");
+                throw new NotFoundException("User with given id does not exist!");
 
             return user;
+        }
+
+        public async Task<bool> AnyAsync(Expression<Func<User, bool>> predicate)
+        {
+            return await _context.Users.AnyAsync(predicate);
         }
     }
 }

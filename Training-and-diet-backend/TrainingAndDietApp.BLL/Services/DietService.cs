@@ -1,7 +1,9 @@
-﻿using Training_and_diet_backend.Models;
+﻿using AutoMapper;
+using Training_and_diet_backend.DTOs.MealDto;
+using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
+using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.Exceptions;
-using TrainingAndDietApp.DAL.EntityModels;
 
 namespace Training_and_diet_backend.Services
 {
@@ -12,10 +14,12 @@ namespace Training_and_diet_backend.Services
     public class DietService : IDietService
     {
         private readonly IDietRepository _dietRepository;
+        private readonly IMapper _mapper;
 
-        public DietService(IDietRepository dietRepository)
+        public DietService(IDietRepository dietRepository, IMapper mapper)
         {
             _dietRepository = dietRepository;
+            _mapper = mapper;
         }
 
         public async Task<List<DietEntity>> GetDiets()
@@ -24,7 +28,7 @@ namespace Training_and_diet_backend.Services
             if (diets.Count == 0)
                 throw new NotFoundException("There is no diets in database");
 
-            return diets;
+            return _mapper.Map<List<DietEntity>>(diets);
         }
     }
 }

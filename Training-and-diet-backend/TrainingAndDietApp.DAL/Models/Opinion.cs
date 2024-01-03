@@ -4,8 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Training_and_diet_backend.Models
 {
     [Table("Opinion")]
-    public class OpinionEntity
+    public class Opinion
     {
+
         [ForeignKey("Pupil")]
         public int IdPupil { get; set; }
 
@@ -20,8 +21,8 @@ namespace Training_and_diet_backend.Models
 
         [Column(TypeName = "decimal(2,1)")]
         public decimal Rate { get; set; }
-        public virtual UserEntity Mentor { get; set; }
+        public virtual User Mentor { get; set; }
 
-        public virtual UserEntity Pupil { get; set; }
+        public virtual User Pupil { get; set; }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Training_and_diet_backend.Models;
 
-namespace Training_and_diet_backend.Models
+namespace TrainingAndDietApp.DAL.Models
 {
-    [Table("Meal")]
-    public class MealEntity
+    public class Meal
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
@@ -18,8 +18,8 @@ namespace Training_and_diet_backend.Models
 
         public string Kcal { get; set; }
         [ForeignKey("IdDietician")]
-        public virtual UserEntity Dietetician { get; set; }
+        public virtual User Dietician { get; set; }
 
-        public virtual ICollection<MealDietEntity> Meals { get; set; }
+        public virtual ICollection<MealDiet> Meals { get; set; }
     }
 }

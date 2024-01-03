@@ -4,6 +4,7 @@ using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.BLL.Services;
 using TrainingAndDietApp.Common.DTOs.User;
+using TrainingAndDietApp.DAL.EntityModels;
 
 
 namespace Training_and_diet_backend.Controllers
@@ -46,7 +47,7 @@ namespace Training_and_diet_backend.Controllers
 
 
         [HttpGet("{id_trainer}/pupils")]
-        public async Task<ActionResult<IEnumerable<UserEntity>>> GetPupilsByTrainerId(int id_trainer)
+        public async Task<ActionResult<IEnumerable<User>>> GetPupilsByTrainerId(int id_trainer)
         {
             var trainerPupils = await _service.GetPupilsByTrainerId(id_trainer);
 
