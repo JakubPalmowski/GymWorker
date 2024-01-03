@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Training_and_diet_backend.Models;
 
-namespace Training_and_diet_backend.Models
+namespace TrainingAndDietApp.DAL.Models
 {
     public class TraineeExercise
     {
@@ -9,11 +10,10 @@ namespace Training_and_diet_backend.Models
         [Key, Column(Order = 0)]
         public int IdTraineeExercise { get; set; }
         public int SeriesNumber { get; set; }
-        public int RepetitionsNumber { get; set; }
+        public string RepetitionsNumber { get; set; }
         [Column(TypeName = "varchar(50)")]
         public string? Comments { get; set; }
-        [Column(TypeName = "Date")]
-        public DateTime Date { get; set; }
+        public DayOfWeek DayOfWeek { get; set; }
 
         [ForeignKey("Exercise")]
         public int IdExercise { get; set; }

@@ -2,6 +2,7 @@
 using Training_and_diet_backend.DTOs.TraineeExercise;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Services;
+using TrainingAndDietApp.DAL.Models;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -15,12 +16,12 @@ namespace Training_and_diet_backend.Controllers
             _service = service;
         }
         // do zmiany
-        [HttpPost]
-        public async Task <IActionResult> AddTraineeExercises([FromBody] TraineeExerciseDto traineeExercise)
+       /* [HttpPost]
+       *//* public async Task <IActionResult> AddTraineeExercises([FromBody] TraineeExerciseDto traineeExercise)
         {
            
 
-            var data = new TraineeExercise
+           *//* var data = new TraineeExercise
             {
                 SeriesNumber = traineeExercise.SeriesNumber,
                 RepetitionsNumber = traineeExercise.RepetitionsNumber,
@@ -29,10 +30,10 @@ namespace Training_and_diet_backend.Controllers
                 IdExercise = traineeExercise.IdExercise,
                 IdTrainingPlan = traineeExercise.IdTrainingPlan
 
-            };
+            };*/
 
-            await _service.AddTraineeExercises(data);
-            return Ok(data.IdTraineeExercise);
-        }
+            /*await _service.AddTraineeExercises(data);
+            return Ok(data.IdTraineeExercise);*//*
+        }*/
     }
 }

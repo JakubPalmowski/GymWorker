@@ -12,7 +12,7 @@ using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Models;
 using Exercise = Training_and_diet_backend.Models.Exercise;
 using Gym = Training_and_diet_backend.Models.Gym;
-using TrainingPlan = Training_and_diet_backend.Models.TrainingPlan;
+using TrainingPlan = TrainingAndDietApp.DAL.Models.TrainingPlan;
 
 namespace Training_and_diet_backend
 {

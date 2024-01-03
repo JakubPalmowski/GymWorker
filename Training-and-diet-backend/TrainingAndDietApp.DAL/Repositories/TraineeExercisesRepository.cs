@@ -1,5 +1,6 @@
 ﻿using Training_and_diet_backend.Models;
 using TrainingAndDietApp.DAL.Context;
+using TrainingAndDietApp.DAL.Models;
 
 namespace Training_and_diet_backend.Repositories
 {
