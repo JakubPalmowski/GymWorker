@@ -16,8 +16,8 @@ export class ExercisesAddComponent implements OnInit{
   addTrainerExerciseRequest: Exercise={
     name:'',
     details:'',
-    exercise_steps:'',
-    id_Trainer:1,
+    exerciseSteps:'',
+    idTrainer:1,
     image:''
   }
 

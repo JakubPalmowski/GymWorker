@@ -1,0 +1,46 @@
+<a [routerLink]='"/meals-list"'> < Powrót do listy potraw</a>
+<div class="container-slim">
+    <h3>Dodawanie nowego posiłku</h3> 
+    <div class="row">
+        <div class="container-form">
+            <form #form="ngForm" (ngSubmit)="addDieteticanMeal()">
+                <div class="mb-3">
+                    <label for="name" class="form-label-custom">Nazwa:</label><br>
+                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="addDieteticianMealRequest.name">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label-custom">Składniki</label><br>
+                    <textarea class="form-input" id="description" name="description" [(ngModel)]="addDieteticianMealRequest.ingredients"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="steps" class="form-label-custom">Sposób przygotowania</label><br>
+                    <textarea class="form-input" id="steps" name="steps" [(ngModel)]="addDieteticianMealRequest.prepareSteps"></textarea>
+                </div>
+                <div class="small-inputs">
+                    <div class="small-input">
+                        <label for="kcal" class="form-label-custom">Kalorie</label><br>
+                        <input type="number" class="form-input-small" id="kcal" name="kcal" [(ngModel)]="kcal">
+                    </div>
+                    <div class="small-input">
+                        <label for="proteins" class="form-label-custom">Białko</label><br>
+                        <input type="number" (change)="test()" class="form-input-small" id="proteins" name="proteins" [(ngModel)]="proteins">
+                    </div>
+                    <div class="small-input">
+                        <label for="fats" class="form-label-custom">Tłuszcze</label><br>
+                        <input type="number" class="form-input-small" id="fats" name="fats" [(ngModel)]="fats">
+                    </div>
+                    <div class="small-input">
+                        <label for="carbs" class="form-label-custom">Węglowodany</label><br>
+                        <input type="number" class="form-input-small" id="carbs" name="carbs" [(ngModel)]="carbs">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label-custom" >Zdjęcie</label><br>
+                    <input type="file" class="form-input" id="image" name="image" [(ngModel)]="addDieteticianMealRequest.image">
+                </div>
+               
+                <button type="submit" class="button-create" >Dodaj</button>
+            </form>
+        </div>
+    </div>
+</div>

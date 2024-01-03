@@ -1,8 +1,8 @@
 export interface ExerciseFull{
-    id_Exercise:number;
+    idExercise:number;
     name: string;
     details:string;
-    exercise_steps:string;
+    exerciseSteps:string;
     image:any; //TODO implement
-    id_Trainer: number;
+    idTrainer: number;
 }

@@ -1,4 +1,4 @@
-<a [routerLink]='"/exercises-list"'> < Powrót do listy ćwiczeń</a>
+<a (click)="back()"> < Powrót do listy ćwiczeń</a>
 <div class="container-slim">
     <h3>Edycja ćwiczenia</h3> 
     <div class="row">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="steps" class="form-label-custom">Sposób wykonania</label><br>
-                    <textarea class="form-input" id="steps" name="steps" [(ngModel)]="exerciseEdit.exercise_steps">{{exerciseEdit.exercise_steps}}</textarea>
+                    <textarea class="form-input" id="steps" name="steps" [(ngModel)]="exerciseEdit.exerciseSteps">{{exerciseEdit.exerciseSteps}}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label-custom" >Zdjęcie</label><br>

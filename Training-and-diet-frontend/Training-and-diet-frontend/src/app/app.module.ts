@@ -24,6 +24,11 @@ import { ExercisesEditComponent } from './components/exercises/exercises-edit/ex
 import { ExercisesAddComponent } from './components/exercises/exercises-add/exercises-add.component';
 import { AutocompleteDirective } from './directives/autocompleteDirective';
 import { PupilProfileComponent } from './components/pupil-profile/pupil-profile.component';
+import { ExercisesDetailsComponent } from './components/exercises/exercises-details/exercises-details.component';
+import { MealsDetailsComponent } from './components/meals/meals-details/meals-details.component';
+import { MealsAddComponent } from './components/meals/meals-add/meals-add.component';
+import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
+import { MealsListComponent } from './components/meals/meals-list/meals-list.component';
 
 
 
@@ -48,7 +53,7 @@ import { PupilProfileComponent } from './components/pupil-profile/pupil-profile.
     MentorOpinionComponent,
     ExercisesEditComponent,
     ExercisesAddComponent, 
-    AutocompleteDirective, PupilProfileComponent
+    AutocompleteDirective, PupilProfileComponent, ExercisesDetailsComponent, MealsDetailsComponent, MealsAddComponent, MealsEditComponent, MealsListComponent
   ],
   imports: [
     BrowserModule,

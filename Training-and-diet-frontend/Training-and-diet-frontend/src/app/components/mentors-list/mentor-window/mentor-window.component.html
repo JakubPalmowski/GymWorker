@@ -6,11 +6,11 @@
     <img src="../../../assets/icons/star.png" class="star-img">
     <span>{{ mentor.rate }}</span>
 </div>
-    <span>({{mentor.opinion_number}} opinii)</span>
+    <span>({{mentor.opinionNumber}} opinii)</span>
 </div>
     </div>
     <div class="d-flex justify-content-center">
-        <ng-container [ngSwitch]="mentor.role_name">
+        <ng-container [ngSwitch]="mentor.roleName">
             <span *ngSwitchCase="'Trainer'" class="fw-bold">Trener</span>
             <span *ngSwitchCase="'Dietician'" class="fw-bold">Dietetyk</span>
             <span *ngSwitchCase="'Dietician-Trainer'" class="fw-bold">Trener i dietetyk</span>
@@ -18,33 +18,33 @@
         </ng-container>
     </div>
     <div class="bottom-window-container">
-        <span class="name-span">{{ mentor.name + ' ' + mentor.last_name }}</span>
+        <span class="name-span">{{ mentor.name + ' ' + mentor.lastName }}</span>
         <div class="bio-container">
         <span class="bio-span">Dr. Aleksandra Nowak to ceniona trenerka życiowa i ekspertka rozwoju osobistego,
              specjalizująca się w inspirowaniu innych do osiągania swojego pełnego potencjału. Urodzona 15 marca 1975
               roku w Warszawie, Aleksandra od zawsze wykazywała zainteresowanie psychologią i rozwojem osobistym.</span>
         </div>
         
-        <ng-container [ngSwitch]="mentor.role_name">
+        <ng-container [ngSwitch]="mentor.roleName">
             <div class="prices-component d-flex flex-column justify-content-center" *ngSwitchCase="'Trainer'">
-            <span><strong>Plan Treningowy:</strong> {{(mentor.training_plan_price_from !== null && mentor.training_plan_price_to !== null) ? mentor.training_plan_price_from + '-' + mentor.training_plan_price_to : '-' }}</span>
-            <span><strong>Trening Personalny:</strong> {{(mentor.personal_training_price_from !== null && mentor.personal_training_price_to !== null) ? mentor.personal_training_price_from + '-' + mentor.personal_training_price_to : '-' }}</span>
+            <span><strong>Plan Treningowy:</strong> {{(mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null) ? mentor.trainingPlanPriceFrom + '-' + mentor.trainingPlanPriceTo : '-' }}</span>
+            <span><strong>Trening Personalny:</strong> {{(mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null) ? mentor.personalTrainingPriceFrom + '-' + mentor.personalTrainingPriceTo : '-' }}</span>
         </div>
         <div class="prices-component d-flex flex-column justify-content-center" *ngSwitchCase="'Dietician'">
-            <span><strong>Dieta:</strong> {{(mentor.diet_price_from !== null && mentor.diet_price_to !== null) ? mentor.diet_price_from + '-' + mentor.diet_price_to : '-' }}</span>
+            <span><strong>Dieta:</strong> {{(mentor.dietPriceFrom !== null && mentor.dietPriceTo !== null) ? mentor.dietPriceFrom + '-' + mentor.dietPriceTo : '-' }}</span>
         </div>
         <div class="prices-component d-flex flex-column justify-content-center" *ngSwitchCase="'Dietician-Trainer'">
-            <span><strong>Plan Treningowy:</strong> {{(mentor.training_plan_price_from !== null && mentor.training_plan_price_to !== null) ? mentor.training_plan_price_from + '-' + mentor.training_plan_price_to : '-' }}</span>
-            <span><strong>Trening Personalny:</strong> {{(mentor.personal_training_price_from !== null && mentor.personal_training_price_to !== null) ? mentor.personal_training_price_from + '-' + mentor.personal_training_price_to : '-' }}</span>
-            <span><strong>Dieta:</strong> {{(mentor.diet_price_from !== null && mentor.diet_price_to !== null) ? mentor.diet_price_from + '-' + mentor.diet_price_to : '-' }}</span>
+            <span><strong>Plan Treningowy:</strong> {{(mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null) ? mentor.trainingPlanPriceFrom + '-' + mentor.trainingPlanPriceTo : '-' }}</span>
+            <span><strong>Trening Personalny:</strong> {{(mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null) ? mentor.personalTrainingPriceFrom + '-' + mentor.personalTrainingPriceTo : '-' }}</span>
+            <span><strong>Dieta:</strong> {{(mentor.dietPriceFrom !== null && mentor.dietPriceTo !== null) ? mentor.dietPriceFrom + '-' + mentor.dietPriceTo : '-' }}</span>
         </div>
         </ng-container>
     
         <ng-container *ngIf="role=='trainersList'">
-            <button class="mb-4" routerLink="/trainerProfile/{{mentor.id_user}}">Szczegóły</button>
+            <button class="mb-4" routerLink="/trainerProfile/{{mentor.idUser}}">Szczegóły</button>
         </ng-container>
         <ng-container *ngIf="role=='dieticiansList'">
-            <button class="mb-4" routerLink="/dieticianProfile/{{mentor.id_user}}">Szczegóły</button>
+            <button class="mb-4" routerLink="/dieticianProfile/{{mentor.idUser}}">Szczegóły</button>
         </ng-container>
     </div>
 </ng-container>

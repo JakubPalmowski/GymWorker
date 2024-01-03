@@ -1,17 +1,17 @@
 export interface Mentor{
-    id_user: number;
+    idUser: number;
     bio: string;
-    last_name: string;
+    lastName: string;
     name: string;
-    phone_number: string;
+    phoneNumber: string;
     city: string;
-    opinion_number: number;
+    opinionNumber: number;
     rate: number;
-    role_name: string;
-    training_plan_price_from?: number;
-    training_plan_price_to?: number;
-    personal_training_price_from?: number;
-    personal_training_price_to?: number;
-    diet_price_from?: number;
-    diet_price_to?: number;
+    roleName: string;
+    trainingPlanPriceFrom?: number;
+    trainingPlanPriceTo?: number;
+    personalTrainingPriceFrom?: number;
+    personalTrainingPriceTo?: number;
+    dietPriceFrom?: number;
+    dietPriceTo?: number;
 }

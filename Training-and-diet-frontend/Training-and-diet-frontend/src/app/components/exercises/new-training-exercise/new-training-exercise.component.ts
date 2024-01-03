@@ -25,7 +25,7 @@ export class NewTrainingExerciseComponent implements OnInit{
   }
 
   exercise:ExerciseGetById={
-    id_Exercise:0,
+    idExercise:0,
     name:''
   };
    
