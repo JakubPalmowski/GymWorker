@@ -3,7 +3,7 @@ using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Context;
 
-namespace Training_and_diet_backend.Repositories
+namespace TrainingAndDietApp.DAL.Repositories
 {
     public interface IExerciseRepository
     {

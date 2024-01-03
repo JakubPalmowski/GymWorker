@@ -3,6 +3,7 @@ using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
 using TrainingAndDietApp.Common.DTOs.Exercise;
 using TrainingAndDietApp.Common.Exceptions;
+using TrainingAndDietApp.DAL.Repositories;
 
 namespace TrainingAndDietApp.BLL.Services
 {

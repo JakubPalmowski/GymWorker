@@ -13,13 +13,12 @@ namespace TrainingAndDietApp.DAL.Models
         [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
         [Column(TypeName = "varchar(50)")]
+        public string CustomName { get; set; }
+        [Column(TypeName = "varchar(50)")]
         public string Type { get; set; }
         [Column(TypeName = "Date")]
         public DateTime StartDate { get; set; }
-        [Column(TypeName = "Date")]
-        public DateTime EndDate { get; set; }
-
-        public int? PlanDuration { get; private set; }
+        public int NumberOfWeeks { get; set; }
 
         [ForeignKey("Trainer")]
         public int IdTrainer { get; set; }
@@ -32,10 +31,7 @@ namespace TrainingAndDietApp.DAL.Models
 
         public virtual ICollection<TraineeExercise> TraineeExercises { get; set; }
 
-
-      public void CalculatePlanDuration()
-        {
-            PlanDuration = (EndDate - StartDate).Days;
-        }
+        
+      
     }  
 }
