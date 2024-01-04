@@ -14,6 +14,7 @@ namespace TrainingAndDietApp.BLL.Services
         Task<MealEntity?> GetMealById(int mealId);
         Task<List<MealEntity>> GetMealsByDieticianId(int dieticianId);
         Task<int> CreateMeal(MealEntity mealEntity);
+        Task<int> DeleteMeal(int mealId);
     }
     public class MealService : IMealService
     {
@@ -73,6 +74,11 @@ namespace TrainingAndDietApp.BLL.Services
             var meal = _mapper.Map<Meal>(mealEntity);
 
             return await _mealRepository.AddMealAsync(meal);
+        }
+
+        public async Task<int> DeleteMeal(int mealId)
+        {
+            return await _mealRepository.DeleteMealAsync(mealId);
         }
     }
 }

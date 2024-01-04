@@ -17,6 +17,8 @@ namespace TrainingAndDietApp.DAL.Repositories
 
         Task <List<Exercise>> GetTrainerExercisesAsync(int trainerId);
         Task<bool> CheckIfExerciseExists(int trainingPlanId);
+
+        Task<int> DeleteExerciseAsync(int exerciseId);
     }
     public class ExerciseRepository : IExerciseRepository
     {
@@ -84,6 +86,20 @@ namespace TrainingAndDietApp.DAL.Repositories
                 throw new NotFoundException("Exercises not found");
 
             return exercises;
+        }
+
+        public async Task<int> DeleteExerciseAsync(int exerciseId)
+        {
+            var exercise = await _context.Exercises
+                .Where(exercise => exercise.IdExercise == exerciseId)
+                .FirstOrDefaultAsync();
+
+            if (exercise == null)
+                throw new NotFoundException("Exercise not found");
+
+            _context.Exercises.Remove(exercise);
+            await _context.SaveChangesAsync();
+            return exercise.IdExercise;
         }
 
         public async Task<bool> CheckIfExerciseExists(int exerciseId)

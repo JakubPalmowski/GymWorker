@@ -57,5 +57,13 @@ namespace Training_and_diet_backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete("{mealId}")]
+        public async Task<ActionResult<int>> DeleteMeal(int mealId)
+        {
+            var result = await _service.DeleteMeal(mealId);
+
+            return Ok(result);
+        }
     }
 }

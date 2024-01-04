@@ -18,9 +18,8 @@ namespace TrainingAndDietApp.BLL.Services
         Task<List<ExerciseEntity>> GetTrainerExercises(int trainerId);
 
         Task<List<ExerciseEntity>> GetExercisesFromTrainingPlan(int idTrainingPlan);
-
-
         Task<int> UpdateExercise(ExerciseEntity exerciseEntity, int exerciseId);
+        Task<int> DeleteExercise(int exerciseId);
     }
     public class ExerciseService : IExerciseService
     {
@@ -106,6 +105,13 @@ namespace TrainingAndDietApp.BLL.Services
 
             _mapper.Map(exerciseEntity, exercise);
             await _exerciseRepository.UpdateExerciseAsync(exercise);
+
+            return exerciseId;
+        }
+        public async Task<int> DeleteExercise(int exerciseId)
+        {
+
+            await _exerciseRepository.DeleteExerciseAsync(exerciseId);
 
             return exerciseId;
         }
