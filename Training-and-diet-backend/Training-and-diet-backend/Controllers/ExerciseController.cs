@@ -58,5 +58,15 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
         }
 
+        [HttpGet("trainingPlans/{idTrainingPlan}/exercises")]
+        public async Task<ActionResult<ExerciseNameDto>> GetExercisesFromTrainingPlan(int idTrainingPlan)
+        {
+            var exercisesEntity= await _service.GetExercisesFromTrainingPlan(idTrainingPlan);
+            var exerciseDto = _mapper.Map<List<ExerciseNameDto>>(exercisesEntity);
+
+            return Ok(exerciseDto);
+
+        }
+
     }
 }

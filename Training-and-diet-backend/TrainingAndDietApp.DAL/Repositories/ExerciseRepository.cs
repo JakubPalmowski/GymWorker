@@ -2,6 +2,7 @@
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Context;
+using TrainingAndDietApp.DAL.Models;
 
 namespace TrainingAndDietApp.DAL.Repositories
 {
@@ -9,10 +10,13 @@ namespace TrainingAndDietApp.DAL.Repositories
     {
         Task<List<Exercise>> GetAllExercisesAsync();
         Task<Exercise?> GetExerciseByIdAsync(int exerciseId);
+
+        Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan);
         Task<int> CreateExerciseAsync(Exercise exercise);
         Task<int> UpdateExerciseAsync(Exercise exercise);
 
         Task <List<Exercise>> GetTrainerExercisesAsync(int trainerId);
+        Task<bool> CheckIfExerciseExists(int trainingPlanId);
     }
     public class ExerciseRepository : IExerciseRepository
     {
@@ -42,6 +46,21 @@ namespace TrainingAndDietApp.DAL.Repositories
             return exercise;
         }
 
+        public async Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan)
+        {
+            var exercises = await _context.Trainee_exercises
+                .Where(e => e.IdTrainingPlan == idTrainingPlan)
+                .Select(e => e.IdExercise)
+                .ToListAsync();
+
+            var exercisesFromTrainingPlan =  await _context.Exercises
+                .Where(e => exercises.Contains(e.IdExercise))
+                .ToListAsync();
+
+            return exercisesFromTrainingPlan;
+
+        }
+
         public async Task<int> CreateExerciseAsync(Exercise exercise)
         {
 
@@ -67,6 +86,13 @@ namespace TrainingAndDietApp.DAL.Repositories
             return exercises;
         }
 
+        public async Task<bool> CheckIfExerciseExists(int exerciseId)
+        {
+            var exercise = await _context.Exercises
+                .Where(exercise => exercise.IdExercise== exerciseId)
+                .ToListAsync();
 
+            return exercise.Any();
+        }
     }
 }

@@ -17,6 +17,8 @@ namespace TrainingAndDietApp.BLL.Services
 
         Task<List<ExerciseEntity>> GetTrainerExercises(int trainerId);
 
+        Task<List<ExerciseEntity>> GetExercisesFromTrainingPlan(int idTrainingPlan);
+
 
         Task<int> UpdateExercise(ExerciseEntity exerciseEntity, int exerciseId);
     }
@@ -24,14 +26,16 @@ namespace TrainingAndDietApp.BLL.Services
     {
         private readonly IUserService _userService;
         private readonly IExerciseRepository _exerciseRepository;
+        private readonly ITrainingPlanRepository _trainingPlanRepository;
         private readonly IMapper _mapper;
 
 
-        public ExerciseService(IExerciseRepository exerciseRepository, IMapper mapper, IUserService userService)
+        public ExerciseService(IExerciseRepository exerciseRepository, IMapper mapper, IUserService userService, ITrainingPlanRepository trainingPlanRepository)
         {
             _exerciseRepository = exerciseRepository;
             _mapper = mapper;
             _userService = userService;
+            _trainingPlanRepository = trainingPlanRepository;
         }
 
         public async Task<List<ExerciseEntity>> GetAllExercises()
@@ -76,6 +80,20 @@ namespace TrainingAndDietApp.BLL.Services
 
         }
 
+        public async Task<List<ExerciseEntity>> GetExercisesFromTrainingPlan(int idTrainingPlan)
+        {
+            var exercises = await _exerciseRepository.GetExercisesFromTrainingPlanAsync(idTrainingPlan);
+
+            if (!await IsTrainingPlanValid(idTrainingPlan))
+                throw new NotFoundException("Training plan does not exist");
+
+            if (!exercises.Any())
+                throw new NotFoundException("There were no exercises assigned to the training plan");
+
+            return _mapper.Map<List<ExerciseEntity>>(exercises);
+
+        }
+
         public async Task<int> UpdateExercise(ExerciseEntity exerciseEntity, int exerciseId)
         {
             if (!await _userService.UserExists(exerciseEntity.IdTrainer))
@@ -90,6 +108,10 @@ namespace TrainingAndDietApp.BLL.Services
             await _exerciseRepository.UpdateExerciseAsync(exercise);
 
             return exerciseId;
+        }
+        private async Task<bool> IsTrainingPlanValid(int trainingPlanId)
+        {
+            return await _trainingPlanRepository.CheckIfTrainingPlanExists(trainingPlanId);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace TrainingAndDietApp.BLL.Services
     {
         Task<int> AddTrainingPlan(TrainingPlanCreateDto training_PlanDTO);
 
-        Task<List<ExerciseNameDto>> GetExercisesFromTrainingPlan(int id_training_plan);
+        
 
         Task<List<TrainingPlanDetailsDto>> GetTrainingPlanById(int trainingPlanId);
     }
@@ -31,16 +31,6 @@ namespace TrainingAndDietApp.BLL.Services
         {
             var trainingPlan = _mapper.Map<TrainingPlan>(training_PlanDTO);
             return await _trainingPlanRepository.AddTrainingPlanAsync(trainingPlan);
-        }
-        // do zmiany, zwraca 404 bez wiadomosci
-        public async Task<List<ExerciseNameDto>> GetExercisesFromTrainingPlan(int id_training_plan)
-        {
-            var exercises = await _trainingPlanRepository.GetExercisesFromTrainingPlanAsync(id_training_plan);
-
-            if (exercises.Count == 0)
-                throw new NotFoundException("There were no exercises assigned to the training plan");
-
-            return _mapper.Map<List<ExerciseNameDto>>(exercises);
         }
 
         public async Task<List<TrainingPlanDetailsDto>> GetTrainingPlanById(int trainingPlanId)

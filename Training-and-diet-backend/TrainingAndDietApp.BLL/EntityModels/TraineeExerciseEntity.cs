@@ -13,6 +13,8 @@ namespace TrainingAndDietApp.BLL.Models
     public class TraineeExerciseEntity
     {
         public int IdTraineeExercise { get; set; }
+        public int IdExercise { get; set; }
+        public int IdTrainingPlan { get; set; }
         public int SeriesNumber { get; set; }
         public string RepetitionsNumber { get; set; }
         public string? Comments { get; set; }

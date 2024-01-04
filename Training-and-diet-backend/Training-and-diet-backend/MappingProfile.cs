@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Training_and_diet_backend.DTOs.MealDto;
+using Training_and_diet_backend.DTOs.TraineeExercise;
 using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
@@ -73,7 +74,8 @@ namespace Training_and_diet_backend
             CreateMap<MealDto, Meal>();
 
 
-
+            CreateMap<TraineeExerciseDto, TraineeExerciseEntity>();
+            CreateMap<TraineeExerciseEntity, TraineeExercise>();
 
 
 

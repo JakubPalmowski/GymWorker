@@ -1,27 +1,56 @@
-﻿using Training_and_diet_backend.Models;
-using TrainingAndDietApp.DAL.Context;
+﻿using AutoMapper;
+using Training_and_diet_backend.Repositories;
+using TrainingAndDietApp.BLL.Models;
+using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Models;
+using TrainingAndDietApp.DAL.Repositories;
 
-namespace Training_and_diet_backend.Services
+namespace TrainingAndDietApp.BLL.Services
 {
     public interface ITraineeExercisesService
     {
-        Task AddTraineeExercises(TraineeExercise traineeExercise);
+        Task <int> AddTraineeExercises(TraineeExerciseEntity traineeExerciseEntity);
     }
     public class TraineeExercisesService : ITraineeExercisesService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ITraineeExercisesRepository _traineeExercisesRepository;
+        private readonly ITrainingPlanRepository _trainingPlanRepository;
+        private readonly IExerciseRepository _exercisesRepository;
+        private readonly IMapper _mapper;
 
-        public TraineeExercisesService(ApplicationDbContext context)
+        public TraineeExercisesService(ITraineeExercisesRepository traineeExercisesRepository, IMapper mapper, ITrainingPlanRepository trainingPlanRepository, IExerciseRepository exercisesRepository)
         {
-            _context = context;
+            _traineeExercisesRepository = traineeExercisesRepository;
+            _mapper = mapper;
+            _trainingPlanRepository = trainingPlanRepository;
+            _exercisesRepository = exercisesRepository;
         }
-        public async Task AddTraineeExercises(TraineeExercise traineeExercise)
+        // pomyslec o sprawdzeniu czy user probuje dodac cwiczenie do swojego planu
+        public async Task<int> AddTraineeExercises(TraineeExerciseEntity traineeExerciseEntity)
         {
+            
+            if (!await IsTrainingPlanValid(traineeExerciseEntity.IdTrainingPlan))
+                throw new NotFoundException("Training plan not found");
 
-            await _context.Trainee_exercises.AddAsync(traineeExercise);
+            if (!await IsExerciseValid(traineeExerciseEntity.IdExercise))
+                throw new NotFoundException("Exercise not found");
 
-            await _context.SaveChangesAsync();
+            var traineeExercises = _mapper.Map<TraineeExercise>(traineeExerciseEntity);
+
+            var traineeExercisesId  = await _traineeExercisesRepository.AddTraineeExercisesAsync(traineeExercises);
+
+            return traineeExercisesId;
+
         }
+
+        private async Task<bool> IsTrainingPlanValid(int trainingPlanId)
+        {
+            return await _trainingPlanRepository.CheckIfTrainingPlanExists(trainingPlanId);
+        }
+        private async Task<bool> IsExerciseValid(int trainingPlanId)
+        {
+            return await _exercisesRepository.CheckIfExerciseExists(trainingPlanId);
+        }
+
     }
 }

@@ -26,13 +26,6 @@ namespace Training_and_diet_backend.Controllers
 
         }
 
-        [HttpGet("{id_training_plan}/exercises")]
-        public async Task<IActionResult> GetExercisesFromTrainingPlan(int id_training_plan)
-        {
-            var exercises = await _service.GetExercisesFromTrainingPlan(id_training_plan);
-
-            return Ok(exercises);
-        }
 
         [HttpGet("{PlanId}")]
         public async Task<IActionResult> GetTrainingPlanById(int PlanId)
