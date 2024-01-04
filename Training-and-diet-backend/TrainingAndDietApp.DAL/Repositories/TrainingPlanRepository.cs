@@ -8,7 +8,7 @@ namespace Training_and_diet_backend.Repositories
     public interface ITrainingPlanRepository
     {
         Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan);
-        Task<List<TrainingPlan>> GetTrainingPlanByIdAsync(int trainingPlanId);
+        Task<TrainingPlan?> GetTrainingPlanByIdAsync(int trainingPlanId);
 
         Task<bool> CheckIfTrainingPlanExists(int trainingPlanId);
     }
@@ -29,11 +29,11 @@ namespace Training_and_diet_backend.Repositories
             return trainingPlan.IdTrainingPlan;
         }
 
-        public async Task<List<TrainingPlan>> GetTrainingPlanByIdAsync(int trainingPlanId)
+        public async Task<TrainingPlan?> GetTrainingPlanByIdAsync(int trainingPlanId)
         {
            var trainingPlan =  await _context.Training_plans
                 .Where(plan => plan.IdTrainingPlan == trainingPlanId)
-                .ToListAsync();
+                .SingleOrDefaultAsync();
 
            return trainingPlan;
         }

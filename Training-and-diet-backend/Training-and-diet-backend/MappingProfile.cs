@@ -9,6 +9,7 @@ using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.DTOs.Diet;
 using TrainingAndDietApp.Common.DTOs.Exercise;
 using TrainingAndDietApp.Common.DTOs.Gym;
+using TrainingAndDietApp.Common.DTOs.TrainingPlan;
 using TrainingAndDietApp.Common.DTOs.User;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Models;
@@ -16,13 +17,14 @@ using Exercise = Training_and_diet_backend.Models.Exercise;
 using Gym = Training_and_diet_backend.Models.Gym;
 using TrainingPlan = TrainingAndDietApp.DAL.Models.TrainingPlan;
 
+
 namespace Training_and_diet_backend
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<TrainingPlanCreateDto, TrainingPlan>();
+            CreateMap<TrainingPlanEntity, TrainingPlan>();
 
             CreateMap<Diet, DietEntity>();
             CreateMap<DietEntity, DietDto>();
@@ -76,6 +78,13 @@ namespace Training_and_diet_backend
 
             CreateMap<TraineeExerciseDto, TraineeExerciseEntity>();
             CreateMap<TraineeExerciseEntity, TraineeExercise>();
+
+            CreateMap<CreateTrainingPlanDto, TrainingPlanEntity>();
+            CreateMap<TrainingPlanEntity, TrainingPlan>();
+
+            CreateMap<TrainingPlan, TrainingPlanEntity>();
+            CreateMap<TrainingPlanEntity, TrainingPlanDetailsDto>();
+
 
 
 

@@ -5,6 +5,7 @@ namespace TrainingAndDietApp.BLL.EntityModels
     public class TrainingPlanEntity
     {
         public int IdTrainingPlan { get; set; }
+        public int IdTrainer { get; set; }
 
         public string Name { get; set; }
         public string CustomName { get; set; }
