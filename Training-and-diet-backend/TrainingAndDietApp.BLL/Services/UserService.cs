@@ -27,8 +27,9 @@ namespace TrainingAndDietApp.BLL.Services
         public Task<MentorWithOpinionDto> GetMentorWithOpinionsById(string roleName, int id);
         public Task<PupilDto> GetPupilById(int id);
 
-        Task<bool> UserExists(int dieticianId);
+        Task<bool> UserExists(int? dieticianId);
         Task<bool> UserIsDietician(int dieticianId);
+        Task<bool> UserIsTrainer(int? trainerId);
     }
 
     public class UserService : IUserService
@@ -271,11 +272,18 @@ namespace TrainingAndDietApp.BLL.Services
             return await _repository.AnyAsync(u => u.IdUser == dieticianId &&
                                                        (u.Role.Name == "Dietician" || u.Role.Name == "Dietician-Trainer"));
         }
+        public async Task<bool> UserIsTrainer(int? trainerId)
+        {
 
-        public async Task<bool> UserExists(int userId)
+            return await _repository.AnyAsync(u => u.IdUser == trainerId &&
+                                                   (u.Role.Name == "Trainer" || u.Role.Name == "Dietician-Trainer"));
+        }
+
+        public async Task<bool> UserExists(int? userId)
         {
             return await _repository.AnyAsync(u => u.IdUser == userId);
         }
         
+
     }
 }

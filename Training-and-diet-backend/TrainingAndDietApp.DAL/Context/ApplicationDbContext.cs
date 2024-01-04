@@ -222,9 +222,9 @@ namespace TrainingAndDietApp.DAL.Context
             {
                 IdTrainingPlan = 1,
                 Name = "Plan treningowy dla początkujących",
+                CustomName = "Plan treningowy dla mirka",
                 Type = "Siłowy",
                 StartDate = new DateTime(2023, 09, 10),
-                EndDate = new DateTime(2023, 09, 30),
                 IdTrainer = 1,
                 IdPupil = 2
             };
@@ -233,9 +233,9 @@ namespace TrainingAndDietApp.DAL.Context
             {
                 IdTrainingPlan = 2,
                 Name = "Plan treningowy na odchudzanie",
+                CustomName = "Plan treningowy dla jacka",
                 Type = "Cardio",
                 StartDate = new DateTime(2023, 10, 1),
-                EndDate = new DateTime(2023, 10, 31),
                 IdTrainer = 1,
                 IdPupil = 2
             };
@@ -246,8 +246,8 @@ namespace TrainingAndDietApp.DAL.Context
             {
                 IdTraineeExercise = 1,
                 SeriesNumber = 3,
-                RepetitionsNumber = 12,
-                Date = new DateTime(2023, 09, 12),
+                RepetitionsNumber = "12",
+                DayOfWeek = DayOfWeek.Friday,
                 IdExercise = 1,
                 IdTrainingPlan = 1
             };
@@ -256,8 +256,8 @@ namespace TrainingAndDietApp.DAL.Context
             {
                 IdTraineeExercise = 2,
                 SeriesNumber = 4,
-                RepetitionsNumber = 10,
-                Date = new DateTime(2023, 09, 15),
+                RepetitionsNumber = "10",
+                DayOfWeek = DayOfWeek.Monday,
                 IdExercise = 2,
                 IdTrainingPlan = 1
             };
@@ -266,8 +266,8 @@ namespace TrainingAndDietApp.DAL.Context
             {
                 IdTraineeExercise = 3,
                 SeriesNumber = 2,
-                RepetitionsNumber = 15,
-                Date = new DateTime(2023, 09, 20),
+                RepetitionsNumber = "15",
+                DayOfWeek = DayOfWeek.Tuesday,
                 IdExercise = 3,
                 IdTrainingPlan = 2
             };

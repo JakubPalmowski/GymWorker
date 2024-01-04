@@ -60,8 +60,6 @@ namespace TrainingAndDietApp.BLL.Services
             return _mapper.Map<List<MealEntity>>(mealsFromDb);
 
             
-
-            
         }
        
         public async Task<int> CreateMeal(MealEntity mealEntity)

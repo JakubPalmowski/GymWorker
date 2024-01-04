@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TrainingAndDietApp.DAL.Context;
@@ -11,9 +12,11 @@ using TrainingAndDietApp.DAL.Context;
 namespace Training_and_diet_backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240103205029_addedCustomNameFieldToTrainingPlan")]
+    partial class addedCustomNameFieldToTrainingPlan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,6 +271,9 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("Date");
+
                     b.Property<int?>("IdPupil")
                         .HasColumnType("integer");
 
@@ -278,7 +284,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int>("NumberOfWeeks")
+                    b.Property<int?>("PlanDuration")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("StartDate")
@@ -301,10 +307,10 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdTrainingPlan = 1,
                             CustomName = "Plan treningowy dla mirka",
+                            EndDate = new DateTime(2023, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdPupil = 2,
                             IdTrainer = 1,
                             Name = "Plan treningowy dla początkujących",
-                            NumberOfWeeks = 0,
                             StartDate = new DateTime(2023, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Type = "Siłowy"
                         },
@@ -312,10 +318,10 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdTrainingPlan = 2,
                             CustomName = "Plan treningowy dla jacka",
+                            EndDate = new DateTime(2023, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdPupil = 2,
                             IdTrainer = 1,
                             Name = "Plan treningowy na odchudzanie",
-                            NumberOfWeeks = 0,
                             StartDate = new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Type = "Cardio"
                         });

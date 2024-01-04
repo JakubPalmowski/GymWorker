@@ -1,9 +1,14 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Training_and_diet_backend.DTOs.TraineeExercise;
 using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Services;
+using TrainingAndDietApp.BLL.EntityModels;
+using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.BLL.Services;
+using TrainingAndDietApp.Common.DTOs.TrainingPlan;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -12,34 +17,31 @@ namespace Training_and_diet_backend.Controllers
     public class TrainingPlanController : ControllerBase
     {
         private readonly ITrainingPlanService _service;
-        public TrainingPlanController(ITrainingPlanService service)
+        private readonly IMapper _mapper;
+        public TrainingPlanController(ITrainingPlanService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTrainingPlan([FromBody] TrainingPlanCreateDto trainingPlan)
+        public async Task<ActionResult<int>> CreateTrainingPlan([FromBody] CreateTrainingPlanDto trainingPlanDto)
         {
+            var trainingPlanEntity = _mapper.Map<TrainingPlanEntity>(trainingPlanDto);
+            var id = await _service.AddTrainingPlan(trainingPlanEntity);
 
-            var id = await _service.AddTrainingPlan(trainingPlan);
-            return Created($"/api/trainingplan/{id}", new { id });
+            return Ok(id);
 
         }
 
-        [HttpGet("{id_training_plan}/exercises")]
-        public async Task<IActionResult> GetExercisesFromTrainingPlan(int id_training_plan)
+
+        [HttpGet("{planId}")]
+        public async Task<ActionResult<TrainingPlanDetailsDto>> GetTrainingPlanById(int planId)
         {
-            var exercises = await _service.GetExercisesFromTrainingPlan(id_training_plan);
+            var plan = await _service.GetTrainingPlanById(planId);
+            var planDto = _mapper.Map<TrainingPlanDetailsDto>(plan);
 
-            return Ok(exercises);
-        }
-
-        [HttpGet("{PlanId}")]
-        public async Task<IActionResult> GetTrainingPlanById(int PlanId)
-        {
-            var plan = await _service.GetTrainingPlanById(PlanId);
-
-            return Ok(plan);
+            return Ok(planDto);
         }
     }
 }

@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs.TraineeExercise;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Services;
+using TrainingAndDietApp.BLL.Models;
+using TrainingAndDietApp.BLL.Services;
+using TrainingAndDietApp.DAL.Models;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -10,29 +14,20 @@ namespace Training_and_diet_backend.Controllers
     public class TraineeExercisesController : ControllerBase
     {
         private readonly ITraineeExercisesService _service;
-        public TraineeExercisesController(ITraineeExercisesService service)
+        private readonly IMapper _mapper;
+        public TraineeExercisesController(ITraineeExercisesService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
-        // do zmiany
+      
         [HttpPost]
-        public async Task <IActionResult> AddTraineeExercises([FromBody] TraineeExerciseDto traineeExercise)
+        public async Task<ActionResult<int>> AddTraineeExercises([FromBody] TraineeExerciseDto traineeExerciseDto)
         {
-           
+            var traineeExerciseEntity = _mapper.Map<TraineeExerciseEntity>(traineeExerciseDto);
+            var data = await _service.AddTraineeExercises(traineeExerciseEntity);
 
-            var data = new TraineeExercise
-            {
-                SeriesNumber = traineeExercise.SeriesNumber,
-                RepetitionsNumber = traineeExercise.RepetitionsNumber,
-                Comments = traineeExercise.Comments,
-                Date = traineeExercise.Date, 
-                IdExercise = traineeExercise.IdExercise,
-                IdTrainingPlan = traineeExercise.IdTrainingPlan
-
-            };
-
-            await _service.AddTraineeExercises(data);
-            return Ok(data.IdTraineeExercise);
+            return Ok(data);
         }
     }
 }
