@@ -13,6 +13,7 @@ namespace Training_and_diet_backend.Repositories
         Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId);
         Task<int> AddMealAsync(Meal meal);
         Task<int> DeleteMealAsync(int mealId);
+        Task<int> UpdateMealAsync(Meal meal);
 
 
     }
@@ -59,6 +60,12 @@ namespace Training_and_diet_backend.Repositories
                 throw new NotFoundException("Meal not found");
 
             _context.Meals.Remove(meal);
+            await _context.SaveChangesAsync();
+            return meal.IdMeal;
+        }
+        public async Task<int> UpdateMealAsync(Meal meal)
+        {
+            _context.Meals.Update(meal);
             await _context.SaveChangesAsync();
             return meal.IdMeal;
         }

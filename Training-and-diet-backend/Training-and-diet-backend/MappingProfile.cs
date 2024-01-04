@@ -35,10 +35,9 @@ namespace Training_and_diet_backend
 
             CreateMap<GymEntity, GymDto>();
 
-            CreateMap<Meal, MealEntity>();
-            CreateMap<MealEntity, MealDto>();
-            CreateMap<MealDto, MealEntity>();
-            CreateMap<MealEntity, Meal>();
+ 
+            CreateMap<MealDto, MealEntity>().ForMember(dest => dest.IdMeal, opt => opt.Ignore());
+            CreateMap<MealEntity, Meal>().ForMember(dest => dest.IdMeal, opt => opt.Ignore());
 
 
 
