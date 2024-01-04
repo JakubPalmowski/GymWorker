@@ -12,7 +12,9 @@ namespace Training_and_diet_backend.Repositories
         Task<Meal?> GetMealByIdAsync(int mealId);
         Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId);
         Task<int> AddMealAsync(Meal meal);
-        
+        Task<int> DeleteMealAsync(int mealId);
+
+
     }
     public class MealRepository : IMealRepository
     {
@@ -47,7 +49,20 @@ namespace Training_and_diet_backend.Repositories
             await _context.SaveChangesAsync();
             return meal.IdMeal;
         }
-       
-        
+        public async Task<int> DeleteMealAsync(int mealId)
+        {
+            var meal = await _context.Meals
+                .Where(meal => meal.IdMeal== mealId)
+                .FirstOrDefaultAsync();
+
+            if (meal == null)
+                throw new NotFoundException("Meal not found");
+
+            _context.Meals.Remove(meal);
+            await _context.SaveChangesAsync();
+            return meal.IdMeal;
+        }
+
+
     }
 }

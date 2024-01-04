@@ -110,7 +110,6 @@ namespace TrainingAndDietApp.BLL.Services
         }
         public async Task<int> DeleteExercise(int exerciseId)
         {
-            var exercise = await _exerciseRepository.GetExerciseByIdAsync(exerciseId);
 
             await _exerciseRepository.DeleteExerciseAsync(exerciseId);
 
