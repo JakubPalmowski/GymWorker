@@ -2,6 +2,7 @@
 using Training_and_diet_backend.DTOs.MealDto;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
+using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Models;
@@ -15,6 +16,7 @@ namespace TrainingAndDietApp.BLL.Services
         Task<List<MealEntity>> GetMealsByDieticianId(int dieticianId);
         Task<int> CreateMeal(MealEntity mealEntity);
         Task<int> DeleteMeal(int mealId);
+        Task<int> UpdateMeal(MealEntity mealEntity, int mealId);
     }
     public class MealService : IMealService
     {
@@ -79,6 +81,20 @@ namespace TrainingAndDietApp.BLL.Services
         public async Task<int> DeleteMeal(int mealId)
         {
             return await _mealRepository.DeleteMealAsync(mealId);
+        }
+
+        public async Task<int> UpdateMeal(MealEntity mealEntity, int mealId)
+        {
+            if (!await _userService.UserExists(mealEntity.IdDietician))
+                throw new NotFoundException("User does not exist");
+
+            if (!await _userService.UserIsDietician(mealEntity.IdDietician))
+                throw new BadRequestException("User is not a dietician");
+            var meal = await _mealRepository.GetMealByIdAsync(mealId);
+
+            _mapper.Map(mealEntity, meal);
+            await _mealRepository.UpdateMealAsync(meal);
+            return mealId;
         }
     }
 }

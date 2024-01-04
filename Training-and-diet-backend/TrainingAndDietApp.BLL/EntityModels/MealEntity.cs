@@ -20,11 +20,7 @@ namespace TrainingAndDietApp.BLL.Models
        /* public virtual ICollection<Meal_DietDomainModel> Meals { get; set;}*/
 
 
-       public bool CheckIfDietician()
-       {
-            return Dietician.RoleValueObject.Name.Equals("Dietician");
-          
-       }
+       
 
 
        

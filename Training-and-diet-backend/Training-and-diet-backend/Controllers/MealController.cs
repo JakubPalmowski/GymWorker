@@ -65,5 +65,13 @@ namespace Training_and_diet_backend.Controllers
 
             return Ok(result);
         }
+        [HttpPut("{mealId}")]
+        public async Task<ActionResult<int>> UpdateMeal (MealDto mealDto, int mealId)       
+        {
+            var mealEntity = _mapper.Map<MealEntity>(mealDto);
+            var result = await _service.UpdateMeal(mealEntity, mealId);
+
+            return Ok(result);
+        }
     }
 }
