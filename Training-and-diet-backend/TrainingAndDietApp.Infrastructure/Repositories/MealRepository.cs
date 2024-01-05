@@ -3,20 +3,11 @@ using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.Models;
+using TrainingAndDietApp.Domain.Abstractions;
 
 namespace Training_and_diet_backend.Repositories
 {
-    public interface IMealRepository
-    {
-        Task<List<Meal>> GetMealsAsync();
-        Task<Meal?> GetMealByIdAsync(int mealId);
-        Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId);
-        Task<int> AddMealAsync(Meal meal);
-        Task<int> DeleteMealAsync(int mealId);
-        Task<int> UpdateMealAsync(Meal meal);
-
-
-    }
+    
     public class MealRepository : IMealRepository
     {
         private readonly ApplicationDbContext _context;
@@ -30,11 +21,13 @@ namespace Training_and_diet_backend.Repositories
         {
             return await _context.Meals.ToListAsync();
         }
-        public async Task<Meal?> GetMealByIdAsync(int mealId)
+        public async Task<Meal?> GetMealByIdAsync(int mealId, CancellationToken cancellationToken)
         {
-            return await _context.Meals
+            var meal =  await _context.Meals
                 .Where(m => m.IdMeal == mealId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+            return meal;
         }
 
         public async Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId)
@@ -44,29 +37,30 @@ namespace Training_and_diet_backend.Repositories
                 .ToListAsync();
         }
         
-        public async Task<int> AddMealAsync(Meal meal)
+        public async Task<int> AddMealAsync(Meal meal,CancellationToken cancellationToken)
         {
-            await _context.Meals.AddAsync(meal);
-            await _context.SaveChangesAsync();
+            await _context.Meals.AddAsync(meal, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
             return meal.IdMeal;
         }
-        public async Task<int> DeleteMealAsync(int mealId)
+        public async Task<int> DeleteMealAsync(int mealId, CancellationToken cancellationToken)
         {
             var meal = await _context.Meals
                 .Where(meal => meal.IdMeal== mealId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (meal == null)
                 throw new NotFoundException("Meal not found");
 
             _context.Meals.Remove(meal);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return meal.IdMeal;
         }
-        public async Task<int> UpdateMealAsync(Meal meal)
+        public async Task<int> UpdateMealAsync(Meal meal, CancellationToken cancellationToken)
         {
+            
             _context.Meals.Update(meal);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return meal.IdMeal;
         }
 

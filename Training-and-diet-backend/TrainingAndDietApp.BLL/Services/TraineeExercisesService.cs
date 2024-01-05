@@ -4,6 +4,7 @@ using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.DAL.Repositories;
+using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.BLL.Services
 {

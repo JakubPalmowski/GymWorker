@@ -6,6 +6,7 @@ using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.Common.DTOs.Exercise;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Models;
+using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.BLL.Services
 {

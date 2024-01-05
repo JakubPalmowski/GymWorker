@@ -3,23 +3,11 @@ using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.Models;
+using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.DAL.Repositories
 {
-    public interface IExerciseRepository
-    {
-        Task<List<Exercise>> GetAllExercisesAsync();
-        Task<Exercise?> GetExerciseByIdAsync(int exerciseId);
-
-        Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan);
-        Task<int> CreateExerciseAsync(Exercise exercise);
-        Task<int> UpdateExerciseAsync(Exercise exercise);
-
-        Task <List<Exercise>> GetTrainerExercisesAsync(int trainerId);
-        Task<bool> CheckIfExerciseExists(int trainingPlanId);
-
-        Task<int> DeleteExerciseAsync(int exerciseId);
-    }
+   
     public class ExerciseRepository : IExerciseRepository
     {
         private readonly ApplicationDbContext _context;

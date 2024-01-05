@@ -8,15 +8,11 @@ using System.Threading.Tasks;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Context;
+using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.DAL.Repositories
 {
-    public interface IUserRepository
-    {
-        Task<List<User>> GetPupilsByTrainerIdAsync(int id_trainer);
-        Task<User?> GetUserByIdAsync(int id);
-        Task<bool> AnyAsync(Expression<Func<User, bool>> predicate);
-    }
+    
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
@@ -37,21 +33,29 @@ namespace TrainingAndDietApp.DAL.Repositories
                 .ToListAsync();
         }
 
-        public async Task<User?> GetUserByIdAsync(int id)
+        
+
+        public async Task<User?> GetUserByIdAsync(int id, CancellationToken cancellationToken)
         {
-            var user =  await _context.Users
+            return await _context.Users
                 .Include(u => u.Role)
-                .FirstOrDefaultAsync(u => u.IdUser == id);
+                .FirstOrDefaultAsync(u => u.IdUser == id, cancellationToken: cancellationToken);
 
-            if(user == null)
-                throw new NotFoundException("User with given id does not exist!");
-
-            return user;
+            
         }
 
         public async Task<bool> AnyAsync(Expression<Func<User, bool>> predicate)
         {
             return await _context.Users.AnyAsync(predicate);
+        }
+
+
+        public async Task<bool> UserIsDietician(int dieticianId, CancellationToken cancellationToken)
+        {
+
+            return await _context.Users.Where(u => u.IdUser == dieticianId)
+                .Select(u => u.Role)
+                .AnyAsync(r => r.Name == "Dietician" || r.Name == "Dietician-Trainer");
         }
     }
 }

@@ -6,6 +6,7 @@ using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Models;
+using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.BLL.Services
 {
@@ -45,7 +46,7 @@ namespace TrainingAndDietApp.BLL.Services
         }
         public async Task<MealEntity?> GetMealById(int mealId)
         {
-            var meal = await _mealRepository.GetMealByIdAsync(mealId);
+            var meal = await _mealRepository.GetMealByIdAsync(mealId, CancellationToken.None);
 
             if (meal == null)
                 throw new NotFoundException("Meal not found");
@@ -75,12 +76,12 @@ namespace TrainingAndDietApp.BLL.Services
 
             var meal = _mapper.Map<Meal>(mealEntity);
 
-            return await _mealRepository.AddMealAsync(meal);
+            return await _mealRepository.AddMealAsync(meal, CancellationToken.None);
         }
 
         public async Task<int> DeleteMeal(int mealId)
         {
-            return await _mealRepository.DeleteMealAsync(mealId);
+            return await _mealRepository.DeleteMealAsync(mealId, CancellationToken.None);
         }
 
         public async Task<int> UpdateMeal(MealEntity mealEntity, int mealId)
@@ -90,10 +91,10 @@ namespace TrainingAndDietApp.BLL.Services
 
             if (!await _userService.UserIsDietician(mealEntity.IdDietician))
                 throw new BadRequestException("User is not a dietician");
-            var meal = await _mealRepository.GetMealByIdAsync(mealId);
+            var meal = await _mealRepository.GetMealByIdAsync(mealId, CancellationToken.None);
 
             _mapper.Map(mealEntity, meal);
-            await _mealRepository.UpdateMealAsync(meal);
+            await _mealRepository.UpdateMealAsync(meal, CancellationToken.None);
             return mealId;
         }
     }

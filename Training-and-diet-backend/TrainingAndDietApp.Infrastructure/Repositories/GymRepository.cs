@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.DAL.Context;
+using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.DAL.Repositories
 {
-    public interface IGymRepository
-    {
-        Task<List<Gym>> GetGymsAsync();
-    }
 
     public class GymRepository : IGymRepository
     {

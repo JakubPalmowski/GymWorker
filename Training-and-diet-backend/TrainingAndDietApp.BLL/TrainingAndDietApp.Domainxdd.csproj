@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TrainingAndDietApp.Common\TrainingAndDietApp.Common.csproj" />
-    <ProjectReference Include="..\TrainingAndDietApp.DAL\TrainingAndDietApp.DAL.csproj" />
+    <ProjectReference Include="..\TrainingAndDietApp.DAL\TrainingAndDietApp.Domain.csproj" />
+    <ProjectReference Include="..\TrainingAndDietApp.Infrastructure\TrainingAndDietApp.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

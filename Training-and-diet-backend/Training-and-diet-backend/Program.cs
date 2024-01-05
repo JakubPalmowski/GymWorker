@@ -2,14 +2,15 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Middlewares;
-using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Repositories;
 using Training_and_diet_backend.Services;
 using Training_and_diet_backend.Validators;
+using TrainingAndDietApp.Application.Handlers;
 using TrainingAndDietApp.BLL.Services;
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Repositories;
+using TrainingAndDietApp.Domain.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("TestConnection"));
 });
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(GetMealsHandler)));
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IExerciseRepository,ExerciseRepository>();
 builder.Services.AddScoped<IUserService, UserService>();

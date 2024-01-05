@@ -12,6 +12,7 @@ using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Enums;
 using TrainingAndDietApp.DAL.Repositories;
+using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.BLL.Services
 {
@@ -62,7 +63,7 @@ namespace TrainingAndDietApp.BLL.Services
 
         private async Task<bool> CheckRole(string roleName, int id)
         {
-            var user = await _repository.GetUserByIdAsync(id);
+            var user = await _repository.GetUserByIdAsync(id, CancellationToken.None);
 
             return user != null && user.Role.Name.Equals(roleName);
         }

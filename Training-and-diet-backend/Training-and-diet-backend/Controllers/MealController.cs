@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs.MealDto;
-using Training_and_diet_backend.Services;
+using TrainingAndDietApp.Application.Commands;
+using TrainingAndDietApp.Application.Queries;
 using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.BLL.Services;
-using TrainingAndDietApp.DAL.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -13,65 +14,66 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class MealController : ControllerBase
     {
+        private readonly IMediator _mediator;
         private readonly IMealService _service;
         private readonly IMapper _mapper;
 
-        public MealController(IMealService service, IMapper mapper)
+        public MealController(IMealService service, IMapper mapper, IMediator mediator)
         {
             _service = service;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MealDto>>> GetAllMeals()
+        public async Task<IActionResult> GetAllMeals()
         {
-            var mealDomainModels = await _service.GetMeals();
-            var mealDTOs = _mapper.Map<List<MealDto>>(mealDomainModels);
+            var query = new GetMealsQuery();
 
-            return Ok(mealDTOs);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("{mealId}")]
-        public async Task<ActionResult<MealDto>> GetMealById(int mealId)
+        public async Task<IActionResult> GetMealById(int mealId)
         {
-            var meal = await _service.GetMealById(mealId);
-            var mealDto = _mapper.Map<MealDto>(meal);
+            var query = new GetMealQuery(mealId);
 
-            return Ok(mealDto);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
         // do zmiany - przeniesc do userController
         [HttpGet("{dieticianId}/meals")]
-        public async Task<ActionResult<List<MealDto>>> GetMealsByDieticianId(int dieticianId)
+        public async Task<IActionResult> GetMealsByDieticianId(int dieticianId)
         {
-            var meals = await _service.GetMealsByDieticianId(dieticianId);
-            var mealsDto = _mapper.Map<List<MealDto>>(meals);
-            
+            var query = new GetMealsByDieticianIdQuery(dieticianId);
+            var mealsDto = await _mediator.Send(query);
 
             return Ok(mealsDto);
         }
         [HttpPost]
-        public async Task<ActionResult<int>> PostMeal(MealDto meal)
+        public async Task<IActionResult> PostMeal(CreateMealCommand meal)
         {
-            var mealEntity = _mapper.Map<MealEntity>(meal);
-            var result = await _service.CreateMeal(mealEntity);
+            var result = await _mediator.Send(meal);
+            var locationUri = $"api/meal/{result.IdMeal}";
 
-            return Ok(result);
+            return Created(locationUri, result);
+           
+
+
         }
 
         [HttpDelete("{mealId}")]
-        public async Task<ActionResult<int>> DeleteMeal(int mealId)
+        public async Task<IActionResult> DeleteMeal(int mealId)
         {
-            var result = await _service.DeleteMeal(mealId);
-
-            return Ok(result);
+            await _mediator.Send(new DeleteMealCommand(mealId));
+            return NoContent();
         }
         [HttpPut("{mealId}")]
-        public async Task<ActionResult<int>> UpdateMeal (MealDto mealDto, int mealId)       
+        public async Task<IActionResult> UpdateMeal (int mealId, UpdateMealCommand meal)       
         {
-            var mealEntity = _mapper.Map<MealEntity>(mealDto);
-            var result = await _service.UpdateMeal(mealEntity, mealId);
-
-            return Ok(result);
+            await _mediator.Send(new UpdateMealInternalCommand(mealId, meal));
+            return Ok();
         }
     }
 }
