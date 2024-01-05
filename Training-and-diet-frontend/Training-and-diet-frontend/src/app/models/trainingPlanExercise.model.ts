@@ -1,4 +1,4 @@
 export interface TrainingPlanExercise{
-    id: number;
+    idExercise: number;
     name: string;
 }

@@ -4,6 +4,8 @@ import { ExerciseGetById } from 'src/app/models/exercise-get-by-id';
 import { ExerciseShort } from 'src/app/models/exercise-short.model';
 import { NewTrainingExercise } from 'src/app/models/new-training-exercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
+import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'  
+import { delay, timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-new-training-exercise',
@@ -29,10 +31,16 @@ export class NewTrainingExerciseComponent implements OnInit{
     name:''
   };
    
+  repetitions:number[]=[];
+  
 
   
-  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute,private router:Router){}
+  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute,private router:Router){
+ 
+  }
   
+
+     
 
   ngOnInit(): void {
     this.id_training=this.route.snapshot.queryParams['trainingId'];
@@ -49,6 +57,24 @@ export class NewTrainingExerciseComponent implements OnInit{
     })
     
   }
+
+ async OnChangeSeriesNumber(seriesNumber:number){
+    console.log(seriesNumber.toString());
+    console.log(this.newTrainingExerciseRequest.seriesNumber);
+    //this.repetitions.fill(1,1,1);
+    this.repetitions.length=this.newTrainingExerciseRequest.seriesNumber;
+  
+    console.log(this.repetitions);
+    
+    
+  }
+
+  refresh()
+  {
+
+  }
+  
+
 
   addTrainingExercise(){
     this.newTrainingExerciseRequest.idExercise=parseInt(this.id_exercise);

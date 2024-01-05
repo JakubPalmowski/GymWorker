@@ -19,9 +19,12 @@ export class EditTrainingPlanComponent implements OnInit{
   trainingPlan:EditTrainingPlan={
     idTrainingPlan:0,
     name:'',
+    customName:'',
     type:'',
     startDate:new Date(),
-    endDate:new Date()
+    endDate:new Date(),
+    planDuration:0,
+    numberOfWeeks:0
 
   }
 
@@ -43,10 +46,10 @@ export class EditTrainingPlanComponent implements OnInit{
           this.idTraining=id;
           this.trainingPlanService.getTrainingPlanById(this.idTraining).subscribe({
             next:(plan)=>{
-              this.trainingPlan=plan[0];
+              this.trainingPlan=plan;
              
-              this.formStartDate=this.trainingPlan.startDate.toString().split('T')[0];
-              this.formEndDate=this.trainingPlan.endDate.toString().split('T')[0];
+            //  this.formStartDate=this.trainingPlan.startDate.toString().split('T')[0];
+           //   this.formEndDate=this.trainingPlan.endDate.toString().split('T')[0];
               
           
             },
