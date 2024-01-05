@@ -18,8 +18,8 @@ export class TrainingPlanService {
    return this.http.get<TrainingPlan[]>('https://localhost:7259/api/User/1/trainingPlans');
   }
 
-  getTrainingPlanById(idPlan:string):Observable<EditTrainingPlan[]>{
-    return this.http.get<EditTrainingPlan[]>('https://localhost:7259/api/TrainingPlan/'+idPlan);
+  getTrainingPlanById(idPlan:string):Observable<EditTrainingPlan>{
+    return this.http.get<EditTrainingPlan>('https://localhost:7259/api/TrainingPlan/'+idPlan);
    }
 
   addTrainingPlan(addTrainingPlanRequest: NewTrainingPlan):Observable<NewTrainingPlan>{
@@ -27,6 +27,6 @@ export class TrainingPlanService {
   }
 
   getExercisesByPlanId(planId:string):Observable<TrainingPlanExercise[]>{
-    return this.http.get<TrainingPlanExercise[]>( 'https://localhost:7259/api/TrainingPlan/'+ planId +'/exercises');
+    return this.http.get<TrainingPlanExercise[]>( 'https://localhost:7259/api/Exercise/trainingPlans/'+planId+'/exercises');
    }
 }

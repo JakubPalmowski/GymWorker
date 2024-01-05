@@ -6,7 +6,7 @@ import { ExercisesListComponent } from './components/exercises/exercises-list/ex
 import { TrainingPlansListComponent } from './components/traininig-plans/training-plans-list/training-plans-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddTrainingPlanComponent } from './components/traininig-plans/add-training-plan/add-training-plan.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
 import { NewTrainingExerciseComponent } from './components/exercises/new-training-exercise/new-training-exercise.component';
 import { LoginComponent } from './components/authentication/login/login.component';
@@ -29,6 +29,7 @@ import { MealsDetailsComponent } from './components/meals/meals-details/meals-de
 import { MealsAddComponent } from './components/meals/meals-add/meals-add.component';
 import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
 import { MealsListComponent } from './components/meals/meals-list/meals-list.component';
+
 
 
 

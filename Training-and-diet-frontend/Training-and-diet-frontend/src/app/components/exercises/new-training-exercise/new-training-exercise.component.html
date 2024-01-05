@@ -3,25 +3,95 @@
     <h3>Dodawanie ćwiczenia: {{exercise.name}} do planu</h3>
     <div class="row">
         <div class="container-form">
-            <form #form="ngForm" (ngSubmit)="addTrainingExercise()">
+            <form  #form="ngForm" (ngSubmit)="addTrainingExercise()" >
                 <div class="mb-3">
-                    <label for="series_Number" class="form-label">Liczba serii:</label><br>
-                    <input type="number" class="form-control" id="series_Number" name="series_Number" [(ngModel)]="newTrainingExerciseRequest.seriesNumber">
+                    <label  for="series_Number" class="form-label">Liczba serii:</label><br>
+                    <input type="number" max="6" min="1" class="form-input" id="series_Number" name="series_Number" (change)="OnChangeSeriesNumber(newTrainingExerciseRequest.seriesNumber)" [(ngModel)]="newTrainingExerciseRequest.seriesNumber">
                 </div>
-                <div class="mb-3">
-                    <label for="repetitions_number" class="form-label">Liczba powtórzeń:</label><br>
-                    <input type="number" class="form-control" id="repetitions_number" name="repetitions_number" [(ngModel)]="newTrainingExerciseRequest.repetitionsNumber">
+                <div class="container-table">
+                    <table>
+                        <th>
+                            <label class="form-label">Liczba powtórzeń:</label><br>
+                        </th>
+                        
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>0">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions1" class="form-label">Dla serii 1</label><br>
+                                    <input type="number" name="repetitions1" class="form-input"   [(ngModel)]="repetitions[0]">
+                                
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>1">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions2" class="form-label">Dla serii 2</label><br>
+                                    <input type="number" name="repetitions2" class="form-input"   [(ngModel)]="repetitions[1]">
+                                
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>2">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions3" class="form-label">Dla serii 3</label><br>
+                                    <input type="number" name="repetitions3" class="form-input"   [(ngModel)]="repetitions[2]">
+                                
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>3">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions4" class="form-label">Dla serii 4</label><br>
+                                    <input type="number" name="repetitions4" class="form-input"   [(ngModel)]="repetitions[3]">
+                                
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>4">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions5" class="form-label">Dla serii 5</label><br>
+                                    <input type="number" name="repetitions5" class="form-input"   [(ngModel)]="repetitions[4]">
+                                
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>5">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions6" class="form-label">Dla serii 6</label><br>
+                                    <input type="number" name="repetitions6" class="form-input"   [(ngModel)]="repetitions[5]">
+                                
+                                </div>
+                            </td>
+                        </tr>
+
+                        
+
+                       
+
+                    </table>
                 </div>
+              
                 <div class="mb-3">
                     <label for="comments" class="form-label">Komentarz:</label><br>
-                    <input type="text" class="form-control" id="comments" name="comments" [(ngModel)]="newTrainingExerciseRequest.comments">
+                    <input type="text" class="form-input" id="comments" name="comments" [(ngModel)]="newTrainingExerciseRequest.comments">
                 </div>
                 <div class="mb-3">
                     <label for="ate" class="form-label">Data:</label><br>
-                    <input type="date" class="form-control" id="date" name="ate" [(ngModel)]="newTrainingExerciseRequest.date">
+                    <input type="date" class="form-input" id="date" name="ate" [(ngModel)]="newTrainingExerciseRequest.date">
                 </div>
 
                 <button type="submit" class="button-create">Dodaj</button>
+     
             </form>
         </div>
     </div>
