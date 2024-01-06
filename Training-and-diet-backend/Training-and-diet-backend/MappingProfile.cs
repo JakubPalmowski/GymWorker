@@ -5,6 +5,7 @@ using Training_and_diet_backend.DTOs.TraineeExercise;
 using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.Application.Commands.Exercise;
 using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Responses.Diet;
 using TrainingAndDietApp.Application.Responses.Exercise;
@@ -99,6 +100,8 @@ namespace Training_and_diet_backend
             CreateMap<Diet, DietResponse>();
 
             CreateMap<Exercise, ExerciseResponse>();
+
+            CreateMap<UpdateExerciseInternalCommand, Exercise>();
 
 
 

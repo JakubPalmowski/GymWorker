@@ -48,7 +48,7 @@ namespace TrainingAndDietApp.BLL.Services
 
         public async Task<ExerciseEntity> GetExerciseById(int exerciseId)
         {
-            var exercise = await _exerciseRepository.GetExerciseByIdAsync(exerciseId);
+            var exercise = await _exerciseRepository.GetExerciseByIdAsync(exerciseId, CancellationToken.None);
 
             return _mapper.Map<ExerciseEntity>(exercise);
         }
@@ -83,7 +83,7 @@ namespace TrainingAndDietApp.BLL.Services
 
         public async Task<List<ExerciseEntity>> GetExercisesFromTrainingPlan(int idTrainingPlan)
         {
-            var exercises = await _exerciseRepository.GetExercisesFromTrainingPlanAsync(idTrainingPlan);
+            var exercises = await _exerciseRepository.GetExercisesFromTrainingPlanAsync(idTrainingPlan, CancellationToken.None);
 
             if (!await IsTrainingPlanValid(idTrainingPlan))
                 throw new NotFoundException("Training plan does not exist");
@@ -103,17 +103,17 @@ namespace TrainingAndDietApp.BLL.Services
             if (!await _userServiceDeprecated.UserIsTrainer(exerciseEntity.IdTrainer))
                 throw new BadRequestException("User is not trainer");
             
-            var exercise = await _exerciseRepository.GetExerciseByIdAsync(exerciseId);
+            var exercise = await _exerciseRepository.GetExerciseByIdAsync(exerciseId, CancellationToken.None);
 
             _mapper.Map(exerciseEntity, exercise);
-            await _exerciseRepository.UpdateExerciseAsync(exercise);
+            await _exerciseRepository.UpdateExerciseAsync(exercise,CancellationToken.None);
 
             return exerciseId;
         }
         public async Task<int> DeleteExercise(int exerciseId)
         {
 
-            await _exerciseRepository.DeleteExerciseAsync(exerciseId);
+            await _exerciseRepository.DeleteExerciseAsync(exerciseId, CancellationToken.None);
 
             return exerciseId;
         }

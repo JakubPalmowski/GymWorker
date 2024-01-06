@@ -23,7 +23,7 @@ namespace TrainingAndDietApp.Application.Handlers.Exercise
         }
         public async Task<ExerciseResponse> Handle(GetExerciseQuery request, CancellationToken cancellationToken)
         {
-            var exercise = await _exerciseRepository.GetExerciseByIdAsync(request.IdExercise);
+            var exercise = await _exerciseRepository.GetExerciseByIdAsync(request.IdExercise, cancellationToken);
             if (exercise == null)
                 throw new NotFoundException("Exercise not found");
 

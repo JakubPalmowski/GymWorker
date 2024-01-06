@@ -26,27 +26,27 @@ namespace TrainingAndDietApp.DAL.Repositories
             return exercises;
         }
 
-        public async Task<Exercise?> GetExerciseByIdAsync(int exerciseId)
+        public async Task<Exercise?> GetExerciseByIdAsync(int exerciseId, CancellationToken cancellationToken)
         {
             var exercise =  await _context.Exercises
                 .Where(e => e.IdExercise == exerciseId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
             if (exercise == null)
                 throw new NotFoundException("Exercise not found");
 
             return exercise;
         }
 
-        public async Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan)
+        public async Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan, CancellationToken cancellation)
         {
             var exercises = await _context.Trainee_exercises
                 .Where(e => e.IdTrainingPlan == idTrainingPlan)
                 .Select(e => e.IdExercise)
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellation);
 
             var exercisesFromTrainingPlan =  await _context.Exercises
                 .Where(e => exercises.Contains(e.IdExercise))
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellation);
 
             return exercisesFromTrainingPlan;
 
@@ -60,10 +60,10 @@ namespace TrainingAndDietApp.DAL.Repositories
             return exercise.IdExercise;
         }
 
-        public async Task<int> UpdateExerciseAsync(Exercise exercise)
+        public async Task<int> UpdateExerciseAsync(Exercise exercise, CancellationToken cancellation)
         {
             _context.Exercises.Update(exercise);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
             return exercise.IdExercise;
         }
 
@@ -77,17 +77,17 @@ namespace TrainingAndDietApp.DAL.Repositories
             return exercises;
         }
 
-        public async Task<int> DeleteExerciseAsync(int exerciseId)
+        public async Task<int> DeleteExerciseAsync(int exerciseId, CancellationToken cancellation)
         {
             var exercise = await _context.Exercises
                 .Where(exercise => exercise.IdExercise == exerciseId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken: cancellation);
 
             if (exercise == null)
                 throw new NotFoundException("Exercise not found");
 
             _context.Exercises.Remove(exercise);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
             return exercise.IdExercise;
         }
 

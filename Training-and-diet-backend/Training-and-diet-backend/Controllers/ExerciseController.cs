@@ -6,11 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Services;
 using TrainingAndDietApp.Application.Commands.Exercise;
+using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Queries.Exercise;
 using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.BLL.Services;
 using TrainingAndDietApp.Common.DTOs.Exercise;
 using TrainingAndDietApp.DAL.Models;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -57,30 +59,27 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpPut("{exerciseId}")]
-        public async Task<ActionResult<int>> PutExercise([FromBody] ExerciseDto exerciseDto, int exerciseId)
+        public async Task<IActionResult> PutExercise(UpdateExerciseCommand exercise, int exerciseId)
         {
-            var exerciseEntity = _mapper.Map<ExerciseEntity>(exerciseDto);
-            var result = await _service.UpdateExercise(exerciseEntity, exerciseId);
-
-            return Ok(result);
+            await _mediator.Send(new UpdateExerciseInternalCommand(exerciseId, exercise));
+            return Ok();
         }
 
         [HttpGet("trainingPlans/{idTrainingPlan}/exercises")]
-        public async Task<ActionResult<ExerciseNameDto>> GetExercisesFromTrainingPlan(int idTrainingPlan)
+        public async Task<IActionResult> GetExercisesFromTrainingPlan(int idTrainingPlan)
         {
-            var exercisesEntity = await _service.GetExercisesFromTrainingPlan(idTrainingPlan);
-            var exerciseDto = _mapper.Map<List<ExerciseNameDto>>(exercisesEntity);
+            var request = new GetExercisesFromTrainingPlanQuery(idTrainingPlan);
+            var response = await _mediator.Send(request);
 
-            return Ok(exerciseDto);
+            return Ok(response);
 
         }
 
         [HttpDelete("{exerciseId}")]
         public async Task<ActionResult<int>> DeleteExercise(int exerciseId)
         {
-            var result = await _service.DeleteExercise(exerciseId);
-
-            return Ok(result);
+            await _mediator.Send(new DeleteExerciseCommand(exerciseId));
+            return NoContent();
         }
 
     }
