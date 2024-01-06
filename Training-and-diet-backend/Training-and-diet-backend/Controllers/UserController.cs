@@ -13,12 +13,12 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _service;
+        private readonly IUserServiceDeprecated _serviceDeprecated;
       
 
-        public UserController(IUserService userService)
+        public UserController(IUserServiceDeprecated userServiceDeprecated)
         {
-            _service = userService;
+            _serviceDeprecated = userServiceDeprecated;
         }
 
 
@@ -29,7 +29,7 @@ namespace Training_and_diet_backend.Controllers
 
         public async Task<IActionResult> GetTrainerExercises(int TrainerId)
         {
-            var exercises = await _service.GetExercisesByTrainerId(TrainerId);
+            var exercises = await _serviceDeprecated.GetExercisesByTrainerId(TrainerId);
 
 
 
@@ -39,7 +39,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("{id_trainer}/trainingPlans")]
         public async Task<ActionResult<IEnumerable<TrainingPlanNameDto>>> GetTrainerTrainingPlans(int id_trainer)
         {
-            var trainingPlans = await _service.GetTrainerTrainingPlans(id_trainer);
+            var trainingPlans = await _serviceDeprecated.GetTrainerTrainingPlans(id_trainer);
 
             return Ok(trainingPlans);
 
@@ -49,7 +49,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("{id_trainer}/pupils")]
         public async Task<ActionResult<IEnumerable<User>>> GetPupilsByTrainerId(int id_trainer)
         {
-            var trainerPupils = await _service.GetPupilsByTrainerId(id_trainer);
+            var trainerPupils = await _serviceDeprecated.GetPupilsByTrainerId(id_trainer);
 
             return Ok(trainerPupils);
         }
@@ -62,7 +62,7 @@ namespace Training_and_diet_backend.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var trainers = await _service.GetMentors(RoleName, query);
+            var trainers = await _serviceDeprecated.GetMentors(RoleName, query);
             return Ok(trainers);
         }
 
@@ -70,13 +70,13 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("{RoleName}/{id}")]
         public async Task<ActionResult<MentorWithOpinionDto>> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
         {
-            var trainer = await _service.GetMentorWithOpinionsById(roleName, id);
+            var trainer = await _serviceDeprecated.GetMentorWithOpinionsById(roleName, id);
             return Ok(trainer);
         }
 
         [HttpGet("Pupil/{id}")]
         public async Task<ActionResult<PupilDto>> GetPupilById( [FromRoute] int id){
-            var pupil = await _service.GetPupilById(id);
+            var pupil = await _serviceDeprecated.GetPupilById(id);
             return Ok(pupil);
         }
 

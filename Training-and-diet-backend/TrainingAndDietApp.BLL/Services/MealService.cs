@@ -22,15 +22,15 @@ namespace TrainingAndDietApp.BLL.Services
     public class MealService : IMealService
     {
         private readonly IMealRepository _mealRepository;
-        private readonly IUserService _userService;
+        private readonly IUserServiceDeprecated _userServiceDeprecated;
         private readonly IMapper _mapper;
        
 
-        public MealService(IMealRepository mealRepository, IMapper mapper, IUserService userService)
+        public MealService(IMealRepository mealRepository, IMapper mapper, IUserServiceDeprecated userServiceDeprecated)
         {
             _mealRepository = mealRepository;
             _mapper = mapper;
-            _userService = userService;
+            _userServiceDeprecated = userServiceDeprecated;
         }
 
         public async Task<List<MealEntity>> GetMeals()
@@ -68,10 +68,10 @@ namespace TrainingAndDietApp.BLL.Services
        
         public async Task<int> CreateMeal(MealEntity mealEntity)
         {
-            if (!await _userService.UserExists(mealEntity.IdDietician))
+            if (!await _userServiceDeprecated.UserExists(mealEntity.IdDietician))
                 throw new NotFoundException("User does not exist");
 
-            if (!await _userService.UserIsDietician(mealEntity.IdDietician))
+            if (!await _userServiceDeprecated.UserIsDietician(mealEntity.IdDietician))
                 throw new BadRequestException("User is not a dietician");
 
             var meal = _mapper.Map<Meal>(mealEntity);
@@ -86,10 +86,10 @@ namespace TrainingAndDietApp.BLL.Services
 
         public async Task<int> UpdateMeal(MealEntity mealEntity, int mealId)
         {
-            if (!await _userService.UserExists(mealEntity.IdDietician))
+            if (!await _userServiceDeprecated.UserExists(mealEntity.IdDietician))
                 throw new NotFoundException("User does not exist");
 
-            if (!await _userService.UserIsDietician(mealEntity.IdDietician))
+            if (!await _userServiceDeprecated.UserIsDietician(mealEntity.IdDietician))
                 throw new BadRequestException("User is not a dietician");
             var meal = await _mealRepository.GetMealByIdAsync(mealId, CancellationToken.None);
 

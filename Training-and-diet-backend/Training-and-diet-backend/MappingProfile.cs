@@ -6,8 +6,8 @@ using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Application.Commands.Meal;
-using TrainingAndDietApp.Application.Queries;
 using TrainingAndDietApp.Application.Responses.Diet;
+using TrainingAndDietApp.Application.Responses.Exercise;
 using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.BLL.Models;
@@ -18,7 +18,7 @@ using TrainingAndDietApp.Common.DTOs.TrainingPlan;
 using TrainingAndDietApp.Common.DTOs.User;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Models;
-using Exercise = Training_and_diet_backend.Models.Exercise;
+using TrainingAndDietApp.Domain.Entities;
 using Gym = Training_and_diet_backend.Models.Gym;
 using TrainingPlan = TrainingAndDietApp.DAL.Models.TrainingPlan;
 
@@ -40,28 +40,28 @@ namespace Training_and_diet_backend
 
             CreateMap<GymEntity, GymDto>();
 
- 
+
             CreateMap<MealDto, MealEntity>().ForMember(dest => dest.IdMeal, opt => opt.Ignore());
             CreateMap<MealEntity, Meal>().ForMember(dest => dest.IdMeal, opt => opt.Ignore());
 
 
 
-            CreateMap<ExerciseDto, Exercise>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
+            CreateMap<ExerciseDto, TrainingAndDietApp.Domain.Entities.Exercise>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
             CreateMap<Exercise, ExerciseEntity>();
             CreateMap<ExerciseEntity, ExerciseNameDto>();
-            
+
             //post
             CreateMap<ExerciseDto, ExerciseEntity>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
-            CreateMap<ExerciseEntity, Exercise>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
-           
-           
+            CreateMap<ExerciseEntity, TrainingAndDietApp.Domain.Entities.Exercise>().ForMember(dest => dest.IdExercise, opt => opt.Ignore());
+
+
 
             CreateMap<Exercise, ExerciseNameDto>();
 
             CreateMap<TrainingPlan, TrainingPlanNameDto>();
             CreateMap<Meal, MealEntity>();
             CreateMap<MealEntity, MealDto>();
-            
+
             CreateMap<User, PupilDto>();
 
             CreateMap<TrainingPlan, TrainingPlanDetailsDto>();
@@ -97,6 +97,8 @@ namespace Training_and_diet_backend
             CreateMap<UpdateMealInternalCommand, Meal>();
 
             CreateMap<Diet, DietResponse>();
+
+            CreateMap<Exercise, ExerciseResponse>();
 
 
 

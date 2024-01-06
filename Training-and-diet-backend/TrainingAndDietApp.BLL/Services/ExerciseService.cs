@@ -7,6 +7,7 @@ using TrainingAndDietApp.Common.DTOs.Exercise;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Repositories;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.BLL.Services
 {
@@ -24,17 +25,17 @@ namespace TrainingAndDietApp.BLL.Services
     }
     public class ExerciseService : IExerciseService
     {
-        private readonly IUserService _userService;
+        private readonly IUserServiceDeprecated _userServiceDeprecated;
         private readonly IExerciseRepository _exerciseRepository;
         private readonly ITrainingPlanRepository _trainingPlanRepository;
         private readonly IMapper _mapper;
 
 
-        public ExerciseService(IExerciseRepository exerciseRepository, IMapper mapper, IUserService userService, ITrainingPlanRepository trainingPlanRepository)
+        public ExerciseService(IExerciseRepository exerciseRepository, IMapper mapper, IUserServiceDeprecated userServiceDeprecated, ITrainingPlanRepository trainingPlanRepository)
         {
             _exerciseRepository = exerciseRepository;
             _mapper = mapper;
-            _userService = userService;
+            _userServiceDeprecated = userServiceDeprecated;
             _trainingPlanRepository = trainingPlanRepository;
         }
 
@@ -56,22 +57,22 @@ namespace TrainingAndDietApp.BLL.Services
         {
             var exercise = _mapper.Map<Exercise>(exerciseEntity);
             if (exerciseEntity.IdTrainer is null)
-                return await _exerciseRepository.CreateExerciseAsync(exercise);
+                return await _exerciseRepository.CreateExerciseAsync(exercise, CancellationToken.None);
             
 
-            if (!await _userService.UserExists(exerciseEntity.IdTrainer))
+            if (!await _userServiceDeprecated.UserExists(exerciseEntity.IdTrainer))
                 throw new NotFoundException("User does not exist");
 
-            if (!await _userService.UserIsTrainer(exerciseEntity.IdTrainer))
+            if (!await _userServiceDeprecated.UserIsTrainer(exerciseEntity.IdTrainer))
                 throw new BadRequestException("User is not trainer");
 
-            return await _exerciseRepository.CreateExerciseAsync(exercise);
+            return await _exerciseRepository.CreateExerciseAsync(exercise, CancellationToken.None);
 
         }
 
         public async Task<List<ExerciseEntity>> GetTrainerExercises(int trainerId)
         {
-            if (!await _userService.UserIsTrainer(trainerId))
+            if (!await _userServiceDeprecated.UserIsTrainer(trainerId))
                 throw new BadRequestException("User is not trainer");
 
             var exercises = await _exerciseRepository.GetTrainerExercisesAsync(trainerId);
@@ -96,10 +97,10 @@ namespace TrainingAndDietApp.BLL.Services
 
         public async Task<int> UpdateExercise(ExerciseEntity exerciseEntity, int exerciseId)
         {
-            if (!await _userService.UserExists(exerciseEntity.IdTrainer))
+            if (!await _userServiceDeprecated.UserExists(exerciseEntity.IdTrainer))
                 throw new NotFoundException("User does not exist");
 
-            if (!await _userService.UserIsTrainer(exerciseEntity.IdTrainer))
+            if (!await _userServiceDeprecated.UserIsTrainer(exerciseEntity.IdTrainer))
                 throw new BadRequestException("User is not trainer");
             
             var exercise = await _exerciseRepository.GetExerciseByIdAsync(exerciseId);

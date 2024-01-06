@@ -16,7 +16,7 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.BLL.Services
 {
-    public interface IUserService
+    public interface IUserServiceDeprecated
     {
         // zmienione na dto
         public Task<List<MentorDto>> GetPupilsByTrainerId(int id_trainer);
@@ -33,13 +33,13 @@ namespace TrainingAndDietApp.BLL.Services
         Task<bool> UserIsTrainer(int? trainerId);
     }
 
-    public class UserService : IUserService
+    public class UserServiceDeprecated : IUserServiceDeprecated
     {
         private readonly ApplicationDbContext _context;
         private readonly IUserRepository _repository;
         private readonly IMapper _mapper;
 
-        public UserService(ApplicationDbContext context, IMapper mapper, IUserRepository repository)
+        public UserServiceDeprecated(ApplicationDbContext context, IMapper mapper, IUserRepository repository)
         {
             _context = context;
             _mapper = mapper;

@@ -4,6 +4,7 @@ using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.DAL.Repositories
 {
@@ -51,11 +52,11 @@ namespace TrainingAndDietApp.DAL.Repositories
 
         }
 
-        public async Task<int> CreateExerciseAsync(Exercise exercise)
+        public async Task<int> CreateExerciseAsync(Exercise exercise, CancellationToken cancellation)
         {
 
             _context.Exercises.Add(exercise);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellation);
             return exercise.IdExercise;
         }
 

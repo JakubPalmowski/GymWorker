@@ -5,7 +5,9 @@ using Training_and_diet_backend.Middlewares;
 using Training_and_diet_backend.Repositories;
 using Training_and_diet_backend.Services;
 using Training_and_diet_backend.Validators;
+using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Handlers.Meal;
+using TrainingAndDietApp.Application.Services;
 using TrainingAndDietApp.BLL.Services;
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.EntityModels;
@@ -25,21 +27,22 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(GetMealsHandler)));
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
-builder.Services.AddScoped<IExerciseRepository,ExerciseRepository>();
+builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserServiceDeprecated, UserServiceDeprecated>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITrainingPlanService, TrainingPlanService>();
 builder.Services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
 builder.Services.AddScoped<IDietService, DietService>();
 builder.Services.AddScoped<IDietRepository, DietRepository>();
-builder.Services.AddScoped<IMealService,MealService>();
-builder.Services.AddScoped<IMealRepository,MealRepository>();
+builder.Services.AddScoped<IMealService, MealService>();
+builder.Services.AddScoped<IMealRepository, MealRepository>();
 builder.Services.AddScoped<ITraineeExercisesService, TraineeExercisesService>();
 builder.Services.AddScoped<ITraineeExercisesRepository, TraineeExercisesRepository>();
 builder.Services.AddScoped<IGymService, GymService>();
 builder.Services.AddScoped<IGymRepository, GymRepository>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<IValidator<UserQuery>,UserQueryValidator>();
+builder.Services.AddScoped<IValidator<UserQuery>, UserQueryValidator>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services
     .AddControllers()

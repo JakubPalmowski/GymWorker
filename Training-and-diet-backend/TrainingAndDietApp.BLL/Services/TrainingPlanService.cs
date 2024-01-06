@@ -21,15 +21,15 @@ namespace TrainingAndDietApp.BLL.Services
     public class TrainingPlanService : ITrainingPlanService
     {
         private readonly ITrainingPlanRepository _trainingPlanRepository;
-        private readonly IUserService _userService;
+        private readonly IUserServiceDeprecated _userServiceDeprecated;
         private readonly IMapper _mapper;
 
         public TrainingPlanService(ITrainingPlanRepository trainingPlanRepository, IMapper mapper,
-            IUserService userService)
+            IUserServiceDeprecated userServiceDeprecated)
         {
             _trainingPlanRepository = trainingPlanRepository;
             _mapper = mapper;
-            _userService = userService;
+            _userServiceDeprecated = userServiceDeprecated;
         }
 
         public async Task<int> AddTrainingPlan(TrainingPlanEntity trainingPlanEntity)
@@ -53,7 +53,7 @@ namespace TrainingAndDietApp.BLL.Services
 
         private async Task<bool> CheckIfUserIsTrainer(int trainingPlanId)
         {
-            return await _userService.UserIsTrainer(trainingPlanId);
+            return await _userServiceDeprecated.UserIsTrainer(trainingPlanId);
         }
     }
 }

@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstractions\" />
     <Folder Include="Commands\Diet\" />
+    <Folder Include="Services\" />
+    <Folder Include="Queries\Exercise\" />
+    <Folder Include="Responses\Exercise\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 
