@@ -4,7 +4,7 @@ import { ExercisesListComponent } from './components/exercises/exercises-list/ex
 import { TrainingPlansListComponent } from './components/traininig-plans/training-plans-list/training-plans-list.component';
 import { AddTrainingPlanComponent } from './components/traininig-plans/add-training-plan/add-training-plan.component';
 import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
-import { NewTrainingExerciseComponent } from './components/exercises/new-training-exercise/new-training-exercise.component';
+import { NewTrainingExerciseComponent } from './components/traininig-plans/new-training-exercise/new-training-exercise.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { PasswordRecoveryComponent } from './components/authentication/password-recovery/password-recovery.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
@@ -18,6 +18,7 @@ import { MealsListComponent } from './components/meals/meals-list/meals-list.com
 import { MealsAddComponent } from './components/meals/meals-add/meals-add.component';
 import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
 import { MealsDetailsComponent } from './components/meals/meals-details/meals-details.component';
+import { TrainingExerciseListComponent } from './components/traininig-plans/training-exercise-list/training-exercise-list.component';
 
 
 const routes: Routes = [
@@ -34,7 +35,7 @@ const routes: Routes = [
     component: EditTrainingPlanComponent
   },
   {
-    path: 'exercises-list',
+    path: 'exercises',
     component: ExercisesListComponent
   },
   {
@@ -54,7 +55,11 @@ const routes: Routes = [
     component: NewTrainingExerciseComponent
   }, 
   {
-    path: 'meals-list',
+    path: 'training-plans/exercise-list',
+    component: TrainingExerciseListComponent
+  }, 
+  {
+    path: 'meals',
     component: MealsListComponent
   }, 
   {

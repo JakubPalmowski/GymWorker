@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExerciseFull } from 'src/app/models/exercise-full';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { Location } from '@angular/common';
+
+import { PreviousUrlService } from 'src/app/services/previous-url.service';
 
 @Component({
   selector: 'app-exercises-edit',
@@ -11,6 +13,9 @@ import { Location } from '@angular/common';
 })
 export class ExercisesEditComponent implements OnInit{
   
+
+  previousUrl:string='';
+
   exerciseEdit:ExerciseFull={
     idExercise:0,
     name:'',
@@ -22,9 +27,12 @@ export class ExercisesEditComponent implements OnInit{
   
   idExercise:string='';
  
-  constructor(private route:ActivatedRoute, private exercisesService:ExercisesService,private location:Location) {}
+  constructor(private route:ActivatedRoute, private exercisesService:ExercisesService,private location:Location,private router:Router ,private previousUrlService: PreviousUrlService
+    ) {}
   
   ngOnInit(): void {
+   this.previousUrl=this.previousUrlService.getPreviousUrl();
+   
    this.route.paramMap.subscribe({
     next:(params)=>{
       const id=params.get('id');
@@ -62,7 +70,7 @@ export class ExercisesEditComponent implements OnInit{
   }
 
   back(): void{
-    this.location.back();
+    this.router.navigateByUrl(this.previousUrl);
   }
 
 }

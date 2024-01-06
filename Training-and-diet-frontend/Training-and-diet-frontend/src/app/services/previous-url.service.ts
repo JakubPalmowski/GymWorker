@@ -60,8 +60,9 @@ export class PreviousUrlService {
     return null;
   }
 
-  
-
+  public getPreviousUrl() {
+    return this.previousUrl;
+  } 
  
 
   

@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddTrainingPlanComponent } from './components/traininig-plans/add-training-plan/add-training-plan.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
-import { NewTrainingExerciseComponent } from './components/exercises/new-training-exercise/new-training-exercise.component';
+import { NewTrainingExerciseComponent } from './components/traininig-plans/new-training-exercise/new-training-exercise.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { PasswordRecoveryComponent } from './components/authentication/password-recovery/password-recovery.component';
@@ -30,6 +30,7 @@ import { MealsAddComponent } from './components/meals/meals-add/meals-add.compon
 import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
 import { MealsListComponent } from './components/meals/meals-list/meals-list.component';
 import { EditTrainingExerciseComponent } from './components/exercises/edit-training-exercise/edit-training-exercise.component';
+import { TrainingExerciseListComponent } from './components/traininig-plans/training-exercise-list/training-exercise-list.component';
 
 
 
@@ -55,11 +56,19 @@ import { EditTrainingExerciseComponent } from './components/exercises/edit-train
     MentorOpinionComponent,
     ExercisesEditComponent,
     ExercisesAddComponent, 
-    AutocompleteDirective, PupilProfileComponent, ExercisesDetailsComponent, MealsDetailsComponent, MealsAddComponent, MealsEditComponent, MealsListComponent, EditTrainingExerciseComponent
+    AutocompleteDirective,
+    PupilProfileComponent, 
+    ExercisesDetailsComponent, 
+    MealsDetailsComponent, 
+    MealsAddComponent, 
+    MealsEditComponent, 
+    MealsListComponent,
+    TrainingExerciseListComponent,
+    EditTrainingExerciseComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     HttpClientModule,
     FormsModule
   ],

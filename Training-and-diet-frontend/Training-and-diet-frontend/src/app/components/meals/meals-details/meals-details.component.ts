@@ -3,6 +3,7 @@ import { MealsService } from 'src/app/services/meals.service';
 import { Location } from '@angular/common';
 import { MealFull } from 'src/app/models/meal-full';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PreviousUrlService } from 'src/app/services/previous-url.service';
 
 @Component({
   selector: 'app-meals-details',
@@ -11,6 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class MealsDetailsComponent implements OnInit{
+
+  previousUrl:string='';
 
   DieteticianMealData:MealFull={
     idMeal:0,
@@ -29,9 +32,11 @@ export class MealsDetailsComponent implements OnInit{
 
   id_meal:string='';
 
-  constructor(private mealService: MealsService, private route:ActivatedRoute, private location:Location) {}
+  constructor(private mealService: MealsService, private route:ActivatedRoute, private location:Location, private router:Router, private previousUrlService: PreviousUrlService) {}
 
    ngOnInit(): void {
+    this.previousUrl=this.previousUrlService.getPreviousUrl();
+
     this.route.paramMap.subscribe({
       next:(params)=>{
         const id=params.get('id');
@@ -60,6 +65,6 @@ export class MealsDetailsComponent implements OnInit{
   }
 
   back(): void{
-    this.location.back();
+    this.router.navigateByUrl(this.previousUrl);
   }
 }
