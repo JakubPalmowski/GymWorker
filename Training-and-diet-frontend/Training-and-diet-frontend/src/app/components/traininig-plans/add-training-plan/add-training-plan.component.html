@@ -9,6 +9,10 @@
                     <input type="text" class="form-input" id="name" name="name" [(ngModel)]="addTrainingPlanRequest.name">
                 </div>
                 <div class="mb-3">
+                    <label for="customName" class="form-label-custom">Nazwa robocza:</label><br>
+                    <input type="text" class="form-input" id="customName" name="customName" [(ngModel)]="addTrainingPlanRequest.customName">
+                </div>
+                <div class="mb-3">
                     <label for="type" class="form-label-custom">Typ:</label><br>
                     <input type="text" class="form-input" id="type" name="type" [(ngModel)]="addTrainingPlanRequest.type">
                 </div>
@@ -17,8 +21,8 @@
                     <input type="date" class="form-input" id="start_date" name="start_date" [(ngModel)]="addTrainingPlanRequest.startDate">
                 </div>
                 <div class="mb-3">
-                    <label for="end_date" class="form-label-custom">Data zakończenia:</label><br>
-                    <input type="date" class="form-input" id="end_date" name="end_date" [(ngModel)]="addTrainingPlanRequest.endDate">
+                    <label for="numberOfWeeks" class="form-label-custom">Ilość tygodni:</label><br>
+                    <input type="number" class="form-input" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="addTrainingPlanRequest.numberOfWeeks">
                 </div>
 
                 <button type="submit" class="button-create">Stwórz</button>

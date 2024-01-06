@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TrainingPlan } from '../models/trainingPlan.model';
 import { NewLineKind } from 'typescript';
-import { NewTrainingPlan } from '../models/new-training-plan.model';
+import { FullTrainingPlan } from '../models/full-training-plan.model';
 import { TrainingPlanExercise } from '../models/trainingPlanExercise.model';
-import { EditTrainingPlan } from '../models/edit-training-plan.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +14,15 @@ export class TrainingPlanService {
   constructor(private http: HttpClient) { }
 
   getTrainerPlans():Observable<TrainingPlan[]>{
-   return this.http.get<TrainingPlan[]>('https://localhost:7259/api/User/1/trainingPlans');
+   return this.http.get<TrainingPlan[]>('https://localhost:7259/api/User/3/trainingPlans');
   }
 
-  getTrainingPlanById(idPlan:string):Observable<EditTrainingPlan>{
-    return this.http.get<EditTrainingPlan>('https://localhost:7259/api/TrainingPlan/'+idPlan);
+  getTrainingPlanById(idPlan:string):Observable<FullTrainingPlan>{
+    return this.http.get<FullTrainingPlan>('https://localhost:7259/api/TrainingPlan/'+idPlan);
    }
 
-  addTrainingPlan(addTrainingPlanRequest: NewTrainingPlan):Observable<NewTrainingPlan>{
-    return this.http.post<NewTrainingPlan>('https://localhost:7259/api/TrainingPlan',addTrainingPlanRequest);
+  addTrainingPlan(addTrainingPlanRequest: FullTrainingPlan):Observable<FullTrainingPlan>{
+    return this.http.post<FullTrainingPlan>('https://localhost:7259/api/TrainingPlan',addTrainingPlanRequest);
   }
 
   getExercisesByPlanId(planId:string):Observable<TrainingPlanExercise[]>{
