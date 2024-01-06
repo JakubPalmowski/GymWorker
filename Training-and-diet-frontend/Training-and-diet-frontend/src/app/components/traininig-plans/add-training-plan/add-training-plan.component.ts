@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { NewTrainingPlan } from 'src/app/models/new-training-plan.model';
+import { FullTrainingPlan } from 'src/app/models/full-training-plan.model';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 
 
@@ -12,15 +12,17 @@ import { TrainingPlanService } from 'src/app/services/training-plan.service';
 })
 export class AddTrainingPlanComponent implements OnInit{
   
-  addTrainingPlanRequest: NewTrainingPlan={
+  addTrainingPlanRequest: FullTrainingPlan={
     idTrainingPlan:0,
-    idTrainer:1,
+    idTrainer:3,
     name:'',
+    customName:'',
     type:'',
     startDate:new Date(),
-    endDate:new Date(),
-
+    numberOfWeeks:0
   }
+
+
   constructor(private trainingPlanService:TrainingPlanService, private router:Router){}
   ngOnInit(): void {
     

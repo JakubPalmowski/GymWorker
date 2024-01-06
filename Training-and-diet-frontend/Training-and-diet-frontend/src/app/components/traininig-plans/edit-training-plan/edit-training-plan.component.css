@@ -14,6 +14,9 @@
     
 }
 
+#name-header{
+    width: 35%;
+}
 
 
 form{
@@ -28,6 +31,12 @@ form{
     margin-right: auto;
     
     
+}
+
+#regen{
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
 }
 
 h3{
@@ -71,7 +80,30 @@ table {
     
 
   }
+
+.days-container{
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.day{
+    font-weight: bold;
+    padding: 3px;
+    display: block;
+    width: 60px;
+    
+    
+}
   
+.selected-day{
+    color:#3244A0;
+    background-color:#FAFAFA;
+    border-radius: 10px;
+
+    
+}
+
 thead tr th {
     border-bottom: 2px solid black; 
     border-collapse: separate; 

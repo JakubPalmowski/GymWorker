@@ -6,6 +6,8 @@
         public string Name { get; set; }
 
         public string CustomName { get; set; }
-        public int PlanDuration { get; set; }
+        public DateTime StartDate { get; set; }
+
+        public int NumberOfWeeks { get; set; }
     }
 }
