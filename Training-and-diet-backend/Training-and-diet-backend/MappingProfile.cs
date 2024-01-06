@@ -8,10 +8,13 @@ using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Application.Commands.Exercise;
 using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Commands.TraineeExercises;
+using TrainingAndDietApp.Application.Commands.TrainingPlan;
+using TrainingAndDietApp.Application.Handlers.TrainingPlan;
 using TrainingAndDietApp.Application.Responses.Diet;
 using TrainingAndDietApp.Application.Responses.Exercise;
 using TrainingAndDietApp.Application.Responses.Gym;
 using TrainingAndDietApp.Application.Responses.Meal;
+using TrainingAndDietApp.Application.Responses.TrainingPlan;
 using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.DTOs.Diet;
@@ -23,7 +26,7 @@ using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Entities;
 using Gym = Training_and_diet_backend.Models.Gym;
-using TrainingPlan = TrainingAndDietApp.DAL.Models.TrainingPlan;
+using TrainingPlan = TrainingAndDietApp.Domain.Entities.TrainingPlan;
 
 
 namespace Training_and_diet_backend
@@ -109,6 +112,10 @@ namespace Training_and_diet_backend
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
 
             CreateMap<CreateTraineeExerciseCommand, TraineeExercise>();
+
+            CreateMap<TrainingPlan, TrainingPlanResponse>();
+
+            CreateMap<CreateTrainingPlanCommand, TrainingPlan>();
 
 
 

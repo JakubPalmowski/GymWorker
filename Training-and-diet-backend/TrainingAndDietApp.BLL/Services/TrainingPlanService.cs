@@ -7,6 +7,7 @@ using TrainingAndDietApp.Common.DTOs.Exercise;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.BLL.Services
 {
@@ -38,12 +39,12 @@ namespace TrainingAndDietApp.BLL.Services
                 throw new BadRequestException("User is not a trainer");
 
             var trainingPlan = _mapper.Map<TrainingPlan>(trainingPlanEntity);
-            return await _trainingPlanRepository.AddTrainingPlanAsync(trainingPlan);
+            return await _trainingPlanRepository.AddTrainingPlanAsync(trainingPlan, CancellationToken.None);
         }
 
         public async Task<TrainingPlanEntity> GetTrainingPlanById(int trainingPlanId)
         {
-            var plan = await _trainingPlanRepository.GetTrainingPlanByIdAsync(trainingPlanId);
+            var plan = await _trainingPlanRepository.GetTrainingPlanByIdAsync(trainingPlanId, CancellationToken.None);
 
             if (plan == null)
                 throw new NotFoundException("Training plan not found");

@@ -3,6 +3,7 @@ using Training_and_diet_backend.Models;
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace Training_and_diet_backend.Repositories
 {
@@ -17,18 +18,18 @@ namespace Training_and_diet_backend.Repositories
             _context = context;
         }
 
-        public async Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan)
+        public async Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan, CancellationToken cancellationToken)
         {
             _context.Training_plans.Add(trainingPlan);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return trainingPlan.IdTrainingPlan;
         }
 
-        public async Task<TrainingPlan?> GetTrainingPlanByIdAsync(int trainingPlanId)
+        public async Task<TrainingPlan?> GetTrainingPlanByIdAsync(int trainingPlanId, CancellationToken cancellationToken)
         {
            var trainingPlan =  await _context.Training_plans
                 .Where(plan => plan.IdTrainingPlan == trainingPlanId)
-                .SingleOrDefaultAsync();
+                .SingleOrDefaultAsync(cancellationToken: cancellationToken);
 
            return trainingPlan;
         }

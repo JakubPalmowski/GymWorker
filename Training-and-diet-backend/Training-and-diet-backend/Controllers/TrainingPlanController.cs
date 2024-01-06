@@ -1,14 +1,20 @@
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.DTOs.TraineeExercise;
 using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.Models;
 using Training_and_diet_backend.Services;
+using TrainingAndDietApp.Application.Commands.TrainingPlan;
+using TrainingAndDietApp.Application.Queries.Meal;
+using TrainingAndDietApp.Application.Queries.TrainingPlan;
 using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.BLL.Services;
 using TrainingAndDietApp.Common.DTOs.TrainingPlan;
+using TrainingAndDietApp.DAL.Models;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -16,32 +22,29 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class TrainingPlanController : ControllerBase
     {
-        private readonly ITrainingPlanService _service;
-        private readonly IMapper _mapper;
-        public TrainingPlanController(ITrainingPlanService service, IMapper mapper)
+        private readonly IMediator _mediator;
+        public TrainingPlanController(IMediator mediator)
         {
-            _service = service;
-            _mapper = mapper;
+            _mediator = mediator;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<int>> CreateTrainingPlan([FromBody] CreateTrainingPlanDto trainingPlanDto)
+        [HttpPost] public async Task<IActionResult> PostTrainingPlan(CreateTrainingPlanCommand trainingPlan)
         {
-            var trainingPlanEntity = _mapper.Map<TrainingPlanEntity>(trainingPlanDto);
-            var id = await _service.AddTrainingPlan(trainingPlanEntity);
+            var result = await _mediator.Send(trainingPlan);
+            var locationUri = $"api/trainingPlan/{result.IdTrainingPlan}";
 
-            return Ok(id);
-
+            return Created(locationUri, trainingPlan);
         }
 
 
         [HttpGet("{planId}")]
-        public async Task<ActionResult<TrainingPlanDetailsDto>> GetTrainingPlanById(int planId)
+        public async Task<IActionResult> GetTrainingPlanById(int planId)
         {
-            var plan = await _service.GetTrainingPlanById(planId);
-            var planDto = _mapper.Map<TrainingPlanDetailsDto>(plan);
+            var query = new GetTrainingPlanQuery(planId);
 
-            return Ok(planDto);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+
         }
     }
 }
