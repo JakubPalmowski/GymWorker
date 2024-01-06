@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using TrainingAndDietApp.Application.Queries;
-using TrainingAndDietApp.Application.Responses;
+using TrainingAndDietApp.Application.Queries.Meal;
+using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.Handlers
+namespace TrainingAndDietApp.Application.Handlers.Meal
 {
-    public class GetMealsHandler : IRequestHandler<GetMealsQuery,IEnumerable<MealResponse>>
+    public class GetMealsHandler : IRequestHandler<GetMealsQuery, IEnumerable<MealResponse>>
     {
         private readonly IMealRepository _mealRepository;
         private readonly IMapper _mapper;

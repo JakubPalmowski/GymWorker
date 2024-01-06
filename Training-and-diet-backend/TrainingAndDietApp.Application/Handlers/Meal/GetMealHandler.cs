@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using TrainingAndDietApp.Application.Queries;
-using TrainingAndDietApp.Application.Responses;
+using TrainingAndDietApp.Application.Queries.Meal;
+using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.Handlers
+namespace TrainingAndDietApp.Application.Handlers.Meal
 {
     public class GetMealHandler : IRequestHandler<GetMealQuery, MealResponse>
     {
@@ -25,10 +25,10 @@ namespace TrainingAndDietApp.Application.Handlers
 
         public async Task<MealResponse> Handle(GetMealQuery request, CancellationToken cancellationToken)
         {
-           var meal = await _mealRepository.GetMealByIdAsync(request.IdMeal, cancellationToken);
-           if (meal == null)
+            var meal = await _mealRepository.GetMealByIdAsync(request.IdMeal, cancellationToken);
+            if (meal == null)
                 throw new NotFoundException("Meal not found");
-           return  _mapper.Map<MealResponse>(meal);
+            return _mapper.Map<MealResponse>(meal);
         }
     }
 }

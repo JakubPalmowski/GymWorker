@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TrainingAndDietApp.Application.Commands;
+using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.Handlers
+namespace TrainingAndDietApp.Application.Handlers.Meal
 {
     public class DeleteMealCommandHandler : IRequestHandler<DeleteMealCommand>
     {
         private readonly IMealRepository _mealRepository;
-       
+
 
         public DeleteMealCommandHandler(IMealRepository mealRepository)
         {

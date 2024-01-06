@@ -5,9 +5,10 @@ using Training_and_diet_backend.DTOs.TraineeExercise;
 using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
-using TrainingAndDietApp.Application.Commands;
+using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Queries;
-using TrainingAndDietApp.Application.Responses;
+using TrainingAndDietApp.Application.Responses.Diet;
+using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.BLL.Models;
 using TrainingAndDietApp.Common.DTOs.Diet;
@@ -94,6 +95,8 @@ namespace Training_and_diet_backend
 
             CreateMap<CreateMealCommand, Meal>();
             CreateMap<UpdateMealInternalCommand, Meal>();
+
+            CreateMap<Diet, DietResponse>();
 
 
 

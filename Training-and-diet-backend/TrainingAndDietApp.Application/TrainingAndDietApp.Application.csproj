@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\" />
+    <Folder Include="Commands\Diet\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 

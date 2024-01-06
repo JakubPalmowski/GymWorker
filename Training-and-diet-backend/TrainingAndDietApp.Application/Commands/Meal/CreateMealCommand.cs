@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using TrainingAndDietApp.Application.Responses;
+using TrainingAndDietApp.Application.Responses.Meal;
 
-namespace TrainingAndDietApp.Application.Commands
+namespace TrainingAndDietApp.Application.Commands.Meal
 {
     public class CreateMealCommand : IRequest<MealResponse>
     {

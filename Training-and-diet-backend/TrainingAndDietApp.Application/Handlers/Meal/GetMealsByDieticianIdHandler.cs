@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
-using TrainingAndDietApp.Application.Queries;
-using TrainingAndDietApp.Application.Responses;
+using TrainingAndDietApp.Application.Queries.Meal;
+using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.Handlers;
+namespace TrainingAndDietApp.Application.Handlers.Meal;
 
 public class GetMealsByDieticianIdHandler : IRequestHandler<GetMealsByDieticianIdQuery, IEnumerable<MealResponse>>
 {

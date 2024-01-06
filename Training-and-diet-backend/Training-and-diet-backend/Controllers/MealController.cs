@@ -1,12 +1,9 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.DTOs.MealDto;
 using TrainingAndDietApp.Application.Commands;
+using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Queries;
-using TrainingAndDietApp.BLL.Models;
-using TrainingAndDietApp.BLL.Services;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using TrainingAndDietApp.Application.Queries.Meal;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -15,13 +12,10 @@ namespace Training_and_diet_backend.Controllers
     public class MealController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IMealService _service;
-        private readonly IMapper _mapper;
 
-        public MealController(IMealService service, IMapper mapper, IMediator mediator)
+        public MealController(IMediator mediator)
         {
-            _service = service;
-            _mapper = mapper;
+            
             _mediator = mediator;
         }
 
@@ -42,7 +36,7 @@ namespace Training_and_diet_backend.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
-        // do zmiany - przeniesc do userController
+      
         [HttpGet("{dieticianId}/meals")]
         public async Task<IActionResult> GetMealsByDieticianId(int dieticianId)
         {

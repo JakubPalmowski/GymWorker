@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
-using TrainingAndDietApp.Application.Commands;
-using TrainingAndDietApp.Application.Responses;
+using TrainingAndDietApp.Application.Commands.Meal;
+using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.Handlers
+namespace TrainingAndDietApp.Application.Handlers.Meal
 {
     public class CreateMealCommandHandler : IRequestHandler<CreateMealCommand, MealResponse>
     {
@@ -27,7 +27,7 @@ namespace TrainingAndDietApp.Application.Handlers
             if (!await CheckIfUserIsDietician(request.IdDietician, cancellationToken))
                 throw new BadRequestException("User is not a dietician");
 
-            var result = _mapper.Map<Meal>(request);
+            var result = _mapper.Map<DAL.Models.Meal>(request);
             await _mealRepository.AddMealAsync(result, cancellationToken);
             return _mapper.Map<MealResponse>(result);
         }
@@ -39,7 +39,7 @@ namespace TrainingAndDietApp.Application.Handlers
         }
         private async Task<bool> CheckIfUserExists(int idUser, CancellationToken cancellationToken)
         {
-            var user =  await _userRepository.GetUserByIdAsync(idUser, cancellationToken);
+            var user = await _userRepository.GetUserByIdAsync(idUser, cancellationToken);
             return user != null;
         }
     }

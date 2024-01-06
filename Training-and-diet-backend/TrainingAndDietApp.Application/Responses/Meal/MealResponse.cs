@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrainingAndDietApp.Application.Responses
+namespace TrainingAndDietApp.Application.Responses.Meal
 {
     public class MealResponse
     {

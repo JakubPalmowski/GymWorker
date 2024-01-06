@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace TrainingAndDietApp.Application.Commands
+namespace TrainingAndDietApp.Application.Commands.Meal
 {
     public class UpdateMealInternalCommand : IRequest
     {
@@ -15,8 +15,8 @@ namespace TrainingAndDietApp.Application.Commands
             MealCommand = mealCommand;
         }
 
-        public int IdMeal { get;  }
-        public UpdateMealCommand MealCommand { get;  }
+        public int IdMeal { get; }
+        public UpdateMealCommand MealCommand { get; }
 
 
 

@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TrainingAndDietApp.Application.Commands;
+using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.Handlers
+namespace TrainingAndDietApp.Application.Handlers.Meal
 {
     public class UpdateMealCommandHandler : IRequestHandler<UpdateMealInternalCommand>
     {

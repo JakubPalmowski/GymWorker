@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace TrainingAndDietApp.Application.Commands
+namespace TrainingAndDietApp.Application.Commands.Meal
 {
     public class UpdateMealCommand : IRequest
     {
-    
+
         public string Name { get; set; }
         public string Ingredients { get; set; }
         public string PrepareSteps { get; set; }

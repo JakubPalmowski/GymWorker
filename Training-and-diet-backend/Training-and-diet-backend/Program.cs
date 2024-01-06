@@ -5,7 +5,7 @@ using Training_and_diet_backend.Middlewares;
 using Training_and_diet_backend.Repositories;
 using Training_and_diet_backend.Services;
 using Training_and_diet_backend.Validators;
-using TrainingAndDietApp.Application.Handlers;
+using TrainingAndDietApp.Application.Handlers.Meal;
 using TrainingAndDietApp.BLL.Services;
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.EntityModels;
