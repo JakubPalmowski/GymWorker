@@ -2,6 +2,7 @@
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace Training_and_diet_backend.Repositories
 {

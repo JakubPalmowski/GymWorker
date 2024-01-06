@@ -5,21 +5,22 @@ using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.DAL.Repositories;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.BLL.Services
 {
-    public interface ITraineeExercisesService
+    public interface ITraineeExercisesServiceDeprecated
     {
         Task <int> AddTraineeExercises(TraineeExerciseEntity traineeExerciseEntity);
     }
-    public class TraineeExercisesService : ITraineeExercisesService
+    public class TraineeExercisesServiceDeprecatedDeprecated : ITraineeExercisesServiceDeprecated
     {
         private readonly ITraineeExercisesRepository _traineeExercisesRepository;
         private readonly ITrainingPlanRepository _trainingPlanRepository;
         private readonly IExerciseRepository _exercisesRepository;
         private readonly IMapper _mapper;
 
-        public TraineeExercisesService(ITraineeExercisesRepository traineeExercisesRepository, IMapper mapper, ITrainingPlanRepository trainingPlanRepository, IExerciseRepository exercisesRepository)
+        public TraineeExercisesServiceDeprecatedDeprecated(ITraineeExercisesRepository traineeExercisesRepository, IMapper mapper, ITrainingPlanRepository trainingPlanRepository, IExerciseRepository exercisesRepository)
         {
             _traineeExercisesRepository = traineeExercisesRepository;
             _mapper = mapper;

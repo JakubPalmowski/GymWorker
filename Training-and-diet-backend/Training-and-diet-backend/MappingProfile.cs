@@ -7,6 +7,7 @@ using Training_and_diet_backend.DTOs.User;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Application.Commands.Exercise;
 using TrainingAndDietApp.Application.Commands.Meal;
+using TrainingAndDietApp.Application.Commands.TraineeExercises;
 using TrainingAndDietApp.Application.Responses.Diet;
 using TrainingAndDietApp.Application.Responses.Exercise;
 using TrainingAndDietApp.Application.Responses.Gym;
@@ -106,6 +107,8 @@ namespace Training_and_diet_backend
 
             CreateMap<Gym, GymResponse>().ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City))
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
+
+            CreateMap<CreateTraineeExerciseCommand, TraineeExercise>();
 
 
 
