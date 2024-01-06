@@ -9,6 +9,7 @@ using TrainingAndDietApp.Application.Commands.Exercise;
 using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Responses.Diet;
 using TrainingAndDietApp.Application.Responses.Exercise;
+using TrainingAndDietApp.Application.Responses.Gym;
 using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.BLL.EntityModels;
 using TrainingAndDietApp.BLL.Models;
@@ -102,6 +103,9 @@ namespace Training_and_diet_backend
             CreateMap<Exercise, ExerciseResponse>();
 
             CreateMap<UpdateExerciseInternalCommand, Exercise>();
+
+            CreateMap<Gym, GymResponse>().ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
 
 
 

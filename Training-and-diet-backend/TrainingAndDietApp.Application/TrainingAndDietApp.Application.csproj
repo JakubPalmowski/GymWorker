@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Commands\Diet\" />
+    <Folder Include="Handlers\Gym\" />
     <Folder Include="Services\" />
     <Folder Include="Responses\Exercise\" />
     <Folder Include="Validators\" />
