@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Exercise } from 'src/app/models/exercise';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { Location } from '@angular/common';
+import { PreviousUrlService } from 'src/app/services/previous-url.service';
 
 @Component({
   selector: 'app-exercises-add',
@@ -11,7 +12,7 @@ import { Location } from '@angular/common';
 })
 export class ExercisesAddComponent implements OnInit{
 
- 
+  previousUrl:string='';
 
   addTrainerExerciseRequest: Exercise={
     name:'',
@@ -23,8 +24,11 @@ export class ExercisesAddComponent implements OnInit{
 
   
  
-  constructor(private exerciseService: ExercisesService, private router:Router, private location:Location) {}
+  constructor(private exerciseService: ExercisesService, private router:Router, private location:Location,private previousUrlService: PreviousUrlService) {
+    
+  }
   ngOnInit(): void {
+    this.previousUrl=this.previousUrlService.getPreviousUrl()
   }
 
   addTrainerExercise(){
@@ -36,6 +40,10 @@ export class ExercisesAddComponent implements OnInit{
         console.log(response);
       }
     });
+  }
+
+  back(){
+    this.router.navigateByUrl(this.previousUrl);
   }
 
 }
