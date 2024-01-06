@@ -5,14 +5,17 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.Domain.Abstractions
 {
     public interface IUserRepository
     {
-        Task<List<User>> GetPupilsByTrainerIdAsync(int id_trainer);
+        Task<List<User>> GetPupilsByTrainerIdAsync(int idTrainer);
         Task<User?> GetUserByIdAsync(int id, CancellationToken cancellationToken);
         Task<bool> AnyAsync(Expression<Func<User, bool>> predicate);
+
+        IQueryable<User> GetUsers(string roleName, string? searchPhrase,  CancellationToken cancellationToken);
 
     }
 }

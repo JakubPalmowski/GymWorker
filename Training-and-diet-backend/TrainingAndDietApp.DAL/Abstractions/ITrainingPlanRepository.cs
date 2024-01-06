@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
         Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan, CancellationToken cancellationToken);
         Task<TrainingPlan?> GetTrainingPlanByIdAsync(int trainingPlanId, CancellationToken cancellationToken);
 
-        Task<bool> CheckIfTrainingPlanExists(int trainingPlanId);
+        Task<List<TrainingPlan>> GetTrainerTrainingPlans(int idTrainer, CancellationToken cancellationToken);
+        Task<bool> CheckIfTrainingPlanExists(int trainingPlanId, CancellationToken cancellationToken);
     }
 }

@@ -49,6 +49,15 @@ namespace Training_and_diet_backend.Controllers
 
         }
 
+        [HttpGet("{trainerId}/exercises")]
+        public async Task<IActionResult> GetTrainerExercises(int trainerId)
+        {
+            var request = new GetTrainerExercisesQuery(trainerId);
+            var response = await _mediator.Send(request);
+
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostExercise(CreateExerciseCommand exercise)
         {

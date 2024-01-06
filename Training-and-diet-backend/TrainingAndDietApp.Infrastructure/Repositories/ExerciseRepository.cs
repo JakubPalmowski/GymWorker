@@ -67,14 +67,10 @@ namespace TrainingAndDietApp.DAL.Repositories
             return exercise.IdExercise;
         }
 
-        public async Task<List<Exercise>> GetTrainerExercisesAsync(int trainerId)
+        public async Task<List<Exercise>> GetTrainerExercisesAsync(int trainerId, CancellationToken cancellation)
         {
-            var exercises =  await _context.Exercises.Where(e => e.IdTrainer == trainerId).ToListAsync();
+            return  await _context.Exercises.Where(e => e.IdTrainer == trainerId).ToListAsync(cancellation);
 
-            if (!exercises.Any())
-                throw new NotFoundException("Exercises not found");
-
-            return exercises;
         }
 
         public async Task<int> DeleteExerciseAsync(int exerciseId, CancellationToken cancellation)

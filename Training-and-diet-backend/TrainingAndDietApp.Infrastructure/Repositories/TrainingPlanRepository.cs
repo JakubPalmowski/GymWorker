@@ -34,11 +34,16 @@ namespace Training_and_diet_backend.Repositories
            return trainingPlan;
         }
 
-        public async Task<bool> CheckIfTrainingPlanExists(int trainingPlanId)
+        public async Task<List<TrainingPlan>> GetTrainerTrainingPlans(int idTrainer, CancellationToken cancellationToken)
+        {
+            return await  _context.Training_plans.Where(e => e.IdTrainer == idTrainer).ToListAsync(cancellationToken: cancellationToken);
+        }
+
+        public async Task<bool> CheckIfTrainingPlanExists(int trainingPlanId, CancellationToken cancellationToken)
         {
             var trainingPlan = await _context.Training_plans
                 .Where(plan => plan.IdTrainingPlan == trainingPlanId)
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
 
             return trainingPlan.Any();
         }

@@ -47,7 +47,7 @@ namespace TrainingAndDietApp.BLL.Services
 
         private async Task<bool> IsTrainingPlanValid(int trainingPlanId)
         {
-            return await _trainingPlanRepository.CheckIfTrainingPlanExists(trainingPlanId);
+            return await _trainingPlanRepository.CheckIfTrainingPlanExists(trainingPlanId, CancellationToken.None);
         }
         private async Task<bool> IsExerciseValid(int trainingPlanId)
         {

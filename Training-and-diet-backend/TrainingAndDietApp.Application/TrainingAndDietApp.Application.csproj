@@ -9,10 +9,10 @@
   <ItemGroup>
     <Folder Include="Commands\Diet\" />
     <Folder Include="Handlers\Gym\" />
+    <Folder Include="Handlers\User\" />
     <Folder Include="Handlers\TraineeExercise\" />
     <Folder Include="Services\" />
     <Folder Include="Responses\Exercise\" />
-    <Folder Include="Validators\" />
   </ItemGroup>
 
   <ItemGroup>

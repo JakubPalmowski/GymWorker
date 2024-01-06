@@ -13,6 +13,7 @@ using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Enums;
 using TrainingAndDietApp.DAL.Repositories;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.BLL.Services
 {

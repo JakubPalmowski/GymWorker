@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Training_and_diet_backend.Models;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Entities;
+using UserQuery = TrainingAndDietApp.Application.Queries.User.UserQuery;
 
-namespace Training_and_diet_backend.Validators
+namespace TrainingAndDietApp.Application.Validators
 {
     public class UserQueryValidator : AbstractValidator<UserQuery>
     {

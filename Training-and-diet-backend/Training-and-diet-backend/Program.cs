@@ -13,6 +13,8 @@ using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Repositories;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
+using UserQuery = TrainingAndDietApp.Application.Queries.User.UserQuery;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,13 +45,13 @@ builder.Services.AddScoped<ITraineeExercisesRepository, TraineeExercisesReposito
 builder.Services.AddScoped<IGymService, GymService>();
 builder.Services.AddScoped<IGymRepository, GymRepository>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<IValidator<UserQuery>, UserQueryValidator>();
+builder.Services.AddScoped<IValidator<UserQuery>, TrainingAndDietApp.Application.Validators.UserQueryValidator>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services
-    .AddControllers()
-    .AddFluentValidation(fv => {
-        fv.RegisterValidatorsFromAssemblyContaining<UserQueryValidator>();
-    });
+builder.Services.AddControllers()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserQueryValidator>());
+
+
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

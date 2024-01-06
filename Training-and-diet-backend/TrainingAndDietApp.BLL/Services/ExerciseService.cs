@@ -75,7 +75,7 @@ namespace TrainingAndDietApp.BLL.Services
             if (!await _userServiceDeprecated.UserIsTrainer(trainerId))
                 throw new BadRequestException("User is not trainer");
 
-            var exercises = await _exerciseRepository.GetTrainerExercisesAsync(trainerId);
+            var exercises = await _exerciseRepository.GetTrainerExercisesAsync(trainerId, CancellationToken.None);
 
             return _mapper.Map<List<ExerciseEntity>>(exercises);
 
@@ -119,7 +119,7 @@ namespace TrainingAndDietApp.BLL.Services
         }
         private async Task<bool> IsTrainingPlanValid(int trainingPlanId)
         {
-            return await _trainingPlanRepository.CheckIfTrainingPlanExists(trainingPlanId);
+            return await _trainingPlanRepository.CheckIfTrainingPlanExists(trainingPlanId, CancellationToken.None);
         }
     }
 }

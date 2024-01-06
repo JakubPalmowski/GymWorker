@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Training_and_diet_backend.Models;
 using TrainingAndDietApp.DAL.EntityModels;
-using TrainingAndDietApp.DAL.Models;
-using TrainingAndDietApp.Domain.Entities;
 
-namespace Training_and_diet_backend.Models
+namespace TrainingAndDietApp.Domain.Entities
 {
     public class User
     {

@@ -1,7 +1,13 @@
-﻿using TrainingAndDietApp.DAL.Enums;
+﻿using MediatR;
+using TrainingAndDietApp.Application.Responses;
+using TrainingAndDietApp.DAL.Enums;
 
-namespace TrainingAndDietApp.Domain.Entities
+namespace TrainingAndDietApp.Application.Queries.User
 {
+    public record class GetUsersQuery(string RoleName, UserQuery? Query = null) : IRequest<UserResponse<Domain.Entities.User>>
+    {
+    }
+
     public class UserQuery
     {
         public string? SearchPhrase { get; set; }
@@ -12,4 +18,5 @@ namespace TrainingAndDietApp.Domain.Entities
         public string? GymNamePhrase { get; set; }
         
     }
+    
 }

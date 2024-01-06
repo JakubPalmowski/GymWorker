@@ -9,6 +9,7 @@ using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.DAL.Repositories
 {
@@ -23,11 +24,11 @@ namespace TrainingAndDietApp.DAL.Repositories
         }
         
 
-        public async Task<List<User>> GetPupilsByTrainerIdAsync(int id_trainer)
+        public async Task<List<User>> GetPupilsByTrainerIdAsync(int idTrainer)
         {
             return await _context.Users
                 .Where(u => _context.Pupil_mentors
-                    .Where(e => e.IdMentor == id_trainer)
+                    .Where(e => e.IdMentor == idTrainer)
                     .Select(e => e.IdPupil)
                     .Contains(u.IdUser))
                 .ToListAsync();
@@ -47,6 +48,20 @@ namespace TrainingAndDietApp.DAL.Repositories
         public async Task<bool> AnyAsync(Expression<Func<User, bool>> predicate)
         {
             return await _context.Users.AnyAsync(predicate);
+        }
+
+        public IQueryable<User> GetUsers(string? roleName, string? searchPhrase, CancellationToken cancellationToken)
+        {
+            return  _context.Users
+                .Include(u => u.MentorOpinions)
+                .Include(u => u.Role)
+                .Include(u => u.TrainerGyms)
+                .ThenInclude(tg => tg.Gym)
+                .ThenInclude(g => g.Address)
+                .Where(u => (u.Role.Name == roleName || u.Role.Name == "Dietician-Trainer") &&
+                            (searchPhrase == null ||
+                             u.Name.ToLower().Contains(searchPhrase.ToLower()) ||
+                             u.LastName.ToLower().Contains(searchPhrase.ToLower())));
         }
 
 

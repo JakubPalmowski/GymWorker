@@ -2,6 +2,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 using Training_and_diet_backend.DTOs.TraineeExercise;
 using Training_and_diet_backend.DTOs.TrainingPlan;
 using Training_and_diet_backend.Models;
@@ -27,16 +28,6 @@ namespace Training_and_diet_backend.Controllers
         {
             _mediator = mediator;
         }
-
-        [HttpPost] public async Task<IActionResult> PostTrainingPlan(CreateTrainingPlanCommand trainingPlan)
-        {
-            var result = await _mediator.Send(trainingPlan);
-            var locationUri = $"api/trainingPlan/{result.IdTrainingPlan}";
-
-            return Created(locationUri, trainingPlan);
-        }
-
-
         [HttpGet("{planId}")]
         public async Task<IActionResult> GetTrainingPlanById(int planId)
         {
@@ -46,5 +37,26 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
 
         }
+        [HttpGet("{idTrainer}/trainingPlans")]
+        public async Task<IActionResult> GetTrainerTrainingPlans(int idTrainer)
+        {
+            var query = new GetTrainerTrainingPlansQuery(idTrainer);
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+
+        }
+
+        [HttpPost] 
+        public async Task<IActionResult> PostTrainingPlan(CreateTrainingPlanCommand trainingPlan)
+        {
+            var result = await _mediator.Send(trainingPlan);
+            var locationUri = $"api/trainingPlan/{result.IdTrainingPlan}";
+
+            return Created(locationUri, trainingPlan);
+        }
+
+
+        
     }
 }

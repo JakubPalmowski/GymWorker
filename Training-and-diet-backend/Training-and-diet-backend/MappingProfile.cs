@@ -10,6 +10,8 @@ using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Commands.TraineeExercises;
 using TrainingAndDietApp.Application.Commands.TrainingPlan;
 using TrainingAndDietApp.Application.Handlers.TrainingPlan;
+using TrainingAndDietApp.Application.Queries.TrainingPlan;
+using TrainingAndDietApp.Application.Responses;
 using TrainingAndDietApp.Application.Responses.Diet;
 using TrainingAndDietApp.Application.Responses.Exercise;
 using TrainingAndDietApp.Application.Responses.Gym;
@@ -117,6 +119,10 @@ namespace Training_and_diet_backend
 
             CreateMap<CreateTrainingPlanCommand, TrainingPlan>();
 
+            CreateMap<TrainingPlan, GetTrainerTrainingPlansResponse>();
+            CreateMap<User, UserResponse<User>>();
+
+            CreateMap<User, MentorList>();
 
 
 
