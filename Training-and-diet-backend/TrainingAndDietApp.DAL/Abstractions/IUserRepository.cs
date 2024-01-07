@@ -18,5 +18,6 @@ namespace TrainingAndDietApp.Domain.Abstractions
 
         IQueryable<User> GetUsers(string roleName, string? searchPhrase,  CancellationToken cancellationToken);
 
+
     }
 }

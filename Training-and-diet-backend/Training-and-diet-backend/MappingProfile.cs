@@ -78,6 +78,9 @@ namespace Training_and_diet_backend
                 .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City))
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
 
+            CreateMap<User, PupilPersonalInfoResponse>()
+                .ForMember(dest=>dest.Role, opt=>opt.MapFrom(src=>src.Role.Name));
+
 
 
 
