@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { MealFull } from 'src/app/models/meal-full';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
+import { MealKcal } from 'src/app/models/meal-kcal';
+import { Form } from '@angular/forms';
 
 
 @Component({
@@ -14,10 +16,12 @@ import { PreviousUrlService } from 'src/app/services/previous-url.service';
 export class MealsEditComponent implements OnInit{
 
   previousUrl:string='';
+  submitted=false;
+
 
   editDieteticianMealRequest:MealFull={
     idMeal:0,
-    idDietician:1,
+    idDietician:2,
     name:'',
     ingredients:'',
     prepareSteps:'',
@@ -25,10 +29,14 @@ export class MealsEditComponent implements OnInit{
     image:''
   }
 
-  kcal:string='';
-  proteins:string='';
-  fats:string='';
-  carbs:string='';
+
+  mealKcal:MealKcal={
+    kcal:'',
+    proteins:'',
+    fats:'',
+    carbs:''
+  }
+
 
   id_meal:string='';
 
@@ -51,10 +59,12 @@ export class MealsEditComponent implements OnInit{
             next:(meal)=>{
               this.editDieteticianMealRequest=meal;
               var kpfc=this.editDieteticianMealRequest.kcal.split(',');
-              this.kcal=kpfc[0];
-              this.proteins=kpfc[1];
-              this.fats=kpfc[2];
-              this.carbs=kpfc[3];
+              this.mealKcal.kcal=kpfc[0];
+              this.mealKcal.proteins=kpfc[1];
+              this.mealKcal.fats=kpfc[2];
+              this.mealKcal.carbs=kpfc[3];
+              console.log(kpfc);
+              console.log(this.editDieteticianMealRequest.kcal);
             },
             error:(response)=>{
               console.log(response);
@@ -66,7 +76,30 @@ export class MealsEditComponent implements OnInit{
   }
 
   edit(){
+    this.editDieteticianMealRequest.kcal=this.mealKcal.kcal+","+this.mealKcal.proteins+","+this.mealKcal.fats+","+this.mealKcal.carbs;
+    console.log(this.editDieteticianMealRequest);
+    
+    this.mealService.editDieteticianMeal(this.editDieteticianMealRequest,this.id_meal).subscribe({
+      next:(meal)=>{
+        this.location.back();
+      },
+      error: (response)=>{
+        console.log(response);
+      }
+    });
+  }
 
+  onSubmit(valid:any,form:Form){
+    this.submitted=true;
+    if(valid){
+     // this.editDieteticanMeal();
+      console.log(this.editDieteticianMealRequest);
+      console.log("ok");
+    }
+   // console.log(this.editDieteticianMealRequest);
+   console.log(form);
+    
+    
   }
 
   back(): void{

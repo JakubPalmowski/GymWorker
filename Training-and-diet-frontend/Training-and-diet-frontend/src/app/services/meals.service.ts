@@ -12,7 +12,7 @@ export class MealsService {
   constructor(private http: HttpClient) {}
 
   getDieteticianMeals():Observable<MealFull[]>{
-    return this.http.get<MealFull[]>('https://localhost:7259/api/Meal/1/meals');
+    return this.http.get<MealFull[]>('https://localhost:7259/api/Meal/21/meals');
   }
 
   getMealById(idMeal:string):Observable<MealFull>{
@@ -24,6 +24,6 @@ export class MealsService {
   }
 
   editDieteticianMeal(editDieteticianMealRequest:MealFull, idMeal:string):Observable<MealFull>{
-    return this.http.put<MealFull>('',editDieteticianMealRequest);
+    return this.http.put<MealFull>('https://localhost:7259/api/Meal/'+idMeal,editDieteticianMealRequest);
   }
 }
