@@ -8,7 +8,7 @@ using TrainingAndDietApp.Application.Responses.Exercise;
 
 namespace TrainingAndDietApp.Application.Queries.Exercise
 {
-    public record GetTrainerExercisesQuery (int TrainerId) : IRequest<IEnumerable<ExerciseResponse>>
+    public record GetTrainerExercisesQuery (int TrainerId) : IRequest<IEnumerable<ExerciseNameResponse>>
     {
     }
 }

@@ -8,7 +8,7 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.Handlers.Exercise
 {
-    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, ExerciseResponse>
+    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, ExerciseNameResponse>
     {
         private readonly IExerciseRepository _exerciseRepository;
         private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace TrainingAndDietApp.Application.Handlers.Exercise
             _exerciseRepository = exerciseRepository;
             _userService = userService;
         }
-        public async Task<ExerciseResponse> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
+        public async Task<ExerciseNameResponse> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
         {
             if (!await _userService.CheckIfUserExists(request.IdTrainer, cancellationToken))
                 throw new NotFoundException("User not found");
@@ -29,7 +29,7 @@ namespace TrainingAndDietApp.Application.Handlers.Exercise
 
             var exercise = _mapper.Map<Domain.Entities.Exercise>(request);
             await _exerciseRepository.CreateExerciseAsync(exercise, cancellationToken);
-            return _mapper.Map<ExerciseResponse>(exercise);
+            return _mapper.Map<ExerciseNameResponse>(exercise);
         }
 
     }

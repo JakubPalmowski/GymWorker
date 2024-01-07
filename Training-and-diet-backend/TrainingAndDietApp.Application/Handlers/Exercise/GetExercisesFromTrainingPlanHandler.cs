@@ -7,7 +7,7 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.Handlers.Exercise;
 
-public class GetExercisesFromTrainingPlanHandler : IRequestHandler<GetExercisesFromTrainingPlanQuery, IEnumerable<ExerciseResponse>>
+public class GetExercisesFromTrainingPlanHandler : IRequestHandler<GetExercisesFromTrainingPlanQuery, IEnumerable<ExerciseNameResponse>>
 {
     private readonly IExerciseRepository _exerciseRepository;
     private readonly IMapper _mapper;
@@ -18,13 +18,13 @@ public class GetExercisesFromTrainingPlanHandler : IRequestHandler<GetExercisesF
     }
 
     //nie rzuca exception tylko pusta liste
-    public async Task<IEnumerable<ExerciseResponse>> Handle(GetExercisesFromTrainingPlanQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ExerciseNameResponse>> Handle(GetExercisesFromTrainingPlanQuery request, CancellationToken cancellationToken)
     {
         var exercises = await _exerciseRepository.GetExercisesFromTrainingPlanAsync(request.IdTrainingPlan, cancellationToken);
 
         if (exercises == null)
             throw new NotFoundException("Exercises not found");
 
-        return _mapper.Map<List<ExerciseResponse>>(exercises);
+        return _mapper.Map<List<ExerciseNameResponse>>(exercises);
     }
 }

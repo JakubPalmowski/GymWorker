@@ -38,6 +38,7 @@ namespace Training_and_diet_backend
 
             CreateMap<Diet, DietResponse>();
 
+            CreateMap<Exercise, ExerciseNameResponse>();
             CreateMap<Exercise, ExerciseResponse>();
 
             CreateMap<UpdateExerciseInternalCommand, Exercise>();

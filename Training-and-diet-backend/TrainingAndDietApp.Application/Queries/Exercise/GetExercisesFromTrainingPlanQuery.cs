@@ -3,7 +3,7 @@ using TrainingAndDietApp.Application.Responses.Exercise;
 
 namespace TrainingAndDietApp.Application.Queries.Exercise;
 
-public class GetExercisesFromTrainingPlanQuery : IRequest<IEnumerable<ExerciseResponse>>
+public class GetExercisesFromTrainingPlanQuery : IRequest<IEnumerable<ExerciseNameResponse>>
 {
     public GetExercisesFromTrainingPlanQuery(int idTrainingPlan)
     {

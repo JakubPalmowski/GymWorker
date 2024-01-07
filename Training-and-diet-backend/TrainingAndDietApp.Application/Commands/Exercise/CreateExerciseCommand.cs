@@ -9,7 +9,7 @@ using TrainingAndDietApp.Application.Responses.Meal;
 
 namespace TrainingAndDietApp.Application.Commands.Exercise
 {
-    public class CreateExerciseCommand : IRequest<ExerciseResponse>
+    public class CreateExerciseCommand : IRequest<ExerciseNameResponse>
     {
        
 

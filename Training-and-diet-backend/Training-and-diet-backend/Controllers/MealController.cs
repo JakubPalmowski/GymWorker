@@ -39,9 +39,9 @@ namespace Training_and_diet_backend.Controllers
         public async Task<IActionResult> GetMealsByDieticianId(int dieticianId)
         {
             var query = new GetMealsByDieticianIdQuery(dieticianId);
-            var mealsDto = await _mediator.Send(query);
+            var result = await _mediator.Send(query);
 
-            return Ok(mealsDto);
+            return Ok(result);
         }
         [HttpPost]
         public async Task<IActionResult> PostMeal(CreateMealCommand meal)
@@ -50,9 +50,6 @@ namespace Training_and_diet_backend.Controllers
             var locationUri = $"api/meal/{result.IdMeal}";
 
             return Created(locationUri, result);
-           
-
-
         }
 
         [HttpDelete("{mealId}")]

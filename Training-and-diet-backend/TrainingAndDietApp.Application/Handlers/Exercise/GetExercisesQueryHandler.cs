@@ -7,7 +7,7 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.Handlers.Exercise;
 
-public class GetExercisesQueryHandler : IRequestHandler<GetExercisesQuery, IEnumerable<ExerciseResponse>>
+public class GetExercisesQueryHandler : IRequestHandler<GetExercisesQuery, IEnumerable<ExerciseNameResponse>>
 {
     private readonly IExerciseRepository _exerciseRepository;
     private readonly IMapper _mapper;
@@ -16,13 +16,13 @@ public class GetExercisesQueryHandler : IRequestHandler<GetExercisesQuery, IEnum
         _mapper = mapper;
         _exerciseRepository = exerciseRepository;
     }
-    public async Task<IEnumerable<ExerciseResponse>> Handle(GetExercisesQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ExerciseNameResponse>> Handle(GetExercisesQuery request, CancellationToken cancellationToken)
     {
         var exercises = await _exerciseRepository.GetAllExercisesAsync(cancellationToken);
         if (exercises == null)
             throw new NotFoundException("Exercises not Found");
 
-        return _mapper.Map<List<ExerciseResponse>>(exercises);
+        return _mapper.Map<List<ExerciseNameResponse>>(exercises);
 
     }
 }

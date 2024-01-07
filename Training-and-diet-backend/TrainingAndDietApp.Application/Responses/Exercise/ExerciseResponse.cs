@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace TrainingAndDietApp.Application.Responses.Exercise;
 
-namespace TrainingAndDietApp.Application.Responses.Exercise
+public class ExerciseResponse
 {
-    public class ExerciseResponse
-    {
-        public string Name { get; set; }
-        public int IdExercise { get; set; }
-    }
+    public int IdExercise { get; set; }
+    public string Name { get; set; }
+    public string Details { get; set; }
+    public string ExerciseSteps { get; set; }
+    public byte[]? Image { get; set; }
+    public int? IdTrainer { get; set; }
 }
