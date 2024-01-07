@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Models;
-using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace Training_and_diet_backend.Repositories
 {
-    
+
     public class MealRepository : IMealRepository
     {
         private readonly ApplicationDbContext _context;
@@ -49,8 +47,6 @@ namespace Training_and_diet_backend.Repositories
                 .Where(meal => meal.IdMeal== mealId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-            if (meal == null)
-                throw new NotFoundException("Meal not found");
 
             _context.Meals.Remove(meal);
             await _context.SaveChangesAsync(cancellationToken);

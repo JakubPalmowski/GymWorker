@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TrainingAndDietApp.Application\TrainingAndDietApp.Application.csproj" />
-    <ProjectReference Include="..\TrainingAndDietApp.BLL\TrainingAndDietApp.Domainxdd.csproj" />
   </ItemGroup>
 
 </Project>

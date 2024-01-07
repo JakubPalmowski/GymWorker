@@ -1,21 +1,7 @@
-using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Numerics;
-using Training_and_diet_backend.DTOs.TraineeExercise;
-using Training_and_diet_backend.DTOs.TrainingPlan;
-using Training_and_diet_backend.Models;
-using Training_and_diet_backend.Services;
 using TrainingAndDietApp.Application.Commands.TrainingPlan;
-using TrainingAndDietApp.Application.Queries.Meal;
 using TrainingAndDietApp.Application.Queries.TrainingPlan;
-using TrainingAndDietApp.BLL.EntityModels;
-using TrainingAndDietApp.BLL.Models;
-using TrainingAndDietApp.BLL.Services;
-using TrainingAndDietApp.Common.DTOs.TrainingPlan;
-using TrainingAndDietApp.DAL.Models;
-using TrainingAndDietApp.Domain.Entities;
 
 namespace Training_and_diet_backend.Controllers
 {

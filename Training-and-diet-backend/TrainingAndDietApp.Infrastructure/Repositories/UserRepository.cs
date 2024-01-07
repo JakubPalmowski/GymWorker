@@ -1,19 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Training_and_diet_backend.Models;
-using TrainingAndDietApp.Common.Exceptions;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
 
-namespace TrainingAndDietApp.DAL.Repositories
+namespace TrainingAndDietApp.Infrastructure.Repositories
 {
-    
+
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;

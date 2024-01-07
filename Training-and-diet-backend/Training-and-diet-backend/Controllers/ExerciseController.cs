@@ -1,18 +1,8 @@
-﻿using System.Runtime.CompilerServices;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Models;
-using Training_and_diet_backend.Services;
 using TrainingAndDietApp.Application.Commands.Exercise;
-using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Queries.Exercise;
-using TrainingAndDietApp.BLL.EntityModels;
-using TrainingAndDietApp.BLL.Services;
-using TrainingAndDietApp.Common.DTOs.Exercise;
-using TrainingAndDietApp.DAL.Models;
-using TrainingAndDietApp.Domain.Entities;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -20,12 +10,10 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class ExerciseController : ControllerBase
     {
-        private readonly IExerciseService _service;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
-        public ExerciseController(IExerciseService service, IMapper mapper, IMediator mediator)
+        public ExerciseController(IMapper mapper, IMediator mediator)
         {
-            _service = service;
             _mapper = mapper;
             _mediator = mediator;
         }
