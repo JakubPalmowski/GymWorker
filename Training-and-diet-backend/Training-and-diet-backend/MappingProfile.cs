@@ -143,6 +143,10 @@ namespace Training_and_diet_backend
 
             CreateMap<User, PupilResponse>();
 
+            CreateMap<Gym, GymResponse>()
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
+
 
 
 
