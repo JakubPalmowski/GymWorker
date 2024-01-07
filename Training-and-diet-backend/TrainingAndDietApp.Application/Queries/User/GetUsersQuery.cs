@@ -1,6 +1,6 @@
 ﻿using MediatR;
+using TrainingAndDietApp.Application.Enums;
 using TrainingAndDietApp.Application.Responses;
-using TrainingAndDietApp.DAL.Enums;
 
 namespace TrainingAndDietApp.Application.Queries.User
 {
