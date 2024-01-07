@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TrainingAndDietApp.Infrastructure.Context;
@@ -11,9 +12,11 @@ using TrainingAndDietApp.Infrastructure.Context;
 namespace Training_and_diet_backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240107184112_AddDateOfBirthColumnAndProfilePictureColumnToUserTable")]
+    partial class AddDateOfBirthColumnAndProfilePictureColumnToUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -418,9 +421,10 @@ namespace Training_and_diet_backend.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdUser"));
 
                     b.Property<string>("Bio")
+                        .IsRequired()
                         .HasColumnType("varchar(500)");
 
-                    b.Property<DateTime?>("DateOfBirth")
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("Date");
 
                     b.Property<decimal?>("DietPriceFrom")
@@ -460,7 +464,11 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("char(11)");
 
+                    b.Property<byte[]>("ProfilePicture")
+                        .HasColumnType("bytea");
+
                     b.Property<string>("Sex")
+                        .IsRequired()
                         .HasColumnType("varchar(10)");
 
                     b.Property<decimal?>("TrainingPlanPriceFrom")
@@ -483,6 +491,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 1,
                             Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "michal@gmail.com",
                             EmailValidated = true,
                             IdRole = 1,
@@ -495,6 +504,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 2,
                             Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "anna@gmail.com",
                             EmailValidated = true,
                             IdRole = 2,
@@ -507,6 +517,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 3,
                             Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -519,6 +530,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 4,
                             Bio = "Hi, I'm Charlie. Let's stay active and have fun!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "charlie@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -531,6 +543,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 5,
                             Bio = "Hello, I'm Diana. Fitness is my passion!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "diana@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -543,6 +556,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 6,
                             Bio = "Hi, I'm Frank. Let's achieve our fitness goals together!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "frank@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -555,6 +569,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 7,
                             Bio = "Hello, I'm Grace. Fitness is my lifestyle!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "grace@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -567,6 +582,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 8,
                             Bio = "Hey, I'm Harry. Let's push our limits in every workout!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "harry@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -579,6 +595,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 9,
                             Bio = "Hi, I'm Ivy. Fitness is my passion and I'm here to inspire!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ivy@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -591,6 +608,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 10,
                             Bio = "Hello, I'm Jack. Let's make every workout count!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jack@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -603,6 +621,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 11,
                             Bio = "Hi, I'm Kelly. Fitness is the key to a healthy life!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "kelly@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -615,6 +634,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 12,
                             Bio = "Hey, I'm Leo. Let's crush our fitness goals!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "leo@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -627,6 +647,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 13,
                             Bio = "Hello, I'm Mia. Fitness is not just a hobby, it's a way of life!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mia@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -639,6 +660,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 14,
                             Bio = "Hi, I'm Nathan. Let's embrace a fit and healthy lifestyle!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nathan@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -651,6 +673,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 15,
                             Bio = "Hey, I'm Olivia. Fitness enthusiast and advocate!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "olivia@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -663,6 +686,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 16,
                             Bio = "Hello, I'm Peter. Let's make fitness a fun journey!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "peter@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -675,6 +699,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 17,
                             Bio = "Hi, I'm Quinn. Fitness is my daily dose of happiness!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "quinn@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -687,6 +712,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 18,
                             Bio = "Hey, I'm Ryan. Fitness is the key to a balanced life!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ryan@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -699,6 +725,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 19,
                             Bio = "Hello, I'm Sophie. Let's stay fit and fabulous!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sophie@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -711,6 +738,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 20,
                             Bio = "Hi, I'm Tom. Fitness is my lifestyle choice!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tom@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -723,6 +751,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 21,
                             Bio = "Hi, I'm Filip. Fitness is my hobby!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "filipwgmail.com",
                             EmailValidated = true,
                             IdRole = 4,
@@ -735,6 +764,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 22,
                             Bio = "Hi, I'm Jakub. Fitness is my passion!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jakubs@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -747,6 +777,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 23,
                             Bio = "Hi, I'm Jakub. Fitness is my passion!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jakubs@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -759,6 +790,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 24,
                             Bio = "Hi, I'm Jakub. Fitness is my passion!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jakubs@gmail.com",
                             EmailValidated = true,
                             IdRole = 3,
@@ -771,6 +803,7 @@ namespace Training_and_diet_backend.Data.Migrations
                         {
                             IdUser = 25,
                             Bio = "Hi, I'm Jakub. Fitness is my passion!",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jakubs@gmail.com",
                             EmailValidated = true,
                             IdRole = 5,

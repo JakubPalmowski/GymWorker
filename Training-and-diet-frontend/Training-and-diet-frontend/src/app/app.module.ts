@@ -30,6 +30,7 @@ import { MealsAddComponent } from './components/meals/meals-add/meals-add.compon
 import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
 import { MealsListComponent } from './components/meals/meals-list/meals-list.component';
 import { MyProfileComponent } from './components/myProfile/my-profile/my-profile.component';
+import { MyProfileEditComponent } from './components/myProfile/my-profile-edit/my-profile-edit.component';
 
 
 
@@ -55,7 +56,7 @@ import { MyProfileComponent } from './components/myProfile/my-profile/my-profile
     MentorOpinionComponent,
     ExercisesEditComponent,
     ExercisesAddComponent, 
-    AutocompleteDirective, PupilProfileComponent, ExercisesDetailsComponent, MealsDetailsComponent, MealsAddComponent, MealsEditComponent, MealsListComponent, MyProfileComponent
+    AutocompleteDirective, PupilProfileComponent, ExercisesDetailsComponent, MealsDetailsComponent, MealsAddComponent, MealsEditComponent, MealsListComponent, MyProfileComponent, MyProfileEditComponent
   ],
   imports: [
     BrowserModule,

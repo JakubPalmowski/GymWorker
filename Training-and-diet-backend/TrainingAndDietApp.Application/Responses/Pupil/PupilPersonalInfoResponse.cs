@@ -11,7 +11,7 @@ namespace TrainingAndDietApp.Application.Responses.Pupil
     public decimal? Weight { get; set; }
       
     public decimal? Height { get; set; }
-    public int? Age { get; set; }
+    public DateTime? DateOfBirth { get; set; }
     
     public string? Sex { get; set; }
       
