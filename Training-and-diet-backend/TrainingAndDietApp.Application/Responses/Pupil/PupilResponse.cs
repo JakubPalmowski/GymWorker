@@ -10,6 +10,7 @@ namespace TrainingAndDietApp.Application.Responses.Pupil
     {
         public string Name { get; set; }
         public string LastName { get; set; }
+        public string Role { get; set; }
         public decimal? Weight { get; set; }
         public decimal? Height { get; set; }
         public int? Age { get; set; }
