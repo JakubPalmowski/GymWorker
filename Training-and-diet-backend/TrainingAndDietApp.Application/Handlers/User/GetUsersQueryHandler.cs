@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Enums;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Application.Queries.User;
 using TrainingAndDietApp.Application.Responses;
 using TrainingAndDietApp.Common.Exceptions;

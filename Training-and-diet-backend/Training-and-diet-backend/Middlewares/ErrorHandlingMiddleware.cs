@@ -1,4 +1,5 @@
-﻿using TrainingAndDietApp.Common.Exceptions;
+﻿using TrainingAndDietApp.Application.Exceptions;
+using TrainingAndDietApp.Common.Exceptions;
 
 namespace Training_and_diet_backend.Middlewares
 {

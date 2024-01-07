@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using TrainingAndDietApp.Application.Commands.Meal;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.DAL.Models;

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Application.Queries.Exercise;
 using TrainingAndDietApp.Application.Queries.Gym;
 using TrainingAndDietApp.Application.Responses.Exercise;

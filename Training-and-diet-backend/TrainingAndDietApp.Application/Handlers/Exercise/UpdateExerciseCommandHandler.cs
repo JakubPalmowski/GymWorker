@@ -4,6 +4,7 @@ using Training_and_diet_backend.Repositories;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Commands.Exercise;
 using TrainingAndDietApp.Application.Commands.Meal;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Application.Responses.Exercise;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;

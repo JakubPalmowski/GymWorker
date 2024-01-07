@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
-using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Application.Queries.TrainingPlan;
 using TrainingAndDietApp.Application.Responses.TrainingPlan;
 using TrainingAndDietApp.Common.Exceptions;

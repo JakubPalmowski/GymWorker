@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Commands.TrainingPlan;
-using TrainingAndDietApp.Common.Exceptions;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.Handlers.TrainingPlan

@@ -2,6 +2,7 @@
 using MediatR;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Commands.TraineeExercises;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
