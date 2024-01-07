@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { response } from 'express';
 import { ExerciseShort } from 'src/app/models/exercise-short.model';
 import { TrainingPlanExercise } from 'src/app/models/trainingPlanExercise.model';
@@ -21,9 +21,13 @@ export class TrainingExerciseListComponent implements OnInit{
   id_training:string='';
   source:string='';
 
-  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location){}
+
+
+  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location,private router:Router){}
 
   ngOnInit(): void {
+    
+
    console.log(this.source);
 
     this.id_training=this.route.snapshot.queryParams['id'];
@@ -93,6 +97,6 @@ export class TrainingExerciseListComponent implements OnInit{
   }
 
   back(): void{
-    this.location.back();
+    this.router.navigateByUrl('/training-plans/edit/'+this.id_training);
   }
 }

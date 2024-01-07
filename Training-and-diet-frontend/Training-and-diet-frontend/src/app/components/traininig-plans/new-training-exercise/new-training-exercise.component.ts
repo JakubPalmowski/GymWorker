@@ -26,12 +26,16 @@ export class NewTrainingExerciseComponent implements OnInit{
     idTrainingPlan:0
   }
 
+  
+
   exercise:ExerciseGetById={
     idExercise:0,
     name:''
   };
    
   repetitions:number[]=[];
+
+  submitted=false;
   
 
   
@@ -72,6 +76,15 @@ export class NewTrainingExerciseComponent implements OnInit{
   refresh()
   {
 
+  }
+
+  onSubmit(valid:any){
+    this.submitted=true;
+    if(valid){
+      console.log(this.newTrainingExerciseRequest);
+      
+      this.addTrainingExercise();
+    }
   }
   
   assignValue(){

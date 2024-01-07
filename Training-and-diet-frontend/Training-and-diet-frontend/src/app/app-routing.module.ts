@@ -19,6 +19,7 @@ import { MealsAddComponent } from './components/meals/meals-add/meals-add.compon
 import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
 import { MealsDetailsComponent } from './components/meals/meals-details/meals-details.component';
 import { TrainingExerciseListComponent } from './components/traininig-plans/training-exercise-list/training-exercise-list.component';
+import { EditTrainingExerciseComponent } from './components/traininig-plans/edit-training-exercise/edit-training-exercise.component';
 
 
 const routes: Routes = [
@@ -51,8 +52,12 @@ const routes: Routes = [
     component: ExercisesDetailsComponent
   },
   {
-    path: 'training-exercise/add',
+    path: 'training-plans/exercise-list/add',
     component: NewTrainingExerciseComponent
+  }, 
+  {
+    path: 'training-plans/edit/:id/edit-training-exercise/:id',
+    component: EditTrainingExerciseComponent
   }, 
   {
     path: 'training-plans/exercise-list',

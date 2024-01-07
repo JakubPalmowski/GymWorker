@@ -23,6 +23,8 @@ export class ExercisesListComponent implements OnInit{
   constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location){}
 
   ngOnInit(): void {
+
+    
    console.log(this.source);
 
     this.id_training=this.route.snapshot.queryParams['id'];

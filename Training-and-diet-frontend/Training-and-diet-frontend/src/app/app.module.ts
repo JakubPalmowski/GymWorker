@@ -29,7 +29,7 @@ import { MealsDetailsComponent } from './components/meals/meals-details/meals-de
 import { MealsAddComponent } from './components/meals/meals-add/meals-add.component';
 import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
 import { MealsListComponent } from './components/meals/meals-list/meals-list.component';
-import { EditTrainingExerciseComponent } from './components/exercises/edit-training-exercise/edit-training-exercise.component';
+import { EditTrainingExerciseComponent } from './components/traininig-plans/edit-training-exercise/edit-training-exercise.component';
 import { TrainingExerciseListComponent } from './components/traininig-plans/training-exercise-list/training-exercise-list.component';
 
 
@@ -70,7 +70,8 @@ import { TrainingExerciseListComponent } from './components/traininig-plans/trai
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

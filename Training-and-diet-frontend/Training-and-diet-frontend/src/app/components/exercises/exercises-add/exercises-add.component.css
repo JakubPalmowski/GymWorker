@@ -47,12 +47,17 @@ h3{
     width: 50%;
 }
 
+
+
+
 #steps{
     height: 200px;
+    font-size: 15px;
 }
 
 #description{
     height: 120px;
+    font-size: 15px;
 }
 
 #image{
