@@ -141,3 +141,8 @@ a{
     color: inherit; 
     text-decoration: inherit; 
   }
+
+#edit-icon{
+    height: 20px;
+    width: 20px;
+}

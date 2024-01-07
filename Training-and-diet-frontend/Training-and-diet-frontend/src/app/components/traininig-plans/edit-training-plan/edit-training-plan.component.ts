@@ -12,7 +12,9 @@ import { TrainingPlanService } from 'src/app/services/training-plan.service';
   styleUrls: ['./edit-training-plan.component.css']
 })
 export class EditTrainingPlanComponent implements OnInit{
- 
+
+  submitted=false;
+
   trainingPlanExercisesTEMP:TrainingPlanExercise[]=[
    
   ];
@@ -147,11 +149,16 @@ export class EditTrainingPlanComponent implements OnInit{
   formStartDate:string='';
   formEndDate:string='';
 
+  dateToday:string='';
+
+
   idTraining:string='';
+
 
   constructor(private route:ActivatedRoute, private trainingPlanService:TrainingPlanService){}
 
   ngOnInit(): void {
+    this.dateToday=new Date().toISOString().split("T")[0];
     this.route.paramMap.subscribe({
       next:(params)=>{
         const id=params.get('id');
@@ -196,6 +203,23 @@ export class EditTrainingPlanComponent implements OnInit{
       }
     })
     
+  }
+
+  editTrainingPlan(){
+    console.log("edit");
+    console.log(this.trainingPlan);
+    //TODO If udała się edycja wyświetl komunikat i nie rób przekierowania, tylko zostań na tej stronie
+  }
+
+  onSubmit(valid:any)
+  {
+    this.submitted=true;
+    if(valid){
+      console.log(valid)
+      this.trainingPlan.startDate=new Date(this.formStartDate);
+      this.editTrainingPlan();
+      
+    }
   }
 
   filterTrainingDay(day:number){

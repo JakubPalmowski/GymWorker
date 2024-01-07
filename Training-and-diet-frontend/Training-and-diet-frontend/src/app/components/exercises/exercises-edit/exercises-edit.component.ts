@@ -14,6 +14,7 @@ import { PreviousUrlService } from 'src/app/services/previous-url.service';
 export class ExercisesEditComponent implements OnInit{
   
 
+  submitted=false;
   previousUrl:string='';
 
   exerciseEdit:ExerciseFull={
@@ -22,15 +23,17 @@ export class ExercisesEditComponent implements OnInit{
     details:'',
     exerciseSteps:'',
     image:'',
-    idTrainer:1
+    idTrainer:3
   }
   
   idExercise:string='';
+  
  
   constructor(private route:ActivatedRoute, private exercisesService:ExercisesService,private location:Location,private router:Router ,private previousUrlService: PreviousUrlService
     ) {}
   
   ngOnInit(): void {
+   
    this.previousUrl=this.previousUrlService.getPreviousUrl();
    
    this.route.paramMap.subscribe({
@@ -61,12 +64,21 @@ export class ExercisesEditComponent implements OnInit{
   edit(){
     this.exercisesService.editExercise(this.exerciseEdit,this.idExercise).subscribe({
       next:(exercise)=>{
-      this.location.back();
+        this.router.navigateByUrl(this.previousUrl);
       },
       error: (response)=>{
         console.log(response);
       }
     });
+  }
+
+  onSubmit(valid:any){
+    this.submitted=true;
+    if(valid){
+      this.edit();
+      console.log(this.exerciseEdit);
+    }
+    
   }
 
   back(): void{

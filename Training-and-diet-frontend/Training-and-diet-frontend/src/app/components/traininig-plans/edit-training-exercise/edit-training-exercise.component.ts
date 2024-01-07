@@ -4,15 +4,13 @@ import { ExerciseGetById } from 'src/app/models/exercise-get-by-id';
 import { ExerciseShort } from 'src/app/models/exercise-short.model';
 import { NewTrainingExercise } from 'src/app/models/new-training-exercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'  
-import { delay, timestamp } from 'rxjs';
 
 @Component({
-  selector: 'app-new-training-exercise',
-  templateUrl: './new-training-exercise.component.html',
-  styleUrls: ['./new-training-exercise.component.css']
+  selector: 'app-edit-training-exercise',
+  templateUrl: './edit-training-exercise.component.html',
+  styleUrls: ['./edit-training-exercise.component.css']
 })
-export class NewTrainingExerciseComponent implements OnInit{
+export class EditTrainingExerciseComponent implements OnInit{
 
   id_training:string='';
   id_exercise:string='';
@@ -26,12 +24,16 @@ export class NewTrainingExerciseComponent implements OnInit{
     idTrainingPlan:0
   }
 
+  
+
   exercise:ExerciseGetById={
     idExercise:0,
     name:''
   };
    
   repetitions:number[]=[];
+
+  submitted=false;
   
 
   
@@ -45,6 +47,8 @@ export class NewTrainingExerciseComponent implements OnInit{
   ngOnInit(): void {
     this.id_training=this.route.snapshot.queryParams['trainingId'];
     this.id_exercise=this.route.snapshot.queryParams['exerciseId'];
+    console.log("tr"+this.id_training);
+    console.log("cw"+this.id_exercise);
 
     this.exerciseServise.getExerciseById(this.id_exercise).subscribe({
       next:(exercise)=>{
@@ -73,6 +77,15 @@ export class NewTrainingExerciseComponent implements OnInit{
   {
 
   }
+
+  onSubmit(valid:any){
+    this.submitted=true;
+    if(valid){
+      console.log(this.newTrainingExerciseRequest);
+      
+      this.addTrainingExercise();
+    }
+  }
   
   assignValue(){
     this.newTrainingExerciseRequest.dayOfWeek=parseInt(this.newTrainingExerciseRequest.dayOfWeek.toString());
@@ -92,5 +105,9 @@ export class NewTrainingExerciseComponent implements OnInit{
 
     
 
+  }
+
+  back(){
+    this.router.navigateByUrl("/training-plans/edit/3");
   }
 }

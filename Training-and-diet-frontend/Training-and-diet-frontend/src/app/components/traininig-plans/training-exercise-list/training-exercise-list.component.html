@@ -34,7 +34,7 @@
             <tbody>
                 <tr *ngFor="let trainingPlanExercise of filteredPlanExercises">
                     <td>{{trainingPlanExercise.name}}</td>
-                    <td *ngIf="id_training!=undefined"><a routerLink="/training-exercise/add" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:id_training}">[+]</a></td>
+                    <td *ngIf="id_training!=undefined"><a routerLink="add" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:id_training}">[+]</a></td>
                     <td><a [routerLink]="['/exercises/edit',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
                     <td><a [routerLink]="['/exercises/details',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/details.png" id="edit-icon"></a></td>
                 </tr>

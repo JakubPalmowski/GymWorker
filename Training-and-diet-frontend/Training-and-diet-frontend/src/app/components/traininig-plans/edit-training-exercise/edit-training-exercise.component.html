@@ -1,6 +1,6 @@
-<a routerLink="/training-plans/exercise-list" [queryParams]="{id: id_training}" >< Powrót do wyboru ćwiczenia</a>
+<a (click)="back()" >< Powrót do planu</a>
 <div class="container-slim">
-    <h3>Dodawanie ćwiczenia: {{exercise.name}} do planu</h3>
+    <h3>Edycja ćwiczenia: {{exercise.name}} w planie</h3>
     <div class="row">
         <div class="container-form">
             <form  #form="ngForm" (ngSubmit)="onSubmit(form.valid)" >
@@ -130,7 +130,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="button-create">Dodaj</button>
+                <button type="submit" class="button-edit">Dodaj</button>
      
             </form>
         </div>
