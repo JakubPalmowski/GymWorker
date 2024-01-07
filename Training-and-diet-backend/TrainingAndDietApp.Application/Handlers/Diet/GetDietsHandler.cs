@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Application.Queries.Diet;
 using TrainingAndDietApp.Application.Responses.Diet;
 using TrainingAndDietApp.Common.Exceptions;

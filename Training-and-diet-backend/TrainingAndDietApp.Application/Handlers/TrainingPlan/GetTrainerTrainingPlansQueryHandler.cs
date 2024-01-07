@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore.Query;
 using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Application.Queries.TrainingPlan;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;

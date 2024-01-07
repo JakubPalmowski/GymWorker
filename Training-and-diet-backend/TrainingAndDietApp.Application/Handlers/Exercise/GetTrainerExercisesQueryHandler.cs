@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Application.Queries.Exercise;
 using TrainingAndDietApp.Application.Responses.Exercise;
 using TrainingAndDietApp.Common.Exceptions;

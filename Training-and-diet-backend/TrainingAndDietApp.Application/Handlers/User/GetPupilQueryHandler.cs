@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Application.Queries.User;
 using TrainingAndDietApp.Application.Responses.Pupil;
 using TrainingAndDietApp.Common.Exceptions;

@@ -53,7 +53,9 @@ namespace Training_and_diet_backend
             CreateMap<TrainingPlan, GetTrainerTrainingPlansResponse>();
             CreateMap<User, UserResponse<User>>();
 
-            CreateMap<User, MentorList>();
+            CreateMap<User, MentorList>()
+                .ForMember(dest => dest.OpinionNumber, opt => opt.MapFrom(src => src.MentorOpinions.Count))
+                .ForMember(dest => dest.Rate, opt => opt.MapFrom(src => src.MentorOpinions.Any() ? src.MentorOpinions.Average(o => o.Rate) : 0m));
 
             CreateMap<User, MentorWithOpinionResponse>()
                 .ForMember(dest => dest.Opinions, opt => opt.MapFrom(src => src.MentorOpinions))
