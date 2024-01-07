@@ -8,6 +8,7 @@ using TrainingAndDietApp.Application.Queries.User;
 using TrainingAndDietApp.BLL.Services;
 using TrainingAndDietApp.Common.DTOs.User;
 using TrainingAndDietApp.DAL.EntityModels;
+using TrainingAndDietApp.Domain.Entities;
 using UserQuery = TrainingAndDietApp.Application.Queries.User.UserQuery;
 
 
@@ -44,16 +45,19 @@ namespace Training_and_diet_backend.Controllers
 
         //Pobiera trenera wraz z jego opiniami po Id
         [HttpGet("{RoleName}/{id}")]
-        public async Task<ActionResult<MentorWithOpinionDto>> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
+        public async Task<IActionResult> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
         {
-            var trainer = await _serviceDeprecated.GetMentorWithOpinionsById(roleName, id);
-            return Ok(trainer);
+            var query = new GetMentorWithOpinionsQuery(roleName, id);
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
 
         [HttpGet("Pupil/{id}")]
-        public async Task<ActionResult<PupilDto>> GetPupilById( [FromRoute] int id){
-            var pupil = await _serviceDeprecated.GetPupilById(id);
-            return Ok(pupil);
+        public async Task<IActionResult> GetPupilById( [FromRoute] int id){
+            var query = new GetPupilQuery(id);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
     }

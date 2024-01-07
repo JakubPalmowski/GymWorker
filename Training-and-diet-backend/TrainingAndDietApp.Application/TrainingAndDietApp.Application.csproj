@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Commands\Diet\" />
     <Folder Include="Handlers\Gym\" />
-    <Folder Include="Handlers\User\" />
     <Folder Include="Handlers\TraineeExercise\" />
     <Folder Include="Services\" />
     <Folder Include="Responses\Exercise\" />
@@ -20,6 +19,9 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="11.8.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Serilog" Version="3.1.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

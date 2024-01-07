@@ -24,14 +24,14 @@ namespace TrainingAndDietApp.DAL.Repositories
         }
         
 
-        public async Task<List<User>> GetPupilsByTrainerIdAsync(int idTrainer)
+        public async Task<List<User>> GetPupilsByTrainerIdAsync(int idTrainer, CancellationToken cancellationToken)
         {
             return await _context.Users
                 .Where(u => _context.Pupil_mentors
                     .Where(e => e.IdMentor == idTrainer)
                     .Select(e => e.IdPupil)
                     .Contains(u.IdUser))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
         
@@ -43,6 +43,14 @@ namespace TrainingAndDietApp.DAL.Repositories
                 .FirstOrDefaultAsync(u => u.IdUser == id, cancellationToken: cancellationToken);
 
             
+        }
+
+        public async Task<User?> GetUserWithGymsAndOpinionsAsync(int id, CancellationToken cancellationToken)
+        {
+            return await _context.Users.Include(u => u.MentorOpinions).ThenInclude(u => u.Pupil)
+                .Include(u => u.TrainerGyms)
+                .ThenInclude(tg => tg.Gym).ThenInclude(g => g.Address)
+                .FirstOrDefaultAsync(u => u.IdUser == id, cancellationToken);
         }
 
         public async Task<bool> AnyAsync(Expression<Func<User, bool>> predicate)

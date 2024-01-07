@@ -11,8 +11,9 @@ namespace TrainingAndDietApp.Domain.Abstractions
 {
     public interface IUserRepository
     {
-        Task<List<User>> GetPupilsByTrainerIdAsync(int idTrainer);
+        Task<List<User>> GetPupilsByTrainerIdAsync(int idTrainer, CancellationToken cancellationToken);
         Task<User?> GetUserByIdAsync(int id, CancellationToken cancellationToken);
+        Task<User?> GetUserWithGymsAndOpinionsAsync(int id, CancellationToken cancellationToken);
         Task<bool> AnyAsync(Expression<Func<User, bool>> predicate);
 
         IQueryable<User> GetUsers(string roleName, string? searchPhrase,  CancellationToken cancellationToken);

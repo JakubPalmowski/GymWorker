@@ -1,6 +1,9 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Training_and_diet_backend;
 using Training_and_diet_backend.Middlewares;
 using Training_and_diet_backend.Repositories;
 using Training_and_diet_backend.Services;
@@ -17,6 +20,7 @@ using TrainingAndDietApp.Domain.Entities;
 using UserQuery = TrainingAndDietApp.Application.Queries.User.UserQuery;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 

@@ -53,7 +53,7 @@ namespace TrainingAndDietApp.BLL.Services
             if (!await CheckRole("Trainer", id_trainer))
                 throw new BadRequestException("User with given id is not a trainer!");
 
-            var pupils = await _repository.GetPupilsByTrainerIdAsync(id_trainer);
+            var pupils = await _repository.GetPupilsByTrainerIdAsync(id_trainer, CancellationToken.None);
 
             if (!pupils.Any())
                 throw new NotFoundException("Trainer with given id does not have any pupils");
