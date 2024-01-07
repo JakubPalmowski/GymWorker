@@ -9,6 +9,7 @@ namespace TrainingAndDietApp.Application.Responses.TrainingPlan
     public class TrainingPlanResponse
     {
         public int IdTrainingPlan { get; set; }
+        public int IdPupil { get; set; }
         public string Name { get; set; }
         public string CustomName { get; set; }
         public string Type { get; set; }
