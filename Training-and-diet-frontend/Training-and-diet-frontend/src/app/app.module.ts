@@ -66,8 +66,9 @@ import { TrainingExerciseListComponent } from './components/traininig-plans/trai
     MealsEditComponent, 
     MealsListComponent,
     TrainingExerciseListComponent,
-    EditTrainingExerciseComponent
-    AutocompleteDirective, PupilProfileComponent, ExercisesDetailsComponent, MealsDetailsComponent, MealsAddComponent, MealsEditComponent, MealsListComponent, MyProfileComponent, MyProfileEditComponent
+    EditTrainingExerciseComponent,
+    MyProfileComponent, 
+    MyProfileEditComponent
   ],
   imports: [
     AppRoutingModule,
