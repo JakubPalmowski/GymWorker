@@ -7,7 +7,7 @@ export interface PupilPersonalInfo{
     phoneNumber?: string;
     weight?: number;
     height?: number;
-    age?: number;
+    dateOfBirth?: Date;
     sex?: string;
     bio?: string;
 }
