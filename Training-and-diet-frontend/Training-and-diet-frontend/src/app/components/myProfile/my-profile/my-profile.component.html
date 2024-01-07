@@ -1,3 +1,6 @@
+<ng-container *ngIf="pupil">
+
+
 <div class="container-fluid">
     <div class="row d-flex justify-content-center mt-3">
         <div class="col-12 bg-primary rounded-top-5">
@@ -15,7 +18,13 @@
         <div class="col-12 d-flex justify-content-center">
             <img src="/assets/images/diho4.png" width="300px" height="300px" class="round-picture">
         </div>
-        <div class="col-12"><h2 class="text-center">Podopieczny</h2></div>
+        
+        <div class="col-12" [ngSwitch]="pupil.role">
+            <h2 class="text-center" *ngSwitchCase="'Trainer'">Trener</h2>
+            <h2 class="text-center" *ngSwitchCase="'Dietician'">Dietetyk</h2>
+            <h2 class="text-center" *ngSwitchCase="'Dietician-Trainer'">Trener i dietetyk</h2>
+            <h2 class="text-center" *ngSwitchCase="'Pupil'">Podopieczny</h2>
+        </div>
 
         <div class="col-12 mt-3">
         <h2>Podstawowe informacje</h2>
@@ -24,27 +33,27 @@
 
         <div class="col-6 group">
             <label>Imie</label>
-            <input type="text" value="Cristiano" disabled>
+            <input type="text" value="{{pupil.name}}" disabled>
         </div>
 
         <div class="col-6 group">
             <label>Nazwisko</label>
-            <input type="text" value="Starzyk" disabled>
+            <input type="text" value="{{pupil.lastName}}" disabled>
         </div>
 
         <div class="col-6 group">
             <label>Email</label>
-            <input type="text" value="cristiano@pjwstk.edu.pl" disabled>
+            <input type="text" value="{{pupil.email}}" disabled>
         </div>
 
         <div class="col-6 group">
             <label>Numer Telefonu</label>
-            <input type="text" value="765 453 234" disabled>
+            <input type="text" value="{{pupil.phoneNumber}}" disabled>
         </div>
 
         <div class="col-6 group">
             <label>Status weryfikacji Emaila</label>
-            <input type="text" value="Zweryfikowany" disabled>
+            <input type="text" value="{{pupil.emailValidated}}" disabled>
         </div>
 
         <div class="col-12 mt-3">
@@ -54,22 +63,22 @@
 
             <div class="col-6 group">
                 <label>Waga</label>
-                <input type="number" value="100" disabled>
+                <input type="number" value="{{pupil.weight}}" disabled>
             </div>
     
             <div class="col-6 group">
                 <label>Wzrost</label>
-                <input type="number" value="168" disabled>
+                <input type="number" value="{{pupil.height}}" disabled>
             </div>
     
             <div class="col-6 group">
                 <label>Data urodzenia</label>
-                <input type="date" disabled>
+                <input type="date"  disabled>
             </div>
     
             <div class="col-6 group">
                 <label>Numer Telefonu</label>
-                <input type="text" value="765 453 234" disabled>
+                <input type="text" value="{{pupil.phoneNumber}}" disabled>
             </div>
     
 
@@ -80,16 +89,12 @@
 
                 <div class="col-12 d-flex flex-column align-items-center">
                 <label style="width: 90%;">O mnie</label>
-                <textarea  rows="4" disabled>Adam Kowalski urodził się 2 maja 1985 roku w Krakowie. Już jako młody chłopak wykazywał wyjątkowy talent do piłki nożnej, co zaowocowało dołączeniem do lokalnej drużyny juniorów w wieku 12 lat. W wieku 16 lat został zauważony przez skautów z prestiżowego klubu piłkarskiego, Legii Warszawa, gdzie rozpoczął swoją profesjonalną karierę.
-
-                    W 2007 roku, po imponującym sezonie, w którym zdobył tytuł króla strzelców, Adam został powołany do reprezentacji Polski. Jego debiutancki mecz miał miejsce w marcu 2008 roku i od tamtej pory stał się kluczowym graczem narodowej drużyny. W 2012 roku, podczas Mistrzostw Europy, zdobył decydującego gola, który zapewnił Polsce miejsce w ćwierćfinale - najwyższe w historii.
-                    
-                    Jego kariera klubowa obejmowała także gry dla kilku międzynarodowych klubów, w tym AC Milan i FC Barcelona, gdzie zdobywał liczne trofea, w tym Ligę Mistrzów. Po powrocie do Polski w 2018 roku, Kowalski pomógł Legii Warszawa zdobyć kolejne mistrzostwo kraju.
-                    
-                    Poza boiskiem, Adam zaangażował się w działalność charytatywną, szczególnie w pomoc młodym sportowcom z ubogich rodzin. Zakończył swoją aktywną karierę sportową w 2020 roku, ale nadal jest aktywny w świecie sportu jako trener i komentator. Jego życie i kariera stanowią inspirację dla wielu młodych piłkarzy w Polsce i na całym świecie.</textarea>
+                <textarea  rows="4" disabled>{{pupil.bio}}</textarea>
             </div>
 
 
     </div>
 
 </div>
+
+</ng-container>
