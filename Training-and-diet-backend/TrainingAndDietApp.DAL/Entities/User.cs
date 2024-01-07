@@ -20,7 +20,8 @@ namespace TrainingAndDietApp.Domain.Entities
         public decimal? Weight { get; set; }
         [Column(TypeName = "decimal(3,2)")]
         public decimal? Height { get; set; }
-        public int? Age { get; set; }
+        [Column(TypeName = "Date")]
+        public DateTime DateOfBirth { get; set; }
         [Column(TypeName = "varchar(10)")]
         public string Sex { get; set; }
         [Column(TypeName = "varchar(500)")]

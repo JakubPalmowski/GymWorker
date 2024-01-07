@@ -19,6 +19,7 @@ import { MealsAddComponent } from './components/meals/meals-add/meals-add.compon
 import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
 import { MealsDetailsComponent } from './components/meals/meals-details/meals-details.component';
 import { MyProfileComponent } from './components/myProfile/my-profile/my-profile.component';
+import { MyProfileEditComponent } from './components/myProfile/my-profile-edit/my-profile-edit.component';
 
 
 const routes: Routes = [
@@ -78,7 +79,8 @@ const routes: Routes = [
   {path: 'trainerProfile/:id', component: MentorProfileComponent},
   {path: 'dieticianProfile/:id', component: MentorProfileComponent},
   {path: 'pupilProfile/:id', component: PupilProfileComponent},
-  {path: 'myProfile', component: MyProfileComponent}
+  {path: 'myProfile', component: MyProfileComponent},
+  {path: 'myProfile/edit', component: MyProfileEditComponent}
 ];
 
 @NgModule({
