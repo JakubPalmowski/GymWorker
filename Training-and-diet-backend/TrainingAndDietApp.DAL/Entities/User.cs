@@ -23,9 +23,9 @@ namespace TrainingAndDietApp.Domain.Entities
         [Column(TypeName = "Date")]
         public DateTime? DateOfBirth { get; set; }
         [Column(TypeName = "varchar(10)")]
-        public string Sex { get; set; }
+        public string? Sex { get; set; }
         [Column(TypeName = "varchar(500)")]
-        public string Bio { get; set; }
+        public string? Bio { get; set; }
 
         [Column(TypeName = "decimal(4,2)")]
         public decimal? TrainingPlanPriceFrom { get; set; }
