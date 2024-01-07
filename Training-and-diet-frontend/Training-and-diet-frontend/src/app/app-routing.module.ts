@@ -18,6 +18,7 @@ import { MealsListComponent } from './components/meals/meals-list/meals-list.com
 import { MealsAddComponent } from './components/meals/meals-add/meals-add.component';
 import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
 import { MealsDetailsComponent } from './components/meals/meals-details/meals-details.component';
+import { MyProfileComponent } from './components/myProfile/my-profile/my-profile.component';
 
 
 const routes: Routes = [
@@ -76,7 +77,8 @@ const routes: Routes = [
   {path: 'dieticiansList', component: MentorsListComponent},
   {path: 'trainerProfile/:id', component: MentorProfileComponent},
   {path: 'dieticianProfile/:id', component: MentorProfileComponent},
-  {path: 'pupilProfile/:id', component: PupilProfileComponent}
+  {path: 'pupilProfile/:id', component: PupilProfileComponent},
+  {path: 'myProfile', component: MyProfileComponent}
 ];
 
 @NgModule({
