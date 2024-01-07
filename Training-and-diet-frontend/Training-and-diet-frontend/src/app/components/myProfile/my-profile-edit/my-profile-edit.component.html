@@ -14,6 +14,7 @@
         <div class="row p-2 bg-secondary border-profile rounded-bottom-3" >
             <div class="col-12 d-flex justify-content-center">
             <img *ngIf="imageUrl" [src]="imageUrl" width="300px" height="300px" class="round-picture">
+            <img *ngIf="!imageUrl" src="/assets/images/diho4.png" width="300px" height="300px" class="round-picture">
         </div>
 
         <div class="col-12 d-flex justify-content-center my-3">
@@ -55,10 +56,6 @@
                 <input type="text" value="{{pupil.phoneNumber}}">
             </div>
     
-            <div class="col-6 group">
-                <label>Status weryfikacji Emaila</label>
-                <input type="text" value="{{pupil.emailValidated}}">
-            </div>
     
             <div class="col-12 mt-3">
                 <h2>Informacje fizyczne</h2>
@@ -81,8 +78,8 @@
                 </div>
         
                 <div class="col-6 group">
-                    <label>Numer Telefonu</label>
-                    <input type="text" value="{{pupil.phoneNumber}}" >
+                    <label>Płeć</label>
+                    <input type="text" value="{{pupil.sex}}">
                 </div>
         
     
