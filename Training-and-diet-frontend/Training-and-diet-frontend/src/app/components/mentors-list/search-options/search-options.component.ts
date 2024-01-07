@@ -25,37 +25,37 @@ export class SearchOptionsComponent implements OnInit{
     });
 
     switch (this.sortOptions.sort + "_" + this.sortOptions.sortDirection) {
-    case "Mentor_Opinions_DESC":
+    case "MentorOpinions_DESC":
         this.sortOptionsView.sort = "Ocena(od najlepszych)";
-        this.sortValue = "Mentor_Opinions_DESC";
+        this.sortValue = "MentorOpinions_DESC";
         break;
-    case "Mentor_Opinions_ASC":
+    case "MentorOpinions_ASC":
         this.sortOptionsView.sort = "Ocena(od najgorszych)";
-        this.sortValue = "Mentor_Opinions_ASC";
+        this.sortValue = "MentorOpinions_ASC";
         break;
-    case "Plan_Price_ASC":
+    case "PlanPrice_ASC":
         this.sortOptionsView.sort = "Cena planu(od najtańszych)";
-        this.sortValue = "Plan_Price_ASC";
+        this.sortValue = "PlanPrice_ASC";
         break;
-    case "Plan_Price_DESC":
+    case "PlanPrice_DESC":
         this.sortOptionsView.sort = "Cena planu(od najdroższych)";
-        this.sortValue = "Plan_Price_DESC";
+        this.sortValue = "PlanPrice_DESC";
         break;
-    case "Training_Price_ASC":
+    case "TrainingPrice_ASC":
           this.sortOptionsView.sort = "Cena treningu(od najtańszych)";
-          this.sortValue = "Training_Price_ASC";
+          this.sortValue = "TrainingPrice_ASC";
           break;
     case "Training_Price_DESC":
           this.sortOptionsView.sort = "Cena treningu(od najdroższych)";
           this.sortValue = "Plan_Price_DESC";
           break;
-    case "Diet_Price_ASC":
+    case "DietPrice_ASC":
             this.sortOptionsView.sort = "Cena diety(od najtańszych)";
-            this.sortValue = "Diet_Price_ASC";
+            this.sortValue = "DietPrice_ASC";
             break;
-    case "Diet_Price_DESC":
+    case "DietPrice_DESC":
             this.sortOptionsView.sort = "Cena diety(od najdroższych)";
-            this.sortValue = "Diet_Price_DESC";
+            this.sortValue = "DietPrice_DESC";
             break;
     
     }
@@ -115,44 +115,44 @@ export class SearchOptionsComponent implements OnInit{
   onFilterData(action: string){
     if(action=="filter"){
       switch (this.sortValue) {
-        case "Mentor_Opinions_DESC":
+        case "MentorOpinions_DESC":
             this.sortOptionsView.sort = "Ocena(od najlepszych)";
-            this.sortOptions.sort = "Mentor_Opinions";
+            this.sortOptions.sort = "MentorOpinions";
             this.sortOptions.sortDirection = "DESC";
             break;
-        case "Mentor_Opinions_ASC":
+        case "MentorOpinions_ASC":
             this.sortOptionsView.sort = "Ocena(od najgorszych)";
-            this.sortOptions.sort = "Mentor_Opinions";
+            this.sortOptions.sort = "MentorOpinions";
             this.sortOptions.sortDirection = "ASC";
             break;
-        case "Plan_Price_ASC":
+        case "PlanPrice_ASC":
             this.sortOptionsView.sort = "Cena planu(od najtańszych)";
-            this.sortOptions.sort = "Plan_Price";
+            this.sortOptions.sort = "PlanPrice";
             this.sortOptions.sortDirection = "ASC";
             break;
-        case "Plan_Price_DESC":
+        case "PlanPrice_DESC":
             this.sortOptionsView.sort = "Cena planu(od najdroższych)";
-            this.sortOptions.sort = "Plan_Price";
+            this.sortOptions.sort = "PlanPrice";
             this.sortOptions.sortDirection = "DESC";
             break;
-        case "Training_Price_ASC":
+        case "TrainingPrice_ASC":
               this.sortOptionsView.sort = "Cena treningu(od najtańszych)";
-              this.sortOptions.sort = "Training_Price";
+              this.sortOptions.sort = "TrainingPrice";
               this.sortOptions.sortDirection = "ASC";
               break;
-        case "Training_Price_DESC":
+        case "TrainingPrice_DESC":
               this.sortOptionsView.sort = "Cena treningu(od najdroższych)";
-              this.sortOptions.sort = "Training_Price";
+              this.sortOptions.sort = "TrainingPrice";
               this.sortOptions.sortDirection = "DESC";
               break;
-        case "Diet_Price_ASC":
+        case "DietPrice_ASC":
                 this.sortOptionsView.sort = "Cena diety(od najtańszych)";
-                this.sortOptions.sort = "Diet_Price";
+                this.sortOptions.sort = "DietPrice";
                 this.sortOptions.sortDirection = "ASC";
                 break;
-        case "Diet_Price_DESC":
+        case "DietPrice_DESC":
                 this.sortOptionsView.sort = "Cena diety(od najdroższych)";
-                this.sortOptions.sort = "Diet_Price";
+                this.sortOptions.sort = "DietPrice";
                 this.sortOptions.sortDirection = "DESC";
                 break;
       }

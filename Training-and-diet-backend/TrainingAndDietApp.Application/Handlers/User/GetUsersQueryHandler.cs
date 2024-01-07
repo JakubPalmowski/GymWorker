@@ -45,7 +45,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, UserResponse<
         {
             switch (request.Query?.SortBy)
             {
-                case "Mentor_Opinions":
+                case "MentorOpinions":
                     if (request.Query?.SortDirection == SortDirection.ASC)
                     {
                         baseQuery = baseQuery
@@ -63,7 +63,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, UserResponse<
 
                     break;
 
-                case "Plan_Price":
+                case "PlanPrice":
                     if (request.Query?.SortDirection == SortDirection.ASC)
                     {
                         baseQuery = baseQuery.OrderBy(u => u.TrainingPlanPriceFrom == null)
@@ -78,7 +78,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, UserResponse<
                     break;
 
 
-                case "Training_Price":
+                case "TrainingPrice":
                     if (request.Query?.SortDirection == SortDirection.ASC)
                     {
                         baseQuery = baseQuery.OrderBy(u => u.PersonalTrainingPriceFrom == null)
@@ -92,7 +92,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, UserResponse<
 
                     break;
 
-                case "Diet_Price":
+                case "DietPrice":
                     if (request.Query?.SortDirection == SortDirection.ASC)
                     {
                         baseQuery = baseQuery.OrderBy(u => u.DietPriceFrom == null)
