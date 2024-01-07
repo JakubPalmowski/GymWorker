@@ -1,10 +1,8 @@
-﻿using Training_and_diet_backend.Models;
-using TrainingAndDietApp.DAL.Context;
-using TrainingAndDietApp.DAL.Models;
-using TrainingAndDietApp.Domain.Abstractions;
+﻿using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
+using TrainingAndDietApp.Infrastructure.Context;
 
-namespace Training_and_diet_backend.Repositories
+namespace TrainingAndDietApp.Infrastructure.Repositories
 {
     
     public class TraineeExercisesRepository : ITraineeExercisesRepository
@@ -16,10 +14,10 @@ namespace Training_and_diet_backend.Repositories
             _context = context;
         }
 
-        public async Task <int> AddTraineeExercisesAsync(TraineeExercise traineeExercise)
+        public async Task <int> AddTraineeExercisesAsync(TraineeExercise traineeExercise, CancellationToken cancellationToken)
         {
             _context.Trainee_exercises.Add(traineeExercise);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return traineeExercise.IdExercise;
         }
     }

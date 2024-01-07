@@ -18,7 +18,7 @@ public class GetMealsByDieticianIdHandler : IRequestHandler<GetMealsByDieticianI
     }
     public async Task<IEnumerable<MealResponse>> Handle(GetMealsByDieticianIdQuery request, CancellationToken cancellationToken)
     {
-        var meals = await _repository.GetMealsByDieticianIdAsync(request.DieticianId);
+        var meals = await _repository.GetMealsByDieticianIdAsync(request.DieticianId, cancellationToken);
         return _mapper.Map<List<MealResponse>>(meals);
     }
 }

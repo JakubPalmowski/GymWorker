@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Infrastructure.Context;
 
 namespace Training_and_diet_backend.Repositories
 {
@@ -15,9 +15,9 @@ namespace Training_and_diet_backend.Repositories
             _context = context;
         }
 
-        public async Task<List<Meal>> GetMealsAsync()
+        public async Task<List<Meal>> GetMealsAsync(CancellationToken cancellationToken)
         {
-            return await _context.Meals.ToListAsync();
+            return await _context.Meals.ToListAsync(cancellationToken: cancellationToken);
         }
         public async Task<Meal?> GetMealByIdAsync(int mealId, CancellationToken cancellationToken)
         {
@@ -28,11 +28,11 @@ namespace Training_and_diet_backend.Repositories
             return meal;
         }
 
-        public async Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId)
+        public async Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId, CancellationToken cancellationToken)
         {
             return await _context.Meals
                 .Where(m => m.IdDietician == dieticianId)
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
         }
         
         public async Task<int> AddMealAsync(Meal meal,CancellationToken cancellationToken)

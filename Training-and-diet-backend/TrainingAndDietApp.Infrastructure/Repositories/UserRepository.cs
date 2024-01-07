@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
+using TrainingAndDietApp.Infrastructure.Context;
 
 namespace TrainingAndDietApp.Infrastructure.Repositories
 {
@@ -71,7 +71,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
 
             return await _context.Users.Where(u => u.IdUser == dieticianId)
                 .Select(u => u.Role)
-                .AnyAsync(r => r.Name == "Dietician" || r.Name == "Dietician-Trainer");
+                .AnyAsync(r => r.Name == "Dietician" || r.Name == "Dietician-Trainer", cancellationToken: cancellationToken);
         }
     }
 }

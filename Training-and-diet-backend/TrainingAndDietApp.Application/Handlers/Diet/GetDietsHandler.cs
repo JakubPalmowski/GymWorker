@@ -25,7 +25,7 @@ namespace TrainingAndDietApp.Application.Handlers.Diet
 
         public async Task<IEnumerable<DietResponse>> Handle(GetDietsQuery request, CancellationToken cancellationToken)
         {
-            var diets = await _repository.GetDietsAsync();
+            var diets = await _repository.GetDietsAsync(cancellationToken);
             if (diets == null)
                 throw new NotFoundException("No diets found");
 

@@ -10,6 +10,6 @@ namespace TrainingAndDietApp.Domain.Abstractions
 {
     public interface ITraineeExercisesRepository
     {
-        Task<int> AddTraineeExercisesAsync(TraineeExercise traineeExercise);
+        Task<int> AddTraineeExercisesAsync(TraineeExercise traineeExercise, CancellationToken cancellationToken);
     }
 }

@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Models;
-using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Infrastructure.Context;
 
-namespace Training_and_diet_backend.Repositories
+namespace TrainingAndDietApp.Infrastructure.Repositories
 {
-   
+
 
 
     public class DietRepository : IDietRepository
@@ -17,10 +16,9 @@ namespace Training_and_diet_backend.Repositories
         {
             _context = context;
         }
-        // do zmiany na DietDTO
-        public async Task<List<Diet>> GetDietsAsync()
+        public async Task<List<Diet>> GetDietsAsync(CancellationToken cancellationToken)
         {
-            return await _context.Diets.ToListAsync();
+            return await _context.Diets.ToListAsync(cancellationToken);
         }
     }
 }

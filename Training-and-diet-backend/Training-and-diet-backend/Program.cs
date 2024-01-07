@@ -7,9 +7,8 @@ using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Handlers.Meal;
 using TrainingAndDietApp.Application.Services;
 using TrainingAndDietApp.Application.Validators;
-using TrainingAndDietApp.DAL.Context;
-using TrainingAndDietApp.DAL.Repositories;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Infrastructure.Context;
 using TrainingAndDietApp.Infrastructure.Repositories;
 using UserQuery = TrainingAndDietApp.Application.Queries.User.UserQuery;
 
@@ -36,7 +35,7 @@ builder.Services.AddScoped<ITraineeExerciseService, TraineeExerciseService>();
 builder.Services.AddScoped<ITraineeExercisesRepository, TraineeExercisesRepository>();
 builder.Services.AddScoped<IGymRepository, GymRepository>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<IValidator<UserQuery>, TrainingAndDietApp.Application.Validators.UserQueryValidator>();
+builder.Services.AddScoped<IValidator<UserQuery>, UserQueryValidator>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserQueryValidator>());

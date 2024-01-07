@@ -6,7 +6,6 @@ using Training_and_diet_backend.Repositories;
 using Training_and_diet_backend.Services;
 using TrainingAndDietApp.BLL.Services;
 using TrainingAndDietApp.Common.DTOs.Gym;
-using TrainingAndDietApp.DAL.Repositories;
 
 public class GymServiceTests
 {

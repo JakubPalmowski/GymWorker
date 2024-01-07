@@ -10,7 +10,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
 {
     public interface IExerciseRepository
     {
-        Task<List<Exercise>> GetAllExercisesAsync();
+        Task<List<Exercise>> GetAllExercisesAsync(CancellationToken cancellationToken);
         Task<Exercise?> GetExerciseByIdAsync(int exerciseId, CancellationToken cancellation);
 
         Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan, CancellationToken cancellation);

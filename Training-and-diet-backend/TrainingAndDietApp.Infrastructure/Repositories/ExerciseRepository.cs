@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
+using TrainingAndDietApp.Infrastructure.Context;
 
-namespace TrainingAndDietApp.DAL.Repositories
+namespace TrainingAndDietApp.Infrastructure.Repositories
 {
 
     public class ExerciseRepository : IExerciseRepository
@@ -15,9 +15,9 @@ namespace TrainingAndDietApp.DAL.Repositories
             _context = context;
         }
 
-        public async Task<List<Exercise>> GetAllExercisesAsync()
+        public async Task<List<Exercise>> GetAllExercisesAsync(CancellationToken cancellationToken)
         {
-            var exercises =  await _context.Exercises.ToListAsync();
+            var exercises =  await _context.Exercises.ToListAsync(cancellationToken: cancellationToken);
            
             return exercises;
         }

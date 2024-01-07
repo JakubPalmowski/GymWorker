@@ -18,7 +18,7 @@ public class GetExercisesQueryHandler : IRequestHandler<GetExercisesQuery, IEnum
     }
     public async Task<IEnumerable<ExerciseResponse>> Handle(GetExercisesQuery request, CancellationToken cancellationToken)
     {
-        var exercises = await _exerciseRepository.GetAllExercisesAsync();
+        var exercises = await _exerciseRepository.GetAllExercisesAsync(cancellationToken);
         if (exercises == null)
             throw new NotFoundException("Exercises not Found");
 
