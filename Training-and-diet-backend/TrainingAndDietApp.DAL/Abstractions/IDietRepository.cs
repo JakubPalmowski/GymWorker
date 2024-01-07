@@ -9,7 +9,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
 {
         public interface IDietRepository
         {
-            Task<List<Diet>> GetDietsAsync();
+            Task<List<Diet>> GetDietsAsync(CancellationToken cancellationToken);
         }
     
 }

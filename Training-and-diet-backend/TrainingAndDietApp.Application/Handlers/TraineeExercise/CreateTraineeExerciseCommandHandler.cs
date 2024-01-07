@@ -28,7 +28,7 @@ public class CreateTraineeExerciseCommandHandler : IRequestHandler<CreateTrainee
 
         var traineeExercises = _mapper.Map<Domain.Entities.TraineeExercise>(request);
 
-        await _traineeExercisesRepository.AddTraineeExercisesAsync(traineeExercises);
+        await _traineeExercisesRepository.AddTraineeExercisesAsync(traineeExercises, cancellationToken);
 
         int createdId = traineeExercises.IdExercise;
 

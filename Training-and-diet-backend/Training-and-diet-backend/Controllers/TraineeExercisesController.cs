@@ -1,14 +1,6 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.DTOs.TraineeExercise;
-using Training_and_diet_backend.Models;
-using Training_and_diet_backend.Services;
-using TrainingAndDietApp.Application.Commands.Exercise;
 using TrainingAndDietApp.Application.Commands.TraineeExercises;
-using TrainingAndDietApp.BLL.Models;
-using TrainingAndDietApp.BLL.Services;
-using TrainingAndDietApp.DAL.Models;
 
 namespace Training_and_diet_backend.Controllers
 {

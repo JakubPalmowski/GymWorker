@@ -1,4 +1,4 @@
-﻿namespace TrainingAndDietApp.DAL.Enums
+﻿namespace TrainingAndDietApp.Application.Enums
 {
     public enum SortDirection
     {

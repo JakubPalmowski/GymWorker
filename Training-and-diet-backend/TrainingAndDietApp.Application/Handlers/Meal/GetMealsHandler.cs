@@ -24,7 +24,7 @@ namespace TrainingAndDietApp.Application.Handlers.Meal
 
         public async Task<IEnumerable<MealResponse>> Handle(GetMealsQuery request, CancellationToken cancellationToken)
         {
-            var meals = await _mealRepository.GetMealsAsync();
+            var meals = await _mealRepository.GetMealsAsync(cancellationToken);
             return _mapper.Map<List<MealResponse>>(meals);
         }
     }

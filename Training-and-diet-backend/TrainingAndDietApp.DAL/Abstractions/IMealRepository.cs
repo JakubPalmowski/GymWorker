@@ -10,9 +10,9 @@ namespace TrainingAndDietApp.Domain.Abstractions
 {
     public interface IMealRepository
     {
-        Task<List<Meal>> GetMealsAsync();
+        Task<List<Meal>> GetMealsAsync(CancellationToken cancellationToken);
         Task<Meal?> GetMealByIdAsync(int mealId, CancellationToken cancellationToken);
-        Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId);
+        Task<List<Meal>> GetMealsByDieticianIdAsync(int dieticianId, CancellationToken cancellationToken);
         Task<int> AddMealAsync(Meal meal, CancellationToken cancellationToken);
         Task<int> DeleteMealAsync(int mealId, CancellationToken cancellationToken);
         Task<int> UpdateMealAsync(Meal meal, CancellationToken cancellationToken);

@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TrainingAndDietApp.Application.Commands;
 using TrainingAndDietApp.Application.Commands.Meal;
-using TrainingAndDietApp.Application.Queries;
 using TrainingAndDietApp.Application.Queries.Meal;
 
 namespace Training_and_diet_backend.Controllers

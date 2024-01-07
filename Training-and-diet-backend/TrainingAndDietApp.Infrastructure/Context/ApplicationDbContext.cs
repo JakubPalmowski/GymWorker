@@ -4,7 +4,7 @@ using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Entities;
 
-namespace TrainingAndDietApp.DAL.Context
+namespace TrainingAndDietApp.Infrastructure.Context
 {
     public class ApplicationDbContext : DbContext
     {

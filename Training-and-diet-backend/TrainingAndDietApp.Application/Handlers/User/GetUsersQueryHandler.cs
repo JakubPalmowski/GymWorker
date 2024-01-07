@@ -2,10 +2,10 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Application.Enums;
 using TrainingAndDietApp.Application.Queries.User;
 using TrainingAndDietApp.Application.Responses;
 using TrainingAndDietApp.Common.Exceptions;
-using TrainingAndDietApp.DAL.Enums;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.Handlers.User;

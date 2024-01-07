@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.Services;
 using TrainingAndDietApp.Application.Queries.Diet;
-using TrainingAndDietApp.Common.DTOs.Diet;
 
 namespace Training_and_diet_backend.Controllers
 {

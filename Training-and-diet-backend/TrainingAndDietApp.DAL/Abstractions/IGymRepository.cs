@@ -10,6 +10,6 @@ namespace TrainingAndDietApp.Domain.Abstractions
    
     public interface IGymRepository
     {
-        Task<List<Gym>> GetGymsAsync();
+        Task<List<Gym>> GetGymsAsync(CancellationToken cancellationToken);
     }
 }

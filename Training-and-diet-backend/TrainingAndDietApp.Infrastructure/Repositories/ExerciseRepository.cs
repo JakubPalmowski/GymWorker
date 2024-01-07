@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Models;
-using TrainingAndDietApp.Common.Exceptions;
-using TrainingAndDietApp.DAL.Context;
-using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
+using TrainingAndDietApp.Infrastructure.Context;
 
-namespace TrainingAndDietApp.DAL.Repositories
+namespace TrainingAndDietApp.Infrastructure.Repositories
 {
-   
+
     public class ExerciseRepository : IExerciseRepository
     {
         private readonly ApplicationDbContext _context;
@@ -18,11 +15,10 @@ namespace TrainingAndDietApp.DAL.Repositories
             _context = context;
         }
 
-        public async Task<List<Exercise>> GetAllExercisesAsync()
+        public async Task<List<Exercise>> GetAllExercisesAsync(CancellationToken cancellationToken)
         {
-            var exercises =  await _context.Exercises.ToListAsync();
-            if (!exercises.Any())
-                throw new NotFoundException("Exercises not found");
+            var exercises =  await _context.Exercises.ToListAsync(cancellationToken: cancellationToken);
+           
             return exercises;
         }
 
@@ -31,8 +27,7 @@ namespace TrainingAndDietApp.DAL.Repositories
             var exercise =  await _context.Exercises
                 .Where(e => e.IdExercise == exerciseId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-            if (exercise == null)
-                throw new NotFoundException("Exercise not found");
+           
 
             return exercise;
         }
@@ -78,9 +73,7 @@ namespace TrainingAndDietApp.DAL.Repositories
             var exercise = await _context.Exercises
                 .Where(exercise => exercise.IdExercise == exerciseId)
                 .FirstOrDefaultAsync(cancellationToken: cancellation);
-
-            if (exercise == null)
-                throw new NotFoundException("Exercise not found");
+            
 
             _context.Exercises.Remove(exercise);
             await _context.SaveChangesAsync(cancellation);

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Models;
-using TrainingAndDietApp.DAL.Context;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Infrastructure.Context;
 
-namespace TrainingAndDietApp.DAL.Repositories
+namespace TrainingAndDietApp.Infrastructure.Repositories
 {
 
     public class GymRepository : IGymRepository
@@ -15,9 +15,9 @@ namespace TrainingAndDietApp.DAL.Repositories
             _context = context;
         }
 
-        public async Task<List<Gym>> GetGymsAsync()
+        public async Task<List<Gym>> GetGymsAsync(CancellationToken cancellationToken)
         {
-            return await _context.Gyms.Include(g => g.Address).ToListAsync();
+            return await _context.Gyms.Include(g => g.Address).ToListAsync(cancellationToken: cancellationToken);
         }
 
     }

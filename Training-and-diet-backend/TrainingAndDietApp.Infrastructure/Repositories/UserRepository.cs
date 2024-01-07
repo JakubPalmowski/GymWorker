@@ -1,19 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Training_and_diet_backend.Models;
-using TrainingAndDietApp.Common.Exceptions;
-using TrainingAndDietApp.DAL.Context;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
+using TrainingAndDietApp.Infrastructure.Context;
 
-namespace TrainingAndDietApp.DAL.Repositories
+namespace TrainingAndDietApp.Infrastructure.Repositories
 {
-    
+
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
@@ -78,7 +71,7 @@ namespace TrainingAndDietApp.DAL.Repositories
 
             return await _context.Users.Where(u => u.IdUser == dieticianId)
                 .Select(u => u.Role)
-                .AnyAsync(r => r.Name == "Dietician" || r.Name == "Dietician-Trainer");
+                .AnyAsync(r => r.Name == "Dietician" || r.Name == "Dietician-Trainer", cancellationToken: cancellationToken);
         }
     }
 }

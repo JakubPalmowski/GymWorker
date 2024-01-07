@@ -1,14 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.DTOs.TrainingPlan;
-using Training_and_diet_backend.DTOs.User;
-using Training_and_diet_backend.Models;
-using TrainingAndDietApp.Application.Queries.TrainingPlan;
 using TrainingAndDietApp.Application.Queries.User;
-using TrainingAndDietApp.BLL.Services;
-using TrainingAndDietApp.Common.DTOs.User;
-using TrainingAndDietApp.DAL.EntityModels;
-using TrainingAndDietApp.Domain.Entities;
 using UserQuery = TrainingAndDietApp.Application.Queries.User.UserQuery;
 
 
@@ -18,13 +10,11 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserServiceDeprecated _serviceDeprecated;
         private readonly IMediator _mediator;
       
 
-        public UserController(IUserServiceDeprecated userServiceDeprecated, IMediator mediator)
+        public UserController(IMediator mediator)
         {
-            _serviceDeprecated = userServiceDeprecated;
             _mediator = mediator;
         }
 
