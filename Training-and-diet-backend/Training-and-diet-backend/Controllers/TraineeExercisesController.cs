@@ -1,11 +1,6 @@
-﻿using AutoMapper;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.DTOs.TraineeExercise;
-using Training_and_diet_backend.Models;
-using Training_and_diet_backend.Services;
-using TrainingAndDietApp.BLL.Models;
-using TrainingAndDietApp.BLL.Services;
-using TrainingAndDietApp.DAL.Models;
+using TrainingAndDietApp.Application.Commands.TraineeExercises;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -13,21 +8,20 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class TraineeExercisesController : ControllerBase
     {
-        private readonly ITraineeExercisesService _service;
-        private readonly IMapper _mapper;
-        public TraineeExercisesController(ITraineeExercisesService service, IMapper mapper)
+        private readonly IMediator _mediator;
+        public TraineeExercisesController(IMediator mediator)
         {
-            _service = service;
-            _mapper = mapper;
+            _mediator = mediator;
         }
       
         [HttpPost]
-        public async Task<ActionResult<int>> AddTraineeExercises([FromBody] TraineeExerciseDto traineeExerciseDto)
+        public async Task<IActionResult> PostTraineeExercise(CreateTraineeExerciseCommand exercise)
         {
-            var traineeExerciseEntity = _mapper.Map<TraineeExerciseEntity>(traineeExerciseDto);
-            var data = await _service.AddTraineeExercises(traineeExerciseEntity);
+            var result = await _mediator.Send(exercise);
+            var locationUri = $"api/exercise/{result.IdTraineeExercise}";
 
-            return Ok(data);
+            return Created(locationUri, result);
+
         }
     }
 }

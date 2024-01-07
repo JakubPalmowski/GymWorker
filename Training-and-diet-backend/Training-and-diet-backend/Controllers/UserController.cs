@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.DTOs.TrainingPlan;
-using Training_and_diet_backend.DTOs.User;
-using Training_and_diet_backend.Models;
-using TrainingAndDietApp.BLL.Services;
-using TrainingAndDietApp.Common.DTOs.User;
-using TrainingAndDietApp.DAL.EntityModels;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using TrainingAndDietApp.Application.Queries.User;
+using UserQuery = TrainingAndDietApp.Application.Queries.User.UserQuery;
 
 
 namespace Training_and_diet_backend.Controllers
@@ -13,71 +10,51 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _service;
+        private readonly IMediator _mediator;
       
 
-        public UserController(IUserService userService)
+        public UserController(IMediator mediator)
         {
-            _service = userService;
+            _mediator = mediator;
         }
 
-
-
-        // POBIERA WSZYSTKIE CWICZENIA TRENERA PO ID, WYSWIETLA WSZYSTKIE DANE CWICZENIA
-
-        [HttpGet("{TrainerId}/exercises")]
-
-        public async Task<IActionResult> GetTrainerExercises(int TrainerId)
-        {
-            var exercises = await _service.GetExercisesByTrainerId(TrainerId);
-
-
-
-            return Ok(exercises);
-        }
-
-        [HttpGet("{id_trainer}/trainingPlans")]
-        public async Task<ActionResult<IEnumerable<TrainingPlanNameDto>>> GetTrainerTrainingPlans(int id_trainer)
-        {
-            var trainingPlans = await _service.GetTrainerTrainingPlans(id_trainer);
-
-            return Ok(trainingPlans);
-
-        }
-
-
-        [HttpGet("{id_trainer}/pupils")]
-        public async Task<ActionResult<IEnumerable<User>>> GetPupilsByTrainerId(int id_trainer)
-        {
-            var trainerPupils = await _service.GetPupilsByTrainerId(id_trainer);
-
-            return Ok(trainerPupils);
-        }
 
         // POBIERA lISTĘ UZYTKOWNIKOW Z PODANEJ ROLI
         [HttpGet("{RoleName}")]
-        public async Task<ActionResult<IEnumerable<MentorDto>>> GetUsers([FromRoute] string RoleName, [FromQuery] UserQuery query = null)
+        public async Task<IActionResult> GetUsers([FromRoute] string RoleName, [FromQuery] UserQuery userQuery)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
-            var trainers = await _service.GetMentors(RoleName, query);
-            return Ok(trainers);
+            
+            var query = new GetUsersQuery(RoleName, userQuery);
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+
         }
 
         //Pobiera trenera wraz z jego opiniami po Id
         [HttpGet("{RoleName}/{id}")]
-        public async Task<ActionResult<MentorWithOpinionDto>> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
+        public async Task<IActionResult> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
         {
-            var trainer = await _service.GetMentorWithOpinionsById(roleName, id);
-            return Ok(trainer);
+            var query = new GetMentorWithOpinionsQuery(roleName, id);
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
 
         [HttpGet("Pupil/{id}")]
-        public async Task<ActionResult<PupilDto>> GetPupilById( [FromRoute] int id){
-            var pupil = await _service.GetPupilById(id);
-            return Ok(pupil);
+        public async Task<IActionResult> GetPupilById( [FromRoute] int id){
+            var query = new GetPupilQuery(id);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+        
+        [HttpGet("Pupil/PersonalInfo/{id}")]
+        public async Task<IActionResult> GetPupilPersonalInfoById( [FromRoute] int id){
+            var query = new GetPupilPersonalInfoQuery(id);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
     }

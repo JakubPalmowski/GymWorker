@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Training_and_diet_backend.Services;
-using TrainingAndDietApp.BLL.Services;
-using TrainingAndDietApp.Common.DTOs.Gym;
+using TrainingAndDietApp.Application.Queries.Gym;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -11,22 +8,21 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class GymController : ControllerBase
     {
-        private readonly IGymService _service;
-        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public GymController(IGymService service, IMapper mapper)
+        public GymController(IMediator mediator)
         {
-            _service = service;
-            _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GymDto>>> GetAllGyms()
+        public async Task<IActionResult> GetAllGyms()
         {
-            var gyms = await _service.GetGyms();
-            var dtos = _mapper.Map<List<GymDto>>(gyms);
+            var request = new GetGymsQuery();
+            var response = await _mediator.Send(request);
 
-            return Ok(dtos);
+            return Ok(response);
+
         }
 
     }

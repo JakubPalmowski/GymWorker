@@ -29,6 +29,8 @@ import { MealsDetailsComponent } from './components/meals/meals-details/meals-de
 import { MealsAddComponent } from './components/meals/meals-add/meals-add.component';
 import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.component';
 import { MealsListComponent } from './components/meals/meals-list/meals-list.component';
+import { MyProfileComponent } from './components/myProfile/my-profile/my-profile.component';
+import { MyProfileEditComponent } from './components/myProfile/my-profile-edit/my-profile-edit.component';
 import { EditTrainingExerciseComponent } from './components/traininig-plans/edit-training-exercise/edit-training-exercise.component';
 import { TrainingExerciseListComponent } from './components/traininig-plans/training-exercise-list/training-exercise-list.component';
 
@@ -65,6 +67,7 @@ import { TrainingExerciseListComponent } from './components/traininig-plans/trai
     MealsListComponent,
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent
+    AutocompleteDirective, PupilProfileComponent, ExercisesDetailsComponent, MealsDetailsComponent, MealsAddComponent, MealsEditComponent, MealsListComponent, MyProfileComponent, MyProfileEditComponent
   ],
   imports: [
     AppRoutingModule,

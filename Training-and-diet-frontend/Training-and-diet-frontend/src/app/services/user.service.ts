@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { MentorProfile } from '../models/mentorProfile';
 import { MentorList } from '../models/mentorList';
 import { PupilProfile } from '../models/pupilProfile';
+import { PupilPersonalInfo } from '../models/pupilPersonalInfo';
 
 
 @Injectable({
@@ -52,6 +53,11 @@ export class UserService{
       GetPupilById(id: string):Observable<PupilProfile>{
         return this.http.get<PupilProfile>('https://localhost:7259/api/User/Pupil/'+id)
       }
+
+      GetPupilPersonalInfoById(id: string):Observable<PupilPersonalInfo>{
+        return this.http.get<PupilPersonalInfo>('https://localhost:7259/api/User/Pupil/PersonalInfo/'+id)
+      }
+      
 
     
 

@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Services;
-using TrainingAndDietApp.BLL.EntityModels;
-using TrainingAndDietApp.BLL.Services;
-using TrainingAndDietApp.Common.DTOs.Exercise;
+using TrainingAndDietApp.Application.Commands.Exercise;
+using TrainingAndDietApp.Application.Queries.Exercise;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -12,68 +10,73 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class ExerciseController : ControllerBase
     {
-        private readonly IExerciseService _service;
         private readonly IMapper _mapper;
-        public ExerciseController(IExerciseService service, IMapper mapper)
+        private readonly IMediator _mediator;
+        public ExerciseController(IMapper mapper, IMediator mediator)
         {
-            _service = service;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet("{exerciseId}")]
-        public async Task<ActionResult<ExerciseNameDto>> GetExerciseById(int exerciseId)
+        public async Task<IActionResult> GetExerciseById(int exerciseId)
         {
-            var exerciseDomainModels = await _service.GetExerciseById(exerciseId);
-            var exerciseDTO = _mapper.Map<ExerciseNameDto>(exerciseDomainModels);
+            var request = new GetExerciseQuery(exerciseId);
+            var response = await _mediator.Send(request);
 
-
-            return Ok(exerciseDTO);
+            return Ok(response);
         }
 
         [HttpGet]
-        public async Task<ActionResult<ExerciseNameDto>> GetAllExercises()
+        public async Task<IActionResult> GetAllExercises()
         {
-            var exercisesDomainModels = await _service.GetAllExercises();
-            var exerciseDto = _mapper.Map<List<ExerciseNameDto>>(exercisesDomainModels);
+            var request = new GetExercisesQuery();
+            var response = await _mediator.Send(request);
 
-            return Ok(exerciseDto);
+            return Ok(response);
 
+        }
+
+        [HttpGet("{trainerId}/exercises")]
+        public async Task<IActionResult> GetTrainerExercises(int trainerId)
+        {
+            var request = new GetTrainerExercisesQuery(trainerId);
+            var response = await _mediator.Send(request);
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> PostExercise(ExerciseDto exercise)
+        public async Task<IActionResult> PostExercise(CreateExerciseCommand exercise)
         {
-            var exerciseEntity = _mapper.Map<ExerciseEntity>(exercise);
-            var result = await _service.CreateExercise(exerciseEntity);
+            var result = await _mediator.Send(exercise);
+            var locationUri = $"api/exercise/{result.IdExercise}";
 
-            return Ok(result);
+            return Created(locationUri, result);
         }
 
         [HttpPut("{exerciseId}")]
-        public async Task<ActionResult<int>> PutExercise([FromBody] ExerciseDto exerciseDto, int exerciseId)
+        public async Task<IActionResult> PutExercise(UpdateExerciseCommand exercise, int exerciseId)
         {
-            var exerciseEntity = _mapper.Map<ExerciseEntity>(exerciseDto);
-            var result = await _service.UpdateExercise(exerciseEntity, exerciseId);
-
-            return Ok(result);
+            await _mediator.Send(new UpdateExerciseInternalCommand(exerciseId, exercise));
+            return Ok();
         }
 
         [HttpGet("trainingPlans/{idTrainingPlan}/exercises")]
-        public async Task<ActionResult<ExerciseNameDto>> GetExercisesFromTrainingPlan(int idTrainingPlan)
+        public async Task<IActionResult> GetExercisesFromTrainingPlan(int idTrainingPlan)
         {
-            var exercisesEntity= await _service.GetExercisesFromTrainingPlan(idTrainingPlan);
-            var exerciseDto = _mapper.Map<List<ExerciseNameDto>>(exercisesEntity);
+            var request = new GetExercisesFromTrainingPlanQuery(idTrainingPlan);
+            var response = await _mediator.Send(request);
 
-            return Ok(exerciseDto);
+            return Ok(response);
 
         }
 
         [HttpDelete("{exerciseId}")]
         public async Task<ActionResult<int>> DeleteExercise(int exerciseId)
         {
-            var result = await _service.DeleteExercise(exerciseId);
-
-            return Ok(result);
+            await _mediator.Send(new DeleteExerciseCommand(exerciseId));
+            return NoContent();
         }
 
     }

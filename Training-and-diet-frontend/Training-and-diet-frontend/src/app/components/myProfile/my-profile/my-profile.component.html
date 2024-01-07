@@ -1,0 +1,101 @@
+<ng-container *ngIf="pupil">
+
+
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center mt-3">
+        <div class="col-12 bg-primary rounded-top-5">
+            <h1 class="fw-bold text-white text-center">Profil użytkownika</h1>
+        </div>
+    </div>
+
+
+
+    
+    <div class="row p-2 bg-secondary border-profile rounded-bottom-3" >
+        <div class="col-12">
+            <a class="px-2 text-black text-decoration-none p-2 bg-btn-orange rounded-3 fs-5" style="cursor: pointer;" [routerLink]="'/myProfile/edit'">Edytuj Profil</a>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <img src="/assets/images/diho4.png" width="300px" height="300px" class="round-picture">
+        </div>
+        
+        <div class="col-12" [ngSwitch]="pupil.role">
+            <h2 class="text-center" *ngSwitchCase="'Trainer'">Trener</h2>
+            <h2 class="text-center" *ngSwitchCase="'Dietician'">Dietetyk</h2>
+            <h2 class="text-center" *ngSwitchCase="'Dietician-Trainer'">Trener i dietetyk</h2>
+            <h2 class="text-center" *ngSwitchCase="'Pupil'">Podopieczny</h2>
+        </div>
+
+        <div class="col-12 mt-3">
+        <h2>Podstawowe informacje</h2>
+        </div>
+        <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
+
+        <div class="col-6 group">
+            <label>Imie</label>
+            <input type="text" value="{{pupil.name}}" disabled>
+        </div>
+
+        <div class="col-6 group">
+            <label>Nazwisko</label>
+            <input type="text" value="{{pupil.lastName}}" disabled>
+        </div>
+
+        <div class="col-6 group">
+            <label>Email</label>
+            <input type="text" value="{{pupil.email}}" disabled>
+        </div>
+
+        <div class="col-6 group">
+            <label>Numer Telefonu</label>
+            <input type="text" value="{{pupil.phoneNumber}}" disabled>
+        </div>
+
+        <div class="col-6 group">
+            <label>Status weryfikacji Emaila</label>
+            <input type="text" value="{{pupil.emailValidated}}" disabled>
+        </div>
+
+        <div class="col-12 mt-3">
+            <h2>Informacje fizyczne</h2>
+            </div>
+            <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
+
+            <div class="col-6 group">
+                <label>Waga</label>
+                <input type="number" value="{{pupil.weight}}" disabled>
+            </div>
+    
+            <div class="col-6 group">
+                <label>Wzrost</label>
+                <input type="number" value="{{pupil.height}}" disabled>
+            </div>
+    
+            <div class="col-6 group">
+                <label>Data urodzenia</label>
+                <input type="date" value="{{formatDate(pupil.dateOfBirth?.toString())}}" disabled>
+            </div>
+
+    
+            <div class="col-6 group">
+                <label>Płeć</label>
+                <input type="text" value="{{pupil.sex}}" disabled>
+            </div>
+    
+
+            <div class="col-12 mt-3">
+                <h2>Informacje dodatkowe</h2>
+                </div>
+                <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
+
+                <div class="col-12 d-flex flex-column align-items-center">
+                <label style="width: 90%;">O mnie</label>
+                <textarea  rows="4" disabled>{{pupil.bio}}</textarea>
+            </div>
+
+
+    </div>
+
+</div>
+
+</ng-container>
