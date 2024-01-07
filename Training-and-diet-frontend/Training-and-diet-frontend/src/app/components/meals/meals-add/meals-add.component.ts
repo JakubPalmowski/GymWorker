@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { MealFull } from 'src/app/models/meal-full';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
+import { MealKcal } from 'src/app/models/meal-kcal';
 
 
 @Component({
@@ -14,10 +15,11 @@ import { PreviousUrlService } from 'src/app/services/previous-url.service';
 export class MealsAddComponent implements OnInit{
  
   previousUrl:string='';
+  submitted=false;
 
   addDieteticianMealRequest:MealFull={
     idMeal:0,
-    idDietician:1,
+    idDietician:21,
     name:'',
     ingredients:'',
     prepareSteps:'',
@@ -25,10 +27,13 @@ export class MealsAddComponent implements OnInit{
     image:''
   }
 
-  kcal:string='';
-  proteins:string='';
-  fats:string='';
-  carbs:string='';
+  mealKcal:MealKcal={
+    kcal:'',
+    proteins:'',
+    fats:'',
+    carbs:''
+  }
+
 
 
 constructor(private mealService: MealsService, private router:Router, private location:Location, private previousUrlService: PreviousUrlService) {}
@@ -39,7 +44,7 @@ ngOnInit(): void {
 
   addDieteticanMeal(){
 
-    this.addDieteticianMealRequest.kcal+=this.kcal+","+this.proteins+","+this.fats+","+this.carbs;
+     this.addDieteticianMealRequest.kcal+=this.mealKcal.kcal+","+this.mealKcal.proteins+","+this.mealKcal.fats+","+this.mealKcal.carbs; 
     
     this.mealService.addDieteticanMeal(this.addDieteticianMealRequest).subscribe({
       next:(meal)=>{
@@ -50,14 +55,23 @@ ngOnInit(): void {
       }
     });
     
+    
+  }
+
+  onSubmit(valid:any){
+    this.submitted=true;
+    if(valid){
+      this.addDieteticanMeal();
+      console.log(this.addDieteticianMealRequest);
+    }
+    
   }
 
   back(){
     this.router.navigateByUrl(this.previousUrl);
   }
 
-  test(){
-    console.log("test");
-  }
+
+
 
 }
