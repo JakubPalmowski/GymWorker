@@ -99,7 +99,7 @@
       <span>Filip</span>
   </a>
   <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-      <li><a class="dropdown-item" href="#">Mój profil</a></li>
+      <li><a class="dropdown-item" [routerLink]="'/myProfile'" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>
       <li>
           <hr class="dropdown-divider">
       </li>
@@ -206,7 +206,7 @@
           <span>Filip</span>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-          <li><a class="dropdown-item" href="#">Mój profil</a></li>
+          <li><a class="dropdown-item" [routerLink]="'/myProfile'" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>
           <li>
               <hr class="dropdown-divider">
           </li>

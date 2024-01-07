@@ -1,0 +1,42 @@
+.border-profile {
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+
+.group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    padding-left: 2px;
+    font-size: 20px;
+    color: black;
+    width: 80%;
+}
+
+input, textarea{
+    width: 80%;
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+
+input:disabled, textarea:disabled {
+    background-color: white;
+    color: black;
+}
+
+textarea{
+width: 90%;
+}
+
+a{
+    width: auto;
+    
+}
