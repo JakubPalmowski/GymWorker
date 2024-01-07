@@ -22,6 +22,7 @@ namespace TrainingAndDietApp.Domain.Entities
         public decimal? Height { get; set; }
         [Column(TypeName = "Date")]
         public DateTime DateOfBirth { get; set; }
+        public byte[]? ProfilePicture { get; set; }
         [Column(TypeName = "varchar(10)")]
         public string Sex { get; set; }
         [Column(TypeName = "varchar(500)")]
