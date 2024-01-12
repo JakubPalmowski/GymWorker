@@ -19,12 +19,14 @@ export class NewTrainingExerciseComponent implements OnInit{
 
   newTrainingExerciseRequest:NewTrainingExercise={
     seriesNumber:0,
-    repetitionsNumber:0,
+    repetitionsNumber:'',
     comments:'',
-    date:new Date(),
+    dayOfWeek:0,
     idExercise:0,
     idTrainingPlan:0
   }
+
+  
 
   exercise:ExerciseGetById={
     idExercise:0,
@@ -32,6 +34,8 @@ export class NewTrainingExerciseComponent implements OnInit{
   };
    
   repetitions:number[]=[];
+
+  submitted=false;
   
 
   
@@ -58,10 +62,10 @@ export class NewTrainingExerciseComponent implements OnInit{
     
   }
 
- async OnChangeSeriesNumber(seriesNumber:number){
+  OnChangeSeriesNumber(seriesNumber:number){
     console.log(seriesNumber.toString());
     console.log(this.newTrainingExerciseRequest.seriesNumber);
-    //this.repetitions.fill(1,1,1);
+    
     this.repetitions.length=this.newTrainingExerciseRequest.seriesNumber;
   
     console.log(this.repetitions);
@@ -73,18 +77,33 @@ export class NewTrainingExerciseComponent implements OnInit{
   {
 
   }
-  
 
+  onSubmit(valid:any){
+    this.submitted=true;
+    if(valid){
+      console.log(this.newTrainingExerciseRequest);
+      
+      this.addTrainingExercise();
+    }
+  }
+  
+  assignValue(){
+    this.newTrainingExerciseRequest.dayOfWeek=parseInt(this.newTrainingExerciseRequest.dayOfWeek.toString());
+  }
 
   addTrainingExercise(){
     this.newTrainingExerciseRequest.idExercise=parseInt(this.id_exercise);
     this.newTrainingExerciseRequest.idTrainingPlan=parseInt(this.id_training);
-    console.log(this.newTrainingExerciseRequest);
+    this.newTrainingExerciseRequest.repetitionsNumber=this.repetitions.toString();
+    
+    
     this.exerciseServise.addTrainingExercise(this.newTrainingExerciseRequest).subscribe({
       next:(newTrainingExercise)=>{
         this.router.navigate(['/training-plans/edit/'+this.id_training]);
       }
     })
+
+    
 
   }
 }

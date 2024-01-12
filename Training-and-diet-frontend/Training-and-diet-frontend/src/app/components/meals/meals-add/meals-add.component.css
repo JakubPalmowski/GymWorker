@@ -49,10 +49,12 @@ h3{
 
 #steps{
     height: 200px;
+    font-size: 15px;
 }
 
-#description{
+#ingredients{
     height: 120px;
+    font-size: 15px;
 }
 
 #image{
@@ -75,6 +77,12 @@ h3{
    display: table-cell;
 
    
+}
+
+.kcal-errors{
+    
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
 
 .form-input-small{

@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { response } from 'express';
 import { ExerciseShort } from 'src/app/models/exercise-short.model';
 import { TrainingPlanExercise } from 'src/app/models/trainingPlanExercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { Location } from '@angular/common';
+import {RouterModule} from '@angular/router';
 
 @Component({
-  selector: 'app-exercises-list',
-  templateUrl: './exercises-list.component.html',
-  styleUrls: ['./exercises-list.component.css']
+  selector: 'app-training-exercise-list',
+  templateUrl: './training-exercise-list.component.html',
+  styleUrls: ['./training-exercise-list.component.css']
 })
-export class ExercisesListComponent implements OnInit{
+export class TrainingExerciseListComponent implements OnInit{
  
   trainingPlanExercises:ExerciseShort[]=[];
   filteredPlanExercises:ExerciseShort[]=[];
@@ -20,11 +21,13 @@ export class ExercisesListComponent implements OnInit{
   id_training:string='';
   source:string='';
 
-  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location){}
+
+
+  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location,private router:Router){}
 
   ngOnInit(): void {
-
     
+
    console.log(this.source);
 
     this.id_training=this.route.snapshot.queryParams['id'];
@@ -94,6 +97,6 @@ export class ExercisesListComponent implements OnInit{
   }
 
   back(): void{
-    this.location.back();
+    this.router.navigateByUrl('/training-plans/edit/'+this.id_training);
   }
 }

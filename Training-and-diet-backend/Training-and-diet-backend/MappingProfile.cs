@@ -86,8 +86,10 @@ namespace Training_and_diet_backend
             CreateMap<UpdateTraineeExerciseInternalCommand, TraineeExercise>()
                 .ForMember(dest => dest.RepetitionsNumber, opt => opt.MapFrom(src => src.TraineeExerciseCommand.RepetitionsNumber));
 
+
             CreateMap<TraineeExercise, TraineeExerciseResponse>()
                 .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom(src => src.Exercise.Name));
+
 
 
 

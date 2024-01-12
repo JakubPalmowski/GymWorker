@@ -3,22 +3,64 @@
     <h3>Nowy plan</h3> 
     <div class="row">
         <div class="container-form">
-            <form #form="ngForm" (ngSubmit)="addTrainingPlan()">
+            <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
                 <div class="mb-3">
-                    <label for="name" class="form-label-custom">Nazwa:</label><br>
-                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="addTrainingPlanRequest.name">
+                    <label for="name" class="form-label-custom">Nazwa *</label><br>
+                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="addTrainingPlanRequest.name"
+                    required minlength="3" maxlength="50" #name="ngModel">
+                    <div *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </div>
+                    <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 50 znaków
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="type" class="form-label-custom">Typ:</label><br>
-                    <input type="text" class="form-input" id="type" name="type" [(ngModel)]="addTrainingPlanRequest.type">
+                    <label for="customName" class="form-label-custom">Nazwa robocza </label><br>
+                    <input type="text" class="form-input" id="customName" name="customName" [(ngModel)]="addTrainingPlanRequest.customName"
+                     maxlength="50" #customName="ngModel" >
+                    <div *ngIf="customName.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 50 znaków
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="start_date" class="form-label-custom">Data rozpoczęcia:</label><br>
-                    <input type="date" class="form-input" id="start_date" name="start_date" [(ngModel)]="addTrainingPlanRequest.startDate">
+                    <label for="type" class="form-label-custom">Typ </label><br>
+                    <input type="text" class="form-input" id="type" name="type" [(ngModel)]="addTrainingPlanRequest.type"
+                    minlength="3" maxlength="50" #type="ngModel" >
+                    <div *ngIf="type.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </div>
+                    <div *ngIf="type.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 50 znaków
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="end_date" class="form-label-custom">Data zakończenia:</label><br>
-                    <input type="date" class="form-input" id="end_date" name="end_date" [(ngModel)]="addTrainingPlanRequest.endDate">
+                    <label for="startDate" class="form-label-custom">Data rozpoczęcia *</label><br>
+                    <input type="date" class="form-input" id="startDate" name="startDate" [(ngModel)]="addTrainingPlanRequest.startDate"
+                    required min="{{this.dateToday}}" #startDate="ngModel">
+                    <div *ngIf="startDate.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="startDate.errors?.['min'] && this.submitted" class="validation-error">
+                        TEST
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="numberOfWeeks" class="form-label-custom">Ilość tygodni *</label><br>
+                    <input type="number" class="form-input" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="addTrainingPlanRequest.numberOfWeeks" 
+                    required min="1" max="50"  #numberOfWeeks="ngModel" >
+                    <div *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
+                        Ilośc tygodni musi być większa od 0
+                    </div>
+                    <div *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
+                        Ilość tygodni musi być mniejsza od 50
+                    </div>
                 </div>
 
                 <button type="submit" class="button-create">Stwórz</button>

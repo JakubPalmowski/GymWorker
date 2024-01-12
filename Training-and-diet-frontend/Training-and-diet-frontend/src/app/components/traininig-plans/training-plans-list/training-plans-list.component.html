@@ -12,12 +12,14 @@
             <thead >
                 <tr >
                     <th>Nazwa</th>
-                    <th>Ilość dni</th>
+                    <th>Nazwa robocza</th>
+                    <th>Długość planu</th>
                 </tr>
             </thead>
             <tr *ngFor="let trainingPlan of filteredTrainingPlans">
                 <td><a [routerLink]="['edit',trainingPlan.idTrainingPlan]">{{ trainingPlan.name }}</a></td>
-                <td>{{ trainingPlan.planDuration }}</td>
+                <td>{{ trainingPlan.customName }}</td>
+                <td>{{ trainingPlan.numberOfWeeks }}tyg.</td>
             </tr>
         </table>
         <p *ngIf="!trainingPlans || trainingPlans.length <=0" class="no-plans-message">Nie posiadasz planów treningowych</p>

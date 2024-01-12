@@ -1,0 +1,138 @@
+<a (click)="back()" >< Powrót do planu</a>
+<div class="container-slim">
+    <h3>Edycja ćwiczenia: {{exercise.name}} w planie</h3>
+    <div class="row">
+        <div class="container-form">
+            <form  #form="ngForm" (ngSubmit)="onSubmit(form.valid)" >
+                <div class="mb-3">
+                    <label  for="seriesNumber" class="form-label">Liczba serii:</label><br>
+                    <input type="number" max="6" min="0" class="form-input" id="seriesNumber" name="seriesNumber" #seriesNumber="ngModel"
+                    (change)="OnChangeSeriesNumber(newTrainingExerciseRequest.seriesNumber)" [(ngModel)]="newTrainingExerciseRequest.seriesNumber">
+                    <div *ngIf="seriesNumber.errors?.['min'] && this.submitted" class="validation-error">
+                        Serii nie może być mniej niż 0
+                    </div>
+                    <div *ngIf="seriesNumber.errors?.['max'] && this.submitted" class="validation-error">
+                        Serii nie może być więcej niż 6
+                    </div>
+                </div>
+                <div class="container-table">
+                    <table>
+                        <th>
+                            <label class="form-label">Liczba powtórzeń:</label><br>
+                        </th>
+                        
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>0">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions1" class="form-label">Dla serii 1</label><br>
+                                    <input type="number" min="0" name="repetitions1" class="form-input" #repetitions1="ngModel"  [(ngModel)]="repetitions[0]">
+                                    <div *ngIf="repetitions1.errors?.['min'] && this.submitted" class="validation-error">
+                                        Powtórzeń nie może być mniej niż 0
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>1">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions2" class="form-label">Dla serii 2</label><br>
+                                    <input type="number" min="0" name="repetitions2" class="form-input" #repetitions2="ngModel"  [(ngModel)]="repetitions[1]">
+                                    <div *ngIf="repetitions2.errors?.['min'] && this.submitted" class="validation-error">
+                                        Powtórzeń nie może być mniej niż 0
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>2">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions3" class="form-label">Dla serii 3</label><br>
+                                    <input type="number" min="0" name="repetitions3" class="form-input" #repetitions3="ngModel"  [(ngModel)]="repetitions[2]">
+                                    <div *ngIf="repetitions3.errors?.['min'] && this.submitted" class="validation-error">
+                                        Powtórzeń nie może być mniej niż 0
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>3">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions4" class="form-label">Dla serii 4</label><br>
+                                    <input type="number" min="0" name="repetitions4" class="form-input" #repetitions4="ngModel"  [(ngModel)]="repetitions[3]">
+                                    <div *ngIf="repetitions4.errors?.['min'] && this.submitted" class="validation-error">
+                                        Powtórzeń nie może być mniej niż 0
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>4">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions5" class="form-label">Dla serii 5</label><br>
+                                    <input type="number" min="0" name="repetitions5" class="form-input" #repetitions5="ngModel"  [(ngModel)]="repetitions[4]">
+                                    <div *ngIf="repetitions5.errors?.['min'] && this.submitted" class="validation-error">
+                                        Powtórzeń nie może być mniej niż 0
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>5">
+                            <td>
+                                <div class="mb-3" >
+                                    <label for="repetitions6" class="form-label">Dla serii 6</label><br>
+                                    <input type="number" min="0" name="repetitions6" class="form-input" #repetitions6="ngModel"  [(ngModel)]="repetitions[5]">
+                                    <div *ngIf="repetitions6.errors?.['min'] && this.submitted" class="validation-error">
+                                        Powtórzeń nie może być mniej niż 0
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        
+                       
+                       
+
+                    </table>
+                </div>
+              
+                <div class="mb-3">
+                    <label for="comments" class="form-label">Komentarz:</label><br>
+                    <textarea class="form-input" id="comments" name="comments" [(ngModel)]="newTrainingExerciseRequest.comments" maxlength="300" #comments="ngModel"></textarea>
+                    <div *ngIf="comments.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole nie może zawierać więcej niż 300 znaków
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label  for="day" class="form-label">Dzień tygodnia</label><br>
+                    <select type="day" required max="6" min="0" (change)="assignValue()" class="form-input" id="day" name="day" #day="ngModel"  [(ngModel)]="newTrainingExerciseRequest.dayOfWeek">
+                        <option value="" selected disabled>-- Wybierz dzień --</option>
+                        <option value="0">Poniedziałek</option>
+                        <option value="1">Wtorek</option>
+                        <option value="2">Środa</option>
+                        <option value="3">Czwartek</option>
+                        <option value="4">Piątek</option>
+                        <option value="5">Sobota</option>
+                        <option value="6" selected>Niedziela</option>
+                    </select>
+                    <div *ngIf="day.errors?.['max'] && this.submitted" class="validation-error">
+                        Dzień tygodnia jest wymagany
+                    </div>
+                    <div *ngIf="day.errors?.['min'] && this.submitted" class="validation-error">
+                        Dzień tygodnia jest wymagany
+                    </div>
+                    <div *ngIf="day.errors?.['required'] && this.submitted" class="validation-error">
+                        Dzień tygodnia jest wymagany
+                    </div>
+                </div>
+
+                <button type="submit" class="button-edit">Dodaj</button>
+     
+            </form>
+        </div>
+    </div>
+</div>

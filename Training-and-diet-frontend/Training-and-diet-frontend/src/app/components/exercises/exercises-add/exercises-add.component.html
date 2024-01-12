@@ -1,20 +1,52 @@
-<a [routerLink]='"/exercises-list"'> < Powrót do listy ćwiczeń</a>
+<a  (click)="back()"> < Powrót do listy ćwiczeń</a>
 <div class="container-slim">
     <h3>Dodawanie nowego ćwiczenia</h3> 
     <div class="row">
         <div class="container-form">
-            <form #form="ngForm" (ngSubmit)="addTrainerExercise()">
+            <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
                 <div class="mb-3">
-                    <label for="name" class="form-label-custom">Nazwa:</label><br>
-                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="addTrainerExerciseRequest.name">
+                    <label for="name" class="form-label-custom">Nazwa *</label><br>
+                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="addTrainerExerciseRequest.name" #name="ngModel" 
+                    required minlength="3" maxlength="50">
+                    <div *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </div>
+                    <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 50 znaków
+                    </div>
+                
+                
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label-custom">Opis</label><br>
-                    <textarea class="form-input" id="description" name="description" [(ngModel)]="addTrainerExerciseRequest.details"></textarea>
+                    <label for="description" class="form-label-custom">Opis *</label><br>
+                    <textarea class="form-input" id="description" name="description" [(ngModel)]="addTrainerExerciseRequest.details"
+                    required minlength="3" maxlength="200" #description="ngModel"></textarea>
+                    <div *ngIf="description.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="description.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </div>
+                    <div *ngIf="description.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 200 znaków
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="steps" class="form-label-custom">Sposób wykonania</label><br>
-                    <textarea class="form-input" id="steps" name="steps" [(ngModel)]="addTrainerExerciseRequest.exerciseSteps"></textarea>
+                    <label for="steps" class="form-label-custom">Sposób wykonania *</label><br>
+                    <textarea class="form-input" id="steps" name="steps" [(ngModel)]="addTrainerExerciseRequest.exerciseSteps"
+                    required minlength="3" maxlength="300" #steps="ngModel"></textarea>
+                    <div *ngIf="steps.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="steps.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </div>
+                    <div *ngIf="steps.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 300 znaków
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label-custom" >Zdjęcie</label><br>

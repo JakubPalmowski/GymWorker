@@ -50,14 +50,14 @@ goToMainPage() {
     }
 
     goToMeals() {
-      if(!(this.activeRoute=='meals-list')){
-        this.router.navigateByUrl('meals-list');
+      if(!(this.activeRoute=='meals')){
+        this.router.navigateByUrl('meals');
       }
     }
 
     goToExercices() {
-      if(!(this.activeRoute=='exercises-list')){
-        this.router.navigateByUrl('exercises-list');
+      if(!(this.activeRoute=='exercises')){
+        this.router.navigateByUrl('exercises');
       }
     }
 
