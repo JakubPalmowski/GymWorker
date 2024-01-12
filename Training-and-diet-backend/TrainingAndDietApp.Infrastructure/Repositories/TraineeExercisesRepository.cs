@@ -1,4 +1,6 @@
-﻿using TrainingAndDietApp.Domain.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+using TrainingAndDietApp.DAL.Models;
+using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
 using TrainingAndDietApp.Infrastructure.Context;
 
@@ -19,6 +21,25 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             _context.Trainee_exercises.Add(traineeExercise);
             await _context.SaveChangesAsync(cancellationToken);
             return traineeExercise.IdExercise;
+        }
+
+        public Task<bool> CheckIfTraineeExerciseExistsAsync(int idTraineeExercise, CancellationToken cancellationToken)
+        {
+            return _context.Trainee_exercises.AnyAsync(te => te.IdTraineeExercise == idTraineeExercise, cancellationToken);
+        }
+
+        public async Task<TraineeExercise?> GetTraineeExerciseByIdAsync(int idTraineeExercise,
+            CancellationToken cancellationToken)
+        {
+            return await _context.Trainee_exercises
+                .Where(e => e.IdTraineeExercise == idTraineeExercise)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+        }
+
+        public async Task UpdateTraineeExerciseAsync(TraineeExercise traineeExercise, CancellationToken cancellationToken)
+        {
+            _context.Trainee_exercises.Update(traineeExercise);
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
