@@ -39,6 +39,11 @@ body, html{
     padding-bottom: 50px; /* Wysokość stopki */
 }
 
+.validation-error{
+    color: red;
+    
+}
+
 app-root {
     flex: 1;
 }

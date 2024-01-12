@@ -1,24 +1,66 @@
 <div class="">
     <a [routerLink]='"/training-plans"'> < Powrót do listy planów</a>
     <div class="container-slim">
-        <h3>Edycja planu</h3>
+        <h3>Szczegóły planu</h3>
         <div class="">
-            <form #form="ngForm" >
+            <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
                 <div class="mb-3">
                     <label for="name" class="form-label-custom">Nazwa:</label><br>
-                    <input type="text" class="form-input" id="name" name="name" value={{trainingPlan.name}} disabled>
+                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="trainingPlan.name" 
+                    required minlength="3" maxlength="50" #name="ngModel">
+                    <div *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </div>
+                    <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 50 znaków
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="customName" class="form-label-custom">Nazwa robocza:</label><br>
+                    <input type="text" class="form-input" id="customName" name="customName"  [(ngModel)]="trainingPlan.customName"
+                    maxlength="50" #customName="ngModel" >
+                    <div *ngIf="customName.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 50 znaków
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="type" class="form-label-custom">Typ:</label><br>
-                    <input type="text" class="form-input" id="type" name="type" value={{trainingPlan.type}} disabled>
+                    <input type="text" class="form-input" id="type" name="type" [(ngModel)]="trainingPlan.type" 
+                    minlength="3" maxlength="50" #type="ngModel" >
+                    <div *ngIf="type.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </div>
+                    <div *ngIf="type.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 50 znaków
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="start_date" class="form-label-custom">Data rozpoczęcia:</label><br>
-                    <input type="date" class="form-input" id="start_date" name="start_date" value={{formStartDate}} disabled>
+                    <input type="date" class="form-input" id="start_date" name="start_date" [(ngModel)]="formStartDate" 
+                    required min="{{this.dateToday}}" #startDate="ngModel">
+                    <div *ngIf="startDate.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="startDate.errors?.['min'] && this.submitted" class="validation-error">
+                        TEST
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="end_date" class="form-label-custom">Data zakończenia:</label><br>
-                    <input type="date" class="form-input" id="end_date" name="end_date" value={{formEndDate}} disabled>
+                    <label for="numberOfWeeks" class="form-label-custom">Ilość tygodni:</label><br>
+                    <input type="number" class="form-input" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="trainingPlan.numberOfWeeks"
+                    required min="1" max="50"  #numberOfWeeks="ngModel" >
+                    <div *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
+                        Ilośc tygodni musi być większa od 0
+                    </div>
+                    <div *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
+                        Ilość tygodni musi być mniejsza od 50
+                    </div>
                 </div>
 
                 <button type="submit" class="button-edit">Edytuj</button>
@@ -26,24 +68,40 @@
         </div>
     </div>
     <div class="container-table">
+        <div class="days-container">
+            <div class="day" id="pn" (click)="changeTrainingDay(0,'pn')">Pn</div>
+            <div class="day" id="wt" (click)="changeTrainingDay(1,'wt')">Wt</div>
+            <div class="day" id="sr" (click)="changeTrainingDay(2,'sr')">Śr</div>
+            <div class="day" id="czw" (click)="changeTrainingDay(3,'czw')">Czw</div>
+            <div class="day" id="pt" (click)="changeTrainingDay(4,'pt')">Pt</div>
+            <div class="day" id="sob" (click)="changeTrainingDay(5,'sob')">Sob</div>
+            <div class="day" id="nd" (click)="changeTrainingDay(6,'nd')">Nd</div>
+        </div>
         <table class="table"   *ngIf="trainingPlanExercises && trainingPlanExercises.length > 0">
             <thead>
                 <tr>
-                    <th>Nazwa</th>
-                    <th>Edycja</th>
-                    <th>Szczegóły</th>
+                    <th id="name-header">Nazwa</th>
+                    <th>Serie i powtórzenia</th>
+                    <th >Szczegóły/Edycja</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let trainingPlanExercise of trainingPlanExercises">
+                <tr  *ngFor="let trainingPlanExercise of filteredTrainingPlanExercises" >
                     <td>{{trainingPlanExercise.name}}</td>
+                    <td>{{trainingPlanExercise.seriesNumber}}s x {{trainingPlanExercise.repetitionsNumber}} powt.</td>
+                    <td><a [routerLink]="['edit-training-exercise',trainingPlanExercise.IdTraineeExercise]" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:trainingPlan.idTrainingPlan}"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
+                    
+                </tr>
+                <tr  *ngIf="filteredTrainingPlanExercises.length<1" >
                     <td></td>
+                    <td id="regen">Regeneracja</td>
                     <td></td>
+                    
                 </tr>
             </tbody>
         </table>
         <p *ngIf="!trainingPlanExercises || trainingPlanExercises.length <=0">Ten plan treningowy nie zawiera ćwiczeń</p>
-        <a routerLink="/exercises-list" [queryParams]="{id: idTraining}" class="">
+        <a routerLink="/training-plans/exercise-list" [queryParams]="{id: idTraining}" class="">
              <span class="add-exercise-link">+ <br>Dodaj ćwiczenie do planu</span> </a>
     </div>
     

@@ -1,7 +1,8 @@
 import { Component,OnInit } from '@angular/core';
+import { Form } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { NewTrainingPlan } from 'src/app/models/new-training-plan.model';
+import { FullTrainingPlan } from 'src/app/models/full-training-plan.model';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 
 
@@ -12,18 +13,26 @@ import { TrainingPlanService } from 'src/app/services/training-plan.service';
 })
 export class AddTrainingPlanComponent implements OnInit{
   
-  addTrainingPlanRequest: NewTrainingPlan={
+
+  submitted=false;
+
+  addTrainingPlanRequest: FullTrainingPlan={
     idTrainingPlan:0,
-    idTrainer:1,
+    idTrainer:3,
     name:'',
+    customName:'',
     type:'',
     startDate:new Date(),
-    endDate:new Date(),
-
+    numberOfWeeks:0
   }
+  dateToday:string='';
+
   constructor(private trainingPlanService:TrainingPlanService, private router:Router){}
   ngOnInit(): void {
-    
+    this.dateToday=new Date().toISOString().split("T")[0];
+    console.log(document.getElementById("start_date"));
+
+
   }
 
   addTrainingPlan(){
@@ -37,6 +46,19 @@ export class AddTrainingPlanComponent implements OnInit{
         console.log(response);
       }
     });
+  }
+
+
+
+  onSubmit(valid:any){
+    this.submitted=true;
+    if(valid){
+      console.log(this.addTrainingPlanRequest);
+      
+      this.addTrainingPlan();
+      
+    }
+    
   }
 
 }

@@ -1,37 +1,112 @@
-<a [routerLink]='"/meals-list"'> < Powrót do listy potraw</a>
+<a (click)="back()"> < Powrót do listy potraw</a>
 <div class="container-slim">
     <h3>Dodawanie nowego posiłku</h3> 
     <div class="row">
         <div class="container-form">
-            <form #form="ngForm" (ngSubmit)="addDieteticanMeal()">
+            <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
                 <div class="mb-3">
                     <label for="name" class="form-label-custom">Nazwa:</label><br>
-                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="addDieteticianMealRequest.name">
+                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="addDieteticianMealRequest.name"
+                    required minlength="3" maxlength="50" #name="ngModel">
+                    <div *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </div>
+                    <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 50 znaków
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label-custom">Składniki</label><br>
-                    <textarea class="form-input" id="description" name="description" [(ngModel)]="addDieteticianMealRequest.ingredients"></textarea>
+                    <label for="ingredients" class="form-label-custom">Składniki</label><br>
+                    <textarea class="form-input" id="ingredients" name="ingredients" [(ngModel)]="addDieteticianMealRequest.ingredients"
+                    required minlength="3" maxlength="200" #ingredients="ngModel"></textarea>
+                    <div *ngIf="ingredients.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
+                    <div *ngIf="ingredients.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </div>
+                    <div *ngIf="ingredients.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 200 znaków
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="steps" class="form-label-custom">Sposób przygotowania</label><br>
-                    <textarea class="form-input" id="steps" name="steps" [(ngModel)]="addDieteticianMealRequest.prepareSteps"></textarea>
+                    <textarea class="form-input" id="steps" name="steps" [(ngModel)]="addDieteticianMealRequest.prepareSteps"
+                    maxlength="300" #steps="ngModel"></textarea>
+                    <div *ngIf="steps.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 300 znaków
+                    </div>
                 </div>
                 <div class="small-inputs">
                     <div class="small-input">
                         <label for="kcal" class="form-label-custom">Kalorie</label><br>
-                        <input type="number" class="form-input-small" id="kcal" name="kcal" [(ngModel)]="kcal">
+                        <input type="number" class="form-input-small" id="kcal" name="kcal" [(ngModel)]="mealKcal.kcal"
+                        required min="1" max="5000"  #kcal="ngModel">
+                        
+                      
                     </div>
                     <div class="small-input">
                         <label for="proteins" class="form-label-custom">Białko</label><br>
-                        <input type="number" (change)="test()" class="form-input-small" id="proteins" name="proteins" [(ngModel)]="proteins">
+                        <input type="number"  class="form-input-small" id="proteins" name="proteins" [(ngModel)]="mealKcal.proteins"
+                        required min="1" max="1000" #proteins="ngModel">
+                        
                     </div>
                     <div class="small-input">
                         <label for="fats" class="form-label-custom">Tłuszcze</label><br>
-                        <input type="number" class="form-input-small" id="fats" name="fats" [(ngModel)]="fats">
+                        <input type="number" class="form-input-small" id="fats" name="fats" [(ngModel)]="mealKcal.fats"
+                        required min="1" max="1000" #fats="ngModel">
+                       
                     </div>
                     <div class="small-input">
                         <label for="carbs" class="form-label-custom">Węglowodany</label><br>
-                        <input type="number" class="form-input-small" id="carbs" name="carbs" [(ngModel)]="carbs">
+                        <input type="number" class="form-input-small" id="carbs" name="carbs" [(ngModel)]="mealKcal.carbs"
+                        required min="1" max="1000" #carbs="ngModel">
+                        
+                    </div>
+                   
+                </div>
+                <div class="kcal-errors">
+                    <div *ngIf="kcal.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole kcal jest wymagane
+                    </div>
+                    <div *ngIf="kcal.errors?.['min'] && this.submitted" class="validation-error">
+                        Ilość kcal musi być większa niż 0
+                    </div>
+                    <div *ngIf="kcal.errors?.['max'] && this.submitted" class="validation-error">
+                        Kcal nie może być większe niż 5000
+                    </div>
+
+                    <div *ngIf="proteins.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole białko jest wymagane
+                    </div>
+                    <div *ngIf="proteins.errors?.['min'] && this.submitted" class="validation-error">
+                        Ilość białek musi być większa niż 0
+                    </div>
+                    <div *ngIf="proteins.errors?.['max'] && this.submitted" class="validation-error">
+                        Max ilość białek to 1000
+                    </div>
+
+                    <div *ngIf="fats.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole tłuszcze jest wymagane
+                    </div>
+                    <div *ngIf="fats.errors?.['min'] && this.submitted" class="validation-error">
+                        Ilość tłuszczy musi być większa niż 0
+                    </div>
+                    <div *ngIf="fats.errors?.['max'] && this.submitted" class="validation-error">
+                        Max ilość tłuszczy to 1000
+                    </div>
+
+                    <div *ngIf="carbs.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole Węglowodany jest wymagane
+                    </div>
+                    <div *ngIf="carbs.errors?.['min'] && this.submitted" class="validation-error">
+                        Ilość węglowodanów musi być większa niż 0
+                    </div>
+                    <div *ngIf="carbs.errors?.['max'] && this.submitted" class="validation-error">
+                        Max ilość węglowodanów to 1000
                     </div>
                 </div>
                 <div class="mb-3">

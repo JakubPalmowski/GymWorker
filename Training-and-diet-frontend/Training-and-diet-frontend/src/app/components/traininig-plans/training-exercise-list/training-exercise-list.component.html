@@ -1,0 +1,47 @@
+<div class="container">
+    <a (click)="back()">< Powrót</a>
+    <div class="container-top">
+        <button type="button" class="exercise-button" id="my-exercises" (click)="MyExercises()">Moje ćwiczenia</button>
+        <button type="button" class="exercise-button" id="all-exercises" (click)="AllExercises()">Wszystkie ćwiczenia</button>
+        <div class="col-6">
+            <form #form="ngForm" >
+                <div >
+                    
+                    <button class="filter-button" type="button" (click)="filterResults(filter.value)">
+                        <img src="../../../../assets/icons/search.png" class="search-icon">
+                    </button>
+                    
+                    <input class="filter-input" type="text" placeholder=" Wyszukaj ćwiczenie" #filter>
+                </div>
+
+                
+            </form>
+        </div>
+        <a routerLink="/exercises/add" class="create-exercise-link">
+            <span class="button-create">Stwórz nowe ćwiczenie +</span> </a>
+    </div>
+
+    <div class="container-table">
+        <table class="table"  *ngIf="trainingPlanExercises && trainingPlanExercises.length > 0">
+            <thead>
+                <tr>
+                    <th class="table-head-big">Nazwa</th>
+                    <th class="table-head-small" *ngIf="id_training!=undefined">Dodaj do planu</th>
+                    <th class="table-head-small">Edycja</th>
+                    <th class="table-head-small">Szczegóły</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trainingPlanExercise of filteredPlanExercises">
+                    <td>{{trainingPlanExercise.name}}</td>
+                    <td *ngIf="id_training!=undefined"><a routerLink="add" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:id_training}">[+]</a></td>
+                    <td><a [routerLink]="['/exercises/edit',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
+                    <td><a [routerLink]="['/exercises/details',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/details.png" id="edit-icon"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="!trainingPlanExercises || trainingPlanExercises.length <=0">Nie znaleziono żadnych ćwiczeń</p>
+        
+    </div>
+    
+</div>

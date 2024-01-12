@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddTrainingPlanComponent } from './components/traininig-plans/add-training-plan/add-training-plan.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
-import { NewTrainingExerciseComponent } from './components/exercises/new-training-exercise/new-training-exercise.component';
+import { NewTrainingExerciseComponent } from './components/traininig-plans/new-training-exercise/new-training-exercise.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { PasswordRecoveryComponent } from './components/authentication/password-recovery/password-recovery.component';
@@ -31,6 +31,8 @@ import { MealsEditComponent } from './components/meals/meals-edit/meals-edit.com
 import { MealsListComponent } from './components/meals/meals-list/meals-list.component';
 import { MyProfileComponent } from './components/myProfile/my-profile/my-profile.component';
 import { MyProfileEditComponent } from './components/myProfile/my-profile-edit/my-profile-edit.component';
+import { EditTrainingExerciseComponent } from './components/traininig-plans/edit-training-exercise/edit-training-exercise.component';
+import { TrainingExerciseListComponent } from './components/traininig-plans/training-exercise-list/training-exercise-list.component';
 
 
 
@@ -56,13 +58,24 @@ import { MyProfileEditComponent } from './components/myProfile/my-profile-edit/m
     MentorOpinionComponent,
     ExercisesEditComponent,
     ExercisesAddComponent, 
-    AutocompleteDirective, PupilProfileComponent, ExercisesDetailsComponent, MealsDetailsComponent, MealsAddComponent, MealsEditComponent, MealsListComponent, MyProfileComponent, MyProfileEditComponent
+    AutocompleteDirective,
+    PupilProfileComponent, 
+    ExercisesDetailsComponent, 
+    MealsDetailsComponent, 
+    MealsAddComponent, 
+    MealsEditComponent, 
+    MealsListComponent,
+    TrainingExerciseListComponent,
+    EditTrainingExerciseComponent,
+    MyProfileComponent, 
+    MyProfileEditComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

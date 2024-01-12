@@ -1,10 +1,9 @@
-export interface EditTrainingPlan{
+export interface FullTrainingPlan{
     idTrainingPlan:number;
+    idTrainer:number;
     name: string;
     customName:string;
     type:string;
     startDate:Date;
-    endDate:Date;
-    planDuration:number;
     numberOfWeeks:number;
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TrainingAndDietApp.DAL.Models;
-using TrainingAndDietApp.Domain.Entities;
+﻿using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.Domain.Abstractions
 {
@@ -14,6 +8,6 @@ namespace TrainingAndDietApp.Domain.Abstractions
         Task<bool> CheckIfTraineeExerciseExistsAsync(int idTraineeExercise, CancellationToken cancellationToken);
         Task <TraineeExercise?> GetTraineeExerciseByIdAsync(int idTraineeExercise, CancellationToken cancellationToken);
         Task UpdateTraineeExerciseAsync(TraineeExercise traineeExercise, CancellationToken cancellationToken);
-        
+
     }
 }

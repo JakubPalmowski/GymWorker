@@ -1,4 +1,6 @@
-export interface NewTrainingExercise{
+export interface TrainingExerciseFull{
+    IdTraineeExercise:number;
+    name:string;
     seriesNumber: number,
     repetitionsNumber: string,
     comments: string,

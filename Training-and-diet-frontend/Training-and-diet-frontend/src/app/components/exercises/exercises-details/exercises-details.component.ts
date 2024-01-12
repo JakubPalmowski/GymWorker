@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExerciseFull } from 'src/app/models/exercise-full';
+import { PreviousUrlService } from 'src/app/services/previous-url.service';
+
 
 @Component({
   selector: 'app-exercises-details',
@@ -10,6 +12,10 @@ import { ExerciseFull } from 'src/app/models/exercise-full';
   styleUrls: ['./exercises-details.component.css']
 })
 export class ExercisesDetailsComponent {
+
+
+  
+  previousUrl:string='';
 
   exerciseData:ExerciseFull={
     idExercise:0,
@@ -22,9 +28,11 @@ export class ExercisesDetailsComponent {
 
   idExercise:string='';
 
-  constructor(private route:ActivatedRoute, private exercisesService:ExercisesService,private location:Location) {}
+  constructor(private route:ActivatedRoute, private exercisesService:ExercisesService,private location:Location, 
+    private previousUrlService: PreviousUrlService,private router:Router) {}
 
   ngOnInit(): void {
+    this.previousUrl=this.previousUrlService.getPreviousUrl()
     this.route.paramMap.subscribe({
      next:(params)=>{
        const id=params.get('id');
@@ -51,7 +59,7 @@ export class ExercisesDetailsComponent {
    }
 
   back(): void{
-    this.location.back();
+    this.router.navigateByUrl(this.previousUrl);
   }
 
 }

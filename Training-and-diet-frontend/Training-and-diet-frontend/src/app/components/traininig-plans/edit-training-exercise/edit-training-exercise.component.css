@@ -47,6 +47,11 @@ table{
     
 }
 
+#comments{
+    height: 150px;
+    font-size: 16px;
+}
+
 .container-table{
     border: 0.5px solid black;
     border-radius: 20px;
@@ -57,11 +62,11 @@ table{
     margin-bottom: 10px;
 }
 
-.button-create{
+.button-edit{
     margin: 10px 0px;
     font-size: 24px;
     padding: 10px 20px ;
-    background-color: #52CE50;
+    background-color:#3244A0;
     color: white;
     font-weight: bold;
     border: none;
