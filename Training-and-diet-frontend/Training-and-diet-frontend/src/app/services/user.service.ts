@@ -7,7 +7,9 @@ import { Injectable } from '@angular/core';
 import { MentorProfile } from '../models/mentorProfile';
 import { MentorList } from '../models/mentorList';
 import { PupilProfile } from '../models/pupilProfile';
-import { PupilPersonalInfo } from '../models/pupilPersonalInfo';
+import { PupilPersonalInfo } from '../models/MyProfile/pupilPersonalInfo';
+import { TrainerPersonalInfo } from '../models/MyProfile/trainerPersonalInfo';
+import { UserPersonalInfo } from '../models/MyProfile/userPersonalInfo';
 
 
 @Injectable({
@@ -54,8 +56,16 @@ export class UserService{
         return this.http.get<PupilProfile>('https://localhost:7259/api/User/Pupil/'+id)
       }
 
-      GetPupilPersonalInfoById(id: string):Observable<PupilPersonalInfo>{
-        return this.http.get<PupilPersonalInfo>('https://localhost:7259/api/User/Pupil/PersonalInfo/'+id)
+      GetPupilPersonalInfoById(id: string):Observable<UserPersonalInfo>{
+        return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/Pupil/PersonalInfo/'+id)
+      }
+
+      UpdatePupilPersonalInfo(pupilPersonalInfo: PupilPersonalInfo,id: string):Observable<any>{
+        return this.http.put('https://localhost:7259/api/User/Pupil/'+id, pupilPersonalInfo);
+      }
+
+      GetTrainerPersonalInfoById(id: string):Observable<UserPersonalInfo>{
+        return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/Trainer/PersonalInfo/'+id)
       }
       
 

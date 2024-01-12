@@ -17,6 +17,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
         Task<bool> AnyAsync(Expression<Func<User, bool>> predicate);
 
         IQueryable<User> GetUsers(string roleName, string? searchPhrase,  CancellationToken cancellationToken);
+        Task<int> UpdateUserAsync(User user, CancellationToken cancellationToken);
 
 
     }

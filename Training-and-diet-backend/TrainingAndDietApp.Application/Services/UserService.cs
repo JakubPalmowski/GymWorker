@@ -34,4 +34,10 @@ public class UserService : IUserService
         return await _userRepository
             .AnyAsync(user => user.IdUser == pupilId && (user.Role.Name.Equals("Pupil")));
     }
+
+    public Task<bool> CheckIfUserIsDieticianTrainer(int dieticianTrainerId, CancellationToken cancellationToken)
+    {
+        return _userRepository
+            .AnyAsync(user => user.IdUser == dieticianTrainerId && (user.Role.Name.Equals("Dietician-Trainer")));
+    }
 }

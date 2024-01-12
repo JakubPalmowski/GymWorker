@@ -1,12 +1,19 @@
-<ng-container *ngIf="pupil">
+<ng-container *ngIf="user">
 
 
-    <div class="container-fluid">
+    <form #profileForm="ngForm" class="container-fluid" (ngSubmit)="onSubmit()">
         <div class="row d-flex justify-content-center mt-3">
             <div class="col-12 bg-primary rounded-top-5">
                 <h1 class="fw-bold text-white text-center">Edycja profilu</h1>
             </div>
         </div>
+
+        <div *ngIf="successFlag=='success'" class="success-popup">
+            Profil został pomyślnie zaktualizowany!
+          </div>
+          <div *ngIf="successFlag=='error'" class="error-popup">
+            Wystapił błąd podczas aktualizacji profilu. Proszę spróbować ponownie.
+          </div>
     
     
     
@@ -24,7 +31,7 @@
         </div>
         </div>
 
-            <div class="col-12" [ngSwitch]="pupil.role">
+            <div class="col-12" [ngSwitch]="user.role">
                 <h2 class="text-center" *ngSwitchCase="'Trainer'">Trener</h2>
                 <h2 class="text-center" *ngSwitchCase="'Dietician'">Dietetyk</h2>
                 <h2 class="text-center" *ngSwitchCase="'Dietician-Trainer'">Trener i dietetyk</h2>
@@ -36,27 +43,61 @@
             </div>
             <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
     
-            <div class="col-6 group">
-                <label>Imie</label>
-                <input type="text" value="{{pupil.name}}">
+            <div class="col-6 group" >
+                <label>Imię</label>
+                <input type="text" [(ngModel)]="user.name" name="name" required #name="ngModel">
+                <div class="error-container">
+                <span *ngIf="name.invalid" class="validation-error error-span">
+                    Imię jest wymagane.
+                </span>
             </div>
+            </div>
+            
     
-            <div class="col-6 group">
+            <div class="col-6 group" >
                 <label>Nazwisko</label>
-                <input type="text" value="{{pupil.lastName}}">
+                <input type="text" [(ngModel)]="user.lastName" name="lastName" required #lastName="ngModel">
+                <div class="error-container">
+                <span *ngIf="lastName.invalid" class="validation-error error-span">
+                    Nazwisko jest wymagane.
+                </span>
+            </div>
             </div>
     
             <div class="col-6 group">
                 <label>Email</label>
-                <input type="text" value="{{pupil.email}}">
+                <input type="email" [(ngModel)]="user.email" name="email" required #email="ngModel"
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                       <div class="error-container">
+                <span *ngIf="email.errors?.['required']" class="validation-error error-span">
+                    Email jest wymagany.
+                </span>
+                <span *ngIf="email.errors?.['pattern']" class="validation-error error-span">
+                    Proszę podać poprawny adres email.
+                </span>
             </div>
+            </div>
+            
+            
     
             <div class="col-6 group">
                 <label>Numer Telefonu</label>
-                <input type="text" value="{{pupil.phoneNumber}}">
+                <input type="tel" [(ngModel)]="user.phoneNumber" name="phoneNumber" required #phoneNumber="ngModel"
+                       pattern="^\+48\s?(\d{3}[ ]?){3}$|^(\d{3}[ ]?){3}$">
+                       <div class="error-container">
+                <span *ngIf="phoneNumber.errors?.['required']" class="validation-error">
+                    Numer telefonu jest wymagany.
+                </span>
+                <span *ngIf="phoneNumber.errors?.['pattern']" class="validation-error">
+                    Proszę podać poprawny numer telefonu.
+                </span>
             </div>
+            </div>
+            
+            
     
     
+            <ng-container *ngIf="role=='Pupil'">
             <div class="col-12 mt-3">
                 <h2>Informacje fizyczne</h2>
                 </div>
@@ -64,24 +105,57 @@
     
                 <div class="col-6 group">
                     <label>Waga</label>
-                    <input type="number" value="{{pupil.weight}}">
+                    <input type="number" [(ngModel)]="user.weight" name="weight">
                 </div>
         
                 <div class="col-6 group">
                     <label>Wzrost</label>
-                    <input type="number" value="{{pupil.height}}">
+                    <input type="number" [(ngModel)]="user.height" name="height">
                 </div>
         
                 <div class="col-6 group">
                     <label>Data urodzenia</label>
-                    <input type="date" value="{{formatDate(pupil.dateOfBirth?.toString())}}">
+                    <input type="date" [(ngModel)]="formattedDate" name="dateOfBirth">
                 </div>
         
                 <div class="col-6 group">
                     <label>Płeć</label>
-                    <input type="text" value="{{pupil.sex}}">
+                    <select [(ngModel)]="user.sex" name="sex" #sex="ngModel">
+                        <option value="" selected>Wybierz płeć</option>
+                        <option value="Mężczyzna">Mężczyzna</option>
+                        <option value="Kobieta">Kobieta</option>
+                    </select>
+                </div>
+            </ng-container>
+                
+            <ng-container *ngIf="role=='Trainer'">
+                <div class="col-12 mt-3">
+                    <h2>Cennik</h2>
+                    </div>
+                <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
+                
+        
+                <div class="col-6 group-price">
+                    <label style="margin-left: 10%;">Maksymalny koszt planu treningowego(zł)</label>
+                    <input style="margin-left: 10%;" type="number" [(ngModel)]="user.trainingPlanPriceFrom" class="input-price">
                 </div>
         
+            <div class="col-6 group-price">
+                <label style="margin-left: 10%;">Minimalny koszt planu treningowego(zł)</label>
+                <input style="margin-left: 10%;" type="number" [(ngModel)]="user.trainingPlanPriceTo" class="input-price">
+            </div>
+        
+        
+            <div class="col-6 group-price">
+                <label style="margin-left: 10%;">Minimalny koszt treningu personalnego(zł)</label>
+                <input style="margin-left: 10%;" type="number" [(ngModel)]="user.personalTrainingPriceFrom" class="input-price">
+            </div>
+        
+            <div class="col-6 group-price">
+                <label style="margin-left: 10%;">Maksymalny koszt treningu personalnego(zł)</label>
+                <input style="margin-left: 10%;" type="number" [(ngModel)]="user.personalTrainingPriceTo" class="input-price">
+            </div>
+                </ng-container>
     
                 <div class="col-12 mt-3">
                     <h2>Informacje dodatkowe</h2>
@@ -90,17 +164,23 @@
     
                     <div class="col-12 d-flex flex-column align-items-center">
                     <label style="width: 90%;">O mnie</label>
-                    <textarea  rows="4">{{pupil.bio}}</textarea>
+                    <textarea [(ngModel)]="user.bio"  rows="4" name="bio">{{user.bio}}</textarea>
                 </div>
+
+                <div class="summary-error-container">
+                <span *ngIf="profileForm.invalid" class="validation-error form-errors">
+                    Formularz zawiera błędy. Proszę sprawdzić i poprawić.
+                </span>
+            </div>
 
                 <div class="col-12 d-flex justify-content-evenly">
                     <a class="text-black text-decoration-none p-2 bg-btn-orange rounded-3 fs-5" style="cursor: pointer;" [routerLink]="'/myProfile'">Powrót</a>
-                    <a class="text-black text-decoration-none p-2 bg-btn-orange rounded-3 fs-5" style="cursor: pointer;">Zapisz zmiany</a>
+                    <button type="submit" class="text-black text-decoration-none p-2 bg-btn-orange rounded-3 fs-5">Zapisz zmiany</button>
                 </div>
     
     
         </div>
     
-    </div>
+    </form>
     
     </ng-container>
