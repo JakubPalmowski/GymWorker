@@ -9,5 +9,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
         Task <TraineeExercise?> GetTraineeExerciseByIdAsync(int idTraineeExercise, CancellationToken cancellationToken);
         Task UpdateTraineeExerciseAsync(TraineeExercise traineeExercise, CancellationToken cancellationToken);
 
+        Task DeleteTraineeExerciseAsync(int idTraineeExercise, CancellationToken cancellationToken);
+
     }
 }

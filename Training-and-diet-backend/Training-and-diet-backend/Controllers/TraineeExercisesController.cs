@@ -38,5 +38,12 @@ namespace Training_and_diet_backend.Controllers
             await _mediator.Send(new UpdateTraineeExerciseInternalCommand(id, exercise));
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTraineeExercise(int id)
+        {
+            await _mediator.Send(new DeleteTraineeExerciseCommand(id));
+            return NoContent();
+        }
     }
 }
