@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TrainingAndDietApp.Application.Commands.TraineeExercises;
+using TrainingAndDietApp.Application.Queries.TraineeExercise;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -12,6 +13,13 @@ namespace Training_and_diet_backend.Controllers
         public TraineeExercisesController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTraineeExercises(int id)
+        {
+            var result = await _mediator.Send(new GetTraineeExerciseQuery(id));
+            return Ok(result);
         }
       
         [HttpPost]

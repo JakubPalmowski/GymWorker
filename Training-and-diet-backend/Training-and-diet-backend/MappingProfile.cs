@@ -83,6 +83,11 @@ namespace Training_and_diet_backend
             CreateMap<User, PupilPersonalInfoResponse>()
                 .ForMember(dest=>dest.Role, opt=>opt.MapFrom(src=>src.Role.Name));
 
+            CreateMap<UpdateTraineeExerciseInternalCommand, TraineeExercise>()
+                .ForMember(dest => dest.RepetitionsNumber, opt => opt.MapFrom(src => src.TraineeExerciseCommand.RepetitionsNumber));
+
+            CreateMap<TraineeExercise, TraineeExerciseResponse>()
+                .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom(src => src.Exercise.Name));
 
 
 
