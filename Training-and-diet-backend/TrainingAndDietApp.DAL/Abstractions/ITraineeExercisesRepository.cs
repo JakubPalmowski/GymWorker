@@ -11,5 +11,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
 
         Task DeleteTraineeExerciseAsync(int idTraineeExercise, CancellationToken cancellationToken);
 
+        Task<IEnumerable<TraineeExercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan, CancellationToken cancellationToken);
+
     }
 }

@@ -12,6 +12,7 @@ using TrainingAndDietApp.Application.Responses.Diet;
 using TrainingAndDietApp.Application.Responses.Exercise;
 using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.Application.Responses.Pupil;
+using TrainingAndDietApp.Application.Responses.TraineeExercise;
 using TrainingAndDietApp.Application.Responses.TrainingPlan;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Models;
