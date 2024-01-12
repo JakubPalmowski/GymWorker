@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TrainingAndDietApp.Application.Responses;
+using TrainingAndDietApp.Application.Responses.TraineeExercise;
 
 namespace TrainingAndDietApp.Application.Queries.TraineeExercise;
 

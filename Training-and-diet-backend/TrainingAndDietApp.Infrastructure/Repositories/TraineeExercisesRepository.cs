@@ -50,5 +50,14 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             if (traineeExercise != null) _context.Trainee_exercises.Remove(traineeExercise);
             await _context.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task<IEnumerable<TraineeExercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan, CancellationToken cancellationToken)
+        {
+            return await _context.Trainee_exercises
+                .Where(te => te.IdTrainingPlan == idTrainingPlan)
+                .Include(te => te.Exercise)
+                .ToListAsync(cancellationToken);
+            
+        }
     }
 }

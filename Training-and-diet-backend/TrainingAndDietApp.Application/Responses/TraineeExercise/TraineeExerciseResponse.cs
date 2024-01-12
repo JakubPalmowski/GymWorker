@@ -1,4 +1,4 @@
-﻿namespace TrainingAndDietApp.Application.Responses;
+﻿namespace TrainingAndDietApp.Application.Responses.TraineeExercise;
 
 public class TraineeExerciseResponse
 {
