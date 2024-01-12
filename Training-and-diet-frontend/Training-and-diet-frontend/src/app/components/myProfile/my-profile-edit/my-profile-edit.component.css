@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom:25px;
 }
 
 label {
@@ -18,11 +19,10 @@ label {
     width: 80%;
 }
 
-input, textarea{
+input, textarea, select{
     width: 80%;
     padding: 8px;
     border-radius: 10px;
-    margin-bottom: 10px;
     font-size: 18px;
 }
 
@@ -34,6 +34,10 @@ input:disabled, textarea:disabled {
 
 textarea{
 width: 90%;
+}
+
+select{
+    border: 2px solid black;
 }
 
 a{
@@ -53,3 +57,65 @@ a{
     cursor: pointer;
     width: auto;
   }
+
+  .error-container{
+    position: relative;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .summary-error-container{
+    position: relative;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .error-span{
+    position: absolute;
+    bottom: 0;
+  }
+
+  .form-errors{
+    display: flex;
+    justify-content: center;
+    margin: 40px 0px 20px 0px;
+    font-size: 24px;
+  }
+
+  .success-popup {
+    position: fixed; 
+    top: 20px; 
+    left: 47%;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+
+  .error-popup {
+    position: fixed;
+    top: 20px; 
+    left: 40%;
+    background-color: red; 
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+
+  .input-price{
+    width: 80px;
+    text-align: center;
+}
+.group-price{
+  margin-bottom:50px;
+}
+  
+  
+ 

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { PupilPersonalInfo } from 'src/app/models/pupilPersonalInfo';
+import { PupilPersonalInfo } from 'src/app/models/MyProfile/pupilPersonalInfo';
+import { TrainerPersonalInfo } from 'src/app/models/MyProfile/trainerPersonalInfo';
+import { UserPersonalInfo } from 'src/app/models/MyProfile/userPersonalInfo';
 import { PupilProfile } from 'src/app/models/pupilProfile';
+import { GymService } from 'src/app/services/gym.service';
 import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-my-profile',
@@ -11,20 +15,23 @@ import { UserService } from 'src/app/services/user.service';
 export class MyProfileComponent implements OnInit {
 
 
-constructor(private userSerive: UserService) {}
+constructor(private userSerive: UserService, private gymService: GymService) {}
 
-  pupil: PupilPersonalInfo|undefined;
+  user: UserPersonalInfo|undefined;
+  role:string = "";
+  id:string = "";
+
 
   ngOnInit(): void {
     //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
-    var role = "Pupil"
-    var id = "2";
+    this.role = "Trainer"
+    this.id = "3";
 
-    if (role == "Pupil") {
-      this.userSerive.GetPupilPersonalInfoById(id).subscribe(
+    if (this.role == "Pupil") {
+      this.userSerive.GetPupilPersonalInfoById(this.id).subscribe(
         {
           next:(pupilInfo)=>{
-            this.pupil=pupilInfo;
+            this.user=pupilInfo;
           },
           error: (response)=>{
             console.log(response);
@@ -32,14 +39,34 @@ constructor(private userSerive: UserService) {}
         }
       )
     }
-    else if (role == "Trainer") {
-      //Pobranie danych mentora
-      //Pobranie danych osobowych mentora
-    }else if (role == "Dietician") {
+    else if (this.role == "Trainer") {
+      this.userSerive.GetTrainerPersonalInfoById(this.id).subscribe(
+        {
+          next:(trainerInfo)=>{
+            this.user=trainerInfo;
+          },
+          error: (response)=>{
+            console.log(response);
+          }
+        }
+      )
+      this.gymService.GetAllMentorGyms(this.id).subscribe(
+        {
+          next: (gyms) => {
+            if (this.user) {
+              this.user.trainerGyms = gyms;
+            }
+          },
+          error: (response) => {
+            console.log(response);
+          }
+        }
+      );
+    }else if (this.role == "Dietician") {
       //Pobranie danych mentora
       //Pobranie danych osobowych mentora
     }
-    else if (role == "Dietician-Trainer") {
+    else if (this.role == "Dietician-Trainer") {
       //Pobranie danych mentora
       //Pobranie danych osobowych mentora
     }
@@ -53,5 +80,8 @@ constructor(private userSerive: UserService) {}
     }
     return date.split('T')[0];
   }
+
+
+  
 
 }

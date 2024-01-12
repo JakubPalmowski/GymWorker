@@ -20,6 +20,13 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             return await _context.Gyms.Include(g => g.Address).ToListAsync(cancellationToken: cancellationToken);
         }
 
+        public async Task<List<Gym>> GetMentorGymsAsync(int idUser, CancellationToken cancellationToken)
+        => await _context.Trainer_Gyms
+                    .Where(tg => tg.IdTrainer == idUser)
+                    .Include(tg => tg.Gym.Address)
+                    .Select(tg => tg.Gym)
+                    .ToListAsync(cancellationToken: cancellationToken);
+
     }
 
 }

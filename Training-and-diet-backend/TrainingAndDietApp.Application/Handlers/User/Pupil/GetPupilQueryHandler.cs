@@ -12,7 +12,7 @@ using TrainingAndDietApp.Application.Responses.Pupil;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.Handlers.User
+namespace TrainingAndDietApp.Application.Handlers.User.Pupil
 {
     public class GetPupilQueryHandler : IRequestHandler<GetPupilQuery, IEnumerable<PupilResponse>>
     {

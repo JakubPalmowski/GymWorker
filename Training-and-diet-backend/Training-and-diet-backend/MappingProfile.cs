@@ -5,13 +5,16 @@ using TrainingAndDietApp.Application.Commands.Exercise;
 using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Commands.TraineeExercises;
 using TrainingAndDietApp.Application.Commands.TrainingPlan;
+using TrainingAndDietApp.Application.Commands.User.Pupil;
 using TrainingAndDietApp.Application.Queries.TrainingPlan;
 using TrainingAndDietApp.Application.Queries.User;
 using TrainingAndDietApp.Application.Responses;
 using TrainingAndDietApp.Application.Responses.Diet;
+using TrainingAndDietApp.Application.Responses.Dietician;
 using TrainingAndDietApp.Application.Responses.Exercise;
 using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.Application.Responses.Pupil;
+using TrainingAndDietApp.Application.Responses.Trainer;
 using TrainingAndDietApp.Application.Responses.TrainingPlan;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Models;
@@ -82,6 +85,16 @@ namespace Training_and_diet_backend
 
             CreateMap<User, PupilPersonalInfoResponse>()
                 .ForMember(dest=>dest.Role, opt=>opt.MapFrom(src=>src.Role.Name));
+
+            CreateMap<User, TrainerPersonalInfoResponse>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name));
+
+            CreateMap<User, DieticianPersonalInfoResponse>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name));
+
+            CreateMap<User, DieticianTrainerPersonalInfoResponse>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name));
+        
 
 
 

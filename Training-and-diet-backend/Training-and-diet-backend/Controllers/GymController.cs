@@ -25,5 +25,14 @@ namespace Training_and_diet_backend.Controllers
 
         }
 
+        [HttpGet("Mentor/{id}")]
+        public async Task<IActionResult> GetMentorGyms(int id)
+        {
+            var response = await _mediator.Send(new GetMentorGymsQuery(id));
+
+            return Ok(response);
+
+        }
+
     }
 }

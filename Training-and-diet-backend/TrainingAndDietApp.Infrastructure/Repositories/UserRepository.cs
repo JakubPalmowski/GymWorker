@@ -73,5 +73,12 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
                 .Select(u => u.Role)
                 .AnyAsync(r => r.Name == "Dietician" || r.Name == "Dietician-Trainer", cancellationToken: cancellationToken);
         }
+
+        public async Task<int> UpdateUserAsync(User user, CancellationToken cancellationToken)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync(cancellationToken);
+            return user.IdUser;
+        }
     }
 }
