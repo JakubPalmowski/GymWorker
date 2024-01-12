@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TrainingAndDietApp.Application.Commands.TraineeExercises;
+using TrainingAndDietApp.Application.Queries.Exercise;
+using TrainingAndDietApp.Application.Queries.TraineeExercise;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -13,7 +15,23 @@ namespace Training_and_diet_backend.Controllers
         {
             _mediator = mediator;
         }
-      
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTraineeExercises(int id)
+        {
+            var result = await _mediator.Send(new GetTraineeExerciseQuery(id));
+            return Ok(result);
+        }
+        [HttpGet("trainingPlan/{idTrainingPlan}")]
+        public async Task<IActionResult> GetTraineeExercisesFromTrainingPlan(int idTrainingPlan)
+        {
+            var request = new GetExercisesFromTrainingPlanQuery(idTrainingPlan);
+            var response = await _mediator.Send(request);
+
+            return Ok(response);
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostTraineeExercise(CreateTraineeExerciseCommand exercise)
         {
@@ -22,6 +40,20 @@ namespace Training_and_diet_backend.Controllers
 
             return Created(locationUri, result);
 
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTraineeExercise(int id, UpdateTraineeExerciseCommand exercise)
+        {
+            await _mediator.Send(new UpdateTraineeExerciseInternalCommand(id, exercise));
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTraineeExercise(int id)
+        {
+            await _mediator.Send(new DeleteTraineeExerciseCommand(id));
+            return NoContent();
         }
     }
 }

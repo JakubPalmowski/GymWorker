@@ -15,6 +15,7 @@ using TrainingAndDietApp.Application.Responses.Exercise;
 using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.Application.Responses.Pupil;
 using TrainingAndDietApp.Application.Responses.Trainer;
+using TrainingAndDietApp.Application.Responses.TraineeExercise;
 using TrainingAndDietApp.Application.Responses.TrainingPlan;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.DAL.Models;
@@ -56,6 +57,8 @@ namespace Training_and_diet_backend
             CreateMap<TrainingPlan, GetTrainerTrainingPlansResponse>();
             CreateMap<User, UserResponse<User>>();
 
+            CreateMap<UpdateTrainingPlanInternalCommand, TrainingPlan>();
+
             CreateMap<User, MentorList>()
                 .ForMember(dest => dest.OpinionNumber, opt => opt.MapFrom(src => src.MentorOpinions.Count))
                 .ForMember(dest => dest.Rate, opt => opt.MapFrom(src => src.MentorOpinions.Any() ? src.MentorOpinions.Average(o => o.Rate) : 0m));
@@ -95,6 +98,14 @@ namespace Training_and_diet_backend
             CreateMap<User, DieticianTrainerPersonalInfoResponse>()
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name));
         
+
+            CreateMap<UpdateTraineeExerciseInternalCommand, TraineeExercise>()
+                .ForMember(dest => dest.RepetitionsNumber, opt => opt.MapFrom(src => src.TraineeExerciseCommand.RepetitionsNumber));
+
+
+            CreateMap<TraineeExercise, TraineeExerciseResponse>()
+                .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom(src => src.Exercise.Name));
+
 
 
 

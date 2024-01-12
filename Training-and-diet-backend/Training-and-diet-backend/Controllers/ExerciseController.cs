@@ -62,15 +62,7 @@ namespace Training_and_diet_backend.Controllers
             return Ok();
         }
 
-        [HttpGet("trainingPlans/{idTrainingPlan}/exercises")]
-        public async Task<IActionResult> GetExercisesFromTrainingPlan(int idTrainingPlan)
-        {
-            var request = new GetExercisesFromTrainingPlanQuery(idTrainingPlan);
-            var response = await _mediator.Send(request);
-
-            return Ok(response);
-
-        }
+        
 
         [HttpDelete("{exerciseId}")]
         public async Task<ActionResult<int>> DeleteExercise(int exerciseId)
