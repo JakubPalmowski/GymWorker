@@ -42,6 +42,14 @@ namespace Training_and_diet_backend.Controllers
             return Created(locationUri, trainingPlan);
         }
 
+        [HttpPut("{idTrainingPlan}")]
+        public async Task<IActionResult> UpdateTrainingPlan(int idTrainingPlan, UpdateTrainingPlanCommand trainingPlan)
+        {
+            var command = new UpdateTrainingPlanInternalCommand(idTrainingPlan, trainingPlan);
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
 
         
     }

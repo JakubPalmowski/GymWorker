@@ -14,8 +14,6 @@ namespace TrainingAndDietApp.Application.Responses.TrainingPlan
         public string CustomName { get; set; }
         public string Type { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public int PlanDuration { get; set; }
         public int NumberOfWeeks { get; set; }
     }
 }

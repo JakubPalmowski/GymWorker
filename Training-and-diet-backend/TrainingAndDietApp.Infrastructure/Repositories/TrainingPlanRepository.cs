@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Training_and_diet_backend.Models;
-using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
 using TrainingAndDietApp.Infrastructure.Context;
 
-namespace Training_and_diet_backend.Repositories
+namespace TrainingAndDietApp.Infrastructure.Repositories
 {
     
 
@@ -46,6 +44,12 @@ namespace Training_and_diet_backend.Repositories
                 .ToListAsync(cancellationToken: cancellationToken);
 
             return trainingPlan.Any();
+        }
+
+        public async Task UpdateTrainingPlanAsync(TrainingPlan trainingPlan, CancellationToken cancellationToken)
+        {
+            _context.Training_plans.Update(trainingPlan);
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
