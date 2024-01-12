@@ -33,6 +33,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         {
             return await _context.Trainee_exercises
                 .Where(e => e.IdTraineeExercise == idTraineeExercise)
+                .Include(e => e.Exercise)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
         }
 
