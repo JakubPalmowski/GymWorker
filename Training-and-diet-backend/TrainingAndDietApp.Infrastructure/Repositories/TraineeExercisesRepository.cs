@@ -40,5 +40,13 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             _context.Trainee_exercises.Update(traineeExercise);
             await _context.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task DeleteTraineeExerciseAsync(int idTraineeExercise, CancellationToken cancellationToken)
+        {
+            var traineeExercise = await GetTraineeExerciseByIdAsync(idTraineeExercise, cancellationToken);
+
+            if (traineeExercise != null) _context.Trainee_exercises.Remove(traineeExercise);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
     }
 }

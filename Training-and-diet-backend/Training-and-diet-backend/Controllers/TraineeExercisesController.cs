@@ -31,5 +31,19 @@ namespace Training_and_diet_backend.Controllers
             return Created(locationUri, result);
 
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTraineeExercise(int id, UpdateTraineeExerciseCommand exercise)
+        {
+            await _mediator.Send(new UpdateTraineeExerciseInternalCommand(id, exercise));
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTraineeExercise(int id)
+        {
+            await _mediator.Send(new DeleteTraineeExerciseCommand(id));
+            return NoContent();
+        }
     }
 }
