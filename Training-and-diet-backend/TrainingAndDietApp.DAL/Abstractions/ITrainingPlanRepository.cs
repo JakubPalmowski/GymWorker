@@ -16,5 +16,6 @@ namespace TrainingAndDietApp.Domain.Abstractions
 
         Task<List<TrainingPlan>> GetTrainerTrainingPlans(int idTrainer, CancellationToken cancellationToken);
         Task<bool> CheckIfTrainingPlanExists(int trainingPlanId, CancellationToken cancellationToken);
+        Task UpdateTrainingPlanAsync(TrainingPlan trainingPlan, CancellationToken cancellationToken);
     }
 }
