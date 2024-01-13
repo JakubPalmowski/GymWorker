@@ -27,20 +27,12 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
                 .ToListAsync(cancellationToken);
         }
 
-        
-
-        public async Task<User?> GetUserByIdAsync(int id, CancellationToken cancellationToken)
-        {
-            return await _context.Users
-                .Include(u => u.Role)
-                .FirstOrDefaultAsync(u => u.IdUser == id, cancellationToken: cancellationToken);
-
-            
-        }
 
         public async Task<User?> GetUserWithGymsAndOpinionsAsync(int id, CancellationToken cancellationToken)
         {
-            return await _context.Users.Include(u => u.MentorOpinions).ThenInclude(u => u.Pupil)
+            return await _context.Users
+                .Include(u => u.MentorOpinions)
+                .ThenInclude(u => u.Pupil)
                 .Include(u => u.TrainerGyms)
                 .ThenInclude(tg => tg.Gym).ThenInclude(g => g.Address)
                 .FirstOrDefaultAsync(u => u.IdUser == id, cancellationToken);
@@ -51,7 +43,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             return await _context.Users.AnyAsync(predicate);
         }
 
-        public IQueryable<User> GetUsers(string? roleName, string? searchPhrase, CancellationToken cancellationToken)
+        public IQueryable<User> GetUsersWithDetails(string? roleName, string? searchPhrase, CancellationToken cancellationToken)
         {
             return  _context.Users
                 .Include(u => u.MentorOpinions)
@@ -74,11 +66,6 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
                 .AnyAsync(r => r.Name == "Dietician" || r.Name == "Dietician-Trainer", cancellationToken: cancellationToken);
         }
 
-        public async Task<int> UpdateUserAsync(User user, CancellationToken cancellationToken)
-        {
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync(cancellationToken);
-            return user.IdUser;
-        }
+        
     }
 }

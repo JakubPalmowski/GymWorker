@@ -1,19 +1,22 @@
 ﻿using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.Application.Services;
 
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IRepository<User> _repository;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepository userRepository, IRepository<User> repository)
     {
         _userRepository = userRepository;
+        _repository = repository;
     }
     public async Task<bool> CheckIfUserExists(int idUser, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetUserByIdAsync(idUser, cancellationToken);
+        var user = await _repository.GetByIdAsync(idUser, cancellationToken);
         return user != null;
     }
 

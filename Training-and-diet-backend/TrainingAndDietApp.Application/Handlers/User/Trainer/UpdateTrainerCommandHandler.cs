@@ -13,18 +13,20 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
 {
     public class UpdateTrainerCommandHandler : IRequestHandler<UpdateTrainerInternalCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<Domain.Entities.User> _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public UpdateTrainerCommandHandler(IUserRepository userRepository, IUserService userService, IMapper mapper)
+        public UpdateTrainerCommandHandler(IRepository<Domain.Entities.User> repository, IUserService userService, IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
+            _repository = repository;
             _userService = userService;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         public async Task Handle(UpdateTrainerInternalCommand request, CancellationToken cancellationToken)
         {
-            var userToUpdate = await _userRepository.GetUserByIdAsync(request.IdUser, cancellationToken);
+            var userToUpdate = await _repository.GetByIdAsync(request.IdUser, cancellationToken);
             if (userToUpdate == null)
             {
                 throw new NotFoundException("User not found");
@@ -36,7 +38,7 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             }
             userToUpdate.Name = request.TrainerCommand.Name;
             userToUpdate.LastName = request.TrainerCommand.LastName;
-            if (!(request.TrainerCommand.Email == userToUpdate.Email))
+            if (request.TrainerCommand.Email != userToUpdate.Email)
             {
                 userToUpdate.Email = request.TrainerCommand.Email;
                 userToUpdate.EmailValidated = false;
@@ -48,7 +50,8 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             userToUpdate.PersonalTrainingPriceTo = request.TrainerCommand.PersonalTrainingPriceTo;
             userToUpdate.Bio = request.TrainerCommand.Bio;
 
-            await _userRepository.UpdateUserAsync(userToUpdate, cancellationToken);
+            await _repository.UpdateAsync(userToUpdate, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
         }
     }
 }
