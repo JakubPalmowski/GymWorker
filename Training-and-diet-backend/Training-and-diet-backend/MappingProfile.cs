@@ -18,7 +18,6 @@ using TrainingAndDietApp.Application.Responses.Trainer;
 using TrainingAndDietApp.Application.Responses.TraineeExercise;
 using TrainingAndDietApp.Application.Responses.TrainingPlan;
 using TrainingAndDietApp.DAL.EntityModels;
-using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Entities;
 using Gym = TrainingAndDietApp.Domain.Entities.Gym;
 using GymResponse = TrainingAndDietApp.Application.Responses.Gym.GymResponse;

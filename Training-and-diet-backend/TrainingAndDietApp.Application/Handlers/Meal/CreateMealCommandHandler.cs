@@ -1,47 +1,41 @@
 ﻿using AutoMapper;
 using MediatR;
+using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Application.Responses.Meal;
 using TrainingAndDietApp.Common.Exceptions;
-using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.Handlers.Meal
 {
     public class CreateMealCommandHandler : IRequestHandler<CreateMealCommand, MealResponse>
     {
-        private readonly IMealRepository _mealRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<Domain.Entities.Meal> _repository;
+        private readonly IUserService _userService;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public CreateMealCommandHandler(IMealRepository mealRepository, IMapper mapper, IUserRepository userRepository)
+        public CreateMealCommandHandler(IRepository<Domain.Entities.Meal> repository, IMapper mapper, IUserRepository userRepository, IUserService userService, IUnitOfWork unitOfWork)
         {
-            _mealRepository = mealRepository;
+            _repository = repository;
             _mapper = mapper;
-            _userRepository = userRepository;
+            _userService = userService;
+            _unitOfWork = unitOfWork;
         }
         public async Task<MealResponse> Handle(CreateMealCommand request, CancellationToken cancellationToken)
         {
-            if (!await CheckIfUserExists(request.IdDietician, cancellationToken))
+            if (!await _userService.CheckIfUserExists(request.IdDietician, cancellationToken))
                 throw new NotFoundException("User not found");
 
-            if (!await CheckIfUserIsDietician(request.IdDietician, cancellationToken))
+            if (!await _userService.CheckIfUserIsDietician(request.IdDietician, cancellationToken) || await _userService.CheckIfUserIsDieticianTrainer(request.IdDietician, cancellationToken))
                 throw new BadRequestException("User is not a dietician");
 
-            var result = _mapper.Map<DAL.Models.Meal>(request);
-            await _mealRepository.AddMealAsync(result, cancellationToken);
+            var result = _mapper.Map<Domain.Entities.Meal>(request);
+            await _repository.AddAsync(result, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
             return _mapper.Map<MealResponse>(result);
         }
 
-        private async Task<bool> CheckIfUserIsDietician(int dieticianId, CancellationToken cancellation)
-        {
-            return await _userRepository
-                .AnyAsync(user => user.IdUser == dieticianId && (user.Role.Name.Equals("Dietician") || user.Role.Name.Equals("Dietician-Trainer")));
-        }
-        private async Task<bool> CheckIfUserExists(int idUser, CancellationToken cancellationToken)
-        {
-            var user = await _userRepository.GetUserByIdAsync(idUser, cancellationToken);
-            return user != null;
-        }
+     
     }
 }
