@@ -67,6 +67,10 @@ export class UserService{
       GetTrainerPersonalInfoById(id: string):Observable<UserPersonalInfo>{
         return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/Trainer/PersonalInfo/'+id)
       }
+
+      UpdateTrainerPersonalInfo(trainerPersonalInfo: TrainerPersonalInfo,id: string):Observable<any>{
+        return this.http.put('https://localhost:7259/api/User/Trainer/'+id, trainerPersonalInfo);
+      }
       
 
     

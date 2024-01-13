@@ -65,7 +65,8 @@ namespace Training_and_diet_backend
 
             CreateMap<User, MentorWithOpinionResponse>()
                 .ForMember(dest => dest.Opinions, opt => opt.MapFrom(src => src.MentorOpinions))
-                .ForMember(dest => dest.TrainerGyms, opt => opt.MapFrom(src => src.TrainerGyms));
+                .ForMember(dest => dest.TrainerGyms, opt => opt.MapFrom(src => src.TrainerGyms))
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name));
 
             CreateMap<Opinion, OpinionResponse>()
                 .ForMember(dest => dest.PupilName, opt => opt.MapFrom(src => src.Pupil.Name));

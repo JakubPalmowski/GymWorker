@@ -23,7 +23,7 @@ public class GetMentorWithOpinionsQueryHandler : IRequestHandler<GetMentorWithOp
     }
     public async Task<MentorWithOpinionResponse> Handle(GetMentorWithOpinionsQuery request, CancellationToken cancellationToken)
     {
-        if(!(request.RoleName == "Trainer" || request.RoleName == "Dietician)"))
+        if(!(request.RoleName == "Trainer" || request.RoleName == "Dietician"))
            throw new BadRequestException("User has wrong role");
 
         if (! await _userService.CheckIfUserExists(request.Id, cancellationToken))

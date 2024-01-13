@@ -89,6 +89,8 @@
             </div>
         </ng-container>
 
+
+
         <ng-container *ngIf="role=='Trainer'">
         <div class="col-12 mt-3">
             <h2>Cennik</h2>
@@ -116,6 +118,27 @@
         <label style="margin-left: 10%;">Maksymalny koszt treningu personalnego(zł)</label>
         <input style="margin-left: 10%;" type="number" value="{{user.personalTrainingPriceTo}}" disabled class="input-price">
     </div>
+
+
+    <div class="col-12 mt-3">
+        <h2>Moje siłownie</h2>
+        </div>
+    <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
+    
+    <ng-container *ngIf="user.trainerGyms && user.trainerGyms.length > 0; else noGymsTemplate">
+        <div class="col-12 mb-2" *ngFor="let gym of user.trainerGyms">
+          <span class="fs-4" style="margin-left: 5%;">{{ gym.name }}</span>
+        </div>
+      </ng-container>
+
+      <ng-template #noGymsTemplate>
+        <div class="col-12">
+          <span class="fs-4" style="margin-left: 5%;">Nie dodałeś jeszcze żadnych siłownii do swojego profilu</span>
+        </div>
+      </ng-template>
+      
+
+
         </ng-container>
     
 
