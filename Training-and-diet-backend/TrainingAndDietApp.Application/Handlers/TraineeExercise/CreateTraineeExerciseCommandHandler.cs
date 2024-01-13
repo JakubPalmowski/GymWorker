@@ -10,14 +10,16 @@ namespace TrainingAndDietApp.Application.Handlers.TraineeExercise;
 
 public class CreateTraineeExerciseCommandHandler : IRequestHandler<CreateTraineeExerciseCommand, CreateTraineeExerciseResponse>
 {
-    private readonly ITraineeExercisesRepository _traineeExercisesRepository;
+    private readonly IRepository<Domain.Entities.TraineeExercise> _repository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ITraineeExerciseService _exerciseService;
     private readonly IMapper _mapper;
-    public CreateTraineeExerciseCommandHandler(IMapper mapper, ITraineeExercisesRepository traineeExercisesRepository, ITraineeExerciseService exerciseService)
+    public CreateTraineeExerciseCommandHandler(IMapper mapper, IRepository<Domain.Entities.TraineeExercise> repository, ITraineeExerciseService exerciseService, IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
-        _traineeExercisesRepository = traineeExercisesRepository;
+        _repository = repository;
         _exerciseService = exerciseService;
+        _unitOfWork = unitOfWork;
     }
     public async Task<CreateTraineeExerciseResponse> Handle(CreateTraineeExerciseCommand request, CancellationToken cancellationToken)
     {
@@ -29,7 +31,8 @@ public class CreateTraineeExerciseCommandHandler : IRequestHandler<CreateTrainee
 
         var traineeExercises = _mapper.Map<Domain.Entities.TraineeExercise>(request);
 
-        await _traineeExercisesRepository.AddTraineeExercisesAsync(traineeExercises, cancellationToken);
+        await _repository.AddAsync(traineeExercises, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
 
         int createdId = traineeExercises.IdExercise;
 
