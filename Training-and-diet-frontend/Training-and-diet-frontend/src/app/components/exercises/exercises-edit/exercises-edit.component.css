@@ -11,17 +11,10 @@
     border-radius: 10px;
 }
 
-
-form{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+input,label,.validation-error,textarea{
+    margin-left: 25%;
 }
 
-.container-form{
-    margin-left: auto;
-    margin-right: auto;
-}
 
 h3{
     font-size: 32px;
@@ -39,6 +32,9 @@ h3{
     border: none;
     border-radius: 20px;
     width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 
 }
 

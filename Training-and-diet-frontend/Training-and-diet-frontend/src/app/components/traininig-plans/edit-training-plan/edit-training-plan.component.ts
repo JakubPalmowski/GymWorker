@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FullTrainingPlanGet } from 'src/app/models/full-training-plan-get';
 import { FullTrainingPlan } from 'src/app/models/full-training-plan.model';
 import { TrainingExerciseFull } from 'src/app/models/training-exercise-full';
 import { TrainingPlan } from 'src/app/models/trainingPlan.model';
@@ -23,14 +24,15 @@ export class EditTrainingPlanComponent implements OnInit{
 
   trainingPlanExercises:TrainingExerciseFull[]=[];
  
-  trainingPlan:FullTrainingPlan={
+  trainingPlan:FullTrainingPlanGet={
     idTrainingPlan:0,
     name:'',
     customName:'',
     type:'',
     startDate:new Date(),
     numberOfWeeks:0,
-    idTrainer:3
+    idTrainer:3,
+    idPupil:0
 
   }
 
@@ -76,7 +78,7 @@ export class EditTrainingPlanComponent implements OnInit{
             next:(trainingPlanExercises)=>{
               this.trainingPlanExercises=trainingPlanExercises;
               this.changeTrainingDay(0,"pn");
-           
+
             },
             error: (response)=>{
               console.log("here"+response);
@@ -97,7 +99,24 @@ export class EditTrainingPlanComponent implements OnInit{
   editTrainingPlan(){
     console.log("edit");
     console.log(this.trainingPlan);
-    //TODO If udała się edycja wyświetl komunikat i nie rób przekierowania, tylko zostań na tej stronie
+    console.log(this.idTraining);
+    const responseDiv = document.getElementById("edit-resp");
+
+
+    this.trainingPlanService.editTrainingPlan(this.trainingPlan,this.idTraining).subscribe({
+      next:(plan)=>{
+        console.log(plan);
+        if(responseDiv){
+        responseDiv.innerHTML="Edycja planu powiodła się";
+        }
+      },
+      error:(response)=>{
+        console.log(response);
+        if(responseDiv){
+          responseDiv.innerHTML="Podczas edycji wystąpił błąd";
+          
+        }}
+    });
   }
 
   onSubmit(valid:any)

@@ -64,6 +64,9 @@
                 </div>
 
                 <button type="submit" class="button-edit">Edytuj</button>
+                <div class="edit-response" id="edit-resp">
+                   
+                </div>
             </form>
         </div>
     </div>
@@ -103,6 +106,7 @@
         <p *ngIf="!trainingPlanExercises || trainingPlanExercises.length <=0">Ten plan treningowy nie zawiera ćwiczeń</p>
         <a routerLink="/training-plans/exercise-list" [queryParams]="{id: idTraining}" class="">
              <span class="add-exercise-link">+ <br>Dodaj ćwiczenie do planu</span> </a>
+            
     </div>
     
 </div>

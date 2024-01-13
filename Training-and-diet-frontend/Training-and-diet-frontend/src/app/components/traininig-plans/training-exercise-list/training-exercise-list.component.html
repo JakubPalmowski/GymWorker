@@ -27,7 +27,7 @@
                 <tr>
                     <th class="table-head-big">Nazwa</th>
                     <th class="table-head-small" *ngIf="id_training!=undefined">Dodaj do planu</th>
-                    <th class="table-head-small">Edycja</th>
+                    <th *ngIf="this.my_exercises_flag" class="table-head-small">Edycja</th>
                     <th class="table-head-small">Szczegóły</th>
                 </tr>
             </thead>
@@ -35,7 +35,7 @@
                 <tr *ngFor="let trainingPlanExercise of filteredPlanExercises">
                     <td>{{trainingPlanExercise.name}}</td>
                     <td *ngIf="id_training!=undefined"><a routerLink="add" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:id_training}">[+]</a></td>
-                    <td><a [routerLink]="['/exercises/edit',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
+                    <td *ngIf="this.my_exercises_flag"><a [routerLink]="['/exercises/edit',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
                     <td><a [routerLink]="['/exercises/details',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/details.png" id="edit-icon"></a></td>
                 </tr>
             </tbody>
