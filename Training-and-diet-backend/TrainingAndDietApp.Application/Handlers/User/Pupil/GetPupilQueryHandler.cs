@@ -30,8 +30,11 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
         {
             if(! await _userService.CheckIfUserExists(request.Id,cancellationToken))
                 throw new NotFoundException("User not found");
-            if(! (await _userService.CheckIfUserIsTrainer(request.Id,cancellationToken) || await _userService.CheckIfUserIsDietician(request.Id, cancellationToken)))
+            if(!(await _userService.CheckIfUserIsTrainer(request.Id, cancellationToken) ||
+                    await _userService.CheckIfUserIsDietician(request.Id, cancellationToken) ||
+                    await _userService.CheckIfUserIsDieticianTrainer(request.Id, cancellationToken)))
                 throw new BadRequestException("User is not a mentor");
+            
 
             var pupil = await _userRepository.GetPupilsByTrainerIdAsync(request.Id, cancellationToken);
             var pupilResponse = _mapper.Map<List<PupilResponse>>(pupil);

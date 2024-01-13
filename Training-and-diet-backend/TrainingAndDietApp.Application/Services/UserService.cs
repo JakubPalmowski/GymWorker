@@ -20,13 +20,13 @@ public class UserService : IUserService
     public async Task<bool> CheckIfUserIsDietician(int dieticianId, CancellationToken cancellationToken)
     {
         return await _userRepository
-            .AnyAsync(user => user.IdUser == dieticianId && (user.Role.Name.Equals("Dietician") || user.Role.Name.Equals("Dietician-Trainer")));
+            .AnyAsync(user => user.IdUser == dieticianId && (user.Role.Name.Equals("Dietician")));
     }
 
     public async Task<bool> CheckIfUserIsTrainer(int trainerId, CancellationToken cancellationToken)
     {
         return await _userRepository
-            .AnyAsync(user => user.IdUser == trainerId && (user.Role.Name.Equals("Trainer") || user.Role.Name.Equals("Dietician-Trainer")));
+            .AnyAsync(user => user.IdUser == trainerId && (user.Role.Name.Equals("Trainer")));
     }
 
     public async Task<bool> CheckIfUserIsPupil(int pupilId, CancellationToken cancellationToken)
