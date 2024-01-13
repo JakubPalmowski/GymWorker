@@ -40,3 +40,8 @@ a{
     width: auto;
     
 }
+
+.input-price{
+    width: 80px;
+    text-align: center;
+}

@@ -37,7 +37,8 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             }
             userToUpdate.Name = request.DieticianCommand.Name;
             userToUpdate.LastName = request.DieticianCommand.LastName;
-            if (request.DieticianCommand.Email != userToUpdate.Email)
+
+            if (!(request.DieticianCommand.Email == userToUpdate.Email))
             {
                 userToUpdate.Email = request.DieticianCommand.Email;
                 userToUpdate.EmailValidated = false;

@@ -25,7 +25,7 @@ public class GetTrainerExercisesQueryHandler : IRequestHandler<GetTrainerExercis
         if(! await _userService.CheckIfUserExists(request.TrainerId, cancellationToken))
             throw new NotFoundException("Trainer not found");
 
-        if (! await _userService.CheckIfUserIsTrainer(request.TrainerId, cancellationToken))
+        if (! (await _userService.CheckIfUserIsTrainer(request.TrainerId, cancellationToken) || await _userService.CheckIfUserIsDieticianTrainer(request.TrainerId, cancellationToken)))
             throw new BadRequestException("User is not a trainer");
 
         var exercises = await _exerciseRepository.GetTrainerExercisesAsync(request.TrainerId, cancellationToken);

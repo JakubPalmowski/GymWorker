@@ -12,7 +12,7 @@ using TrainingAndDietApp.Application.Responses.Pupil;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.Handlers.User
+namespace TrainingAndDietApp.Application.Handlers.User.Pupil
 {
     public class GetPupilQueryHandler : IRequestHandler<GetPupilQuery, IEnumerable<PupilResponse>>
     {
@@ -30,8 +30,11 @@ namespace TrainingAndDietApp.Application.Handlers.User
         {
             if(! await _userService.CheckIfUserExists(request.Id,cancellationToken))
                 throw new NotFoundException("User not found");
-            if(! (await _userService.CheckIfUserIsTrainer(request.Id,cancellationToken) || await _userService.CheckIfUserIsDietician(request.Id, cancellationToken)))
+            if(!(await _userService.CheckIfUserIsTrainer(request.Id, cancellationToken) ||
+                    await _userService.CheckIfUserIsDietician(request.Id, cancellationToken) ||
+                    await _userService.CheckIfUserIsDieticianTrainer(request.Id, cancellationToken)))
                 throw new BadRequestException("User is not a mentor");
+            
 
             var pupil = await _userRepository.GetPupilsByTrainerIdAsync(request.Id, cancellationToken);
             var pupilResponse = _mapper.Map<List<PupilResponse>>(pupil);

@@ -92,7 +92,7 @@ export class MealsEditComponent implements OnInit{
   onSubmit(valid:any,form:Form){
     this.submitted=true;
     if(valid){
-     // this.editDieteticanMeal();
+      this.edit();
       console.log(this.editDieteticianMealRequest);
       console.log("ok");
     }
