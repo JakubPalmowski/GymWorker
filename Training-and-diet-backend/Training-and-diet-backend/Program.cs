@@ -9,6 +9,7 @@ using TrainingAndDietApp.Application.Services;
 using TrainingAndDietApp.Application.Validators;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Infrastructure.Context;
+using TrainingAndDietApp.Infrastructure.Persistance;
 using TrainingAndDietApp.Infrastructure.Repositories;
 using UserQuery = TrainingAndDietApp.Application.Queries.User.UserQuery;
 
@@ -29,7 +30,8 @@ builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
-builder.Services.AddScoped<IDietRepository, DietRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IMealRepository, MealRepository>();
 builder.Services.AddScoped<ITraineeExerciseService, TraineeExerciseService>();
 builder.Services.AddScoped<ITraineeExercisesRepository, TraineeExercisesRepository>();

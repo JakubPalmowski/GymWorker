@@ -1,16 +1,12 @@
 using AutoMapper;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Commands.User.Dietician;
-using TrainingAndDietApp.Application.Commands.User.Pupil;
-using TrainingAndDietApp.Application.Commands.User.Trainer;
 using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.Handlers.User.Pupil
+namespace TrainingAndDietApp.Application.Handlers.User.Dietician
 {
     public class UpdateDieticianCommandHandler : IRequestHandler<UpdateDieticianInternalCommand>
     {

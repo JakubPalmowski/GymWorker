@@ -14,4 +14,8 @@
     <ProjectReference Include="..\TrainingAndDietApp.DAL\TrainingAndDietApp.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistance\" />
+  </ItemGroup>
+
 </Project>

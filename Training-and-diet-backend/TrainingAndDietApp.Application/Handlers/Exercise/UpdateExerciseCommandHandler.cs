@@ -13,20 +13,23 @@ namespace TrainingAndDietApp.Application.Handlers.Exercise;
 
 public class UpdateExerciseCommandHandler : IRequestHandler<UpdateExerciseInternalCommand>
 {
-    private readonly IExerciseRepository _exerciseRepository;
+    private readonly IRepository<Domain.Entities.Exercise> _repository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-    public UpdateExerciseCommandHandler(IMapper mapper, IExerciseRepository exerciseRepository)
+    public UpdateExerciseCommandHandler(IMapper mapper, IRepository<Domain.Entities.Exercise> repository, IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
-        _exerciseRepository = exerciseRepository;
+        _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task Handle(UpdateExerciseInternalCommand request, CancellationToken cancellationToken)
     {
-        var exerciseToUpdate = await _exerciseRepository.GetExerciseByIdAsync(request.IdExercise, cancellationToken);
+        var exerciseToUpdate = await _repository.GetByIdAsync(request.IdExercise, cancellationToken);
         if (exerciseToUpdate == null)
             throw new NotFoundException("Exercise not found");
         _mapper.Map(request, exerciseToUpdate);
-        await _exerciseRepository.UpdateExerciseAsync(exerciseToUpdate, cancellationToken);
+        await _repository.UpdateAsync(exerciseToUpdate, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
     }
 }

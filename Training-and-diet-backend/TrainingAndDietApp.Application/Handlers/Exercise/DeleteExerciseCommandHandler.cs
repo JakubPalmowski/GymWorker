@@ -9,19 +9,22 @@ namespace TrainingAndDietApp.Application.Handlers.Exercise;
 
 public class DeleteExerciseCommandHandler : IRequestHandler<DeleteExerciseCommand>
 {
-    private readonly IExerciseRepository _exerciseRepository;
+    private readonly IRepository<Domain.Entities.Exercise> _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
 
-    public DeleteExerciseCommandHandler(IExerciseRepository exerciseRepository)
+    public DeleteExerciseCommandHandler(IRepository<Domain.Entities.Exercise> repository, IUnitOfWork unitOfWork)
     {
-        _exerciseRepository = exerciseRepository;
+        _repository = repository;
+        _unitOfWork = unitOfWork;
     }
     public async Task Handle(DeleteExerciseCommand request, CancellationToken cancellationToken)
     {
-        var exercise = await _exerciseRepository.GetExerciseByIdAsync(request.IdExercise, cancellationToken);
+        var exercise = await _repository.GetByIdAsync(request.IdExercise, cancellationToken);
         if (exercise == null)
             throw new NotFoundException("Exercise not found");
 
-        await _exerciseRepository.DeleteExerciseAsync(exercise.IdExercise, cancellationToken);
+        await _repository.DeleteAsync(exercise.IdExercise, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
     }
 }

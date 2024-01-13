@@ -57,6 +57,8 @@ namespace Training_and_diet_backend
             CreateMap<TrainingPlan, GetTrainerTrainingPlansResponse>();
             CreateMap<User, UserResponse<User>>();
 
+            CreateMap<CreateExerciseCommand, Exercise>();
+
            
             CreateMap<Meal, UpdateMealInternalCommand>();
 

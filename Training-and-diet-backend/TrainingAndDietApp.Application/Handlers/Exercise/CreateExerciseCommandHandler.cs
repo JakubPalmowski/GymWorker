@@ -11,14 +11,16 @@ namespace TrainingAndDietApp.Application.Handlers.Exercise
 {
     public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, ExerciseNameResponse>
     {
-        private readonly IExerciseRepository _exerciseRepository;
+        private readonly IRepository<Domain.Entities.Exercise> _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        public CreateExerciseCommandHandler(IMapper mapper, IExerciseRepository exerciseRepository, IUserService userService)
+        public CreateExerciseCommandHandler(IMapper mapper, IRepository<Domain.Entities.Exercise> repository, IUserService userService, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
-            _exerciseRepository = exerciseRepository;
+            _repository = repository;
             _userService = userService;
+            _unitOfWork = unitOfWork;
         }
         public async Task<ExerciseNameResponse> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
         {
@@ -29,7 +31,8 @@ namespace TrainingAndDietApp.Application.Handlers.Exercise
                 throw new BadRequestException("User is not a trainer");
 
             var exercise = _mapper.Map<Domain.Entities.Exercise>(request);
-            await _exerciseRepository.CreateExerciseAsync(exercise, cancellationToken);
+            await _repository.AddAsync(exercise, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
             return _mapper.Map<ExerciseNameResponse>(exercise);
         }
 
