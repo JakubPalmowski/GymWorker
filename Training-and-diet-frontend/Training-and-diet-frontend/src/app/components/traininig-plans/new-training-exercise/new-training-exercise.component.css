@@ -16,18 +16,8 @@
 
 
 
-form{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-.container-form{
-    
-    margin-left: auto;
-    margin-right: auto;
-    
-    
+input,label,.validation-error,textarea,select{
+    margin-left: 25%;
 }
 
 h3{
@@ -42,10 +32,10 @@ h3{
 }
 
 table{
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 25%;
     
 }
+
 
 #comments{
     height: 150px;
@@ -56,9 +46,7 @@ table{
     border: 0.5px solid black;
     border-radius: 20px;
     width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+    margin-left: 25%;
     margin-bottom: 10px;
 }
 
@@ -71,5 +59,9 @@ table{
     font-weight: bold;
     border: none;
     border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
 
 }
