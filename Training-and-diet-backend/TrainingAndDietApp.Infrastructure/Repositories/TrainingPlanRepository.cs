@@ -16,22 +16,6 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan, CancellationToken cancellationToken)
-        {
-            _context.Training_plans.Add(trainingPlan);
-            await _context.SaveChangesAsync(cancellationToken);
-            return trainingPlan.IdTrainingPlan;
-        }
-
-        public async Task<TrainingPlan?> GetTrainingPlanByIdAsync(int trainingPlanId, CancellationToken cancellationToken)
-        {
-           var trainingPlan =  await _context.Training_plans
-                .Where(plan => plan.IdTrainingPlan == trainingPlanId)
-                .SingleOrDefaultAsync(cancellationToken: cancellationToken);
-
-           return trainingPlan;
-        }
-
         public async Task<List<TrainingPlan>> GetTrainerTrainingPlans(int idTrainer, CancellationToken cancellationToken)
         {
             return await  _context.Training_plans.Where(e => e.IdTrainer == idTrainer).ToListAsync(cancellationToken: cancellationToken);
@@ -46,10 +30,5 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             return trainingPlan.Any();
         }
 
-        public async Task UpdateTrainingPlanAsync(TrainingPlan trainingPlan, CancellationToken cancellationToken)
-        {
-            _context.Training_plans.Update(trainingPlan);
-            await _context.SaveChangesAsync(cancellationToken);
-        }
     }
 }

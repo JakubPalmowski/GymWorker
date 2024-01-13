@@ -9,14 +9,16 @@ namespace TrainingAndDietApp.Application.Handlers.TrainingPlan
 {
     public class CreateTrainingPlanCommandHandler : IRequestHandler<CreateTrainingPlanCommand, CreateTrainingPlanResponse>
     {
-        private readonly ITrainingPlanRepository _trainingPlanRepository;
+        private readonly IRepository<Domain.Entities.TrainingPlan> _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public CreateTrainingPlanCommandHandler(IMapper mapper, ITrainingPlanRepository trainingPlanRepository, IUserService userService)
+        public CreateTrainingPlanCommandHandler(IMapper mapper, IRepository<Domain.Entities.TrainingPlan> repository, IUserService userService, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
-            _trainingPlanRepository = trainingPlanRepository;
+            _repository = repository;
             _userService = userService;
+            _unitOfWork = unitOfWork;
         }
         public async Task<CreateTrainingPlanResponse> Handle(CreateTrainingPlanCommand request, CancellationToken cancellationToken)
         {
@@ -26,8 +28,9 @@ namespace TrainingAndDietApp.Application.Handlers.TrainingPlan
                 throw new NotFoundException("User is not a trainer");
 
             var trainingPlan = _mapper.Map<Domain.Entities.TrainingPlan>(request);
-            var id = await _trainingPlanRepository.AddTrainingPlanAsync(trainingPlan, cancellationToken);
-            return new CreateTrainingPlanResponse {IdTrainingPlan = id};
+            await _repository.AddAsync(trainingPlan, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+            return new CreateTrainingPlanResponse {IdTrainingPlan = trainingPlan.IdTrainingPlan};
 
         }
     }

@@ -9,20 +9,23 @@ namespace TrainingAndDietApp.Application.Handlers.TrainingPlan;
 
 public class UpdateTrainingPlanCommandHandler : IRequestHandler<UpdateTrainingPlanInternalCommand>
 {
-    private readonly ITrainingPlanRepository _trainingPlanRepository;
+    private readonly IRepository<Domain.Entities.TrainingPlan> _repository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-    public UpdateTrainingPlanCommandHandler(IMapper mapper, ITrainingPlanRepository trainingPlanRepository)
+    public UpdateTrainingPlanCommandHandler(IMapper mapper, IRepository<Domain.Entities.TrainingPlan> repository, IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
-        _trainingPlanRepository = trainingPlanRepository;
+        _repository = repository;
+        _unitOfWork = unitOfWork;
     }
     public async Task Handle(UpdateTrainingPlanInternalCommand request, CancellationToken cancellationToken)
     {
-        var trainingPlan = await _trainingPlanRepository.GetTrainingPlanByIdAsync(request.IdTrainingPlan, cancellationToken);
+        var trainingPlan = await _repository.GetByIdAsync(request.IdTrainingPlan, cancellationToken);
         if (trainingPlan == null)
             throw new NotFoundException("Training plan not found");
 
         _mapper.Map(request, trainingPlan);
-        await _trainingPlanRepository.UpdateTrainingPlanAsync(trainingPlan, cancellationToken);
+        await _repository.UpdateAsync(trainingPlan, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
     }
 }
