@@ -1,6 +1,6 @@
 export interface TrainingExerciseFull{
-    IdTraineeExercise:number;
-    name:string;
+    idTraineeExercise:number;
+    exerciseName:string;
     seriesNumber: number,
     repetitionsNumber: string,
     comments: string,

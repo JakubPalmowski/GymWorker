@@ -21,119 +21,7 @@ export class EditTrainingPlanComponent implements OnInit{
 
   filteredTrainingPlanExercises:TrainingExerciseFull[]=[];
 
-  trainingPlanExercises:TrainingExerciseFull[]=[
-    {
-      IdTraineeExercise:1,
-      name:'test1',
-      seriesNumber: 3,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 0,
-      idExercise: 1,
-      idTrainingPlan:1
-    },
-    {
-      IdTraineeExercise: 59,
-      name: 'test10',
-      seriesNumber: 5,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 4,
-      idExercise: 25,
-      idTrainingPlan: 89
-      },
-      {
-      IdTraineeExercise: 50,
-      name: 'test7',
-      seriesNumber: 2,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 5,
-      idExercise: 51,
-      idTrainingPlan: 25
-      },
-      {
-      IdTraineeExercise: 47,
-      name: 'test8',
-      seriesNumber: 10,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 3,
-      idExercise: 65,
-      idTrainingPlan: 91
-      },
-      {
-      IdTraineeExercise: 71,
-      name: 'test2',
-      seriesNumber: 6,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 0,
-      idExercise: 7,
-      idTrainingPlan: 31
-      },
-      {
-      IdTraineeExercise: 14,
-      name: 'test7',
-      seriesNumber: 6,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 0,
-      idExercise: 76,
-      idTrainingPlan: 45
-      },
-      {
-      IdTraineeExercise: 70,
-      name: 'test4',
-      seriesNumber: 7,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 5,
-      idExercise: 91,
-      idTrainingPlan: 74
-      },
-      {
-      IdTraineeExercise: 24,
-      name: 'test5',
-      seriesNumber: 9,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 4,
-      idExercise: 28,
-      idTrainingPlan: 57
-      },
-      {
-      IdTraineeExercise: 31,
-      name: 'test7',
-      seriesNumber: 3,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 4,
-      idExercise: 26,
-      idTrainingPlan: 36
-      },
-      {
-      IdTraineeExercise: 5,
-      name: 'test6',
-      seriesNumber: 2,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 2,
-      idExercise: 32,
-      idTrainingPlan: 99
-      },
-      {
-      IdTraineeExercise: 41,
-      name: 'test6',
-      seriesNumber: 10,
-      repetitionsNumber: '4,6,8',
-      comments: 'obciążenie 10kg na każdą ręke',
-      dayOfWeek: 4,
-      idExercise: 74,
-      idTrainingPlan: 96
-      }
-
-  ];
+  trainingPlanExercises:TrainingExerciseFull[]=[];
  
   trainingPlan:FullTrainingPlan={
     idTrainingPlan:0,
@@ -183,10 +71,11 @@ export class EditTrainingPlanComponent implements OnInit{
             }
           })
 
-          /*
+          
           this.trainingPlanService.getExercisesByPlanId(id).subscribe({
             next:(trainingPlanExercises)=>{
               this.trainingPlanExercises=trainingPlanExercises;
+              this.changeTrainingDay(0,"pn");
            
             },
             error: (response)=>{
@@ -194,7 +83,7 @@ export class EditTrainingPlanComponent implements OnInit{
             }
           })
 
-          */
+          
           
         }
         else{

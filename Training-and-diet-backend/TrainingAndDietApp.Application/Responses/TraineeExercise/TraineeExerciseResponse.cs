@@ -2,6 +2,7 @@
 
 public class TraineeExerciseResponse
 {
+    public string IdTraineeExercise { get; set; }
     public string SeriesNumber { get; set; }
     public string RepetitionsNumber { get; set; }
     public string ExerciseName { get; set; }
