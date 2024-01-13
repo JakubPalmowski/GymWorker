@@ -6,7 +6,7 @@
             <form  #form="ngForm" (ngSubmit)="onSubmit(form.valid)" >
                 <div class="mb-3">
                     <label  for="seriesNumber" class="form-label">Liczba serii:</label><br>
-                    <input type="number" max="6" min="0" class="form-input" id="seriesNumber" name="seriesNumber" #seriesNumber="ngModel"
+                    <input type="number" max="6" min="0"  class="form-input" id="seriesNumber" name="seriesNumber" #seriesNumber="ngModel"
                     (change)="OnChangeSeriesNumber(newTrainingExerciseRequest.seriesNumber)" [(ngModel)]="newTrainingExerciseRequest.seriesNumber">
                     <div *ngIf="seriesNumber.errors?.['min'] && this.submitted" class="validation-error">
                         Serii nie może być mniej niż 0

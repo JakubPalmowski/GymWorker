@@ -4,6 +4,7 @@ import { ExerciseGetById } from 'src/app/models/exercise-get-by-id';
 import { ExerciseShort } from 'src/app/models/exercise-short.model';
 import { NewTrainingExercise } from 'src/app/models/new-training-exercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
+import { PreviousUrlService } from 'src/app/services/previous-url.service';
 
 @Component({
   selector: 'app-edit-training-exercise',
@@ -12,6 +13,7 @@ import { ExercisesService } from 'src/app/services/exercises.service';
 })
 export class EditTrainingExerciseComponent implements OnInit{
 
+  id_training_exercise:string='';
   id_training:string='';
   id_exercise:string='';
 
@@ -31,13 +33,13 @@ export class EditTrainingExerciseComponent implements OnInit{
     name:''
   };
    
-  repetitions:number[]=[];
+  repetitions:string[]=[];
 
   submitted=false;
   
-
+  previousUrl:string='';
   
-  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute,private router:Router){
+  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute,private router:Router,private previousUrlService: PreviousUrlService){
  
   }
   
@@ -45,22 +47,45 @@ export class EditTrainingExerciseComponent implements OnInit{
      
 
   ngOnInit(): void {
+
+
+    this.route.paramMap.subscribe({
+      next:(params)=>{
+        const id=params.get('id');
+
+
+      
+
+     
+  
+    this.previousUrl=this.previousUrlService.getPreviousUrl();
     this.id_training=this.route.snapshot.queryParams['trainingId'];
     this.id_exercise=this.route.snapshot.queryParams['exerciseId'];
+    console.log(this.route.snapshot.queryParams);
     console.log("tr"+this.id_training);
     console.log("cw"+this.id_exercise);
 
-    this.exerciseServise.getExerciseById(this.id_exercise).subscribe({
+
+    if(id){
+      this.id_training_exercise=id;
+    this.exerciseServise.getTrainingExerciseById(this.id_training_exercise).subscribe({
       next:(exercise)=>{
-        this.exercise=exercise;
-        console.log(this.exercise.name);
+        this.newTrainingExerciseRequest=exercise;
+        this.repetitions=this.newTrainingExerciseRequest.repetitionsNumber.split(",");
+        console.log(this.newTrainingExerciseRequest);
+        //console.log(this.exercise);
       },
       error: (response)=>{
         console.log(response);
       }
     })
+  
+    
     
   }
+
+  }})
+}
 
   OnChangeSeriesNumber(seriesNumber:number){
     console.log(seriesNumber.toString());
@@ -83,7 +108,7 @@ export class EditTrainingExerciseComponent implements OnInit{
     if(valid){
       console.log(this.newTrainingExerciseRequest);
       
-      this.addTrainingExercise();
+      this.editTrainingExercise();
     }
   }
   
@@ -91,13 +116,13 @@ export class EditTrainingExerciseComponent implements OnInit{
     this.newTrainingExerciseRequest.dayOfWeek=parseInt(this.newTrainingExerciseRequest.dayOfWeek.toString());
   }
 
-  addTrainingExercise(){
+  editTrainingExercise(){
     this.newTrainingExerciseRequest.idExercise=parseInt(this.id_exercise);
     this.newTrainingExerciseRequest.idTrainingPlan=parseInt(this.id_training);
     this.newTrainingExerciseRequest.repetitionsNumber=this.repetitions.toString();
     
     
-    this.exerciseServise.addTrainingExercise(this.newTrainingExerciseRequest).subscribe({
+    this.exerciseServise.editTrainingExercise(this.newTrainingExerciseRequest,this.id_training_exercise).subscribe({
       next:(newTrainingExercise)=>{
         this.router.navigate(['/training-plans/edit/'+this.id_training]);
       }
@@ -108,6 +133,6 @@ export class EditTrainingExerciseComponent implements OnInit{
   }
 
   back(){
-    this.router.navigateByUrl("/training-plans/edit/3");
+    this.router.navigateByUrl(this.previousUrl);
   }
 }
