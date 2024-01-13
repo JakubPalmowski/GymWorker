@@ -25,7 +25,7 @@ namespace TrainingAndDietApp.Application.Handlers.Exercise
             if (!await _userService.CheckIfUserExists(request.IdTrainer, cancellationToken))
                 throw new NotFoundException("User not found");
 
-            if (!await _userService.CheckIfUserIsTrainer(request.IdTrainer, cancellationToken))
+            if (!(await _userService.CheckIfUserIsTrainer(request.IdTrainer, cancellationToken) || await _userService.CheckIfUserIsDieticianTrainer(request.IdTrainer, cancellationToken)))
                 throw new BadRequestException("User is not a trainer");
 
             var exercise = _mapper.Map<Domain.Entities.Exercise>(request);
