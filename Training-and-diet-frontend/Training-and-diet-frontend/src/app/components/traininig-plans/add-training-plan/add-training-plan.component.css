@@ -16,18 +16,9 @@
 
 
 
-form{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
 
-.container-form{
-    
-    margin-left: auto;
-    margin-right: auto;
-    
-    
+input,label,.validation-error{
+    margin-left: 25%;
 }
 
 h3{
@@ -44,5 +35,8 @@ h3{
     font-weight: bold;
     border: none;
     border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 
 }

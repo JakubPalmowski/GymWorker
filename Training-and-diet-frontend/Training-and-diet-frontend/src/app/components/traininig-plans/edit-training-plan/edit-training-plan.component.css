@@ -18,20 +18,10 @@
     width: 35%;
 }
 
-
-form{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+input,label,.validation-error{
+    margin-left: 25%;
 }
 
-.container-form{
-    
-    margin-left: auto;
-    margin-right: auto;
-    
-    
-}
 
 #regen{
     font-weight: bold;
@@ -53,7 +43,17 @@ h3{
     font-weight: bold;
     border: none;
     border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 
+}
+
+.edit-response{
+    color:#3244A0;
+    font-weight: bold;
+    font-size: 18px;
+    padding-bottom: 10px;
 }
 
 .container-table{

@@ -20,7 +20,7 @@ export class TrainingExerciseListComponent implements OnInit{
 
   id_training:string='';
   source:string='';
-
+  my_exercises_flag:boolean=true;
 
 
   constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location,private router:Router){}
@@ -64,6 +64,7 @@ export class TrainingExerciseListComponent implements OnInit{
     this.exerciseServise.getTrainerExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.filteredPlanExercises=trainingPlanExercises;
+        this.my_exercises_flag=true;
 
         const allExercisesElement = document.getElementById("all-exercises");
         const myExercisesElement = document.getElementById("my-exercises");
@@ -83,7 +84,8 @@ export class TrainingExerciseListComponent implements OnInit{
     this.exerciseServise.getAllExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.filteredPlanExercises=trainingPlanExercises;
-
+        
+        this.my_exercises_flag=false;
         const allExercisesElement = document.getElementById("all-exercises");
         const myExercisesElement = document.getElementById("my-exercises");
     
