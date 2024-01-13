@@ -38,14 +38,14 @@ namespace Training_and_diet_backend
             CreateMap<MealResponse, Meal>();
 
             CreateMap<CreateMealCommand, Meal>();
-            CreateMap<UpdateMealInternalCommand, Meal>();
+          
 
             CreateMap<Diet, DietResponse>();
 
             CreateMap<Exercise, ExerciseNameResponse>();
             CreateMap<Exercise, ExerciseResponse>();
 
-            CreateMap<UpdateExerciseInternalCommand, Exercise>();
+            
 
 
             CreateMap<CreateTraineeExerciseCommand, TraineeExercise>();
@@ -57,7 +57,8 @@ namespace Training_and_diet_backend
             CreateMap<TrainingPlan, GetTrainerTrainingPlansResponse>();
             CreateMap<User, UserResponse<User>>();
 
-            CreateMap<UpdateTrainingPlanInternalCommand, TrainingPlan>();
+           
+            CreateMap<Meal, UpdateMealInternalCommand>();
 
             CreateMap<User, MentorList>()
                 .ForMember(dest => dest.OpinionNumber, opt => opt.MapFrom(src => src.MentorOpinions.Count))
@@ -97,14 +98,42 @@ namespace Training_and_diet_backend
 
             CreateMap<User, DieticianTrainerPersonalInfoResponse>()
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name));
-        
 
             CreateMap<UpdateTraineeExerciseInternalCommand, TraineeExercise>()
                 .ForMember(dest => dest.RepetitionsNumber, opt => opt.MapFrom(src => src.TraineeExerciseCommand.RepetitionsNumber));
 
 
+
             CreateMap<TraineeExercise, TraineeExerciseResponse>()
                 .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom(src => src.Exercise.Name));
+
+            CreateMap<UpdateMealInternalCommand, Meal>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.MealCommand.Name))
+                .ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => src.MealCommand.Ingredients))
+                .ForMember(dest => dest.PrepareSteps, opt => opt.MapFrom(src => src.MealCommand.PrepareSteps))
+                .ForMember(dest => dest.Kcal, opt => opt.MapFrom(src => src.MealCommand.Kcal))
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.MealCommand.Image));
+
+            CreateMap<UpdateTrainingPlanInternalCommand, TrainingPlan>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UpdateTrainingPlanCommand.Name))
+                .ForMember(dest => dest.CustomName, opt => opt.MapFrom(src => src.UpdateTrainingPlanCommand.CustomName))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.UpdateTrainingPlanCommand.Type))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.UpdateTrainingPlanCommand.StartDate))
+                .ForMember(dest => dest.NumberOfWeeks, opt => opt.MapFrom(src => src.UpdateTrainingPlanCommand.NumberOfWeeks));
+
+            CreateMap<UpdateTraineeExerciseInternalCommand, TraineeExercise>()
+                .ForMember(dest => dest.SeriesNumber, opt => opt.MapFrom(src => src.TraineeExerciseCommand.SeriesNumber))
+                .ForMember(dest => dest.RepetitionsNumber, opt => opt.MapFrom(src => src.TraineeExerciseCommand.RepetitionsNumber))
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.TraineeExerciseCommand.Comments))
+                .ForMember(dest => dest.DayOfWeek, opt => opt.MapFrom(src => src.TraineeExerciseCommand.DayOfWeek));
+
+            CreateMap<UpdateExerciseInternalCommand, Exercise>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ExerciseCommand.Name))
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.ExerciseCommand.Details))
+                .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.ExerciseCommand.ExerciseSteps))
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ExerciseCommand.Image));
+
+
 
 
 
