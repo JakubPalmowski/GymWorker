@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { PupilPersonalInfo } from 'src/app/models/MyProfile/pupilPersonalInfo';
 import { TrainerPersonalInfo } from 'src/app/models/MyProfile/trainerPersonalInfo';
 import { UserPersonalInfo } from 'src/app/models/MyProfile/userPersonalInfo';
@@ -25,7 +26,7 @@ constructor(private userSerive: UserService, private gymService: GymService) {}
   ngOnInit(): void {
     //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
     this.role = "Trainer"
-    this.id = "3";
+    this.id = "5";
 
     if (this.role == "Pupil") {
       this.userSerive.GetPupilPersonalInfoById(this.id).subscribe(
@@ -40,28 +41,20 @@ constructor(private userSerive: UserService, private gymService: GymService) {}
       )
     }
     else if (this.role == "Trainer") {
-      this.userSerive.GetTrainerPersonalInfoById(this.id).subscribe(
-        {
-          next:(trainerInfo)=>{
-            this.user=trainerInfo;
-          },
-          error: (response)=>{
-            console.log(response);
+      forkJoin({
+        trainerInfo: this.userSerive.GetTrainerPersonalInfoById(this.id),
+        gyms: this.gymService.GetAllMentorGyms(this.id)
+      }).subscribe({
+        next: ({ trainerInfo, gyms }) => {
+          this.user = trainerInfo;
+          if (this.user) {
+            this.user.trainerGyms = gyms;
           }
+        },
+        error: (response) => {
+          console.log(response);
         }
-      )
-      this.gymService.GetAllMentorGyms(this.id).subscribe(
-        {
-          next: (gyms) => {
-            if (this.user) {
-              this.user.trainerGyms = gyms;
-            }
-          },
-          error: (response) => {
-            console.log(response);
-          }
-        }
-      );
+      });
     }else if (this.role == "Dietician") {
       //Pobranie danych mentora
       //Pobranie danych osobowych mentora

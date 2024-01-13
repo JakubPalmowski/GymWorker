@@ -37,7 +37,7 @@ namespace Training_and_diet_backend.Controllers
 
         }
 
-        //Pobiera trenera wraz z jego opiniami po Id
+        //Pobiera trenera/Dietetyka/TreneroDietetyka wraz z jego opiniami po Id
         [HttpGet("{RoleName}/{id}")]
         public async Task<IActionResult> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
         {

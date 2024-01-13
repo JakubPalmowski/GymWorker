@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { UserPersonalInfo } from 'src/app/models/MyProfile/userPersonalInfo';
 import { TrainerPersonalInfo } from 'src/app/models/MyProfile/trainerPersonalInfo';
 import { GymService } from 'src/app/services/gym.service';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -41,7 +42,7 @@ onFileSelected(event:any) {
 ngOnInit(): void {
   //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
   this.role = "Trainer"
-  this.id = "3";
+  this.id = "5";
 
   if (this.role == "Pupil") {
     this.userSerive.GetPupilPersonalInfoById(this.id).subscribe(
@@ -57,28 +58,20 @@ ngOnInit(): void {
     )
   }
   else if (this.role == "Trainer") {
-    this.userSerive.GetTrainerPersonalInfoById(this.id).subscribe(
-      {
-        next:(trainerInfo)=>{
-          this.user=trainerInfo;
-        },
-        error: (response)=>{
-          console.log(response);
+    forkJoin({
+      trainerInfo: this.userSerive.GetTrainerPersonalInfoById(this.id),
+      gyms: this.gymService.GetAllMentorGyms(this.id)
+    }).subscribe({
+      next: ({ trainerInfo, gyms }) => {
+        this.user = trainerInfo;
+        if (this.user) {
+          this.user.trainerGyms = gyms;
         }
+      },
+      error: (response) => {
+        console.log(response);
       }
-    )
-    this.gymService.GetAllMentorGyms(this.id).subscribe(
-      {
-        next: (gyms) => {
-          if (this.user) {
-            this.user.trainerGyms = gyms;
-          }
-        },
-        error: (response) => {
-          console.log(response);
-        }
-      }
-    );
+    });
   }else if (this.role == "Dietician") {
     //Pobranie danych mentora
     //Pobranie danych osobowych mentora
@@ -93,6 +86,19 @@ ngOnInit(): void {
 onSubmit() {
   if (this.profileForm?.valid) {
   if (this.user) {
+    if (this.user.role == "Trainer") {
+      let trainerInfo: TrainerPersonalInfo = this.mapUserToTrainer(this.user);
+      this.userSerive.UpdateTrainerPersonalInfo(this.user, this.id).subscribe({
+        next: (response) => {
+          this.successFlag = "success";
+          this.showSuccessPopup(this.successFlag);
+        },
+        error: (error) => {
+          this.successFlag = "error";
+          this.showSuccessPopup(this.successFlag);
+        }
+      });
+    }else if (this.user.role == "Pupil") {
     this.user.dateOfBirth = new Date(this.formattedDate);
     let pupilInfo: PupilPersonalInfo = this.mapUserToPupil(this.user);
     this.userSerive.UpdatePupilPersonalInfo(this.user, this.id).subscribe({
@@ -105,6 +111,7 @@ onSubmit() {
         this.showSuccessPopup(this.successFlag);
       }
     });
+  }
   }
   document.documentElement.scrollTop = 0;
 }
