@@ -27,7 +27,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, UserResponse<
         if (request.RoleName != "Trainer" && request.RoleName != "Dietician")
             throw new BadRequestException("Role name must be Trainer, Dietician");
 
-        var baseQuery = _userRepository.GetUsers(request.RoleName, request.Query?.SearchPhrase, cancellationToken);
+        var baseQuery = _userRepository.GetUsersWithDetails(request.RoleName, request.Query?.SearchPhrase, cancellationToken);
 
 
         if (!string.IsNullOrEmpty(request.Query?.GymCityPhrase))

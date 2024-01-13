@@ -15,10 +15,10 @@ namespace TrainingAndDietApp.Application.Handlers.Diet
 {
     public class GetDietsHandler :  IRequestHandler<GetDietsQuery, IEnumerable<DietResponse>>
     {
-        private readonly IDietRepository _repository;
+        private readonly IRepository<DAL.EntityModels.Diet> _repository;
         private readonly IMapper _mapper;
 
-        public GetDietsHandler(IDietRepository repository, IMapper mapper)
+        public GetDietsHandler(IRepository<DAL.EntityModels.Diet> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -26,7 +26,7 @@ namespace TrainingAndDietApp.Application.Handlers.Diet
 
         public async Task<IEnumerable<DietResponse>> Handle(GetDietsQuery request, CancellationToken cancellationToken)
         {
-            var diets = await _repository.GetDietsAsync(cancellationToken);
+            var diets = await _repository.GetAllAsync(cancellationToken);
             if (diets == null)
                 throw new NotFoundException("No diets found");
 

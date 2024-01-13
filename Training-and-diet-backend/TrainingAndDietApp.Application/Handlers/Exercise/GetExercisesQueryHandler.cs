@@ -10,16 +10,16 @@ namespace TrainingAndDietApp.Application.Handlers.Exercise;
 
 public class GetExercisesQueryHandler : IRequestHandler<GetExercisesQuery, IEnumerable<ExerciseNameResponse>>
 {
-    private readonly IExerciseRepository _exerciseRepository;
+    private readonly IRepository<Domain.Entities.Exercise> _repository;
     private readonly IMapper _mapper;
-    public GetExercisesQueryHandler(IMapper mapper, IExerciseRepository exerciseRepository)
+    public GetExercisesQueryHandler(IMapper mapper, IRepository<Domain.Entities.Exercise> repository)
     {
         _mapper = mapper;
-        _exerciseRepository = exerciseRepository;
+        _repository = repository;
     }
     public async Task<IEnumerable<ExerciseNameResponse>> Handle(GetExercisesQuery request, CancellationToken cancellationToken)
     {
-        var exercises = await _exerciseRepository.GetAllExercisesAsync(cancellationToken);
+        var exercises = await _repository.GetAllAsync(cancellationToken);
         if (exercises == null)
             throw new NotFoundException("Exercises not Found");
 

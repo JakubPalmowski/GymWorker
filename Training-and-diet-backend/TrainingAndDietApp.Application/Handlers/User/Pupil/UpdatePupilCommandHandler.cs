@@ -12,18 +12,20 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
 {
     public class UpdatePupilCommandHandler : IRequestHandler<UpdatePupilInternalCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<Domain.Entities.User> _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public UpdatePupilCommandHandler(IUserRepository userRepository, IUserService userService, IMapper mapper)
+        public UpdatePupilCommandHandler(IRepository<Domain.Entities.User> repository, IUserService userService, IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
+            _repository = repository;
             _userService = userService;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         public async Task Handle(UpdatePupilInternalCommand request, CancellationToken cancellationToken)
         {
-            var userToUpdate = await _userRepository.GetUserByIdAsync(request.IdUser, cancellationToken);
+            var userToUpdate = await _repository.GetByIdAsync(request.IdUser, cancellationToken);
             if (userToUpdate==null){
                 throw new NotFoundException("User not found");
             }
@@ -45,7 +47,9 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             userToUpdate.Sex = request.PupilCommand.Sex;
             userToUpdate.Bio = request.PupilCommand.Bio;
             
-            await _userRepository.UpdateUserAsync(userToUpdate, cancellationToken);
+            await _repository.UpdateAsync(userToUpdate, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+
         }
     }
 }

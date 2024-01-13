@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Training_and_diet_backend.Models;
-using TrainingAndDietApp.DAL.Models;
 
 namespace TrainingAndDietApp.Domain.Entities
 {

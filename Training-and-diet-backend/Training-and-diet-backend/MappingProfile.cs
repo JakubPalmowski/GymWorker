@@ -18,9 +18,8 @@ using TrainingAndDietApp.Application.Responses.Trainer;
 using TrainingAndDietApp.Application.Responses.TraineeExercise;
 using TrainingAndDietApp.Application.Responses.TrainingPlan;
 using TrainingAndDietApp.DAL.EntityModels;
-using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Entities;
-using Gym = Training_and_diet_backend.Models.Gym;
+using Gym = TrainingAndDietApp.Domain.Entities.Gym;
 using GymResponse = TrainingAndDietApp.Application.Responses.Gym.GymResponse;
 using TrainingPlan = TrainingAndDietApp.Domain.Entities.TrainingPlan;
 
@@ -56,6 +55,8 @@ namespace Training_and_diet_backend
 
             CreateMap<TrainingPlan, GetTrainerTrainingPlansResponse>();
             CreateMap<User, UserResponse<User>>();
+
+            CreateMap<CreateExerciseCommand, Exercise>();
 
            
             CreateMap<Meal, UpdateMealInternalCommand>();

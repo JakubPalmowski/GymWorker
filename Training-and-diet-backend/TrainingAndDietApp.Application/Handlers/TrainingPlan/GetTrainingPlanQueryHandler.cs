@@ -10,16 +10,16 @@ namespace TrainingAndDietApp.Application.Handlers.TrainingPlan
 {
     public class GetTrainingPlanQueryHandler : IRequestHandler<GetTrainingPlanQuery, TrainingPlanResponse>
     {
-        private readonly ITrainingPlanRepository _trainingPlanRepository;
+        private readonly IRepository<Domain.Entities.TrainingPlan> _repository;
         private readonly IMapper _mapper;
-        public GetTrainingPlanQueryHandler(IMapper mapper, ITrainingPlanRepository trainingPlanRepository)
+        public GetTrainingPlanQueryHandler(IMapper mapper, IRepository<Domain.Entities.TrainingPlan> repository)
         {
             _mapper = mapper;
-            _trainingPlanRepository = trainingPlanRepository;
+            _repository = repository;
         }
         public async Task<TrainingPlanResponse> Handle(GetTrainingPlanQuery request, CancellationToken cancellationToken)
         {
-            var trainingPlan = await _trainingPlanRepository.GetTrainingPlanByIdAsync(request.IdTrainingPlan, cancellationToken);
+            var trainingPlan = await _repository.GetByIdAsync(request.IdTrainingPlan, cancellationToken);
             if (trainingPlan == null)
                 throw new NotFoundException("Training plan not found");
 

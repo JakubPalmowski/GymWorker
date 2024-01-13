@@ -12,18 +12,18 @@ namespace TrainingAndDietApp.Application.Handlers.User.DieticianTrainer
 {
     public class GetDieticianTrainerPersonalInfoQueryHandler : IRequestHandler<GetDieticianTrainerPersonalInfoQuery, DieticianTrainerPersonalInfoResponse>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<Domain.Entities.User> _repository;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        public GetDieticianTrainerPersonalInfoQueryHandler(IUserRepository userRepository, IMapper mapper, IUserService userService)
+        public GetDieticianTrainerPersonalInfoQueryHandler(IRepository<Domain.Entities.User> repository, IMapper mapper, IUserService userService)
         {
-            _userRepository = userRepository;
+            _repository = repository;
             _mapper = mapper;
             _userService = userService;
         }
         public async Task<DieticianTrainerPersonalInfoResponse> Handle(GetDieticianTrainerPersonalInfoQuery request, CancellationToken cancellationToken)
         {
-            var dieticianTrainer = await _userRepository.GetUserByIdAsync(request.id, cancellationToken);
+            var dieticianTrainer = await _repository.GetByIdAsync(request.id, cancellationToken);
             if (dieticianTrainer == null)
                 throw new NotFoundException("User not found");
             var role = await _userService.CheckIfUserIsDieticianTrainer(request.id, cancellationToken);

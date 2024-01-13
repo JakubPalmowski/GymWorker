@@ -12,18 +12,18 @@ namespace TrainingAndDietApp.Application.Handlers.Gym;
 
 public class GetGymsQueryHandler : IRequestHandler<GetGymsQuery, IEnumerable<GymResponse>>
 {
-    private readonly IGymRepository _gymRepository;
+    private readonly IGymRepository _repository;
     private readonly IMapper _mapper;
 
-    public GetGymsQueryHandler(IGymRepository gymRepository, IMapper mapper)
+    public GetGymsQueryHandler(IMapper mapper, IGymRepository repository)
     {
-        _gymRepository = gymRepository;
         _mapper = mapper;
+        _repository = repository;
     }
 
     public async Task<IEnumerable<GymResponse>> Handle(GetGymsQuery request, CancellationToken cancellationToken)
     {
-        var gyms = await _gymRepository.GetGymsAsync(cancellationToken);
+        var gyms = await _repository.GetGymsWithAddressAsync(cancellationToken);
         if (gyms == null)
             throw new NotFoundException("Gyms not Found");
         return _mapper.Map<List<GymResponse>>(gyms);

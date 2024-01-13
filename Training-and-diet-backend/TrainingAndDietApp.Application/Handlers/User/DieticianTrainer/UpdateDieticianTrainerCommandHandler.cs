@@ -15,18 +15,21 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
 {
     public class UpdateDieticianTrainerCommandHandler : IRequestHandler<UpdateDieticianTrainerInternalCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<Domain.Entities.User> _repository;
         private readonly IUserService _userService;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public UpdateDieticianTrainerCommandHandler(IUserRepository userRepository, IUserService userService, IMapper mapper)
+        public UpdateDieticianTrainerCommandHandler(IRepository<Domain.Entities.User> repository, IUserService userService, IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
+            _repository = repository;
             _userService = userService;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
+        //refactor
         public async Task Handle(UpdateDieticianTrainerInternalCommand request, CancellationToken cancellationToken)
         {
-            var userToUpdate = await _userRepository.GetUserByIdAsync(request.IdUser, cancellationToken);
+            var userToUpdate = await _repository.GetByIdAsync(request.IdUser, cancellationToken);
             if (userToUpdate == null)
             {
                 throw new NotFoundException("User not found");
@@ -38,7 +41,7 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             }
             userToUpdate.Name = request.DieticianTrainerCommand.Name;
             userToUpdate.LastName = request.DieticianTrainerCommand.LastName;
-            if (!(request.DieticianTrainerCommand.Email == userToUpdate.Email))
+            if (request.DieticianTrainerCommand.Email != userToUpdate.Email)
             {
                 userToUpdate.Email = request.DieticianTrainerCommand.Email;
                 userToUpdate.EmailValidated = false;
@@ -52,7 +55,9 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             userToUpdate.PersonalTrainingPriceTo = request.DieticianTrainerCommand.PersonalTrainingPriceTo;
             userToUpdate.Bio = request.DieticianTrainerCommand.Bio;
 
-            await _userRepository.UpdateUserAsync(userToUpdate, cancellationToken);
+            await _repository.UpdateAsync(userToUpdate, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+
         }
     }
 }

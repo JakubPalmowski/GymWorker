@@ -6,7 +6,7 @@ using TrainingAndDietApp.Infrastructure.Context;
 namespace TrainingAndDietApp.Infrastructure.Repositories
 {
 
-    public class ExerciseRepository : IExerciseRepository
+    public class ExerciseRepository :  IExerciseRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -14,6 +14,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         {
             _context = context;
         }
+
 
         public async Task<List<Exercise>> GetAllExercisesAsync(CancellationToken cancellationToken)
         {
@@ -33,6 +34,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             return exercise;
         }
 
+
         public async Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan, CancellationToken cancellation)
         {
             var exercises = await _context.Trainee_exercises
@@ -48,38 +50,13 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
 
         }
 
-        public async Task<int> CreateExerciseAsync(Exercise exercise, CancellationToken cancellation)
-        {
-
-            _context.Exercises.Add(exercise);
-            await _context.SaveChangesAsync(cancellation);
-            return exercise.IdExercise;
-        }
-
-        public async Task<int> UpdateExerciseAsync(Exercise exercise, CancellationToken cancellation)
-        {
-            _context.Exercises.Update(exercise);
-            await _context.SaveChangesAsync(cancellation);
-            return exercise.IdExercise;
-        }
-
+        
         public async Task<List<Exercise>> GetTrainerExercisesAsync(int trainerId, CancellationToken cancellation)
         {
             return  await _context.Exercises.Where(e => e.IdTrainer == trainerId).ToListAsync(cancellation);
 
         }
 
-        public async Task<int> DeleteExerciseAsync(int exerciseId, CancellationToken cancellation)
-        {
-            var exercise = await _context.Exercises
-                .Where(exercise => exercise.IdExercise == exerciseId)
-                .FirstOrDefaultAsync(cancellationToken: cancellation);
-            
-
-            _context.Exercises.Remove(exercise);
-            await _context.SaveChangesAsync(cancellation);
-            return exercise.IdExercise;
-        }
 
         public async Task<bool> CheckIfExerciseExists(int exerciseId)
         {
@@ -89,5 +66,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
 
             return exercise.Any();
         }
+
+        
     }
 }

@@ -13,20 +13,22 @@ namespace TrainingAndDietApp.Application.Handlers.Meal
 {
     public class DeleteMealCommandHandler : IRequestHandler<DeleteMealCommand>
     {
-        private readonly IMealRepository _mealRepository;
+        private readonly IRepository<Domain.Entities.Meal> _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-
-        public DeleteMealCommandHandler(IMealRepository mealRepository)
+        public DeleteMealCommandHandler(IRepository<Domain.Entities.Meal> repository, IUnitOfWork unitOfWork)
         {
-            _mealRepository = mealRepository;
+            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
         public async Task Handle(DeleteMealCommand request, CancellationToken cancellationToken)
         {
-            var meal = await _mealRepository.GetMealByIdAsync(request.MealId, cancellationToken);
+            var meal = await _repository.GetByIdAsync(request.MealId, cancellationToken);
             if (meal == null)
                 throw new NotFoundException("Meal not found");
 
-            await _mealRepository.DeleteMealAsync(meal.IdMeal, cancellationToken);
+            await _repository.DeleteAsync(meal.IdMeal, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
         }
     }
 }

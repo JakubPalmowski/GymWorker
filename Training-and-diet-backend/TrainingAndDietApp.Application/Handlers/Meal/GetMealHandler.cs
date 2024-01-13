@@ -15,18 +15,18 @@ namespace TrainingAndDietApp.Application.Handlers.Meal
 {
     public class GetMealHandler : IRequestHandler<GetMealQuery, MealResponse>
     {
-        private readonly IMealRepository _mealRepository;
+        private readonly IRepository<Domain.Entities.Meal> _repository;
         private readonly IMapper _mapper;
 
-        public GetMealHandler(IMealRepository mealRepository, IMapper mapper)
+        public GetMealHandler(IRepository<Domain.Entities.Meal> repository, IMapper mapper)
         {
-            _mealRepository = mealRepository;
+            _repository = repository;
             _mapper = mapper;
         }
 
         public async Task<MealResponse> Handle(GetMealQuery request, CancellationToken cancellationToken)
         {
-            var meal = await _mealRepository.GetMealByIdAsync(request.IdMeal, cancellationToken);
+            var meal = await _repository.GetByIdAsync(request.IdMeal, cancellationToken);
             if (meal == null)
                 throw new NotFoundException("Meal not found");
             return _mapper.Map<MealResponse>(meal);

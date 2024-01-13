@@ -8,28 +8,30 @@ using System.Threading.Tasks;
 using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Common.Exceptions;
-using TrainingAndDietApp.DAL.Models;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.Handlers.Meal
 {
     public class UpdateMealCommandHandler : IRequestHandler<UpdateMealInternalCommand>
     {
-        private readonly IMealRepository _mealRepository;
+        private readonly IRepository<Domain.Entities.Meal> _repository;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateMealCommandHandler(IMealRepository mealRepository, IMapper mapper)
+        public UpdateMealCommandHandler(IRepository<Domain.Entities.Meal> repository, IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _mealRepository = mealRepository;
+            _repository = repository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         public async Task Handle(UpdateMealInternalCommand request, CancellationToken cancellationToken)
         {
-            var mealToUpdate = await _mealRepository.GetMealByIdAsync(request.IdMeal, cancellationToken);
+            var mealToUpdate = await _repository.GetByIdAsync(request.IdMeal, cancellationToken);
             if (mealToUpdate == null)
                 throw new NotFoundException("Meal not found");
             _mapper.Map(request, mealToUpdate);
-            await _mealRepository.UpdateMealAsync(mealToUpdate, cancellationToken);
+            await _repository.UpdateAsync(mealToUpdate, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
         }
     }
 }
