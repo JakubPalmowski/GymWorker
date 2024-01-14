@@ -8,6 +8,6 @@ export interface PupilPersonalInfo{
     weight?: number;
     height?: number;
     dateOfBirth?: Date;
-    sex?: string;
+    sex?: string|null;
     bio?: string;
 }
