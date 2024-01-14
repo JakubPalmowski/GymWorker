@@ -24,6 +24,8 @@ id: string = "";
 formattedDate: string = "";
 @ViewChild('profileForm') profileForm: NgForm | undefined;
 successFlag: string = "";
+fieldErrors: { [key: string]: string[] } = {};
+
 
 trainingPlanPriceError: boolean = false;
 
@@ -41,14 +43,17 @@ onFileSelected(event:any) {
 
 ngOnInit(): void {
   //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
-  this.role = "Trainer"
-  this.id = "5";
+  this.role = "Pupil"
+  this.id = "2";
 
   if (this.role == "Pupil") {
     this.userSerive.GetPupilPersonalInfoById(this.id).subscribe(
       {
         next:(pupilInfo)=>{
           this.user=pupilInfo;
+          if(this.user.sex==null){
+            this.user.sex="";
+          }
           this.formattedDate = this.formatDate(this.user.dateOfBirth?.toString());
         },
         error: (response)=>{
@@ -86,7 +91,7 @@ ngOnInit(): void {
 onSubmit() {
   if (this.profileForm?.valid) {
   if (this.user) {
-    if (this.user.role == "Trainer") {
+    if (this.role == "Trainer") {
       let trainerInfo: TrainerPersonalInfo = this.mapUserToTrainer(this.user);
       this.userSerive.UpdateTrainerPersonalInfo(this.user, this.id).subscribe({
         next: (response) => {
@@ -94,11 +99,20 @@ onSubmit() {
           this.showSuccessPopup(this.successFlag);
         },
         error: (error) => {
+          if (error.status === 400) {
+            const validationErrors = error.error; // Zakładając, że serwer zwraca obiekt z błędami
+  
+            this.fieldErrors = {}; // Wyczyść istniejące błędy przed aktualizacją
+            for (const field of Object.keys(validationErrors)) {
+              this.fieldErrors[field] = validationErrors[field];
+            }
+          }else {
           this.successFlag = "error";
           this.showSuccessPopup(this.successFlag);
         }
+        }
       });
-    }else if (this.user.role == "Pupil") {
+    }else if (this.role == "Pupil") {
     this.user.dateOfBirth = new Date(this.formattedDate);
     let pupilInfo: PupilPersonalInfo = this.mapUserToPupil(this.user);
     this.userSerive.UpdatePupilPersonalInfo(this.user, this.id).subscribe({
@@ -107,8 +121,18 @@ onSubmit() {
         this.showSuccessPopup(this.successFlag);
       },
       error: (error) => {
+        if (error.status === 400) {
+          const validationErrors = error.error; // Zakładając, że serwer zwraca obiekt z błędami
+
+          this.fieldErrors = {}; // Wyczyść istniejące błędy przed aktualizacją
+          for (const field of Object.keys(validationErrors)) {
+            this.fieldErrors[field] = validationErrors[field];
+          }
+          console.log(this.fieldErrors['Weight']);
+        }else {
         this.successFlag = "error";
         this.showSuccessPopup(this.successFlag);
+      }
       }
     });
   }

@@ -10,15 +10,17 @@ namespace TrainingAndDietApp.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int IdUser { get; set; }
+        [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
+        [Column(TypeName = "varchar(50)")]
         public string LastName { get; set; }
         public string Email { get; set; }
-        [Column(TypeName = "char(11)")]
-        public string PhoneNumber { get; set; }
         public bool EmailValidated { get; set; }
-        [Column(TypeName = "decimal(3,2)")]
+        [Column(TypeName = "varchar(15)")]
+        public string? PhoneNumber { get; set; }
+        [Column(TypeName = "decimal(5,2)")]
         public decimal? Weight { get; set; }
-        [Column(TypeName = "decimal(3,2)")]
+        [Column(TypeName = "decimal(5,2)")]
         public decimal? Height { get; set; }
         [Column(TypeName = "Date")]
         public DateTime? DateOfBirth { get; set; }
@@ -27,17 +29,17 @@ namespace TrainingAndDietApp.Domain.Entities
         [Column(TypeName = "varchar(500)")]
         public string? Bio { get; set; }
 
-        [Column(TypeName = "decimal(4,2)")]
+        [Column(TypeName = "decimal(5,2)")]
         public decimal? TrainingPlanPriceFrom { get; set; }
-        [Column(TypeName = "decimal(4,2)")]
+        [Column(TypeName = "decimal(5,2)")]
         public decimal? TrainingPlanPriceTo { get; set; }
-        [Column(TypeName = "decimal(4,2)")]
+        [Column(TypeName = "decimal(5,2)")]
         public decimal? PersonalTrainingPriceFrom { get; set; }
-        [Column(TypeName = "decimal(4,2)")]
+        [Column(TypeName = "decimal(5,2)")]
         public decimal? PersonalTrainingPriceTo { get; set; }
-        [Column(TypeName = "decimal(4,2)")]
+        [Column(TypeName = "decimal(5,2)")]
         public decimal? DietPriceFrom { get; set; }
-        [Column(TypeName = "decimal(4,2)")]
+        [Column(TypeName = "decimal(5,2)")]
         public decimal? DietPriceTo { get; set; }
 
 
