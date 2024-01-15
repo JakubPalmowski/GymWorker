@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.Domain.Enums;
 
 namespace TrainingAndDietApp.Domain.Entities
 {
@@ -12,7 +13,8 @@ namespace TrainingAndDietApp.Domain.Entities
 
         public int IdAddress { get; set; }
         public string Name { get; set; }
-
+        public Status Status { get; set; }
+        public int AddedBy { get; set; }
 
         [ForeignKey("IdAddress")]
         public virtual Address Address { get; set; }

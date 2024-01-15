@@ -353,6 +353,10 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 .WithMany(u => u.DietsAsPupil)
                 .HasForeignKey(d => d.IdPupil);
 
+            modelBuilder.Entity<Gym>()
+                .Property(e => e.Status)
+                .HasConversion<string>();
+
             modelBuilder.Entity<Address>().HasData(address, address2, address3);
             modelBuilder.Entity<Opinion>().HasData(opinion, opinion2,opinion3,opinion4,opinion5,opinion6);
             modelBuilder.Entity<User>().HasData(user, user1, user2,user3, user4,user5,user6,user7,user8,user9,user10,user11,user12,user13,user14,user15,user16,user17,user18,user19,user20,user22,user23,user24, user25);
