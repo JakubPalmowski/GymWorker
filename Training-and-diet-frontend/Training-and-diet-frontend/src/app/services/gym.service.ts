@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Gym } from '../models/gym';
+import { ActiveGym } from '../models/activeGym';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,10 @@ export class GymService {
   constructor(private http: HttpClient) { }
   
 
-  GetAllGyms():Observable<Gym[]>{
-    return this.http.get<Gym[]>('https://localhost:7259/api/Gym')
+  GetAllActiveGyms():Observable<ActiveGym[]>{
+    return this.http.get<ActiveGym[]>('https://localhost:7259/api/Gym')
   }
-  GetAllMentorGyms(id:string):Observable<Gym[]>{ 
-    return this.http.get<Gym[]>('https://localhost:7259/api/Gym/Mentor/'+id)
+  GetAllActiveMentorGyms(id:string):Observable<ActiveGym[]>{ 
+    return this.http.get<ActiveGym[]>('https://localhost:7259/api/Gym/Mentor/'+id)
   }
 }

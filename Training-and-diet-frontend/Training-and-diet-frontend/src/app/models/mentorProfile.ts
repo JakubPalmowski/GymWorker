@@ -1,4 +1,4 @@
-import { Gym } from "./gym";
+import { ActiveGym } from "./activeGym";
 import { Opinion } from "./opinion";
 
 export interface MentorProfile{
@@ -18,5 +18,5 @@ export interface MentorProfile{
     dietPriceFrom?: number;
     dietPriceTo?: number;
     opinions: Opinion[];
-    trainerGyms: Gym[]
+    trainerGyms: ActiveGym[]
 }

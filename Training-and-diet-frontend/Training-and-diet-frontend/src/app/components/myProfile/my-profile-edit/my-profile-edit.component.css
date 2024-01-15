@@ -110,6 +110,27 @@ a{
     z-index: 1000;
   }
 
+  .add-gym-button{
+    height:47px; 
+    width: 140px;
+    border-radius: 10px;
+    color: white;
+    margin-left: 3px;
+  }
+
+  .delete-gym-button{
+    border-radius: 10px;
+    padding: 5px;
+    margin-left: 10px;
+    background-color: red;
+    color: white;
+  }
+
+  .gym-error{
+    height: 30px;
+    margin-left:5%;
+
+  }
 
   
   

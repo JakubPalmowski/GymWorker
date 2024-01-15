@@ -8,21 +8,21 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.Handlers.Gym
 {
-    public class GetMentorGymsQueryHandler : IRequestHandler<GetMentorGymsQuery, List<GymResponse>>
+    public class GetMentorActiveGymsQueryHandler : IRequestHandler<GetMentorActiveGymsQuery, List<ActiveGymResponse>>
     {
         private readonly IGymRepository _gymRepository;
         private readonly IMapper _mapper;
 
-        public GetMentorGymsQueryHandler(IGymRepository gymRepository, IMapper mapper)
+        public GetMentorActiveGymsQueryHandler(IGymRepository gymRepository, IMapper mapper)
         {
             _gymRepository = gymRepository;
             _mapper = mapper;
         }
 
-        public async Task<List<GymResponse>> Handle(GetMentorGymsQuery request, CancellationToken cancellationToken)
+        public async Task<List<ActiveGymResponse>> Handle(GetMentorActiveGymsQuery request, CancellationToken cancellationToken)
         {
-            var gyms = await _gymRepository.GetMentorGymsAsync(request.idMentor, cancellationToken);
-            var gymsDto = _mapper.Map<List<GymResponse>>(gyms);
+            var gyms = await _gymRepository.GetMentorActiveGymsAsync(request.idMentor, cancellationToken);
+            var gymsDto = _mapper.Map<List<ActiveGymResponse>>(gyms);
             return gymsDto;
         }
     }

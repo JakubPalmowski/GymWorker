@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Gym } from 'src/app/models/gym';
+import { ActiveGym } from 'src/app/models/activeGym';
 import { Sort } from 'src/app/models/sort';
 import { GymService } from 'src/app/services/gym.service';
 
@@ -70,7 +70,7 @@ export class SearchOptionsComponent implements OnInit{
       this.sortOptionsView.gymName = params['GymNamePhrase'] || '';
     });
 
-    this.gymService.GetAllGyms().subscribe({
+    this.gymService.GetAllActiveGyms().subscribe({
       next:(response)=>{
         this.gymCities=response.map(gym=>gym.cityName);
         this.gymClubsNames=response.map(gym=>gym.name);
@@ -181,11 +181,11 @@ export class SearchOptionsComponent implements OnInit{
     
 }
   
-  onSelectGymCity(selectedCity: string) {
+  onSelectGymCity(selectedCity: any) {
     this.sortOptions.gymCity = selectedCity;
   }
 
-  onSelectGymName(selectedName: string){
+  onSelectGymName(selectedName: any){
     this.sortOptions.gymName = selectedName;
   }
 

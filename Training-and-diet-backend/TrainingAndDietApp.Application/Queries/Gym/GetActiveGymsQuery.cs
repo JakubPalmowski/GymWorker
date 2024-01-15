@@ -8,7 +8,7 @@ using TrainingAndDietApp.Application.Responses.Gym;
 
 namespace TrainingAndDietApp.Application.Queries.Gym
 {
-    public class GetGymsQuery : IRequest<IEnumerable<GymResponse>>
+    public class GetActiveGymsQuery : IRequest<IEnumerable<ActiveGymResponse>>
     {
     }
 }

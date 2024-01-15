@@ -43,7 +43,7 @@ constructor(private userSerive: UserService, private gymService: GymService) {}
     else if (this.role == "Trainer") {
       forkJoin({
         trainerInfo: this.userSerive.GetTrainerPersonalInfoById(this.id),
-        gyms: this.gymService.GetAllMentorGyms(this.id)
+        gyms: this.gymService.GetAllActiveMentorGyms(this.id)
       }).subscribe({
         next: ({ trainerInfo, gyms }) => {
           this.user = trainerInfo;

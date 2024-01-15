@@ -10,22 +10,22 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.Handlers.Gym;
 
-public class GetGymsQueryHandler : IRequestHandler<GetGymsQuery, IEnumerable<GymResponse>>
+public class GetActiveGymsQueryHandler : IRequestHandler<GetActiveGymsQuery, IEnumerable<ActiveGymResponse>>
 {
     private readonly IGymRepository _repository;
     private readonly IMapper _mapper;
 
-    public GetGymsQueryHandler(IMapper mapper, IGymRepository repository)
+    public GetActiveGymsQueryHandler(IMapper mapper, IGymRepository repository)
     {
         _mapper = mapper;
         _repository = repository;
     }
 
-    public async Task<IEnumerable<GymResponse>> Handle(GetGymsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ActiveGymResponse>> Handle(GetActiveGymsQuery request, CancellationToken cancellationToken)
     {
-        var gyms = await _repository.GetGymsWithAddressAsync(cancellationToken);
+        var gyms = await _repository.GetActiveGymsWithAddressAsync(cancellationToken);
         if (gyms == null)
             throw new NotFoundException("Gyms not Found");
-        return _mapper.Map<List<GymResponse>>(gyms);
+        return _mapper.Map<List<ActiveGymResponse>>(gyms);
     }
 }

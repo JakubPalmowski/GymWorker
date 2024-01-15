@@ -16,9 +16,9 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllGyms()
+        public async Task<IActionResult> GetActiveGyms()
         {
-            var request = new GetGymsQuery();
+            var request = new GetActiveGymsQuery();
             var response = await _mediator.Send(request);
 
             return Ok(response);
@@ -26,9 +26,9 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("Mentor/{id}")]
-        public async Task<IActionResult> GetMentorGyms(int id)
+        public async Task<IActionResult> GetMentorActiveGyms(int id)
         {
-            var response = await _mediator.Send(new GetMentorGymsQuery(id));
+            var response = await _mediator.Send(new GetMentorActiveGymsQuery(id));
 
             return Ok(response);
 
