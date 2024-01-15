@@ -357,6 +357,8 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 .Property(e => e.Status)
                 .HasConversion<string>();
 
+            
+
             modelBuilder.Entity<Address>().HasData(address, address2, address3);
             modelBuilder.Entity<Opinion>().HasData(opinion, opinion2,opinion3,opinion4,opinion5,opinion6);
             modelBuilder.Entity<User>().HasData(user, user1, user2,user3, user4,user5,user6,user7,user8,user9,user10,user11,user12,user13,user14,user15,user16,user17,user18,user19,user20,user22,user23,user24, user25);
@@ -367,7 +369,7 @@ namespace TrainingAndDietApp.Infrastructure.Context
             modelBuilder.Entity<PupilMentor>().HasKey(pm => new {Id_Mentor = pm.IdMentor, Id_Pupil = pm.IdPupil });
             modelBuilder.Entity<MealDiet>().HasKey(md => new {Id_Meal = md.IdMeal, Id_Diet = md.IdDiet });
             modelBuilder.Entity<Opinion>().HasKey(o => new {Id_Pupil = o.IdPupil, Id_Mentor = o.IdMentor });
-            modelBuilder.Entity<TrainerGym>().HasKey(o => new {Id_Gym = o.IdGym, Id_Trainer = o.IdTrainer});
+            modelBuilder.Entity<TrainerGym>().HasKey(tg => new { tg.IdGym, tg.IdTrainer });
             modelBuilder.Entity<Role>().HasData(roles);
             base.OnModelCreating(modelBuilder);
         }
