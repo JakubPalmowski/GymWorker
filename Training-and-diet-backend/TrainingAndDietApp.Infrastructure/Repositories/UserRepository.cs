@@ -31,6 +31,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         public async Task<User?> GetUserWithGymsAndOpinionsAsync(int id, CancellationToken cancellationToken)
         {
             return await _context.Users
+                .Include(u=>u.Role)
                 .Include(u => u.MentorOpinions)
                 .ThenInclude(u => u.Pupil)
                 .Include(u => u.TrainerGyms)
@@ -66,6 +67,9 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
                 .AnyAsync(r => r.Name == "Dietician" || r.Name == "Dietician-Trainer", cancellationToken: cancellationToken);
         }
 
-        
+        public async Task<User?> GetUserWithDetailsAsync(int id, CancellationToken cancellationToken)
+        =>  await _context.Users.Where(u=>u.IdUser==id)
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
 }

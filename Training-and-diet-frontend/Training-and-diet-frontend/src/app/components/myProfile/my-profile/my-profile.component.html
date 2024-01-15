@@ -127,7 +127,7 @@
     
     <ng-container *ngIf="user.trainerGyms && user.trainerGyms.length > 0; else noGymsTemplate">
         <div class="col-12 mb-2" *ngFor="let gym of user.trainerGyms">
-          <span class="fs-4" style="margin-left: 5%;">{{ gym.name }}</span>
+          <span class="fs-4" style="margin-left: 5%;">{{ gym.cityName+ ', ' + gym.name }}</span>
         </div>
       </ng-container>
 

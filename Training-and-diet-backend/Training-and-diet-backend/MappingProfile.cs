@@ -20,7 +20,7 @@ using TrainingAndDietApp.Application.Responses.TrainingPlan;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Entities;
 using Gym = TrainingAndDietApp.Domain.Entities.Gym;
-using GymResponse = TrainingAndDietApp.Application.Responses.Gym.GymResponse;
+using ActiveGymResponse = TrainingAndDietApp.Application.Responses.Gym.ActiveGymResponse;
 using TrainingPlan = TrainingAndDietApp.Domain.Entities.TrainingPlan;
 
 
@@ -85,9 +85,8 @@ namespace Training_and_diet_backend
 
             CreateMap<User, PupilResponse>();
 
-            CreateMap<Gym, GymResponse>()
-                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City))
-                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
+            CreateMap<Gym, ActiveGymResponse>()
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City));
 
             CreateMap<User, PupilPersonalInfoResponse>()
                 .ForMember(dest=>dest.Role, opt=>opt.MapFrom(src=>src.Role.Name));

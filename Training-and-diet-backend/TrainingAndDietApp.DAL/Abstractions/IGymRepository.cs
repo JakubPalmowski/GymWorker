@@ -11,7 +11,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
    
     public interface IGymRepository
     {
-        Task<IEnumerable<Gym>> GetGymsWithAddressAsync(CancellationToken cancellationToken);
-        Task<List<Gym>> GetMentorGymsAsync(int idUser, CancellationToken cancellationToken);
+        Task<IEnumerable<Gym>> GetActiveGymsWithAddressAsync(CancellationToken cancellationToken);
+        Task<List<Gym>> GetMentorActiveGymsAsync(int idUser, CancellationToken cancellationToken);
     }
 }

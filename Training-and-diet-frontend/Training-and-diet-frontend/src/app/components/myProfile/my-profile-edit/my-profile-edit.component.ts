@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PupilPersonalInfo } from 'src/app/models/MyProfile/pupilPersonalInfo';
 import { UserService } from 'src/app/services/user.service';
 import { NgForm, NgModel } from '@angular/forms';
@@ -6,6 +6,7 @@ import { UserPersonalInfo } from 'src/app/models/MyProfile/userPersonalInfo';
 import { TrainerPersonalInfo } from 'src/app/models/MyProfile/trainerPersonalInfo';
 import { GymService } from 'src/app/services/gym.service';
 import { forkJoin } from 'rxjs';
+import { ActiveGym } from 'src/app/models/activeGym';
 
 
 @Component({
@@ -28,6 +29,11 @@ fieldErrors: { [key: string]: string[] } = {};
 @ViewChild('dateOfBirth') dateOfBirth: NgModel | undefined;
 @ViewChild('trainingPlanPriceTo') trainingPlanPriceTo: NgModel | undefined;
 @ViewChild('personalTrainingPriceTo') personalTrainingPriceTo: NgModel | undefined;
+allActiveGyms: ActiveGym[] = []; 
+selectedGym: ActiveGym | null = null;
+inputGymsError: string = "";
+@ViewChild('autocompleteGyms') autocompleteGyms: ElementRef|undefined;
+
 
 
 
@@ -69,10 +75,12 @@ ngOnInit(): void {
   else if (this.role == "Trainer") {
     forkJoin({
       trainerInfo: this.userSerive.GetTrainerPersonalInfoById(this.id),
-      gyms: this.gymService.GetAllMentorGyms(this.id)
+      gyms: this.gymService.GetAllActiveMentorGyms(this.id),
+      allGyms: this.gymService.GetAllActiveGyms()
     }).subscribe({
-      next: ({ trainerInfo, gyms }) => {
+      next: ({ trainerInfo, gyms, allGyms }) => {
         this.user = trainerInfo;
+        this.allActiveGyms = allGyms;
         if (this.user) {
           this.user.trainerGyms = gyms;
         }
@@ -264,6 +272,35 @@ showSuccessPopup(status: string) {
     setTimeout(() => this.successFlag="", 3000); 
   }
 
+}
+
+
+onSelect(selectedGym: any): void {
+  this.selectedGym = selectedGym;
+}
+
+addGymToUser(): void {
+  if (this.selectedGym) {
+    const gymExists = this.user?.trainerGyms?.some(gym => gym.idGym === this.selectedGym?.idGym);
+    if (!gymExists) {
+      this.user?.trainerGyms?.push(this.selectedGym);
+      this.selectedGym = null;
+      this.inputGymsError = ''; 
+      if (this.autocompleteGyms) {
+        this.autocompleteGyms.nativeElement.value = '';  
+      }
+    } else {
+      this.inputGymsError = 'Siłownia jest już dodana do twojego profilu.';
+    }
+  } else {
+    this.inputGymsError = 'Musisz wybrać siłownię z listy.';
+  }
+}
+
+removeGymFromUser(gymToRemove: ActiveGym): void {
+  if (this.user && this.user.trainerGyms) {
+    this.user.trainerGyms = this.user.trainerGyms.filter(gym => gym.idGym !== gymToRemove.idGym);
+  }
 }
 
 

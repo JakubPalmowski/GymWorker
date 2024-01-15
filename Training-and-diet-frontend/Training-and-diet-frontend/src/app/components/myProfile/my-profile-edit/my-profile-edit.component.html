@@ -305,6 +305,35 @@
                     {{ fieldErrors[''][0] }}
                 </span>
             </div>
+
+
+
+
+            <div class="col-12 mt-3">
+                <h2>Moje siłownie</h2>
+                </div>
+            <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
+
+            <div class="col-12 d-flex flex-column">
+                <div class="w-100 d-flex" style="margin-left: 5%;">
+                <input type="text" style="width:70%;" #autocompleteGyms [appAutocomplete]="allActiveGyms" (selectedOption)="onSelect($event)">
+                <button class="add-gym-button bg-button" type="button" (click)="addGymToUser()">Dodaj siłownię</button>
+            </div>
+                <div class="gym-error"><span class="validation-error" *ngIf="inputGymsError">{{inputGymsError}}</span></div>
+            </div>
+            <ng-container *ngIf="user.trainerGyms && user.trainerGyms.length > 0; else noGymsTemplate">
+                <div class="col-12 mb-3 d-flex align-items-center" *ngFor="let gym of user.trainerGyms">
+                  <span class="fs-4" style="margin-left: 5%;">{{ gym.cityName+ ', ' + gym.name }}</span>
+                  <button class="delete-gym-button" type="button" (click)="removeGymFromUser(gym)">Usuń</button>
+                </div>
+              </ng-container>
+        
+              <ng-template #noGymsTemplate>
+                <div class="col-12">
+                  <span class="fs-4" style="margin-left: 5%;">Nie dodałeś jeszcze żadnych siłownii do swojego profilu</span>
+                </div>
+              </ng-template>
+
                 </ng-container>
     
 

@@ -1,4 +1,5 @@
 using MediatR;
+using TrainingAndDietApp.Application.Responses.Gym;
 
 namespace TrainingAndDietApp.Application.Commands.User.Trainer
 {
@@ -20,6 +21,7 @@ namespace TrainingAndDietApp.Application.Commands.User.Trainer
         public decimal? TrainingPlanPriceTo { get; set; }
         public decimal? PersonalTrainingPriceFrom { get; set; }
         public decimal? PersonalTrainingPriceTo { get; set; }
+        public IEnumerable<ActiveGymResponse> TrainerGyms { get; set;}
     }
 }
     

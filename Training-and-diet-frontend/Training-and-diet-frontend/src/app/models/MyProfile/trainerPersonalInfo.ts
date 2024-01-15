@@ -1,4 +1,4 @@
-import { Gym } from "../gym";
+import { ActiveGym } from "../activeGym";
 
 export interface TrainerPersonalInfo {
     name: string;
@@ -12,5 +12,5 @@ export interface TrainerPersonalInfo {
     trainingPlanPriceTo?: number;
     personalTrainingPriceFrom?: number;
     personalTrainingPriceTo?: number;
-    trainerGyms : Gym[];
+    trainerGyms : ActiveGym[];
 }

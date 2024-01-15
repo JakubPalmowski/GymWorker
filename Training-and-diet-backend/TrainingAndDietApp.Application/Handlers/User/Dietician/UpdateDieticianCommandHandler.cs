@@ -10,21 +10,24 @@ namespace TrainingAndDietApp.Application.Handlers.User.Dietician
 {
     public class UpdateDieticianCommandHandler : IRequestHandler<UpdateDieticianInternalCommand>
     {
-        private readonly IRepository<Domain.Entities.User> _repository;
-        private readonly IUserService _userService;
+        private readonly IRepository<Domain.Entities.User> _baseRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public UpdateDieticianCommandHandler(IUserService userService, IMapper mapper, IRepository<Domain.Entities.User> repository, IUnitOfWork unitOfWork)
+
+        public UpdateDieticianCommandHandler(IRepository<Domain.Entities.User> baseRepository,IUserRepository userRepository, IUserService userService, IMapper mapper, IUnitOfWork unitOfWork)
         {
+            _baseRepository = baseRepository;
             _userService = userService;
             _mapper = mapper;
-            _repository = repository;
             _unitOfWork = unitOfWork;
+            _userRepository = userRepository;
         }
         //refactor
         public async Task Handle(UpdateDieticianInternalCommand request, CancellationToken cancellationToken)
         {
-            var userToUpdate = await _repository.GetByIdAsync(request.IdUser, cancellationToken);
+            var userToUpdate = await _userRepository.GetUserWithDetailsAsync(request.IdUser, cancellationToken);
             if (userToUpdate == null)
             {
                 throw new NotFoundException("User not found");
@@ -47,7 +50,7 @@ namespace TrainingAndDietApp.Application.Handlers.User.Dietician
             userToUpdate.DietPriceTo = request.DieticianCommand.DietPriceTo;
             userToUpdate.Bio = request.DieticianCommand.Bio;
 
-            await _repository.UpdateAsync(userToUpdate, cancellationToken);
+            await _baseRepository.UpdateAsync(userToUpdate, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
         }
     }
