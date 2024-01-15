@@ -17,7 +17,8 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
 
         public async Task<List<Exercise>> GetAllExercisesAsync(CancellationToken cancellationToken)
         {
-            var exercises =  await _context.Exercises.Where(e => e.IdTrainer==null)
+            var exercises =  await _context.Exercises
+                .Where(e => e.IdTrainer==null)
                 .ToListAsync(cancellationToken: cancellationToken);
            
             return exercises;
