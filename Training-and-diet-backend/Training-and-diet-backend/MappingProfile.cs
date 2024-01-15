@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.Application.Commands.Auth.Register;
 using TrainingAndDietApp.Application.Commands.Exercise;
 using TrainingAndDietApp.Application.Commands.Meal;
 using TrainingAndDietApp.Application.Commands.TraineeExercises;
@@ -57,6 +58,8 @@ namespace Training_and_diet_backend
             CreateMap<User, UserResponse<User>>();
 
             CreateMap<CreateExerciseCommand, Exercise>();
+
+            CreateMap<RegisterUserCommand, User>();
 
            
             CreateMap<Meal, UpdateMealInternalCommand>();

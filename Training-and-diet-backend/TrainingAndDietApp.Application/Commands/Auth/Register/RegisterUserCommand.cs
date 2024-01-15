@@ -2,7 +2,7 @@
 
 namespace TrainingAndDietApp.Application.Commands.Auth.Register;
 
-public record RegisterUserCommand (string Email, string Password) : IRequest<RegisterUserResponse>;
+public record RegisterUserCommand (string Name, string LastName, string Email, string Password, string PhoneNumber, int RoleId) : IRequest<RegisterUserResponse>;
 
 public class RegisterUserResponse
 {

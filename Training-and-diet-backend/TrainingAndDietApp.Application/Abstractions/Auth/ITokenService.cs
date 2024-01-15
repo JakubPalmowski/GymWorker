@@ -7,6 +7,6 @@ public interface ITokenService
 {
     string GenerateAccessToken(User user);
     Tuple<string, DateTime> GenerateRefreshToken();
-    int VerifyAccessToken (string accessToken, bool validateExpiration = true);
+    int? VerifyAccessToken (string accessToken, bool validateLifetime = true);
     
 }

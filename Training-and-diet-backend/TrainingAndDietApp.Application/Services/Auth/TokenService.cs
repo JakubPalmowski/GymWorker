@@ -41,9 +41,30 @@ public class TokenService : ITokenService
         var refreshTokenExpiration = DateTime.UtcNow.AddDays(1);
         return new Tuple<string, DateTime>(refreshToken, refreshTokenExpiration);
     }
-
-    public int VerifyAccessToken(string accessToken, bool validateExpiration = true)
+    //refactor secret key
+    public int? VerifyAccessToken(string accessToken, bool validateLifetime = true)
     {
-        throw new NotImplementedException();
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("PPZ2VwlQAkgwfLwhskyuQPEhW13uFT2H8Ql0A2TsIBMEy8iYRc"));
+        try
+        {
+            tokenHandler.ValidateToken(accessToken, new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = key,
+                ValidateIssuer = true,
+                ValidIssuer = "https://localhost:5001",
+                ValidateAudience = true,
+                ValidAudience = "https://localhost:5001",
+                ValidateLifetime = validateLifetime
+            }, out SecurityToken validatedToken);
+            var jwtToken = (JwtSecurityToken) validatedToken;
+            var userId = int.Parse(jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            return userId;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 }

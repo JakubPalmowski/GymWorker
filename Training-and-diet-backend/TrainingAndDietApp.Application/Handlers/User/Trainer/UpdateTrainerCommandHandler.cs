@@ -41,7 +41,7 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             if (request.TrainerCommand.Email != userToUpdate.Email)
             {
                 userToUpdate.Email = request.TrainerCommand.Email;
-                userToUpdate.EmailValidated = false;
+                userToUpdate.EmailConfirmationToken = null;
             }
             userToUpdate.PhoneNumber = request.TrainerCommand.PhoneNumber;
             userToUpdate.TrainingPlanPriceFrom = request.TrainerCommand.TrainingPlanPriceFrom;

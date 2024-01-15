@@ -21,7 +21,7 @@ namespace TrainingAndDietApp.Application.Handlers.User.Dietician
             _repository = repository;
             _unitOfWork = unitOfWork;
         }
-        //refactor
+        //refactor bez maila
         public async Task Handle(UpdateDieticianInternalCommand request, CancellationToken cancellationToken)
         {
             var userToUpdate = await _repository.GetByIdAsync(request.IdUser, cancellationToken);
@@ -40,7 +40,7 @@ namespace TrainingAndDietApp.Application.Handlers.User.Dietician
             if (request.DieticianCommand.Email != userToUpdate.Email)
             {
                 userToUpdate.Email = request.DieticianCommand.Email;
-                userToUpdate.EmailValidated = false;
+                userToUpdate.EmailConfirmationToken = null;
             }
             userToUpdate.PhoneNumber = request.DieticianCommand.PhoneNumber;
             userToUpdate.DietPriceFrom = request.DieticianCommand.DietPriceFrom;

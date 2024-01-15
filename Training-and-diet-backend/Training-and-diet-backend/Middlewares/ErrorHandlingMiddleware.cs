@@ -27,6 +27,13 @@ namespace Training_and_diet_backend.Middlewares
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(badRequestException.Message);
             }
+            catch (ConflictException conflictException)
+            {
+                context.Response.StatusCode = 409;
+                await context.Response.WriteAsync(conflictException.Message);
+            }
+           
+            
              
 
             

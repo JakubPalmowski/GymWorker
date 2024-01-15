@@ -38,7 +38,7 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             userToUpdate.LastName = request.PupilCommand.LastName;
             if(!(request.PupilCommand.Email == userToUpdate.Email)){
                 userToUpdate.Email = request.PupilCommand.Email;
-                userToUpdate.EmailValidated = false;
+                userToUpdate.EmailConfirmationToken = null;
             }
             userToUpdate.PhoneNumber = request.PupilCommand.PhoneNumber;
             userToUpdate.Weight = request.PupilCommand.Weight;

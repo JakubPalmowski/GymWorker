@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TrainingAndDietApp.Application.Commands.Auth.Register;
 
 namespace Training_and_diet_backend.Controllers
 {
