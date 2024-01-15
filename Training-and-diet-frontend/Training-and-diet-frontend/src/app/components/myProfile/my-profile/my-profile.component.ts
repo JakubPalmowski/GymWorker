@@ -25,7 +25,7 @@ constructor(private userSerive: UserService, private gymService: GymService) {}
 
   ngOnInit(): void {
     //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
-    this.role = "Pupil"
+    this.role = "Trainer"
     this.id = "2";
 
     if (this.role == "Pupil") {

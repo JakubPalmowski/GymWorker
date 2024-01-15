@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PupilPersonalInfo } from 'src/app/models/MyProfile/pupilPersonalInfo';
 import { UserService } from 'src/app/services/user.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 import { UserPersonalInfo } from 'src/app/models/MyProfile/userPersonalInfo';
 import { TrainerPersonalInfo } from 'src/app/models/MyProfile/trainerPersonalInfo';
 import { GymService } from 'src/app/services/gym.service';
@@ -25,6 +25,10 @@ formattedDate: string = "";
 @ViewChild('profileForm') profileForm: NgForm | undefined;
 successFlag: string = "";
 fieldErrors: { [key: string]: string[] } = {};
+@ViewChild('dateOfBirth') dateOfBirth: NgModel | undefined;
+@ViewChild('trainingPlanPriceTo') trainingPlanPriceTo: NgModel | undefined;
+@ViewChild('personalTrainingPriceTo') personalTrainingPriceTo: NgModel | undefined;
+
 
 
 trainingPlanPriceError: boolean = false;
@@ -43,7 +47,7 @@ onFileSelected(event:any) {
 
 ngOnInit(): void {
   //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
-  this.role = "Pupil"
+  this.role = "Trainer"
   this.id = "2";
 
   if (this.role == "Pupil") {
@@ -97,18 +101,25 @@ onSubmit() {
         next: (response) => {
           this.successFlag = "success";
           this.showSuccessPopup(this.successFlag);
+          document.documentElement.scrollTop = 0;
         },
         error: (error) => {
           if (error.status === 400) {
-            const validationErrors = error.error; // Zakładając, że serwer zwraca obiekt z błędami
+            const { errors } = error.error; 
   
-            this.fieldErrors = {}; // Wyczyść istniejące błędy przed aktualizacją
-            for (const field of Object.keys(validationErrors)) {
-              this.fieldErrors[field] = validationErrors[field];
+            this.fieldErrors = {}; 
+        
+            for (const key in errors) {
+                if (errors.hasOwnProperty(key)) {
+                    this.fieldErrors[key] = errors[key]; 
+                }
             }
+            console.log(error.error);
+  
           }else {
           this.successFlag = "error";
           this.showSuccessPopup(this.successFlag);
+          document.documentElement.scrollTop = 0;
         }
         }
       });
@@ -119,35 +130,131 @@ onSubmit() {
       next: (response) => {
         this.successFlag = "success";
         this.showSuccessPopup(this.successFlag);
+        document.documentElement.scrollTop = 0;
       },
       error: (error) => {
         if (error.status === 400) {
-          const validationErrors = error.error; // Zakładając, że serwer zwraca obiekt z błędami
+          const { errors } = error.error;
 
-          this.fieldErrors = {}; // Wyczyść istniejące błędy przed aktualizacją
-          for (const field of Object.keys(validationErrors)) {
-            this.fieldErrors[field] = validationErrors[field];
+          this.fieldErrors = {}; 
+      
+          for (const key in errors) {
+              if (errors.hasOwnProperty(key)) {
+                  this.fieldErrors[key] = errors[key]; 
+              }
           }
-          console.log(this.fieldErrors['Weight']);
+
         }else {
         this.successFlag = "error";
         this.showSuccessPopup(this.successFlag);
+        document.documentElement.scrollTop = 0;
       }
       }
     });
   }
   }
-  document.documentElement.scrollTop = 0;
+  
 }
 
 }
 
-formatDate(date: string|undefined): string {
-  if (date == undefined) {
-    return "";
+
+formatDate(date: string | undefined): string {
+  if (date === undefined) {
+      return "";
   }
   return date.split('T')[0];
 }
+
+onDateChange() {
+  const currentDate = new Date();
+  const selectedDate = new Date(this.formattedDate);
+
+  if (selectedDate > currentDate) {
+      this.dateOfBirth?.control.setErrors({ 'max': true });
+  } else {
+      this.dateOfBirth?.control.setErrors(null);
+  }
+}
+
+validatePriceRange(): void {
+  if(this.user){
+    let planPricesConsistent = true;
+    let trainingPricesConsistent = true;
+
+    const trainingBothOrNone = (this.user.personalTrainingPriceFrom === null && this.user.personalTrainingPriceTo === null) ||
+                       (this.user.personalTrainingPriceFrom !== null && this.user.personalTrainingPriceTo !== null);
+
+    const planBothOrNone = (this.user.trainingPlanPriceFrom === null && this.user.trainingPlanPriceTo === null) ||
+                       (this.user.trainingPlanPriceFrom !== null && this.user.trainingPlanPriceTo !== null);
+
+
+    if(this.user.personalTrainingPriceFrom != null && this.user.personalTrainingPriceTo != null){
+      trainingPricesConsistent = trainingBothOrNone && 
+                         (this.user.personalTrainingPriceFrom === null || this.user.personalTrainingPriceTo >= this.user.personalTrainingPriceFrom);
+    }
+                       
+    if(this.user.trainingPlanPriceFrom != null && this.user.trainingPlanPriceTo != null){
+      planPricesConsistent = planBothOrNone && 
+                         (this.user.trainingPlanPriceFrom === null || this.user.trainingPlanPriceTo >= this.user.trainingPlanPriceFrom);
+    }
+
+    const updateErrors = (control: NgModel, errorKey: string, errorValue: boolean | null) => {
+      const errors = control.errors || {}; 
+      if (errorValue === false) {
+        delete errors[errorKey]; 
+      } else {
+        errors[errorKey] = errorValue; 
+      }
+      control.control.setErrors(Object.keys(errors).length > 0 ? errors : null); 
+    };
+    if(!trainingBothOrNone){
+      if(this.personalTrainingPriceTo){
+        updateErrors(this.personalTrainingPriceTo, 'bothOrNone', true);
+      }
+    }
+    if(!trainingPricesConsistent){
+      if(this.personalTrainingPriceTo){
+        updateErrors(this.personalTrainingPriceTo, 'pricesConsistent', true);
+      }
+    }
+    if(trainingBothOrNone){
+      if(this.personalTrainingPriceTo){
+        updateErrors(this.personalTrainingPriceTo, 'bothOrNone', false);
+      }
+    }
+    if(trainingPricesConsistent){
+      if(this.personalTrainingPriceTo){
+        updateErrors(this.personalTrainingPriceTo, 'pricesConsistent', false);
+      }
+    }
+
+    if (!planBothOrNone) {
+      if (this.trainingPlanPriceTo) {
+        updateErrors(this.trainingPlanPriceTo, 'bothOrNone', true);
+      }
+    } 
+     if (!planPricesConsistent) {
+      if (this.trainingPlanPriceTo) {
+        updateErrors(this.trainingPlanPriceTo, 'pricesConsistent', true);
+      }
+    } 
+    if (planBothOrNone) {
+      if (this.trainingPlanPriceTo) {
+        updateErrors(this.trainingPlanPriceTo, 'bothOrNone', false);
+      }
+    }
+    if (planPricesConsistent) {
+      if (this.trainingPlanPriceTo) {
+        updateErrors(this.trainingPlanPriceTo, 'pricesConsistent', false);
+      }
+    }
+  }
+}
+
+
+
+
 
 showSuccessPopup(status: string) {
   if (status == "success") {
@@ -158,6 +265,10 @@ showSuccessPopup(status: string) {
   }
 
 }
+
+
+
+
 
 mapUserToPupil(user: UserPersonalInfo): PupilPersonalInfo {
   return {
@@ -192,20 +303,7 @@ mapUserToTrainer(user: UserPersonalInfo): TrainerPersonalInfo {
   };
 }
 
-validateTrainingPlanPrices() {
-  if (this.user) {
-    const from = this.user.trainingPlanPriceFrom;
-    const to = this.user.trainingPlanPriceTo;
-    if ((from === null || from === undefined || from.toString() === '') && (to === null || to === undefined || to.toString() === '')) {
-      return false;
-    }
-    if ((from !== null && from !== undefined && from.toString() !== '') && (to !== null && to !== undefined && to.toString() !== '')) {
-      return false;
-    }
-    return true;
-  }
-  return false;
-}
+
 
 
 }

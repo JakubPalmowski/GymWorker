@@ -34,11 +34,11 @@ namespace TrainingAndDietApp.Application.Validators
 
             RuleFor(x => x.TrainingPlanPriceFrom)
                 .InclusiveBetween(0.00m, 99999.99m).When(x => x.TrainingPlanPriceFrom.HasValue)
-                .WithMessage("Cena minimalna dla planu treningowego musi być w zakresie od 0.00 do 99999.99");
+                .WithMessage("Cena musi być w zakresie od 0.00 do 99999.99");
 
             RuleFor(x => x.TrainingPlanPriceTo)
                 .InclusiveBetween(0.00m, 99999.99m).When(x => x.TrainingPlanPriceTo.HasValue)
-                .WithMessage("Cena maksymalna dla planu treningowego musi być w zakresie od 0.00 do 99999.99");
+                .WithMessage("Cena musi być w zakresie od 0.00 do 99999.99");
 
             RuleFor(x => x)
                 .Must(x => !x.TrainingPlanPriceFrom.HasValue || !x.TrainingPlanPriceTo.HasValue || x.TrainingPlanPriceTo >= x.TrainingPlanPriceFrom)
@@ -51,11 +51,11 @@ namespace TrainingAndDietApp.Application.Validators
 
             RuleFor(x => x.PersonalTrainingPriceFrom)
                 .InclusiveBetween(0.00m, 99999.99m).When(x => x.PersonalTrainingPriceFrom.HasValue)
-                .WithMessage("Cena minimalna za trening personalny musi być w zakresie od 0.00 do 99999.99");
+                .WithMessage("Cena musi być w zakresie od 0.00 do 99999.99");
 
             RuleFor(x => x.PersonalTrainingPriceTo)
                 .InclusiveBetween(0.00m, 99999.99m).When(x => x.PersonalTrainingPriceTo.HasValue)
-                .WithMessage("Cena maksymalna za trening personalny musi być w zakresie od 0.00 do 99999.99");
+                .WithMessage("Cena musi być w zakresie od 0.00 do 99999.99");
 
             RuleFor(x => x)
                 .Must(x => !x.PersonalTrainingPriceFrom.HasValue || !x.PersonalTrainingPriceTo.HasValue || x.PersonalTrainingPriceTo >= x.PersonalTrainingPriceFrom)
