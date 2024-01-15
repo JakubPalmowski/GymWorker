@@ -34,6 +34,7 @@ input:disabled, textarea:disabled {
 
 textarea{
 width: 90%;
+border: 2px solid black;
 }
 
 select{
@@ -109,13 +110,7 @@ a{
     z-index: 1000;
   }
 
-  .input-price{
-    width: 80px;
-    text-align: center;
-}
-.group-price{
-  margin-bottom:50px;
-}
+
   
   
  

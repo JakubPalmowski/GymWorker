@@ -43,40 +43,61 @@
             </div>
             <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
     
-            <div class="col-6 group" >
+            <div class="col-6 group">
                 <label>Imię</label>
-                <input type="text" [(ngModel)]="user.name" name="name" required #name="ngModel">
+                <input type="text" [(ngModel)]="user.name" name="name" required 
+                       maxlength="50" #name="ngModel">
                 <div class="error-container">
-                <span *ngIf="name.invalid" class="validation-error error-span">
-                    Imię jest wymagane.
-                </span>
+                    <span *ngIf="name.errors?.['required']" class="validation-error error-span">
+                        Imię jest wymagane.
+                    </span>
+                    <span *ngIf="name.errors?.['maxlength']" class="validation-error error-span">
+                        Imię nie może przekraczać 50 znaków.
+                    </span>
+                    <span *ngIf="fieldErrors['Name']" class="validation-error">
+                        {{ fieldErrors['Name'][0] }}
+                    </span>
+                </div>
             </div>
+            
+            
+    
+            <div class="col-6 group">
+                <label>Nazwisko</label>
+                <input type="text" [(ngModel)]="user.lastName" name="lastName" required 
+                       maxlength="50" #lastName="ngModel">
+                <div class="error-container">
+                    <span *ngIf="lastName.errors?.['required']" class="validation-error error-span">
+                        Nazwisko jest wymagane.
+                    </span>
+                    <span *ngIf="lastName.errors?.['maxlength']" class="validation-error error-span">
+                        Nazwisko nie może przekraczać 50 znaków.
+                    </span>
+                    <span *ngIf="fieldErrors['LastName']" class="validation-error">
+                        {{ fieldErrors['LastName'][0] }}
+                    </span>
+                </div>
             </div>
             
     
-            <div class="col-6 group" >
-                <label>Nazwisko</label>
-                <input type="text" [(ngModel)]="user.lastName" name="lastName" required #lastName="ngModel">
-                <div class="error-container">
-                <span *ngIf="lastName.invalid" class="validation-error error-span">
-                    Nazwisko jest wymagane.
-                </span>
-            </div>
-            </div>
-    
             <div class="col-6 group">
                 <label>Email</label>
-                <input type="email" [(ngModel)]="user.email" name="email" required #email="ngModel"
-                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-                       <div class="error-container">
-                <span *ngIf="email.errors?.['required']" class="validation-error error-span">
-                    Email jest wymagany.
-                </span>
-                <span *ngIf="email.errors?.['pattern']" class="validation-error error-span">
-                    Proszę podać poprawny adres email.
-                </span>
+                <input type="email" [(ngModel)]="user.email" name="email" required
+                       pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #email="ngModel">
+                <div class="error-container">
+                    <span *ngIf="email.errors?.['required']" class="validation-error error-span">
+                        Email jest wymagany.
+                    </span>
+                    <span *ngIf="email.errors?.['pattern']" class="validation-error error-span">
+                        Proszę podać poprawny adres email.
+                    </span>
+                    <span *ngIf="fieldErrors['Email']" class="validation-error">
+                        {{ fieldErrors['Email'][0] }}
+                    </span>
+                </div>
             </div>
-            </div>
+            
+            
             
             
     
@@ -91,7 +112,10 @@
                 <span *ngIf="phoneNumber.errors?.['pattern']" class="validation-error">
                     Proszę podać poprawny numer telefonu.
                 </span>
-            </div>
+                <span *ngIf="fieldErrors['PhoneNumber']" class="validation-error">
+                    {{ fieldErrors['PhoneNumber'][0] }}
+                </span>
+        </div>
             </div>
             
             
@@ -103,34 +127,71 @@
                 </div>
                 <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
     
+
                 <div class="col-6 group">
                     <label>Waga</label>
-                    <input type="number" [(ngModel)]="user.weight" name="weight">
+                    <input type="number" [(ngModel)]="user.weight" name="weight" 
+                           min="0.01" max="300.00" #weight="ngModel">
                     <div class="error-container">
-                        <span *ngIf="fieldErrors['Weight']" class="text-danger">
+                        <span *ngIf="weight.errors?.['min']" class="validation-error">
+                            Waga musi być większa lub równa 0.01.
+                        </span>
+                        <span *ngIf="weight.errors?.['max']" class="validation-error">
+                            Waga nie może przekraczać 300.00.
+                        </span>
+                        <span *ngIf="fieldErrors['Weight']" class="validation-error">
                             {{ fieldErrors['Weight'][0] }}
                         </span>
+                    </div>
                 </div>
-                </div>
+                
         
                 <div class="col-6 group">
                     <label>Wzrost</label>
-                    <input type="number" [(ngModel)]="user.height" name="height">
+                    <input type="number" [(ngModel)]="user.height" name="height" 
+                           min="0.01" max="250.00" #height="ngModel">
+                    <div class="error-container">
+                        <span *ngIf="height.errors?.['min']" class="validation-error">
+                            Wzrost musi być większy lub równy 0.01.
+                        </span>
+                        <span *ngIf="height.errors?.['max']" class="validation-error">
+                            Wzrost nie może przekraczać 250.00.
+                        </span>
+                        <span *ngIf="fieldErrors['Height']" class="validation-error">
+                            {{ fieldErrors['Height'][0] }}
+                        </span>
+                    </div>
                 </div>
+                
         
                 <div class="col-6 group">
                     <label>Data urodzenia</label>
-                    <input type="date" [(ngModel)]="formattedDate" name="dateOfBirth">
+                    <input type="date" [(ngModel)]="formattedDate" name="dateOfBirth" #dateOfBirth="ngModel" (ngModelChange)="onDateChange()">
+                    <div class="error-container">
+                        <span *ngIf="dateOfBirth.invalid && dateOfBirth.errors?.['max']" class="validation-error">
+                            Data urodzenia nie może być z przyszłości.
+                        </span>
+                        <span *ngIf="fieldErrors['DateOfBirth']" class="validation-error">
+                            {{ fieldErrors['DateOfBirth'][0] }}
+                        </span>
+                    </div>
                 </div>
+                
         
                 <div class="col-6 group">
                     <label>Płeć</label>
                     <select [(ngModel)]="user.sex" name="sex" #sex="ngModel">
-                        <option value="" selected>Wybierz płeć</option>
+                        <option value="" disabled>Wybierz płeć</option>
                         <option value="Mężczyzna">Mężczyzna</option>
                         <option value="Kobieta">Kobieta</option>
                     </select>
+                    <div class="error-container">
+                        <span *ngIf="fieldErrors['Sex']" class="validation-error">
+                            {{ fieldErrors['Sex'][0] }}
+                        </span>
+                    </div>
                 </div>
+                
                 
             </ng-container>
                 
@@ -141,37 +202,139 @@
                 <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
                 
         
-                <div class="col-6 group-price">
-                    <label style="margin-left: 10%;">Maksymalny koszt planu treningowego(zł)</label>
-                    <input style="margin-left: 10%;" type="number" [(ngModel)]="user.trainingPlanPriceFrom" class="input-price" name="trainingPlanPriceFrom">
+                <div class="col-6 group mb-0">
+                    <label>Minimalny koszt planu treningowego (zł)</label>
+                    <input type="number" [(ngModel)]="user.trainingPlanPriceFrom" 
+                           #trainingPlanPriceFrom="ngModel" name="trainingPlanPriceFrom"
+                           min="0" max="99999.99" (change)="validatePriceRange()">
+                    <div class="error-container">
+                        <span *ngIf="trainingPlanPriceFrom.errors?.['min']" class="validation-error">
+                            Cena musi być większa lub równa 0.00 zł.
+                        </span>
+                        <span *ngIf="trainingPlanPriceFrom.errors?.['max']" class="validation-error">
+                            Cena nie może przekraczać 99999.99 zł.
+                        </span>
+                        <span *ngIf="fieldErrors['TrainingPlanPriceFrom']" class="validation-error">
+                            {{ fieldErrors['TrainingPlanPriceFrom'][0] }}
+                        </span>
+                    </div>
                 </div>
+                
+                
+                <div class="col-6 group mb-0">
+                    <label>Maksymalny koszt planu treningowego (zł)</label>
+                    <input type="number" [(ngModel)]="user.trainingPlanPriceTo" 
+                           #trainingPlanPriceTo="ngModel" name="trainingPlanPriceTo"
+                           min="0" max="99999.99" (change)="validatePriceRange()">
+                    <div class="error-container">
+                        <span *ngIf="trainingPlanPriceTo.errors?.['min']" class="validation-error">
+                            Cena musi być większa lub równa 0.00 zł.
+                        </span>
+                        <span *ngIf="trainingPlanPriceTo.errors?.['max']" class="validation-error">
+                            Cena nie może przekraczać 99999.99 zł.
+                        </span>
+                        <span *ngIf="fieldErrors['TrainingPlanPriceTo']" class="validation-error">
+                            {{ fieldErrors['TrainingPlanPriceTo'][0] }}
+                        </span>
+                    </div>
+                            
+                </div>
+
+                <div class="error-container col-12">
+                    <span *ngIf="trainingPlanPriceTo.errors?.['bothOrNone']" class="validation-error">
+                        Obie ceny dla planu treningowego muszą być podane lub obie muszą być puste
+                    </span>
+                    <span *ngIf="trainingPlanPriceTo.errors?.['pricesConsistent']" class="validation-error">
+                        Cena maksymalna dla planu treningowego musi być większa lub równa cenie minimalnej
+                    </span>
+                </div>
+                
+
+                
+                
         
-            <div class="col-6 group-price">
-                <label style="margin-left: 10%;">Minimalny koszt planu treningowego(zł)</label>
-                <input style="margin-left: 10%;" type="number" [(ngModel)]="user.trainingPlanPriceTo" class="input-price" name="trainingPlanPriceTo">
+        
+            <div class="col-6 group mb-0">
+                <label>Minimalny koszt treningu personalnego(zł)</label>
+                <input type="number" [(ngModel)]="user.personalTrainingPriceFrom" name="personalTrainingPriceFrom"  #personalTrainingPriceFrom="ngModel"
+                min="0" max="99999.99" (change)="validatePriceRange()">
+                <div class="error-container">
+                    <span *ngIf="personalTrainingPriceFrom.errors?.['min']" class="validation-error">
+                        Cena musi być większa lub równa 0.00 zł.
+                    </span>
+                    <span *ngIf="personalTrainingPriceFrom.errors?.['max']" class="validation-error">
+                        Cena nie może przekraczać 99999.99 zł.
+                    </span>
+                    <span *ngIf="fieldErrors['PersonalTrainingPriceFrom']" class="validation-error">
+                        {{ fieldErrors['PersonalTrainingPriceFrom'][0] }}
+                    </span>
             </div>
-        
-        
-            <div class="col-6 group-price">
-                <label style="margin-left: 10%;">Minimalny koszt treningu personalnego(zł)</label>
-                <input style="margin-left: 10%;" type="number" [(ngModel)]="user.personalTrainingPriceFrom" class="input-price" name="personalTrainingPriceFrom">
             </div>
+
         
-            <div class="col-6 group-price">
-                <label style="margin-left: 10%;">Maksymalny koszt treningu personalnego(zł)</label>
-                <input style="margin-left: 10%;" type="number" [(ngModel)]="user.personalTrainingPriceTo" class="input-price" name="personalTrainingPriceTo">
+            <div class="col-6 group mb-0">
+                <label>Maksymalny koszt treningu personalnego(zł)</label>
+                <input type="number" [(ngModel)]="user.personalTrainingPriceTo" name="personalTrainingPriceTo" #personalTrainingPriceTo="ngModel"
+                min="0" max="99999.99" (change)="validatePriceRange()">
+                <div class="error-container">
+                    <span *ngIf="personalTrainingPriceTo.errors?.['min']" class="validation-error">
+                        Cena musi być większa lub równa 0.00 zł.
+                    </span>
+                    <span *ngIf="personalTrainingPriceTo.errors?.['max']" class="validation-error">
+                        Cena nie może przekraczać 99999.99 zł.
+                    </span>
+                    <span *ngIf="fieldErrors['PersonalTrainingPriceTo']" class="validation-error">
+                        {{ fieldErrors['PersonalTrainingPriceTo'][0] }}
+                    </span>
+            </div>
+            </div>
+
+
+            <div class="error-container col-12">
+                <span *ngIf="personalTrainingPriceTo.errors?.['bothOrNone']" class="validation-error">
+                    Obie ceny dla treningu personalnego muszą być podane lub obie muszą być puste
+                </span>
+                <span *ngIf="personalTrainingPriceTo.errors?.['pricesConsistent']" class="validation-error">
+                    Cena maksymalna dla treningu personalnego musi być większa lub równa cenie minimalnej
+                </span>
+            </div>
+
+            
+            <div class="error-container col-12 mt-3" *ngIf="fieldErrors['']">
+                <span class="validation-error">
+                    {{ fieldErrors[''][0] }}
+                </span>
             </div>
                 </ng-container>
     
+
+
+
+
+
+
+
+
                 <div class="col-12 mt-3">
                     <h2>Informacje dodatkowe</h2>
                     </div>
                     <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
     
                     <div class="col-12 d-flex flex-column align-items-center">
-                    <label style="width: 90%;">O mnie</label>
-                    <textarea [(ngModel)]="user.bio"  rows="4" name="bio">{{user.bio}}</textarea>
-                </div>
+                        <label style="width: 90%;">O mnie</label>
+                        <textarea [(ngModel)]="user.bio" rows="4" name="bio" maxlength="1500" #bio="ngModel">
+                            {{user.bio}}
+                        </textarea>
+                        <div class="error-container">
+                            <span *ngIf="bio.invalid && bio.errors?.['maxlength']" class="validation-error">
+                                Opis nie może przekraczać 1500 znaków.
+                            </span>
+                            <span *ngIf="fieldErrors['Bio']" class="validation-error">
+                                {{ fieldErrors['Bio'][0] }}
+                            </span>
+                        </div>
+                    </div>
+                    
 
                 <div class="summary-error-container">
                 <span *ngIf="profileForm.invalid" class="validation-error form-errors">

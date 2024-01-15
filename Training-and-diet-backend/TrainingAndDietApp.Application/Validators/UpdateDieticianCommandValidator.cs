@@ -35,11 +35,11 @@ namespace TrainingAndDietApp.Application.Validators
 
             RuleFor(x => x.DietPriceFrom)
                 .InclusiveBetween(0.00m, 99999.99m).When(x => x.DietPriceFrom.HasValue)
-                .WithMessage("Cena minimalna za dietę musi być w zakresie od 0.00 do 99999.99");
+                .WithMessage("Cena musi być w zakresie od 0.00 do 99999.99");
 
             RuleFor(x => x.DietPriceTo)
                 .InclusiveBetween(0.00m, 99999.99m).When(x => x.DietPriceTo.HasValue)
-                .WithMessage("Cena maksymalna za dietę musi być w zakresie od 0.00 do 99999.99");
+                .WithMessage("Cena być w zakresie od 0.00 do 99999.99");
 
             RuleFor(x => x)
                 .Must(x => !x.DietPriceFrom.HasValue || !x.DietPriceTo.HasValue || x.DietPriceTo >= x.DietPriceFrom)
