@@ -13,6 +13,11 @@ namespace TrainingAndDietApp.Domain.Entities
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string HashedPassword { get; set; }
+        public string? RefreshToken { get; set; }
+        [Column(TypeName = "timestamp")]
+        public DateTime? RefreshTokenExpirationDate { get; set; }
+
         [Column(TypeName = "char(11)")]
         public string PhoneNumber { get; set; }
         public bool EmailValidated { get; set; }

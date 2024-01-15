@@ -14,27 +14,6 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         {
             _context = context;
         }
-
-
-        public async Task<List<Exercise>> GetAllExercisesAsync(CancellationToken cancellationToken)
-        {
-            var exercises =  await _context.Exercises.Where(e => e.IdTrainer==null)
-                .ToListAsync(cancellationToken: cancellationToken);
-           
-            return exercises;
-        }
-
-        public async Task<Exercise?> GetExerciseByIdAsync(int exerciseId, CancellationToken cancellationToken)
-        {
-            var exercise =  await _context.Exercises
-                .Where(e => e.IdExercise == exerciseId)
-                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-           
-
-            return exercise;
-        }
-
-
         public async Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan, CancellationToken cancellation)
         {
             var exercises = await _context.Trainee_exercises
