@@ -1,6 +1,6 @@
 import { ActiveGym } from "../activeGym";
 
-export interface UserPersonalInfo{
+export interface DieticianTrainerPersonalInfo {
     name: string;
     lastName: string;
     role: string;
@@ -8,15 +8,11 @@ export interface UserPersonalInfo{
     emailValidated: boolean;
     phoneNumber?: string;
     bio?: string;
-    weight?: number;
-    height?: number;
-    dateOfBirth?: Date;
-    sex?: string;
     trainingPlanPriceFrom?: number;
     trainingPlanPriceTo?: number;
     personalTrainingPriceFrom?: number;
     personalTrainingPriceTo?: number;
     dietPriceFrom?: number;
     dietPriceTo?: number;
-    trainerGyms: ActiveGym[];
+    trainerGyms : ActiveGym[];
 }

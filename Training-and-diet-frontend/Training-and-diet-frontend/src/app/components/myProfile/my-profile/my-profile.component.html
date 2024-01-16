@@ -53,7 +53,8 @@
 
         <div class="col-6 group">
             <label>Status weryfikacji Emaila</label>
-            <input type="text" value="{{user.emailValidated}}" disabled>
+            <input *ngIf="user.emailValidated==false" type="text" value="Niezweryfikowany" disabled>
+            <input *ngIf="user.emailValidated==true" type="text" value="Zweryfikowany" disabled>
         </div>
 
 
@@ -91,13 +92,14 @@
 
 
 
-        <ng-container *ngIf="role=='Trainer'">
+        <ng-container *ngIf="role=='Trainer' || role=='Dietician-Trainer' || role=='Dietician'">
         <div class="col-12 mt-3">
             <h2>Cennik</h2>
             </div>
         <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
-        
+        </ng-container> 
 
+        <ng-container *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
         <div class="col-6 group">
             <label>Maksymalny koszt planu treningowego(zł)</label>
             <input type="number" value="{{user.trainingPlanPriceFrom}}" disabled>
@@ -118,7 +120,23 @@
         <label>Maksymalny koszt treningu personalnego(zł)</label>
         <input type="number" value="{{user.personalTrainingPriceTo}}" disabled>
     </div>
+        </ng-container>
 
+        <ng-container *ngIf="role=='Dietician' || role=='Dietician-Trainer'">
+            <div class="col-6 group">
+                <label>Minimalny koszt diety(zł)</label>
+                <input type="number" value="{{user.dietPriceFrom}}" disabled>
+            </div>
+    
+        <div class="col-6 group">
+            <label>Maksymalny koszt diety(zł)</label>
+            <input type="number" value="{{user.dietPriceTo}}" disabled>
+        </div>
+    
+            </ng-container>
+
+
+        <ng-container *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
 
     <div class="col-12 mt-3">
         <h2>Moje siłownie</h2>
@@ -140,6 +158,8 @@
 
 
         </ng-container>
+
+        
     
 
             <div class="col-12 mt-3">

@@ -2,12 +2,14 @@ using AutoMapper;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Commands.User.Dietician;
 using TrainingAndDietApp.Application.Commands.User.DieticianTrainer;
 using TrainingAndDietApp.Application.Commands.User.Pupil;
 using TrainingAndDietApp.Application.Commands.User.Trainer;
 using TrainingAndDietApp.Application.Exceptions;
+using TrainingAndDietApp.Application.Responses.Gym;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
@@ -15,18 +17,20 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
 {
     public class UpdateDieticianTrainerCommandHandler : IRequestHandler<UpdateDieticianTrainerInternalCommand>
     {
-        private readonly IRepository<Domain.Entities.User> _baseRepository;
+         private readonly ITrainerGymRepository _trainerGymRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
+        private readonly IGymRepository _gymRepository;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public UpdateDieticianTrainerCommandHandler(IRepository<Domain.Entities.User> baseRepository,IUserRepository userRepository, IUserService userService, IMapper mapper, IUnitOfWork unitOfWork)
+        public UpdateDieticianTrainerCommandHandler(ITrainerGymRepository trainerGymRepository, IUserRepository userRepository, IUserService userService, IMapper mapper, IUnitOfWork unitOfWork, IGymRepository gymRepository)
         {
-             _baseRepository = baseRepository;
             _userService = userService;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
+            _gymRepository = gymRepository;
+            _trainerGymRepository = trainerGymRepository;
         }
         //refactor
         public async Task Handle(UpdateDieticianTrainerInternalCommand request, CancellationToken cancellationToken)
@@ -48,6 +52,40 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
                 userToUpdate.Email = request.DieticianTrainerCommand.Email;
                 userToUpdate.EmailValidated = false;
             }
+            var trainerGyms = await _gymRepository.GetMentorActiveGymsAsync(request.IdUser, cancellationToken);
+            var newGyms = _mapper.Map<List<ActiveGymResponse>>(request.DieticianTrainerCommand.TrainerGyms);
+            var existingGymIds = trainerGyms.Select(g => g.IdGym).ToList();
+            var newGymIds = newGyms.Select(g => g.IdGym).ToList();
+            var addedGyms = newGymIds.Except(existingGymIds).ToList();
+            var removedGyms = existingGymIds.Except(newGymIds).ToList();
+            
+            foreach (var gymId in addedGyms)
+            {
+                if (await _gymRepository.GetByIdAsync(gymId, cancellationToken) == null)
+                {
+                    throw new NotFoundException("Gym not found");
+                }
+
+                var trainerGym = new TrainerGym
+                {
+                    IdGym = gymId,
+                    IdTrainer = request.IdUser
+                };
+                await _trainerGymRepository.AddAsync(trainerGym, cancellationToken);
+            }
+            foreach (var gymId in removedGyms)
+            {
+                if (await _gymRepository.GetByIdAsync(gymId, cancellationToken) == null)
+                {
+                    throw new NotFoundException("Gym not found");
+                }
+                
+                var trainerGym = await _trainerGymRepository.GetByIdAsync(request.IdUser, gymId, cancellationToken);
+                if(trainerGym == null){
+                    throw new BadRequestException("User is not a trainer in this gym");
+                }
+                await _trainerGymRepository.DeleteAsync(trainerGym, cancellationToken);
+            }
             userToUpdate.PhoneNumber = request.DieticianTrainerCommand.PhoneNumber;
             userToUpdate.DietPriceFrom = request.DieticianTrainerCommand.DietPriceFrom;
             userToUpdate.DietPriceTo = request.DieticianTrainerCommand.DietPriceTo;
@@ -57,7 +95,7 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             userToUpdate.PersonalTrainingPriceTo = request.DieticianTrainerCommand.PersonalTrainingPriceTo;
             userToUpdate.Bio = request.DieticianTrainerCommand.Bio;
 
-            await _baseRepository.UpdateAsync(userToUpdate, cancellationToken);
+            await _userRepository.UpdateAsync(userToUpdate, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
 
         }

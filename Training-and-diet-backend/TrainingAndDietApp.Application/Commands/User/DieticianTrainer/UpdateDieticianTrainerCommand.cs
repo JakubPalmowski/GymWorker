@@ -1,4 +1,5 @@
 using MediatR;
+using TrainingAndDietApp.Application.Responses.Gym;
 
 namespace TrainingAndDietApp.Application.Commands.User.DieticianTrainer
 {
@@ -9,6 +10,7 @@ namespace TrainingAndDietApp.Application.Commands.User.DieticianTrainer
             Name = name;
             LastName = lastName;
             Email = email;
+            TrainerGyms = new List<ActiveGymResponse>();
         }
     
         public string Name { get; set; }
@@ -22,5 +24,6 @@ namespace TrainingAndDietApp.Application.Commands.User.DieticianTrainer
         public decimal? PersonalTrainingPriceTo { get; set; }
         public decimal? DietPriceFrom { get; set; }
         public decimal? DietPriceTo { get; set; }
+        public List<ActiveGymResponse> TrainerGyms { get; set;}
     }
 }

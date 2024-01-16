@@ -18,7 +18,9 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
 
         public async Task<IEnumerable<Gym>> GetActiveGymsWithAddressAsync(CancellationToken cancellationToken)
         =>  await _context.Gyms.Where(g=>g.Status == Domain.Enums.Status.Active).Include(g => g.Address).ToListAsync(cancellationToken: cancellationToken);
-       
+
+        public async Task<Gym?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        => await _context.Gyms.Where(g=>g.IdGym == id).FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
         public async Task<List<Gym>> GetMentorActiveGymsAsync(int idUser, CancellationToken cancellationToken)
         {

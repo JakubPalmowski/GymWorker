@@ -71,5 +71,10 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         =>  await _context.Users.Where(u=>u.IdUser==id)
             .Include(u => u.Role)
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+        public async Task UpdateAsync(User user, CancellationToken cancellationToken)
+        {
+            _context.Users.Update(user);
+        }
     }
 }
