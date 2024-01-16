@@ -13,5 +13,6 @@ namespace TrainingAndDietApp.Domain.Abstractions
     {
         Task<IEnumerable<Gym>> GetActiveGymsWithAddressAsync(CancellationToken cancellationToken);
         Task<List<Gym>> GetMentorActiveGymsAsync(int idUser, CancellationToken cancellationToken);
+        Task<Gym?> GetByIdAsync(int id, CancellationToken cancellationToken);
     }
 }

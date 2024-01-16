@@ -195,13 +195,14 @@
                 
             </ng-container>
                 
-            <ng-container *ngIf="role=='Trainer'">
+            <ng-container *ngIf="role=='Dietician' || role=='Trainer' || role=='Dietician-Trainer'">
                 <div class="col-12 mt-3">
                     <h2>Cennik</h2>
                     </div>
                 <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
-                
-        
+            </ng-container>
+
+            <ng-container *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
                 <div class="col-6 group mb-0">
                     <label>Minimalny koszt planu treningowego (zł)</label>
                     <input type="number" [(ngModel)]="user.trainingPlanPriceFrom" 
@@ -300,15 +301,68 @@
             </div>
 
             
-            <div class="error-container col-12 mt-3" *ngIf="fieldErrors['']">
-                <span class="validation-error">
-                    {{ fieldErrors[''][0] }}
-                </span>
-            </div>
+</ng-container>
+
+<ng-container *ngIf="role=='Dietician' || role=='Dietician-Trainer'">
+
+    <div class="col-6 group mb-0">
+        <label>Minimalny koszt diety(zł)</label>
+        <input type="number" [(ngModel)]="user.dietPriceFrom" 
+               #dietPriceFrom="ngModel" name="dietPriceFrom"
+               min="0" max="99999.99" (change)="validatePriceRange()">
+        <div class="error-container">
+            <span *ngIf="dietPriceFrom.errors?.['min']" class="validation-error">
+                Cena musi być większa lub równa 0.00 zł.
+            </span>
+            <span *ngIf="dietPriceFrom.errors?.['max']" class="validation-error">
+                Cena nie może przekraczać 99999.99 zł.
+            </span>
+            <span *ngIf="fieldErrors['DietPriceFrom']" class="validation-error">
+                {{ fieldErrors['DietPriceFrom'][0] }}
+            </span>
+        </div>
+    </div>
+    
+    
+    <div class="col-6 group mb-0">
+        <label>Maksymalny koszt diety(zł)</label>
+        <input type="number" [(ngModel)]="user.dietPriceTo" 
+               #dietPriceTo="ngModel" name="dietPriceTo"
+               min="0" max="99999.99" (change)="validatePriceRange()">
+        <div class="error-container">
+            <span *ngIf="dietPriceTo.errors?.['min']" class="validation-error">
+                Cena musi być większa lub równa 0.00 zł.
+            </span>
+            <span *ngIf="dietPriceTo.errors?.['max']" class="validation-error">
+                Cena nie może przekraczać 99999.99 zł.
+            </span>
+            <span *ngIf="fieldErrors['DietPriceTo']" class="validation-error">
+                {{ fieldErrors['DietPriceTo'][0] }}
+            </span>
+        </div>
+                
+    </div>
+
+    <div class="error-container col-12">
+        <span *ngIf="dietPriceTo.errors?.['bothOrNone']" class="validation-error">
+            Obie ceny dla diety muszą być podane lub obie muszą być puste
+        </span>
+        <span *ngIf="dietPriceTo.errors?.['pricesConsistent']" class="validation-error">
+            Cena maksymalna dla diety musi być większa lub równa cenie minimalnej
+        </span>
+    </div>
+    </ng-container>
+
+    <ng-container *ngIf="role=='Dietician' || role=='Trainer' || role=='Dietician-Trainer'">
+        <div class="error-container col-12 mt-3" *ngIf="fieldErrors['']">
+            <span class="validation-error">
+                {{ fieldErrors[''][0] }}
+            </span>
+        </div>
+    </ng-container>
 
 
-
-
+        <ng-container *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
             <div class="col-12 mt-3">
                 <h2>Moje siłownie</h2>
                 </div>
@@ -334,7 +388,7 @@
                 </div>
               </ng-template>
 
-                </ng-container>
+        </ng-container>
     
 
 

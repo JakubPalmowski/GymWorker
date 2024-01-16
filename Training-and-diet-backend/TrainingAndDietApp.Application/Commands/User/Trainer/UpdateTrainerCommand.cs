@@ -10,6 +10,7 @@ namespace TrainingAndDietApp.Application.Commands.User.Trainer
             Name = name;
             LastName = lastName;
             Email = email;
+            TrainerGyms = new List<ActiveGymResponse>();
         }
     
         public string Name { get; set; }
@@ -21,7 +22,7 @@ namespace TrainingAndDietApp.Application.Commands.User.Trainer
         public decimal? TrainingPlanPriceTo { get; set; }
         public decimal? PersonalTrainingPriceFrom { get; set; }
         public decimal? PersonalTrainingPriceTo { get; set; }
-        public IEnumerable<ActiveGymResponse> TrainerGyms { get; set;}
+        public List<ActiveGymResponse> TrainerGyms { get; set;}
     }
 }
     

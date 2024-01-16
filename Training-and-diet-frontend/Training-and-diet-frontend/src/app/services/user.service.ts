@@ -10,6 +10,8 @@ import { PupilProfile } from '../models/pupilProfile';
 import { PupilPersonalInfo } from '../models/MyProfile/pupilPersonalInfo';
 import { TrainerPersonalInfo } from '../models/MyProfile/trainerPersonalInfo';
 import { UserPersonalInfo } from '../models/MyProfile/userPersonalInfo';
+import { DieticianPersonalInfo } from '../models/MyProfile/dieticianPersonalInfo';
+import { DieticianTrainerPersonalInfo } from '../models/MyProfile/dieticianTrainerPersonalInfo';
 
 
 @Injectable({
@@ -70,6 +72,21 @@ export class UserService{
 
       UpdateTrainerPersonalInfo(trainerPersonalInfo: TrainerPersonalInfo,id: string):Observable<any>{
         return this.http.put('https://localhost:7259/api/User/Trainer/'+id, trainerPersonalInfo);
+      }
+
+      GetDieticianPersonalInfoById(id: string):Observable<UserPersonalInfo>{
+        return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/Dietician/PersonalInfo/'+id)
+      }
+
+      UpdateDieticianPersonalInfo(dieticianPersonalInfo: DieticianPersonalInfo,id: string):Observable<any>{
+        return this.http.put('https://localhost:7259/api/User/Dietician/'+id, dieticianPersonalInfo);
+      }
+
+      GetDieticianTrainerPersonalInfoById(id: string):Observable<UserPersonalInfo>{
+        return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/DieticianTrainer/PersonalInfo/'+id)
+      }
+      UpdateDieticianTrainerPersonalInfo(dieticianTrainerPersonalInfo: DieticianTrainerPersonalInfo,id: string):Observable<any>{
+        return this.http.put('https://localhost:7259/api/User/DieticianTrainer/'+id, dieticianTrainerPersonalInfo);
       }
       
 

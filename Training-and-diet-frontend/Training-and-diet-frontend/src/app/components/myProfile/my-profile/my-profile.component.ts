@@ -25,7 +25,7 @@ constructor(private userSerive: UserService, private gymService: GymService) {}
 
   ngOnInit(): void {
     //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
-    this.role = "Trainer"
+    this.role = "Dietician-Trainer"
     this.id = "2";
 
     if (this.role == "Pupil") {
@@ -56,15 +56,33 @@ constructor(private userSerive: UserService, private gymService: GymService) {}
         }
       });
     }else if (this.role == "Dietician") {
-      //Pobranie danych mentora
-      //Pobranie danych osobowych mentora
+      this.userSerive.GetDieticianPersonalInfoById(this.id).subscribe({
+        next: (dieticianInfo) => {
+          this.user = dieticianInfo;
+        },
+        error: (response) => {
+          console.log(response);
+        }
+      });
     }
     else if (this.role == "Dietician-Trainer") {
-      //Pobranie danych mentora
-      //Pobranie danych osobowych mentora
-    }
-    
+      forkJoin({
+        dieticianTrainerInfo: this.userSerive.GetDieticianTrainerPersonalInfoById(this.id),
+        gyms: this.gymService.GetAllActiveMentorGyms(this.id)
+      }).subscribe({
+        next: ({ dieticianTrainerInfo, gyms }) => {
+          this.user = dieticianTrainerInfo;
+          if (this.user) {
+            this.user.trainerGyms = gyms;
+          }
+        },
+        error: (response) => {
+          console.log(response);
+        }
+      });
+      }
   }
+
 
 
   formatDate(date: string|undefined): string {

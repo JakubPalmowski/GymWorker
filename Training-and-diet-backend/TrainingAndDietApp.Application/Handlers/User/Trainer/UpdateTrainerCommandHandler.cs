@@ -16,22 +16,20 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
 {
     public class UpdateTrainerCommandHandler : IRequestHandler<UpdateTrainerInternalCommand>
     {
-        private readonly IRepository<Domain.Entities.User> _userBaseRepository;
-        private readonly IRepository<TrainerGym> _gymBaseRepository;
+        private readonly ITrainerGymRepository _trainerGymRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly IGymRepository _gymRepository;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public UpdateTrainerCommandHandler(IRepository<TrainerGym> gymBaseRepository, IRepository<Domain.Entities.User> userBaseRepository,IUserRepository userRepository, IUserService userService, IMapper mapper, IUnitOfWork unitOfWork, IGymRepository gymRepository)
+        public UpdateTrainerCommandHandler(ITrainerGymRepository trainerGymRepository, IUserRepository userRepository, IUserService userService, IMapper mapper, IUnitOfWork unitOfWork, IGymRepository gymRepository)
         {
-            _userBaseRepository = userBaseRepository;
             _userService = userService;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
             _gymRepository = gymRepository;
-            _gymBaseRepository = gymBaseRepository;
+            _trainerGymRepository = trainerGymRepository;
         }
         public async Task Handle(UpdateTrainerInternalCommand request, CancellationToken cancellationToken)
         {
@@ -46,7 +44,7 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
                 throw new BadRequestException("User is not a trainer");
             }
             var trainerGyms = await _gymRepository.GetMentorActiveGymsAsync(request.IdUser, cancellationToken);
-            var newGyms = _mapper.Map<IEnumerable<ActiveGymResponse>>(request.TrainerCommand.TrainerGyms);
+            var newGyms = _mapper.Map<List<ActiveGymResponse>>(request.TrainerCommand.TrainerGyms);
             var existingGymIds = trainerGyms.Select(g => g.IdGym).ToList();
             var newGymIds = newGyms.Select(g => g.IdGym).ToList();
             var addedGyms = newGymIds.Except(existingGymIds).ToList();
@@ -54,12 +52,34 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             
             foreach (var gymId in addedGyms)
             {
+                if (await _gymRepository.GetByIdAsync(gymId, cancellationToken) == null)
+                {
+                    throw new NotFoundException("Gym not found");
+                }
+
                 var trainerGym = new TrainerGym
                 {
                     IdGym = gymId,
                     IdTrainer = request.IdUser
                 };
-                await _gymBaseRepository.AddAsync(trainerGym, cancellationToken);
+                await _trainerGymRepository.AddAsync(trainerGym, cancellationToken);
+            }
+            foreach (var gymId in removedGyms)
+            {
+                if (await _gymRepository.GetByIdAsync(gymId, cancellationToken) == null)
+                {
+                    throw new NotFoundException("Gym not found");
+                }
+
+                if(await _trainerGymRepository.GetByIdAsync(request.IdUser, gymId, cancellationToken) == null){
+                    throw new BadRequestException("User is not a trainer in this gym");
+                }
+                var trainerGym = new TrainerGym
+                {
+                    IdGym = gymId,
+                    IdTrainer = request.IdUser
+                };
+                await _trainerGymRepository.DeleteAsync(trainerGym, cancellationToken);
             }
            
 
@@ -78,7 +98,7 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
             userToUpdate.Bio = request.TrainerCommand.Bio;
             
 
-            await _userBaseRepository.UpdateAsync(userToUpdate, cancellationToken);
+            await _userRepository.UpdateAsync(userToUpdate, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
         }
     }
