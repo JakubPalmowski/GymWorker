@@ -1,11 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TrainingAndDietApp.Application.Commands.User.Dietician;
-using TrainingAndDietApp.Application.Commands.User.DieticianTrainer;
-using TrainingAndDietApp.Application.Commands.User.Pupil;
-using TrainingAndDietApp.Application.Commands.User.Trainer;
-using TrainingAndDietApp.Application.Queries.User;
-using UserQuery = TrainingAndDietApp.Application.Queries.User.UserQuery;
+using TrainingAndDietApp.Application.CQRS.Commands.User.Dietician.UpdateDietician;
+using TrainingAndDietApp.Application.CQRS.Commands.User.DieticianTrainer.UpdateDieticianTrainer;
+using TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.UpdatePupil;
+using TrainingAndDietApp.Application.CQRS.Commands.User.Trainer.UpdateTrainer;
+using TrainingAndDietApp.Application.CQRS.Queries.User.Dietician.GetById;
+using TrainingAndDietApp.Application.CQRS.Queries.User.DieticianTrainer.GetById;
+using TrainingAndDietApp.Application.CQRS.Queries.User.Pupil.GetById;
+using TrainingAndDietApp.Application.CQRS.Queries.User.Trainer.GetById;
+using TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll;
+using UserQuery = TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll.UserQuery;
 
 
 namespace Training_and_diet_backend.Controllers

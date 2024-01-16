@@ -8,15 +8,15 @@ using Training_and_diet_backend.Middlewares;
 using Training_and_diet_backend.Repositories;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Abstractions.Auth;
-using TrainingAndDietApp.Application.Handlers.Meal;
+using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetAll;
+using TrainingAndDietApp.Application.CQRS.Validators;
 using TrainingAndDietApp.Application.Services;
 using TrainingAndDietApp.Application.Services.Auth;
-using TrainingAndDietApp.Application.Validators;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Infrastructure.Context;
 using TrainingAndDietApp.Infrastructure.Persistance;
 using TrainingAndDietApp.Infrastructure.Repositories;
-using UserQuery = TrainingAndDietApp.Application.Queries.User.UserQuery;
+using UserQuery = TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll.UserQuery;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,9 +45,14 @@ builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IValidator<UserQuery>, UserQueryValidator>();
+builder.Services.AddSingleton<IFileService, FileService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserQueryValidator>());
+
+
+
+
 
 builder.Services.AddAuthentication(options =>
 {
@@ -60,7 +65,7 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey =
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes("PPZ2VwlQAkgwfLwhskyuQPEhW13uFT2H8Ql0A2TsIBMEy8iYRc")),
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["SecretKey"])),
         ValidateIssuer = true,
         ValidIssuer = "https://localhost:5001",
         ValidateAudience = true,
@@ -79,6 +84,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    builder.Configuration.AddUserSecrets<Program>();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
