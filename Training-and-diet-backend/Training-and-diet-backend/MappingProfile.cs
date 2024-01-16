@@ -54,6 +54,7 @@ namespace Training_and_diet_backend
 
             CreateMap<CreateTrainingPlanCommand, TrainingPlan>();
 
+
             CreateMap<TrainingPlan, GetTrainerTrainingPlansResponse>();
             CreateMap<User, UserResponse<User>>();
 

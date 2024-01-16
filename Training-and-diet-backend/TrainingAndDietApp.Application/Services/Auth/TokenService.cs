@@ -22,7 +22,7 @@ public class TokenService : ITokenService
         var userClaims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.IdUser.ToString()),
-            new Claim(ClaimTypes.Role, user.Role.Name)
+            new Claim(ClaimTypes.Role, user.Role.Id.ToString())
         };
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("PPZ2VwlQAkgwfLwhskyuQPEhW13uFT2H8Ql0A2TsIBMEy8iYRc"));
         var jwt = new JwtSecurityToken( issuer: "https://localhost:5001",

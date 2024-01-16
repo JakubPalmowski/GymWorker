@@ -45,7 +45,7 @@ namespace Training_and_diet_backend.Controllers
 
             return Ok(response);
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> PostExercise(CreateExerciseCommand exercise)
         {

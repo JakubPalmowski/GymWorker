@@ -1,6 +1,9 @@
+using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Training_and_diet_backend.Middlewares;
 using Training_and_diet_backend.Repositories;
 using TrainingAndDietApp.Application.Abstractions;
@@ -46,7 +49,25 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserQueryValidator>());
 
-
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey =
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes("PPZ2VwlQAkgwfLwhskyuQPEhW13uFT2H8Ql0A2TsIBMEy8iYRc")),
+        ValidateIssuer = true,
+        ValidIssuer = "https://localhost:5001",
+        ValidateAudience = true,
+        ValidAudience = "https://localhost:5001",
+        ValidateLifetime = true
+    };
+});
 
 
 
@@ -67,6 +88,8 @@ app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

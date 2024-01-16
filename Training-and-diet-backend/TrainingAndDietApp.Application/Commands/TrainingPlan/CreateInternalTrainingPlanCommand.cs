@@ -7,18 +7,29 @@ using MediatR;
 
 namespace TrainingAndDietApp.Application.Commands.TrainingPlan
 {
-    public class CreateTrainingPlanCommand : IRequest<CreateTrainingPlanResponse>
+    public class CreateInternalTrainingPlanCommand : IRequest<CreateTrainingPlanResponse>
+    {
+        public CreateInternalTrainingPlanCommand(int idTrainer, CreateTrainingPlanCommand createTrainingPlanCommand)
+        {
+            IdTrainer = idTrainer;
+            CreateTrainingPlanCommand = createTrainingPlanCommand;
+        }
+
+        public int IdTrainer { get; set; }
+        public CreateTrainingPlanCommand CreateTrainingPlanCommand { get; set; }
+    }
+
+    public class CreateTrainingPlanCommand
     {
         public string Name { get; set; }
         public string CustomName { get; set; }
         public string Type { get; set; }
-
         public DateTime StartDate { get; set; }
-
         public int NumberOfWeeks { get; set; }
-
-        public int IdTrainer { get; set; }
     }
+
+    
+
 
     public class CreateTrainingPlanResponse
     {
