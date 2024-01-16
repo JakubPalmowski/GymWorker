@@ -67,4 +67,9 @@ goToMainPage() {
         this.router.navigateByUrl('training-plans');
       }
     }
+    goPupilToTrainingPlans(){
+      if(!(this.activeRoute=='pupilTrainingPlans')){
+        this.router.navigateByUrl('pupilTrainingPlans');
+      }
+    }
 }

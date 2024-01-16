@@ -89,6 +89,13 @@
           </div>
         </li>
 
+        <li>
+          <div class="menu-link" (click)="goPupilToTrainingPlans()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='pupilTrainingPlans'}">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Mój trening</a>
+          </div>
+        </li>
+
     </ul>
 
  </div>
@@ -193,6 +200,13 @@
             <div class="menu-link" (click)="goToTrainingPlans()"  [ngClass]="{'active': activeRoute=='training-plans'}">
               <img src="../../../assets/icons/record.png" width="20" height="20">
             <a>Moje plany</a>
+            </div>
+          </li>
+
+          <li>
+            <div class="menu-link" (click)="goPupilToTrainingPlans()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='pupilTrainingPlans'}">
+              <img src="../../../assets/icons/record.png" width="20" height="20">
+            <a>Mój trening</a>
             </div>
           </li>
 

@@ -10,10 +10,12 @@ namespace TrainingAndDietApp.Application.Responses.TrainingPlan
     {
         public int IdTrainingPlan { get; set; }
         public int IdPupil { get; set; }
+        public int IdTrainer { get; set; }
         public string Name { get; set; }
         public string CustomName { get; set; }
         public string Type { get; set; }
         public DateTime StartDate { get; set; }
         public int NumberOfWeeks { get; set; }
+
     }
 }

@@ -19,6 +19,10 @@ export class TrainingPlanService {
    return this.http.get<TrainingPlan[]>('https://localhost:7259/api/TrainingPlan/3/trainingPlans');
   }
 
+  getPupilPlans():Observable<TrainingPlan[]>{
+    return this.http.get<TrainingPlan[]>('https://localhost:7259/api/TrainingPlan/3/trainingPlans');
+   }
+
   getTrainingPlanById(idPlan:string):Observable<FullTrainingPlanGet>{
     return this.http.get<FullTrainingPlanGet>('https://localhost:7259/api/TrainingPlan/'+idPlan);
    }
