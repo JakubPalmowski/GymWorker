@@ -34,13 +34,13 @@ export class TrainingExerciseListComponent implements OnInit{
     this.source=this.route.snapshot.queryParams['source'];
     console.log(this.id_training);
     
-    this.exerciseServise.getTrainerExercises().subscribe({
+    this.exerciseServise.getAllExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.trainingPlanExercises=trainingPlanExercises;
         this.filteredPlanExercises=this.trainingPlanExercises;
 
-        const myExercisesElement = document.getElementById("my-exercises");
-        myExercisesElement?.classList.add("selected-all-my");
+        const allExercisesElement = document.getElementById("all-exercises");
+        allExercisesElement?.classList.add("selected-all-my");
       },
       error: (response)=>{
         console.log(response);

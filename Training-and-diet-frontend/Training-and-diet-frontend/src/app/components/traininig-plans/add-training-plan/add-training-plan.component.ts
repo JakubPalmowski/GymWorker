@@ -40,7 +40,7 @@ export class AddTrainingPlanComponent implements OnInit{
     this.trainingPlanService.addTrainingPlan(this.addTrainingPlanRequest).subscribe({
       next:(newTrainingPlan)=>{
         console.log(newTrainingPlan);
-        this.router.navigate(['/training-plans/edit/'+newTrainingPlan]);
+        this.router.navigate(['/training-plans']);
       },
       error: (response)=>{
         console.log(response);

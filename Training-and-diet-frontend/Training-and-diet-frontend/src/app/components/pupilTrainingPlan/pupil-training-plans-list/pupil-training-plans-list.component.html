@@ -1,0 +1,22 @@
+<div class="row d-flex justify-content-center">
+    <div class="container-head">
+        <h3>Moje plany</h3>
+    </div>
+    <div class="container-body">
+        <table class="table" *ngIf="trainingPlans && trainingPlans.length > 0" >
+            <thead >
+                <tr >
+                    <th>Nazwa</th>
+                    <th>Stworzony przez</th>
+                    <th>Ważny do</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let trainingPlan of filteredTrainingPlans">
+                <td><a [routerLink]="['details',trainingPlan.idTrainingPlan]">{{ trainingPlan.name }}</a></td>
+                <td><a [routerLink]="['details',trainingPlan.idTrainingPlan]">{{ trainingPlan.customName }}</a></td>
+                <td><a [routerLink]="['details',trainingPlan.idTrainingPlan]">{{ trainingPlan.numberOfWeeks }}</a></td>
+            </tr>
+        </table>
+        <p *ngIf="!trainingPlans || trainingPlans.length <=0" class="no-plans-message">Nie posiadasz przypisanych planów treningowych</p>
+    </div>
+</div>

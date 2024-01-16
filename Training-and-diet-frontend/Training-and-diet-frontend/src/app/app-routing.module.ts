@@ -22,6 +22,9 @@ import { MyProfileComponent } from './components/myProfile/my-profile/my-profile
 import { MyProfileEditComponent } from './components/myProfile/my-profile-edit/my-profile-edit.component';
 import { TrainingExerciseListComponent } from './components/traininig-plans/training-exercise-list/training-exercise-list.component';
 import { EditTrainingExerciseComponent } from './components/traininig-plans/edit-training-exercise/edit-training-exercise.component';
+import { PupilTrainingPlansListComponent } from './components/pupilTrainingPlan/pupil-training-plans-list/pupil-training-plans-list.component';
+import { PupilTrainingPlanDetailsComponent } from './components/pupilTrainingPlan/pupil-training-plan-details/pupil-training-plan-details.component';
+import { PupilTrainingExerciseDetailsComponent } from './components/pupilTrainingPlan/pupil-training-exercise-details/pupil-training-exercise-details.component';
 
 
 const routes: Routes = [
@@ -64,7 +67,19 @@ const routes: Routes = [
   {
     path: 'training-plans/exercise-list',
     component: TrainingExerciseListComponent
-  }, 
+  },
+  {
+    path: 'pupilTrainingPlans',
+    component: PupilTrainingPlansListComponent
+  },  
+  {
+    path: 'pupilTrainingPlans/details/:id',
+    component: PupilTrainingPlanDetailsComponent
+  },  
+  {
+    path: 'pupilTrainingPlans/details/:id/training-exercise-details/:id',
+    component: PupilTrainingExerciseDetailsComponent
+  },
   {
     path: 'meals',
     component: MealsListComponent
