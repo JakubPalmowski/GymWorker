@@ -4,11 +4,12 @@ using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Application.Abstractions.Auth;
 using TrainingAndDietApp.Application.Commands.Auth.Register;
 using TrainingAndDietApp.Application.Exceptions;
+using TrainingAndDietApp.Application.Responses.Auth;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.Handlers.Auth.Register;
 
-public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterUserResponse>
+public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, TokenResponse>
 {
     private readonly ITokenService _tokenService;
     private readonly IPasswordService _passwordService;
@@ -30,9 +31,9 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
         _roleRepository = roleRepository;
     }
 
-    public async Task<RegisterUserResponse> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<TokenResponse> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
+        var user = await _userRepository.GetByEmailWithRoleAsync(request.Email, cancellationToken);
         if (user is not null)
             throw new ConflictException("User with given email already exists");
 
@@ -61,7 +62,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
 
         var accessToken = _tokenService.GenerateAccessToken(userToAdd);
         
-        return new RegisterUserResponse(accessToken, refreshToken);
+        return new TokenResponse(accessToken, refreshToken);
 
     }
 }

@@ -6,11 +6,12 @@ namespace Training_and_diet_backend.Middlewares
     public class ErrorHandlingMiddleware : IMiddleware
     {
 
-        
+
         public ErrorHandlingMiddleware()
         {
-      
+
         }
+
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
@@ -32,11 +33,12 @@ namespace Training_and_diet_backend.Middlewares
                 context.Response.StatusCode = 409;
                 await context.Response.WriteAsync(conflictException.Message);
             }
-           
-            
-             
+            catch (UnauthorizedException unauthorizedException)
+            {
+                context.Response.StatusCode = 401;
+                await context.Response.WriteAsync(unauthorizedException.Message);
 
-            
+            }
         }
     }
 }

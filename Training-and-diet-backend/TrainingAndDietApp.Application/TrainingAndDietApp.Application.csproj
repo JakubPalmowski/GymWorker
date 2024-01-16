@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Commands\Auth\Login\" />
     <Folder Include="Commands\Auth\Register\" />
     <Folder Include="Commands\Diet\" />
+    <Folder Include="Handlers\Auth\Refresh\" />
     <Folder Include="Handlers\Auth\Register\" />
     <Folder Include="Handlers\Gym\" />
   </ItemGroup>
