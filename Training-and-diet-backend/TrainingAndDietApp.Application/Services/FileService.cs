@@ -1,4 +1,5 @@
-﻿using Azure.Storage;
+﻿using Azure.Core;
+using Azure.Storage;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
 using TrainingAndDietApp.Application.Abstractions;
@@ -92,13 +93,14 @@ public class FileService : IFileService
     {
         if (file == null || file.Length == 0)
             throw new Exception("File is empty");
-
-        BlobClient blobClient = _filesContainer.GetBlobClient(file.FileName);
+        var uniqueFileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+        BlobClient blobClient = _filesContainer.GetBlobClient(uniqueFileName);
         using (Stream data = file.OpenReadStream())
         {
             await blobClient.UploadAsync(data);
         }
-        return blobClient.Uri.AbsoluteUri; // Return the URI of the uploaded file
+
+        return uniqueFileName;
     }
 
 }

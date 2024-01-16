@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Application.CQRS.Commands.Files;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -9,10 +11,12 @@ namespace Training_and_diet_backend.Controllers
     public class FileController : ControllerBase
     {
         private readonly IFileService _fileService;
+        private readonly IMediator _mediator;
 
-        public FileController(IFileService fileService)
+        public FileController(IFileService fileService, IMediator mediator)
         {
             _fileService = fileService;
+            _mediator = mediator;
         }
 
 
@@ -26,8 +30,12 @@ namespace Training_and_diet_backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
-            var response = await _fileService.UploadAsync(file);
-            return Ok(response);
+            var response = await _mediator.Send(new UploadFileCommand( file,6));
+            if (response.IsSuccess)
+            {
+                return Ok(response);
+            }
+            return BadRequest("File upload failed.");
         }
 
         [HttpGet("{blobFileName}")]

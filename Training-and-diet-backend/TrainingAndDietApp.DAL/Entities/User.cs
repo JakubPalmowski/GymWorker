@@ -16,6 +16,7 @@ namespace TrainingAndDietApp.Domain.Entities
         public string HashedPassword { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpirationDate { get; set; }
+        public string? ImageUri { get; set; }
 
         [Column(TypeName = "char(11)")]
         public string PhoneNumber { get; set; }

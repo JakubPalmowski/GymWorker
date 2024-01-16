@@ -20,21 +20,20 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Uploa
 
     public async Task<UploadFileResponse> Handle(UploadFileCommand request, CancellationToken cancellationToken)
     {
-        /*var user = await _repository.GetByIdAsync(request.IdUser, cancellationToken);
+        var user = await _repository.GetByIdAsync(request.IdUser, cancellationToken);
         if (user == null)
             throw new NotFoundException("User not found");
 
-        var fileUri = await _fileService.UploadFileAsync(request.File);
-         = fileUri;
-        _repository.UpdateAsync(user.Result, cancellationToken);
-        _unitOfWork.CommitAsync(cancellationToken);
-
-        return Task.FromResult(new UploadFileResponse
+        var uniqueName = await _fileService.UploadFileAsync(request.File);
+        user.ImageUri = uniqueName;
+        await _repository.UpdateAsync(user, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
+        
+        return new UploadFileResponse
         {
             IsSuccess = true,
-            FileUri = fileUri
-        });*/
+            FileUri = uniqueName
+        };
 
-        return null;
     }
 }
