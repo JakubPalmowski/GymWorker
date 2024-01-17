@@ -1,19 +1,86 @@
 <div class="container">
     <div class="register-container">
         <span class="register-text">Rejestracja</span>
-        <input type="text" class="searchInput" placeholder="Adres e-mail">
-        <input type="text" class="searchInput" placeholder="Hasło">
-        <input type="text" class="searchInput" placeholder="Powtórz hasło">
-        <input type="text" class="searchInput" placeholder="Imie">
-        <input type="text" class="searchInput" placeholder="Nazwisko">
-        <div class="checkbox-container">
-        <input type="checkbox" class="checkbox">
-        <span class="checkbox-span">Akceptuje politykę strony</span>
+        <div class="form-container">
+        <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" id="email" class="searchInput" placeholder="Adres e-mail"
+            [(ngModel)]="registerRequest.email" #email="ngModel" required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
+            <div *ngIf="email.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </div>
+            <div *ngIf="email.errors?.['pattern'] && this.submitted" class="validation-error">
+                To nie jest prawidłowy adres email
+            </div>
+
+            <label for="password" class="form-label">Hasło</label>
+            <input type="password" name="password" id="password" class="searchInput" placeholder="Hasło"
+            [(ngModel)]="registerRequest.password" #password="ngModel" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+            <div *ngIf="password.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </div>
+            <div *ngIf="password.errors?.['pattern'] && this.submitted" class="validation-error">
+                Minimum 8 znaków <br> 1 mała litera, 1 duża litera, 1 cyfra
+            </div>
+
+            <label for="password2" class="form-label">Powtórz hasło</label>
+            <input type="password" name="password2" id="password2" class="searchInput" placeholder="Powtórz hasło"
+            [(ngModel)]="additionalFields.passwordRepeat" #password2="ngModel" required>
+            <div *ngIf="registerRequest.password!=additionalFields.passwordRepeat && this.submitted" class="validation-error">
+                Hasła nie są takie same
+            </div>
+
+            <label for="name" class="form-label">Imie</label>
+            <input type="text" name="name" id="name" class="searchInput" placeholder="Imie"
+            [(ngModel)]="registerRequest.name" #name="ngModel" required minlength="2" maxlength="50">
+            <div *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </div>
+            <div *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
+                Pole musi zawierać min 2 znaki
+            </div>
+            <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
+                Pole musi zawierać max 50 znaków
+            </div>
+
+            <label for="lastName" class="form-label">Nazwisko</label>
+            <input type="text" name="lastName" id="lastName" class="searchInput" placeholder="Nazwisko"
+            [(ngModel)]="registerRequest.lastName" #lastName="ngModel" required minlength="2" maxlength="50">
+            <div *ngIf="lastName.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </div>
+            <div *ngIf="lastName.errors?.['minlength'] && this.submitted" class="validation-error">
+                Pole musi zawierać min 2 znaki
+            </div>
+            <div *ngIf="lastName.errors?.['maxlength'] && this.submitted" class="validation-error">
+                Pole musi zawierać max 50 znaków
+            </div>
+
+            <label for="role" class="form-label">Typ użytkownika</label>
+            <select name="role" id="role" class="searchInput" [(ngModel)]="registerRequest.roleId" #role="ngModel">
+                <option value="2">Użytkownik</option>
+                <option value="3">Trener</option>
+                <option value="4">Dietetyk</option>
+                <option value="5">Trener-Dietetyk</option>
+            </select>
+
+            <div class="checkbox-container">
+                <input type="checkbox" class="checkbox" id="policy" name="policy" [(ngModel)]="additionalFields.policyCheckbox" #policy="ngModel" required>
+                <label for="policy" class="form-label checkbox-label">Akceptuję regulamin</label>
+                
+            </div>
+            <div *ngIf="policy.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </div>
+
+           
+            <button type="submit">Zarejestruj się</button>
+        </form>
         </div>
-        <button>Zarejestruj się</button>
+        
         <div>
             <span>Masz już konto? </span>
             <a routerLink="/">Zaloguj się</a>
         </div>
     </div>
-    </div>
+ </div>
