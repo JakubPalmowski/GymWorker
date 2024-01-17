@@ -1,7 +1,11 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TrainingAndDietApp.Application.Commands.TrainingPlan;
-using TrainingAndDietApp.Application.Queries.TrainingPlan;
+using Training_and_diet_backend.Extensions;
+using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.CreateTrainingPlan;
+using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.UpdateTrainingPlan;
+using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById;
+using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByTrainerId;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -32,14 +36,15 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
 
         }
-
-        [HttpPost] 
-        public async Task<IActionResult> PostTrainingPlan(CreateTrainingPlanCommand trainingPlan)
+        [Authorize(Roles = "3")]
+        [HttpPost]
+        public async Task<IActionResult> PostTrainingPlan(CreateTrainingPlanCommand command)
         {
-            var result = await _mediator.Send(trainingPlan);
-            var locationUri = $"api/trainingPlan/{result.IdTrainingPlan}";
-
-            return Created(locationUri, trainingPlan);
+            var userId = this.User.GetId()!.Value;
+            var result = await _mediator.Send(new CreateInternalTrainingPlanCommand(userId, command));
+            var locationUri = $"api/command/{result.IdTrainingPlan}";
+            
+            return Created(locationUri, command);
         }
 
         [HttpPut("{idTrainingPlan}")]
@@ -50,7 +55,7 @@ namespace Training_and_diet_backend.Controllers
             return NoContent();
         }
 
-
         
+
     }
 }

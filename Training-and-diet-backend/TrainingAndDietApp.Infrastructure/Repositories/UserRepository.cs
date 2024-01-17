@@ -39,6 +39,16 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
                 .FirstOrDefaultAsync(u => u.IdUser == id, cancellationToken);
         }
 
+        public async Task<User?> GetByEmailWithRoleAsync(string email, CancellationToken cancellationToken)
+        {
+            return await _context.Users.Include(r => r.Role).FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+        }
+
+        public async Task<User?> GetByIdWithRoleAsync(int id, CancellationToken cancellationToken)
+        {
+            return await _context.Users.Include(r => r.Role).FirstOrDefaultAsync(u => u.IdUser == id, cancellationToken);
+        }
+
         public async Task<bool> AnyAsync(Expression<Func<User, bool>> predicate)
         {
             return await _context.Users.AnyAsync(predicate);

@@ -15,9 +15,14 @@ namespace TrainingAndDietApp.Domain.Entities
         [Column(TypeName = "varchar(50)")]
         public string LastName { get; set; }
         public string Email { get; set; }
-        public bool EmailValidated { get; set; }
+        public string HashedPassword { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpirationDate { get; set; }
+        public string? ImageUri { get; set; }
+
         [Column(TypeName = "varchar(15)")]
         public string? PhoneNumber { get; set; }
+        public string? EmailConfirmationToken { get; set; }
         [Column(TypeName = "decimal(5,2)")]
         public decimal? Weight { get; set; }
         [Column(TypeName = "decimal(5,2)")]

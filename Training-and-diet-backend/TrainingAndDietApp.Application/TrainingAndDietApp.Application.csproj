@@ -1,22 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <UserSecretsId>4c6e13d0-9d32-4055-bda7-734576466678</UserSecretsId>
+    <UserSecretsId>6c551804-173a-44e9-b899-1419c3314709</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Diet\" />
-    <Folder Include="Handlers\Gym\" />
-    <Folder Include="Services\" />
+    <Compile Remove="CQRS\Commands\Diet\**" />
+    <EmbeddedResource Remove="CQRS\Commands\Diet\**" />
+    <None Remove="CQRS\Commands\Diet\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CQRS\Responses\Files\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="FluentValidation" Version="11.8.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.26" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.26" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.26" />
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />

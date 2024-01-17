@@ -218,6 +218,116 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdGym"));
 
+                    b.Property<int>("IdAddress")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("IdGym");
+
+                    b.HasIndex("IdAddress");
+
+                    b.ToTable("Gyms");
+
+                    b.HasData(
+                        new
+                        {
+                            IdGym = 1,
+                            IdAddress = 1,
+                            Name = "Gym1"
+                        },
+                        new
+                        {
+                            IdGym = 2,
+                            IdAddress = 2,
+                            Name = "Gym2"
+                        },
+                        new
+                        {
+                            IdGym = 3,
+                            IdAddress = 3,
+                            Name = "Gym3"
+                        });
+                });
+
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Meal", b =>
+                {
+                    b.Property<int>("IdMeal")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnOrder(0);
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdMeal"));
+
+                    b.Property<int>("IdDietician")
+                        .HasColumnType("integer");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Ingredients")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Kcal")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PrepareSteps")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("IdMeal");
+
+                    b.HasIndex("IdDietician");
+
+                    b.ToTable("Meals");
+
+                    b.HasData(
+                        new
+                        {
+                            IdMeal = 1,
+                            IdDietician = 1,
+                            Ingredients = "{\"ingredient1\": \"ziemniaki\", \"ingredient2\": \"cebula\", \"ingredient3\":  \"mąka\" }",
+                            Kcal = "{\"kcal\": \"651\", \"Białko\": \"16\", \"Węglowodany\":  \"160\" , \"Tłuszcze\": \"30\" }",
+                            Name = "Placki ziemniaczane",
+                            PrepareSteps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }"
+                        },
+                        new
+                        {
+                            IdMeal = 2,
+                            IdDietician = 1,
+                            Ingredients = "{\"ingredient1\": \"platki owsiane\", \"ingredient2\": \"mleko\", \"ingredient3\":  \"cukier\" }",
+                            Kcal = "{\"kcal\": \"765\", \"Białko\": \"20\", \"Węglowodany\":  \"165\" , \"Tłuszcze\": \"20\" }",
+                            Name = "Owsianka",
+                            PrepareSteps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }"
+                        },
+                        new
+                        {
+                            IdMeal = 3,
+                            IdDietician = 2,
+                            Ingredients = "{\"ingredient1\": \"szynka\", \"ingredient2\": \"chleb\", \"ingredient3\":  \"masło\" }",
+                            Kcal = "{\"kcal\": \"700\", \"Białko\": \"30\", \"Węglowodany\":  \"200\" , \"Tłuszcze\": \"26\" }",
+                            Name = "Kanapki z szynką",
+                            PrepareSteps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }"
+                        });
+                });
+
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Gym", b =>
+                {
+                    b.Property<int>("IdGym")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnOrder(0);
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdGym"));
+
                     b.Property<int>("AddedBy")
                         .HasColumnType("integer");
 
@@ -489,14 +599,21 @@ namespace Training_and_diet_backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("EmailValidated")
-                        .HasColumnType("boolean");
+                    b.Property<string>("EmailConfirmationToken")
+                        .HasColumnType("text");
+
+                    b.Property<string>("HashedPassword")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<decimal?>("Height")
                         .HasColumnType("decimal(5,2)");
 
                     b.Property<int>("IdRole")
                         .HasColumnType("integer");
+
+                    b.Property<string>("ImageUri")
+                        .HasColumnType("text");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -514,6 +631,12 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("varchar(15)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("RefreshTokenExpirationDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Sex")
                         .HasColumnType("varchar(10)");
@@ -539,7 +662,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 1,
                             Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne",
                             Email = "michal@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 1,
                             LastName = "Emczyk",
                             Name = "Michał",
@@ -551,7 +674,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 2,
                             Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne",
                             Email = "anna@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 2,
                             LastName = "Kowalska",
                             Name = "Anna",
@@ -563,7 +686,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 3,
                             Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne",
                             Email = "john@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Doe",
                             Name = "John",
@@ -575,7 +698,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 4,
                             Bio = "Hi, I'm Charlie. Let's stay active and have fun!",
                             Email = "charlie@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Brown",
                             Name = "Charlie",
@@ -587,7 +710,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 5,
                             Bio = "Hello, I'm Diana. Fitness is my passion!",
                             Email = "diana@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Miller",
                             Name = "Diana",
@@ -599,7 +722,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 6,
                             Bio = "Hi, I'm Frank. Let's achieve our fitness goals together!",
                             Email = "frank@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Davis",
                             Name = "Frank",
@@ -611,7 +734,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 7,
                             Bio = "Hello, I'm Grace. Fitness is my lifestyle!",
                             Email = "grace@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Anderson",
                             Name = "Grace",
@@ -623,7 +746,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 8,
                             Bio = "Hey, I'm Harry. Let's push our limits in every workout!",
                             Email = "harry@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Moore",
                             Name = "Harry",
@@ -635,7 +758,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 9,
                             Bio = "Hi, I'm Ivy. Fitness is my passion and I'm here to inspire!",
                             Email = "ivy@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Turner",
                             Name = "Ivy",
@@ -647,7 +770,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 10,
                             Bio = "Hello, I'm Jack. Let's make every workout count!",
                             Email = "jack@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "White",
                             Name = "Jack",
@@ -659,7 +782,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 11,
                             Bio = "Hi, I'm Kelly. Fitness is the key to a healthy life!",
                             Email = "kelly@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Martin",
                             Name = "Kelly",
@@ -671,7 +794,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 12,
                             Bio = "Hey, I'm Leo. Let's crush our fitness goals!",
                             Email = "leo@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Baker",
                             Name = "Leo",
@@ -683,7 +806,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 13,
                             Bio = "Hello, I'm Mia. Fitness is not just a hobby, it's a way of life!",
                             Email = "mia@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Collins",
                             Name = "Mia",
@@ -695,7 +818,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 14,
                             Bio = "Hi, I'm Nathan. Let's embrace a fit and healthy lifestyle!",
                             Email = "nathan@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Ward",
                             Name = "Nathan",
@@ -707,7 +830,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 15,
                             Bio = "Hey, I'm Olivia. Fitness enthusiast and advocate!",
                             Email = "olivia@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Perry",
                             Name = "Olivia",
@@ -719,7 +842,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 16,
                             Bio = "Hello, I'm Peter. Let's make fitness a fun journey!",
                             Email = "peter@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Cooper",
                             Name = "Peter",
@@ -731,7 +854,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 17,
                             Bio = "Hi, I'm Quinn. Fitness is my daily dose of happiness!",
                             Email = "quinn@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Barnes",
                             Name = "Quinn",
@@ -743,7 +866,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 18,
                             Bio = "Hey, I'm Ryan. Fitness is the key to a balanced life!",
                             Email = "ryan@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Fisher",
                             Name = "Ryan",
@@ -755,7 +878,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 19,
                             Bio = "Hello, I'm Sophie. Let's stay fit and fabulous!",
                             Email = "sophie@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Turner",
                             Name = "Sophie",
@@ -767,7 +890,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 20,
                             Bio = "Hi, I'm Tom. Fitness is my lifestyle choice!",
                             Email = "tom@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "Harris",
                             Name = "Tom",
@@ -779,7 +902,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 21,
                             Bio = "Hi, I'm Filip. Fitness is my hobby!",
                             Email = "filipwgmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 4,
                             LastName = "W",
                             Name = "Filip",
@@ -791,7 +914,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 22,
                             Bio = "Hi, I'm Jakub. Fitness is my passion!",
                             Email = "jakubs@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "test",
                             Name = "test",
@@ -803,7 +926,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 23,
                             Bio = "Hi, I'm Jakub. Fitness is my passion!",
                             Email = "jakubs@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "test",
                             Name = "test",
@@ -815,7 +938,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 24,
                             Bio = "Hi, I'm Jakub. Fitness is my passion!",
                             Email = "jakubs@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
                             LastName = "test",
                             Name = "test",
@@ -827,7 +950,7 @@ namespace Training_and_diet_backend.Data.Migrations
                             IdUser = 25,
                             Bio = "Hi, I'm Jakub. Fitness is my passion!",
                             Email = "jakubs@gmail.com",
-                            EmailValidated = true,
+                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 5,
                             LastName = "test",
                             Name = "Dietician-Trainer",

@@ -1,7 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TrainingAndDietApp.Application.Commands.Meal;
-using TrainingAndDietApp.Application.Queries.Meal;
+using TrainingAndDietApp.Application.CQRS.Commands.Meal.CreateMeal;
+using TrainingAndDietApp.Application.CQRS.Commands.Meal.DeleteMeal;
+using TrainingAndDietApp.Application.CQRS.Commands.Meal.UpdateMeal;
+using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetAll;
+using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetByDieticianId;
+using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetById;
 
 namespace Training_and_diet_backend.Controllers
 {
