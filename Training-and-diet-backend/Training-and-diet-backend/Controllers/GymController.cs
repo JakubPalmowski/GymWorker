@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TrainingAndDietApp.Application.Queries.Gym;
+using TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAll;
+using TrainingAndDietApp.Application.CQRS.Queries.Gym.GetMentors;
 
 namespace Training_and_diet_backend.Controllers
 {

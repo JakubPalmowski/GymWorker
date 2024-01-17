@@ -1,10 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using Training_and_diet_backend.Extensions;
-using TrainingAndDietApp.Application.Commands.TrainingPlan;
-using TrainingAndDietApp.Application.Queries.TrainingPlan;
+using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.CreateTrainingPlan;
+using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.UpdateTrainingPlan;
+using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById;
+using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByTrainerId;
 
 namespace Training_and_diet_backend.Controllers
 {

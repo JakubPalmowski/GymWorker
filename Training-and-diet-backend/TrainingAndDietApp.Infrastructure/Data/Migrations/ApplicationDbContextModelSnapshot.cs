@@ -489,6 +489,9 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Property<int>("IdRole")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ImageUri")
+                        .HasColumnType("text");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");

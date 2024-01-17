@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TrainingAndDietApp.Application.Commands.TraineeExercises;
-using TrainingAndDietApp.Application.Queries.Exercise;
-using TrainingAndDietApp.Application.Queries.TraineeExercise;
+using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.CreateTraineeExercise;
+using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.DeleteTraineeExercise;
+using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.UpdateTraineeExercise;
+using TrainingAndDietApp.Application.CQRS.Queries.Exercise.GetByTrainingPlanId;
+using TrainingAndDietApp.Application.CQRS.Queries.TraineeExercise.GetById;
 
 namespace Training_and_diet_backend.Controllers
 {

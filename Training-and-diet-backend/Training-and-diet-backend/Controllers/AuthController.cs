@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TrainingAndDietApp.Application.Commands.Auth.Login;
-using TrainingAndDietApp.Application.Commands.Auth.Refresh;
-using TrainingAndDietApp.Application.Commands.Auth.Register;
+using TrainingAndDietApp.Application.CQRS.Commands.Auth.Login;
+using TrainingAndDietApp.Application.CQRS.Commands.Auth.Refresh;
+using TrainingAndDietApp.Application.CQRS.Commands.Auth.Register;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -11,7 +10,7 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public AuthController(IMediator mediator)
         {
