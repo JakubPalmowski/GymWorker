@@ -4,9 +4,30 @@
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4 d-flex flex-column bg-primary rounded-4 py-4 align-items-center mb-5">
         <img src="../../../assets/icons/user.png" width="30%" height="auto" class="mt-4">
         <span class="fw-bold fs-1 text-white">Logowanie</span>
-        <input type="text" class="fs-4 rounded-3 p-1" placeholder="Adres e-mail">
-        <input type="text" class="fs-4 rounded-3 mt-1 p-1" placeholder="Hasło">
-        <button class="bg-button p-2 text-lg text-white fs-4 my-3 rounded-3 fw-bold">Zaloguj się</button>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" id="email" class="searchInput" placeholder="Adres e-mail"
+            [(ngModel)]="loginRequest.email" #email="ngModel" required>
+            <div *ngIf="email.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </div>
+
+
+            <label for="password" class="form-label">Hasło</label>
+            <input type="password" name="password" id="password" class="searchInput" placeholder="Hasło"
+            [(ngModel)]="loginRequest.password" #password="ngModel" required >
+            <div *ngIf="password.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </div>
+
+            <div *ngIf="this.credentialsIncorrect && this.submitted" class="validation-error">
+                Dane logowanie są niepoprawne
+            </div>
+
+            <button class="bg-button p-2 text-lg text-white fs-4 my-3 rounded-3 fw-bold">Zaloguj się</button>
+
+
+        </form>
         <div class="fs-5 text-center mt-2">
             <span class="text-white">Nie masz konta? </span>
             <a routerLink="/register" class="fw-bold text-white">Zarejestruj się</a>

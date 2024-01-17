@@ -11,6 +11,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class RegisterComponent {
   submitted=false;
+  emailTaken=false;
 
   registerRequest: Register={
     name:'',
@@ -34,15 +35,20 @@ export class RegisterComponent {
 
   register(){
     console.log("register");
+    this.emailTaken=false;
     this.authenticationService.register(this.registerRequest).subscribe({
       next:(response)=>{
         console.log(response);
       },
       error:(response)=>{
-        console.log(response);
+
+        if(response.status==409){
+          this.emailTaken=true;
+          console.log("email taken");
+        }
       }
     }
-);
+    );
     
   }
 
@@ -50,8 +56,6 @@ export class RegisterComponent {
     this.submitted=true;
   
     if(valid){
-      console.log(this.registerRequest.email);
-      console.log(this.submitted);
       this.register();
       
     }

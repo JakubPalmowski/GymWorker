@@ -22,5 +22,11 @@ export class AuthenticationService {
     return this.http.post<JwtAuth>(environment.apiUrl + 'Auth/login', login);
   }
 
+  
+
+  private setSession(){
+
+  }
+
 
 }

@@ -12,6 +12,9 @@
             <div *ngIf="email.errors?.['pattern'] && this.submitted" class="validation-error">
                 To nie jest prawidłowy adres email
             </div>
+            <div *ngIf="this.emailTaken && this.submitted" class="validation-error">
+                Ten adres email jest już zajęty
+            </div>
 
             <label for="password" class="form-label">Hasło</label>
             <input type="password" name="password" id="password" class="searchInput" placeholder="Hasło"
