@@ -1,14 +1,11 @@
 using AutoMapper;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Application.CQRS.Responses.Gym;
 using TrainingAndDietApp.Application.Exceptions;
-using TrainingAndDietApp.Application.Responses.Gym;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
-using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.Application.CQRS.Commands.User.Trainer.UpdateTrainer
 {

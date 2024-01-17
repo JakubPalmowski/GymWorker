@@ -13,10 +13,10 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.User.Trainer.GetById
     public class GetTrainerPersonalInfoQueryHandler : IRequestHandler<GetTrainerPersonalInfoQuery, TrainerPersonalInfoResponse>
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<Domain.Entities.User> _repository;
+        private readonly IUserRepository _repository;
         private readonly IUserService _userService;
 
-        public GetTrainerPersonalInfoQueryHandler(IMapper mapper, IRepository<Domain.Entities.User> repository, IUserService userService)
+        public GetTrainerPersonalInfoQueryHandler(IMapper mapper, IUserRepository repository, IUserService userService)
         {
             _mapper = mapper;
             _repository = repository;

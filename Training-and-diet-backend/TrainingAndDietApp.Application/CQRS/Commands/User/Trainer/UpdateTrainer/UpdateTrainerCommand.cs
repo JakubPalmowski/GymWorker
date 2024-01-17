@@ -1,5 +1,5 @@
 using MediatR;
-using TrainingAndDietApp.Application.Responses.Gym;
+using TrainingAndDietApp.Application.CQRS.Responses.Gym;
 
 namespace TrainingAndDietApp.Application.CQRS.Commands.User.Trainer.UpdateTrainer
 {

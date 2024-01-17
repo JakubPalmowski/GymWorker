@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
-using TrainingAndDietApp.Application.Commands.User.Pupil;
+﻿using FluentValidation;
+using TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.UpdatePupil;
 
 namespace TrainingAndDietApp.Application.Validators
 {

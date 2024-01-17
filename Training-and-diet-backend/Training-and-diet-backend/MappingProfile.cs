@@ -16,6 +16,7 @@ using TrainingAndDietApp.Application.CQRS.Responses;
 using TrainingAndDietApp.Application.CQRS.Responses.Diet;
 using TrainingAndDietApp.Application.CQRS.Responses.Dietician;
 using TrainingAndDietApp.Application.CQRS.Responses.Exercise;
+using TrainingAndDietApp.Application.CQRS.Responses.Gym;
 using TrainingAndDietApp.Application.CQRS.Responses.Meal;
 using TrainingAndDietApp.Application.CQRS.Responses.Pupil;
 using TrainingAndDietApp.Application.CQRS.Responses.TraineeExercise;
@@ -24,8 +25,6 @@ using TrainingAndDietApp.Application.CQRS.Responses.TrainingPlan;
 using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Entities;
 using Gym = TrainingAndDietApp.Domain.Entities.Gym;
-using GymResponse = TrainingAndDietApp.Application.CQRS.Responses.Gym.GymResponse;
-using ActiveGymResponse = TrainingAndDietApp.Application.Responses.Gym.ActiveGymResponse;
 using TrainingPlan = TrainingAndDietApp.Domain.Entities.TrainingPlan;
 
 
