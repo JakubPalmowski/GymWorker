@@ -23,7 +23,7 @@ public class DeleteFileCommandHandler : IRequestHandler<DeleteFileCommand, bool>
         var user = await _baseRepository.GetByIdAsync(request.LoggedUser, cancellationToken);
         var userWithGivenImage = await _userRepository.GetUserByImageUri(request.BlobFileName, cancellationToken);
 
-        if(user != userWithGivenImage)
+        if(user != null && userWithGivenImage != null && user.IdUser != userWithGivenImage.IdUser)
             return false;
 
         return await _fileService.DeleteFileAsync(request.BlobFileName);
