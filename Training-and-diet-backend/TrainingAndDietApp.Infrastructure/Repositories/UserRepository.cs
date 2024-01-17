@@ -86,5 +86,10 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         {
             _context.Users.Update(user);
         }
+
+        public async Task<User?> GetUserByImageUri(string imageUri, CancellationToken cancellationToken)
+        {
+            return await _context.Users.Where(u => u.ImageUri == imageUri).FirstOrDefaultAsync(cancellationToken);
+        }
     }
 }

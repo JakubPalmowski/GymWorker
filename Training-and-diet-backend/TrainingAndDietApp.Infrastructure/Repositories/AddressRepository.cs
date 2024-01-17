@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Models;
+using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Infrastructure.Context;
 
 namespace TrainingAndDietApp.Infrastructure.Repositories
@@ -17,10 +18,6 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(Address address, CancellationToken cancellation)
-        {
-            await _context.Addresses.AddAsync(address);
-        }
 
         public async Task<Address?> CheckIfAddressExistsAsync(string city, string street, string postalCode, CancellationToken cancellation)
         => await _context.Addresses
