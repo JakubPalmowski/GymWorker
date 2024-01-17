@@ -25,6 +25,7 @@ import { EditTrainingExerciseComponent } from './components/traininig-plans/edit
 import { PupilTrainingPlansListComponent } from './components/pupilTrainingPlan/pupil-training-plans-list/pupil-training-plans-list.component';
 import { PupilTrainingPlanDetailsComponent } from './components/pupilTrainingPlan/pupil-training-plan-details/pupil-training-plan-details.component';
 import { PupilTrainingExerciseDetailsComponent } from './components/pupilTrainingPlan/pupil-training-exercise-details/pupil-training-exercise-details.component';
+import { CreateGymComponent } from './components/gym/create-gym/create-gym.component';
 
 
 const routes: Routes = [
@@ -105,7 +106,8 @@ const routes: Routes = [
   {path: 'dieticianProfile/:id', component: MentorProfileComponent},
   {path: 'pupilProfile/:id', component: PupilProfileComponent},
   {path: 'myProfile', component: MyProfileComponent},
-  {path: 'myProfile/edit', component: MyProfileEditComponent}
+  {path: 'myProfile/edit', component: MyProfileEditComponent},
+  {path: 'createGym', component: CreateGymComponent}
 ];
 
 @NgModule({

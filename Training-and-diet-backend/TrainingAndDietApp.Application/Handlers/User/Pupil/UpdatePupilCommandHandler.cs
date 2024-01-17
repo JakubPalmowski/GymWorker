@@ -42,7 +42,6 @@ namespace TrainingAndDietApp.Application.Handlers.User.Pupil
                 userToUpdate.Email = request.PupilCommand.Email;
                 userToUpdate.EmailValidated = false;
             }
-            userToUpdate.PhoneNumber = request.PupilCommand.PhoneNumber;
             userToUpdate.Weight = request.PupilCommand.Weight;
             userToUpdate.Height = request.PupilCommand.Height;
             userToUpdate.DateOfBirth = request.PupilCommand.DateOfBirth;

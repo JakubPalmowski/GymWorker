@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TrainingAndDietApp.Application.Commands.Gym;
 using TrainingAndDietApp.Application.Queries.Gym;
 
 namespace Training_and_diet_backend.Controllers
@@ -33,6 +34,19 @@ namespace Training_and_diet_backend.Controllers
             return Ok(response);
 
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateGym(CreateGymCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
 
+        [HttpGet("User/{idUser}")]
+        public async Task<IActionResult> GetAllGymsAddedByUser(int idUser)
+        {
+            var response = await _mediator.Send(new GetAllGymsAddedByUserQuery(idUser));
+
+            return Ok(response);
+        }
     }
 }

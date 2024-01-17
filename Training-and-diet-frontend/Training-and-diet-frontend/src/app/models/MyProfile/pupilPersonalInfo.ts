@@ -4,7 +4,6 @@ export interface PupilPersonalInfo{
     role: string;
     email: string;
     emailValidated: boolean;
-    phoneNumber?: string;
     weight?: number;
     height?: number;
     dateOfBirth?: Date;

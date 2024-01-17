@@ -16,8 +16,16 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task AddAsync(Gym gym, CancellationToken cancellationToken)
+        {
+            await _context.Gyms.AddAsync(gym, cancellationToken);
+        }
+
         public async Task<IEnumerable<Gym>> GetActiveGymsWithAddressAsync(CancellationToken cancellationToken)
         =>  await _context.Gyms.Where(g=>g.Status == Domain.Enums.Status.Active).Include(g => g.Address).ToListAsync(cancellationToken: cancellationToken);
+
+        public async Task<List<Gym>> GetAllGymsAddedByUserAsync(int idUser, CancellationToken cancellationToken)
+        => await _context.Gyms.Where(g=>g.AddedBy==idUser).Include(g => g.Address).ToListAsync(cancellationToken: cancellationToken);
 
         public async Task<Gym?> GetByIdAsync(int id, CancellationToken cancellationToken)
         => await _context.Gyms.Where(g=>g.IdGym == id).FirstOrDefaultAsync(cancellationToken: cancellationToken);

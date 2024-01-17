@@ -46,7 +46,7 @@
             <input type="text" value="{{user.email}}" disabled>
         </div>
 
-        <div class="col-6 group">
+        <div class="col-6 group" *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
             <label>Numer Telefonu</label>
             <input type="text" value="{{user.phoneNumber}}" disabled>
         </div>
@@ -156,6 +156,16 @@
       </ng-template>
       
 
+      <div class="col-12 d-flex justify-content-center mt-3">
+            <a [routerLink]="'/createGym'" class="add-gym-button bg-button">Dodaj siłownie do bazy</a>
+            <div style="position: relative;">
+            <i class="bi bi-info-circle-fill info-icon"></i>
+            <div class="info-tooltip">
+                Nie ma Twojej siłowni na naszym portalu? Dodaj ją tutaj!
+          </div>
+          </div>
+      </div>
+      
 
         </ng-container>
 

@@ -38,6 +38,7 @@ builder.Services.AddScoped<ITraineeExercisesRepository, TraineeExercisesReposito
 builder.Services.AddScoped<IGymRepository, GymRepository>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<ITrainerGymRepository, TrainerGymRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IValidator<UserQuery>, UserQueryValidator>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers()

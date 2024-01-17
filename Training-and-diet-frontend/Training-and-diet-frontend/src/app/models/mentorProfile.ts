@@ -1,4 +1,4 @@
-import { ActiveGym } from "./activeGym";
+import { ActiveGym } from "./gym/activeGym";
 import { Opinion } from "./opinion";
 
 export interface MentorProfile{
