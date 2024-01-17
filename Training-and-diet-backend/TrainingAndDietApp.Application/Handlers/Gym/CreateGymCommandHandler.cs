@@ -68,7 +68,7 @@ namespace TrainingAndDietApp.Application.Handlers.Gym
             catch (Exception)
             {
                 await _unitOfWork.RollbackTransactionAsync(cancellationToken);
-                throw;
+                throw new Exception("Nie udało się wykonać operacji.");
             }
         }
 
