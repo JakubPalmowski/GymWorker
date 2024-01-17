@@ -153,6 +153,7 @@ onSubmit() {
           this.successFlag = "error";
           this.showSuccessPopup(this.successFlag);
           document.documentElement.scrollTop = 0;
+          this.fieldErrors = {}; 
         }
         }
       });
@@ -182,6 +183,7 @@ onSubmit() {
         this.successFlag = "error";
         this.showSuccessPopup(this.successFlag);
         document.documentElement.scrollTop = 0;
+        this.fieldErrors = {}; 
       }
       }
     });
@@ -193,6 +195,7 @@ onSubmit() {
         this.showSuccessPopup(this.successFlag);
         this.fieldErrors = {}; 
         document.documentElement.scrollTop = 0;
+  
       },
       error: (error) => {
         if (error.status === 400) {
@@ -211,6 +214,7 @@ onSubmit() {
         this.successFlag = "error";
         this.showSuccessPopup(this.successFlag);
         document.documentElement.scrollTop = 0;
+        this.fieldErrors = {}; 
       }
       }
     });
@@ -240,6 +244,7 @@ onSubmit() {
         this.successFlag = "error";
         this.showSuccessPopup(this.successFlag);
         document.documentElement.scrollTop = 0;
+        this.fieldErrors = {}; 
       }
       }
     });

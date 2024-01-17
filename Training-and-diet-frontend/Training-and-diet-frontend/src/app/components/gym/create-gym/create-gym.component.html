@@ -1,4 +1,127 @@
-<div *ngIf="GymsAddedByUser">
-    <div *ngFor="let gym of GymsAddedByUser">{{gym.Name}}</div>
+<div class="mt-3">
+<a class="p-1 rounded-3 text-decoration-none bg-btn-orange text-black" routerLink="/myProfile" style="border: 1px solid black; cursor: pointer;"><i class="bi bi-arrow-left"></i> Powrót do profilu</a>
+</div>
+<div class="container-fluid bg-secondary my-3 h-auto rounded-3 pb-0" style="border:2px solid black;">
+    <div *ngIf="successFlag=='success'" class="success-popup">
+        Prośba wysłana!
+      </div>
+      <div *ngIf="successFlag=='error'" class="error-popup">
+        Wystapił błąd podczas wysyłania prośby. Proszę spróbować ponownie.
+      </div>
+    
+
+    <div class="row">
+        <form #profileForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="col-12 mb-2 mt-1">
+            <h1 class="text-center">Dane nowej siłowni</h1>
+        </div>
+
+        <div class="col-12 group">
+            <div class="d-flex flex-column" style="width: 60%;">
+                <label>Nazwa siłowni</label>
+                <input type="text" [(ngModel)]="GymToCreate.name" name="name" #name="ngModel" required maxlength="100">
+                <div class="error-container">
+                    <span *ngIf="name.touched && name.errors?.['required']" class="validation-error">
+                        Nazwa siłowni jest wymagana.
+                    </span>
+                    <span *ngIf="name.touched && name.errors?.['maxlength']" class="validation-error">
+                        Nazwa siłowni może zawierać maksymalnie 100 znaków.
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 group">
+            <div class="d-flex flex-column" style="width: 60%;">
+                <label>Miasto</label>
+                <input type="text" [(ngModel)]="GymToCreate.city" name="city" #city="ngModel" required maxlength="85">
+                <div class="error-container">
+                    <span *ngIf="city.touched && city.errors?.['required']" class="validation-error">
+                        Nazwa miasta jest wymagana.
+                    </span>
+                    <span *ngIf="city.touched && city.errors?.['maxlength']" class="validation-error">
+                        Nazwa miasta może zawierać maksymalnie 85 znaków.
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 group">
+            <div class="d-flex flex-column" style="width: 60%;">
+                <label>Ulica</label>
+                <input type="text" [(ngModel)]="GymToCreate.street" name="street" #street="ngModel" required maxlength="120">
+                <div class="error-container">
+                    <span *ngIf="street.touched && street.errors?.['required']" class="validation-error">
+                        Nazwa ulicy jest wymagana.
+                    </span>
+                    <span *ngIf="street.touched && street.errors?.['maxlength']" class="validation-error">
+                        Nazwa ulicy może zawierać maksymalnie 120 znaków.
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 group">
+            <div class="d-flex flex-column" style="width: 60%;">
+                <label>Kod pocztowy</label>
+                <input type="text" [(ngModel)]="GymToCreate.postalCode" name="postalCode" #postalCode="ngModel" required pattern="^\d{2}-\d{3}$">
+                <div class="error-container">
+                    <span *ngIf="postalCode.touched && postalCode.errors?.['required']" class="validation-error">
+                        Kod pocztowy jest wymagany.
+                    </span>
+                    <span *ngIf="postalCode.touched && postalCode.errors?.['pattern']" class="validation-error">
+                        Nieprawidłowy format kodu pocztowego. Poprawny format to XX-XXX.
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        <div class="col-12 group mt-3">
+            <button type="submit" class="text-black text-decoration-none p-2 bg-btn-orange rounded-3 fs-5">Zapisz zmiany</button>
+        </div>
+       
+
+    </form>
+
+        <div class="col-12 mt-3"><h2>Moje prośby</h2></div>
+
+        <ng-container *ngIf="GymsAddedByUser && GymsAddedByUser.length > 0; else noGymsTemplate">
+            <table class="table table-striped" style="max-width: 100%;">
+                <thead>
+                    <tr>
+                        <th scope="col">Miasto</th>
+                        <th scope="col">Nazwa siłowni</th>
+                        <th scope="col">Ulica</th>
+                        <th scope="col">Kod pocztowy</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let gym of GymsAddedByUser">
+                        <td>{{gym.city}}</td>
+                        <td>{{gym.name}}</td>
+                        <td>{{gym.street}}</td>
+                        <td>{{gym.postalCode}}</td>
+                        <ng-container *ngIf="gym.status == 'Active'">
+                            <td><i class="bi bi-check-circle-fill" style="color: green;"></i></td>
+                        </ng-container>
+                        <ng-container *ngIf="gym.status == 'Pending'">
+                            <td><i class="bi bi-question-circle-fill"></i></td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+    <ng-template #noGymsTemplate>
+        <div class="col-12">
+          <span class="fs-4" style="margin-left: 5%;">Nie dodaleś jeszcze żadnej siłowni lub twoja prośba została odrzucona</span>
+        </div>
+      </ng-template>
+
+
+
+    </div>
 </div>
 
