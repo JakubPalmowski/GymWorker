@@ -40,3 +40,47 @@ a{
     width: auto;
     
 }
+
+.add-gym-button{
+    height:47px; 
+    width: 140px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding:10px;
+  }
+
+
+  
+  .info-icon {
+    cursor: pointer;
+    margin-left: 5px;
+    position: relative;
+    z-index: 2; 
+  }
+  
+  .info-tooltip {
+    visibility: hidden;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 250px;
+  }
+  
+  .info-icon:hover + .info-tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  

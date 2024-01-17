@@ -141,7 +141,11 @@ namespace Training_and_diet_backend
                 .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.ExerciseCommand.ExerciseSteps))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ExerciseCommand.Image));
 
-
+            CreateMap<Gym, GymsAddedByUserResponse>()
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
+                .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode))
+                .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>src.Status.ToString()));
 
 
 

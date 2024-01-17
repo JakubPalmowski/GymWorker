@@ -6,7 +6,7 @@ import { UserPersonalInfo } from 'src/app/models/MyProfile/userPersonalInfo';
 import { TrainerPersonalInfo } from 'src/app/models/MyProfile/trainerPersonalInfo';
 import { GymService } from 'src/app/services/gym.service';
 import { forkJoin } from 'rxjs';
-import { ActiveGym } from 'src/app/models/activeGym';
+import { ActiveGym } from 'src/app/models/gym/activeGym';
 import { DieticianPersonalInfo } from 'src/app/models/MyProfile/dieticianPersonalInfo';
 import { DieticianTrainerPersonalInfo } from 'src/app/models/MyProfile/dieticianTrainerPersonalInfo';
 
@@ -427,7 +427,6 @@ mapUserToPupil(user: UserPersonalInfo): PupilPersonalInfo {
     role: user.role,
     email: user.email,
     emailValidated: user.emailValidated,
-    phoneNumber: user.phoneNumber,
     weight: user.weight,
     height: user.height,
     dateOfBirth: user.dateOfBirth,

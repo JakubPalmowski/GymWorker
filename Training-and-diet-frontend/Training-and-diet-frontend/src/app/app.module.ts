@@ -36,6 +36,7 @@ import { TrainingExerciseListComponent } from './components/traininig-plans/trai
 import { PupilTrainingPlansListComponent } from './components/pupilTrainingPlan/pupil-training-plans-list/pupil-training-plans-list.component';
 import { PupilTrainingPlanDetailsComponent } from './components/pupilTrainingPlan/pupil-training-plan-details/pupil-training-plan-details.component';
 import { PupilTrainingExerciseDetailsComponent } from './components/pupilTrainingPlan/pupil-training-exercise-details/pupil-training-exercise-details.component';
+import { CreateGymComponent } from './components/gym/create-gym/create-gym.component';
 
 
 
@@ -71,7 +72,7 @@ import { PupilTrainingExerciseDetailsComponent } from './components/pupilTrainin
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent,
     MyProfileComponent, 
-    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent
+    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent
   ],
   imports: [
     AppRoutingModule,

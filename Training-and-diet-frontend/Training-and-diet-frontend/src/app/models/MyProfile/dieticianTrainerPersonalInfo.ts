@@ -1,4 +1,4 @@
-import { ActiveGym } from "../activeGym";
+import { ActiveGym } from "../gym/activeGym";
 
 export interface DieticianTrainerPersonalInfo {
     name: string;
