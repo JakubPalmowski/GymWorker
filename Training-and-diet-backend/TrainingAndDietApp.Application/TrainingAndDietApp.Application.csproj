@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CQRS\Queries\Files\Download\" />
     <Folder Include="CQRS\Responses\Files\" />
   </ItemGroup>
 
