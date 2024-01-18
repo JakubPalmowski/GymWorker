@@ -16,19 +16,19 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
        
-        console.log("check token before"+localStorage.getItem('acessToken'));
+        //console.log("check token before"+localStorage.getItem('acessToken'));
         
         if(localStorage.getItem('acessToken')){
 
             request=this.addTokenHeader(request);
         
         
-        console.log("interceptor");
+        //console.log("interceptor");
         
         
         return next.handle(request).pipe(catchError(errorData=>{
             if(errorData.status==401 ){
-                console.log("401");
+                //console.log("401");
                 return this.handleRefreshToken(request,next);
             }
 
@@ -44,13 +44,13 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     handleRefreshToken(request: HttpRequest<any>, next: HttpHandler) {
     return from(this.authenticationService.refreshToken().pipe(
         switchMap((data:JwtAuth)=>{
-            console.log("set serv 1");
+           // console.log("set serv 1");
             this.authenticationService.setSession(data);
-            console.log("set serv 2");
+           // console.log("set serv 2");
             return next.handle(this.addTokenHeader(request));
         }),
         catchError((errorData)=>{
-            console.log("error inside refresh token");
+          //  console.log("error inside refresh token");
             return throwError(errorData);
         })));
     
