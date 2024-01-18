@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using MediatR;
-using Training_and_diet_backend.Data.Migrations;
+﻿using MediatR;
 using TrainingAndDietApp.Application.Abstractions.Auth;
 using TrainingAndDietApp.Application.CQRS.Responses.Auth;
 using TrainingAndDietApp.Application.Exceptions;

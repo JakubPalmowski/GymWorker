@@ -9,11 +9,11 @@ using TrainingAndDietApp.Infrastructure.Context;
 
 #nullable disable
 
-namespace Training_and_diet_backend.Data.Migrations
+namespace TrainingAndDietApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240115231143_UserJwtRegistration")]
-    partial class UserJwtRegistration
+    [Migration("20240118225239_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,9 +145,6 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Property<int?>("IdTrainer")
                         .HasColumnType("integer");
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("bytea");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -221,10 +218,17 @@ namespace Training_and_diet_backend.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdGym"));
 
+                    b.Property<int>("AddedBy")
+                        .HasColumnType("integer");
+
                     b.Property<int>("IdAddress")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -238,20 +242,26 @@ namespace Training_and_diet_backend.Data.Migrations
                         new
                         {
                             IdGym = 1,
+                            AddedBy = 0,
                             IdAddress = 1,
-                            Name = "Gym1"
+                            Name = "Gym1",
+                            Status = "Active"
                         },
                         new
                         {
                             IdGym = 2,
+                            AddedBy = 0,
                             IdAddress = 2,
-                            Name = "Gym2"
+                            Name = "Gym2",
+                            Status = "Active"
                         },
                         new
                         {
                             IdGym = 3,
+                            AddedBy = 0,
                             IdAddress = 3,
-                            Name = "Gym3"
+                            Name = "Gym3",
+                            Status = "Active"
                         });
                 });
 
@@ -470,10 +480,10 @@ namespace Training_and_diet_backend.Data.Migrations
                         .HasColumnType("Date");
 
                     b.Property<decimal?>("DietPriceFrom")
-                        .HasColumnType("decimal(4,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal?>("DietPriceTo")
-                        .HasColumnType("decimal(4,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -487,46 +497,48 @@ namespace Training_and_diet_backend.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<decimal?>("Height")
-                        .HasColumnType("decimal(3,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<int>("IdRole")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ImageUri")
+                        .HasColumnType("text");
+
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<decimal?>("PersonalTrainingPriceFrom")
-                        .HasColumnType("decimal(4,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal?>("PersonalTrainingPriceTo")
-                        .HasColumnType("decimal(4,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("char(11)");
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("RefreshToken")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("RefreshTokenExpirationDate")
-                        .HasColumnType("timestamp");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Sex")
                         .HasColumnType("varchar(10)");
 
                     b.Property<decimal?>("TrainingPlanPriceFrom")
-                        .HasColumnType("decimal(4,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal?>("TrainingPlanPriceTo")
-                        .HasColumnType("decimal(4,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal?>("Weight")
-                        .HasColumnType("decimal(3,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.HasKey("IdUser");
 
@@ -1065,13 +1077,6 @@ namespace Training_and_diet_backend.Data.Migrations
                     b.Property<int>("IdTrainer")
                         .HasColumnType("integer");
 
-                    b.Property<int>("IdTrainerGym")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnOrder(0);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdTrainerGym"));
-
                     b.HasKey("IdGym", "IdTrainer");
 
                     b.HasIndex("IdTrainer");
@@ -1082,20 +1087,17 @@ namespace Training_and_diet_backend.Data.Migrations
                         new
                         {
                             IdGym = 1,
-                            IdTrainer = 1,
-                            IdTrainerGym = 0
+                            IdTrainer = 1
                         },
                         new
                         {
                             IdGym = 2,
-                            IdTrainer = 2,
-                            IdTrainerGym = 0
+                            IdTrainer = 2
                         },
                         new
                         {
                             IdGym = 3,
-                            IdTrainer = 3,
-                            IdTrainerGym = 0
+                            IdTrainer = 3
                         });
                 });
 
