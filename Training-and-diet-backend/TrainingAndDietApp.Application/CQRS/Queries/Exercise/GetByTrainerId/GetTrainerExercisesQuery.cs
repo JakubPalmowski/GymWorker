@@ -8,7 +8,7 @@ using TrainingAndDietApp.Application.CQRS.Responses.Exercise;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.Exercise.GetByTrainerId
 {
-    public record GetTrainerExercisesQuery(int TrainerId) : IRequest<IEnumerable<ExerciseNameResponse>>
+    public record GetTrainerExercisesQuery(int LoggedUserId) : IRequest<IEnumerable<ExerciseNameResponse>>
     {
     }
 }

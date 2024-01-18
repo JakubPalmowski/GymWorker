@@ -24,11 +24,12 @@ namespace TrainingAndDietApp.Infrastructure.Context
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Opinion> Opinions { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Gym> Gyms { get; set; }
+        public DbSet<Gym> Gyms { get; set; }
         public DbSet<TrainerGym> Trainer_Gyms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             var roles = new List<Role>()
              {
                  new Role()
@@ -152,7 +153,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 Name = "Pompki",
                 Details = "Podstawowe ćwiczenie siłowe, angażuje mięśnie klatki piersiowej, ramion i tricepsa.",
                 ExerciseSteps = "[{\"Step\": 1, \"Description\": \"Połóż się na podłodze na brzuchu, ręce ustawione nieco szerzej niż szerokość ramion.\"}, {\"Step\": 2, \"Description\": \"Wypnij się na rękach i naciskaj ciało do góry, wyprostowując ręce.\"}, {\"Step\": 3, \"Description\": \"Powoli wróć do pozycji wyjściowej, zginając ręce w łokciach.\"}]",
-                Image = null,
                 IdTrainer = 1
             };
 
@@ -164,7 +164,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 ExerciseSteps = "Step1: Stań prosto, nogi ustawione na szerokość bioder Step 2:" +
                                  " Opuszczaj biodra w dół, jakbyś siadał na niewidzialne krzesło " +
                                  "Step: 3,Powoli wracaj do pozycji wyjściowej, naciskając pięty w podłogę.",
-                Image = null,
                 IdTrainer = 1
             };
 
@@ -174,7 +173,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 Name = "Plank",
                 Details = "Ćwiczenie wzmacniające mięśnie brzucha, pleców i ramion.",
                 ExerciseSteps = "[{\"Step\": 1, \"Description\": \"Połóż się na brzuchu, opierając się na przedramionach i palcach u stóp.\"}, {\"Step\": 2, \"Description\": \"Utrzymuj prostą linię od głowy do pięt, napinając mięśnie brzucha.\"}, {\"Step\": 3, \"Description\": \"Utrzymuj tę pozycję przez określony czas.\"}]",
-                Image = null,
                 IdTrainer = null
             };
 
@@ -184,7 +182,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 Name = "Przysiady",
                 Details = "Ćwiczenie wzmacniające mięśnie nóg i pośladków",
                 ExerciseSteps = "1. Stań w rozkroku i ugnij nogi w kolanach",
-                Image = null,
                 IdTrainer = null
             };
             var exercise4 = new Exercise
@@ -193,7 +190,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 Name = "Pompki",
                 Details = "Ćwiczenie wzmacniające mięśnie piersiowe, pleców i rąk.",
                 ExerciseSteps = "W podporze przodem ugnij ręcę w łokciach",
-                Image = null,
                 IdTrainer = null
             };
             var exercise5 = new Exercise
@@ -202,7 +198,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 Name = "Boczny plank",
                 Details = "Ćwiczenie wzmacniające mięśnie boczne tułowia oraz ramiona.",
                 ExerciseSteps = "Połóż się na boku i podnieś biodra, tworząc prostą linię od stóp do głowy.",
-                Image = null,
                 IdTrainer = null
             };
 
@@ -212,7 +207,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 Name = "Plank z podnoszeniem nóg",
                 Details = "Ćwiczenie angażujące głębokie mięśnie brzucha oraz stabilizujące biodra.",
                 ExerciseSteps = "W pozycji planku na przedramionach, unieś na przemian każdą nogę.",
-                Image = null,
                 IdTrainer = null
             };
 

@@ -17,8 +17,6 @@ namespace TrainingAndDietApp.Domain.Entities
         [Required]
         public string ExerciseSteps { get; set; }
 
-        public byte[]? Image { get; set; }
-
         [ForeignKey("Trainer")]
         public int? IdTrainer { get; set; }
         public virtual User? Trainer { get; set; }

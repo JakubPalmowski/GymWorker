@@ -11,26 +11,18 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Exercise.GetByTrainerId;
 public class GetTrainerExercisesQueryHandler : IRequestHandler<GetTrainerExercisesQuery, IEnumerable<ExerciseNameResponse>>
 {
     private readonly IExerciseRepository _exerciseRepository;
-    private readonly IUserService _userService;
     private readonly IMapper _mapper;
-    public GetTrainerExercisesQueryHandler(IMapper mapper, IExerciseRepository exerciseRepository, IUserService userService)
+    public GetTrainerExercisesQueryHandler(IMapper mapper, IExerciseRepository exerciseRepository)
     {
         _mapper = mapper;
         _exerciseRepository = exerciseRepository;
-        _userService = userService;
     }
     public async Task<IEnumerable<ExerciseNameResponse>> Handle(GetTrainerExercisesQuery request, CancellationToken cancellationToken)
     {
-        if (!await _userService.CheckIfUserExists(request.TrainerId, cancellationToken))
-            throw new NotFoundException("Trainer not found");
+        var exercises = await _exerciseRepository.GetTrainerExercisesAsync(request.LoggedUserId, cancellationToken);
 
-        if (!(await _userService.CheckIfUserIsTrainer(request.TrainerId, cancellationToken) || await _userService.CheckIfUserIsDieticianTrainer(request.TrainerId, cancellationToken)))
-            throw new BadRequestException("User is not a trainer");
-
-        var exercises = await _exerciseRepository.GetTrainerExercisesAsync(request.TrainerId, cancellationToken);
-
-        return _mapper.Map<List<ExerciseNameResponse>>(exercises);
-
-
+        return exercises is null
+            ? throw new NotFoundException("Exercises not found")
+            : _mapper.Map<List<ExerciseNameResponse>>(exercises);
     }
 }

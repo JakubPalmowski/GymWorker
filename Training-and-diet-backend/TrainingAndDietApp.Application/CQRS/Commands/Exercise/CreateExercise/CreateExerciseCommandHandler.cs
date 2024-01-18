@@ -8,27 +8,19 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Commands.Exercise.CreateExercise
 {
-    public class CreateExerciseCommandHandler : IRequestHandler<CreateExerciseCommand, ExerciseNameResponse>
+    public class CreateExerciseCommandHandler : IRequestHandler<CreateInternalExerciseCommand, ExerciseNameResponse>
     {
         private readonly IRepository<Domain.Entities.Exercise> _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IUserService _userService;
-        public CreateExerciseCommandHandler(IMapper mapper, IRepository<Domain.Entities.Exercise> repository, IUserService userService, IUnitOfWork unitOfWork)
+        public CreateExerciseCommandHandler(IMapper mapper, IRepository<Domain.Entities.Exercise> repository, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _repository = repository;
-            _userService = userService;
             _unitOfWork = unitOfWork;
         }
-        public async Task<ExerciseNameResponse> Handle(CreateExerciseCommand request, CancellationToken cancellationToken)
+        public async Task<ExerciseNameResponse> Handle(CreateInternalExerciseCommand request, CancellationToken cancellationToken)
         {
-            if (!await _userService.CheckIfUserExists(request.IdTrainer, cancellationToken))
-                throw new NotFoundException("User not found");
-
-            if (!(await _userService.CheckIfUserIsTrainer(request.IdTrainer, cancellationToken) || await _userService.CheckIfUserIsDieticianTrainer(request.IdTrainer, cancellationToken)))
-                throw new BadRequestException("User is not a trainer");
-
             var exercise = _mapper.Map<Domain.Entities.Exercise>(request);
             await _repository.AddAsync(exercise, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

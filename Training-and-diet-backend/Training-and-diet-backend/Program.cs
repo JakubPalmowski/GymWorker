@@ -30,7 +30,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("TestConnection"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("TestConnection"))
+        .EnableSensitiveDataLogging();
 });
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(GetMealsHandler)));
 builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
