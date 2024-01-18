@@ -17,6 +17,9 @@
   <ItemGroup>
     <Folder Include="CQRS\Queries\Files\Download\" />
     <Folder Include="CQRS\Responses\Files\" />
+    <Folder Include="CQRS\Validators\Create\TraineeExercise\" />
+    <Folder Include="CQRS\Validators\Update\Exercise\" />
+    <Folder Include="CQRS\Validators\Update\Meal\" />
   </ItemGroup>
 
   <ItemGroup>

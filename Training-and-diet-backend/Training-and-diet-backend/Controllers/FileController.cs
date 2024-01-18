@@ -1,8 +1,5 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TrainingAndDietApp.Application.Abstractions;
-using TrainingAndDietApp.Application.CQRS.Commands.Files;
 using TrainingAndDietApp.Application.CQRS.Commands.Files.Delete;
 using TrainingAndDietApp.Application.CQRS.Commands.Files.Upload;
 using TrainingAndDietApp.Application.CQRS.Queries.Files.Download;

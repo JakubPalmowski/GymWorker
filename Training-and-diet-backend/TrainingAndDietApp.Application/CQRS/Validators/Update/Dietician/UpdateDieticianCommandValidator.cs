@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using TrainingAndDietApp.Application.CQRS.Commands.User.Dietician.UpdateDietician;
 
-namespace TrainingAndDietApp.Application.Validators
+namespace TrainingAndDietApp.Application.CQRS.Validators.Update.Dietician
 {
     public class UpdateDieticianCommandValidator : AbstractValidator<UpdateDieticianCommand>
     {
@@ -41,7 +41,7 @@ namespace TrainingAndDietApp.Application.Validators
                 .WithMessage("Cena maksymalna za dietę musi być większa lub równa cenie minimalnej");
 
             RuleFor(x => x)
-                .Must(x => (x.DietPriceFrom.HasValue && x.DietPriceTo.HasValue) || (!x.DietPriceFrom.HasValue && !x.DietPriceTo.HasValue))
+                .Must(x => x.DietPriceFrom.HasValue && x.DietPriceTo.HasValue || !x.DietPriceFrom.HasValue && !x.DietPriceTo.HasValue)
                 .WithMessage("Obie ceny za dietę muszą być podane lub obie muszą być puste");
         }
     }

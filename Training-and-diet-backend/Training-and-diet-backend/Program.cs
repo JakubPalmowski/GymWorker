@@ -10,6 +10,7 @@ using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Abstractions.Auth;
 using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetAll;
 using TrainingAndDietApp.Application.CQRS.Validators;
+using TrainingAndDietApp.Application.CQRS.Validators.Create.Exercise;
 using TrainingAndDietApp.Application.Services;
 using TrainingAndDietApp.Application.Services.Auth;
 using TrainingAndDietApp.Application.Services.Files;
@@ -73,7 +74,8 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = "https://localhost:5001",
         ValidateAudience = true,
         ValidAudience = "https://localhost:5001",
-        ValidateLifetime = true
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
     };
 });
 
