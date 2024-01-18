@@ -19,6 +19,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
         IQueryable<User> GetUsersWithDetails(string roleName, string? searchPhrase,  CancellationToken cancellationToken);
         Task<User?> GetUserWithDetailsAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(User user, CancellationToken cancellationToken);
+        Task<User?> GetUserByImageUri(string imageUri, CancellationToken cancellationToken);
 
 
     }

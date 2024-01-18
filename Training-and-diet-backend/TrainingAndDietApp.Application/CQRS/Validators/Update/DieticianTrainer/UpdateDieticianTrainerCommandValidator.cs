@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using TrainingAndDietApp.Application.CQRS.Commands.User.Trainer.UpdateTrainer;
+using TrainingAndDietApp.Application.CQRS.Commands.User.DieticianTrainer.UpdateDieticianTrainer;
 
-namespace TrainingAndDietApp.Application.Validators
+namespace TrainingAndDietApp.Application.CQRS.Validators.Update.DieticianTrainer
 {
-    public class UpdateTrainerCommandValidator : AbstractValidator<UpdateTrainerCommand>
+    public class UpdateDieticianTrainerCommandValidator : AbstractValidator<UpdateDieticianTrainerCommand>
     {
-        public UpdateTrainerCommandValidator()
+        public UpdateDieticianTrainerCommandValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Imię jest wymagane.")
@@ -26,7 +26,6 @@ namespace TrainingAndDietApp.Application.Validators
             RuleFor(x => x.Bio)
                 .MaximumLength(1500).WithMessage("Opis nie może przekraczać 1500 znaków.");
 
-
             RuleFor(x => x.TrainingPlanPriceFrom)
                 .InclusiveBetween(0.00m, 99999.99m).When(x => x.TrainingPlanPriceFrom.HasValue)
                 .WithMessage("Cena musi być w zakresie od 0.00 do 99999.99");
@@ -40,7 +39,7 @@ namespace TrainingAndDietApp.Application.Validators
                 .WithMessage("Cena maksymalna dla planu treningowego musi być większa lub równa cenie minimalnej");
 
             RuleFor(x => x)
-                .Must(x => (x.TrainingPlanPriceFrom.HasValue && x.TrainingPlanPriceTo.HasValue) || (!x.TrainingPlanPriceFrom.HasValue && !x.TrainingPlanPriceTo.HasValue))
+                .Must(x => x.TrainingPlanPriceFrom.HasValue && x.TrainingPlanPriceTo.HasValue || !x.TrainingPlanPriceFrom.HasValue && !x.TrainingPlanPriceTo.HasValue)
                 .WithMessage("Obie ceny dla planu treningowego muszą być podane lub obie muszą być puste");
 
 
@@ -57,12 +56,24 @@ namespace TrainingAndDietApp.Application.Validators
                 .WithMessage("Cena maksymalna za trening personalny musi być większa lub równa cenie minimalnej");
 
             RuleFor(x => x)
-                .Must(x => (x.PersonalTrainingPriceFrom.HasValue && x.PersonalTrainingPriceTo.HasValue) || (!x.PersonalTrainingPriceFrom.HasValue && !x.PersonalTrainingPriceTo.HasValue))
+                .Must(x => x.PersonalTrainingPriceFrom.HasValue && x.PersonalTrainingPriceTo.HasValue || !x.PersonalTrainingPriceFrom.HasValue && !x.PersonalTrainingPriceTo.HasValue)
                 .WithMessage("Obie ceny za trening personalny muszą być podane lub obie muszą być puste");
+
+            RuleFor(x => x.DietPriceFrom)
+                .InclusiveBetween(0.00m, 99999.99m).When(x => x.DietPriceFrom.HasValue)
+                .WithMessage("Cena musi być w zakresie od 0.00 do 99999.99");
+
+            RuleFor(x => x.DietPriceTo)
+                .InclusiveBetween(0.00m, 99999.99m).When(x => x.DietPriceTo.HasValue)
+                .WithMessage("Cena musi być w zakresie od 0.00 do 99999.99");
+
+            RuleFor(x => x)
+                .Must(x => !x.DietPriceFrom.HasValue || !x.DietPriceTo.HasValue || x.DietPriceTo >= x.DietPriceFrom)
+                .WithMessage("Cena maksymalna za dietę musi być większa lub równa cenie minimalnej");
+
+            RuleFor(x => x)
+                .Must(x => x.DietPriceFrom.HasValue && x.DietPriceTo.HasValue || !x.DietPriceFrom.HasValue && !x.DietPriceTo.HasValue)
+                .WithMessage("Obie ceny za dietę muszą być podane lub obie muszą być puste");
         }
-
     }
-
-
-
 }

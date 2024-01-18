@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.UpdatePupil;
 
-namespace TrainingAndDietApp.Application.Validators
+namespace TrainingAndDietApp.Application.CQRS.Validators.Update.Pupil
 {
     public class UpdatePupilCommandValidator : AbstractValidator<UpdatePupilCommand>
     {
@@ -18,7 +18,7 @@ namespace TrainingAndDietApp.Application.Validators
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Email jest wymagany.")
                 .EmailAddress().WithMessage("Nieprawidłowy adres email.");
-                
+
             RuleFor(x => x.Bio)
                 .MaximumLength(1500).WithMessage("Opis nie może przekraczać 1500 znaków.");
 

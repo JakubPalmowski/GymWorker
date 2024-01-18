@@ -1,8 +1,8 @@
 export interface GymsAddedByUser {
-    City: string;
-    Name: string;
-    Street: string;
-    PostalCode: string;
-    Status: string; 
+    city: string;
+    name: string;
+    street: string;
+    postalCode: string;
+    status: string; 
   }
   

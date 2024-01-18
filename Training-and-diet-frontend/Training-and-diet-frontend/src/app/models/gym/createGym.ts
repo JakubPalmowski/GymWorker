@@ -1,8 +1,8 @@
 export interface CreateGym {
-    Name: string;
-    AddedBy: number;
-    City: string;
-    Street: string;
-    PostalCode: string;
+    name: string;
+    addedBy: number;
+    city: string;
+    street: string;
+    postalCode: string;
   }
   
