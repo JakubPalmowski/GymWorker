@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Training_and_diet_backend.Extensions;
 using TrainingAndDietApp.Application.CQRS.Commands.Exercise.CreateExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.Exercise.DeleteExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.Exercise.UpdateExercise;
@@ -40,25 +42,27 @@ namespace Training_and_diet_backend.Controllers
             return Ok(response);
 
         }
-
-        [HttpGet("{trainerId}/exercises")]
-        public async Task<IActionResult> GetTrainerExercises(int trainerId)
+        [Authorize(Roles = "3,5")]
+        [HttpGet("trainer/exercises")]
+        public async Task<IActionResult> GetTrainerExercises()
         {
-            var request = new GetTrainerExercisesQuery(trainerId);
+            var userId = this.User.GetId()!.Value;
+            var request = new GetTrainerExercisesQuery(userId);
             var response = await _mediator.Send(request);
 
             return Ok(response);
         }
-        
+        [Authorize(Roles = "3,5")]
         [HttpPost]
         public async Task<IActionResult> PostExercise(CreateExerciseCommand exercise)
         {
-            var result = await _mediator.Send(exercise);
+            var userId = this.User.GetId()!.Value; 
+            var result = await _mediator.Send(new CreateInternalExerciseCommand(userId, exercise));
             var locationUri = $"api/exercise/{result.IdExercise}";
 
             return Created(locationUri, result);
         }
-
+        [Authorize(Roles = "3,5")]
         [HttpPut("{exerciseId}")]
         public async Task<IActionResult> PutExercise(UpdateExerciseCommand exercise, int exerciseId)
         {
@@ -66,10 +70,10 @@ namespace Training_and_diet_backend.Controllers
             return Ok();
         }
 
-        
 
+        [Authorize(Roles = "3,5")]
         [HttpDelete("{exerciseId}")]
-        public async Task<ActionResult<int>> DeleteExercise(int exerciseId)
+        public async Task<IActionResult> DeleteExercise(int exerciseId)
         {
             await _mediator.Send(new DeleteExerciseCommand(exerciseId));
             return NoContent();

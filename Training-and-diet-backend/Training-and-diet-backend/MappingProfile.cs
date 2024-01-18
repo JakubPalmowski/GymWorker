@@ -110,7 +110,7 @@ namespace Training_and_diet_backend
             CreateMap<UpdateTraineeExerciseInternalCommand, TraineeExercise>()
                 .ForMember(dest => dest.RepetitionsNumber, opt => opt.MapFrom(src => src.TraineeExerciseCommand.RepetitionsNumber));
 
-
+            
 
             CreateMap<TraineeExercise, TraineeExerciseResponse>()
                 .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom(src => src.Exercise.Name));
@@ -145,7 +145,11 @@ namespace Training_and_diet_backend
                 .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode))
                 .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>src.Status.ToString()));
 
-
+            CreateMap<CreateInternalExerciseCommand, Exercise>()
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.ExerciseCommand.Details))
+                .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.ExerciseCommand.ExerciseSteps))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ExerciseCommand.Name))
+                .ForMember(dest => dest.IdTrainer, opt => opt.MapFrom(src => src.IdTrainer));
 
 
 
