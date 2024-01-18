@@ -72,7 +72,8 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = "https://localhost:5001",
         ValidateAudience = true,
         ValidAudience = "https://localhost:5001",
-        ValidateLifetime = true
+        ValidateLifetime = true,
+        ClockSkew=TimeSpan.Zero
     };
 });
 

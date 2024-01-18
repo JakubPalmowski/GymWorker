@@ -1,0 +1,39 @@
+<div class="containerImg" *ngIf="role=='2'">
+    <div class="imageDiv">
+        <div class="imgLabel">Mój trening</div>
+        <a [routerLink]="'/pupilTrainingPlans'"><img src="../../../../assets/images/dumbell.jpg" alt="Moje plany" ></a>
+    </div>
+
+    <div class="imageDiv">
+        <div class="imgLabel">Moja dieta</div>
+        <a><img src="../../../../assets/images/pupilsTraining.jpg" alt="Moi podopieczni"></a>
+    </div>
+</div>
+
+<div class="containerImg" *ngIf="role=='3' || role=='5'">
+    <div class="imageDiv">
+        <div class="imgLabel">Moje plany</div>
+        <a [routerLink]="'/training-plans'"> <img src="../../../../assets/images/dumbell.jpg" alt="Moje plany" ></a>
+    </div>
+
+    <div class="imageDiv">
+        <div class="imgLabel">Moi podopieczni</div>
+        <img src="../../../../assets/images/pupilsTraining.jpg" alt="Moi podopieczni">
+    </div>
+</div>
+
+
+<div class="containerImg" *ngIf="role=='4' || role=='5'">
+    <div class="imageDiv">
+        <div class="imgLabel">Moje diety</div>
+        <img src="../../../../assets/images/dumbell.jpg" alt="Moje plany" >
+    </div>
+
+    <div class="imageDiv">
+        <div class="imgLabel">Moi podopieczni</div>
+        <img src="../../../../assets/images/pupilsTraining.jpg" alt="Moi podopieczni">
+    </div>
+</div>
+
+
+

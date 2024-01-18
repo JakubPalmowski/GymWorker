@@ -3,6 +3,7 @@ import { Form } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FullTrainingPlan } from 'src/app/models/full-training-plan.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 
 
@@ -27,7 +28,7 @@ export class AddTrainingPlanComponent implements OnInit{
   }
   dateToday:string='';
 
-  constructor(private trainingPlanService:TrainingPlanService, private router:Router){}
+  constructor(private trainingPlanService:TrainingPlanService, private router:Router, private authenticationService:AuthenticationService){}
   ngOnInit(): void {
     this.dateToday=new Date().toISOString().split("T")[0];
     console.log(document.getElementById("start_date"));
@@ -36,14 +37,20 @@ export class AddTrainingPlanComponent implements OnInit{
   }
 
   addTrainingPlan(){
-    console.log(this.addTrainingPlanRequest);
+  //  console.log(this.addTrainingPlanRequest);
+ //   console.log("plans before"+this.authenticationService.isTokenExpired());
+   // console.log(localStorage,localStorage.getItem('acessToken'));
     this.trainingPlanService.addTrainingPlan(this.addTrainingPlanRequest).subscribe({
       next:(newTrainingPlan)=>{
-        console.log(newTrainingPlan);
+      //  console.log(newTrainingPlan);
+      //  console.log("plans ok"+this.authenticationService.isTokenExpired());
+        console.log(localStorage,localStorage.getItem('acessToken'));
         this.router.navigate(['/training-plans']);
       },
       error: (response)=>{
         console.log(response);
+       // console.log("plans err"+this.authenticationService.isTokenExpired());
+      //  console.log(localStorage,localStorage.getItem('acessToken'));
       }
     });
   }

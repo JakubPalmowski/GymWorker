@@ -1,0 +1,31 @@
+img{
+
+    width: 500px;
+    height: 400px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.containerImg{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    
+}
+
+.imgLabel{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.imageDiv{
+
+}
+
+.imageDiv > img {
+    margin-right: 20px;
+    border-radius: 10px;
+}

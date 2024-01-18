@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Login } from 'src/app/models/login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
   credentialsIncorrect=false;
   submitted=false;
 
-  constructor(private authenticationService:AuthenticationService) {}
+  constructor(private authenticationService:AuthenticationService,private router:Router) {}
 
 
   login(){
@@ -27,6 +28,12 @@ export class LoginComponent {
     this.authenticationService.login(this.loginRequest).subscribe({
       next:(response)=>{
         console.log(response);
+        this.authenticationService.setSession(response);
+        console.log(this.authenticationService.getRole());
+        console.log(this.authenticationService.getUserId());
+        console.log(this.authenticationService.getExpiration());
+        console.log(this.authenticationService.isTokenExpired());
+        this.router.navigateByUrl('');
       },
       error:(response)=>{
 

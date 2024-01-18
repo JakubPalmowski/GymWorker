@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ExercisesListComponent } from './components/exercises/exercises-list/exercises-list.component';
 import { TrainingPlansListComponent } from './components/traininig-plans/training-plans-list/training-plans-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AddTrainingPlanComponent } from './components/traininig-plans/add-training-plan/add-training-plan.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
@@ -37,6 +37,8 @@ import { PupilTrainingPlansListComponent } from './components/pupilTrainingPlan/
 import { PupilTrainingPlanDetailsComponent } from './components/pupilTrainingPlan/pupil-training-plan-details/pupil-training-plan-details.component';
 import { PupilTrainingExerciseDetailsComponent } from './components/pupilTrainingPlan/pupil-training-exercise-details/pupil-training-exercise-details.component';
 import { CreateGymComponent } from './components/gym/create-gym/create-gym.component';
+import { AuthenticationInterceptor } from './services/interceptor';
+import { MainPageComponent } from './components/mainPage/main-page/main-page.component';
 
 
 
@@ -72,7 +74,7 @@ import { CreateGymComponent } from './components/gym/create-gym/create-gym.compo
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent,
     MyProfileComponent, 
-    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent
+    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent
   ],
   imports: [
     AppRoutingModule,
@@ -81,7 +83,13 @@ import { CreateGymComponent } from './components/gym/create-gym/create-gym.compo
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
