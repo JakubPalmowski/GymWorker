@@ -19,11 +19,18 @@
        <i class="bi bi-x-lg ms-5 ps-5 fs-2" data-bs-dismiss="offcanvas" style="cursor: pointer;"></i>
     </div>
     </li>
+    <li>
+      <div class="menu-link" (click)="logout()"  [ngClass]="{'active': activeRoute==''}">
+          <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Zaloguj sie</a>
+        </div>    
+      
+    </li>
       <li>
           <div class="menu-link" (click)="goToMainPage()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute==''}">
             <img src="../../../assets/icons/record.png" width="20" height="20">
-              <a>Strona główna</a>
-          </div>    
+            <a>Strona główna</a>
+                      </div>    
           
       </li>
 
@@ -45,13 +52,8 @@
         <div class="horizontal-line w-100 text-white py-3" style="height: 2px;"></div>
       </li>
 
-      <li>
-        <div class="menu-link" data-bs-dismiss="offcanvas">
-          <img src="../../../assets/icons/record.png" width="20" height="20">
-        <a>Czat</a>
-        </div>
-      </li>
-
+  
+      
 
       <li>
         <div class="menu-link" data-bs-dismiss="offcanvas">
@@ -95,7 +97,7 @@
           <a>Mój trening</a>
           </div>
         </li>
-
+   
     </ul>
 
  </div>
@@ -104,15 +106,16 @@
   <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2 text-truncate" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
       <img src="https://github.com/mdo.png" width="40" height="40" class="round-picture">
       <span>Filip</span>
-  </a>
+        </a>
   <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
       <li><a class="dropdown-item" [routerLink]="'/myProfile'" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>
       <li>
           <hr class="dropdown-divider">
       </li>
-      <li><a class="dropdown-item" href="#">Wyloguj się</a></li>
+      <li><a class="dropdown-item" (click)="logout()">Wyloguj się</a></li>
   </ul>
 </div>
+
 
 
 
@@ -133,11 +136,18 @@
           <span class="text-white" style="font-size: 20px;">GYMWORKER</span>
       </div>
       </li>
+      <li>
+        <div class="menu-link" (click)="logout()"  [ngClass]="{'active': activeRoute==''}">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <a>Zaloguj sie</a>
+          </div>    
+        
+      </li>
         <li>
             <div class="menu-link" (click)="goToMainPage()"  [ngClass]="{'active': activeRoute==''}">
                 <img src="../../../assets/icons/record.png" width="20" height="20">
                 <a>Strona główna</a>
-            </div>    
+                            </div>    
             
         </li>
 
@@ -159,14 +169,8 @@
           <div class="horizontal-line w-100 text-white py-3" style="height: 2px;"></div>
         </li>
 
-        <li>
-          <div class="menu-link">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
-          <a>Czat</a>
-          </div>
-        </li>
-
-
+    
+      
         <li>
           <div class="menu-link">
             <img src="../../../assets/icons/record.png" width="20" height="20">
@@ -209,6 +213,7 @@
             <a>Mój trening</a>
             </div>
           </li>
+        
 
       </ul>
 
@@ -224,7 +229,7 @@
           <li>
               <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" href="#">Wyloguj się</a></li>
+          <li><a class="dropdown-item"  (click)="logout()">Wyloguj się</a></li>
       </ul>
   </div>
 

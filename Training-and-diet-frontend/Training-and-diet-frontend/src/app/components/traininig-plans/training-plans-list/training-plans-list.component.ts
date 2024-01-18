@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainingPlan } from 'src/app/models/trainingPlan.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 
 
@@ -13,9 +14,12 @@ export class TrainingPlansListComponent implements OnInit{
   trainingPlans:TrainingPlan[]=[];
   filteredTrainingPlans:TrainingPlan[]=[];
 
-  constructor(private trainingPlanService:TrainingPlanService){}
+  constructor(private trainingPlanService:TrainingPlanService, private authenticationService:AuthenticationService){}
 
   ngOnInit(): void {
+    if(this.authenticationService.getUserId()==undefined){
+      return this.authenticationService.logout();
+    }
     this.trainingPlanService.getTrainerPlans().subscribe({
       next:(trainingPlans)=>{
         this.trainingPlans=trainingPlans;

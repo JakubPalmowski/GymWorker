@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, UrlTree, UrlSegment } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 
 @Component({
@@ -9,11 +10,14 @@ import { PreviousUrlService } from 'src/app/services/previous-url.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
+export class MenuComponent{
 
 
   showSidebar = false;
 
+  userId=this.authService.getUserId();
+  userName?=this.authService.getUserId();//TO DO ZAMIANA NA NAME
+  role='';
     toggleSidebar() {
         this.showSidebar = !this.showSidebar;
     }
@@ -22,13 +26,14 @@ export class MenuComponent {
   private firstSegmentSubscription: Subscription;
  
 
-  constructor(private router: Router, private url: PreviousUrlService) {
+  constructor(private router: Router, private url: PreviousUrlService, private authService: AuthenticationService) {
     this.firstSegmentSubscription = this.url.getFirstSegmentObservable().subscribe(
       (firstSegment) => {
         this.activeRoute=firstSegment;
       }
     );
   }
+
 
 
 goToTrainersList(){
@@ -72,4 +77,11 @@ goToMainPage() {
         this.router.navigateByUrl('pupilTrainingPlans');
       }
     }
+
+    logout(){
+        this.authService.logout();
+        
+    }
+
+    
 }

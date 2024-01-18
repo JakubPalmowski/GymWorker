@@ -26,6 +26,7 @@ import { PupilTrainingPlansListComponent } from './components/pupilTrainingPlan/
 import { PupilTrainingPlanDetailsComponent } from './components/pupilTrainingPlan/pupil-training-plan-details/pupil-training-plan-details.component';
 import { PupilTrainingExerciseDetailsComponent } from './components/pupilTrainingPlan/pupil-training-exercise-details/pupil-training-exercise-details.component';
 import { CreateGymComponent } from './components/gym/create-gym/create-gym.component';
+import { MainPageComponent } from './components/mainPage/main-page/main-page.component';
 
 
 const routes: Routes = [
@@ -97,7 +98,8 @@ const routes: Routes = [
     path: 'meals/details/:id',
     component: MealsDetailsComponent
   }, 
-  {path: '', component: LoginComponent},
+  {path: '', component: MainPageComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'passwordRecovery', component: PasswordRecoveryComponent},
   {path:'register', component: RegisterComponent},
   {path: 'trainersList', component: MentorsListComponent},

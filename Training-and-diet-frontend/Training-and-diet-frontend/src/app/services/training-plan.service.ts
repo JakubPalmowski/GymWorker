@@ -7,16 +7,18 @@ import { FullTrainingPlan } from '../models/full-training-plan.model';
 import { TrainingPlanExercise } from '../models/trainingPlanExercise.model';
 import { TrainingExerciseFull } from '../models/training-exercise-full';
 import { FullTrainingPlanGet } from '../models/full-training-plan-get';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrainingPlanService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private authenticationService:AuthenticationService) { }
 
   getTrainerPlans():Observable<TrainingPlan[]>{
-   return this.http.get<TrainingPlan[]>('https://localhost:7259/api/TrainingPlan/3/trainingPlans');
+
+   return this.http.get<TrainingPlan[]>('https://localhost:7259/api/TrainingPlan/'+this.authenticationService.getUserId()+'/trainingPlans');
   }
 
   getPupilPlans():Observable<TrainingPlan[]>{
