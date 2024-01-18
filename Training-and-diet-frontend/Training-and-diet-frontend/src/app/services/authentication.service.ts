@@ -73,6 +73,10 @@ export class AuthenticationService {
   public logout() {
     localStorage.removeItem('acessToken');
     localStorage.removeItem('refreshToken');
+    console.log("logout");
+    console.log(this.getRole());
+    this.decodedToken=undefined;
+    console.log(this.getRole());
     this.router.navigateByUrl('/login');
 
     
