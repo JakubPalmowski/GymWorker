@@ -10,8 +10,10 @@ using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Abstractions.Auth;
 using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetAll;
 using TrainingAndDietApp.Application.CQRS.Validators;
+using TrainingAndDietApp.Application.CQRS.Validators.Create.Exercise;
 using TrainingAndDietApp.Application.Services;
 using TrainingAndDietApp.Application.Services.Auth;
+using TrainingAndDietApp.Application.Services.Files;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Infrastructure.Context;
 using TrainingAndDietApp.Infrastructure.Persistance;
@@ -43,9 +45,9 @@ builder.Services.AddScoped<ITraineeExercisesRepository, TraineeExercisesReposito
 builder.Services.AddScoped<IGymRepository, GymRepository>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<ITrainerGymRepository, TrainerGymRepository>();
-builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IValidator<UserQuery>, UserQueryValidator>();
 builder.Services.AddSingleton<IFileService, FileService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -73,7 +75,7 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidAudience = "https://localhost:5001",
         ValidateLifetime = true,
-        ClockSkew=TimeSpan.Zero
+        ClockSkew = TimeSpan.Zero
     };
 });
 

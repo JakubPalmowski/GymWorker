@@ -3,7 +3,7 @@ using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.CQRS.Commands.Files;
+namespace TrainingAndDietApp.Application.CQRS.Commands.Files.Upload;
 
 public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, UploadFileResponse>
 {
@@ -28,7 +28,7 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Uploa
         user.ImageUri = uniqueName;
         await _repository.UpdateAsync(user, cancellationToken);
         await _unitOfWork.CommitAsync(cancellationToken);
-        
+
         return new UploadFileResponse
         {
             IsSuccess = true,

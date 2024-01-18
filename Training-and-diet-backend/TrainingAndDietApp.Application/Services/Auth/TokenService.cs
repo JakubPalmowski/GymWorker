@@ -29,8 +29,9 @@ public class TokenService : ITokenService
         var jwt = new JwtSecurityToken( issuer: "https://localhost:5001",
             audience: "https://localhost:5001",
             claims: userClaims,
-            expires: DateTime.UtcNow.AddMinutes(60),
+            expires: DateTime.UtcNow.AddHours(1),
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+            
         );
 
         return new JwtSecurityTokenHandler().WriteToken(jwt);

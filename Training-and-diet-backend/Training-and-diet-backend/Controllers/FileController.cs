@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TrainingAndDietApp.Application.Abstractions;
-using TrainingAndDietApp.Application.CQRS.Commands.Files;
+using TrainingAndDietApp.Application.CQRS.Commands.Files.Delete;
+using TrainingAndDietApp.Application.CQRS.Commands.Files.Upload;
+using TrainingAndDietApp.Application.CQRS.Queries.Files.Download;
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -10,44 +10,43 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
-        private readonly IFileService _fileService;
         private readonly IMediator _mediator;
 
-        public FileController(IFileService fileService, IMediator mediator)
+        public FileController(IMediator mediator)
         {
-            _fileService = fileService;
             _mediator = mediator;
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var files = await _fileService.ListAsync();
-            return Ok(files);
-        }
 
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
             var response = await _mediator.Send(new UploadFileCommand( file,6));
             if (response.IsSuccess)
-            {
                 return Ok(response);
-            }
+            
             return BadRequest("File upload failed.");
         }
 
         [HttpGet("{blobFileName}")]
         public async Task<IActionResult> Download(string blobFileName)
         {
-            var response = await _fileService.DownloadAsync(blobFileName);
-            if (response == null)
-            {
-                return NotFound();
-            }
+           var query = new DownloadBlobQuery(blobFileName);
 
-            return File(response.Content, response.ContentType, response.Name);
+           var result = await _mediator.Send(query);
+
+           return File(result.Content, result.ContentType, result.Name);
+        }
+        [HttpDelete("delete/{blobFileName}")]
+        public async Task<IActionResult> Delete(string blobFileName)
+        {
+            var command = new DeleteFileCommand(blobFileName, 6);
+            var result = await _mediator.Send(command);
+
+            if (result)
+                return Ok($"File {blobFileName} deleted successfully");
+            
+            return NotFound($"File {blobFileName} not found");
         }
     }
 }

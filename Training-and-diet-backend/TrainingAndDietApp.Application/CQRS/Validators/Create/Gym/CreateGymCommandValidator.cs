@@ -1,14 +1,17 @@
 using FluentValidation;
 using TrainingAndDietApp.Application.Commands.Gym;
 
+namespace TrainingAndDietApp.Application.CQRS.Validators.Create.Gym;
+
 public class CreateGymCommandValidator : AbstractValidator<CreateGymCommand>
 {
     public CreateGymCommandValidator()
     {
-        RuleFor(gym => gym.Name)
+       
+         RuleFor(gym => gym.Name)
             .NotEmpty().WithMessage("Nazwa siłowni jest wymagana.")
             .MaximumLength(100).WithMessage("Nazwa siłowni może zawierać maksymalnie 100 znaków.");
-
+            
         RuleFor(gym => gym.AddedBy)
             .NotEmpty().WithMessage("Id użytkownika jest wymagane.");
 

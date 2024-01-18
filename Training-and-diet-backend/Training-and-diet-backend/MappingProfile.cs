@@ -119,8 +119,7 @@ namespace Training_and_diet_backend
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.MealCommand.Name))
                 .ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => src.MealCommand.Ingredients))
                 .ForMember(dest => dest.PrepareSteps, opt => opt.MapFrom(src => src.MealCommand.PrepareSteps))
-                .ForMember(dest => dest.Kcal, opt => opt.MapFrom(src => src.MealCommand.Kcal))
-                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.MealCommand.Image));
+                .ForMember(dest => dest.Kcal, opt => opt.MapFrom(src => src.MealCommand.Kcal));
 
             CreateMap<UpdateTrainingPlanInternalCommand, TrainingPlan>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UpdateTrainingPlanCommand.Name))
@@ -138,8 +137,7 @@ namespace Training_and_diet_backend
             CreateMap<UpdateExerciseInternalCommand, Exercise>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ExerciseCommand.Name))
                 .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.ExerciseCommand.Details))
-                .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.ExerciseCommand.ExerciseSteps))
-                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ExerciseCommand.Image));
+                .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.ExerciseCommand.ExerciseSteps));
 
             CreateMap<Gym, GymsAddedByUserResponse>()
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
