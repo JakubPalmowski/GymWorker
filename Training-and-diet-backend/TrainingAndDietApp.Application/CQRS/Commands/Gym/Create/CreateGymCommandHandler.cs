@@ -1,10 +1,9 @@
 using MediatR;
 using Training_and_diet_backend.Models;
-using TrainingAndDietApp.Application.Commands.Gym;
 using TrainingAndDietApp.Domain.Abstractions;
 
 
-namespace TrainingAndDietApp.Application.Handlers.Gym
+namespace TrainingAndDietApp.Application.CQRS.Commands.Gym.Create
 {
     public class CreateGymCommandHandler : IRequestHandler<CreateGymCommand>
     {

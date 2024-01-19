@@ -13,5 +13,6 @@ namespace TrainingAndDietApp.Application.CQRS.Responses.Trainer
         public decimal? TrainingPlanPriceTo { get; set; }
         public decimal? PersonalTrainingPriceFrom { get; set; }
         public decimal? PersonalTrainingPriceTo { get; set; }
+        public string? ImageUri {get; set;}
     }
 }

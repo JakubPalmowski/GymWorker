@@ -2,18 +2,14 @@
 <div class="row bg-secondary py-4 px-2 rounded-3 my-3 justify-content-center justify-content-lg-start" style="border: 1px solid black">
 
     <div class="col-lg-2 col-md-6 col-12 d-flex justify-content-center align-items-center">
-        <img width="140px" height="140px" src="/assets/images/diho5.png" class="round-picture">
+        <img width="140px" height="140px" src="{{imageUrl}}" class="round-picture">
       </div>
       
         <div class="col-lg-6 col-md-8 col-12 d-flex flex-column align-items-center align-items-lg-start ms-4">
-        <span class="fs-2">{{ pupil.name + ' ' + pupil.last_name}}</span>
+        <span class="fs-2">{{ pupil.name + ' ' + pupil.lastName}}</span>
 
           <span class="fs-2">Podopieczny</span>
-          
-      <div class="d-flex gap-4">
-        <button class="p-2 bg-btn-orange rounded-3 mt-3 m-lg-1" style="width: fit-content;">Napisz wiadomość</button>
-        <button class="p-2 bg-btn-orange rounded-3 mt-3 m-lg-1" style="width: fit-content;">Zaproś do współpracy</button>
-      </div>
+          <span class="fs-3">{{pupil.email}}</span>
         
       </div>
 
@@ -21,8 +17,10 @@
 
 <div class="row bg-secondary rounded-3" style="border: 1px solid black;">
 
-    <div class="col-12 d-flex justify-content-center pt-1"><span class="fs-4">Informacje</span></div>
-    <div class="col-12 horizontal-line-black" style="height: 10px;"></div>
+    <div class="col-12 mt-3">
+        <h3>Informacje fizyczne</h3>
+        </div>
+    <div class="col-12 horizontal-line-black mb-3" style="height: 5px;"></div>
     <div class="col-6 d-flex flex-column align-items-center my-5">
         <label class="fs-4">Wiek</label>
         <span class="bg-white rounded-3 text-center fs-4 info-span" >{{pupil.age}}</span>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MentorProfile } from 'src/app/models/mentorProfile';
 import { PupilProfile } from 'src/app/models/pupilProfile';
+import { FileService } from 'src/app/services/file.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,13 +12,14 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./mentor-profile.component.css']
 })
 export class MentorProfileComponent implements OnInit {
-  constructor(private userService: UserService, private route:ActivatedRoute, private previousUrlService: PreviousUrlService, private router: Router){
+  constructor(private userService: UserService, private route:ActivatedRoute, private previousUrlService: PreviousUrlService, private router: Router, private fileService: FileService){
 
   }
 
  
   mentor:MentorProfile | undefined;
   role: string|undefined='';
+  imageUrl: string = "";
   
 
   ngOnInit():void{
@@ -28,31 +30,65 @@ export class MentorProfileComponent implements OnInit {
 
     
     if(this.role=="trainerProfile"){
-    this.userService.GetTrainerWithOpinionsById(mentorId).subscribe(
-      {
-        next:(trainerInfo)=>{
-          this.mentor=trainerInfo;
-        },
-        error: (response)=>{
-          console.log(response);
+      this.userService.GetTrainerWithOpinionsById(mentorId).subscribe(
+        {
+          next: (trainerInfo) => {
+            if (!trainerInfo) {
+              return;
+            }
+            this.mentor = trainerInfo;
+            if (this.mentor.imageUri) {
+              this.fileService.getImage(this.mentor.imageUri).subscribe(
+                blob => {
+                  if (blob) {
+                    const objectUrl = URL.createObjectURL(blob);
+                    this.imageUrl = objectUrl;
+                  }
+                },
+                error => {
+                  this.imageUrl = "assets/images/user.png";
+                }
+              );
+            } else {
+              this.imageUrl = "assets/images/user.png";
+            }
+          },
+          error: (response) => {
+            console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
+          }
         }
-      }
-    )
+      );
     }
     if(this.role=="dieticianProfile"){
       this.userService.GetDieticianWithOpinionsById(mentorId).subscribe(
         {
-          next:(dieticianInfo)=>{
-            this.mentor=dieticianInfo;
+          next: (dieticianInfo) => {
+            if (!dieticianInfo) {
+              return;
+            }
+            this.mentor = dieticianInfo;
+            if (this.mentor.imageUri) {
+              this.fileService.getImage(this.mentor.imageUri).subscribe(
+                blob => {
+                  if (blob) {
+                    const objectUrl = URL.createObjectURL(blob);
+                    this.imageUrl = objectUrl;
+                  }
+                },
+                error => {
+                  this.imageUrl = "assets/images/user.png";
+                }
+              );
+            } else {
+              this.imageUrl = "assets/images/user.png";
+            }
           },
-          error: (response)=>{
-            console.log(response);
+          error: (response) => {
+            console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
           }
         }
-      )
-      }
-      
-
+      );
+    }
     
   }
 

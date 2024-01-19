@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, forkJoin, of, take } from 'rxjs';
 import { Mentor } from 'src/app/models/mentor';
 import { MentorList } from 'src/app/models/mentorList';
 import { Sort } from 'src/app/models/sort';
+import { FileService } from 'src/app/services/file.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class MentorsListComponent implements OnInit{
 
-    constructor(private userService: UserService,  private route:ActivatedRoute, private router: Router){
+    constructor(private userService: UserService,  private route:ActivatedRoute, private router: Router, private fileService: FileService){
       
     }
     response: MentorList | undefined;
@@ -95,21 +97,51 @@ export class MentorsListComponent implements OnInit{
   }
 
     
-    if(this.role=="trainersList"){
+  if (this.role == "trainersList") {
     this.userService.GetAllTrainers(this.currentPage, this.searchPhrase, this.sortBy.sort, this.sortBy.sortDirection, this.sortBy.gymCity, this.sortBy.gymName).subscribe({
-      next:(response)=>{
-        this.response=response;
-        this.mentors=response.items;
-        this.totalPages=response.totalPages;
-        this.isDataLoaded=true;
+      next: (response) => {
+        this.response = response;
+        this.mentors = response.items;
+        this.totalPages = response.totalPages;
+        this.isDataLoaded = true;
+  
+        this.mentors.forEach(mentor => {
+          if (!mentor.imageUri) {
+            mentor.imageSrc = 'assets/images/user.png';
+          }
+        });
+        const imageObservables = this.mentors
+          .filter(mentor => mentor.imageUri != null)
+          .map(mentor => {
+            return this.fileService.getImage(mentor.imageUri as string).pipe(
+              catchError(error => {
+                return of('assets/images/user.png');
+              })
+            );
+          });
+
+        if (imageObservables.length > 0) {
+          forkJoin(imageObservables).subscribe({
+            next: images => {
+              images.forEach((blob, index) => {
+                const mentorWithImage = this.mentors.find(mentor => mentor.imageUri != null && !mentor.imageSrc);
+                if (mentorWithImage) {
+                  const objectURL = URL.createObjectURL(blob as Blob);
+                  mentorWithImage.imageSrc = objectURL;
+                }
+              });
+            },
+            error: err => {
+            }
+          });
+        }
       },
-      error: (response)=>{
-        this.isDataLoaded=false;
+      error: (error) => {
+        this.isDataLoaded = false;
       }
-    })
-
+    });
   }
-
+  
 
   if(this.role=="dieticiansList"){
     this.userService.GetAllDieteticians(this.currentPage, this.searchPhrase, this.sortBy.sort, this.sortBy.sortDirection).subscribe({
@@ -118,6 +150,38 @@ export class MentorsListComponent implements OnInit{
         this.mentors=response.items;
         this.totalPages=response.totalPages;
         this.isDataLoaded=true;
+
+        this.mentors.forEach(mentor => {
+          if (!mentor.imageUri) {
+            mentor.imageSrc = 'assets/images/user.png';
+          }
+        });
+        const imageObservables = this.mentors
+          .filter(mentor => mentor.imageUri != null)
+          .map(mentor => {
+            return this.fileService.getImage(mentor.imageUri as string).pipe(
+              catchError(error => {
+                return of('assets/images/user.png');
+              })
+            );
+          });
+
+        if (imageObservables.length > 0) {
+          forkJoin(imageObservables).subscribe({
+            next: images => {
+              images.forEach((blob, index) => {
+                const mentorWithImage = this.mentors.find(mentor => mentor.imageUri != null && !mentor.imageSrc);
+                if (mentorWithImage) {
+                  const objectURL = URL.createObjectURL(blob as Blob);
+                  mentorWithImage.imageSrc = objectURL;
+                }
+              });
+            },
+            error: err => {
+  
+            }
+          });
+        }
       },
       error: (response)=>{
         this.isDataLoaded=false;

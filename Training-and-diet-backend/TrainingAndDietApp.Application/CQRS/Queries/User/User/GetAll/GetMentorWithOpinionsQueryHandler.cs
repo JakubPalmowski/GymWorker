@@ -12,12 +12,14 @@ public class GetMentorWithOpinionsQueryHandler : IRequestHandler<GetMentorWithOp
 {
     private readonly IUserRepository _userRepository;
     private readonly IUserService _userService;
+    private readonly IGymRepository _gymRepository;
     private readonly IMapper _mapper;
-    public GetMentorWithOpinionsQueryHandler(IMapper mapper, IUserRepository userRepository, IUserService userService)
+    public GetMentorWithOpinionsQueryHandler(IMapper mapper, IUserRepository userRepository, IUserService userService, IGymRepository gymRepository)
     {
         _mapper = mapper;
         _userRepository = userRepository;
         _userService = userService;
+        _gymRepository = gymRepository;
 
     }
     public async Task<MentorWithOpinionResponse> Handle(GetMentorWithOpinionsQuery request, CancellationToken cancellationToken)
@@ -41,7 +43,8 @@ public class GetMentorWithOpinionsQueryHandler : IRequestHandler<GetMentorWithOp
         mentorWithOpinionsResponse.OpinionNumber = user.MentorOpinions.Count;
 
         mentorWithOpinionsResponse.Opinions = _mapper.Map<List<OpinionResponse>>(user.MentorOpinions);
-        mentorWithOpinionsResponse.TrainerGyms = _mapper.Map<List<MentorGymResponse>>(user.TrainerGyms);
+        var mentorGyms = await _gymRepository.GetMentorActiveGymsAsync(request.Id, cancellationToken);
+        mentorWithOpinionsResponse.TrainerGyms = _mapper.Map<List<MentorGymResponse>>(mentorGyms);
 
         return mentorWithOpinionsResponse;
 

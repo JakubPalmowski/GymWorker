@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MediatR;
 using TrainingAndDietApp.Application.CQRS.Responses.Gym;
 
-namespace TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAll
+namespace TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAllActiveGyms
 {
     public class GetActiveGymsQuery : IRequest<IEnumerable<ActiveGymResponse>>
     {

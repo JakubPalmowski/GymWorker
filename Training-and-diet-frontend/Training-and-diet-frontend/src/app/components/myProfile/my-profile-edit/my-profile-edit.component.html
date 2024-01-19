@@ -21,16 +21,19 @@
     
         
         <div class="row p-2 bg-secondary border-profile rounded-bottom-3" >
-            <div class="col-12 d-flex justify-content-center">
-            <img *ngIf="imageUrl" [src]="imageUrl" width="300px" height="300px" class="round-picture">
-            <img *ngIf="!imageUrl" src="/assets/images/diho4.png" width="300px" height="300px" class="round-picture">
+            <div class="col-12 d-flex justify-content-center" style="height: 300px;">
+            <img *ngIf="newImageUrl" [src]="newImageUrl" width="300px" height="300px" class="round-picture">
+            <img *ngIf="imageUrl&&newImageUrl==null" src="{{imageUrl}}" width="300px" height="300px" class="round-picture">
         </div>
 
-        <div class="col-12 d-flex justify-content-center my-3">
-            <div class="d-flex justify-content-center">
+        <div class="col-12 d-flex justify-content-center flex-column my-3">
+            <div class="d-flex justify-content-center mb-2">
                 <input type="file" id="file" class="file-input" (change)="onFileSelected($event)">
-                <label for="file" class="file-input-label bg-btn-orange rounded-3">Wybierz nowe zdjęcie profilowe</label>
-        </div>
+                <label for="file" class="file-input-label bg-btn-orange rounded-3 fs-5">Wybierz nowe zdjęcie profilowe</label>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="file-input-label bg-btn-orange rounded-3 fs-5" (click)="deleteImage()">Usuń zdjęcie profilowe</button>
+            </div>
         </div>
 
             <div class="col-12" [ngSwitch]="user.role">
@@ -183,7 +186,7 @@
                 <div class="col-6 group">
                     <label>Płeć</label>
                     <select [(ngModel)]="user.sex" name="sex" #sex="ngModel">
-                        <option value="" disabled>Wybierz płeć</option>
+                        <option value="">Wybierz płeć</option>
                         <option value="Mężczyzna">Mężczyzna</option>
                         <option value="Kobieta">Kobieta</option>
                     </select>
@@ -377,11 +380,23 @@
             </div>
                 <div class="gym-error"><span class="validation-error" *ngIf="inputGymsError">{{inputGymsError}}</span></div>
             </div>
+
             <ng-container *ngIf="user.trainerGyms && user.trainerGyms.length > 0; else noGymsTemplate">
-                <div class="col-12 mb-3 d-flex align-items-center" *ngFor="let gym of user.trainerGyms">
-                  <span class="fs-4" style="margin-left: 5%;">{{ gym.cityName+ ', ' + gym.name }}</span>
-                  <button class="delete-gym-button" type="button" (click)="removeGymFromUser(gym)">Usuń</button>
-                </div>
+                <table class="table table-striped" style="max-width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Miasto</th>
+                            <th scope="col">Nazwa siłowni</th>
+                            <th scope="col">Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let gym of user.trainerGyms">
+                            <td>{{gym.cityName}}</td>
+                            <td>{{gym.name}}</td>
+                            <td><button class="delete-gym-button" type="button" (click)="removeGymFromUser(gym)">Usuń</button></td>
+                    </tbody>
+                </table>
               </ng-container>
         
               <ng-template #noGymsTemplate>

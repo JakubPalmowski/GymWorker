@@ -1,9 +1,9 @@
 <ng-container *ngIf="mentor">
     <div class="top-window-container">
-    <img class="user-img">
+    <img src="{{mentor.imageSrc}}" class="round-picture" width="80px" height="80px">
     <div class="top-right-window-container">
         <div class="opinion-container">
-    <img src="../../../assets/icons/star.png" class="star-img">
+    <img src="assets/icons/star.png" class="star-img">
     <span>{{ mentor.rate }}</span>
 </div>
     <span>({{mentor.opinionNumber}} opinii)</span>

@@ -19,4 +19,5 @@ export interface UserPersonalInfo{
     dietPriceFrom?: number;
     dietPriceTo?: number;
     trainerGyms: ActiveGym[];
+    imageUri?: string;
 }

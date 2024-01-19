@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace TrainingAndDietApp.Application.Commands.Gym
+namespace TrainingAndDietApp.Application.CQRS.Commands.Gym.Create
 {
     public class CreateGymCommand : IRequest
     {

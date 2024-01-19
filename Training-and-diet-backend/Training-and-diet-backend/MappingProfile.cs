@@ -84,13 +84,18 @@ namespace Training_and_diet_backend
 
             CreateMap<Gym, MentorGymResponse>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City))
-                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Address.City));
+
+            CreateMap<Gym, GymAdminInfoResponse>()
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
+                .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode))
+                .ForMember(dest=>dest.IdAddress, opt=>opt.MapFrom(src=>src.Address.IdAddress));
+
 
             CreateMap<TrainerGym, MentorGymResponse>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Gym.Name))
-                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Gym.Address.City))
-                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Gym.Address.Street));
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Gym.Address.City));
 
             CreateMap<User, PupilResponse>();
 

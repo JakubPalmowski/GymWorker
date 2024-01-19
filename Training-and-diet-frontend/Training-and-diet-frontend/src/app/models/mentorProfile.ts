@@ -19,4 +19,5 @@ export interface MentorProfile{
     dietPriceTo?: number;
     opinions: Opinion[];
     trainerGyms: ActiveGym[]
+    imageUri?: string;
 }

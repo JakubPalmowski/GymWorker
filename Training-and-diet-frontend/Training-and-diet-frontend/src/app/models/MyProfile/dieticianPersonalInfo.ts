@@ -8,4 +8,5 @@ export interface DieticianPersonalInfo{
     bio?: string;
     dietPriceFrom?: number;
     dietPriceTo?: number;
+    imageUri?: string;
 }

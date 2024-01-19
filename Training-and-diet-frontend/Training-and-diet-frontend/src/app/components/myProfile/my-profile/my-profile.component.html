@@ -16,7 +16,7 @@
             <a class="px-2 text-black text-decoration-none p-2 bg-btn-orange rounded-3 fs-5" style="cursor: pointer;" [routerLink]="'/myProfile/edit'">Edytuj Profil</a>
         </div>
         <div class="col-12 d-flex justify-content-center">
-            <img src="/assets/images/diho4.png" width="300px" height="300px" class="round-picture">
+            <img src="{{imageUrl}}" width="300px" height="300px" class="round-picture">
         </div>
         
         <div class="col-12" [ngSwitch]="user.role">
@@ -144,9 +144,19 @@
     <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
     
     <ng-container *ngIf="user.trainerGyms && user.trainerGyms.length > 0; else noGymsTemplate">
-        <div class="col-12 mb-2" *ngFor="let gym of user.trainerGyms">
-          <span class="fs-4" style="margin-left: 5%;">{{ gym.cityName+ ', ' + gym.name }}</span>
-        </div>
+        <table class="table table-striped" style="max-width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">Miasto</th>
+                    <th scope="col">Nazwa siłowni</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let gym of user.trainerGyms">
+                    <td>{{gym.cityName}}</td>
+                    <td>{{gym.name}}</td>
+            </tbody>
+        </table>
       </ng-container>
 
       <ng-template #noGymsTemplate>

@@ -14,4 +14,6 @@ export interface Mentor{
     personalTrainingPriceTo?: number;
     dietPriceFrom?: number;
     dietPriceTo?: number;
+    imageUri?: string;
+    imageSrc?: string;
 }

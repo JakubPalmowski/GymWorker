@@ -16,5 +16,6 @@ namespace TrainingAndDietApp.Domain.Abstractions
         Task<Gym?> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task AddAsync(Gym gym, CancellationToken cancellationToken);//do wywalenia
         Task<List<Gym>> GetAllGymsAddedByUserAsync(int idUser,CancellationToken cancellationToken);
+        Task<List<Gym>> GetAllPendingGymsAsync(CancellationToken cancellationToken);
     }
 }

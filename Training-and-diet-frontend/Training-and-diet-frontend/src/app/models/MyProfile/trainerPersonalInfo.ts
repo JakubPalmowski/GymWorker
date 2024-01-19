@@ -13,4 +13,5 @@ export interface TrainerPersonalInfo {
     personalTrainingPriceFrom?: number;
     personalTrainingPriceTo?: number;
     trainerGyms : ActiveGym[];
+    imageUri?: string;
 }
