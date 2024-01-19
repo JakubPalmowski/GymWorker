@@ -1,89 +1,16 @@
-using System.Text;
-using FluentValidation;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using Training_and_diet_backend;
 using Training_and_diet_backend.Middlewares;
-using Training_and_diet_backend.Repositories;
+using TrainingAndDietApp.Application;
 using TrainingAndDietApp.Application.Abstractions;
-using TrainingAndDietApp.Application.Abstractions.Auth;
-using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetAll;
-using TrainingAndDietApp.Application.CQRS.Validators;
-using TrainingAndDietApp.Application.CQRS.Validators.Create.Exercise;
 using TrainingAndDietApp.Application.Services;
-using TrainingAndDietApp.Application.Services.Auth;
-using TrainingAndDietApp.Application.Services.Files;
-using TrainingAndDietApp.Domain.Abstractions;
-using TrainingAndDietApp.Infrastructure.Context;
-using TrainingAndDietApp.Infrastructure.Persistance;
-using TrainingAndDietApp.Infrastructure.Repositories;
-using UserQuery = TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll.UserQuery;
+using TrainingAndDietApp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("TestConnection"))
-        .EnableSensitiveDataLogging();
-});
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(GetMealsHandler)));
-builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IMealRepository, MealRepository>();
-builder.Services.AddScoped<ITraineeExerciseService, TraineeExerciseService>();
-builder.Services.AddScoped<ITraineeExercisesRepository, TraineeExercisesRepository>();
-builder.Services.AddScoped<IGymRepository, GymRepository>();
-builder.Services.AddScoped<IPasswordService, PasswordService>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IAddressRepository, AddressRepository>();
-builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<ITrainerGymRepository, TrainerGymRepository>();
-builder.Services.AddScoped<IValidator<UserQuery>, UserQueryValidator>();
-builder.Services.AddSingleton<IFileService, FileService>();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddControllers()
-    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserQueryValidator>());
-
-
-
-
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey =
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["SecretKey"])),
-        ValidateIssuer = true,
-        ValidIssuer = "https://localhost:5001",
-        ValidateAudience = true,
-        ValidAudience = "https://localhost:5001",
-        ValidateLifetime = true,
-        ClockSkew = TimeSpan.Zero
-    };
-});
-
-
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationServices();
+builder.Services.AddApiServices(builder.Configuration);
 
 var app = builder.Build();
 
