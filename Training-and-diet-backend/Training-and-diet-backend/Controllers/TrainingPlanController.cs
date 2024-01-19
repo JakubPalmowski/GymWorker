@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.Extensions;
+using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.AssignPupil;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.CreateTrainingPlan;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.UpdateTrainingPlan;
 using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById;
@@ -51,6 +52,15 @@ namespace Training_and_diet_backend.Controllers
         public async Task<IActionResult> UpdateTrainingPlan(int idTrainingPlan, UpdateTrainingPlanCommand trainingPlan)
         {
             var command = new UpdateTrainingPlanInternalCommand(idTrainingPlan, trainingPlan);
+            await _mediator.Send(command);
+            return NoContent();
+        }
+        [Authorize(Roles = "3,5")]
+        [HttpPut("assignPupilToTrainingPlan/{idTrainingPlan}")]
+        public async Task<IActionResult> AssignPupilToTrainingPlan(int idTrainingPlan, AssignPupilToTrainingPlanCommand trainingPlan)
+        {
+            var user = this.User.GetId()!.Value;
+            var command = new AssignPupilToTrainingPlanInternalCommand(idTrainingPlan, user, trainingPlan);
             await _mediator.Send(command);
             return NoContent();
         }

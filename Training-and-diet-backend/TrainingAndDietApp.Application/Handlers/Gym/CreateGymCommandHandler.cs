@@ -1,11 +1,7 @@
-using System.Threading;
-using System.Threading.Tasks;
 using MediatR;
-using Training_and_diet_backend.Data.Migrations;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Application.Commands.Gym;
 using TrainingAndDietApp.Domain.Abstractions;
-using TrainingAndDietApp.Domain.Entities;
 
 
 namespace TrainingAndDietApp.Application.Handlers.Gym

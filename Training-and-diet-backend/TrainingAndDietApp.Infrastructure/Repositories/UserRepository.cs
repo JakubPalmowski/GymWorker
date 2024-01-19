@@ -91,5 +91,12 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         {
             return await _context.Users.Where(u => u.ImageUri == imageUri).FirstOrDefaultAsync(cancellationToken);
         }
+
+        public async Task<IEnumerable<User>> GetPupilsByMentorIdAsync(int idMentor, CancellationToken cancellationToken)
+        {
+            return  await _context.Pupil_mentors.Where(pm => pm.IdMentor == idMentor)
+                .Select(pm => pm.Pupil)
+                .ToListAsync(cancellationToken);
+        }
     }
 }

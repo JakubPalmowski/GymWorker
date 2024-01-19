@@ -65,7 +65,9 @@ namespace Training_and_diet_backend
 
             CreateMap<RegisterUserCommand, User>();
 
-           
+            CreateMap<User, MentorPupilResponse>(); 
+
+
             CreateMap<Meal, UpdateMealInternalCommand>();
 
             CreateMap<User, MentorList>()
