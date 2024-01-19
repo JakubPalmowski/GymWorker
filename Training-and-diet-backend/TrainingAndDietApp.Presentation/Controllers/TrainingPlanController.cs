@@ -12,6 +12,7 @@ namespace Training_and_diet_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "3,5")]
     public class TrainingPlanController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -28,16 +29,16 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
 
         }
-        [HttpGet("{idTrainer}/trainingPlans")]
-        public async Task<IActionResult> GetTrainerTrainingPlans(int idTrainer)
+        [HttpGet]
+        public async Task<IActionResult> GetTrainerTrainingPlans()
         {
-            var query = new GetTrainerTrainingPlansQuery(idTrainer);
+            var user = this.User.GetId()!.Value;
+            var query = new GetTrainerTrainingPlansQuery(user);
             var result = await _mediator.Send(query);
 
             return Ok(result);
 
         }
-        [Authorize(Roles = "3")]
         [HttpPost]
         public async Task<IActionResult> PostTrainingPlan(CreateTrainingPlanCommand command)
         {
@@ -55,7 +56,6 @@ namespace Training_and_diet_backend.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
-        [Authorize(Roles = "3,5")]
         [HttpPut("assignPupilToTrainingPlan/{idTrainingPlan}")]
         public async Task<IActionResult> AssignPupilToTrainingPlan(int idTrainingPlan, AssignPupilToTrainingPlanCommand trainingPlan)
         {
