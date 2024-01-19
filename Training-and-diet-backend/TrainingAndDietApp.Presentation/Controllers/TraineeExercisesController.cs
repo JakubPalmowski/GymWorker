@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.CreateTraineeExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.DeleteTraineeExercise;
@@ -10,6 +11,7 @@ namespace Training_and_diet_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "3,5")]
     public class TraineeExercisesController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -24,6 +26,7 @@ namespace Training_and_diet_backend.Controllers
             var result = await _mediator.Send(new GetTraineeExerciseQuery(id));
             return Ok(result);
         }
+
         [HttpGet("trainingPlanInternal/{idTrainingPlan}")]
         public async Task<IActionResult> GetTraineeExercisesFromTrainingPlan(int idTrainingPlan)
         {

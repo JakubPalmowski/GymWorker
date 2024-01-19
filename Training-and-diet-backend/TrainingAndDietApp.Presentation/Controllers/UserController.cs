@@ -27,7 +27,6 @@ namespace Training_and_diet_backend.Controllers
         }
 
 
-        // POBIERA lISTĘ UZYTKOWNIKOW Z PODANEJ ROLI
         [HttpGet("{RoleName}")]
         public async Task<IActionResult> GetUsers([FromRoute] string RoleName, [FromQuery] UserQuery userQuery)
         {
@@ -41,7 +40,6 @@ namespace Training_and_diet_backend.Controllers
 
         }
 
-        //Pobiera trenera/Dietetyka/TreneroDietetyka wraz z jego opiniami po Id
         [HttpGet("{RoleName}/{id}")]
         public async Task<IActionResult> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
         {
