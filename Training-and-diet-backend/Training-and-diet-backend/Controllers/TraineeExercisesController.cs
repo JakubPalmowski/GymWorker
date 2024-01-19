@@ -24,7 +24,7 @@ namespace Training_and_diet_backend.Controllers
             var result = await _mediator.Send(new GetTraineeExerciseQuery(id));
             return Ok(result);
         }
-        [HttpGet("trainingPlan/{idTrainingPlan}")]
+        [HttpGet("trainingPlanInternal/{idTrainingPlan}")]
         public async Task<IActionResult> GetTraineeExercisesFromTrainingPlan(int idTrainingPlan)
         {
             var request = new GetExercisesFromTrainingPlanQuery(idTrainingPlan);

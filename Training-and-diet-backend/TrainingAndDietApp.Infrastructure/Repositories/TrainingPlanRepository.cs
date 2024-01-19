@@ -30,5 +30,6 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             return trainingPlan.Any();
         }
 
+        
     }
 }
