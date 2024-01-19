@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrainingAndDietApp.DAL\TrainingAndDietApp.Domain.csproj" />
+    <ProjectReference Include="..\TrainingAndDietApp.Domain\TrainingAndDietApp.Domain.csproj" />
     <ProjectReference Include="..\TrainingAndDietApp.Infrastructure\TrainingAndDietApp.Infrastructure.csproj" />
   </ItemGroup>
 
