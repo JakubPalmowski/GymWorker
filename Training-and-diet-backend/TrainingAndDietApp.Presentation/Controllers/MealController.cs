@@ -1,16 +1,21 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Training_and_diet_backend.Extensions;
 using TrainingAndDietApp.Application.CQRS.Commands.Meal.CreateMeal;
 using TrainingAndDietApp.Application.CQRS.Commands.Meal.DeleteMeal;
 using TrainingAndDietApp.Application.CQRS.Commands.Meal.UpdateMeal;
+using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.UpdateTraineeExercise;
 using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetAll;
 using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetByDieticianId;
 using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetById;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace Training_and_diet_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "4,5")]
     public class MealController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -39,10 +44,11 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
         }
       
-        [HttpGet("{dieticianId}/meals")]
-        public async Task<IActionResult> GetMealsByDieticianId(int dieticianId)
+        [HttpGet("/dietician")]
+        public async Task<IActionResult> GetMealsByDieticianId()
         {
-            var query = new GetMealsByDieticianIdQuery(dieticianId);
+            var user = this.User.GetId()!.Value;
+            var query = new GetMealsByDieticianIdQuery(user);
             var result = await _mediator.Send(query);
 
             return Ok(result);
@@ -50,10 +56,10 @@ namespace Training_and_diet_backend.Controllers
         [HttpPost]
         public async Task<IActionResult> PostMeal(CreateMealCommand meal)
         {
-            var result = await _mediator.Send(meal);
-            var locationUri = $"api/meal/{result.IdMeal}";
+            var user = this.User.GetId()!.Value;
+            await _mediator.Send(new CreateInternalMealCommand(user,meal));
 
-            return Created(locationUri, result);
+            return Ok();
         }
 
         [HttpDelete("{mealId}")]

@@ -158,6 +158,13 @@ namespace Training_and_diet_backend
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ExerciseCommand.Name))
                 .ForMember(dest => dest.IdTrainer, opt => opt.MapFrom(src => src.IdTrainer));
 
+            CreateMap<CreateInternalMealCommand, Meal>()
+                .ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => src.MealCommand.Ingredients))
+                .ForMember(dest => dest.Kcal, opt => opt.MapFrom(src => src.MealCommand.Kcal))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.MealCommand.Name))
+                .ForMember(dest => dest.PrepareSteps, opt => opt.MapFrom(src => src.MealCommand.PrepareSteps))
+                .ForMember(dest => dest.IdDietician, opt => opt.MapFrom(src => src.IdDietician));
+
 
 
 
