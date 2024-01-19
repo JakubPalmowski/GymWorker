@@ -7,9 +7,6 @@ public class CreateMealCommandValidator : AbstractValidator<CreateMealCommand>
 {
     public CreateMealCommandValidator()
     {
-        RuleFor(meal => meal.IdDietician)
-            .NotEmpty().WithMessage("Pole jest wymagane")
-            .GreaterThan(0).WithMessage("Id dietetyka musi być większe od 0.");
 
         RuleFor(meal => meal.Name)
             .NotEmpty().WithMessage("Nazwa dania jest wymagana")
