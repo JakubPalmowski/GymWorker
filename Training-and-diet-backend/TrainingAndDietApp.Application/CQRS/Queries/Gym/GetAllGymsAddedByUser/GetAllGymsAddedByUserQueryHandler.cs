@@ -1,11 +1,8 @@
 using AutoMapper;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using TrainingAndDietApp.Application.Queries.Gym;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.Handlers.Gym
+namespace TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAllGymsAddedByUser
 {
     public class GetAllGymsAddedByUserQueryHandler : IRequestHandler<GetAllGymsAddedByUserQuery, List<GymsAddedByUserResponse>>
     {

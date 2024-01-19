@@ -18,5 +18,6 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Dietician.UpdateDiet
         public string? Bio { get; set; }
         public decimal? DietPriceFrom { get; set; }
         public decimal? DietPriceTo { get; set; }
+        public string? ImageUri {get; set;}
     }
 }

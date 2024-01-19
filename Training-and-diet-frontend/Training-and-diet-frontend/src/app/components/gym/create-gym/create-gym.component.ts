@@ -19,7 +19,7 @@ export class CreateGymComponent implements OnInit {
     city: "",
     street: "",
     postalCode: "",
-    addedBy: 3
+    addedBy: 1
   }
   fieldErrors: { [key: string]: string[] } = {};
   successFlag: string = "";
@@ -29,7 +29,7 @@ export class CreateGymComponent implements OnInit {
   
   ngOnInit(): void {
     //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
-    this.gymService.GetGymsAddedByUser("3").subscribe({
+    this.gymService.GetGymsAddedByUser("1").subscribe({
       next: (gyms) => {
         this.GymsAddedByUser = gyms;
       },
@@ -53,6 +53,7 @@ export class CreateGymComponent implements OnInit {
           };
           this.GymsAddedByUser?.push(gym);
           this.GymToCreate = { city: "", name: "", postalCode: "", street: "", addedBy: 3};
+          this.profileForm?.reset();
         },
         error: (error) => {
           if (error.status === 400) {
@@ -77,6 +78,14 @@ export class CreateGymComponent implements OnInit {
         }
       })
     }
+}else{
+  if(this.profileForm){
+    Object.keys(this.profileForm.controls).forEach(field => {
+      const control = this.profileForm?.controls[field];
+      if (control)
+      control.markAsTouched({ onlySelf: true });
+    });
+}
 }
   }
 

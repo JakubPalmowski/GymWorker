@@ -24,6 +24,7 @@ public class MentorWithOpinionResponse
     public decimal? PersonalTrainingPriceTo { get; set; }
     public decimal? DietPriceFrom { get; set; }
     public decimal? DietPriceTo { get; set; }
+    public string? ImageUri { get; set; }
     public List<OpinionResponse> Opinions { get; set; }
     public List<MentorGymResponse> TrainerGyms { get; set; }
 
@@ -41,5 +42,4 @@ public class MentorGymResponse
 {
     public string Name { get; set; }
     public string CityName { get; set; }
-    public string Street { get; set; }
 }

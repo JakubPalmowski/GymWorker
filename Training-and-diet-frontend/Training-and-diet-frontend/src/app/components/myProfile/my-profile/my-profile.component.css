@@ -61,7 +61,7 @@ a{
     cursor: pointer;
     margin-left: 5px;
     position: relative;
-    z-index: 2; 
+    z-index: 1; 
   }
   
   .info-tooltip {
@@ -82,5 +82,17 @@ a{
     visibility: visible;
     opacity: 1;
   }
+
+  .table thead{
+    border: 1px solid black;
+  }
+
+  .table tr{
+    border: 1px solid black;
+  }
+  .table th, .table td {
+    width: 50%;
+    word-break: break-all; 
+}
   
   

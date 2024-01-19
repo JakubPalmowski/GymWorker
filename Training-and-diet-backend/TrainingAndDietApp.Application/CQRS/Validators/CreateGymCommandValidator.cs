@@ -1,5 +1,6 @@
 using FluentValidation;
-using TrainingAndDietApp.Application.Commands.Gym;
+using TrainingAndDietApp.Application.CQRS.Commands.Gym.Create;
+
 
 public class CreateGymCommandValidator : AbstractValidator<CreateGymCommand>
 {

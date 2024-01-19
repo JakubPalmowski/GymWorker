@@ -91,6 +91,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Trainer.UpdateTraine
             userToUpdate.PersonalTrainingPriceFrom = request.TrainerCommand.PersonalTrainingPriceFrom;
             userToUpdate.PersonalTrainingPriceTo = request.TrainerCommand.PersonalTrainingPriceTo;
             userToUpdate.Bio = request.TrainerCommand.Bio;
+            userToUpdate.ImageUri = request.TrainerCommand.ImageUri;
             
 
             await _userRepository.UpdateAsync(userToUpdate, cancellationToken);

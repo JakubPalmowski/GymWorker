@@ -16,5 +16,6 @@ namespace TrainingAndDietApp.Application.CQRS.Responses.Pupil
         public string? Sex { get; set; }
 
         public string? Bio { get; set; }
+        public string? ImageUri {get; set;}
     }
 }

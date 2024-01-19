@@ -5,10 +5,11 @@ import { NgForm, NgModel } from '@angular/forms';
 import { UserPersonalInfo } from 'src/app/models/MyProfile/userPersonalInfo';
 import { TrainerPersonalInfo } from 'src/app/models/MyProfile/trainerPersonalInfo';
 import { GymService } from 'src/app/services/gym.service';
-import { forkJoin } from 'rxjs';
+import { catchError, forkJoin, iif, of, switchMap, tap, throwError } from 'rxjs';
 import { ActiveGym } from 'src/app/models/gym/activeGym';
 import { DieticianPersonalInfo } from 'src/app/models/MyProfile/dieticianPersonalInfo';
 import { DieticianTrainerPersonalInfo } from 'src/app/models/MyProfile/dieticianTrainerPersonalInfo';
+import { FileService } from 'src/app/services/file.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ import { DieticianTrainerPersonalInfo } from 'src/app/models/MyProfile/dietician
 export class MyProfileEditComponent implements OnInit {
 
 
-constructor(private userSerive: UserService, private gymService: GymService) {}
+constructor(private userService: UserService, private gymService: GymService, private fileService: FileService) {}
 
 user: UserPersonalInfo|undefined;
 role: string = "";
@@ -36,21 +37,32 @@ allActiveGyms: ActiveGym[] = [];
 selectedGym: ActiveGym | null = null;
 inputGymsError: string = "";
 @ViewChild('autocompleteGyms') autocompleteGyms: ElementRef|undefined;
-
-
-
-
-
 trainingPlanPriceError: boolean = false;
-
-imageUrl: string | ArrayBuffer | null = null;
+newImageUrl: string | ArrayBuffer | null = null;
+imageUrl:string="";
+imageFile: File | null = null;
+imageDeleted: boolean = false;
 
 onFileSelected(event:any) {
   const file = event.target.files[0];
+  this.imageDeleted = false;
+  this.imageFile = event.target.files[0];
   if (file) {
     const reader = new FileReader();
-    reader.onload = e => this.imageUrl = reader.result;
+    reader.onload = e => this.newImageUrl = reader.result;
     reader.readAsDataURL(file);
+  }
+}
+
+deleteImage(){
+  if(this.user?.imageUri){
+  this.imageDeleted = true;
+  this.newImageUrl = "assets/images/user.png";
+  this.imageFile = null;
+  }
+  if(this.imageFile){
+    this.newImageUrl = "assets/images/user.png";
+    this.imageFile = null;
   }
 }
 
@@ -58,66 +70,139 @@ onFileSelected(event:any) {
 ngOnInit(): void {
   //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
   this.role = "Dietician-Trainer"
-  this.id = "2";
+  this.id = "1";
 
   if (this.role == "Pupil") {
-    this.userSerive.GetPupilPersonalInfoById(this.id).subscribe(
+    this.userService.GetPupilPersonalInfoById(this.id).subscribe(
       {
-        next:(pupilInfo)=>{
-          this.user=pupilInfo;
-          if(this.user.sex==null){
-            this.user.sex="";
+        next: (pupilInfo) => {
+          this.user = pupilInfo;
+          if (this.user.sex == null) {
+            this.user.sex = "";
           }
           this.formattedDate = this.formatDate(this.user.dateOfBirth?.toString());
+          if (this.user.imageUri) {
+            this.fileService.getImage(this.user.imageUri).pipe(
+              catchError(error => {
+                this.imageUrl = "assets/images/user.png";
+                return of(null); 
+              })
+            ).subscribe(blob => {
+              if (blob) {
+                const objectUrl = URL.createObjectURL(blob);
+                this.imageUrl = objectUrl;
+              }
+            });
+          } else {
+            this.imageUrl = "assets/images/user.png";
+          }
         },
-        error: (response)=>{
-          console.log(response);
+        error: (response) => {
+          console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
         }
       }
-    )
+    );
+    
   }
   else if (this.role == "Trainer") {
     forkJoin({
-      trainerInfo: this.userSerive.GetTrainerPersonalInfoById(this.id),
+      trainerInfo: this.userService.GetTrainerPersonalInfoById(this.id),
       gyms: this.gymService.GetAllActiveMentorGyms(this.id),
       allGyms: this.gymService.GetAllActiveGyms()
-    }).subscribe({
-      next: ({ trainerInfo, gyms, allGyms }) => {
+    }).pipe(
+      switchMap(({ trainerInfo, gyms, allGyms }) => {
+        if (!trainerInfo) {
+          throw new Error('Wystąpił błąd podczas pobierania danych.');
+        }
         this.user = trainerInfo;
+        this.user.trainerGyms = gyms;
         this.allActiveGyms = allGyms;
-        if (this.user) {
-          this.user.trainerGyms = gyms;
+        if (this.user && this.user.imageUri) {
+          return this.fileService.getImage(this.user.imageUri).pipe(
+            catchError(error => {
+              this.imageUrl="assets/images/user.png";
+              return of(null); 
+            })
+          );
+        } else {
+          this.imageUrl="assets/images/user.png";
+          return of(null);
+        }
+      }),
+    ).subscribe({
+      next: (blob) => {
+        if (blob) {
+          const objectUrl = URL.createObjectURL(blob);
+          this.imageUrl = objectUrl;
         }
       },
       error: (response) => {
-        console.log(response);
+        console.log('Wystąpił błąd podczas pobierania danych.', response);
       }
     });
   }else if (this.role == "Dietician") {
-    this.userSerive.GetDieticianPersonalInfoById(this.id).subscribe({
+    this.userService.GetDieticianPersonalInfoById(this.id).subscribe({
       next: (dieticianInfo) => {
+        if (!dieticianInfo) {
+          console.log('Wystąpił błąd podczas pobierania danych ucznia.');
+          return;
+        }
         this.user = dieticianInfo;
+        if (this.user.imageUri) {
+          this.fileService.getImage(this.user.imageUri).subscribe(
+            blob => {
+              if (blob) {
+                const objectUrl = URL.createObjectURL(blob);
+                this.imageUrl = objectUrl;
+              }
+            },
+            error => {
+              this.imageUrl = "assets/images/user.png";
+            }
+          );
+        } else {
+          this.imageUrl = "assets/images/user.png";
+        }
       },
       error: (response) => {
-        console.log(response);
+        console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
       }
     });
   }
   else if (this.role == "Dietician-Trainer") {
     forkJoin({
-      dieticianTrainerInfo: this.userSerive.GetDieticianTrainerPersonalInfoById(this.id),
+      dieticianTrainerInfo: this.userService.GetDieticianTrainerPersonalInfoById(this.id),
       gyms: this.gymService.GetAllActiveMentorGyms(this.id),
       allGyms: this.gymService.GetAllActiveGyms()
-    }).subscribe({
-      next: ({ dieticianTrainerInfo, gyms, allGyms }) => {
+    }).pipe(
+      switchMap(({ dieticianTrainerInfo, gyms, allGyms }) => {
+        if (!dieticianTrainerInfo) {
+          throw new Error('Wystąpił błąd podczas pobierania danych.');
+        }
         this.user = dieticianTrainerInfo;
+        this.user.trainerGyms = gyms;
         this.allActiveGyms = allGyms;
-        if (this.user) {
-          this.user.trainerGyms = gyms;
+        if (this.user && this.user.imageUri) {
+          return this.fileService.getImage(this.user.imageUri).pipe(
+            catchError(error => {
+              this.imageUrl="assets/images/user.png";
+              return of(null); 
+            })
+          );
+        } else {
+          this.imageUrl="assets/images/user.png";
+          return of(null);
+        }
+      }),
+    ).subscribe({
+      next: (blob) => {
+        if (blob) {
+          const objectUrl = URL.createObjectURL(blob);
+          this.imageUrl = objectUrl;
         }
       },
       error: (response) => {
-        console.log(response);
+        console.log('Wystąpił błąd podczas pobierania danych.', response);
       }
     });
   }
@@ -129,127 +214,298 @@ onSubmit() {
   if (this.user) {
     if (this.role == "Trainer") {
       const trainerInfo: TrainerPersonalInfo = this.mapUserToTrainer(this.user);
-      this.userSerive.UpdateTrainerPersonalInfo(trainerInfo, this.id).subscribe({
-        next: (response) => {
-          this.successFlag = "success";
-          this.fieldErrors = {}; 
-          this.showSuccessPopup(this.successFlag);
-          document.documentElement.scrollTop = 0;
-        },
-        error: (error) => {
-          if (error.status === 400) {
-            const { errors } = error.error; 
-  
-            this.fieldErrors = {}; 
-        
-            for (const key in errors) {
-                if (errors.hasOwnProperty(key)) {
-                    this.fieldErrors[key] = errors[key]; 
-                }
+    const handleImage$ = iif(
+      () => !!this.imageFile || this.imageDeleted,
+      iif(
+        () => !!trainerInfo.imageUri,
+        this.fileService.deleteImage(trainerInfo.imageUri as string).pipe(
+          tap((success) => {
+            if (success) {
+              trainerInfo.imageUri = undefined; 
             }
-            console.log(error.error);
-  
-          }else {
-          this.successFlag = "error";
-          this.showSuccessPopup(this.successFlag);
-          document.documentElement.scrollTop = 0;
-          this.fieldErrors = {}; 
+          }),
+          catchError(error => {
+            return throwError(() => error);
+          })
+        ),
+        of(null) 
+      ).pipe(
+        switchMap(() => {
+          if (this.imageFile) {
+            return this.fileService.uploadImage(this.imageFile).pipe(
+              tap((uploadedImageUri) => {
+                trainerInfo.imageUri = uploadedImageUri.fileUri;
+                if(this.user)
+                this.user.imageUri = uploadedImageUri.fileUri;
+              })
+            );
+          } else {
+            return of(null);
+          }
+        }),
+        catchError(error => {
+          return throwError(() => error); 
+        })
+      ),
+      of(null) 
+    );
+
+handleImage$.pipe(
+  switchMap(() => {
+    return this.userService.UpdateTrainerPersonalInfo(trainerInfo, this.id);
+  }),
+  catchError(error => {
+    if (error.status === 400) {
+      const { errors } = error.error;
+      this.fieldErrors = {}; 
+
+      for (const key in errors) {
+        if (errors.hasOwnProperty(key)) {
+          this.fieldErrors[key] = errors[key]; 
         }
-        }
-      });
+      }
+      console.log(error.error);
+    } else {
+      this.successFlag = "error";
+      this.showSuccessPopup(this.successFlag);
+      document.documentElement.scrollTop = 0;
+      this.fieldErrors = {}; 
+    }
+    return throwError(() => error); 
+  })
+).subscribe({
+  next: (response) => {
+    this.successFlag = "success";
+    this.showSuccessPopup(this.successFlag);
+    this.fieldErrors = {}; 
+    document.documentElement.scrollTop = 0;
+  },
+  error: (error) => {
+    return throwError(() => error); 
+  }
+});
+ 
     }else if (this.role == "Pupil") {
     this.user.dateOfBirth = new Date(this.formattedDate);
     const pupilInfo: PupilPersonalInfo = this.mapUserToPupil(this.user);
-    this.userSerive.UpdatePupilPersonalInfo(pupilInfo, this.id).subscribe({
-      next: (response) => {
-        this.successFlag = "success";
-        this.showSuccessPopup(this.successFlag);
-        this.fieldErrors = {}; 
-        document.documentElement.scrollTop = 0;
-      },
-      error: (error) => {
-        if (error.status === 400) {
-          const { errors } = error.error;
-
-          this.fieldErrors = {}; 
-      
-          for (const key in errors) {
-              if (errors.hasOwnProperty(key)) {
-                  this.fieldErrors[key] = errors[key]; 
-              }
+    const handleImage$ = iif(
+      () => !!this.imageFile || this.imageDeleted,
+      iif(
+        () => !!pupilInfo.imageUri,
+        this.fileService.deleteImage(pupilInfo.imageUri as string).pipe(
+          tap((success) => {
+            if (success) {
+              pupilInfo.imageUri = undefined; 
+            }
+          }),
+          catchError(error => {
+            return throwError(() => error);
+          })
+        ),
+        of(null) 
+      ).pipe(
+        switchMap(() => {
+          if (this.imageFile) {
+            return this.fileService.uploadImage(this.imageFile).pipe(
+              tap((uploadedImageUri) => {
+                pupilInfo.imageUri = uploadedImageUri.fileUri;
+                if(this.user)
+                this.user.imageUri = uploadedImageUri.fileUri;
+              })
+            );
+          } else {
+            return of(null);
           }
+        }),
+        catchError(error => {
+          return throwError(() => error); 
+        })
+      ),
+      of(null) 
+    );
 
-        }else {
-        this.successFlag = "error";
-        this.showSuccessPopup(this.successFlag);
-        document.documentElement.scrollTop = 0;
-        this.fieldErrors = {}; 
+handleImage$.pipe(
+  switchMap(() => {
+    return this.userService.UpdatePupilPersonalInfo(pupilInfo, this.id);
+  }),
+  catchError(error => {
+    if (error.status === 400) {
+      const { errors } = error.error;
+      this.fieldErrors = {}; 
+
+      for (const key in errors) {
+        if (errors.hasOwnProperty(key)) {
+          this.fieldErrors[key] = errors[key]; 
+        }
       }
-      }
-    });
+      console.log(error.error);
+    } else {
+      this.successFlag = "error";
+      this.showSuccessPopup(this.successFlag);
+      document.documentElement.scrollTop = 0;
+      this.fieldErrors = {}; 
+    }
+    return throwError(() => error); 
+  })
+).subscribe({
+  next: (response) => {
+    this.successFlag = "success";
+    this.showSuccessPopup(this.successFlag);
+    this.fieldErrors = {}; 
+    document.documentElement.scrollTop = 0;
+  },
+  error: (error) => {
+    return throwError(() => error); 
+  }
+});
   }else if(this.role=="Dietician"){
     const dieticianInfo: DieticianPersonalInfo = this.mapUserToDietician(this.user);
-    this.userSerive.UpdateDieticianPersonalInfo(dieticianInfo, this.id).subscribe({
-      next: (response) => {
-        this.successFlag = "success";
-        this.showSuccessPopup(this.successFlag);
-        this.fieldErrors = {}; 
-        document.documentElement.scrollTop = 0;
-  
-      },
-      error: (error) => {
-        if (error.status === 400) {
-          const { errors } = error.error;
-
-          this.fieldErrors = {}; 
-      
-          for (const key in errors) {
-              if (errors.hasOwnProperty(key)) {
-                  this.fieldErrors[key] = errors[key]; 
-              }
+    const handleImage$ = iif(
+      () => !!this.imageFile || this.imageDeleted,
+      iif(
+        () => !!dieticianInfo.imageUri,
+        this.fileService.deleteImage(dieticianInfo.imageUri as string).pipe(
+          tap((success) => {
+            if (success) {
+              dieticianInfo.imageUri = undefined; 
+            }
+          }),
+          catchError(error => {
+            return throwError(() => error);
+          })
+        ),
+        of(null) 
+      ).pipe(
+        switchMap(() => {
+          if (this.imageFile) {
+            return this.fileService.uploadImage(this.imageFile).pipe(
+              tap((uploadedImageUri) => {
+                dieticianInfo.imageUri = uploadedImageUri.fileUri;
+                if(this.user)
+                this.user.imageUri = uploadedImageUri.fileUri;
+              })
+            );
+          } else {
+            return of(null);
           }
-          console.log(error.error);
+        }),
+        catchError(error => {
+          return throwError(() => error); 
+        })
+      ),
+      of(null) 
+    );
 
-        }else {
-        this.successFlag = "error";
-        this.showSuccessPopup(this.successFlag);
-        document.documentElement.scrollTop = 0;
-        this.fieldErrors = {}; 
+handleImage$.pipe(
+  switchMap(() => {
+    return this.userService.UpdateDieticianPersonalInfo(dieticianInfo, this.id);
+  }),
+  catchError(error => {
+    if (error.status === 400) {
+      const { errors } = error.error;
+      this.fieldErrors = {}; 
+
+      for (const key in errors) {
+        if (errors.hasOwnProperty(key)) {
+          this.fieldErrors[key] = errors[key]; 
+        }
       }
-      }
-    });
+      console.log(error.error);
+    } else {
+      this.successFlag = "error";
+      this.showSuccessPopup(this.successFlag);
+      document.documentElement.scrollTop = 0;
+      this.fieldErrors = {}; 
+    }
+    return throwError(() => error); 
+  })
+).subscribe({
+  next: (response) => {
+    this.successFlag = "success";
+    this.showSuccessPopup(this.successFlag);
+    this.fieldErrors = {}; 
+    document.documentElement.scrollTop = 0;
+  },
+  error: (error) => {
+    return throwError(() => error); 
+  }
+});
   }else if(this.role=="Dietician-Trainer"){
     const dieticianTrainerInfo: DieticianTrainerPersonalInfo = this.mapUserToDieticianTrainer(this.user);
-    this.userSerive.UpdateDieticianTrainerPersonalInfo(dieticianTrainerInfo, this.id).subscribe({
-      next: (response) => {
-        this.successFlag = "success";
-        this.showSuccessPopup(this.successFlag);
-        this.fieldErrors = {}; 
-        document.documentElement.scrollTop = 0;
-      },
-      error: (error) => {
-        if (error.status === 400) {
-          const { errors } = error.error;
-
-          this.fieldErrors = {}; 
-      
-          for (const key in errors) {
-              if (errors.hasOwnProperty(key)) {
-                  this.fieldErrors[key] = errors[key]; 
-              }
+    const handleImage$ = iif(
+      () => !!this.imageFile || this.imageDeleted,
+      iif(
+        () => !!dieticianTrainerInfo.imageUri,
+        this.fileService.deleteImage(dieticianTrainerInfo.imageUri as string).pipe(
+          tap((success) => {
+            if (success) {
+              console.log(dieticianTrainerInfo.imageUri as string)
+              dieticianTrainerInfo.imageUri = undefined; 
+            }
+          }),
+          catchError(error => {
+            return throwError(() => error);
+          })
+        ),
+        of(null) 
+      ).pipe(
+        switchMap(() => {
+          if (this.imageFile) {
+            return this.fileService.uploadImage(this.imageFile).pipe(
+              tap((uploadedImageUri) => {
+                dieticianTrainerInfo.imageUri = uploadedImageUri.fileUri;
+                if(this.user)
+                this.user.imageUri = uploadedImageUri.fileUri;
+              })
+            );
+          } else {
+            return of(null);
           }
-          console.log(error.error);
+        }),
+        catchError(error => {
+          console.error('Error during image operations', error);
+          return throwError(() => error); 
+        })
+      ),
+      of(null)
+    );
 
-        }else {
-        this.successFlag = "error";
-        this.showSuccessPopup(this.successFlag);
-        document.documentElement.scrollTop = 0;
-        this.fieldErrors = {}; 
+handleImage$.pipe(
+  switchMap(() => {
+    return this.userService.UpdateDieticianTrainerPersonalInfo(dieticianTrainerInfo, this.id);
+  }),
+  catchError(error => {
+    if (error.status === 400) {
+      const { errors } = error.error;
+      this.fieldErrors = {}; 
+
+      for (const key in errors) {
+        if (errors.hasOwnProperty(key)) {
+          this.fieldErrors[key] = errors[key]; 
+        }
       }
-      }
-    });
+      console.log(error.error);
+    } else {
+      this.successFlag = "error";
+      this.showSuccessPopup(this.successFlag);
+      document.documentElement.scrollTop = 0;
+      this.fieldErrors = {}; 
+    }
+    return throwError(() => error);
+  })
+).subscribe({
+  next: (response) => {
+    this.successFlag = "success";
+    this.showSuccessPopup(this.successFlag);
+    this.fieldErrors = {}; 
+    document.documentElement.scrollTop = 0;
+  },
+  error: (error) => {
   }
+});
+ 
   }
+}
   
 }
 
@@ -436,7 +692,8 @@ mapUserToPupil(user: UserPersonalInfo): PupilPersonalInfo {
     height: user.height,
     dateOfBirth: user.dateOfBirth,
     sex: user.sex,
-    bio: user.bio
+    bio: user.bio,
+    imageUri: user.imageUri
   };
 }
 
@@ -453,7 +710,8 @@ mapUserToTrainer(user: UserPersonalInfo): TrainerPersonalInfo {
     trainingPlanPriceTo: user.trainingPlanPriceTo,
     personalTrainingPriceFrom: user.personalTrainingPriceFrom,
     personalTrainingPriceTo: user.personalTrainingPriceTo,
-    trainerGyms: user.trainerGyms
+    trainerGyms: user.trainerGyms,
+    imageUri: user.imageUri
   };
 }
  mapUserToDietician(user: UserPersonalInfo): DieticianPersonalInfo {
@@ -466,7 +724,8 @@ mapUserToTrainer(user: UserPersonalInfo): TrainerPersonalInfo {
     phoneNumber: user.phoneNumber,
     bio: user.bio,
     dietPriceFrom: user.dietPriceFrom,
-    dietPriceTo: user.dietPriceTo
+    dietPriceTo: user.dietPriceTo,
+    imageUri: user.imageUri
   };
 }
 
@@ -485,7 +744,8 @@ mapUserToDieticianTrainer(user: UserPersonalInfo): DieticianTrainerPersonalInfo 
     personalTrainingPriceTo: user.personalTrainingPriceTo,
     dietPriceFrom: user.dietPriceFrom,
     dietPriceTo: user.dietPriceTo,
-    trainerGyms: user.trainerGyms
+    trainerGyms: user.trainerGyms,
+    imageUri: user.imageUri
   };
 }
 

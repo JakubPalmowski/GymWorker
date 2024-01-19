@@ -13,32 +13,28 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.User.Pupil.GetById
 {
-    public class GetPupilQueryHandler : IRequestHandler<GetPupilQuery, IEnumerable<PupilResponse>>
+    public class GetPupilQueryHandler : IRequestHandler<GetPupilQuery, PupilResponse>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<Domain.Entities.User> _userBaseRepository;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public GetPupilQueryHandler(IMapper mapper, IUserRepository userRepository, IUserService userService)
+        public GetPupilQueryHandler(IMapper mapper, IRepository<Domain.Entities.User> userBaseRepository, IUserService userService)
         {
             _mapper = mapper;
-            _userRepository = userRepository;
+            _userBaseRepository = userBaseRepository;
             _userService = userService;
 
         }
-        public async Task<IEnumerable<PupilResponse>> Handle(GetPupilQuery request, CancellationToken cancellationToken)
+        public async Task<PupilResponse> Handle(GetPupilQuery request, CancellationToken cancellationToken)
         {
-            if (!await _userService.CheckIfUserExists(request.Id, cancellationToken))
+                var pupil = await _userBaseRepository.GetByIdAsync(request.Id, cancellationToken);
+                if (pupil == null)
                 throw new NotFoundException("User not found");
-            if (!(await _userService.CheckIfUserIsTrainer(request.Id, cancellationToken) ||
-                    await _userService.CheckIfUserIsDietician(request.Id, cancellationToken) ||
-                    await _userService.CheckIfUserIsDieticianTrainer(request.Id, cancellationToken)))
-                throw new BadRequestException("User is not a mentor");
-
-
-            var pupil = await _userRepository.GetPupilsByTrainerIdAsync(request.Id, cancellationToken);
-            var pupilResponse = _mapper.Map<List<PupilResponse>>(pupil);
-
-            return pupilResponse;
-        }
+                if(! await _userService.CheckIfUserIsPupil(pupil.IdUser, cancellationToken))
+                    throw new BadRequestException("User is not a pupil");
+                var PupilResponse = _mapper.Map<PupilResponse>(pupil);
+                return PupilResponse;
+            
     }
+}
 }

@@ -34,8 +34,6 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
                 .Include(u=>u.Role)
                 .Include(u => u.MentorOpinions)
                 .ThenInclude(u => u.Pupil)
-                .Include(u => u.TrainerGyms)
-                .ThenInclude(tg => tg.Gym).ThenInclude(g => g.Address)
                 .FirstOrDefaultAsync(u => u.IdUser == id, cancellationToken);
         }
 
@@ -69,13 +67,6 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         }
 
 
-        public async Task<bool> UserIsDietician(int dieticianId, CancellationToken cancellationToken)
-        {
-
-            return await _context.Users.Where(u => u.IdUser == dieticianId)
-                .Select(u => u.Role)
-                .AnyAsync(r => r.Name == "Dietician" || r.Name == "Dietician-Trainer", cancellationToken: cancellationToken);
-        }
 
         public async Task<User?> GetUserWithDetailsAsync(int id, CancellationToken cancellationToken)
         =>  await _context.Users.Where(u=>u.IdUser==id)

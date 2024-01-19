@@ -4,7 +4,7 @@ using TrainingAndDietApp.Application.CQRS.Responses.Gym;
 using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAll;
+namespace TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAllActiveGyms{
 
 public class GetActiveGymsQueryHandler : IRequestHandler<GetActiveGymsQuery, IEnumerable<ActiveGymResponse>>
 {
@@ -24,4 +24,5 @@ public class GetActiveGymsQueryHandler : IRequestHandler<GetActiveGymsQuery, IEn
             throw new NotFoundException("Gyms not Found");
         return _mapper.Map<List<ActiveGymResponse>>(gyms);
     }
+}
 }

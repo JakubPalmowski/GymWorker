@@ -56,7 +56,7 @@ a{
     padding: 10px;
     border: 1px solid #dcdcdc; 
     cursor: pointer;
-    width: auto;
+    width: 305px;
   }
 
   .error-container{
@@ -131,6 +131,17 @@ a{
     margin-left:5%;
 
   }
+
+  .table thead{
+    border: 1px solid black;
+  }
+
+  .table tr{
+    border: 1px solid black;
+  }
+  .table th, .table td {
+    word-break: break-all; 
+}
 
   
   
