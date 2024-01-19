@@ -4,16 +4,17 @@ using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.CreateTraineeExercise;
 
 public class CreateTraineeExerciseCommandHandler : IRequestHandler<CreateTraineeExerciseCommand, CreateTraineeExerciseResponse>
 {
-    private readonly IRepository<Domain.Entities.TraineeExercise> _repository;
+    private readonly IRepository<TraineeExercise> _repository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ITraineeExerciseService _exerciseService;
     private readonly IMapper _mapper;
-    public CreateTraineeExerciseCommandHandler(IMapper mapper, IRepository<Domain.Entities.TraineeExercise> repository, ITraineeExerciseService exerciseService, IUnitOfWork unitOfWork)
+    public CreateTraineeExerciseCommandHandler(IMapper mapper, IRepository<TraineeExercise> repository, ITraineeExerciseService exerciseService, IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
         _repository = repository;
@@ -28,7 +29,7 @@ public class CreateTraineeExerciseCommandHandler : IRequestHandler<CreateTrainee
         if (!await _exerciseService.IsExerciseValid(request.IdExercise))
             throw new NotFoundException("Exercise not found");
 
-        var traineeExercises = _mapper.Map<Domain.Entities.TraineeExercise>(request);
+        var traineeExercises = _mapper.Map<TraineeExercise>(request);
 
         await _repository.AddAsync(traineeExercises, cancellationToken);
         await _unitOfWork.CommitAsync(cancellationToken);

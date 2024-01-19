@@ -11,22 +11,14 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByTrainerI
 public class GetTrainerTrainingPlansQueryHandler : IRequestHandler<GetTrainerTrainingPlansQuery, IEnumerable<GetTrainerTrainingPlansResponse>>
 {
     private readonly ITrainingPlanRepository _trainingPlanRepository;
-    private readonly IUserService _userService;
     private readonly IMapper _mapper;
-    public GetTrainerTrainingPlansQueryHandler(IMapper mapper, ITrainingPlanRepository trainingPlanRepository, IUserService userService)
+    public GetTrainerTrainingPlansQueryHandler(IMapper mapper, ITrainingPlanRepository trainingPlanRepository)
     {
         _mapper = mapper;
         _trainingPlanRepository = trainingPlanRepository;
-        _userService = userService;
     }
     public async Task<IEnumerable<GetTrainerTrainingPlansResponse>> Handle(GetTrainerTrainingPlansQuery request, CancellationToken cancellationToken)
     {
-        if (!await _userService.CheckIfUserExists(request.IdTrainer, cancellationToken))
-            throw new NotFoundException("User not found");
-        if (!(await _userService.CheckIfUserIsTrainer(request.IdTrainer, cancellationToken) || await _userService.CheckIfUserIsDieticianTrainer(request.IdTrainer, cancellationToken)))
-            throw new BadRequestException("User is not a trainer");
-
-
         var trainingPlans = await _trainingPlanRepository.GetTrainerTrainingPlans(request.IdTrainer, cancellationToken);
         if (trainingPlans == null)
             throw new NotFoundException("Trainer has no training plans");
