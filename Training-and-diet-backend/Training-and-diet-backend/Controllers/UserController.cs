@@ -113,5 +113,7 @@ namespace Training_and_diet_backend.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+
+       
     }
 }
