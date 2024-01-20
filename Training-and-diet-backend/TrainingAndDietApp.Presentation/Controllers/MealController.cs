@@ -44,7 +44,7 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
         }
       
-        [HttpGet("/dietician")]
+        [HttpGet("dietician")]
         public async Task<IActionResult> GetMealsByDieticianId()
         {
             var user = this.User.GetId()!.Value;
