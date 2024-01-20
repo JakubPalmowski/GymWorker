@@ -1,8 +1,6 @@
 using Training_and_diet_backend;
 using Training_and_diet_backend.Middlewares;
 using TrainingAndDietApp.Application;
-using TrainingAndDietApp.Application.Abstractions;
-using TrainingAndDietApp.Application.Services;
 using TrainingAndDietApp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
