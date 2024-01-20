@@ -39,6 +39,12 @@ namespace Training_and_diet_backend.Middlewares
                 await context.Response.WriteAsync(unauthorizedException.Message);
 
             }
+            catch (ForbiddenException forbiddenException)
+            {
+                context.Response.StatusCode = 403;
+                await context.Response.WriteAsync(forbiddenException.Message);
+            }
+           
         }
     }
 }

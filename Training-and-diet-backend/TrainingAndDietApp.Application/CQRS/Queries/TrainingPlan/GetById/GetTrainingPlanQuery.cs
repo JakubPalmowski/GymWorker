@@ -11,10 +11,14 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById
     public class GetTrainingPlanQuery : IRequest<TrainingPlanResponse>
     {
         public int IdTrainingPlan { get; set; }
+        public int LoggedUser { get; set; }
 
-        public GetTrainingPlanQuery(int idTrainingPlan)
+        public GetTrainingPlanQuery(int idTrainingPlan, int loggedUser)
         {
             IdTrainingPlan = idTrainingPlan;
+            LoggedUser = loggedUser;
         }
+
     }
+
 }
