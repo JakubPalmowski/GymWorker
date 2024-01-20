@@ -4,7 +4,7 @@ using TrainingAndDietApp.Application.CQRS.Queries.Gym.GetMentors;
 using TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAllActiveGyms;
 using TrainingAndDietApp.Application.CQRS.Commands.Gym.Create;
 using TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAllGymsAddedByUser;
-using TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAllPendingGyms;
+
 
 namespace Training_and_diet_backend.Controllers
 {
@@ -28,15 +28,7 @@ namespace Training_and_diet_backend.Controllers
             return Ok(response);
 
         }
-        [HttpGet("Pending")]
-        public async Task<IActionResult> GetPendingGyms()
-        {
-            var request = new GetAllPendingGymsQuery();
-            var response = await _mediator.Send(request);
-
-            return Ok(response);
-
-        }
+    
 
         [HttpGet("Mentor/{id}")]
         public async Task<IActionResult> GetMentorActiveGyms(int id)

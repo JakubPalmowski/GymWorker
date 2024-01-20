@@ -13,6 +13,7 @@ import { PreviousUrlService } from 'src/app/services/previous-url.service';
 export class MenuComponent{
 
 
+
   showSidebar = false;
 
   userId=this.authService.getUserId();
@@ -80,7 +81,6 @@ goToMainPage() {
 
     logout(){
         this.authService.logout();
-        
     }
 
     
