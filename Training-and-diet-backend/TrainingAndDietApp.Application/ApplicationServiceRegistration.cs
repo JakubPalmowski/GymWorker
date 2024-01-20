@@ -18,6 +18,7 @@ public static class ApplicationServiceRegistration
         services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserQueryValidator>());
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<ITrainingPlanAccessService, TrainingPlanAccessService>();
         services.AddSingleton<IFileService, FileService>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(GetMealsHandler)));
         services.AddScoped<IUserService, UserService>();
