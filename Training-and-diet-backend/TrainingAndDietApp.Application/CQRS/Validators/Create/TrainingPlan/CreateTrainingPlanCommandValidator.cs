@@ -22,7 +22,7 @@ public class CreateTrainingPlanCommandValidator : AbstractValidator<CreateTraini
 
         RuleFor(trainingPlan => trainingPlan.StartDate)
             .NotEmpty().WithMessage("Data planu treningowego jest wymagana.")
-            .LessThan(trainingPlan => DateTime.Now).WithMessage("Data rozpoczęcia planu treningowego nie może być późniejsza niż dziś.");
+            .GreaterThanOrEqualTo(trainingPlan => DateTime.Now).WithMessage("Data rozpoczęcia planu treningowego nie może być wcześniejsza niż dziś.");
             
         RuleFor(trainingPlan => trainingPlan.NumberOfWeeks)
             .NotEmpty().WithMessage("Liczba tygodni planu treningowego jest wymagana")

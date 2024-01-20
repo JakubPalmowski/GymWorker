@@ -8,7 +8,7 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Commands.Meal.CreateMeal
 {
-    public class CreateMealCommandHandler : IRequestHandler<CreateMealCommand, MealResponse>
+    public class CreateMealCommandHandler : IRequestHandler<CreateInternalMealCommand, MealResponse>
     {
         private readonly IRepository<Domain.Entities.Meal> _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -19,7 +19,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Meal.CreateMeal
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-        public async Task<MealResponse> Handle(CreateMealCommand request, CancellationToken cancellationToken)
+        public async Task<MealResponse> Handle(CreateInternalMealCommand request, CancellationToken cancellationToken)
         {
 
             var result = _mapper.Map<Domain.Entities.Meal>(request);
