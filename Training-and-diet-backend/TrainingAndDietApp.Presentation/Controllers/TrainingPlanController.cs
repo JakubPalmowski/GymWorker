@@ -6,13 +6,13 @@ using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.AssignPupil;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.CreateTrainingPlan;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.UpdateTrainingPlan;
 using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById;
+using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByPupilId;
 using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByTrainerId;
 
 namespace Training_and_diet_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "3,5")]
     public class TrainingPlanController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -20,6 +20,7 @@ namespace Training_and_diet_backend.Controllers
         {
             _mediator = mediator;
         }
+        [Authorize(Roles = "3,5")]
         [HttpGet("{planId}")]
         public async Task<IActionResult> GetTrainingPlanById(int planId)
         {
@@ -30,7 +31,8 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
 
         }
-        [HttpGet]
+        [Authorize(Roles = "3,5")]
+        [HttpGet("trainerPlans")]
         public async Task<IActionResult> GetTrainerTrainingPlans()
         {
             var user = this.User.GetId()!.Value;
@@ -40,6 +42,18 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
 
         }
+        [Authorize(Roles = "2")]
+        [HttpGet("pupilPlans")]
+        public async Task<IActionResult> GetPupilTrainingPlans()
+        {
+            var user = this.User.GetId()!.Value;
+            var query = new GetPupilTrainingPlansQuery(user);
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+
+        }
+        [Authorize(Roles = "3,5")]
         [HttpPost]
         public async Task<IActionResult> PostTrainingPlan(CreateTrainingPlanCommand command)
         {
@@ -49,7 +63,7 @@ namespace Training_and_diet_backend.Controllers
             
             return Created(locationUri, command);
         }
-
+        [Authorize(Roles = "3,5")]
         [HttpPut("{idTrainingPlan}")]
         public async Task<IActionResult> UpdateTrainingPlan(int idTrainingPlan, UpdateTrainingPlanCommand trainingPlan)
         {
@@ -57,6 +71,7 @@ namespace Training_and_diet_backend.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
+        [Authorize(Roles = "3,5")]
         [HttpPut("assignPupilToTrainingPlan/{idTrainingPlan}")]
         public async Task<IActionResult> AssignPupilToTrainingPlan(int idTrainingPlan, AssignPupilToTrainingPlanCommand trainingPlan)
         {

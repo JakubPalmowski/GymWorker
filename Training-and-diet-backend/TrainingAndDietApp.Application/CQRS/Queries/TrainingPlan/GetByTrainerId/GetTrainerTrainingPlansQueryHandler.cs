@@ -20,7 +20,7 @@ public class GetTrainerTrainingPlansQueryHandler : IRequestHandler<GetTrainerTra
     public async Task<IEnumerable<GetTrainerTrainingPlansResponse>> Handle(GetTrainerTrainingPlansQuery request, CancellationToken cancellationToken)
     {
         var trainingPlans = await _trainingPlanRepository.GetTrainerTrainingPlans(request.IdTrainer, cancellationToken);
-        if (trainingPlans == null)
+        if (!trainingPlans.Any())
             throw new NotFoundException("Trainer has no training plans");
 
         return _mapper.Map<List<GetTrainerTrainingPlansResponse>>(trainingPlans);
