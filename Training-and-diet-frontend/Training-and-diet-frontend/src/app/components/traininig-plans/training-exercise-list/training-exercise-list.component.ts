@@ -20,7 +20,9 @@ export class TrainingExerciseListComponent implements OnInit{
 
   id_training:string='';
   source:string='';
-  my_exercises_flag:boolean=true;
+  my_exercises_flag:boolean=false;
+  deleteDialogFlag: boolean=false;
+  deleteErrorFlag: boolean=false;
 
 
   constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location,private router:Router){}
@@ -34,13 +36,13 @@ export class TrainingExerciseListComponent implements OnInit{
     this.source=this.route.snapshot.queryParams['source'];
     console.log(this.id_training);
     
-    this.exerciseServise.getAllExercises().subscribe({
+    this.exerciseServise.getTrainerExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.trainingPlanExercises=trainingPlanExercises;
         this.filteredPlanExercises=this.trainingPlanExercises;
-
-        const allExercisesElement = document.getElementById("all-exercises");
-        allExercisesElement?.classList.add("selected-all-my");
+        this.my_exercises_flag=true;
+        const myExercisesElement = document.getElementById("my-exercises");
+        myExercisesElement?.classList.add("selected-all-my");
       },
       error: (response)=>{
         console.log(response);
@@ -97,6 +99,36 @@ export class TrainingExerciseListComponent implements OnInit{
       }
     })
   }
+
+  openDeleteDialog(name:string){
+    console.log("open");
+    this.deleteErrorFlag=false;
+    if(this.deleteDialogFlag!=true){
+     this.deleteDialogFlag=true;
+    
+   }
+   }
+ 
+   deleteExercise(idExercise:number) {
+     console.log("delete");
+     this.exerciseServise.deleteExercise(idExercise.toString()).subscribe({
+       next:(response)=>{
+         console.log(response);
+         this.deleteDialogFlag=false;
+         this.MyExercises();
+       },
+       error:(response)=>{
+         console.log(response);
+         this.deleteErrorFlag=true;
+       }});
+ 
+     }
+ 
+   cancelDelete(){
+     console.log("cancel");
+     this.deleteDialogFlag=false;
+   }
+ 
 
   back(): void{
     this.router.navigateByUrl('/training-plans/edit/'+this.id_training);

@@ -70,7 +70,7 @@ deleteImage(){
 ngOnInit(): void {
   //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
   this.role = "Dietician-Trainer"
-  this.id = "1";
+  this.id = "3";
 
   if (this.role == "Pupil") {
     this.userService.GetPupilPersonalInfoById(this.id).subscribe(

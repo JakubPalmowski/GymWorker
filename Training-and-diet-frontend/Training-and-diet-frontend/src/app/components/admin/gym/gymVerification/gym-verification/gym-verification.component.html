@@ -1,0 +1,94 @@
+<ng-container *ngIf="error">
+    <h1 class="text-center mt-5">Brak siłownii o podanym id</h1>
+    </ng-container>
+<ng-container *ngIf="gym">
+    <div class="container-fluid bg-secondary my-3 h-auto rounded-3 pb-0 pb-4" style="border:2px solid black;">
+        <div *ngIf="successFlag=='success'" class="success-popup">
+            Weryfikacja siłowni przebiegła pomyślnie!
+          </div>
+          <div *ngIf="successFlag=='error'" class="error-popup">
+            Wystapił błąd podczas weryfikacji siłowni. Proszę spróbować ponownie.
+          </div>
+        <div class="row">
+            <form #profileForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="col-12 mb-2 mt-1">
+                <h1 class="text-center">Weryfikacja siłowni</h1>
+            </div>
+    
+            <div class="col-12 group">
+                <div class="d-flex flex-column" style="width: 60%;">
+                    <label>Nazwa siłowni</label>
+                    <input type="text" [(ngModel)]="gym.name" name="name" #name="ngModel" required maxlength="100">
+                    <div class="error-container">
+                        <span *ngIf="name.touched && name.errors?.['required']" class="validation-error">
+                            Nazwa siłowni jest wymagana.
+                        </span>
+                        <span *ngIf="name.touched && name.errors?.['maxlength']" class="validation-error">
+                            Nazwa siłowni może zawierać maksymalnie 100 znaków.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 group">
+                <div class="d-flex flex-column" style="width: 60%;">
+                    <label>Miasto</label>
+                    <input type="text" [(ngModel)]="gym.city" name="city" #city="ngModel" required maxlength="85">
+                    <div class="error-container">
+                        <span *ngIf="city.touched && city.errors?.['required']" class="validation-error">
+                            Nazwa miasta jest wymagana.
+                        </span>
+                        <span *ngIf="city.touched && city.errors?.['maxlength']" class="validation-error">
+                            Nazwa miasta może zawierać maksymalnie 85 znaków.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 group">
+                <div class="d-flex flex-column" style="width: 60%;">
+                    <label>Ulica</label>
+                    <input type="text" [(ngModel)]="gym.street" name="street" #street="ngModel" required maxlength="120">
+                    <div class="error-container">
+                        <span *ngIf="street.touched && street.errors?.['required']" class="validation-error">
+                            Nazwa ulicy jest wymagana.
+                        </span>
+                        <span *ngIf="street.touched && street.errors?.['maxlength']" class="validation-error">
+                            Nazwa ulicy może zawierać maksymalnie 120 znaków.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 group">
+                <div class="d-flex flex-column" style="width: 60%;">
+                    <label>Kod pocztowy</label>
+                    <input type="text" [(ngModel)]="gym.postalCode" name="postalCode" #postalCode="ngModel" required pattern="^\d{2}-\d{3}$">
+                    <div class="error-container">
+                        <span *ngIf="postalCode.touched && postalCode.errors?.['required']" class="validation-error">
+                            Kod pocztowy jest wymagany.
+                        </span>
+                        <span *ngIf="postalCode.touched && postalCode.errors?.['pattern']" class="validation-error">
+                            Nieprawidłowy format kodu pocztowego. Poprawny format to XX-XXX.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            
+    
+            <div class="col-12 d-flex justify-content-center mt-4">
+                <div class="d-flex justify-content-between" style="width: 60%;">
+                    <button type="button" class="btn-custom btn-back" routerLink="/adminGymList/Pending">Powrót</button>
+                    <button type="submit" class="btn-custom btn-edit">Zaakceptuj prośbę</button>
+                    <button type="button" class="btn-custom btn-delete" (click)="deleteGym(gymId)">Usuń prośbę</button>
+                </div>
+            </div>
+           
+    
+        </form>
+    
+    </div>
+</div>
+</ng-container>
+    

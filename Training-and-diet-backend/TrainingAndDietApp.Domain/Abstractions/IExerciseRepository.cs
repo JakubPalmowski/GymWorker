@@ -7,6 +7,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
         Task<List<Exercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan, CancellationToken cancellation);
         Task<List<Exercise>> GetTrainerExercisesAsync(int trainerId, CancellationToken cancellation);
         Task<bool> CheckIfExerciseExists(int trainingPlanId);
+        Task<List<Exercise>> GetAdminExercisesAsync(CancellationToken cancellationToken);
 
         Task<List<Exercise>> GetSystemExercisesAsync(CancellationToken cancellation);
 

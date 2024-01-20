@@ -106,6 +106,29 @@ app-root {
     font-weight: bold;
 }
 
+.deleteDialog{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    border: 2px solid black;
+    border-radius: 10px 10px 10px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 25px;
+}
+
+.deleteDialogButton {
+    gap: 10px;
+    margin-left: 30px;
+    border: 2px solid black;
+    border-radius: 10px 10px 10px 10px;
+    width: 80px;
+    height: 40px;
+    font-size: 22px;
+    background-color: #3244A0;
+    color: white;
+}
+
 
 
 html, body { height: 100%; }
@@ -116,3 +139,62 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+
+
+
+
+/*admin*/
+
+.btn-custom {
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px; 
+    margin-right: 5px; 
+  }
+  
+  .btn-detail {
+    background-color: #000589;
+    color: white;
+  }
+  
+  .btn-edit {
+    background-color: #00970a; 
+    color: white; 
+  }
+  
+  .btn-delete {
+    background-color: #F44336; 
+    color: white; 
+  }
+
+  .btn-back {
+    background-color: #4c65e2; 
+    color: white; 
+  }
+
+
+  
+  .btn-back:hover {
+    background-color: #00157d; 
+  }
+  .btn-custom:hover {
+    opacity: 0.8; 
+  }
+  
+  .btn-detail:hover {
+    background-color: #0004ff; 
+  }
+  
+  .btn-edit:hover {
+    background-color: #55c400;
+  }
+  
+  .btn-delete:hover {
+    background-color: #d73829;
+  }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

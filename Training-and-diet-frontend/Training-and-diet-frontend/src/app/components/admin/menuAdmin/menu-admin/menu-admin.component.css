@@ -1,0 +1,19 @@
+.admin-menu {
+    background-color: #0F1A50; 
+    padding: 10px;
+    border-radius: 5px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,.1); 
+    margin-bottom: 20px; 
+}
+
+.admin-link {
+    display: inline-block; 
+    margin-right: 15px; 
+    padding: 10px 15px; 
+    text-decoration: none; 
+    font-weight: bold; 
+    color: white; 
+    border-radius: 5px; 
+    transition: background-color 0.3s, color 0.3s; 
+}
+

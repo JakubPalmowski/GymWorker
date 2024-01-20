@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FullTrainingPlanGet } from 'src/app/models/full-training-plan-get';
 import { FullTrainingPlan } from 'src/app/models/full-training-plan.model';
 import { TrainingExerciseFull } from 'src/app/models/training-exercise-full';
 import { TrainingPlan } from 'src/app/models/trainingPlan.model';
 import { TrainingPlanExercise } from 'src/app/models/trainingPlanExercise.model';
+import { ExercisesService } from 'src/app/services/exercises.service';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 
 @Component({
@@ -31,7 +32,7 @@ export class EditTrainingPlanComponent implements OnInit{
     type:'',
     startDate:new Date(),
     numberOfWeeks:0,
-    idTrainer:3,
+    idTrainer:0,
     idPupil:0
 
   }
@@ -43,22 +44,26 @@ export class EditTrainingPlanComponent implements OnInit{
 
 
   idTraining:string='';
+  deleteDialogFlag: boolean=false;
+  deleteErrorFlag: boolean=false;
 
 
-  constructor(private route:ActivatedRoute, private trainingPlanService:TrainingPlanService){}
+
+  constructor(private route:ActivatedRoute, private trainingPlanService:TrainingPlanService, private exerciseService:ExercisesService, private router:Router){}
 
   ngOnInit(): void {
     this.dateToday=new Date().toISOString().split("T")[0];
     this.route.paramMap.subscribe({
       next:(params)=>{
         const id=params.get('id');
-
+        
         // do wrzucenie w get cwiczen
         this.changeTrainingDay(0,'pn');
         
         if(id){
           console.log(id);
           this.idTraining=id;
+          
           this.trainingPlanService.getTrainingPlanById(this.idTraining).subscribe({
             next:(plan)=>{
               this.trainingPlan=plan;
@@ -72,21 +77,7 @@ export class EditTrainingPlanComponent implements OnInit{
              console.log(response);
             }
           })
-
-          
-          this.trainingPlanService.getExercisesByPlanId(id).subscribe({
-            next:(trainingPlanExercises)=>{
-              this.trainingPlanExercises=trainingPlanExercises;
-              this.changeTrainingDay(0,"pn");
-
-            },
-            error: (response)=>{
-              console.log("here"+response);
-            }
-          })
-
-          
-          
+          this.getTrainingPlanExercises(id);
         }
         else{
           console.log("no");
@@ -94,6 +85,19 @@ export class EditTrainingPlanComponent implements OnInit{
       }
     })
     
+  }
+
+  getTrainingPlanExercises(id:string){
+    this.trainingPlanService.getExercisesByPlanId(id).subscribe({
+      next:(trainingPlanExercises)=>{
+        this.trainingPlanExercises=trainingPlanExercises;
+        this.changeTrainingDay(0,"pn");
+
+      },
+      error: (response)=>{
+        console.log("here"+response);
+      }
+    })
   }
 
   editTrainingPlan(){
@@ -163,4 +167,36 @@ export class EditTrainingPlanComponent implements OnInit{
 
 
   }
+
+
+  openDeleteDialog(name:string){
+    console.log("open");
+    this.deleteErrorFlag=false;
+    if(this.deleteDialogFlag!=true){
+     this.deleteDialogFlag=true;
+    
+   }
+   }
+ 
+   deleteExercise(idExercise:number) {
+     console.log("delete");
+     this.exerciseService.deleteTraineeExercise(idExercise.toString()).subscribe({
+       next:(response)=>{
+         console.log(response);
+         this.deleteDialogFlag=false;
+        window.location.reload(); 
+         
+      
+       },
+       error:(response)=>{
+         console.log(response);
+         this.deleteErrorFlag=true;
+       }});
+ 
+     }
+ 
+   cancelDelete(){
+     console.log("cancel");
+     this.deleteDialogFlag=false;
+   }
 }

@@ -1,0 +1,46 @@
+<ng-container *ngIf="error">
+<h1 class="text-center mt-5">Brak siłownii o podanym id</h1>
+</ng-container>
+<ng-container *ngIf="gym">
+<div class="container-fluid bg-secondary my-3 h-auto rounded-3 pb-0 pb-4" style="border:2px solid black;">
+    <div class="col-12 mb-2 mt-1">
+        <h1 class="text-center">Szczegóły siłowni</h1>
+    </div>
+
+    <div class="col-12 group">
+        <div class="d-flex flex-column" style="width: 60%;">
+            <label>Nazwa siłowni</label>
+            <input type="text" value="{{gym.name}}" disabled>
+        </div>
+    </div>
+    
+    <div class="col-12 group">
+        <div class="d-flex flex-column" style="width: 60%;">
+            <label>Miasto</label>
+            <input type="text" value="{{gym.city}}" disabled>
+        </div>
+    </div>
+    
+    <div class="col-12 group">
+        <div class="d-flex flex-column" style="width: 60%;">
+            <label>Ulica</label>
+            <input type="text" value="{{gym.street}}" disabled>
+            
+        </div>
+    </div>
+    
+    <div class="col-12 group">
+        <div class="d-flex flex-column" style="width: 60%;">
+            <label>Kod pocztowy</label>
+            <input type="text" value="{{gym.postalCode}}" disabled>
+        </div>
+    </div>
+    <div class="col-12 d-flex justify-content-center mt-4">
+        <div class="d-flex justify-content-around" style="width: 60%;">
+            <button type="button" class="btn-custom btn-back" routerLink="/adminGymList/Active">Powrót</button>
+            <button type="button" class="btn-custom btn-edit" routerLink="/adminGymList/edit/{{gym.idGym}}">Edytuj</button>
+        </div>
+    </div>
+    
+</div>
+</ng-container>

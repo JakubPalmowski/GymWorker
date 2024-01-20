@@ -46,9 +46,14 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             return exercise.Any();
         }
 
+
         public Task<List<Exercise>> GetSystemExercisesAsync(CancellationToken cancellation)
         {
             return _context.Exercises.Where(e => e.IdTrainer == null).ToListAsync(cancellation);
         }
+
+        public async Task<List<Exercise>> GetAdminExercisesAsync(CancellationToken cancellationToken)
+        => await _context.Exercises.Where(e => e.IdTrainer == null).ToListAsync(cancellationToken);
+
     }
 }

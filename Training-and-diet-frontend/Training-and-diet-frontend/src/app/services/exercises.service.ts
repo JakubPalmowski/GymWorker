@@ -7,6 +7,8 @@ import { ExerciseGetById } from '../models/exercise-get-by-id';
 import { NewTrainingExercise } from '../models/new-training-exercise.model';
 import { Exercise } from '../models/exercise';
 import { ExerciseFull } from '../models/exercise-full';
+import { environment } from 'src/environments/environment';
+import { EditTrainingExercise } from '../models/editTrainingExercise.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,7 @@ export class ExercisesService {
   constructor(private http: HttpClient) { }
 
   getTrainerExercises():Observable<ExerciseShort[]>{
-    return this.http.get<ExerciseShort[]>('https://localhost:7259/api/Exercise/3/exercises');
+    return this.http.get<ExerciseShort[]>(environment.apiUrl+'Exercise/trainer/exercises');
    }
 
    getExerciseById(idExercise:string):Observable<ExerciseFull>{
@@ -39,12 +41,20 @@ export class ExercisesService {
     return this.http.put<NewTrainingExercise>('https://localhost:7259/api/TraineeExercises/'+idTrainingExercise,exerciseEdit);
    }
 
-   getTrainingExerciseById(idExercise:string):Observable<NewTrainingExercise>{
-    return this.http.get<NewTrainingExercise>('https://localhost:7259/api/TraineeExercises/'+idExercise);
+   getTrainingExerciseById(idExercise:string):Observable<EditTrainingExercise>{
+    return this.http.get<EditTrainingExercise>('https://localhost:7259/api/TraineeExercises/'+idExercise);
    }
 
-  addTrainerExercise(addTrainerExerciceRequesst: Exercise):Observable<Exercise>{
-    return this.http.post<Exercise>('https://localhost:7259/api/Exercise',addTrainerExerciceRequesst);
+  addTrainerExercise(addTrainerExerciceRequest: Exercise):Observable<Exercise>{
+    return this.http.post<Exercise>('https://localhost:7259/api/Exercise',addTrainerExerciceRequest);
+  }
+
+  deleteExercise(idExercise:string):Observable<string>{
+    return this.http.delete<string>(environment.apiUrl+'Exercise/'+idExercise);
+  }
+
+  deleteTraineeExercise(idExercise:string):Observable<string>{
+    return this.http.delete<string>(environment.apiUrl+'TraineeExercises/'+idExercise);
   }
 
  
