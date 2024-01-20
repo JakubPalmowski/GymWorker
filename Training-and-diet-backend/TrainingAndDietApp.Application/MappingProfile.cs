@@ -10,6 +10,7 @@ using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.CreateTraine
 using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.UpdateTraineeExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.CreateTrainingPlan;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.UpdateTrainingPlan;
+using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByPupilId;
 using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByTrainerId;
 using TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll;
 using TrainingAndDietApp.Application.CQRS.Responses;
@@ -71,6 +72,12 @@ namespace Training_and_diet_backend
 
 
             CreateMap<Meal, UpdateMealInternalCommand>();
+
+            CreateMap<TrainingPlan, GetPupilTrainingPlansResponse>()
+                .ForMember(dest => dest.TrainerLastName, opt => opt.MapFrom(src => src.Trainer.LastName))
+                .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name));
+
+
 
             CreateMap<User, MentorList>()
                 .ForMember(dest => dest.OpinionNumber, opt => opt.MapFrom(src => src.MentorOpinions.Count))

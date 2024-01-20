@@ -14,5 +14,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
         Task<TrainingPlan?> GetByIdWithPupil(int trainingPlanId, CancellationToken cancellationToken);
         Task<bool> CheckIfTrainingPlanExists(int trainingPlanId, CancellationToken cancellationToken);
 
+        Task<List<TrainingPlan>> GetTrainingPlansWithTrainerByPupilId(int idPupil, CancellationToken cancellationToken);
+
     }
 }

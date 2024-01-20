@@ -37,6 +37,11 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             return trainingPlan.Any();
         }
 
-        
+        public async Task<List<TrainingPlan>> GetTrainingPlansWithTrainerByPupilId(int idPupil, CancellationToken cancellationToken)
+        {
+            return await _context.Training_plans.Include(plan => plan.Trainer)
+                .Where(plan => plan.IdPupil == idPupil)
+                .ToListAsync(cancellationToken: cancellationToken);
+        }
     }
 }
