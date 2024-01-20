@@ -85,6 +85,7 @@
                 <tr>
                     <th id="name-header">Nazwa</th>
                     <th>Serie i powtórzenia</th>
+                    <th>Usuń</th>
                     <th >Szczegóły/Edycja</th>
                 </tr>
             </thead>
@@ -92,12 +93,26 @@
                 <tr  *ngFor="let trainingPlanExercise of filteredTrainingPlanExercises" >
                     <td>{{trainingPlanExercise.exerciseName}}</td>
                     <td>{{trainingPlanExercise.seriesNumber}}s x {{trainingPlanExercise.repetitionsNumber}} powt.</td>
+                    <td><img (click)="openDeleteDialog(trainingPlanExercise.exerciseName)" src="../../../../assets/icons/delete.png" id="edit-icon"></td>
                     <td><a [routerLink]="['edit-training-exercise',trainingPlanExercise.idTraineeExercise]" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:trainingPlan.idTrainingPlan}"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
                     
+                    <div class="deleteDialog" *ngIf="this.deleteDialogFlag" >
+                        <div class="delete-dialog-container">
+                            <p>Czy na pewno chcesz usunąć ćwiczenie: {{trainingPlanExercise.exerciseName}}?</p>
+                            <div class="delete-dialog-buttons">
+                                <button type="button" class="deleteDialogButton" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
+                                <button type="button" class="deleteDialogButton" id="deleteDialogButtonYes" (click)="deleteExercise(trainingPlanExercise.idTraineeExercise)">Usuń</button>
+                            </div>
+                            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć ćwiczenia</p>
+                        </div>
+                    
+                    </div>
+
                 </tr>
                 <tr  *ngIf="filteredTrainingPlanExercises.length<1" >
                     <td></td>
                     <td id="regen">Regeneracja</td>
+                    <td></td>
                     <td></td>
                     
                 </tr>

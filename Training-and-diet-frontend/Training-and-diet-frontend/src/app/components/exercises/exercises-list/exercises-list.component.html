@@ -22,12 +22,13 @@
     </div>
 
     <div class="container-table">
-        <table class="table"  *ngIf="trainingPlanExercises && trainingPlanExercises.length > 0">
+        <table class="table"  *ngIf="trainingPlanExercises ">
             <thead>
                 <tr>
                     <th class="table-head-big">Nazwa</th>
                     <th class="table-head-small" *ngIf="id_training!=undefined">Dodaj do planu</th>
-                    <th class="table-head-small">Edycja</th>
+                    <th class="table-head-small" *ngIf="this.my_exercises_flag">Edycja</th>
+                    <th class="table-head-small" *ngIf="this.my_exercises_flag">Usuń</th>
                     <th class="table-head-small">Szczegóły</th>
                 </tr>
             </thead>
@@ -35,13 +36,26 @@
                 <tr *ngFor="let trainingPlanExercise of filteredPlanExercises">
                     <td>{{trainingPlanExercise.name}}</td>
                     <td *ngIf="id_training!=undefined"><a routerLink="/training-exercise/add" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:id_training}">[+]</a></td>
-                    <td><a [routerLink]="['/exercises/edit',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
+                    <td *ngIf="this.my_exercises_flag"><a [routerLink]="['/exercises/edit',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
+                    <td *ngIf="this.my_exercises_flag"><img (click)="openDeleteDialog(trainingPlanExercise.name)" src="../../../../assets/icons/delete.png" id="edit-icon"></td>
                     <td><a [routerLink]="['/exercises/details',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/details.png" id="edit-icon"></a></td>
+                    
+                    <div class="deleteDialog" *ngIf="this.deleteDialogFlag" >
+                        <div class="delete-dialog-container">
+                            <p>Czy na pewno chcesz usunąć ćwiczenie: {{trainingPlanExercise.name}}?</p>
+                            <p>Spowoduje to usunięcie go również z planów treningowych do których jest przypisane!</p>
+                            <div class="delete-dialog-buttons">
+                                <button type="button" class="deleteDialogButton" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
+                                <button type="button" class="deleteDialogButton" id="deleteDialogButtonYes" (click)="deleteExercise(trainingPlanExercise.idExercise)">Usuń</button>
+                            </div>
+                            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć ćwiczenia</p>
+                        </div>
+                    </div>
                 </tr>
             </tbody>
         </table>
         <p *ngIf="!filteredPlanExercises || filteredPlanExercises.length <=0">Nie znaleziono żadnych ćwiczeń</p>
+
         
-    </div>
     
 </div>

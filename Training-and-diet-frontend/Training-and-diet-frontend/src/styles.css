@@ -106,6 +106,29 @@ app-root {
     font-weight: bold;
 }
 
+.deleteDialog{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    border: 2px solid black;
+    border-radius: 10px 10px 10px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 25px;
+}
+
+.deleteDialogButton {
+    gap: 10px;
+    margin-left: 30px;
+    border: 2px solid black;
+    border-radius: 10px 10px 10px 10px;
+    width: 80px;
+    height: 40px;
+    font-size: 22px;
+    background-color: #3244A0;
+    color: white;
+}
+
 
 
 html, body { height: 100%; }
@@ -116,3 +139,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

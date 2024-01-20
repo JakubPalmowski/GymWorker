@@ -78,13 +78,17 @@ export class MealsEditComponent implements OnInit{
   edit(){
     this.editDieteticianMealRequest.kcal=this.mealKcal.kcal+","+this.mealKcal.proteins+","+this.mealKcal.fats+","+this.mealKcal.carbs;
     console.log(this.editDieteticianMealRequest);
-    
+    const responseDiv = document.getElementById("edit-resp");
     this.mealService.editDieteticianMeal(this.editDieteticianMealRequest,this.id_meal).subscribe({
       next:(meal)=>{
         this.location.back();
       },
       error: (response)=>{
         console.log(response);
+        if(responseDiv){
+          responseDiv.innerHTML="Podczas edycji wystąpił błąd";
+          
+        }
       }
     });
   }

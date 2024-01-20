@@ -15,6 +15,9 @@ export class MealsListComponent implements OnInit{
   DieteticianMealsFiltered:MealFull[]=[];
 
   id_diet:string='';
+  deleteDialogFlag: boolean=false;
+  deleteErrorFlag: boolean=false;
+
 
   constructor(private mealServise:MealsService, private route:ActivatedRoute, private location:Location) {}
 
@@ -46,6 +49,35 @@ export class MealsListComponent implements OnInit{
       DieteticianMeals => DieteticianMeals?.name.toLowerCase().includes(text.toLowerCase())
     );
   }
+
+  openDeleteDialog(){
+    console.log("open");
+    this.deleteErrorFlag=false;
+    if(this.deleteDialogFlag!=true){
+     this.deleteDialogFlag=true;
+    
+   }
+   }
+ 
+   deleteMeal(idMeal:number) {
+     console.log("delete");
+     this.mealServise.deleteMeal(idMeal.toString()).subscribe({
+       next:(response)=>{
+         console.log(response);
+         this.deleteDialogFlag=false;
+         window.location.reload();
+       },
+       error:(response)=>{
+         console.log(response);
+         this.deleteErrorFlag=true;
+       }});
+ 
+     }
+ 
+   cancelDelete(){
+     console.log("cancel");
+     this.deleteDialogFlag=false;
+   }
 
 
   back(): void{

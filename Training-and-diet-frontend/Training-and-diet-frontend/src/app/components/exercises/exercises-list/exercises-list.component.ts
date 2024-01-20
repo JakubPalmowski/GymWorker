@@ -6,12 +6,15 @@ import { TrainingPlanExercise } from 'src/app/models/trainingPlanExercise.model'
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { Location } from '@angular/common';
 
+import { DeleteDialogComponent } from '../../main/delete-dialog/delete-dialog.component';
+
 @Component({
   selector: 'app-exercises-list',
   templateUrl: './exercises-list.component.html',
   styleUrls: ['./exercises-list.component.css']
 })
 export class ExercisesListComponent implements OnInit{
+
  
   trainingPlanExercises:ExerciseShort[]=[];
   filteredPlanExercises:ExerciseShort[]=[];
@@ -19,6 +22,9 @@ export class ExercisesListComponent implements OnInit{
 
   id_training:string='';
   source:string='';
+  my_exercises_flag:boolean=false;
+  deleteDialogFlag: boolean=false;
+  deleteErrorFlag: boolean=false;
 
   constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location){}
 
@@ -31,13 +37,14 @@ export class ExercisesListComponent implements OnInit{
     this.source=this.route.snapshot.queryParams['source'];
     console.log(this.id_training);
     
-    this.exerciseServise.getAllExercises().subscribe({
+    this.exerciseServise.getTrainerExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.trainingPlanExercises=trainingPlanExercises;
         this.filteredPlanExercises=this.trainingPlanExercises;
+        this.my_exercises_flag=true;
 
-        const allExercisesElement = document.getElementById("all-exercises");
-        allExercisesElement?.classList.add("selected-all-my");
+        const myExercisesElement = document.getElementById("my-exercises");
+        myExercisesElement?.classList.add("selected-all-my");
       },
       error: (response)=>{
         console.log(response);
@@ -61,6 +68,7 @@ export class ExercisesListComponent implements OnInit{
     this.exerciseServise.getTrainerExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.filteredPlanExercises=trainingPlanExercises;
+        this.my_exercises_flag=true;
 
         const allExercisesElement = document.getElementById("all-exercises");
         const myExercisesElement = document.getElementById("my-exercises");
@@ -80,6 +88,7 @@ export class ExercisesListComponent implements OnInit{
     this.exerciseServise.getAllExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.filteredPlanExercises=trainingPlanExercises;
+        this.my_exercises_flag=false;
 
         const allExercisesElement = document.getElementById("all-exercises");
         const myExercisesElement = document.getElementById("my-exercises");
@@ -92,6 +101,37 @@ export class ExercisesListComponent implements OnInit{
       }
     })
   }
+
+  openDeleteDialog(name:string){
+  
+   console.log("open");
+   this.deleteErrorFlag=false;
+   if(this.deleteDialogFlag!=true){
+    this.deleteDialogFlag=true;
+   
+  }
+  }
+
+  deleteExercise(idExercise:number) {
+    console.log("delete");
+    this.exerciseServise.deleteExercise(idExercise.toString()).subscribe({
+      next:(response)=>{
+        console.log(response);
+        this.deleteDialogFlag=false;
+        this.MyExercises();
+      },
+      error:(response)=>{
+        console.log(response);
+        this.deleteErrorFlag=true;
+      }});
+
+    }
+
+  cancelDelete(){
+    console.log("cancel");
+    this.deleteDialogFlag=false;
+  }
+
 
   back(): void{
     this.location.back();
