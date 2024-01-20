@@ -21,6 +21,13 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
             return await  _context.Training_plans.Where(e => e.IdTrainer == idTrainer).ToListAsync(cancellationToken: cancellationToken);
         }
 
+        public async Task<TrainingPlan?> GetByIdWithPupil(int trainingPlanId, CancellationToken cancellationToken)
+        {
+            return await _context.Training_plans.Include(plan => plan.Pupil)
+                .Where(plan => plan.IdTrainingPlan == trainingPlanId)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+        }
+
         public async Task<bool> CheckIfTrainingPlanExists(int trainingPlanId, CancellationToken cancellationToken)
         {
             var trainingPlan = await _context.Training_plans

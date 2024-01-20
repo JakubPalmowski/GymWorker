@@ -53,7 +53,9 @@ namespace Training_and_diet_backend
 
             CreateMap<CreateTraineeExerciseCommand, TraineeExercise>();
 
-            CreateMap<TrainingPlan, TrainingPlanResponse>();
+            CreateMap<TrainingPlan, TrainingPlanResponse>()
+                .ForMember(dest => dest.PupilLastName, opt => opt.MapFrom(src => src.Pupil.LastName))
+                .ForMember(dest => dest.PupilName, opt => opt.MapFrom(src => src.Pupil.Name));
 
             CreateMap<CreateTrainingPlanCommand, TrainingPlan>();
 

@@ -10,6 +10,8 @@ namespace TrainingAndDietApp.Application.CQRS.Responses.TrainingPlan
     {
         public int IdTrainingPlan { get; set; }
         public int IdPupil { get; set; }
+        public string PupilName { get; set; }
+        public string PupilLastName { get; set; }
         public int IdTrainer { get; set; }
         public string Name { get; set; }
         public string CustomName { get; set; }
