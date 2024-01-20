@@ -34,9 +34,9 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllExercises()
+        public async Task<IActionResult> GetSystemExercises()
         {
-            var request = new GetExercisesQuery();
+            var request = new GetSystemExercisesQuery();
             var response = await _mediator.Send(request);
 
             return Ok(response);
