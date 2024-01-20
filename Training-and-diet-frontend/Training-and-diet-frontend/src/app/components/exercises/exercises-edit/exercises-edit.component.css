@@ -16,6 +16,13 @@ input,label,.validation-error,textarea{
 }
 
 
+.edit-response{
+    color:#3244A0;
+    font-weight: bold;
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
 h3{
     font-size: 32px;
     text-align: center;

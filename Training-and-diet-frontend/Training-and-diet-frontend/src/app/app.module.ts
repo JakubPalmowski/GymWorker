@@ -74,14 +74,14 @@ import { MainPageComponent } from './components/mainPage/main-page/main-page.com
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent,
     MyProfileComponent, 
-    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent
+    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {
@@ -91,5 +91,6 @@ import { MainPageComponent } from './components/mainPage/main-page/main-page.com
     }
   ],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

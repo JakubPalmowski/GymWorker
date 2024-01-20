@@ -18,7 +18,7 @@ export class TrainingPlansListComponent implements OnInit{
 
   ngOnInit(): void {
     if(this.authenticationService.getUserId()==undefined){
-      return this.authenticationService.logout();
+     // TODO return this.authenticationService.logout();
     }
     this.trainingPlanService.getTrainerPlans().subscribe({
       next:(trainingPlans)=>{

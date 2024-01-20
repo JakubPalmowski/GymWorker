@@ -62,12 +62,17 @@ export class ExercisesEditComponent implements OnInit{
   }
 
   edit(){
+    const responseDiv = document.getElementById("edit-resp");
     this.exercisesService.editExercise(this.exerciseEdit,this.idExercise).subscribe({
       next:(exercise)=>{
         this.router.navigateByUrl(this.previousUrl);
       },
       error: (response)=>{
         console.log(response);
+        if(responseDiv){
+          responseDiv.innerHTML="Podczas edycji wystąpił błąd";
+          
+        }
       }
     });
   }
