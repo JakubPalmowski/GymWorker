@@ -27,6 +27,11 @@ import { PupilTrainingPlanDetailsComponent } from './components/pupilTrainingPla
 import { PupilTrainingExerciseDetailsComponent } from './components/pupilTrainingPlan/pupil-training-exercise-details/pupil-training-exercise-details.component';
 import { CreateGymComponent } from './components/gym/create-gym/create-gym.component';
 import { MainPageComponent } from './components/mainPage/main-page/main-page.component';
+import { GymListComponent } from './components/admin/gym/gymList/gym-list/gym-list.component';
+import { GymDetailsComponent } from './components/admin/gym/gymDetails/gym-details/gym-details.component';
+import { GymEditComponent } from './components/admin/gym/gymEdit/gym-edit/gym-edit.component';
+import { GymVerificationComponent } from './components/admin/gym/gymVerification/gym-verification/gym-verification.component';
+import { ExercicesAdminListComponent } from './components/admin/exercices/exercicesList/exercices-admin-list/exercices-admin-list.component';
 
 
 const routes: Routes = [
@@ -109,7 +114,12 @@ const routes: Routes = [
   {path: 'pupilProfile/:id', component: PupilProfileComponent},
   {path: 'myProfile', component: MyProfileComponent},
   {path: 'myProfile/edit', component: MyProfileEditComponent},
-  {path: 'createGym', component: CreateGymComponent}
+  {path: 'createGym', component: CreateGymComponent},
+  {path: 'adminGymList/:status', component: GymListComponent},
+  {path: 'adminGymList/details/:id', component: GymDetailsComponent},
+  {path: 'adminGymList/edit/:id', component: GymEditComponent},
+  {path: 'adminGymList/vetification/:id', component: GymVerificationComponent},
+  {path: 'adminExercicesList', component: ExercicesAdminListComponent}
 ];
 
 @NgModule({

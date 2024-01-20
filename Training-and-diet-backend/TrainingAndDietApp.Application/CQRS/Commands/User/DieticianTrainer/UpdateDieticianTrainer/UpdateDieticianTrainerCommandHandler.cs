@@ -12,12 +12,13 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.DieticianTrainer.Upd
     public class UpdateDieticianTrainerCommandHandler : IRequestHandler<UpdateDieticianTrainerInternalCommand>
     {
          private readonly ITrainerGymRepository _trainerGymRepository;
+        private readonly IRepository<Domain.Entities.Gym> _gymBaseRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly IGymRepository _gymRepository;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public UpdateDieticianTrainerCommandHandler(ITrainerGymRepository trainerGymRepository, IUserRepository userRepository, IUserService userService, IMapper mapper, IUnitOfWork unitOfWork, IGymRepository gymRepository)
+        public UpdateDieticianTrainerCommandHandler(IRepository<Domain.Entities.Gym> gymBaseRepository,ITrainerGymRepository trainerGymRepository, IUserRepository userRepository, IUserService userService, IMapper mapper, IUnitOfWork unitOfWork, IGymRepository gymRepository)
         {
             _userService = userService;
             _mapper = mapper;
@@ -25,6 +26,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.DieticianTrainer.Upd
             _userRepository = userRepository;
             _gymRepository = gymRepository;
             _trainerGymRepository = trainerGymRepository;
+            _gymBaseRepository = gymBaseRepository;
         }
         //refactor
         public async Task Handle(UpdateDieticianTrainerInternalCommand request, CancellationToken cancellationToken)
@@ -55,7 +57,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.DieticianTrainer.Upd
             
             foreach (var gymId in addedGyms)
             {
-                if (await _gymRepository.GetByIdAsync(gymId, cancellationToken) == null)
+                if (await _gymBaseRepository.GetByIdAsync(gymId, cancellationToken) == null)
                 {
                     throw new NotFoundException("Gym not found");
                 }
@@ -69,7 +71,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.DieticianTrainer.Upd
             }
             foreach (var gymId in removedGyms)
             {
-                if (await _gymRepository.GetByIdAsync(gymId, cancellationToken) == null)
+                if (await _gymBaseRepository.GetByIdAsync(gymId, cancellationToken) == null)
                 {
                     throw new NotFoundException("Gym not found");
                 }

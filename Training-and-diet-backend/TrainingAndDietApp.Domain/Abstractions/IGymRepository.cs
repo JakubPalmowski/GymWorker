@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Domain.Entities;
+using TrainingAndDietApp.Domain.Enums;
 
 namespace TrainingAndDietApp.Domain.Abstractions
 {
@@ -13,9 +14,9 @@ namespace TrainingAndDietApp.Domain.Abstractions
     {
         Task<IEnumerable<Gym>> GetActiveGymsWithAddressAsync(CancellationToken cancellationToken);
         Task<List<Gym>> GetMentorActiveGymsAsync(int idUser, CancellationToken cancellationToken);
-        Task<Gym?> GetByIdAsync(int id, CancellationToken cancellationToken);
+        Task<Gym?> GetGymWithAddressByIdAsync(int id, CancellationToken cancellationToken);
         Task AddAsync(Gym gym, CancellationToken cancellationToken);//do wywalenia
         Task<List<Gym>> GetAllGymsAddedByUserAsync(int idUser,CancellationToken cancellationToken);
-        Task<List<Gym>> GetAllPendingGymsAsync(CancellationToken cancellationToken);
+        Task<List<Gym>> GetAllGymsAdminAsync(Status status,CancellationToken cancellationToken);
     }
 }

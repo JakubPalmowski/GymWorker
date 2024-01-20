@@ -10,6 +10,7 @@ using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.CreateTraine
 using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.UpdateTraineeExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.CreateTrainingPlan;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.UpdateTrainingPlan;
+using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetGymByIdAdmin;
 using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByTrainerId;
 using TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll;
 using TrainingAndDietApp.Application.CQRS.Responses;
@@ -88,9 +89,12 @@ namespace Training_and_diet_backend
 
             CreateMap<Gym, GymAdminInfoResponse>()
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street));
+            CreateMap<Gym, GetGymByIdAdminQuery>()
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
-                .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode))
-                .ForMember(dest=>dest.IdAddress, opt=>opt.MapFrom(src=>src.Address.IdAddress));
+                .ForMember(dest=>dest.PostalCode, opt=>opt.MapFrom(src=>src.Address.PostalCode))
+                .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>src.Status.ToString()));
 
 
             CreateMap<TrainerGym, MentorGymResponse>()
