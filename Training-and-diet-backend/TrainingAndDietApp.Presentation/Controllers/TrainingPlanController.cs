@@ -24,7 +24,7 @@ namespace Training_and_diet_backend.Controllers
         public async Task<IActionResult> GetTrainingPlanById(int planId)
         {
             var loggedUser = this.User.GetId()!.Value;
-            var query = new GetTrainingPlanQuery(loggedUser, loggedUser);
+            var query = new GetTrainingPlanQuery(planId, loggedUser);
 
             var result = await _mediator.Send(query);
             return Ok(result);
