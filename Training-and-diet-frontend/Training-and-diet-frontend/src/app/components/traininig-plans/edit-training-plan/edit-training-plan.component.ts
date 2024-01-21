@@ -66,6 +66,7 @@ export class EditTrainingPlanComponent implements OnInit{
           
           this.trainingPlanService.getTrainingPlanById(this.idTraining).subscribe({
             next:(plan)=>{
+              console.log("get plan by id"+plan.toString());
               this.trainingPlan=plan;
              
               this.formStartDate=this.trainingPlan.startDate.toString().split('T')[0];
