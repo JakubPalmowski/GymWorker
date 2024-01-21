@@ -1,0 +1,89 @@
+<div class="container-fluid bg-secondary my-3 h-auto rounded-3 pb-0 pb-4" style="border:2px solid black;">
+      <div *ngIf="errorFlag=='error'" class="error-popup">
+        Wystapił błąd podczas dodawania ćwiczenia. Proszę spróbować ponownie.
+      </div>
+
+    <div class="row">
+        <form #profileForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="col-12 mb-2 mt-1">
+            <h1 class="text-center">Dodawanie ćwiczenia</h1>
+        </div>
+
+        <div class="col-12 group">
+            <div class="d-flex flex-column" style="width: 60%;">
+                <label for="name">Nazwa *</label>
+                <input type="text" id="name" name="name" [(ngModel)]="exercise.name" #name="ngModel" 
+                    required minlength="3" maxlength="50">
+                <div class="error-container">
+                    <span *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </span>
+                    <span *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </span>
+                    <span *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 50 znaków
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 group">
+            <div class="d-flex flex-column" style="width: 60%;">
+                <label for="description">Opis *</label>
+                <textarea rows="5" id="description" name="description" [(ngModel)]="exercise.details"
+                    required minlength="3" maxlength="200" #description="ngModel"></textarea>
+                <div class="error-container">
+                    <span *ngIf="description.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </span>
+                    <span *ngIf="description.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </span>
+                    <span *ngIf="description.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 200 znaków
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 group">
+            <div class="d-flex flex-column" style="width: 60%;">
+                <label for="steps">Sposób wykonania *</label>
+                <textarea rows="7" id="steps" name="steps" [(ngModel)]="exercise.exerciseSteps"
+                    required minlength="3" maxlength="300" #steps="ngModel"></textarea>
+                <div class="error-container">
+                    <span *ngIf="steps.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </span>
+                    <span *ngIf="steps.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </span>
+                    <span *ngIf="steps.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 300 znaków
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 group">
+            <div class="d-flex flex-column" style="width: 60%;">
+                <label for="image">Zdjęcie</label>
+                <input style="border:none;" type="file" id="image" name="image" [(ngModel)]="exercise.image">
+            </div>
+        </div>
+        
+        
+
+        <div class="col-12 d-flex justify-content-center mt-4">
+            <div class="d-flex justify-content-around" style="width: 60%;">
+                <button type="button" class="btn-custom btn-back" routerLink="/admin/exercise/list">Powrót</button>
+                <button type="submit" class="btn-custom btn-edit">Dodaj</button>
+            </div>
+        </div>
+       
+
+    </form>
+
+</div>
+</div>

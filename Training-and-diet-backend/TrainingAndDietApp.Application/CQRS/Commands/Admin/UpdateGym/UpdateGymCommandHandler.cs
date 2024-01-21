@@ -39,7 +39,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateGym
             var address = gym.Address;
             var updatedAddress = await _addressRepository.CheckIfAddressExistsAsync(request.GymCommand.City, request.GymCommand.Street, request.GymCommand.PostalCode, cancellationToken);
             if(!gym.Address.Gyms.Where(g => g.IdGym != gym.IdGym).Any()){
-                if(updatedAddress != null){
+                if(updatedAddress != null && updatedAddress.IdAddress != gym.IdAddress){
                     gym.IdAddress = updatedAddress.IdAddress;
                     await _addressBaseRepository.DeleteAsync(address.IdAddress, cancellationToken);
                 }else{
