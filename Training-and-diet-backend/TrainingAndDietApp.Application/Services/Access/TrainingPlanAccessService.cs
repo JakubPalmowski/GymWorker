@@ -2,12 +2,12 @@
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
 
-namespace TrainingAndDietApp.Application.Services;
+namespace TrainingAndDietApp.Application.Services.Access;
 
 public class TrainingPlanAccessService : ITrainingPlanAccessService
 {
     private readonly IRepository<TrainingPlan> _trainingPlanRepository;
-   
+
 
     public TrainingPlanAccessService(IRepository<TrainingPlan> trainingPlanRepository)
     {
@@ -22,7 +22,7 @@ public class TrainingPlanAccessService : ITrainingPlanAccessService
         {
             return false;
         }
-        
+
         return trainingPlan.IdTrainer == mentorId;
     }
     public async Task<bool> IsAccessibleByPupil(int trainingPlanId, int pupilId, CancellationToken cancellation)

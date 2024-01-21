@@ -1,14 +1,8 @@
-
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Domain.Abstractions;
-using System.Threading;
-using TrainingAndDietApp.Application.Abstractions;
-using TrainingAndDietApp.Domain.Abstractions;
-using TrainingAndDietApp.Domain.Entities;
-using TrainingAndDietApp.Infrastructure.Repositories;
 
 
-namespace TrainingAndDietApp.Application.Services;
+namespace TrainingAndDietApp.Application.Services.Access;
 
 public class TraineeExerciseAccessService : ITraineeExerciseAccessService
 {
@@ -25,7 +19,7 @@ public class TraineeExerciseAccessService : ITraineeExerciseAccessService
 
         if (traineeExercise == null)
             return false;
-        
+
 
         return traineeExercise.TrainingPlan.IdTrainer == mentorId;
     }
