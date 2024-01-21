@@ -29,6 +29,7 @@ using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Entities;
 using Gym = TrainingAndDietApp.Domain.Entities.Gym;
 using TrainingPlan = TrainingAndDietApp.Domain.Entities.TrainingPlan;
+using TrainingAndDietApp.Application.CQRS.Commands.Admin.CreateExercise;
 
 
 namespace TrainingAndDietApp.Application
@@ -189,6 +190,12 @@ namespace TrainingAndDietApp.Application
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.MealCommand.Name))
                 .ForMember(dest => dest.PrepareSteps, opt => opt.MapFrom(src => src.MealCommand.PrepareSteps))
                 .ForMember(dest => dest.IdDietician, opt => opt.MapFrom(src => src.IdDietician));
+
+                CreateMap<CreateExerciseAdminInternalCommand, Exercise>()
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.ExerciseCommand.Details))
+                .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.ExerciseCommand.ExerciseSteps))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ExerciseCommand.Name));
+       
 
 
 

@@ -14,9 +14,9 @@ export class GymListComponent implements OnInit {
   constructor(private route: ActivatedRoute, private adminService: AdminService) { }
 
   status: string = '';
-  gyms: GymAdminInfo[] = [];
+  gyms: GymAdminInfo[] | undefined;
   searchTerm: string = '';
-  filteredGyms: GymAdminInfo[] = [];
+  filteredGyms: GymAdminInfo[] | undefined;
   error:boolean = false;
 
 
@@ -24,16 +24,18 @@ export class GymListComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap(params => {
         this.status = params.get('status') ?? '';
+        if(!(this.status === 'Active' || this.status === 'Pending')) {
+          this.error = true;
+        }
         return this.adminService.getAllGymsAdmin(this.status);
       })
     ).subscribe({
       next: gyms => {
         this.gyms = gyms;
         this.filteredGyms = gyms;
-        this.filterGyms(); // Ponownie zastosuj filtr, jeśli jest potrzebny.
+        this.filterGyms();
       },
       error: err => {
-        this.error = true;
       }
     });
   }
@@ -42,7 +44,7 @@ export class GymListComponent implements OnInit {
     if (!this.searchTerm) {
       this.filteredGyms = this.gyms; 
     } else {
-      this.filteredGyms = this.gyms.filter(gym =>
+      this.filteredGyms = this.gyms?.filter(gym =>
         gym.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         gym.city.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         gym.street.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -51,7 +53,7 @@ export class GymListComponent implements OnInit {
   }
 
   deleteGym(gymId: number) {
-    const gym = this.filteredGyms.find(g => g.idGym === gymId);
+    const gym = this.filteredGyms?.find(g => g.idGym === gymId);
   
     if (gym) {
       const confirmDelete = confirm(`Czy na pewno chcesz usunąć siłownię:\nNazwa: ${gym.name}\nMiasto: ${gym.city}\nUlica: ${gym.street}?`);
@@ -59,8 +61,8 @@ export class GymListComponent implements OnInit {
       if (confirmDelete) {
         this.adminService.deleteGym(gymId).subscribe({
           next: () => {
-            this.gyms = this.gyms.filter(g => g.idGym !== gymId);
-            this.filteredGyms = this.filteredGyms.filter(g => g.idGym !== gymId);
+            this.gyms = this.gyms?.filter(g => g.idGym !== gymId);
+            this.filteredGyms = this.filteredGyms?.filter(g => g.idGym !== gymId);
             alert('Siłownia została usunięta.');
           },
           error: err => {

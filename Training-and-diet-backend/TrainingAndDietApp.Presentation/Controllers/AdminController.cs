@@ -1,8 +1,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TrainingAndDietApp.Application.CQRS.Commands.Admin.CreateExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.DeleteGym;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateGym;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.VerifyGym;
+using TrainingAndDietApp.Application.CQRS.Commands.Exercise.CreateExercise;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAllGymsAdmin;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetGymByIdAdmin;
 
@@ -66,6 +68,13 @@ namespace Training_and_diet_backend.Controllers
             var response = await _mediator.Send(new GetAllExercisesAdminQuery());
             return Ok(response);
 
+        }
+
+        [HttpPost("Exercises")]
+        public async Task<IActionResult> CreateExercise(CreateExerciseCommand command)
+        {
+            var response = await _mediator.Send(new CreateExerciseAdminInternalCommand(command));
+            return Ok(response);
         }
     }
 }
