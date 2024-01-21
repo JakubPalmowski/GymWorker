@@ -35,5 +35,21 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
                 .ToListAsync(cancellationToken);
             
         }
+
+        public async Task<TraineeExercise?> GetTraineeExerciseWithTrainingPlanAndTrainerByIdAsync(int idTrainingPlan, CancellationToken cancellationToken)
+        {
+            return await _context.Trainee_exercises.Where(te => te.IdTrainingPlan == idTrainingPlan)
+                .Include(te => te.TrainingPlan)
+                .ThenInclude(tp => tp.Trainer)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<TraineeExercise?> GetTraineeExerciseWithTrainingPlanAndPupilByIdAsync(int idTrainingPlan, CancellationToken cancellationToken)
+        {
+            return await _context.Trainee_exercises.Where(te => te.IdTrainingPlan == idTrainingPlan)
+                .Include(te => te.TrainingPlan)
+                .ThenInclude(tp => tp.Pupil)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
     }
 }

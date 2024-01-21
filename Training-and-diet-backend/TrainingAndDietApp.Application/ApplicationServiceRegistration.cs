@@ -19,6 +19,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ITrainingPlanAccessService, TrainingPlanAccessService>();
+        services.AddScoped<ITraineeExerciseAccessService, TraineeExerciseAccessService>();
         services.AddSingleton<IFileService, FileService>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(GetMealsHandler)));
         services.AddScoped<IUserService, UserService>();

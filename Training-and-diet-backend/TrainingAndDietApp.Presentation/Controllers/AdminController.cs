@@ -5,7 +5,6 @@ using TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateGym;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.VerifyGym;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAllGymsAdmin;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetGymByIdAdmin;
-using TrainingAndDietApp.Application.CQRS.Queries.Exercise.GetByTrainerId;
 
 
 namespace Training_and_diet_backend.Controllers
