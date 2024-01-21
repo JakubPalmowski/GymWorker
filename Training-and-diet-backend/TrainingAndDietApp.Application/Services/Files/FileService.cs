@@ -49,45 +49,76 @@ public class FileService : IFileService
         };
     }
 
-    public async Task<string> UploadFileAsync(IFormFile file)
+    public async Task<string> UploadImageAsync(IFormFile file)
+{
+    if (!IsImage(file.FileName))
     {
-        if (file == null || file.Length == 0)
-            throw new Exception("File is empty");
-
-        var uniqueFileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-        var blobClient = _filesContainer.GetBlobClient(uniqueFileName);
-
-        var contentType = GetContentType(file.FileName);
-
-        var blobHttpHeaders = new BlobHttpHeaders { ContentType = contentType };
-
-        using (var data = file.OpenReadStream())
-        {
-            await blobClient.UploadAsync(data, new BlobUploadOptions
-            {
-                HttpHeaders = blobHttpHeaders
-            });
-        }
-
-        return uniqueFileName;
+        throw new Exception("File is not an image.");
     }
 
-    private string GetContentType(string fileName)
+    return await UploadFileAsync(file, GetContentType(file.FileName));
+}
+
+public async Task<string> UploadPdfAsync(IFormFile file)
+{
+    if (!IsPdf(file.FileName))
     {
-        var extension = Path.GetExtension(fileName).ToLowerInvariant();
-        switch (extension)
-        {
-            case ".pdf":
-                return "application/pdf";
-            case ".jpg":
-            case ".jpeg":
-                return "image/jpeg";
-            case ".png":
-                return "image/png";
-            default:
-                return "application/octet-stream";
-        }
+        throw new Exception("File is not a PDF.");
     }
+
+    return await UploadFileAsync(file, GetContentType(file.FileName));
+}
+
+private async Task<string> UploadFileAsync(IFormFile file, string contentType)
+{
+    if (file == null || file.Length == 0)
+        throw new Exception("File is empty");
+
+    var uniqueFileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+    var blobClient = _filesContainer.GetBlobClient(uniqueFileName);
+
+    var blobHttpHeaders = new BlobHttpHeaders { ContentType = contentType };
+
+    using (var data = file.OpenReadStream())
+    {
+        await blobClient.UploadAsync(data, new BlobUploadOptions
+        {
+            HttpHeaders = blobHttpHeaders
+        });
+    }
+
+    return uniqueFileName;
+}
+
+private bool IsImage(string fileName)
+{
+    var extension = Path.GetExtension(fileName).ToLowerInvariant();
+    return extension == ".jpg" || extension == ".jpeg" || extension == ".png";
+}
+
+private bool IsPdf(string fileName)
+{
+    var extension = Path.GetExtension(fileName).ToLowerInvariant();
+    return extension == ".pdf";
+}
+
+private string GetContentType(string fileName)
+{
+    var extension = Path.GetExtension(fileName).ToLowerInvariant();
+    switch (extension)
+    {
+        case ".pdf":
+            return "application/pdf";
+        case ".jpg":
+        case ".jpeg":
+            return "image/jpeg";
+        case ".png":
+            return "image/png";
+        default:
+            return "application/octet-stream";
+    }
+}
+
 
     public async Task<bool> DeleteFileAsync(string blobFileName)
     {
