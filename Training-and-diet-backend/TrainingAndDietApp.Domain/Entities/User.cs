@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.ConstrainedExecution;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.DAL.EntityModels;
+using TrainingAndDietApp.Domain.Enums;
 
 namespace TrainingAndDietApp.Domain.Entities
 {
@@ -46,7 +48,11 @@ namespace TrainingAndDietApp.Domain.Entities
         public decimal? DietPriceFrom { get; set; }
         [Column(TypeName = "decimal(5,2)")]
         public decimal? DietPriceTo { get; set; }
+        public bool IsAccepted { get; set; } = false;
 
+
+
+        public virtual ICollection<Certificate> Certificates { get; set; }
 
         [InverseProperty("Pupil")]
         public virtual ICollection<TrainingPlan> PupilTrainingPlans { get; set; }

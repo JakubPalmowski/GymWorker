@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using Azure.Storage;
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.CQRS.Commands.Files;
@@ -47,18 +48,45 @@ public class FileService : IFileService
             ContentType = contentType
         };
     }
+
     public async Task<string> UploadFileAsync(IFormFile file)
     {
         if (file == null || file.Length == 0)
             throw new Exception("File is empty");
+
         var uniqueFileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
         var blobClient = _filesContainer.GetBlobClient(uniqueFileName);
+
+        var contentType = GetContentType(file.FileName);
+
+        var blobHttpHeaders = new BlobHttpHeaders { ContentType = contentType };
+
         using (var data = file.OpenReadStream())
         {
-            await blobClient.UploadAsync(data);
+            await blobClient.UploadAsync(data, new BlobUploadOptions
+            {
+                HttpHeaders = blobHttpHeaders
+            });
         }
 
         return uniqueFileName;
+    }
+
+    private string GetContentType(string fileName)
+    {
+        var extension = Path.GetExtension(fileName).ToLowerInvariant();
+        switch (extension)
+        {
+            case ".pdf":
+                return "application/pdf";
+            case ".jpg":
+            case ".jpeg":
+                return "image/jpeg";
+            case ".png":
+                return "image/png";
+            default:
+                return "application/octet-stream";
+        }
     }
 
     public async Task<bool> DeleteFileAsync(string blobFileName)
