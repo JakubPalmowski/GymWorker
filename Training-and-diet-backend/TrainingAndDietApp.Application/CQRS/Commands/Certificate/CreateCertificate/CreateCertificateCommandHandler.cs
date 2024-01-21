@@ -41,6 +41,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Certificate.CreateCertifi
                     PdfUri = uniqueName
                 };
                 await _certificateBaseRepository.AddAsync(certificate, cancellationToken);
+                user.Certificates.Add(certificate);
                 await _unitOfWork.CommitAsync(cancellationToken);
 
             }

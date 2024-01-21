@@ -26,6 +26,7 @@ namespace TrainingAndDietApp.Infrastructure.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<Gym> Gyms { get; set; }
         public DbSet<TrainerGym> Trainer_Gyms { get; set; }
+        public DbSet<Certificate> Certificates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

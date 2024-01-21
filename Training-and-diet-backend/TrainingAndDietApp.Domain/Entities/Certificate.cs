@@ -11,7 +11,7 @@ namespace TrainingAndDietApp.Domain.Entities
         public int IdCertificate { get; set; }
         public string PdfUri { get; set; }
         public string Description { get; set; }
-        public DateTime AddedDate { get; set; } = DateTime.Now;
+        public DateTime AddedDate { get; set; } = DateTime.UtcNow;
         public bool IsAccepted { get; set; } = false;
 
         [ForeignKey("User")]
