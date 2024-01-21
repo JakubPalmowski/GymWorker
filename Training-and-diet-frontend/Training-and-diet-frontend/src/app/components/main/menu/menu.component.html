@@ -91,6 +91,13 @@
           <a>Mój trening</a>
           </div>
         </li>
+
+        <li>
+          <div class="menu-link" routerLink="/adminGymList/Active" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='adminGymList'}">
+            <img src="../../../assets/icons/record.png" width="20" height="20">
+          <a>Admin</a>
+          </div>
+        </li>
    
     </ul>
 
@@ -196,9 +203,16 @@
           </li>
 
           <li>
-            <div class="menu-link" (click)="goPupilToTrainingPlans()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='pupilTrainingPlans'}">
+            <div class="menu-link" (click)="goPupilToTrainingPlans()" [ngClass]="{'active': activeRoute=='pupilTrainingPlans'}">
               <img src="../../../assets/icons/record.png" width="20" height="20">
             <a>Mój trening</a>
+            </div>
+          </li>
+
+          <li>
+            <div class="menu-link" routerLink="adminGymList/Active" [ngClass]="{'active': activeRoute=='adminGymList'}">
+              <img src="../../../assets/icons/record.png" width="20" height="20">
+            <a>Admin</a>
             </div>
           </li>
         

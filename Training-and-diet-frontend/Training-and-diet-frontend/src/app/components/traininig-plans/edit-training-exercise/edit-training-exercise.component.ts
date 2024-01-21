@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EditTrainingExercise } from 'src/app/models/editTrainingExercise.model';
 import { ExerciseGetById } from 'src/app/models/exercise-get-by-id';
 import { ExerciseShort } from 'src/app/models/exercise-short.model';
 import { NewTrainingExercise } from 'src/app/models/new-training-exercise.model';
@@ -17,22 +18,19 @@ export class EditTrainingExerciseComponent implements OnInit{
   id_training:string='';
   id_exercise:string='';
 
-  newTrainingExerciseRequest:NewTrainingExercise={
+  newTrainingExerciseRequest:EditTrainingExercise={
     seriesNumber:0,
     repetitionsNumber:'',
     comments:'',
     dayOfWeek:0,
     idExercise:0,
-    idTrainingPlan:0
+    idTrainingPlan:0,
+    idTraineeExercise:0,
+    exerciseName:'',
   }
 
   
 
-  exercise:ExerciseGetById={
-    idExercise:0,
-    name:''
-  };
-   
   repetitions:string[]=[];
 
   submitted=false;
@@ -120,13 +118,20 @@ export class EditTrainingExerciseComponent implements OnInit{
     this.newTrainingExerciseRequest.idExercise=parseInt(this.id_exercise);
     this.newTrainingExerciseRequest.idTrainingPlan=parseInt(this.id_training);
     this.newTrainingExerciseRequest.repetitionsNumber=this.repetitions.toString();
+    const responseDiv = document.getElementById("edit-resp");
     
     
     this.exerciseServise.editTrainingExercise(this.newTrainingExerciseRequest,this.id_training_exercise).subscribe({
       next:(newTrainingExercise)=>{
         this.router.navigate(['/training-plans/edit/'+this.id_training]);
-      }
-    })
+      },
+      error:(response)=>{
+        console.log(response);
+        if(responseDiv){
+          responseDiv.innerHTML="Podczas edycji wystąpił błąd";
+          
+        }}
+    });
 
     
 

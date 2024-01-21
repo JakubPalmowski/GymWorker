@@ -3,6 +3,7 @@ import { registerAdditionalFields } from 'src/app/models/registerAdditionalField
 import { Register } from 'src/app/models/register';
 import { Form } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,7 @@ export class RegisterComponent {
   /**
    *
    */
-  constructor(private authenticationService:AuthenticationService) {}
+  constructor(private authenticationService:AuthenticationService,private router:Router) {}
 
 
   register(){
@@ -39,6 +40,9 @@ export class RegisterComponent {
     this.authenticationService.register(this.registerRequest).subscribe({
       next:(response)=>{
         console.log(response);
+        this.authenticationService.setSession(response);
+        this.router.navigateByUrl('');
+        
       },
       error:(response)=>{
 

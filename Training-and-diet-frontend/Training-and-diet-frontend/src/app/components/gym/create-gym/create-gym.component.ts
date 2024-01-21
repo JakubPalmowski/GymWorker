@@ -19,7 +19,7 @@ export class CreateGymComponent implements OnInit {
     city: "",
     street: "",
     postalCode: "",
-    addedBy: 1
+    addedBy: 3
   }
   fieldErrors: { [key: string]: string[] } = {};
   successFlag: string = "";
@@ -29,7 +29,7 @@ export class CreateGymComponent implements OnInit {
   
   ngOnInit(): void {
     //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
-    this.gymService.GetGymsAddedByUser("1").subscribe({
+    this.gymService.GetGymsAddedByUser("3").subscribe({
       next: (gyms) => {
         this.GymsAddedByUser = gyms;
       },

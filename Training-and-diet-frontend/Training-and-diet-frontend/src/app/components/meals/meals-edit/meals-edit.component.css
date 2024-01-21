@@ -23,6 +23,12 @@ h3{
     padding: 10px 0px;
 }
 
+.edit-response{
+    color:#3244A0;
+    font-weight: bold;
+    font-size: 18px;
+    padding-bottom: 10px;
+}
 
 .button-edit{
     margin: 10px 0px;

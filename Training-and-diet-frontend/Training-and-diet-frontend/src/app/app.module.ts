@@ -39,6 +39,12 @@ import { PupilTrainingExerciseDetailsComponent } from './components/pupilTrainin
 import { CreateGymComponent } from './components/gym/create-gym/create-gym.component';
 import { AuthenticationInterceptor } from './services/interceptor';
 import { MainPageComponent } from './components/mainPage/main-page/main-page.component';
+import { GymListComponent } from './components/admin/gym/gymList/gym-list/gym-list.component';
+import { GymDetailsComponent } from './components/admin/gym/gymDetails/gym-details/gym-details.component';
+import { GymEditComponent } from './components/admin/gym/gymEdit/gym-edit/gym-edit.component';
+import { GymVerificationComponent } from './components/admin/gym/gymVerification/gym-verification/gym-verification.component';
+import { MenuAdminComponent } from './components/admin/menuAdmin/menu-admin/menu-admin.component';
+import { ExercicesAdminListComponent } from './components/admin/exercices/exercicesList/exercices-admin-list/exercices-admin-list.component';
 
 
 
@@ -74,14 +80,14 @@ import { MainPageComponent } from './components/mainPage/main-page/main-page.com
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent,
     MyProfileComponent, 
-    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent
+    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExercicesAdminListComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {
@@ -91,5 +97,6 @@ import { MainPageComponent } from './components/mainPage/main-page/main-page.com
     }
   ],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
