@@ -19,14 +19,25 @@ namespace Training_and_diet_backend.Controllers
         {
             _mediator = mediator;
         }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetTraineeExercises(int id)
+        
+        [Authorize(Roles = "3,5")]
+        [HttpGet("trainer/{id}")]
+        public async Task<IActionResult> GetTrainerTraineeExercises(int id)
         {
             var result = await _mediator.Send(new GetTraineeExerciseQuery(id));
             return Ok(result);
         }
-
+        
+        [Authorize(Roles = "2")]
+        [HttpGet("pupil/{id}")]
+        public async Task<IActionResult> GetPupilTraineeExercises(int id)
+        {
+            var loggedUser = this.User.GetId()!.Value;
+            var result = await _mediator.Send(new GetPupilTraineeExerciseQuery(id, loggedUser));
+            return Ok(result);
+        }
+        //dodac autoryzacje
+        [Authorize(Roles = "3,5")]
         [HttpGet("trainingPlanInternal/{idTrainingPlan}")]
         public async Task<IActionResult> GetTraineeExercisesFromTrainingPlan(int idTrainingPlan)
         {

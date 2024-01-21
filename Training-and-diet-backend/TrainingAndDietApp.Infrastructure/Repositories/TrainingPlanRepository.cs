@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Npgsql.PostgresTypes;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
 using TrainingAndDietApp.Infrastructure.Context;
