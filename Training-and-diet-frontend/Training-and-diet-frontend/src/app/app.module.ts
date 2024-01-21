@@ -44,7 +44,9 @@ import { GymDetailsComponent } from './components/admin/gym/gymDetails/gym-detai
 import { GymEditComponent } from './components/admin/gym/gymEdit/gym-edit/gym-edit.component';
 import { GymVerificationComponent } from './components/admin/gym/gymVerification/gym-verification/gym-verification.component';
 import { MenuAdminComponent } from './components/admin/menuAdmin/menu-admin/menu-admin.component';
-import { ExercicesAdminListComponent } from './components/admin/exercices/exercicesList/exercices-admin-list/exercices-admin-list.component';
+import { ExerciseListAdminComponent } from './components/admin/exercise/exerciseList/exercise-list-admin/exercise-list-admin.component';
+import { ExerciseCreateAdminComponent } from './components/admin/exercise/exerciseCreate/exercise-create-admin/exercise-create-admin.component';
+
 
 
 
@@ -80,7 +82,7 @@ import { ExercicesAdminListComponent } from './components/admin/exercices/exerci
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent,
     MyProfileComponent, 
-    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExercicesAdminListComponent
+    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExerciseListAdminComponent, ExerciseCreateAdminComponent
   ],
   imports: [
     AppRoutingModule,
