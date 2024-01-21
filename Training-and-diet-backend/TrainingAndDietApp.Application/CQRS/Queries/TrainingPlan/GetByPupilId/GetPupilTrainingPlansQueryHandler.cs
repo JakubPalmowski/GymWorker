@@ -19,7 +19,7 @@ public class GetPupilTrainingPlansQueryHandler : IRequestHandler<GetPupilTrainin
 
     public async Task<IEnumerable<GetPupilTrainingPlansResponse>> Handle(GetPupilTrainingPlansQuery request, CancellationToken cancellationToken)
     {
-        var trainingPlans = await _trainingPlanRepository.GetTrainingPlansWithTrainerByPupilId(request.IdPupil, cancellationToken);
+        var trainingPlans = await _trainingPlanRepository.GetTrainingPlansWithTrainerByPupilId(request.LoggedUser, cancellationToken);
         if (trainingPlans == null)
             throw new NotFoundException("Trainer has no training plans");
 

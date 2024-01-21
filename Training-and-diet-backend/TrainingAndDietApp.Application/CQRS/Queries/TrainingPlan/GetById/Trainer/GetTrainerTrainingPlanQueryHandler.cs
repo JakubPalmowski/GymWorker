@@ -6,30 +6,30 @@ using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
-namespace TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById
+namespace TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById.Trainer
 {
-    public class GetTrainingPlanQueryHandler : IRequestHandler<GetTrainingPlanQuery, TrainingPlanResponse>
+    public class GetTrainerTrainingPlanQueryHandler : IRequestHandler<GetTrainerTrainingPlanQuery, TrainerTrainingPlanResponse>
     {
         private readonly ITrainingPlanRepository _planRepository;
         private readonly IMapper _mapper;
         private readonly ITrainingPlanAccessService _trainingPlanAccessService;
-        public GetTrainingPlanQueryHandler(IMapper mapper, ITrainingPlanAccessService trainingPlanAccessService, ITrainingPlanRepository planRepository)
+        public GetTrainerTrainingPlanQueryHandler(IMapper mapper, ITrainingPlanAccessService trainingPlanAccessService, ITrainingPlanRepository planRepository)
         {
             _mapper = mapper;
             _trainingPlanAccessService = trainingPlanAccessService;
             _planRepository = planRepository;
         }
-        public async Task<TrainingPlanResponse> Handle(GetTrainingPlanQuery request, CancellationToken cancellationToken)
+        public async Task<TrainerTrainingPlanResponse> Handle(GetTrainerTrainingPlanQuery request, CancellationToken cancellationToken)
         {
             var trainingPlan = await _planRepository.GetByIdWithPupil(request.IdTrainingPlan, cancellationToken);
             if (trainingPlan == null)
                 throw new NotFoundException("Training plan not found");
 
-            var isAccessible = await _trainingPlanAccessService.IsAccessibleBy(request.IdTrainingPlan, request.LoggedUser, cancellationToken);
+            var isAccessible = await _trainingPlanAccessService.IsAccessibleByTrainer(request.IdTrainingPlan, request.LoggedUser, cancellationToken);
             if (!isAccessible)
                 throw new ForbiddenException("You are not allowed to access this training plan");
 
-            return _mapper.Map<TrainingPlanResponse>(trainingPlan);
+            return _mapper.Map<TrainerTrainingPlanResponse>(trainingPlan);
 
         }
     }

@@ -28,6 +28,7 @@ using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Entities;
 using Gym = TrainingAndDietApp.Domain.Entities.Gym;
 using TrainingPlan = TrainingAndDietApp.Domain.Entities.TrainingPlan;
+using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById.Pupil;
 
 
 namespace Training_and_diet_backend
@@ -55,9 +56,13 @@ namespace Training_and_diet_backend
 
             CreateMap<CreateTraineeExerciseCommand, TraineeExercise>();
 
-            CreateMap<TrainingPlan, TrainingPlanResponse>()
+            CreateMap<TrainingPlan, TrainerTrainingPlanResponse>()
                 .ForMember(dest => dest.PupilLastName, opt => opt.MapFrom(src => src.Pupil.LastName))
                 .ForMember(dest => dest.PupilName, opt => opt.MapFrom(src => src.Pupil.Name));
+
+            CreateMap<TrainingPlan, PupilTrainingPlanResponse>()
+                .ForMember(dest => dest.TrainerLastName, opt => opt.MapFrom(src => src.Trainer.LastName))
+                .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name));
 
             CreateMap<CreateTrainingPlanCommand, TrainingPlan>();
 
@@ -77,6 +82,8 @@ namespace Training_and_diet_backend
             CreateMap<TrainingPlan, GetPupilTrainingPlansResponse>()
                 .ForMember(dest => dest.TrainerLastName, opt => opt.MapFrom(src => src.Trainer.LastName))
                 .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name));
+
+
 
 
 
