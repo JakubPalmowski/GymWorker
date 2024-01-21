@@ -1,8 +1,12 @@
-﻿using System.Threading;
+
+using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Domain.Abstractions;
+using System.Threading;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
 using TrainingAndDietApp.Infrastructure.Repositories;
+
 
 namespace TrainingAndDietApp.Application.Services;
 

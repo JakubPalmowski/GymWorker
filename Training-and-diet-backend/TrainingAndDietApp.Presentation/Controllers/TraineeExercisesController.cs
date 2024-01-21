@@ -22,7 +22,7 @@ namespace Training_and_diet_backend.Controllers
         {
             _mediator = mediator;
         }
-        //dodac autoryzacje
+
         [Authorize(Roles = "3,5")]
         [HttpGet("trainer/{id}")]
         public async Task<IActionResult> GetTrainerTraineeExercises(int id)
@@ -31,7 +31,7 @@ namespace Training_and_diet_backend.Controllers
             var result = await _mediator.Send(new GetTrainerTraineeExerciseQuery(id, loggedUser));
             return Ok(result);
         }
-        //dodac autoryzacje
+
         [Authorize(Roles = "2")]
         [HttpGet("pupil/{id}")]
         public async Task<IActionResult> GetPupilTraineeExercises(int id)
