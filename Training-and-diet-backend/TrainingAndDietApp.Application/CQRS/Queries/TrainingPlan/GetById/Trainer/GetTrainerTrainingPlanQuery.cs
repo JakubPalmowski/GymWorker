@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using MediatR;
 using TrainingAndDietApp.Application.CQRS.Responses.TrainingPlan;
 
-namespace TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById
+namespace TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById.Trainer
 {
-    public class GetTrainingPlanQuery : IRequest<TrainingPlanResponse>
+    public class GetTrainerTrainingPlanQuery : IRequest<TrainerTrainingPlanResponse>
     {
         public int IdTrainingPlan { get; set; }
         public int LoggedUser { get; set; }
 
-        public GetTrainingPlanQuery(int idTrainingPlan, int loggedUser)
+        public GetTrainerTrainingPlanQuery(int idTrainingPlan, int loggedUser)
         {
             IdTrainingPlan = idTrainingPlan;
             LoggedUser = loggedUser;

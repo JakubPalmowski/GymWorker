@@ -64,7 +64,7 @@ constructor(private route: ActivatedRoute, private adminService: AdminService) {
                     this.fieldErrors[key] = errors[key]; 
                 }
             }
-            console.log(error.error);
+
   
           }else {
             console.log(error);

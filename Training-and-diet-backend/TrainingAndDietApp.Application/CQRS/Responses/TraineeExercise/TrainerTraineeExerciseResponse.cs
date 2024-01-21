@@ -1,6 +1,6 @@
 ﻿namespace TrainingAndDietApp.Application.CQRS.Responses.TraineeExercise;
 
-public class TraineeExerciseResponse
+public class TrainerTraineeExerciseResponse
 {
     public string IdTraineeExercise { get; set; }
     public string SeriesNumber { get; set; }

@@ -14,7 +14,7 @@ public class TrainingPlanAccessService : ITrainingPlanAccessService
         _trainingPlanRepository = trainingPlanRepository;
     }
 
-    public async Task<bool> IsAccessibleBy(int trainingPlanId, int mentorId, CancellationToken cancellation)
+    public async Task<bool> IsAccessibleByTrainer(int trainingPlanId, int mentorId, CancellationToken cancellation)
     {
         var trainingPlan = await _trainingPlanRepository.GetByIdAsync(trainingPlanId, cancellation);
 
@@ -25,6 +25,17 @@ public class TrainingPlanAccessService : ITrainingPlanAccessService
         
         return trainingPlan.IdTrainer == mentorId;
     }
+    public async Task<bool> IsAccessibleByPupil(int trainingPlanId, int pupilId, CancellationToken cancellation)
+    {
+        var trainingPlan = await _trainingPlanRepository.GetByIdAsync(trainingPlanId, cancellation);
 
-   
+        if (trainingPlan == null)
+        {
+            return false;
+        }
+
+        return trainingPlan.IdPupil == pupilId;
+    }
+
+
 }

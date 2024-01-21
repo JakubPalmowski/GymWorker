@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Application.CQRS.Commands.Auth.Register;
 using TrainingAndDietApp.Application.CQRS.Commands.Exercise.CreateExercise;
@@ -10,8 +9,10 @@ using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.CreateTraine
 using TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.UpdateTraineeExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.CreateTrainingPlan;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.UpdateTrainingPlan;
-using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByPupilId;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetGymByIdAdmin;
+using TrainingAndDietApp.Application.CQRS.Queries.TraineeExercise.GetById.Pupil;
+using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById.Pupil;
+using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByPupilId;
 using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByTrainerId;
 using TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll;
 using TrainingAndDietApp.Application.CQRS.Responses;
@@ -28,9 +29,10 @@ using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Entities;
 using Gym = TrainingAndDietApp.Domain.Entities.Gym;
 using TrainingPlan = TrainingAndDietApp.Domain.Entities.TrainingPlan;
+using TrainingAndDietApp.Application.CQRS.Commands.Admin.CreateExercise;
 
 
-namespace Training_and_diet_backend
+namespace TrainingAndDietApp.Application
 {
     public class MappingProfile : Profile
     {
@@ -55,9 +57,18 @@ namespace Training_and_diet_backend
 
             CreateMap<CreateTraineeExerciseCommand, TraineeExercise>();
 
-            CreateMap<TrainingPlan, TrainingPlanResponse>()
+            CreateMap<TrainingPlan, TrainerTrainingPlanResponse>()
                 .ForMember(dest => dest.PupilLastName, opt => opt.MapFrom(src => src.Pupil.LastName))
                 .ForMember(dest => dest.PupilName, opt => opt.MapFrom(src => src.Pupil.Name));
+
+            CreateMap<TrainingPlan, PupilTrainingPlanResponse>()
+                .ForMember(dest => dest.TrainerLastName, opt => opt.MapFrom(src => src.Trainer.LastName))
+                .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name));
+
+            CreateMap<TraineeExercise, PupilTraineeExerciseResponse>()
+                .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom(src => src.Exercise.Name))
+                .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.Exercise.ExerciseSteps))
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Exercise.Details));
 
             CreateMap<CreateTrainingPlanCommand, TrainingPlan>();
 
@@ -77,6 +88,8 @@ namespace Training_and_diet_backend
             CreateMap<TrainingPlan, GetPupilTrainingPlansResponse>()
                 .ForMember(dest => dest.TrainerLastName, opt => opt.MapFrom(src => src.Trainer.LastName))
                 .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name));
+
+
 
 
 
@@ -132,7 +145,7 @@ namespace Training_and_diet_backend
 
             
 
-            CreateMap<TraineeExercise, TraineeExerciseResponse>()
+            CreateMap<TraineeExercise, TrainerTraineeExerciseResponse>()
                 .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom(src => src.Exercise.Name));
 
             CreateMap<UpdateMealInternalCommand, Meal>()
@@ -177,6 +190,12 @@ namespace Training_and_diet_backend
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.MealCommand.Name))
                 .ForMember(dest => dest.PrepareSteps, opt => opt.MapFrom(src => src.MealCommand.PrepareSteps))
                 .ForMember(dest => dest.IdDietician, opt => opt.MapFrom(src => src.IdDietician));
+
+                CreateMap<CreateExerciseAdminInternalCommand, Exercise>()
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.ExerciseCommand.Details))
+                .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.ExerciseCommand.ExerciseSteps))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ExerciseCommand.Name));
+       
 
 
 

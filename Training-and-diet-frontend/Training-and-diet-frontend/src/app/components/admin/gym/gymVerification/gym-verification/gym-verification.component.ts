@@ -69,7 +69,7 @@ export class GymVerificationComponent {
           this.showSuccessPopup(this.successFlag);
           this.fieldErrors = {}; 
           alert('Siłownia została zweryfikowana.');
-          this.router.navigate(['/adminGymList/Pending']);
+          this.router.navigate(['/admin/gym/list/Pending']);
         },
         error: (error) => {
           if (error.status === 400) {
