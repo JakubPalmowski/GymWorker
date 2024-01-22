@@ -111,13 +111,13 @@
                     <label  for="day" class="form-label">Dzień tygodnia</label><br>
                     <select type="day" required max="6" min="0" (change)="assignValue()" class="form-input" id="day" name="day" #day="ngModel"  [(ngModel)]="newTrainingExerciseRequest.dayOfWeek">
                         <option value="" selected disabled>-- Wybierz dzień --</option>
-                        <option value="0">Poniedziałek</option>
-                        <option value="1">Wtorek</option>
-                        <option value="2">Środa</option>
-                        <option value="3">Czwartek</option>
-                        <option value="4">Piątek</option>
-                        <option value="5">Sobota</option>
-                        <option value="6" selected>Niedziela</option>
+                        <option value="1">Poniedziałek</option>
+                        <option value="2">Wtorek</option>
+                        <option value="3">Środa</option>
+                        <option value="4">Czwartek</option>
+                        <option value="5">Piątek</option>
+                        <option value="6">Sobota</option>
+                        <option value="7" selected>Niedziela</option>
                     </select>
                     <div *ngIf="day.errors?.['max'] && this.submitted" class="validation-error">
                         Dzień tygodnia jest wymagany

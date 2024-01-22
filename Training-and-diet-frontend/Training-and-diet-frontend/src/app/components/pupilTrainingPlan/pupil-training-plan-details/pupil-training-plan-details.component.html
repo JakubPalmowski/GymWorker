@@ -9,13 +9,13 @@
         <div class="container plan-details">
             <div class="row">
                 <div class="col plan-info">nazwa: {{trainingPlan.name}}</div>
-                <div class="col plan-info">wygasa: {{formStartDate}}</div>
+                <div class="col plan-info">wygasa: {{formEndDate}}</div>
                 <div class="col plan-infoo " ><img id="calendar-icon" src="../../../../assets/icons/calendar.png" /></div>
             </div>
             <div class="row">
                 
                 <div class="col plan-info" id="type">typ: {{trainingPlan.type}}</div>
-                <div class="col plan-info"><a [routerLink]='["/trainerProfile",trainingPlan.idTrainer]'>przygotował: Jakub Palmowski</a> </div>
+                <div class="col plan-info"><a [routerLink]='["/trainerProfile",trainingPlan.idTrainer]'>przygotował: {{trainingPlan.trainerName}} {{trainingPlan.trainerLastName}}</a> </div>
                 <div class="col plan-info"> 
                 <form >
                     <input type="date" name="trainingDay" (change)="changeTrainingDayByCalendar()" [(ngModel)]="this.dateInputString" #trainingDay="ngModel" />
@@ -34,13 +34,13 @@
     </div>
     <div class="container-table">
         <div class="days-container">
-            <div class="day" id="pn" (click)="changeTrainingDay(0,'pn')">Pn</div>
-            <div class="day" id="wt" (click)="changeTrainingDay(1,'wt')">Wt</div>
-            <div class="day" id="sr" (click)="changeTrainingDay(2,'sr')">Śr</div>
-            <div class="day" id="czw" (click)="changeTrainingDay(3,'czw')">Czw</div>
-            <div class="day" id="pt" (click)="changeTrainingDay(4,'pt')">Pt</div>
-            <div class="day" id="sob" (click)="changeTrainingDay(5,'sob')">Sob</div>
-            <div class="day" id="nd" (click)="changeTrainingDay(6,'nd')">Nd</div>
+            <div class="day" id="pn" (click)="changeTrainingDay(1,'pn')">Pn</div>
+            <div class="day" id="wt" (click)="changeTrainingDay(2,'wt')">Wt</div>
+            <div class="day" id="sr" (click)="changeTrainingDay(3,'sr')">Śr</div>
+            <div class="day" id="czw" (click)="changeTrainingDay(4,'czw')">Czw</div>
+            <div class="day" id="pt" (click)="changeTrainingDay(5,'pt')">Pt</div>
+            <div class="day" id="sob" (click)="changeTrainingDay(6,'sob')">Sob</div>
+            <div class="day" id="nd" (click)="changeTrainingDay(7,'nd')">Nd</div>
         </div>
         <table class="table"   *ngIf="trainingPlanExercises && trainingPlanExercises.length > 0">
             <thead>

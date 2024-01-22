@@ -31,10 +31,12 @@ export class EditTrainingPlanComponent implements OnInit{
     customName:'',
     type:'',
     startDate:new Date(),
+    endDate:new Date(),
     numberOfWeeks:0,
     idTrainer:0,
-    idPupil:0
-
+    idPupil:0,
+    pupilName:'',
+    pupilLastName:'',
   }
 
   formStartDate:string='';
@@ -58,13 +60,13 @@ export class EditTrainingPlanComponent implements OnInit{
         const id=params.get('id');
         
         // do wrzucenie w get cwiczen
-        this.changeTrainingDay(0,'pn');
+        this.changeTrainingDay(1,'pn');
         
         if(id){
           console.log(id);
           this.idTraining=id;
           
-          this.trainingPlanService.getTrainingPlanById(this.idTraining).subscribe({
+          this.trainingPlanService.getTrainerTrainingPlanById(this.idTraining).subscribe({
             next:(plan)=>{
               console.log("get plan by id"+plan.toString());
               this.trainingPlan=plan;
@@ -92,7 +94,7 @@ export class EditTrainingPlanComponent implements OnInit{
     this.trainingPlanService.getExercisesByPlanId(id).subscribe({
       next:(trainingPlanExercises)=>{
         this.trainingPlanExercises=trainingPlanExercises;
-        this.changeTrainingDay(0,"pn");
+        this.changeTrainingDay(1,"pn");
 
       },
       error: (response)=>{

@@ -42,7 +42,7 @@ export class ExercisesService {
    }
 
    getTrainingExerciseById(idExercise:string):Observable<EditTrainingExercise>{
-    return this.http.get<EditTrainingExercise>('https://localhost:7259/api/TraineeExercises/'+idExercise);
+    return this.http.get<EditTrainingExercise>('https://localhost:7259/api/TraineeExercises/trainer/'+idExercise);
    }
 
   addTrainerExercise(addTrainerExerciceRequest: Exercise):Observable<Exercise>{

@@ -6,5 +6,8 @@ export interface FullTrainingPlanGet{
     customName:string;
     type:string;
     startDate:Date;
+    endDate:Date;   
     numberOfWeeks:number;
+    pupilName:string;
+    pupilLastName:string;
 }
