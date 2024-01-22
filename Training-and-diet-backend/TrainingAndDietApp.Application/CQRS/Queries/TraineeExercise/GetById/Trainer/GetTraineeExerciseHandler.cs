@@ -21,13 +21,10 @@ public class GetTraineeExerciseHandler : IRequestHandler<GetTrainerTraineeExerci
     }
     public async Task<TrainerTraineeExerciseResponse> Handle(GetTrainerTraineeExerciseQuery request, CancellationToken cancellationToken)
     {
-        var traineeExercise = await _traineeExercisesRepository.GetTraineeExerciseWithExerciseByIdAsync(request.IdTraineeExercise, cancellationToken);
+        var traineeExercise = await _traineeExercisesRepository.GetTraineeExerciseWithExerciseByIdAsync(request.IdTraineeExercise, request.LoggedUser, cancellationToken);
         if (traineeExercise == null)
             throw new NotFoundException("TraineeExercise not found");
-        var isAccessible = await _traineeExerciseAccessService.IsAccessibleByTrainer(request.IdTraineeExercise, request.LoggedUser, cancellationToken);
-        if (!isAccessible)
-            throw new ForbiddenException("You are not allowed to access this traineeExercise");
-
+        
         return _mapper.Map<TrainerTraineeExerciseResponse>(traineeExercise);
     }
 }
