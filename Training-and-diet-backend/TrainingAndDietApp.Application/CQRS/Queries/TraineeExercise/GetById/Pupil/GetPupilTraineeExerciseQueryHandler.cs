@@ -22,10 +22,9 @@ public class GetPupilTraineeExerciseQueryHandler : IRequestHandler<GetPupilTrain
 
     public async Task<PupilTraineeExerciseResponse> Handle(GetPupilTraineeExerciseQuery request, CancellationToken cancellationToken)
     {
-        var traineeExercise = await _traineeExercisesRepository.GetTraineeExerciseWithExerciseByIdAsync(request.IdTraineeExercise, request.LoggedUser, cancellationToken);
+        var traineeExercise = await _traineeExercisesRepository.GetPupilTraineeExerciseWithExerciseByIdAsync(request.IdTraineeExercise, request.LoggedUser, cancellationToken);
         if (traineeExercise == null)
             throw new NotFoundException("TraineeExercise not found");
-        
 
         return _mapper.Map<PupilTraineeExerciseResponse>(traineeExercise);
     }
