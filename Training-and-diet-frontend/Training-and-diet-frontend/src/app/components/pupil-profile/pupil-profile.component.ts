@@ -29,7 +29,7 @@ constructor(private route: ActivatedRoute, private userService: UserService, pri
             }
             this.pupil = pupilInfo;
             if (this.pupil.imageUri) {
-              this.fileService.getImage(this.pupil.imageUri).subscribe(
+              this.fileService.getFile(this.pupil.imageUri).subscribe(
                 blob => {
                   if (blob) {
                     const objectUrl = URL.createObjectURL(blob);

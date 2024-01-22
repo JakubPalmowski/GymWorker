@@ -7,6 +7,11 @@ import { GymUpdate } from '../models/admin/gymUpdate';
 import { ExerciseShort } from '../models/exercise-short.model';
 import { NewTrainingExercise } from '../models/new-training-exercise.model';
 import { Exercise } from '../models/exercise';
+import { CertificatedUsersList } from '../models/admin/certificatedUsersList';
+import { UserInfoForVerification } from '../models/admin/userInfoForVerification';
+import { CertificateListVerification } from '../models/admin/certificateListVerification';
+import { CertificateInfoForVeryfication } from '../models/admin/certificateInfoForVeryfication';
+import { UserVerifyPatch } from '../models/admin/userVerifyPatch';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +46,38 @@ export class AdminService {
 
   createExercise(exercise: Exercise):Observable<Exercise>{
     return this.http.post<Exercise>('https://localhost:7259/api/Admin/Exercises', exercise);
+  }
+
+  getAllUsersWithAcceptedCertificates():Observable<CertificatedUsersList[]>{
+    return this.http.get<CertificatedUsersList[]>('https://localhost:7259/api/Admin/Users/AcceptedCertificates');
+  }
+
+  getAllUsersWithPendingCertificates():Observable<CertificatedUsersList[]>{
+    return this.http.get<CertificatedUsersList[]>('https://localhost:7259/api/Admin/Users/PendingCertificates');
+  }
+
+  getUserInfoForVeryfication(userId: string):Observable<UserInfoForVerification>{
+    return this.http.get<UserInfoForVerification>('https://localhost:7259/api/Admin/Users/'+userId);
+  }
+
+  getUserCertificates(userId: string):Observable<CertificateListVerification[]>{
+    return this.http.get<CertificateListVerification[]>('https://localhost:7259/api/Admin/Users/Certificates/'+userId);
+  }
+
+  getCertificateInfoForVeryfication(certificateId: string):Observable<CertificateInfoForVeryfication>{
+    return this.http.get<CertificateInfoForVeryfication>('https://localhost:7259/api/Admin/Certificates/'+certificateId);
+  }
+
+  acceptCertificate(certificateId: string):Observable<any>{
+    return this.http.patch<any>('https://localhost:7259/api/Admin/Certificates/Verification/'+certificateId,null);
+  }
+
+  deleteCertificate(certificateId: string):Observable<any>{
+    return this.http.delete<any>('https://localhost:7259/api/Admin/Certificates/'+certificateId);
+  }
+
+  verifyUser(userId: string, userVerifyPatch: UserVerifyPatch):Observable<any>{
+    return this.http.patch<any>('https://localhost:7259/api/Admin/Users/Verification/'+userId,userVerifyPatch);
   }
 
 

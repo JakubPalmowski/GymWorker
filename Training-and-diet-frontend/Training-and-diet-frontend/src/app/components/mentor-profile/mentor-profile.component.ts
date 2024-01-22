@@ -38,7 +38,7 @@ export class MentorProfileComponent implements OnInit {
             }
             this.mentor = trainerInfo;
             if (this.mentor.imageUri) {
-              this.fileService.getImage(this.mentor.imageUri).subscribe(
+              this.fileService.getFile(this.mentor.imageUri).subscribe(
                 blob => {
                   if (blob) {
                     const objectUrl = URL.createObjectURL(blob);
@@ -68,7 +68,7 @@ export class MentorProfileComponent implements OnInit {
             }
             this.mentor = dieticianInfo;
             if (this.mentor.imageUri) {
-              this.fileService.getImage(this.mentor.imageUri).subscribe(
+              this.fileService.getFile(this.mentor.imageUri).subscribe(
                 blob => {
                   if (blob) {
                     const objectUrl = URL.createObjectURL(blob);

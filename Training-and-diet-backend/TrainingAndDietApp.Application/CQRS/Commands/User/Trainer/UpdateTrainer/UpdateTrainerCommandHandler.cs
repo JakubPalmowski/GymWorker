@@ -68,14 +68,10 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Trainer.UpdateTraine
                     throw new NotFoundException("Gym not found");
                 }
 
-                if(await _trainerGymRepository.GetByIdAsync(request.IdUser, gymId, cancellationToken) == null){
+                var trainerGym = await _trainerGymRepository.GetByIdAsync(request.IdUser, gymId, cancellationToken);
+                if(trainerGym == null){
                     throw new BadRequestException("User is not a trainer in this gym");
                 }
-                var trainerGym = new TrainerGym
-                {
-                    IdGym = gymId,
-                    IdTrainer = request.IdUser
-                };
                 await _trainerGymRepository.DeleteAsync(trainerGym, cancellationToken);
             }
            

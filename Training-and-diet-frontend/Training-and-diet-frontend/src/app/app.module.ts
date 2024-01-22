@@ -46,7 +46,12 @@ import { GymVerificationComponent } from './components/admin/gym/gymVerification
 import { MenuAdminComponent } from './components/admin/menuAdmin/menu-admin/menu-admin.component';
 import { ExerciseListAdminComponent } from './components/admin/exercise/exerciseList/exercise-list-admin/exercise-list-admin.component';
 import { ExerciseCreateAdminComponent } from './components/admin/exercise/exerciseCreate/exercise-create-admin/exercise-create-admin.component';
+import { CreateCertificateComponent } from './components/certificate/create/create-certificate/create-certificate.component';
+import { CertificatedUsersListComponent } from './components/admin/certificatedUsers/certificatedUsersList/certificated-users-list/certificated-users-list.component';
+import { UsersVerificationComponent } from './components/admin/certificatedUsers/usersVerification/users-verification/users-verification.component';
+import { CertificateVerificationComponent } from './components/admin/certificatedUsers/certificateVerification/certificate-verification/certificate-verification.component';
 import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-plan-to-pupil/assing-plan-to-pupil.component';
+
 
 
 
@@ -83,7 +88,9 @@ import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent,
     MyProfileComponent, 
-    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExerciseListAdminComponent, ExerciseCreateAdminComponent, AssingPlanToPupilComponent
+    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExerciseListAdminComponent, ExerciseCreateAdminComponent, CreateCertificateComponent, CertificatedUsersListComponent, UsersVerificationComponent, CertificateVerificationComponent,AssingPlanToPupilComponent
+
+    
   ],
   imports: [
     AppRoutingModule,

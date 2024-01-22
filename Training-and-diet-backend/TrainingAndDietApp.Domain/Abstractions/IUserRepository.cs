@@ -21,6 +21,7 @@ namespace TrainingAndDietApp.Domain.Abstractions
         Task UpdateAsync(User user, CancellationToken cancellationToken);
         Task<User?> GetUserByImageUri(string imageUri, CancellationToken cancellationToken);
         Task<IEnumerable<User>> GetPupilsByMentorIdAsync (int idMentor, CancellationToken cancellationToken);
+        Task<IEnumerable<User>> GetAllUsersWithCertificatesAsync(bool isAccepted,CancellationToken cancellationToken);
 
     }
 }

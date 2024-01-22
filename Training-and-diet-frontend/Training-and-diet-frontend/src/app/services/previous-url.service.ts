@@ -11,6 +11,7 @@ export class PreviousUrlService {
   private previousUrl: string = '';
   private currentUrl: string = '';
   private firstSegment: string = '';
+  private adminUsersBackUrl: string = '/admin/certificatedUsers/list/Accepted';
   private firstSegmentSubject = new BehaviorSubject<string>(this.firstSegment);
 
   constructor(private router: Router) {
@@ -19,7 +20,12 @@ export class PreviousUrlService {
         this.previousUrl = this.currentUrl;
         this.currentUrl = event.url;
         this.updateFirstSegment();
+        if (this.previousUrl=="/admin/certificatedUsers/list/Accepted") {
+          this.adminUsersBackUrl = this.previousUrl;
+        }else if(this.previousUrl=="/admin/certificatedUsers/list/Pending"){
+          this.adminUsersBackUrl = this.previousUrl;
       }
+    }
     });
   }
 
@@ -63,6 +69,10 @@ export class PreviousUrlService {
   public getPreviousUrl() {
     return this.previousUrl;
   } 
+
+  public adminPanelUsersBack(){
+    return this.adminUsersBackUrl;
+  }
  
 
   

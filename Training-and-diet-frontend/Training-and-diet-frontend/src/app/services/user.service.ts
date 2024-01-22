@@ -72,9 +72,6 @@ export class UserService{
         return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/Trainer/PersonalInfo/'+id)
       }
 
-      UpdateTrainerPersonalInfo(trainerPersonalInfo: TrainerPersonalInfo,id: string):Observable<any>{
-        return this.http.put('https://localhost:7259/api/User/Trainer/'+id, trainerPersonalInfo);
-      }
 
       GetDieticianPersonalInfoById(id: string):Observable<UserPersonalInfo>{
         return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/Dietician/PersonalInfo/'+id)
@@ -89,6 +86,10 @@ export class UserService{
       }
       UpdateDieticianTrainerPersonalInfo(dieticianTrainerPersonalInfo: DieticianTrainerPersonalInfo,id: string):Observable<any>{
         return this.http.put('https://localhost:7259/api/User/DieticianTrainer/'+id, dieticianTrainerPersonalInfo);
+      }
+
+      UpdateTrainerPersonalInfo(trainerPersonalInfo: TrainerPersonalInfo,id: string):Observable<any>{
+        return this.http.put('https://localhost:7259/api/User/Trainer/'+id, trainerPersonalInfo);
       }
       
       GetMentorPupils():Observable<PupilShort[]>{
