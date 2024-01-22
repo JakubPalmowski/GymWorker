@@ -51,6 +51,13 @@ import { CertificatedUsersListComponent } from './components/admin/certificatedU
 import { UsersVerificationComponent } from './components/admin/certificatedUsers/usersVerification/users-verification/users-verification.component';
 import { CertificateVerificationComponent } from './components/admin/certificatedUsers/certificateVerification/certificate-verification/certificate-verification.component';
 import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-plan-to-pupil/assing-plan-to-pupil.component';
+import { DietListComponent } from './components/diets/diet-list/diet-list.component';
+import { AddDietComponent } from './components/diets/add-diet/add-diet.component';
+import { EditDietComponent } from './components/diets/edit-diet/edit-diet.component';
+import { NewDietMealComponent } from './components/diets/new-diet-meal/new-diet-meal.component';
+import { DietMealsListComponent } from './components/diets/diet-meals-list/diet-meals-list.component';
+import { AssignDietComponent } from './components/diets/assign-diet/assign-diet.component';
+import { EditDietMealComponent } from './components/diets/edit-diet-meal/edit-diet-meal.component';
 
 
 
@@ -88,9 +95,31 @@ import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent,
     MyProfileComponent, 
-    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExerciseListAdminComponent, ExerciseCreateAdminComponent, CreateCertificateComponent, CertificatedUsersListComponent, UsersVerificationComponent, CertificateVerificationComponent,AssingPlanToPupilComponent
-
-    
+    MyProfileEditComponent,
+    PupilTrainingPlansListComponent,
+    PupilTrainingPlanDetailsComponent,
+    PupilTrainingExerciseDetailsComponent,
+    CreateGymComponent,
+    MainPageComponent,
+    GymListComponent,
+    GymDetailsComponent,
+    GymEditComponent,
+    GymVerificationComponent,
+    MenuAdminComponent,
+    ExerciseListAdminComponent,
+    ExerciseCreateAdminComponent,
+    CreateCertificateComponent,
+    CertificatedUsersListComponent,
+    UsersVerificationComponent,
+    CertificateVerificationComponent,
+    AssingPlanToPupilComponent,
+    DietListComponent,
+    AddDietComponent,
+    EditDietComponent,
+    NewDietMealComponent,
+    DietMealsListComponent,
+    AssignDietComponent,
+    EditDietMealComponent
   ],
   imports: [
     AppRoutingModule,

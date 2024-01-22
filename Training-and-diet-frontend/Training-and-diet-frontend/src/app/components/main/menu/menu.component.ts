@@ -61,6 +61,12 @@ goToMainPage() {
       }
     }
 
+    goToDiets() {
+      if(!(this.activeRoute=='diet')){
+        this.router.navigateByUrl('diet');
+      }
+    }
+
     goToExercices() {
       if(!(this.activeRoute=='exercises')){
         this.router.navigateByUrl('exercises');

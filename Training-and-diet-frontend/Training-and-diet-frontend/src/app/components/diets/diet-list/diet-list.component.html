@@ -1,0 +1,31 @@
+<div class="row d-flex justify-content-center">
+    <div class="container-head">
+        <h3>Moje diety</h3>
+        <button class="filter-button" type="button" (click)="filterResults(filter.value)">
+            <img src="../../../../assets/icons/search.png" class="search-icon">
+        </button>
+        
+        <input class="filter-input" type="text" placeholder="Wyszukaj dietę" #filter>
+    </div>
+    <div class="container-body">
+        <table class="table" *ngIf="diets && diets.length > 0" >
+            <thead >
+                <tr >
+                    <th>Nazwa</th>
+                    <th>Nazwa robocza</th>
+                    <th>Długość planu(todo: ważny do)</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let diet of filteredDiets">
+                <td><a [routerLink]="['edit',diet.idDiet]">{{ diet.name}}</a></td>
+                <td><a [routerLink]="['edit',diet.idDiet]">{{ diet.customName}}</a></td>
+                <td><a [routerLink]="['edit',diet.idDiet]">{{ diet.endDate }}tyg.</a></td>
+            </tr>
+        </table>
+        <p *ngIf="!diets || diets.length <=0" class="no-plans-message">Nie posiadasz diet</p>
+        <div class="test">
+            <a routerLink="add" class="new-plan-link">
+                <span class="new-plan-span">+<br>Dodaj nową dietę</span> </a>
+        </div>
+    </div>
+</div>

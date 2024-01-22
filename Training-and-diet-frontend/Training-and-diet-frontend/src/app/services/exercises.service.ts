@@ -9,6 +9,7 @@ import { Exercise } from '../models/exercise';
 import { ExerciseFull } from '../models/exercise-full';
 import { environment } from 'src/environments/environment';
 import { EditTrainingExercise } from '../models/editTrainingExercise.model';
+import { PupilTraineeExerciseGet } from '../models/pupilTraineeExerciseGet.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,10 @@ export class ExercisesService {
 
    getTrainingExerciseById(idExercise:string):Observable<EditTrainingExercise>{
     return this.http.get<EditTrainingExercise>('https://localhost:7259/api/TraineeExercises/trainer/'+idExercise);
+   }
+
+   getTrainingExerciseByIdForPupil(idExercise:string):Observable<PupilTraineeExerciseGet>{
+    return this.http.get<PupilTraineeExerciseGet>(environment.apiUrl+'TraineeExercises/pupil/'+idExercise);
    }
 
   addTrainerExercise(addTrainerExerciceRequest: Exercise):Observable<Exercise>{
