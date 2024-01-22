@@ -1,0 +1,36 @@
+<ng-container *ngIf="error">
+    <div class="container-fluid mt-5">
+        <h1 class="text-center mt-5">Brak użytkowników o statusie {{status}}</h1>
+    </div>
+</ng-container>
+<div *ngIf="!error" class="container-fluid mt-5">
+    <app-menu-admin></app-menu-admin>
+    <input type="text" class="form-control mb-3 fs-5" placeholder="Szukaj użytkowników..." [(ngModel)]="searchTerm" (input)="filterUser()">
+
+
+    <ng-container *ngIf="!users?.length">
+        <h1 *ngIf="status=='Pending'" class="text-center mt-5">Brak certyfikatów do zatwierdzenia</h1>
+        <h1 *ngIf="status=='Accepted'" class="text-center mt-5">Brak certyfikowanych uzqytkowników</h1>
+    </ng-container>
+
+<div *ngIf="users?.length">
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 35%;">Imię</th>
+                <th scope="col" style="width: 35%;">Nazwisko</th>
+                <th scope="col" style="width: 30%;">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of filteredUsers">
+                <td>{{ user.name }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>
+                        <button type="button" class="btn-custom btn-detail" routerLink="/admin/certificatedUsers/verification/{{user.idUser}}">Przejdź</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>

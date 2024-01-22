@@ -1,3 +1,4 @@
+import { Certificate } from "../certificate/certificate";
 import { ActiveGym } from "../gym/activeGym";
 
 export interface UserPersonalInfo{
@@ -19,5 +20,6 @@ export interface UserPersonalInfo{
     dietPriceFrom?: number;
     dietPriceTo?: number;
     trainerGyms: ActiveGym[];
+    certificates: Certificate[];
     imageUri?: string;
 }

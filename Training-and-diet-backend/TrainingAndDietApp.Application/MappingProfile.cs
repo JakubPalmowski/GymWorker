@@ -30,6 +30,10 @@ using TrainingAndDietApp.Domain.Entities;
 using Gym = TrainingAndDietApp.Domain.Entities.Gym;
 using TrainingPlan = TrainingAndDietApp.Domain.Entities.TrainingPlan;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.CreateExercise;
+using TrainingAndDietApp.Application.CQRS.Queries.Certificate.GetUserCertificates;
+using TrainingAndDietApp.Application.CQRS.Responses.Admin;
+using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetUserInfoForVerification;
+using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetUserCertificatesById;
 
 
 namespace TrainingAndDietApp.Application
@@ -195,6 +199,16 @@ namespace TrainingAndDietApp.Application
                 .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.ExerciseCommand.Details))
                 .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.ExerciseCommand.ExerciseSteps))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ExerciseCommand.Name));
+
+                CreateMap<Certificate, GetUserCertificatesQuery>();
+
+                CreateMap<User, GetAllUsersWithCertificatesResponse>();
+
+                CreateMap<User, GetUserInfoForVerificationQuery>();
+
+                CreateMap<Certificate, GetUserCertificatesByIdQuery>();
+
+                CreateMap<Certificate, CertificateVerificationResponse>();
        
 
 

@@ -1,0 +1,41 @@
+.group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    padding-left: 2px;
+    font-size: 20px;
+    color: black;
+    width: 80%;
+}
+
+textarea{
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 18px;
+    border: 2px solid black;
+}
+
+
+  .error-popup {
+    position: fixed;
+    top: 20px; 
+    left: 40%;
+    background-color: red; 
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+
+  .error-container{
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+  }

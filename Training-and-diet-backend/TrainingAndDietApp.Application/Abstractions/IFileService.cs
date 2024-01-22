@@ -6,7 +6,8 @@ namespace TrainingAndDietApp.Application.Abstractions;
 public interface IFileService
 {
     Task<BlobDto?> DownloadAsync(string blobFileName);
-    Task<string> UploadFileAsync(IFormFile file);
+    Task<string> UploadPdfAsync(IFormFile file);
+    Task<string> UploadImageAsync(IFormFile file);
     Task<bool> DeleteFileAsync(string blobFileName);
 
 }

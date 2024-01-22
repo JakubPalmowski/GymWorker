@@ -1,0 +1,45 @@
+<ng-container *ngIf="certificate && certificate.pdfUrl">
+<div class="container-fluid bg-secondary my-3 h-auto rounded-3 pb-0 pb-4" style="border:2px solid black;">
+    <div *ngIf="successFlag=='error'" class="error-popup">
+        Wystapił błąd podczas zatwierdzania certyfikatu. Proszę spróbować ponownie.
+      </div>
+
+    <div class="col-12 mb-2 mt-1">
+        <h1 class="text-center">Certyfikat</h1>
+    </div>
+
+    <div class="user-data-container">
+        <div class="user-data-row">
+            <span class="user-data-label">Data dodania</span>
+            <span class="user-data-value">{{certificate.addedDate | date:'yyyy-MM-dd' }}</span>
+        </div>
+
+        <div class="user-data-row">
+            <span class="user-data-label">Certyfikat:</span>
+            <a *ngIf="certificate.pdfUrl" href="{{certificate.pdfUrl}}" download="Certificate_{{certificate.addedDate | date:'yyyy-MM-dd'}}.pdf">
+                Pobierz
+            </a>
+        </div>
+
+        <div class="user-data-row">
+            <span class="user-data-label">Status</span>
+                <i *ngIf="certificate.isAccepted == true" class="bi bi-check-circle-fill" style="color: green;"></i>
+                <i *ngIf="certificate.isAccepted == false" class="bi bi-question-circle-fill"></i>
+        </div>
+    
+    </div>
+    <div class="col-12 d-flex flex-column align-items-center">
+        <span class="text-center w-100 user-data-label">Opis</span>
+        <div class="description"><span>{{certificate.description}}</span></div>
+    </div>
+    
+    <div class="col-12 mt-5 d-flex justify-content-center">
+        <div class="d-flex justify-content-around" style="width: 80%;">
+        <button type="button" class="btn-custom btn-back" (click)="back()">Powrót</button>
+       <button *ngIf="certificate.isAccepted==false" type="button" class="btn-custom btn-edit" (click)="acceptCertificate()">Zatwierdź</button>
+       <button type="button" class="btn-custom btn-delete" (click)="deleteCertificate()">Usuń</button>
+    </div>
+        </div>
+        
+</div>
+</ng-container>

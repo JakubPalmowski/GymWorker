@@ -122,6 +122,39 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Certificate", b =>
+                {
+                    b.Property<int>("IdCertificate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnOrder(0);
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdCertificate"));
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("IdMentor")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("PdfUri")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("IdCertificate");
+
+                    b.HasIndex("IdMentor");
+
+                    b.ToTable("Certificates");
+                });
+
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Exercise", b =>
                 {
                     b.Property<int>("IdExercise")
@@ -502,6 +535,9 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.Property<string>("ImageUri")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -551,6 +587,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "michal@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 1,
+                            IsAccepted = false,
                             LastName = "Emczyk",
                             Name = "Michał",
                             PhoneNumber = "48777888777",
@@ -563,6 +600,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "anna@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 2,
+                            IsAccepted = false,
                             LastName = "Kowalska",
                             Name = "Anna",
                             PhoneNumber = "48666778888",
@@ -575,6 +613,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "john@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Doe",
                             Name = "John",
                             PhoneNumber = "48555667777",
@@ -587,6 +626,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "charlie@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Brown",
                             Name = "Charlie",
                             PhoneNumber = "48554567890",
@@ -599,6 +639,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "diana@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Miller",
                             Name = "Diana",
                             PhoneNumber = "48555678901",
@@ -611,6 +652,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "frank@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Davis",
                             Name = "Frank",
                             PhoneNumber = "48556789012",
@@ -623,6 +665,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "grace@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Anderson",
                             Name = "Grace",
                             PhoneNumber = "48557890123",
@@ -635,6 +678,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "harry@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Moore",
                             Name = "Harry",
                             PhoneNumber = "48558901234",
@@ -647,6 +691,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "ivy@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Turner",
                             Name = "Ivy",
                             PhoneNumber = "48559012345",
@@ -659,6 +704,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "jack@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "White",
                             Name = "Jack",
                             PhoneNumber = "48550123456",
@@ -671,6 +717,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "kelly@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Martin",
                             Name = "Kelly",
                             PhoneNumber = "48551234567",
@@ -683,6 +730,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "leo@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Baker",
                             Name = "Leo",
                             PhoneNumber = "48552345678",
@@ -695,6 +743,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "mia@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Collins",
                             Name = "Mia",
                             PhoneNumber = "48553456789",
@@ -707,6 +756,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "nathan@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Ward",
                             Name = "Nathan",
                             PhoneNumber = "48554567890",
@@ -719,6 +769,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "olivia@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Perry",
                             Name = "Olivia",
                             PhoneNumber = "48555678901",
@@ -731,6 +782,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "peter@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Cooper",
                             Name = "Peter",
                             PhoneNumber = "48556789012",
@@ -743,6 +795,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "quinn@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Barnes",
                             Name = "Quinn",
                             PhoneNumber = "48557890123",
@@ -755,6 +808,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "ryan@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Fisher",
                             Name = "Ryan",
                             PhoneNumber = "48558901234",
@@ -767,6 +821,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "sophie@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Turner",
                             Name = "Sophie",
                             PhoneNumber = "48559012345",
@@ -779,6 +834,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "tom@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Harris",
                             Name = "Tom",
                             PhoneNumber = "48550123456",
@@ -791,6 +847,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "filipwgmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 4,
+                            IsAccepted = false,
                             LastName = "W",
                             Name = "Filip",
                             PhoneNumber = "48550123456",
@@ -803,6 +860,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "jakubs@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "test",
                             Name = "test",
                             PhoneNumber = "48550123456",
@@ -815,6 +873,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "jakubs@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "test",
                             Name = "test",
                             PhoneNumber = "48550123456",
@@ -827,6 +886,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "jakubs@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "test",
                             Name = "test",
                             PhoneNumber = "48550123456",
@@ -839,6 +899,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "jakubs@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 5,
+                            IsAccepted = false,
                             LastName = "test",
                             Name = "Dietician-Trainer",
                             PhoneNumber = "48550123456",
@@ -1136,6 +1197,17 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.Navigation("Pupil");
                 });
 
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Certificate", b =>
+                {
+                    b.HasOne("TrainingAndDietApp.Domain.Entities.User", "User")
+                        .WithMany("Certificates")
+                        .HasForeignKey("IdMentor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Exercise", b =>
                 {
                     b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Trainer")
@@ -1298,6 +1370,8 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.User", b =>
                 {
+                    b.Navigation("Certificates");
+
                     b.Navigation("DietsAsDietician");
 
                     b.Navigation("DietsAsPupil");

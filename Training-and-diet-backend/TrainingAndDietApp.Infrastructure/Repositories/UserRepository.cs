@@ -89,5 +89,9 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
                 .Select(pm => pm.Pupil)
                 .ToListAsync(cancellationToken);
         }
+
+        public async Task<IEnumerable<User>> GetAllUsersWithCertificatesAsync(bool isAccepted, CancellationToken cancellationToken)
+        => await _context.Users
+            .Where(c=>c.Certificates.Any(c=>c.IsAccepted == isAccepted)).ToListAsync(cancellationToken);
     }
 }
