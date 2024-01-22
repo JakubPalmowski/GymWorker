@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Npgsql.PostgresTypes;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
 using TrainingAndDietApp.Infrastructure.Context;
@@ -24,6 +25,13 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         public async Task<TrainingPlan?> GetByIdWithPupil(int trainingPlanId, CancellationToken cancellationToken)
         {
             return await _context.Training_plans.Include(plan => plan.Pupil)
+                .Where(plan => plan.IdTrainingPlan == trainingPlanId)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+        }
+
+        public async Task<TrainingPlan?> GetByIdWithTrainer(int trainingPlanId, CancellationToken cancellationToken)
+        {
+            return await _context.Training_plans.Include(plan => plan.Trainer)
                 .Where(plan => plan.IdTrainingPlan == trainingPlanId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
         }

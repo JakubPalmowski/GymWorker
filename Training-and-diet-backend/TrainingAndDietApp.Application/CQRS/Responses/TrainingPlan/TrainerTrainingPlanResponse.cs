@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrainingAndDietApp.Application.CQRS.Responses.TrainingPlan
 {
-    public class TrainingPlanResponse
+    public class TrainerTrainingPlanResponse
     {
         public int IdTrainingPlan { get; set; }
         public int IdPupil { get; set; }

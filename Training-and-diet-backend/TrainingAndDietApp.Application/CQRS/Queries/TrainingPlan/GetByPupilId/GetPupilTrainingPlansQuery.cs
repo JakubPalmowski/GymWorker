@@ -2,7 +2,7 @@
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByPupilId;
 
-public record GetPupilTrainingPlansQuery(int IdPupil) : IRequest<IEnumerable<GetPupilTrainingPlansResponse>>
+public record GetPupilTrainingPlansQuery(int LoggedUser) : IRequest<IEnumerable<GetPupilTrainingPlansResponse>>
 {
 }
 

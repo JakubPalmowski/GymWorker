@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FullPupilsTrainingPlanGet } from 'src/app/models/FullPupilsTrainingPlanGet';
 import { ExerciseGetById } from 'src/app/models/exercise-get-by-id';
 import { FullTrainingPlanGet } from 'src/app/models/full-training-plan-get';
 import { NewTrainingExercise } from 'src/app/models/new-training-exercise.model';
@@ -20,15 +21,14 @@ export class PupilTrainingPlanDetailsComponent {
 
   trainingPlanExercises:TrainingExerciseFull[]=[];
  
-  trainingPlan:FullTrainingPlanGet={
+  trainingPlan:FullPupilsTrainingPlanGet={
     idTrainingPlan:0,
     name:'',
-    customName:'',
     type:'',
-    startDate:new Date(),
-    numberOfWeeks:0,
+    endDate:new Date(),
     idTrainer:3,
-    idPupil:0
+    trainerName:'',
+    trainerLastName:'',
   }
 
   formStartDate:string='';
@@ -51,15 +51,15 @@ export class PupilTrainingPlanDetailsComponent {
         const id=params.get('id');
 
         // do wrzucenie w get cwiczen
-        this.changeTrainingDay(0,'pn');
+        this.changeTrainingDay(1,'pn');
         
         if(id){
           console.log(id);
           this.idTraining=id;
-          this.trainingPlanService.getTrainingPlanById(this.idTraining).subscribe({
+          this.trainingPlanService.getPupilTrainingPlanById(this.idTraining).subscribe({
             next:(plan)=>{
               this.trainingPlan=plan;
-              this.formStartDate=new Date(this.trainingPlan.startDate).toLocaleDateString();
+            //  this.formStartDate=new Date(this.trainingPlan.startDate).toLocaleDateString();
               this.defaultType();
             },
             error: (response)=>{
@@ -69,7 +69,7 @@ export class PupilTrainingPlanDetailsComponent {
           this.trainingPlanService.getExercisesByPlanId(id).subscribe({
             next:(trainingPlanExercises)=>{
               this.trainingPlanExercises=trainingPlanExercises;
-              this.changeTrainingDay(0,"pn");
+              this.changeTrainingDay(1,"pn");
 
             },
             error: (response)=>{
@@ -91,26 +91,26 @@ export class PupilTrainingPlanDetailsComponent {
     var dayOfWeek=date.getDay() == 0 ? 6 : date.getDay()-1;
     
     switch(dayOfWeek){
-      case 0:
-        this.changeTrainingDay(0,'pn');
-        break;
       case 1:
-        this.changeTrainingDay(1,'wt');
+        this.changeTrainingDay(1,'pn');
         break;
       case 2:
-        this.changeTrainingDay(2,'sr');
+        this.changeTrainingDay(2,'wt');
         break;
       case 3:
-        this.changeTrainingDay(3,'czw');
+        this.changeTrainingDay(3,'sr');
         break;
       case 4:
-        this.changeTrainingDay(4,'pt');
+        this.changeTrainingDay(4,'czw');
         break;
       case 5:
-        this.changeTrainingDay(5,'sob');
+        this.changeTrainingDay(5,'pt');
         break;
       case 6:
-        this.changeTrainingDay(6,'nd');
+        this.changeTrainingDay(6,'sob');
+        break;
+      case 7:
+        this.changeTrainingDay(7,'nd');
         break;  
         }
         

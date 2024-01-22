@@ -12,6 +12,8 @@ import { TrainerPersonalInfo } from '../models/MyProfile/trainerPersonalInfo';
 import { UserPersonalInfo } from '../models/MyProfile/userPersonalInfo';
 import { DieticianPersonalInfo } from '../models/MyProfile/dieticianPersonalInfo';
 import { DieticianTrainerPersonalInfo } from '../models/MyProfile/dieticianTrainerPersonalInfo';
+import { PupilShort } from '../models/pupilShort';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -90,7 +92,9 @@ export class UserService{
         return this.http.put('https://localhost:7259/api/User/Trainer/'+id, trainerPersonalInfo);
       }
       
-
+      GetMentorPupils():Observable<PupilShort[]>{
+        return this.http.get<PupilShort[]>(environment.apiUrl+'MentorPupil/MentorPupils');
+      }
     
 
      

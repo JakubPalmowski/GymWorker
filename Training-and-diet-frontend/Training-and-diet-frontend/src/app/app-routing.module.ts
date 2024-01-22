@@ -37,6 +37,8 @@ import { CreateCertificateComponent } from './components/certificate/create/crea
 import { CertificatedUsersListComponent } from './components/admin/certificatedUsers/certificatedUsersList/certificated-users-list/certificated-users-list.component';
 import { UsersVerificationComponent } from './components/admin/certificatedUsers/usersVerification/users-verification/users-verification.component';
 import { CertificateVerificationComponent } from './components/admin/certificatedUsers/certificateVerification/certificate-verification/certificate-verification.component';
+import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-plan-to-pupil/assing-plan-to-pupil.component';
+
 
 
 
@@ -53,6 +55,10 @@ const routes: Routes = [
   {
     path: 'training-plans/edit/:id',
     component: EditTrainingPlanComponent
+  },
+  {
+    path: 'training-plans/edit/:id/assignPlan',
+    component: AssingPlanToPupilComponent
   },
   {
     path: 'exercises',

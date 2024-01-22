@@ -6,7 +6,7 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.Exercise.GetByTrainingPlanId;
 
-public class GetExercisesFromTrainingPlanHandler : IRequestHandler<GetExercisesFromTrainingPlanQuery, IEnumerable<TraineeExerciseResponse>>
+public class GetExercisesFromTrainingPlanHandler : IRequestHandler<GetExercisesFromTrainingPlanQuery, IEnumerable<TrainerTraineeExerciseResponse>>
 {
     private readonly ITraineeExercisesRepository _traineeExercisesRepository;
     private readonly IMapper _mapper;
@@ -18,13 +18,13 @@ public class GetExercisesFromTrainingPlanHandler : IRequestHandler<GetExercisesF
 
 
 
-    public async Task<IEnumerable<TraineeExerciseResponse>> Handle(GetExercisesFromTrainingPlanQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<TrainerTraineeExerciseResponse>> Handle(GetExercisesFromTrainingPlanQuery request, CancellationToken cancellationToken)
     {
         var traineeExercises = await _traineeExercisesRepository.GetExercisesFromTrainingPlanAsync(request.IdTrainingPlan, cancellationToken);
         if (!traineeExercises.Any())
             throw new NotFoundException("Exercises not found");
 
-        return _mapper.Map<List<TraineeExerciseResponse>>(traineeExercises);
+        return _mapper.Map<List<TrainerTraineeExerciseResponse>>(traineeExercises);
 
     }
 }

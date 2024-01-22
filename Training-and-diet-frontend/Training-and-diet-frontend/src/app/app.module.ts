@@ -50,6 +50,8 @@ import { CreateCertificateComponent } from './components/certificate/create/crea
 import { CertificatedUsersListComponent } from './components/admin/certificatedUsers/certificatedUsersList/certificated-users-list/certificated-users-list.component';
 import { UsersVerificationComponent } from './components/admin/certificatedUsers/usersVerification/users-verification/users-verification.component';
 import { CertificateVerificationComponent } from './components/admin/certificatedUsers/certificateVerification/certificate-verification/certificate-verification.component';
+import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-plan-to-pupil/assing-plan-to-pupil.component';
+
 
 
 
@@ -86,7 +88,9 @@ import { CertificateVerificationComponent } from './components/admin/certificate
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent,
     MyProfileComponent, 
-    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExerciseListAdminComponent, ExerciseCreateAdminComponent, CreateCertificateComponent, CertificatedUsersListComponent, UsersVerificationComponent, CertificateVerificationComponent
+    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExerciseListAdminComponent, ExerciseCreateAdminComponent, CreateCertificateComponent, CertificatedUsersListComponent, UsersVerificationComponent, CertificateVerificationComponent,AssingPlanToPupilComponent
+
+    
   ],
   imports: [
     AppRoutingModule,

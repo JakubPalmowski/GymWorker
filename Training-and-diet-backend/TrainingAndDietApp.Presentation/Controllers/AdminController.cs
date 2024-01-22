@@ -19,6 +19,7 @@ using TrainingAndDietApp.Application.CQRS.Queries.Exercise.GetByTrainerId;
 using TrainingAndDietApp.Application.CQRS.Responses.Admin;
 
 
+
 namespace Training_and_diet_backend.Controllers
 {
     [ApiController]

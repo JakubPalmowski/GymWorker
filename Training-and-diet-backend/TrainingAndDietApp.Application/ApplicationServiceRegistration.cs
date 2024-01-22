@@ -5,6 +5,7 @@ using TrainingAndDietApp.Application.Abstractions.Auth;
 using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetAll;
 using TrainingAndDietApp.Application.CQRS.Validators;
 using TrainingAndDietApp.Application.Services;
+using TrainingAndDietApp.Application.Services.Access;
 using TrainingAndDietApp.Application.Services.Auth;
 using TrainingAndDietApp.Application.Services.Files;
 
@@ -19,6 +20,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ITrainingPlanAccessService, TrainingPlanAccessService>();
+        services.AddScoped<ITraineeExerciseAccessService, TraineeExerciseAccessService>();
         services.AddSingleton<IFileService, FileService>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(GetMealsHandler)));
         services.AddScoped<IUserService, UserService>();
