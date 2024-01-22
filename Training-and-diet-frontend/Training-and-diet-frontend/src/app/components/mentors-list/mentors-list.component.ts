@@ -113,7 +113,7 @@ export class MentorsListComponent implements OnInit{
         const imageObservables = this.mentors
           .filter(mentor => mentor.imageUri != null)
           .map(mentor => {
-            return this.fileService.getImage(mentor.imageUri as string).pipe(
+            return this.fileService.getFile(mentor.imageUri as string).pipe(
               catchError(error => {
                 return of('assets/images/user.png');
               })
@@ -159,7 +159,7 @@ export class MentorsListComponent implements OnInit{
         const imageObservables = this.mentors
           .filter(mentor => mentor.imageUri != null)
           .map(mentor => {
-            return this.fileService.getImage(mentor.imageUri as string).pipe(
+            return this.fileService.getFile(mentor.imageUri as string).pipe(
               catchError(error => {
                 return of('assets/images/user.png');
               })

@@ -33,6 +33,10 @@ import { GymEditComponent } from './components/admin/gym/gymEdit/gym-edit/gym-ed
 import { GymVerificationComponent } from './components/admin/gym/gymVerification/gym-verification/gym-verification.component';
 import { ExerciseListAdminComponent } from './components/admin/exercise/exerciseList/exercise-list-admin/exercise-list-admin.component';
 import { ExerciseCreateAdminComponent } from './components/admin/exercise/exerciseCreate/exercise-create-admin/exercise-create-admin.component';
+import { CreateCertificateComponent } from './components/certificate/create/create-certificate/create-certificate.component';
+import { CertificatedUsersListComponent } from './components/admin/certificatedUsers/certificatedUsersList/certificated-users-list/certificated-users-list.component';
+import { UsersVerificationComponent } from './components/admin/certificatedUsers/usersVerification/users-verification/users-verification.component';
+import { CertificateVerificationComponent } from './components/admin/certificatedUsers/certificateVerification/certificate-verification/certificate-verification.component';
 
 
 
@@ -123,7 +127,11 @@ const routes: Routes = [
   {path: 'admin/gym/edit/:id', component: GymEditComponent},
   {path: 'admin/gym/vetification/:id', component: GymVerificationComponent},
   {path: 'admin/exercise/list', component: ExerciseListAdminComponent},
-  {path: 'admin/exercise/create', component: ExerciseCreateAdminComponent}
+  {path: 'admin/exercise/create', component: ExerciseCreateAdminComponent},
+  {path: 'addCertificate', component: CreateCertificateComponent},
+  {path: 'admin/certificatedUsers/list/:status', component: CertificatedUsersListComponent},
+  {path: 'admin/certificatedUsers/verification/:id', component: UsersVerificationComponent},
+  {path: 'admin/certificatedUsers/certificateVerification/:id', component: CertificateVerificationComponent}
   
   
 ];

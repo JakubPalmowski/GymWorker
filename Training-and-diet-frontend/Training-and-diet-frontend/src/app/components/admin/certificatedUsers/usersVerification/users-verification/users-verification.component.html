@@ -1,0 +1,88 @@
+
+    <ng-container *ngIf="userVerifyInfo && certificates && user">
+    <div class="container-fluid bg-secondary my-3 h-auto rounded-3 pb-0 pb-4" style="border:2px solid black;">
+        <div *ngIf="successFlag=='error'" class="error-popup">
+            Wystapił błąd podczas zatwierdzania użytkownika. Proszę spróbować ponownie.
+          </div>
+        <div class="col-12 mb-2 mt-1">
+            <h1 class="text-center">Dane użytkownika</h1>
+        </div>
+
+        <div class="user-data-container">
+            <div class="user-data-row">
+                <span class="user-data-label">Imię:</span>
+                <span class="user-data-value">{{user.name}}</span>
+            </div>
+
+            <div class="user-data-row">
+                <span class="user-data-label">Nazwisko:</span>
+                <span class="user-data-value">{{user.lastName}}</span>
+            </div>
+
+            <div class="user-data-row">
+                <span class="user-data-label">Email:</span>
+                <span class="user-data-value">{{user.email}}</span>
+            </div>
+
+            <div class="user-data-row">
+                <span class="user-data-label">Rola:</span>
+                <select name="role" id="role" class="user-data-select" [(ngModel)]="userVerifyInfo.idRole">
+                    <option value="3">Trener</option>
+                    <option value="4">Dietetyk</option>
+                    <option value="5">Trener i dietetyk</option>
+                </select>
+            </div>
+            
+            <div class="user-data-row">
+                <span class="user-data-label">Status konta:</span>
+                <select name="account_status" id="account_status" class="user-data-select" [(ngModel)]="userVerifyInfo.isAccepted">
+                  <option [ngValue]="1">Aktywne</option>
+                  <option [ngValue]="0">Nieaktywne</option>
+                </select>
+              </div>
+              
+              
+              
+        </div>
+        
+        
+    
+
+
+        <div class="col-12 mt-5">
+            <h2>Certyfikaty użytkownika</h2>
+            </div>
+            <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
+        <table class="table table-striped" style="max-width: 100%;" *ngIf="certificates">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 40%;">Data dodania</th>
+                    <th scope="col" style="width: 40%;">Akcje</th>
+                    <th scope="col" style="width: 20%;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let certificate of certificates">
+                    <td>{{ certificate.addedDate | date:'yyyy-MM-dd' }}</td>
+                    <ng-container *ngIf="certificate.isAccepted == true">
+                        <td><i class="bi bi-check-circle-fill" style="color: green;"></i></td>
+                    </ng-container>
+                    <ng-container *ngIf="certificate.isAccepted == false">
+                        <td><i class="bi bi-question-circle-fill"></i></td>
+                    </ng-container>
+                    <td>
+                        <button class="btn-custom btn-detail" routerLink="/admin/certificatedUsers/certificateVerification/{{certificate.idCertificate}}">Przejdź</button>
+                    </td>
+            </tbody>
+        </table>
+        <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
+
+        <div class="col-12 d-flex justify-content-around">
+            <button type="button" class="btn-custom btn-back" (click)="back()">Powrót</button>
+            <button type="button" class="btn-custom btn-edit" (click)="verifyUser()">Zapisz zmiany</button>
+        </div>
+        
+        
+    </div>
+    </ng-container>
+    

@@ -70,7 +70,7 @@ deleteImage(){
 ngOnInit(): void {
   //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
   this.role = "Dietician-Trainer"
-  this.id = "3";
+  this.id = "6";
 
   if (this.role == "Pupil") {
     this.userService.GetPupilPersonalInfoById(this.id).subscribe(
@@ -82,7 +82,7 @@ ngOnInit(): void {
           }
           this.formattedDate = this.formatDate(this.user.dateOfBirth?.toString());
           if (this.user.imageUri) {
-            this.fileService.getImage(this.user.imageUri).pipe(
+            this.fileService.getFile(this.user.imageUri).pipe(
               catchError(error => {
                 this.imageUrl = "assets/images/user.png";
                 return of(null); 
@@ -118,7 +118,7 @@ ngOnInit(): void {
         this.user.trainerGyms = gyms;
         this.allActiveGyms = allGyms;
         if (this.user && this.user.imageUri) {
-          return this.fileService.getImage(this.user.imageUri).pipe(
+          return this.fileService.getFile(this.user.imageUri).pipe(
             catchError(error => {
               this.imageUrl="assets/images/user.png";
               return of(null); 
@@ -149,7 +149,7 @@ ngOnInit(): void {
         }
         this.user = dieticianInfo;
         if (this.user.imageUri) {
-          this.fileService.getImage(this.user.imageUri).subscribe(
+          this.fileService.getFile(this.user.imageUri).subscribe(
             blob => {
               if (blob) {
                 const objectUrl = URL.createObjectURL(blob);
@@ -183,7 +183,7 @@ ngOnInit(): void {
         this.user.trainerGyms = gyms;
         this.allActiveGyms = allGyms;
         if (this.user && this.user.imageUri) {
-          return this.fileService.getImage(this.user.imageUri).pipe(
+          return this.fileService.getFile(this.user.imageUri).pipe(
             catchError(error => {
               this.imageUrl="assets/images/user.png";
               return of(null); 

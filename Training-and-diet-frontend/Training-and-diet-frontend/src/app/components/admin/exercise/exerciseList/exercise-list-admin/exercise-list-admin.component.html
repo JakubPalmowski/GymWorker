@@ -1,12 +1,12 @@
 <div class="container-fluid mt-5">
     <app-menu-admin></app-menu-admin>
     <button class="btn-custom btn-back mb-3" style="width: fit-content;" routerLink="/admin/exercise/create">Dodaj ćwiczenie</button>
+    <input type="text" class="form-control mb-3 fs-5" placeholder="Szukaj ćwiczeń..." [(ngModel)]="searchTerm" (input)="filterExercices()">
     <ng-container *ngIf="!exercices?.length">
         <h1 class="text-center mt-5">Brak ćwiczeń</h1>
     </ng-container>
     
     <div *ngIf="exercices?.length">
-        <input type="text" class="form-control mb-3 fs-5" placeholder="Szukaj ćwiczenia..." [(ngModel)]="searchTerm" (input)="filterExercices()">
         <table class="table table-striped table-responsive">
             <thead>
                 <tr>

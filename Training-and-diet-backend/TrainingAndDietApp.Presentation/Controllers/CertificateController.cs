@@ -17,14 +17,18 @@ namespace TrainingAndDietApp.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(IFormFile file, [FromForm] CreateCertificateCommand certificateCommand)
+        public async Task<IActionResult> Create([FromForm] CreateCertificateCommand certificateCommand)
         {
-            var response = await _mediator.Send(new CreateCertificateInternalCommand(file, 6, certificateCommand));
+            if (certificateCommand.PdfFile == null)
+                return BadRequest("File is null.");
+
+            var response = await _mediator.Send(new CreateCertificateInternalCommand(6, certificateCommand));
             if (response.IsSuccess)
                 return Ok(response);
 
             return BadRequest("File upload failed.");
-    }
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> GetUserCertificates()
@@ -32,7 +36,6 @@ namespace TrainingAndDietApp.Presentation.Controllers
             var response = await _mediator.Send(new GetUserCertificatesQuery(6));
                 return Ok(response);
 
-        
-}
+        }
     }
 }

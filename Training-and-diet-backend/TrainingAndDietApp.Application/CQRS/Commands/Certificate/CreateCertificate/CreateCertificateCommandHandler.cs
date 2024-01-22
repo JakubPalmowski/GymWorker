@@ -4,6 +4,7 @@ using MediatR;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.CQRS.Responses.Certificate;
 using TrainingAndDietApp.Application.Exceptions;
+using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Commands.Certificate.CreateCertificate
@@ -32,7 +33,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Certificate.CreateCertifi
             }
             try
             {
-                var uniqueName = await _fileService.UploadPdfAsync(request.PdfFile);
+                var uniqueName = await _fileService.UploadPdfAsync(request.CertificateCommand.PdfFile);
                 var certificate = new Domain.Entities.Certificate
                 {
                     Description = request.CertificateCommand.Description,
@@ -47,7 +48,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Certificate.CreateCertifi
             }
             catch
             {
-                throw;
+                throw new BadRequestException("Error while uploading file");
             }
             return new CreateCertificateResponse
             {

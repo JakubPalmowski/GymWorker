@@ -1,0 +1,65 @@
+<div class="container-fluid bg-secondary my-3 h-auto rounded-3 pb-0 pb-4" style="border:2px solid black;">
+    <div *ngIf="errorFlag=='error'" class="error-popup">
+      Wystapił błąd podczas dodawania certyfikatu. Proszę spróbować ponownie.
+    </div>
+
+  <div class="row">
+      <form #profileForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="col-12 mb-2 mt-1">
+          <h1 class="text-center">Dodawanie certyfikatu</h1>
+      </div>
+
+      
+      
+      <div class="col-12 group">
+          <div class="d-flex flex-column" style="width: 60%;">
+              <label for="description">Opis *</label>
+              <textarea rows="5" id="description" name="description" [(ngModel)]="certificate.description"
+                  required minlength="3" maxlength="200" #description="ngModel"></textarea>
+              <div class="error-container">
+                  <span *ngIf="description.errors?.['required'] && this.submitted" class="validation-error">
+                      Pole jest wymagane
+                  </span>
+                  <span *ngIf="description.errors?.['minlength'] && this.submitted" class="validation-error">
+                      Pole musi zawierać min 3 znaki
+                  </span>
+                  <span *ngIf="description.errors?.['maxlength'] && this.submitted" class="validation-error">
+                      Pole musi zawierać max 200 znaków
+                  </span>
+                  <span *ngIf="fieldErrors['Description']" class="validation-error">
+                    {{ fieldErrors['Description'][0] }}
+                </span>
+              </div>
+          </div>
+      </div>
+      
+      
+      <div class="col-12 group">
+          <div class="d-flex flex-column" style="width: 60%;">
+              <label for="file">Plik pdf *</label>
+              <input style="border:none;" type="file" id="file" name="file" (change)="onFileSelected($event)" required>
+              <div class="error-container">
+                <span *ngIf="errorFile && this.submitted" class="validation-error">
+                    {{errorFile}}
+                </span>
+                <span *ngIf="fieldErrors['PdfFile']" class="validation-error">
+                    {{ fieldErrors['PdfFile'][0] }}
+                </span>
+                </div>
+          </div>
+      </div>
+      
+      
+
+      <div class="col-12 d-flex justify-content-center mt-4">
+          <div class="d-flex justify-content-around" style="width: 60%;">
+              <button type="button" class="btn-custom btn-back" routerLink="/myProfile">Powrót</button>
+              <button type="submit" class="btn-custom btn-edit">Dodaj</button>
+          </div>
+      </div>
+     
+
+  </form>
+
+</div>
+</div>

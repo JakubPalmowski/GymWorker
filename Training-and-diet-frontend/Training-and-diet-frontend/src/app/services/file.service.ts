@@ -10,8 +10,8 @@ export class FileService {
 
   constructor(private http: HttpClient) { }
 
-  getImage(imageUri: string): Observable<Blob> {
-    return this.http.get('https://localhost:7259/api/File/' + imageUri, { responseType: 'blob' });
+  getFile(fileUri: string): Observable<Blob> {
+    return this.http.get('https://localhost:7259/api/File/' + fileUri, { responseType: 'blob' });
   }
 
   uploadImage(file: File): Observable<UploadImageResponse> {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using TrainingAndDietApp.Application.Abstractions;
 using TrainingAndDietApp.Application.CQRS.Commands.Files;
 using TrainingAndDietApp.Application.CQRS.Responses.Files;
+using TrainingAndDietApp.Common.Exceptions;
 
 namespace TrainingAndDietApp.Application.Services.Files;
 
@@ -53,7 +54,7 @@ public class FileService : IFileService
 {
     if (!IsImage(file.FileName))
     {
-        throw new Exception("File is not an image.");
+        throw new BadRequestException("File is not an image.");
     }
 
     return await UploadFileAsync(file, GetContentType(file.FileName));
@@ -63,7 +64,7 @@ public async Task<string> UploadPdfAsync(IFormFile file)
 {
     if (!IsPdf(file.FileName))
     {
-        throw new Exception("File is not a PDF.");
+        throw new BadRequestException("File is not a PDF.");
     }
 
     return await UploadFileAsync(file, GetContentType(file.FileName));

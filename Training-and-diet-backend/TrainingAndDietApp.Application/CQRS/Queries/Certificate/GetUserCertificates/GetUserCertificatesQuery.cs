@@ -6,5 +6,6 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Certificate.GetUserCertifi
     {
         public DateTime AddedDate { get; set; }
         public bool IsAccepted { get; set; }
+        public string PdfUri { get; set; }
     }
 }
