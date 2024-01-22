@@ -17,11 +17,11 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
 
 
 
-        public async Task<TraineeExercise?> GetTraineeExerciseWithExerciseByIdAsync(int idTraineeExercise,
+        public async Task<TraineeExercise?> GetTraineeExerciseWithExerciseByIdAsync(int idTraineeExercise, int idTrainer,
             CancellationToken cancellationToken)
         {
             return await _context.Trainee_exercises
-                .Where(e => e.IdTraineeExercise == idTraineeExercise)
+                .Where(e => e.IdTraineeExercise == idTraineeExercise && e.TrainingPlan.IdTrainer == idTrainer)
                 .Include(e => e.Exercise)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
         }

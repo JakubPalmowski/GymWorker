@@ -5,6 +5,7 @@ using TrainingAndDietApp.Application.Abstractions.Auth;
 using TrainingAndDietApp.Application.CQRS.Queries.Meal.GetAll;
 using TrainingAndDietApp.Application.CQRS.Validators;
 using TrainingAndDietApp.Application.Services;
+using TrainingAndDietApp.Application.Services.Access;
 using TrainingAndDietApp.Application.Services.Auth;
 using TrainingAndDietApp.Application.Services.Files;
 
