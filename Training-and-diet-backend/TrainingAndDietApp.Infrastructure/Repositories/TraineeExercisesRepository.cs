@@ -17,7 +17,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
 
 
 
-        public async Task<TraineeExercise?> GetTraineeExerciseWithExerciseByIdAsync(int idTraineeExercise, int idTrainer,
+        public async Task<TraineeExercise?> GetTrainerTraineeExerciseWithExerciseByIdAsync(int idTraineeExercise, int idTrainer,
             CancellationToken cancellationToken)
         {
             return await _context.Trainee_exercises
@@ -25,7 +25,14 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
                 .Include(e => e.Exercise)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
         }
-
+        public async Task<TraineeExercise?> GetPupilTraineeExerciseWithExerciseByIdAsync(int idTraineeExercise, int idPupil,
+            CancellationToken cancellationToken)
+        {
+            return await _context.Trainee_exercises
+                .Where(e => e.IdTraineeExercise == idTraineeExercise && e.TrainingPlan.IdPupil == idPupil)
+                .Include(e => e.Exercise)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+        }
 
         public async Task<IEnumerable<TraineeExercise>> GetExercisesFromTrainingPlanAsync(int idTrainingPlan, CancellationToken cancellationToken)
         {
