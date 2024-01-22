@@ -33,6 +33,7 @@ import { GymEditComponent } from './components/admin/gym/gymEdit/gym-edit/gym-ed
 import { GymVerificationComponent } from './components/admin/gym/gymVerification/gym-verification/gym-verification.component';
 import { ExerciseListAdminComponent } from './components/admin/exercise/exerciseList/exercise-list-admin/exercise-list-admin.component';
 import { ExerciseCreateAdminComponent } from './components/admin/exercise/exerciseCreate/exercise-create-admin/exercise-create-admin.component';
+import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-plan-to-pupil/assing-plan-to-pupil.component';
 
 
 
@@ -49,6 +50,10 @@ const routes: Routes = [
   {
     path: 'training-plans/edit/:id',
     component: EditTrainingPlanComponent
+  },
+  {
+    path: 'training-plans/edit/:id/assignPlan',
+    component: AssingPlanToPupilComponent
   },
   {
     path: 'exercises',

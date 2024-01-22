@@ -46,6 +46,7 @@ import { GymVerificationComponent } from './components/admin/gym/gymVerification
 import { MenuAdminComponent } from './components/admin/menuAdmin/menu-admin/menu-admin.component';
 import { ExerciseListAdminComponent } from './components/admin/exercise/exerciseList/exercise-list-admin/exercise-list-admin.component';
 import { ExerciseCreateAdminComponent } from './components/admin/exercise/exerciseCreate/exercise-create-admin/exercise-create-admin.component';
+import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-plan-to-pupil/assing-plan-to-pupil.component';
 
 
 
@@ -82,7 +83,7 @@ import { ExerciseCreateAdminComponent } from './components/admin/exercise/exerci
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent,
     MyProfileComponent, 
-    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExerciseListAdminComponent, ExerciseCreateAdminComponent
+    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExerciseListAdminComponent, ExerciseCreateAdminComponent, AssingPlanToPupilComponent
   ],
   imports: [
     AppRoutingModule,

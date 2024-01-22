@@ -41,7 +41,7 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
         }
         //dodac autoryzacje
-        [Authorize(Roles = "3,5")]
+        [Authorize(Roles = "2,3,5")]
         [HttpGet("trainingPlanInternal/{idTrainingPlan}")]
         public async Task<IActionResult> GetTraineeExercisesFromTrainingPlan(int idTrainingPlan)
         {

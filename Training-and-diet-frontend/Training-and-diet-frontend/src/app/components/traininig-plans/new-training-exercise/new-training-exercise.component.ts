@@ -21,7 +21,7 @@ export class NewTrainingExerciseComponent implements OnInit{
     seriesNumber:0,
     repetitionsNumber:'',
     comments:'',
-    dayOfWeek:0,
+    dayOfWeek:1,
     idExercise:0,
     idTrainingPlan:0
   }
@@ -56,6 +56,7 @@ export class NewTrainingExerciseComponent implements OnInit{
         console.log(this.exercise.name);
       },
       error: (response)=>{
+
         console.log(response);
       }
     })
@@ -100,8 +101,11 @@ export class NewTrainingExerciseComponent implements OnInit{
     this.exerciseServise.addTrainingExercise(this.newTrainingExerciseRequest).subscribe({
       next:(newTrainingExercise)=>{
         this.router.navigate(['/training-plans/edit/'+this.id_training]);
+      },error:(response)=>{
+        console.log(response);
       }
     })
+    
 
     
 

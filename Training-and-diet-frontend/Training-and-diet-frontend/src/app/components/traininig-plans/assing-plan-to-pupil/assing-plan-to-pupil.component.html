@@ -1,0 +1,40 @@
+<a (click)="back()"> < Powrót do edycji planu </a>
+<div class="row d-flex justify-content-center">
+    <div class="container-head">
+        <h3>Przypisywanie planu </h3>
+        <h3>Moi podopieczni</h3>
+      
+    </div>
+    <div class="container-body">
+        <table class="table" *ngIf="pupils && pupils.length > 0" >
+            <thead >
+                <tr >
+                    <th>Imie i nazwisko</th>
+                    <th>e-mail</th>
+                    <th>nr tel.</th>
+                    <th>Przypisz</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let pupil of filteredPupils">
+                <td>{{ pupil.name }} {{pupil.lastName}}</td>
+                <td>{{ pupil.email }}</td>
+                <td>{{pupil.phoneNumber}}</td>
+                <td><button class="assignButton" (click)="assignPlanToPupil(pupil.idUser)">Przypisz</button></td>
+            </tr>
+          
+        </table>
+        <div class="deleteDialog" *ngIf="this.DialogFlag" >
+            <div class="delete-dialog-container">
+                <p *ngIf="!this.sucessFlag">Nie udało się przypisać</p>
+                <p *ngIf="this.sucessFlag">Udało się przypisać</p>
+                <div class="delete-dialog-buttons">
+                    <button *ngIf="!this.sucessFlag" type="button" class="deleteDialogButton" id="deleteDialogButtonCancel" (click)="errorShown()">Ok</button>
+                    <button *ngIf="this.sucessFlag" type="button" class="deleteDialogButton" id="deleteDialogButtonCancel" (click)="back()">Ok</button>
+                </div>
+            </div>
+        
+        </div>
+        <p *ngIf="!pupils || pupils.length <=0" class="no-plans-message">Nie współpracujesz z żadnym podopiecznym</p>
+    
+    </div>
+</div>

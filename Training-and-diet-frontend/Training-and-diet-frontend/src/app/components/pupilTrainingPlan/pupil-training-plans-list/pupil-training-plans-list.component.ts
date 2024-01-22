@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TrainingPlanPupilList } from 'src/app/models/TrainingPlanPupilList.model';
 import { TrainingPlan } from 'src/app/models/trainingPlan.model';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 
@@ -10,13 +11,13 @@ import { TrainingPlanService } from 'src/app/services/training-plan.service';
 export class PupilTrainingPlansListComponent {
   
   
-  trainingPlans:TrainingPlan[]=[];
-  filteredTrainingPlans:TrainingPlan[]=[];
+  trainingPlans:TrainingPlanPupilList[]=[];
+  filteredTrainingPlans:TrainingPlanPupilList[]=[];
 
   constructor(private trainingPlanService:TrainingPlanService){}
 
   ngOnInit(): void {
-    this.trainingPlanService.getTrainerPlans().subscribe({
+    this.trainingPlanService.getPupilPlans().subscribe({
       next:(trainingPlans)=>{
         this.trainingPlans=trainingPlans;
         this.filteredTrainingPlans=this.trainingPlans;
