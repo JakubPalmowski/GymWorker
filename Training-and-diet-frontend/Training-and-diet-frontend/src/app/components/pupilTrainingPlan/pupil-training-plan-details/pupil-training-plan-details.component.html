@@ -54,7 +54,7 @@
                 <tr  *ngFor="let trainingPlanExercise of filteredTrainingPlanExercises" >
                     <td>{{trainingPlanExercise.exerciseName}}</td>
                     <td>{{trainingPlanExercise.seriesNumber}}s x {{trainingPlanExercise.repetitionsNumber}} powt.</td>
-                    <td><a [routerLink]="['training-exercise-details/',trainingPlanExercise.idTraineeExercise]" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:trainingPlan.idTrainingPlan}"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
+                    <td><a [routerLink]="['training-exercise-details/',trainingPlanExercise.idTraineeExercise]" ><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
                     
                 </tr>
                 <tr  *ngIf="filteredTrainingPlanExercises.length<1" >

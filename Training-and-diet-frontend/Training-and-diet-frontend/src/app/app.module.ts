@@ -47,6 +47,13 @@ import { MenuAdminComponent } from './components/admin/menuAdmin/menu-admin/menu
 import { ExerciseListAdminComponent } from './components/admin/exercise/exerciseList/exercise-list-admin/exercise-list-admin.component';
 import { ExerciseCreateAdminComponent } from './components/admin/exercise/exerciseCreate/exercise-create-admin/exercise-create-admin.component';
 import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-plan-to-pupil/assing-plan-to-pupil.component';
+import { DietListComponent } from './components/diets/diet-list/diet-list.component';
+import { AddDietComponent } from './components/diets/add-diet/add-diet.component';
+import { EditDietComponent } from './components/diets/edit-diet/edit-diet.component';
+import { NewDietMealComponent } from './components/diets/new-diet-meal/new-diet-meal.component';
+import { DietMealsListComponent } from './components/diets/diet-meals-list/diet-meals-list.component';
+import { AssignDietComponent } from './components/diets/assign-diet/assign-diet.component';
+import { EditDietMealComponent } from './components/diets/edit-diet-meal/edit-diet-meal.component';
 
 
 
@@ -83,7 +90,7 @@ import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-
     TrainingExerciseListComponent,
     EditTrainingExerciseComponent,
     MyProfileComponent, 
-    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExerciseListAdminComponent, ExerciseCreateAdminComponent, AssingPlanToPupilComponent
+    MyProfileEditComponent, PupilTrainingPlansListComponent, PupilTrainingPlanDetailsComponent, PupilTrainingExerciseDetailsComponent, CreateGymComponent, MainPageComponent, GymListComponent, GymDetailsComponent, GymEditComponent, GymVerificationComponent, MenuAdminComponent, ExerciseListAdminComponent, ExerciseCreateAdminComponent, AssingPlanToPupilComponent, DietListComponent, AddDietComponent, EditDietComponent, NewDietMealComponent, DietMealsListComponent, AssignDietComponent, EditDietMealComponent
   ],
   imports: [
     AppRoutingModule,

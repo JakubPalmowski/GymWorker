@@ -34,6 +34,13 @@ import { GymVerificationComponent } from './components/admin/gym/gymVerification
 import { ExerciseListAdminComponent } from './components/admin/exercise/exerciseList/exercise-list-admin/exercise-list-admin.component';
 import { ExerciseCreateAdminComponent } from './components/admin/exercise/exerciseCreate/exercise-create-admin/exercise-create-admin.component';
 import { AssingPlanToPupilComponent } from './components/traininig-plans/assing-plan-to-pupil/assing-plan-to-pupil.component';
+import { DietListComponent } from './components/diets/diet-list/diet-list.component';
+import { AddDietComponent } from './components/diets/add-diet/add-diet.component';
+import { EditDietComponent } from './components/diets/edit-diet/edit-diet.component';
+import { EditDietMealComponent } from './components/diets/edit-diet-meal/edit-diet-meal.component';
+import { DietMealsListComponent } from './components/diets/diet-meals-list/diet-meals-list.component';
+import { NewDietMealComponent } from './components/diets/new-diet-meal/new-diet-meal.component';
+import { AssignDietComponent } from './components/diets/assign-diet/assign-diet.component';
 
 
 
@@ -95,6 +102,34 @@ const routes: Routes = [
     path: 'pupilTrainingPlans/details/:id/training-exercise-details/:id',
     component: PupilTrainingExerciseDetailsComponent
   },
+  {
+    path: 'diet',
+    component: DietListComponent
+  }, 
+  {
+    path: 'diet/add',
+    component: AddDietComponent
+  }, 
+  {
+    path: 'diet/edit/:id',
+    component: EditDietComponent
+  }, 
+  {
+    path: 'diet/edit/:id/dietMeals',
+    component: DietMealsListComponent
+  }, 
+  {
+    path: 'diet/edit/:id/dietMeals/add',
+    component: NewDietMealComponent
+  }, 
+  {
+    path: 'diet/edit/:id/dietMeals/:id',
+    component: EditDietMealComponent
+  }, 
+  {
+    path: 'diet/edit/:id/assignDiet',
+    component: AssignDietComponent
+  }, 
   {
     path: 'meals',
     component: MealsListComponent

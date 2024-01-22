@@ -1,1 +1,33 @@
-<p>pupil-training-exercise-details works!</p>
+<div class="container">
+    <a (click)="back()">< Powrót</a>
+        <div class="top-container">
+              <div class="exercise-name">
+                <span class="span-bold name-text">{{traineeExercise.exerciseName}}</span>
+              </div>
+          </div>
+          <div class="bottom-container">
+            <div class="bottom-left-container">
+              <span class="header-text">Sposób wykonania:</span>
+              <span class="bio-text span-center">{{traineeExercise.exerciseSteps}}</span>
+            </div>
+            
+            <div class="bottom-right-container">
+
+                <div class="bottom-right-details-container">
+                    <span class="header-text">Opis ćwiczenia: <br></span>
+                    <span class="bio-text span-center">{{traineeExercise.details}}</span>
+                </div>
+
+                <div class="bottom-right-info-container">
+                    <span class="bio-text span-center">Ilośc serii: </span>
+                    <span class="bio-text span-center">{{traineeExercise.seriesNumber}} <br></span>
+                    
+                    <span class="bio-text span-center">Ilośc powtórzeń: </span>
+                    <span class="bio-text span-center">{{traineeExercise.repetitionsNumber}} <br><br></span>
+
+                    <span class="bio-text span-center">Komentarz trenera: </span>
+                    <span class="bio-text span-center">{{traineeExercise.comments}}</span>
+                </div>
+            </div>
+          </div>
+</div>

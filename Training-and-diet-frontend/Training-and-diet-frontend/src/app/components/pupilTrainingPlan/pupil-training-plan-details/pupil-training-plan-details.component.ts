@@ -88,8 +88,8 @@ export class PupilTrainingPlanDetailsComponent {
   changeTrainingDayByCalendar(){
     console.log(this.dateInputString);
     var date=new Date(this.dateInputString);
-    var dayOfWeek=date.getDay() == 0 ? 6 : date.getDay()-1;
-    
+    var dayOfWeek=date.getDay() == 0? 7 : date.getDay();
+    console.log(dayOfWeek);
     switch(dayOfWeek){
       case 1:
         this.changeTrainingDay(1,'pn');
