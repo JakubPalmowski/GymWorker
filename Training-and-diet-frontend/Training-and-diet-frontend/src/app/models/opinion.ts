@@ -3,4 +3,6 @@ export interface Opinion{
     rate: number;
     content: string;
     opinionDate:string;
+    imageUri?: string;
+    imageSrc?: string;
 }

@@ -9,5 +9,4 @@ export interface PupilPersonalInfo{
     dateOfBirth?: Date;
     sex?: string|null;
     bio?: string;
-    imageUri?: string;
 }

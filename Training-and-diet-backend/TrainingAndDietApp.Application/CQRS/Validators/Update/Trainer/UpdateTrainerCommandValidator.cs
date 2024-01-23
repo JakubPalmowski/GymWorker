@@ -21,7 +21,9 @@ namespace TrainingAndDietApp.Application.CQRS.Validators.Update.Trainer
 
             RuleFor(x => x.PhoneNumber)
                 .Matches(@"^\+48\s?(\d{3}[ ]?){3}$|^(\d{3}[ ]?){3}$")
+                .When(x => !string.IsNullOrWhiteSpace(x.PhoneNumber))
                 .WithMessage("Numer telefonu musi być poprawnym polskim numerem telefonu z prefiksem '+48' lub bez niego.");
+
 
             RuleFor(x => x.Bio)
                 .MaximumLength(1500).WithMessage("Opis nie może przekraczać 1500 znaków.");

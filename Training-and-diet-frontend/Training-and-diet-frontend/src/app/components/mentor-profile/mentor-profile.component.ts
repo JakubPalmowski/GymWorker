@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, forkJoin, of } from 'rxjs';
 import { MentorProfile } from 'src/app/models/mentorProfile';
 import { PupilProfile } from 'src/app/models/pupilProfile';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FileService } from 'src/app/services/file.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./mentor-profile.component.css']
 })
 export class MentorProfileComponent implements OnInit {
-  constructor(private userService: UserService, private route:ActivatedRoute, private previousUrlService: PreviousUrlService, private router: Router, private fileService: FileService){
+  constructor(private userService: UserService, private route:ActivatedRoute, private previousUrlService: PreviousUrlService, private router: Router, private fileService: FileService, private authenticationService: AuthenticationService){
 
   }
 
@@ -23,41 +25,49 @@ export class MentorProfileComponent implements OnInit {
   
 
   ngOnInit():void{
-
+    const user = this.authenticationService.getUserId();
+    console.log(user);
     const mentorId = this.route.snapshot.params['id'];
     this.route.url.subscribe(segments => {
       this.role = segments[0].path;})
 
     
     if(this.role=="trainerProfile"){
-      this.userService.GetTrainerWithOpinionsById(mentorId).subscribe(
-        {
-          next: (trainerInfo) => {
-            if (!trainerInfo) {
-              return;
-            }
-            this.mentor = trainerInfo;
-            if (this.mentor.imageUri) {
-              this.fileService.getFile(this.mentor.imageUri).subscribe(
-                blob => {
-                  if (blob) {
-                    const objectUrl = URL.createObjectURL(blob);
-                    this.imageUrl = objectUrl;
-                  }
-                },
-                error => {
-                  this.imageUrl = "assets/images/user.png";
-                }
-              );
-            } else {
-              this.imageUrl = "assets/images/user.png";
-            }
-          },
-          error: (response) => {
-            console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
+      this.userService.GetTrainerWithOpinionsById(mentorId).subscribe({
+        next: (trainerInfo) => {
+          if (!trainerInfo) {
+            return;
           }
+          this.mentor = trainerInfo;
+          
+
+          this.handleImage(this.mentor.imageUri ?? "");
+    
+          if (this.mentor.opinions && this.mentor.opinions.length > 0) {
+            const imageRequests = this.mentor.opinions
+              .filter(opinion => opinion.imageUri)
+              .map(opinion => {
+                return this.fileService.getFile(opinion.imageUri ?? "").pipe(
+                  catchError(error => {
+                    return of(null)
+                  })
+                );
+              });
+      
+            forkJoin(imageRequests).subscribe(images => {
+              images.forEach((blob, index) => {
+                if (this.mentor && blob) {
+                  const objectUrl = URL.createObjectURL(blob);
+                  this.mentor.opinions.filter(opinion=>opinion.imageUri)[index].imageSrc = objectUrl;
+                }
+              });
+            });
+          }
+        },
+        error: (response) => {
+          console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
         }
-      );
+      });
     }
     if(this.role=="dieticianProfile"){
       this.userService.GetDieticianWithOpinionsById(mentorId).subscribe(
@@ -136,6 +146,24 @@ export class MentorProfileComponent implements OnInit {
       this.router.navigate(['/dieticiansList'], { queryParams: queryParams});
     }else{
       this.router.navigate(['/dieticiansList']);
+    }
+  }
+
+  handleImage(imageUri: string) {
+    if (imageUri) {
+      this.fileService.getFile(imageUri).pipe(
+        catchError(error => {
+          this.imageUrl = "assets/images/user.png";
+          return of(null);
+        })
+      ).subscribe(blob => {
+        if (blob) {
+          const objectUrl = URL.createObjectURL(blob);
+          this.imageUrl = objectUrl;
+        }
+      });
+    } else {
+      this.imageUrl = "assets/images/user.png";
     }
   }
 }

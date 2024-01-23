@@ -28,7 +28,7 @@
               <span class="fs-2" *ngSwitchCase="'Dietician-Trainer'">Trener i dietetyk</span>
             </ng-container>
           
-            <button class="p-2 bg-btn-orange rounded-3 mt-3 m-lg-1" style="width: fit-content;">Napisz wiadomość</button>
+            <button class="btn-custom btn-orange mt-3 m-lg-1" style="width: fit-content;">Napisz wiadomość</button>
           </div>
 
           <div class="col-lg-1 d-none d-lg-block vertical-line" style="height:90%;">
@@ -83,16 +83,17 @@
             <div class="mb-1">
               <span class="fs-2 fw-bold">Opinie</span>
             </div>
+            
 
 
            <div class="d-flex align-items-center gap-2">
             <img src="../../../assets/icons/star.png" width="40px" height="auto" >
-            <span class="fs-3">{{mentor.totalRate}}</span>
+            <span class="fs-3">{{mentor.totalRate | number:'1.1-1'}}</span>
           <span class="fs-3 fw-bold">({{mentor.opinionNumber}} opinie)</span>
         </div>
       
          
-        <app-mentor-opinion *ngFor="let opinion of mentor.opinions | slice:0:2" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinionDate"></app-mentor-opinion>
+        <app-mentor-opinion *ngFor="let opinion of mentor.opinions | slice:0:2" [imageUri]="opinion.imageUri" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinionDate"></app-mentor-opinion>
         <ng-container *ngIf="mentor.opinions.length>2">
 
           <div class="d-flex justify-content-center">
@@ -106,9 +107,10 @@
                 <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Opinie ({{mentor.opinionNumber}})</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
+            
 
               <div class="modal-body bg-secondary">
-                <app-mentor-opinion *ngFor="let opinion of mentor.opinions" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinionDate"></app-mentor-opinion>
+                <app-mentor-opinion *ngFor="let opinion of mentor.opinions" [imageUri]="opinion.imageUri" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinionDate"></app-mentor-opinion>
               </div>
 
 

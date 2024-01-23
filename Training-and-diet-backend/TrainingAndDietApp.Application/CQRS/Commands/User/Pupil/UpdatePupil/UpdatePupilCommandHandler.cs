@@ -47,7 +47,6 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.UpdatePupil
             userToUpdate.DateOfBirth = request.PupilCommand.DateOfBirth;
             userToUpdate.Sex = request.PupilCommand.Sex;
             userToUpdate.Bio = request.PupilCommand.Bio;
-            userToUpdate.ImageUri = request.PupilCommand.ImageUri;
             
             await _baseRepository.UpdateAsync(userToUpdate, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

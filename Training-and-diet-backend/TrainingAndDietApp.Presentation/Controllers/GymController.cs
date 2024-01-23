@@ -4,6 +4,8 @@ using TrainingAndDietApp.Application.CQRS.Queries.Gym.GetMentors;
 using TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAllActiveGyms;
 using TrainingAndDietApp.Application.CQRS.Commands.Gym.Create;
 using TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAllGymsAddedByUser;
+using Microsoft.AspNetCore.Authorization;
+using Training_and_diet_backend.Extensions;
 
 
 namespace Training_and_diet_backend.Controllers
@@ -38,10 +40,12 @@ namespace Training_and_diet_backend.Controllers
             return Ok(response);
 
         }
+        [Authorize(Roles = "3,5")]
         [HttpPost]
         public async Task<IActionResult> CreateGym(CreateGymCommand command)
         {
-            await _mediator.Send(command);
+            var user = this.User.GetId()!.Value;
+            await _mediator.Send(new CreateGymInternalCommand(user, command));
             return Ok();
         }
 

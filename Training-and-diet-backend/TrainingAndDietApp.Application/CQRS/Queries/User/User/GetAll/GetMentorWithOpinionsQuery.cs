@@ -2,7 +2,7 @@
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll;
 
-public record GetMentorWithOpinionsQuery(string RoleName, int Id) : IRequest<MentorWithOpinionResponse>
+public record GetMentorWithOpinionsQuery(string RoleName, int Id, int? IdLoggedUser) : IRequest<MentorWithOpinionResponse>
 {
 
 }
@@ -27,12 +27,14 @@ public class MentorWithOpinionResponse
     public string? ImageUri { get; set; }
     public List<OpinionResponse> Opinions { get; set; }
     public List<MentorGymResponse> TrainerGyms { get; set; }
+    public bool? Cooperation { get; set; }
 
 }
 
 public class OpinionResponse
 {
     public string PupilName { get; set; }
+    public string ImageUri { get; set; }
     public decimal Rate { get; set; }
     public string Content { get; set; }
     public string OpinionDate { get; set; }

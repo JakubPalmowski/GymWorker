@@ -20,4 +20,5 @@ export interface MentorProfile{
     opinions: Opinion[];
     trainerGyms: ActiveGym[]
     imageUri?: string;
+    cooperation?: boolean;
 }

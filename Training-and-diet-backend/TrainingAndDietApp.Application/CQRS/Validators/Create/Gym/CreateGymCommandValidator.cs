@@ -13,8 +13,6 @@ public class CreateGymCommandValidator : AbstractValidator<CreateGymCommand>
             .NotEmpty().WithMessage("Nazwa siłowni jest wymagana.")
             .MaximumLength(100).WithMessage("Nazwa siłowni może zawierać maksymalnie 100 znaków.");
             
-        RuleFor(gym => gym.AddedBy)
-            .NotEmpty().WithMessage("Id użytkownika jest wymagane.");
 
         RuleFor(gym => gym.City)
             .NotEmpty().WithMessage("Nazwa miasta jest wymagana.")

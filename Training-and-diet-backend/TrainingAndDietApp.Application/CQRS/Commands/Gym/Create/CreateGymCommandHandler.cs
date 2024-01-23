@@ -5,7 +5,7 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Commands.Gym.Create
 {
-    public class CreateGymCommandHandler : IRequestHandler<CreateGymCommand>
+    public class CreateGymCommandHandler : IRequestHandler<CreateGymInternalCommand>
     {
         private readonly IRepository<Domain.Entities.Gym> _gymBaseRepository;
         private readonly IRepository<Address> _addressBaseRepository;
@@ -21,21 +21,21 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Gym.Create
             _addressRepository = addressRepository;
             _unitOfWork = unitOfWork;
         }
-        public async Task Handle(CreateGymCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CreateGymInternalCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 // Rozpoczęcie transakcji
                 _unitOfWork.BeginTransaction();
 
-                var address = await _addressRepository.CheckIfAddressExistsAsync(request.City, request.Street, request.PostalCode, cancellationToken);
+                var address = await _addressRepository.CheckIfAddressExistsAsync(request.GymCommand.City, request.GymCommand.Street, request.GymCommand.PostalCode, cancellationToken);
                 if (address == null)
                 {
                     address = new Address
                     {
-                        City = request.City,
-                        Street = request.Street,
-                        PostalCode = request.PostalCode
+                        City = request.GymCommand.City,
+                        Street = request.GymCommand.Street,
+                        PostalCode = request.GymCommand.PostalCode
                     };
                     await _addressBaseRepository.AddAsync(address, cancellationToken);
                     await _unitOfWork.CommitAsync(cancellationToken);
@@ -43,8 +43,8 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Gym.Create
 
                 var gym = new Domain.Entities.Gym
                 {
-                    Name = request.Name,
-                    AddedBy = request.AddedBy,
+                    Name = request.GymCommand.Name,
+                    AddedBy = request.IdUser,
                     IdAddress = address.IdAddress,
                     Status = Domain.Enums.Status.Pending
                 };
@@ -54,7 +54,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Gym.Create
                 var trainerGym = new TrainerGym
                 {
                     IdGym = gym.IdGym,
-                    IdTrainer = request.AddedBy
+                    IdTrainer = request.IdUser
                 };
                 await _trainerGymBaseRepository.AddAsync(trainerGym, cancellationToken);
                 await _unitOfWork.CommitAsync(cancellationToken);

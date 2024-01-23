@@ -16,6 +16,7 @@ namespace TrainingAndDietApp.DAL.EntityModels
         [Key, Column(Order = 1)]
         [ForeignKey("Pupil")]
         public int IdPupil { get; set; }
+        public bool IsAccepted { get; set; } = false;
 
         public virtual User Mentor { get; set; }
 

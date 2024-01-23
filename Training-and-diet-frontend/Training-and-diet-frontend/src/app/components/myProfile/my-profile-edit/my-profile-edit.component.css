@@ -5,6 +5,20 @@
 }
 
 
+.image-label{
+    width:auto;
+    color: white;
+    font-size:18px;
+    cursor: pointer;
+}
+
+.label-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+
 .group {
     display: flex;
     flex-direction: column;
@@ -50,13 +64,6 @@ a{
     opacity: 0;
     position: absolute;
     z-index: -1;
-  }
-
-  .file-input-label {
-    padding: 10px;
-    border: 1px solid #dcdcdc; 
-    cursor: pointer;
-    width: 305px;
   }
 
   .error-container{
@@ -113,6 +120,7 @@ a{
   .add-gym-button{
     height:47px; 
     width: 140px;
+    font-size: 18px;
     border-radius: 10px;
     color: white;
     margin-left: 3px;

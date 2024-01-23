@@ -23,7 +23,6 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Trainer.UpdateTraine
         public decimal? PersonalTrainingPriceFrom { get; set; }
         public decimal? PersonalTrainingPriceTo { get; set; }
         public List<ActiveGymResponse> TrainerGyms { get; set;}
-        public string? ImageUri {get; set;}
     }
 }
 

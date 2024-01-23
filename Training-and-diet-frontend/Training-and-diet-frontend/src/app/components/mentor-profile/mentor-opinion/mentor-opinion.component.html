@@ -3,9 +3,9 @@
 
 
     <div class="col-sm-2 col-12 d-flex flex-column align-items-center gap-2">
-        <img src="/assets/images/diho2.png" class="round-picture" width="80px" height="80px">
+        <img src="{{imageUrl}}" class="round-picture" width="80px" height="80px">
         <span>{{ pupilName }}</span>
-        <span style="width:max-content;">{{ date }}</span>
+        <span style="width:max-content;">{{ date | date:'yyyy-MM-dd' }}</span>
     </div>
 
 
@@ -15,7 +15,7 @@
 
         <span>Ocena</span>
             <img src="../../../assets/icons/star.png" width="40px" height="auto">
-            <span>{{ rate }}</span>
+            <span>{{ rate | number:'1.1-1' }}</span>
         </div>
 
             <span>{{ content }}</span>
