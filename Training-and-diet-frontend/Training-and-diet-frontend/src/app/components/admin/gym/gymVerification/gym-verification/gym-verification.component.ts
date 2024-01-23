@@ -17,6 +17,7 @@ export class GymVerificationComponent {
   fieldErrors: { [key: string]: string[] } = {};
   successFlag: string = "";
   error: boolean = false;
+  showDialog: boolean = false;
 
   constructor(private route: ActivatedRoute, private adminService: AdminService, private router: Router){
 
@@ -40,22 +41,9 @@ export class GymVerificationComponent {
     });
   }
 
-  deleteGym(gymId: string) {
-
+  deleteGym() {
     if (this.gym) {
-      const confirmDelete = confirm(`Czy na pewno chcesz usunąć siłownię:\nNazwa: ${this.gym.name}\nMiasto: ${this.gym.city}\nUlica: ${this.gym.street}`);
-      
-      if (confirmDelete) {
-        this.adminService.deleteGym(parseFloat(gymId)).subscribe({
-          next: () => {
-            alert('Siłownia została usunięta.');
-            this.router.navigate(['/adminGymList/Pending']); 
-          },
-          error: err => {
-            alert('Wystąpił błąd podczas usuwania. Siłownia nie została usunięta.');
-          }
-        });
-      }
+      this.showDialog = true;
     }
   }
   
@@ -65,10 +53,7 @@ export class GymVerificationComponent {
       if(this.gym){
       this.adminService.verifyGym(this.gymId,this.gym).subscribe({
         next: (response) => {
-          this.successFlag = "success";
-          this.showSuccessPopup(this.successFlag);
           this.fieldErrors = {}; 
-          alert('Siłownia została zweryfikowana.');
           this.router.navigate(['/admin/gym/list/Pending']);
         },
         error: (error) => {
@@ -96,12 +81,27 @@ export class GymVerificationComponent {
   }
 
   showSuccessPopup(status: string) {
-    if (status == "success") {
-      setTimeout(() => this.successFlag="", 3000); 
-    }
     if(status == "error"){
       setTimeout(() => this.successFlag="", 3000); 
     }
-  
+  }
+
+  confirmDelete() {
+    if (this.gym) {
+      this.adminService.deleteGym(parseInt(this.gymId)).subscribe({
+        next: () => {
+          this.router.navigate(['/admin/gym/list/Pending']);
+        },
+        error: (error) => {
+          this.successFlag = "error";
+          this.showSuccessPopup(this.successFlag);
+        }
+      });
+      this.showDialog = false; 
+    }
+  }
+
+  cancelDelete() {
+    this.showDialog = false; 
   }
 }

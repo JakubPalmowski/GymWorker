@@ -9,8 +9,8 @@
             <h1 class="text-center">Dodawanie ćwiczenia</h1>
         </div>
 
-        <div class="col-12 group">
-            <div class="d-flex flex-column" style="width: 60%;">
+        <div class="col-12 group-admin-input">
+
                 <label for="name">Nazwa *</label>
                 <input type="text" id="name" name="name" [(ngModel)]="exercise.name" #name="ngModel" 
                     required minlength="3" maxlength="50">
@@ -24,12 +24,14 @@
                     <span *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 50 znaków
                     </span>
+                    <span *ngIf="fieldErrors['Name']" class="validation-error">
+                        {{ fieldErrors['Name'][0] }}
+                    </span>
                 </div>
-            </div>
+
         </div>
         
-        <div class="col-12 group">
-            <div class="d-flex flex-column" style="width: 60%;">
+        <div class="col-12 group-admin-input">
                 <label for="description">Opis *</label>
                 <textarea rows="5" id="description" name="description" [(ngModel)]="exercise.details"
                     required minlength="3" maxlength="200" #description="ngModel"></textarea>
@@ -43,12 +45,13 @@
                     <span *ngIf="description.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 200 znaków
                     </span>
+                    <span *ngIf="fieldErrors['Details']" class="validation-error">
+                        {{ fieldErrors['Details'][0] }}
+                    </span>
                 </div>
             </div>
-        </div>
         
-        <div class="col-12 group">
-            <div class="d-flex flex-column" style="width: 60%;">
+        <div class="col-12 group-admin-input">
                 <label for="steps">Sposób wykonania *</label>
                 <textarea rows="7" id="steps" name="steps" [(ngModel)]="exercise.exerciseSteps"
                     required minlength="3" maxlength="300" #steps="ngModel"></textarea>
@@ -62,16 +65,12 @@
                     <span *ngIf="steps.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 300 znaków
                     </span>
+                    <span *ngIf="fieldErrors['ExerciseSteps']" class="validation-error">
+                        {{ fieldErrors['ExerciseSteps'][0] }}
+                    </span>
                 </div>
             </div>
-        </div>
         
-        <div class="col-12 group">
-            <div class="d-flex flex-column" style="width: 60%;">
-                <label for="image">Zdjęcie</label>
-                <input style="border:none;" type="file" id="image" name="image" [(ngModel)]="exercise.image">
-            </div>
-        </div>
         
         
 

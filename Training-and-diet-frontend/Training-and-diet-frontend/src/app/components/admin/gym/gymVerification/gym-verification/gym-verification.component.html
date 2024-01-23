@@ -1,11 +1,28 @@
 <ng-container *ngIf="error">
     <h1 class="text-center mt-5">Brak siłownii o podanym id</h1>
     </ng-container>
+
+    <div class="dialog-container" *ngIf="showDialog">
+        <div class="dialog">
+          <h3 class="dialog-header">Potwierdzenie usunięcia</h3>
+          <div class="dialog-body">
+          <span>Czy na pewno chcesz usunąć siłownię?</span>
+          <br>
+          <span>Nazwa: <strong>{{gym?.name}}</strong></span>
+          <br>
+            <span>Miasto: <strong>{{gym?.city}}</strong></span>
+            <br>
+            <span>Ulica: <strong>{{gym?.street}}</strong></span>
+        </div>
+          <div class="dialog-actions">
+            <button class="btn-custom btn-detail" (click)="cancelDelete()">Anuluj</button>
+            <button class="btn-custom btn-delete" (click)="confirmDelete()">Usuń</button>
+          </div>
+        </div>
+      </div>
+
 <ng-container *ngIf="gym">
     <div class="container-fluid bg-secondary my-3 h-auto rounded-3 pb-0 pb-4" style="border:2px solid black;">
-        <div *ngIf="successFlag=='success'" class="success-popup">
-            Weryfikacja siłowni przebiegła pomyślnie!
-          </div>
           <div *ngIf="successFlag=='error'" class="error-popup">
             Wystapił błąd podczas weryfikacji siłowni. Proszę spróbować ponownie.
           </div>
@@ -15,8 +32,7 @@
                 <h1 class="text-center">Weryfikacja siłowni</h1>
             </div>
     
-            <div class="col-12 group">
-                <div class="d-flex flex-column" style="width: 60%;">
+            <div class="col-12 group-admin-input">
                     <label>Nazwa siłowni</label>
                     <input type="text" [(ngModel)]="gym.name" name="name" #name="ngModel" required maxlength="100">
                     <div class="error-container">
@@ -28,10 +44,8 @@
                         </span>
                     </div>
                 </div>
-            </div>
             
-            <div class="col-12 group">
-                <div class="d-flex flex-column" style="width: 60%;">
+            <div class="col-12 group-admin-input">
                     <label>Miasto</label>
                     <input type="text" [(ngModel)]="gym.city" name="city" #city="ngModel" required maxlength="85">
                     <div class="error-container">
@@ -43,10 +57,8 @@
                         </span>
                     </div>
                 </div>
-            </div>
             
-            <div class="col-12 group">
-                <div class="d-flex flex-column" style="width: 60%;">
+            <div class="col-12 group-admin-input">
                     <label>Ulica</label>
                     <input type="text" [(ngModel)]="gym.street" name="street" #street="ngModel" required maxlength="120">
                     <div class="error-container">
@@ -58,10 +70,8 @@
                         </span>
                     </div>
                 </div>
-            </div>
             
-            <div class="col-12 group">
-                <div class="d-flex flex-column" style="width: 60%;">
+            <div class="col-12 group-admin-input">
                     <label>Kod pocztowy</label>
                     <input type="text" [(ngModel)]="gym.postalCode" name="postalCode" #postalCode="ngModel" required pattern="^\d{2}-\d{3}$">
                     <div class="error-container">
@@ -73,7 +83,6 @@
                         </span>
                     </div>
                 </div>
-            </div>
             
             
     
@@ -81,7 +90,7 @@
                 <div class="d-flex justify-content-between" style="width: 60%;">
                     <button type="button" class="btn-custom btn-back" routerLink="/admin/gym/list/Pending">Powrót</button>
                     <button type="submit" class="btn-custom btn-edit">Zaakceptuj prośbę</button>
-                    <button type="button" class="btn-custom btn-delete" (click)="deleteGym(gymId)">Usuń prośbę</button>
+                    <button type="button" class="btn-custom btn-delete" (click)="deleteGym()">Usuń prośbę</button>
                 </div>
             </div>
            

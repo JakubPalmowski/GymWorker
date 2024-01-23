@@ -15,8 +15,7 @@
                 <h1 class="text-center">Edycja siłowni</h1>
             </div>
     
-            <div class="col-12 group">
-                <div class="d-flex flex-column" style="width: 60%;">
+            <div class="col-12 group-admin-input">
                     <label>Nazwa siłowni</label>
                     <input type="text" [(ngModel)]="gym.name" name="name" #name="ngModel" required maxlength="100">
                     <div class="error-container">
@@ -28,10 +27,8 @@
                         </span>
                     </div>
                 </div>
-            </div>
             
-            <div class="col-12 group">
-                <div class="d-flex flex-column" style="width: 60%;">
+            <div class="col-12 group-admin-input">
                     <label>Miasto</label>
                     <input type="text" [(ngModel)]="gym.city" name="city" #city="ngModel" required maxlength="85">
                     <div class="error-container">
@@ -43,10 +40,9 @@
                         </span>
                     </div>
                 </div>
-            </div>
+
             
-            <div class="col-12 group">
-                <div class="d-flex flex-column" style="width: 60%;">
+            <div class="col-12 group-admin-input">
                     <label>Ulica</label>
                     <input type="text" [(ngModel)]="gym.street" name="street" #street="ngModel" required maxlength="120">
                     <div class="error-container">
@@ -58,10 +54,8 @@
                         </span>
                     </div>
                 </div>
-            </div>
             
-            <div class="col-12 group">
-                <div class="d-flex flex-column" style="width: 60%;">
+            <div class="col-12 group-admin-input">
                     <label>Kod pocztowy</label>
                     <input type="text" [(ngModel)]="gym.postalCode" name="postalCode" #postalCode="ngModel" required pattern="^\d{2}-\d{3}$">
                     <div class="error-container">
@@ -72,7 +66,6 @@
                             Nieprawidłowy format kodu pocztowego. Poprawny format to XX-XXX.
                         </span>
                     </div>
-                </div>
             </div>
             
             

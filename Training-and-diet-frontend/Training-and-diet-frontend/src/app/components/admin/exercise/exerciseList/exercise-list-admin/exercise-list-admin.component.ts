@@ -8,15 +8,13 @@ import { AdminService } from 'src/app/services/admin.service';
   styleUrls: ['./exercise-list-admin.component.css']
 })
 export class ExerciseListAdminComponent implements OnInit {
-
-  deleteExercise(arg0: number) {
-    throw new Error('Method not implemented.');
-    }
     
       exercices: ExerciseShort[] | undefined;
       searchTerm: string = '';
       filteredExercices: ExerciseShort[] | undefined;
       error:boolean = false;
+      showDialog: boolean = false;
+      selectedExercise: ExerciseShort | null = null;
     
       constructor(private adminService: AdminService) { }
         
@@ -42,6 +40,33 @@ export class ExerciseListAdminComponent implements OnInit {
             gym.name.toLowerCase().includes(this.searchTerm.toLowerCase())
           );
         }
+      }
+
+      deleteExercise(exerciseId: number) {
+        this.selectedExercise = this.filteredExercices?.find(e => e.idExercise === exerciseId) ?? null;
+        if (this.selectedExercise) {
+          this.showDialog = true;
+        } else {
+          alert('Siłownia nie została znaleziona.'); 
+        }
+      }
+    
+      confirmDelete() {
+        if (this.selectedExercise) {
+          this.adminService.deleteAdminExercise(this.selectedExercise.idExercise.toString()).subscribe({
+            next: () => {
+              this.ngOnInit(); 
+            },
+            error: (error) => {
+              alert('Wystąpił błąd podczas usuwania siłowni.');
+            }
+          });
+          this.showDialog = false; 
+        }
+      }
+    
+      cancelDelete() {
+        this.showDialog = false; 
       }
     
     

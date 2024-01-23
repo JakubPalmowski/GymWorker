@@ -45,6 +45,8 @@ import { EditDietMealComponent } from './components/diets/edit-diet-meal/edit-di
 import { DietMealsListComponent } from './components/diets/diet-meals-list/diet-meals-list.component';
 import { NewDietMealComponent } from './components/diets/new-diet-meal/new-diet-meal.component';
 import { AssignDietComponent } from './components/diets/assign-diet/assign-diet.component';
+import { ExerciseAdminDetailsComponent } from './components/admin/exercise/exerciseAdminDetails/exercise-admin-details/exercise-admin-details.component';
+import { ExerciseAdminEditComponent } from './components/admin/exercise/exerciseAdminEdit/exercise-admin-edit/exercise-admin-edit.component';
 
 
 
@@ -172,7 +174,9 @@ const routes: Routes = [
   {path: 'addCertificate', component: CreateCertificateComponent},
   {path: 'admin/certificatedUsers/list/:status', component: CertificatedUsersListComponent},
   {path: 'admin/certificatedUsers/verification/:id', component: UsersVerificationComponent},
-  {path: 'admin/certificatedUsers/certificateVerification/:id', component: CertificateVerificationComponent}
+  {path: 'admin/certificatedUsers/certificateVerification/:id', component: CertificateVerificationComponent},
+  {path: 'admin/exercise/details/:id', component: ExerciseAdminDetailsComponent},
+  {path: 'admin/exercise/edit/:id', component: ExerciseAdminEditComponent},
   
   
 ];
