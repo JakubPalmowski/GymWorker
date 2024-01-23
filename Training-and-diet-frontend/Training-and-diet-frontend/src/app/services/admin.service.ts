@@ -12,6 +12,8 @@ import { UserInfoForVerification } from '../models/admin/userInfoForVerification
 import { CertificateListVerification } from '../models/admin/certificateListVerification';
 import { CertificateInfoForVeryfication } from '../models/admin/certificateInfoForVeryfication';
 import { UserVerifyPatch } from '../models/admin/userVerifyPatch';
+import { ExerciseFull } from '../models/exercise-full';
+import { UpdateExercise } from '../models/admin/exerciseUpdate';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +80,18 @@ export class AdminService {
 
   verifyUser(userId: string, userVerifyPatch: UserVerifyPatch):Observable<any>{
     return this.http.patch<any>('https://localhost:7259/api/Admin/Users/Verification/'+userId,userVerifyPatch);
+  }
+
+  getAdminExerciseById(exerciseId: string):Observable<ExerciseFull>{
+    return this.http.get<ExerciseFull>('https://localhost:7259/api/Admin/Exercises/'+exerciseId);
+  }
+
+  updateExercise(exerciseId: string, exercise: UpdateExercise):Observable<any>{
+    return this.http.put<any>('https://localhost:7259/api/Admin/Exercises/'+exerciseId, exercise);
+  }
+
+  deleteAdminExercise(exerciseId: string):Observable<any>{
+    return this.http.delete<any>('https://localhost:7259/api/Admin/Exercises/'+exerciseId);
   }
 
 

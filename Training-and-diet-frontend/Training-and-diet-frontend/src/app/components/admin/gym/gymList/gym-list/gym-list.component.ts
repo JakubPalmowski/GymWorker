@@ -18,6 +18,8 @@ export class GymListComponent implements OnInit {
   searchTerm: string = '';
   filteredGyms: GymAdminInfo[] | undefined;
   error:boolean = false;
+  showDialog: boolean = false;
+  selectedGym: GymAdminInfo | null = null;
 
 
   ngOnInit(): void {
@@ -53,25 +55,29 @@ export class GymListComponent implements OnInit {
   }
 
   deleteGym(gymId: number) {
-    const gym = this.filteredGyms?.find(g => g.idGym === gymId);
-  
-    if (gym) {
-      const confirmDelete = confirm(`Czy na pewno chcesz usunąć siłownię:\nNazwa: ${gym.name}\nMiasto: ${gym.city}\nUlica: ${gym.street}?`);
-      
-      if (confirmDelete) {
-        this.adminService.deleteGym(gymId).subscribe({
-          next: () => {
-            this.gyms = this.gyms?.filter(g => g.idGym !== gymId);
-            this.filteredGyms = this.filteredGyms?.filter(g => g.idGym !== gymId);
-            alert('Siłownia została usunięta.');
-          },
-          error: err => {
-            alert('Wystąpił błąd podczas usuwania. Siłownia nie została usunięta.');
-          }
-        });
-      }
+    this.selectedGym = this.filteredGyms?.find(g => g.idGym === gymId) ?? null;
+    if (this.selectedGym) {
+      this.showDialog = true; // Pokaż okienko dialogowe
     } else {
       alert('Siłownia nie została znaleziona.'); 
     }
+  }
+
+  confirmDelete() {
+    if (this.selectedGym) {
+      this.adminService.deleteGym(this.selectedGym.idGym).subscribe({
+        next: () => {
+          this.ngOnInit(); 
+        },
+        error: (error) => {
+          alert('Wystąpił błąd podczas usuwania siłowni.');
+        }
+      });
+      this.showDialog = false; // Zamknij okienko dialogowe
+    }
+  }
+
+  cancelDelete() {
+    this.showDialog = false; // Zamknij okienko dialogowe
   }
 }

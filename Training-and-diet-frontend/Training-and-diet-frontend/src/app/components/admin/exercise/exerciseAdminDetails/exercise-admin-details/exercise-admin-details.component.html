@@ -1,0 +1,36 @@
+<div *ngIf="exercise" class="container-fluid bg-secondary my-3 h-auto rounded-3 pb-0 pb-4" style="border:2px solid black;">
+
+
+  <div class="row">
+      <div class="col-12 mb-2 mt-1">
+          <h1 class="text-center">Szczegóły ćwiczenia</h1>
+      </div>
+
+      <div class="col-12 group-admin-input">
+              <label for="name">Nazwa</label>
+              <input type="text" id="name" value="{{exercise.name}}" disabled>
+      </div>
+      
+      <div class="col-12 group-admin-long-text">
+              <label for="description">Opis</label>
+              <div id="description">{{exercise.details}}</div>
+      </div>
+      
+      <div class="col-12 group-admin-long-text">
+              <label for="steps">Sposób wykonania</label>
+              <div id="steps">{{exercise.exerciseSteps}}</div>
+      </div>
+      
+      
+      
+
+      <div class="col-12 d-flex justify-content-center mt-4">
+          <div class="d-flex justify-content-around" style="width: 60%;">
+              <button type="button" class="btn-custom btn-back" routerLink="/admin/exercise/list">Powrót</button>
+              <button type="button" class="btn-custom btn-edit" routerLink="/admin/exercise/edit/{{exercise.idExercise}}">Edytuj</button>
+          </div>
+      </div>
+     
+
+</div>
+</div>

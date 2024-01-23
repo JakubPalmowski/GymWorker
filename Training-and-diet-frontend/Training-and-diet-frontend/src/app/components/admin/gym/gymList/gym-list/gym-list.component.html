@@ -13,8 +13,31 @@
         <h1 *ngIf="status=='Active'" class="text-center mt-5">Brak siłownii</h1>
     </ng-container>
 
+
+<div class="dialog-container" *ngIf="showDialog">
+    <div class="dialog">
+      <h3 class="dialog-header">Potwierdzenie usunięcia</h3>
+      <div class="dialog-body">
+      <span>Czy na pewno chcesz usunąć siłownię?</span>
+      <br>
+      <span>Nazwa: <strong>{{selectedGym?.name}}</strong></span>
+      <br>
+        <span>Miasto: <strong>{{selectedGym?.city}}</strong></span>
+        <br>
+        <span>Ulica: <strong>{{selectedGym?.street}}</strong></span>
+    </div>
+      <div class="dialog-actions">
+        <button class="btn-custom btn-detail" (click)="cancelDelete()">Anuluj</button>
+        <button class="btn-custom btn-delete" (click)="confirmDelete()">Usuń</button>
+      </div>
+    </div>
+  </div>
+  
+
+  
+
 <div *ngIf="gyms?.length">
-    <table class="table table-striped table-responsive">
+    <table class="table-admin table table-striped table-responsive">
         <thead>
             <tr>
                 <th scope="col" style="width: 20%;">Miasto</th>

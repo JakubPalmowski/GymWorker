@@ -4,6 +4,21 @@
         Wystapił błąd podczas zatwierdzania certyfikatu. Proszę spróbować ponownie.
       </div>
 
+      <div class="dialog-container" *ngIf="showDialog">
+        <div class="dialog">
+          <h3 class="dialog-header">Potwierdzenie usunięcia</h3>
+          <div class="dialog-body">
+          <span>Czy na pewno chcesz usunąć ten certyfikat?</span>
+          <br>
+        </div>
+          <div class="dialog-actions">
+            <button class="btn-custom btn-detail" (click)="cancelDelete()">Anuluj</button>
+            <button class="btn-custom btn-delete" (click)="confirmDelete()">Usuń</button>
+          </div>
+        </div>
+      </div>
+
+
     <div class="col-12 mb-2 mt-1">
         <h1 class="text-center">Certyfikat</h1>
     </div>
@@ -28,9 +43,9 @@
         </div>
     
     </div>
-    <div class="col-12 d-flex flex-column align-items-center">
-        <span class="text-center w-100 user-data-label">Opis</span>
-        <div class="description"><span>{{certificate.description}}</span></div>
+    <div class="col-12 group-admin-long-text">
+        <span class="user-data-label">Opis</span>
+        <div class="description">{{certificate.description}}</div>
     </div>
     
     <div class="col-12 mt-5 d-flex justify-content-center">

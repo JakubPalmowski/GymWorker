@@ -7,34 +7,26 @@
         <h1 class="text-center">Szczegóły siłowni</h1>
     </div>
 
-    <div class="col-12 group">
-        <div class="d-flex flex-column" style="width: 60%;">
+    <div class="col-12 group-admin-input">
             <label>Nazwa siłowni</label>
             <input type="text" value="{{gym.name}}" disabled>
-        </div>
     </div>
     
-    <div class="col-12 group">
-        <div class="d-flex flex-column" style="width: 60%;">
+    <div class="col-12 group-admin-input">
             <label>Miasto</label>
             <input type="text" value="{{gym.city}}" disabled>
-        </div>
     </div>
     
-    <div class="col-12 group">
-        <div class="d-flex flex-column" style="width: 60%;">
+    <div class="col-12 group-admin-input">
             <label>Ulica</label>
             <input type="text" value="{{gym.street}}" disabled>
-            
-        </div>
     </div>
     
-    <div class="col-12 group">
-        <div class="d-flex flex-column" style="width: 60%;">
+    <div class="col-12 group-admin-input">
             <label>Kod pocztowy</label>
             <input type="text" value="{{gym.postalCode}}" disabled>
-        </div>
     </div>
+    
     <div class="col-12 d-flex justify-content-center mt-4">
         <div class="d-flex justify-content-around" style="width: 60%;">
             <button type="button" class="btn-custom btn-back" routerLink="/admin/gym/list/Active">Powrót</button>

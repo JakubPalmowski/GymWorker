@@ -34,6 +34,7 @@ using TrainingAndDietApp.Application.CQRS.Queries.Certificate.GetUserCertificate
 using TrainingAndDietApp.Application.CQRS.Responses.Admin;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetUserInfoForVerification;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetUserCertificatesById;
+using TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateExercise;
 
 
 namespace TrainingAndDietApp.Application
@@ -209,6 +210,13 @@ namespace TrainingAndDietApp.Application
                 CreateMap<Certificate, GetUserCertificatesByIdQuery>();
 
                 CreateMap<Certificate, CertificateVerificationResponse>();
+
+                CreateMap<UpdateAdminExerciseInternalCommand , Exercise>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ExerciseCommand.Name))
+                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.ExerciseCommand.Details))
+                .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.ExerciseCommand.ExerciseSteps));
+
+                
        
 
 

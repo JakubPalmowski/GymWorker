@@ -198,3 +198,195 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+/*admin*/
+
+.dialog-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+.dialog {
+    background-color: white;
+    margin-left: 10%;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+  .dialog-header{
+    background-color: red;
+    color: white;
+    text-align: center;
+    padding: 10px 20px 10px 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 100%;
+  }
+  
+  .dialog-body{
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 20px;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+
+  .group-admin-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.group-admin-input label {
+    padding-left: 2px;
+    font-size: 20px;
+    color: black;
+    width: 60%;
+}
+
+.group-admin-input input, textarea{
+    width: 60%;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 18px;
+    border: 1px solid #000;
+}
+
+.group-admin-input input:disabled{
+    background-color: white;
+    color: black;
+}
+
+
+
+
+.group-admin-long-text label{
+    padding-left: 2px;
+    font-size: 20px;
+    color: black;
+    width: 60%;
+}
+.group-admin-long-text div{
+    width: 60%;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 18px;
+    border: 1px solid #000;
+    background-color: white;
+    cursor: default;
+}
+
+.group-admin-long-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.error-popup {
+    position: fixed;
+    top: 20px; 
+    left: 40%;
+    background-color: red; 
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+
+  .success-popup {
+    position: fixed; 
+    top: 20px; 
+    left: 47%;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+
+  .error-container{
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .table-admin thead th {
+    padding: 12px 15px; 
+    text-align: left; 
+    color: white; 
+    background-color: #0F1A50;
+}
+  .table-admin thead tr{
+    border-radius: 10px 10px 0px 0px;
+  }
+  .table-admin th, .table-admin td {
+    word-break: break-all; 
+    border: 1px solid black;
+}
+
+
+
+
+
+@media (max-width: 1200px) {
+  .table-admin {
+      border: 0;
+  }
+
+  .table-admin thead {
+      display: none;
+  }
+
+  .table-admin, .table-admin tbody, .table-admin tr, .table-admin td {
+      display: block;
+      width: 100%;
+  }
+
+  .table-admin tr {
+      margin-bottom: 15px;
+  }
+
+  .table-admin td {
+      text-align: center;
+  }
+
+  .table-admin td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 15px;
+      font-weight: bold;
+      text-align: left;
+  }
+}
+
+@media (max-width: 370px) {
+  .table-admin .btn-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .table-admin .btn-container .btn-custom{
+    margin-bottom: 10px;
+    border-radius: 0px;
+  }
+}

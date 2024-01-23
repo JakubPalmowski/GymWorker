@@ -16,6 +16,7 @@ export class CertificateVerificationComponent implements OnInit {
  certificate: CertificateInfoForVeryfication | undefined;
  idCertificate: string= '';
  successFlag: string = "";
+ showDialog: boolean = false;
 
   constructor(private adminService: AdminService, private route: ActivatedRoute, private router: Router, private fileService: FileService, private prevoiousService: PreviousUrlService) {
     
@@ -71,18 +72,28 @@ back() {
     }
 
     deleteCertificate() {
-      const isConfirmed = confirm('Czy na pewno chcesz usunąć ten certyfikat?');
-      if (isConfirmed) {
+      if(this.certificate){
+        this.showDialog = true;
+      }
+    }
+
+    confirmDelete() {
+      if (this.certificate) {
         this.adminService.deleteCertificate(this.idCertificate).subscribe({
           next: () => {
-            alert('Certyfikat został pomyślnie usunięty.');
             this.router.navigate([this.prevoiousService.getPreviousUrl()]);
           },
-          error: (errorResponse) => {
-            alert('Wystąpił błąd podczas usuwania certyfikatu. Spróbuj ponownie.');
+          error: (error) => {
+            this.successFlag = "error";
+            this.showErrorPopup("error");
           }
         });
+        this.showDialog = false; 
       }
+    }
+  
+    cancelDelete() {
+      this.showDialog = false; 
     }
     
 

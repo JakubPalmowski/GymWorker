@@ -2,12 +2,16 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.CreateExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.DeleteCertificate;
+using TrainingAndDietApp.Application.CQRS.Commands.Admin.DeleteExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.DeleteGym;
+using TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateGym;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.VerifyCertificate;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.VerifyGym;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.VerifyUser;
 using TrainingAndDietApp.Application.CQRS.Commands.Exercise.CreateExercise;
+using TrainingAndDietApp.Application.CQRS.Commands.Exercise.UpdateExercise;
+using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAdminExerciseById;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAllGymsAdmin;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAllUsersWithAcceptedCertificates;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAllUsersWithPendingCertificates;
@@ -127,7 +131,7 @@ namespace Training_and_diet_backend.Controllers
             var response = await _mediator.Send(request);
             return Ok(response);
         }
-        //czy tutaj git? nie wysylam nic w body ale zmieniam wartosci obiektu w bazie danych
+
         [HttpPatch("Certificates/Verification/{idCertificate}")]
         public async Task<IActionResult> VerifyCertificate(int idCertificate)
         {
@@ -148,6 +152,27 @@ namespace Training_and_diet_backend.Controllers
         public async Task<IActionResult> VerifyUser(int idUser, VerifyUserCommand command)
         {
             await _mediator.Send(new VerifyUserInternalCommand(idUser, command));
+            return Ok();
+        }
+        [HttpGet("Exercises/{id}")]
+        public async Task<IActionResult> GetAdminExercisesById(int id)
+        {
+            var request = new GetAdminExerciseByIdQuery(id);
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut("Exercises/{id}")]
+        public async Task<IActionResult> UpdateAdminExercise(int id, UpdateExerciseCommand command)
+        {
+            await _mediator.Send(new UpdateAdminExerciseInternalCommand(id, command));
+            return Ok();
+        }
+
+        [HttpDelete("Exercises/{id}")]
+        public async Task<IActionResult> DeleteAdminExercise(int id)
+        {
+            await _mediator.Send(new DeleteAdminExerciseCommand(id));
             return Ok();
         }
     }
