@@ -108,7 +108,8 @@ namespace TrainingAndDietApp.Application
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name));
 
             CreateMap<Opinion, OpinionResponse>()
-                .ForMember(dest => dest.PupilName, opt => opt.MapFrom(src => src.Pupil.Name));
+                .ForMember(dest => dest.PupilName, opt => opt.MapFrom(src => src.Pupil.Name))
+                .ForMember(dest => dest.ImageUri, opt => opt.MapFrom(src => src.Pupil.ImageUri));
 
             CreateMap<Gym, MentorGymResponse>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))

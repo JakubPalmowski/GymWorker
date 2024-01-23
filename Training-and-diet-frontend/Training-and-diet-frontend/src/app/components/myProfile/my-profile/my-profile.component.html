@@ -12,14 +12,18 @@
 
     
     <div class="row p-2 bg-secondary border-profile rounded-bottom-3" >
-        <div class="col-12">
-            <a class="px-2 text-black text-decoration-none p-2 bg-btn-orange rounded-3 fs-5" style="cursor: pointer;" [routerLink]="'/myProfile/edit'">Edytuj Profil</a>
+        <div class="col-12 d-flex justify-content-between">
+            <button class="btn-custom btn-detail" [routerLink]="'/myProfile/edit'">Edytuj profil</button>
+            <ng-container *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
+                <span class="fs-5 fw-bold" *ngIf="user.isAccepted==false">Status konta: <span class="text-danger">Niezweryfikowane</span></span>
+                <span class="fs-5 fw-bold" *ngIf="user.isAccepted==true">Status konta: <span style="color: green;">Zweryfikowane</span></span>
+            </ng-container>
         </div>
         <div class="col-12 d-flex justify-content-center">
             <img src="{{imageUrl}}" width="300px" height="300px" class="round-picture">
         </div>
         
-        <div class="col-12" [ngSwitch]="user.role">
+        <div class="col-12" [ngSwitch]="role">
             <h2 class="text-center" *ngSwitchCase="'Trainer'">Trener</h2>
             <h2 class="text-center" *ngSwitchCase="'Dietician'">Dietetyk</h2>
             <h2 class="text-center" *ngSwitchCase="'Dietician-Trainer'">Trener i dietetyk</h2>
@@ -80,7 +84,7 @@
     
             <div class="col-6 group">
                 <label>Data urodzenia</label>
-                <input type="date" value="{{formatDate(user.dateOfBirth?.toString())}}" disabled>
+                <input type="date" value="{{user.dateOfBirth | date:'yyyy-MM-dd'}}" disabled>
             </div>
 
     
@@ -166,8 +170,8 @@
       </ng-template>
       
 
-      <div class="col-12 d-flex justify-content-center mt-3">
-            <a [routerLink]="'/createGym'" class="add-gym-button bg-button">Dodaj siłownie do bazy</a>
+      <div class="col-12 d-flex justify-content-center mt-3 ms-3">
+            <button class="btn-custom btn-detail" [routerLink]="'/createGym'">Dodaj siłownie do bazy</button>
             <div style="position: relative;">
             <i class="bi bi-info-circle-fill info-icon"></i>
             <div class="info-tooltip">
@@ -234,7 +238,7 @@
                       </ng-template>
 
                       <div class="col-12 d-flex justify-content-center">
-                        <a style="width: fit-content;" [routerLink]="'/addCertificate'" class="add-gym-button bg-button">Dodaj certyfikat</a>
+                        <button class="btn-custom btn-detail" [routerLink]="'/addCertificate'">Dodaj certyfikat</button>
                       </div>
                       </ng-container>
 

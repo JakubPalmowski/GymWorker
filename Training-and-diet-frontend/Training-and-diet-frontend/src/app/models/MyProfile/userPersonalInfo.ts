@@ -22,4 +22,5 @@ export interface UserPersonalInfo{
     trainerGyms: ActiveGym[];
     certificates: Certificate[];
     imageUri?: string;
+    isAccepted: boolean;
 }

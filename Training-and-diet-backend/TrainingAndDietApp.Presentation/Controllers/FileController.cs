@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Training_and_diet_backend.Extensions;
 using TrainingAndDietApp.Application.CQRS.Commands.Files.Delete;
 using TrainingAndDietApp.Application.CQRS.Commands.Files.Upload;
 using TrainingAndDietApp.Application.CQRS.Queries.Files.Download;
@@ -21,7 +22,8 @@ namespace Training_and_diet_backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
-            var response = await _mediator.Send(new UploadFileCommand( file,6));
+            var user = this.User.GetId()!.Value;
+            var response = await _mediator.Send(new UploadFileCommand( file,user));
             if (response.IsSuccess)
                 return Ok(response);
             

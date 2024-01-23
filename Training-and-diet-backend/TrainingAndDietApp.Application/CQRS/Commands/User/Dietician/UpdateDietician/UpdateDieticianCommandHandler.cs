@@ -48,7 +48,6 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Dietician.UpdateDiet
             userToUpdate.DietPriceFrom = request.DieticianCommand.DietPriceFrom;
             userToUpdate.DietPriceTo = request.DieticianCommand.DietPriceTo;
             userToUpdate.Bio = request.DieticianCommand.Bio;
-            userToUpdate.ImageUri = request.DieticianCommand.ImageUri;
 
             await _baseRepository.UpdateAsync(userToUpdate, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

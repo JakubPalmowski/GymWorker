@@ -4,6 +4,7 @@ import { PupilPersonalInfo } from 'src/app/models/MyProfile/pupilPersonalInfo';
 import { TrainerPersonalInfo } from 'src/app/models/MyProfile/trainerPersonalInfo';
 import { UserPersonalInfo } from 'src/app/models/MyProfile/userPersonalInfo';
 import { PupilProfile } from 'src/app/models/pupilProfile';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CertificateService } from 'src/app/services/certificate.service';
 import { FileService } from 'src/app/services/file.service';
 import { GymService } from 'src/app/services/gym.service';
@@ -18,21 +19,36 @@ import { UserService } from 'src/app/services/user.service';
 export class MyProfileComponent implements OnInit {
 
 
-constructor(private userService: UserService, private gymService: GymService, private fileService: FileService, private certificateService: CertificateService) {}
+constructor(private userService: UserService, private gymService: GymService, private fileService: FileService, private certificateService: CertificateService, private authenticationService: AuthenticationService) {}
 
   user: UserPersonalInfo|undefined;
-  role:string = "";
-  id:string = "";
+  role:string|undefined;
+  id:string|undefined;
   imageUrl:string="";
 
 
   ngOnInit(): void {
-    //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
-    this.role = "Dietician-Trainer"
-    this.id = "6";
 
+    const role = this.authenticationService.getRole();
+    switch(role){
+      case "2":
+        this.role = "Pupil";
+        break;
+      case "3":
+        this.role = "Trainer";
+        break;
+      case "4":
+        this.role = "Dietician";
+        break;
+      case "5":
+        this.role = "Dietician-Trainer";
+        break;
+    }
+    this.id = this.authenticationService.getUserId();
+
+    if(this.id){
     if (this.role == "Pupil") {
-      this.userService.GetPupilPersonalInfoById(this.id).subscribe(
+      this.userService.GetPupilPersonalInfo().subscribe(
         {
           next: (pupilInfo) => {
             if (!pupilInfo) {
@@ -65,7 +81,7 @@ constructor(private userService: UserService, private gymService: GymService, pr
     }
     else if (this.role == "Dietician") {
       forkJoin({
-        dieticianInfo: this.userService.GetDieticianPersonalInfoById(this.id),
+        dieticianInfo: this.userService.GetDieticianPersonalInfo(),
         certificates: this.certificateService.GetUserCertificates() // Dodaj odpowiedni identyfikator, jeśli jest potrzebny
       }).pipe(
         switchMap(({ dieticianInfo, certificates }) => {
@@ -125,7 +141,7 @@ constructor(private userService: UserService, private gymService: GymService, pr
     }
     else if (this.role == "Trainer") {
       forkJoin({
-        trainerInfo: this.userService.GetTrainerPersonalInfoById(this.id),
+        trainerInfo: this.userService.GetTrainerPersonalInfo(),
         gyms: this.gymService.GetAllActiveMentorGyms(this.id),
         certificates: this.certificateService.GetUserCertificates() 
       }).pipe(
@@ -186,7 +202,7 @@ constructor(private userService: UserService, private gymService: GymService, pr
     }
     else if (this.role == "Dietician-Trainer") {
       forkJoin({
-        dieticianTrainerInfo: this.userService.GetDieticianTrainerPersonalInfoById(this.id),
+        dieticianTrainerInfo: this.userService.GetDieticianTrainerPersonalInfo(),
         gyms: this.gymService.GetAllActiveMentorGyms(this.id),
         certificates: this.certificateService.GetUserCertificates()
       }).pipe(
@@ -244,17 +260,14 @@ constructor(private userService: UserService, private gymService: GymService, pr
         }
       });
       
-    }      
+    }   
+  }   
   }
 
+ 
 
 
-  formatDate(date: string|undefined): string {
-    if (date == undefined) {
-      return "";
-    }
-    return date.split('T')[0];
-  }
+
 
 
   

@@ -12,6 +12,7 @@ namespace TrainingAndDietApp.Application.CQRS.Responses.Dietician
         public decimal? DietPriceFrom { get; set; }
         public decimal? DietPriceTo { get; set; }
         public string? ImageUri {get; set;}
+        public bool IsAccepted { get; set; }
 
     }
 }

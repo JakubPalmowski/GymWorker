@@ -15,5 +15,4 @@ export interface DieticianTrainerPersonalInfo {
     dietPriceFrom?: number;
     dietPriceTo?: number;
     trainerGyms : ActiveGym[];
-    imageUri?: string;
 }

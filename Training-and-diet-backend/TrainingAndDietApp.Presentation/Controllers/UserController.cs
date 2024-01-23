@@ -1,5 +1,7 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Training_and_diet_backend.Extensions;
 using TrainingAndDietApp.Application.CQRS.Commands.User.Dietician.UpdateDietician;
 using TrainingAndDietApp.Application.CQRS.Commands.User.DieticianTrainer.UpdateDieticianTrainer;
 using TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.UpdatePupil;
@@ -43,7 +45,8 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("{RoleName}/{id}")]
         public async Task<IActionResult> GetUsersWithOpinionsById([FromRoute] string roleName, [FromRoute] int id)
         {
-            var query = new GetMentorWithOpinionsQuery(roleName, id);
+            int? userId = User.Identity.IsAuthenticated ? this.User.GetId()!.Value : null;
+            var query = new GetMentorWithOpinionsQuery(roleName, id, userId);
             var result = await _mediator.Send(query);
 
             return Ok(result);
@@ -55,59 +58,76 @@ namespace Training_and_diet_backend.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
-        
-        [HttpGet("Pupil/PersonalInfo/{id}")]
-        public async Task<IActionResult> GetPupilPersonalInfoById( [FromRoute] int id){
-            var query = new GetPupilPersonalInfoQuery(id);
+
+        [Authorize(Roles = "2")]
+        [HttpGet("Pupil/PersonalInfo")]
+        public async Task<IActionResult> GetPupilPersonalInfoById(){
+            var user = this.User.GetId()!.Value;
+            var query = new GetPupilPersonalInfoQuery(user);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
-        [HttpPut("Pupil/{id}")]
-        public async Task<IActionResult> UpdatePupil(int id, [FromBody] UpdatePupilCommand pupil)       
+        [Authorize(Roles = "2")]
+        [HttpPut("Pupil")]
+        public async Task<IActionResult> UpdatePupil([FromBody] UpdatePupilCommand pupil)       
         {
-            await _mediator.Send(new UpdatePupilInternalCommand(id, pupil));
+            var user = this.User.GetId()!.Value;
+            await _mediator.Send(new UpdatePupilInternalCommand(user, pupil));
             return Ok();
         }
 
-        [HttpGet("Trainer/PersonalInfo/{id}")]
-        public async Task<IActionResult> GetTrainerPersonalInfoById( [FromRoute] int id){
-            var query = new GetTrainerPersonalInfoQuery(id);
+        [Authorize(Roles = "3")]
+        [HttpGet("Trainer/PersonalInfo")]
+        public async Task<IActionResult> GetTrainerPersonalInfoById( ){
+            var user = this.User.GetId()!.Value;
+            var query = new GetTrainerPersonalInfoQuery(user);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
+
+        [Authorize(Roles = "3")]
         [HttpPut("Trainer/{id}")]
-        public async Task<IActionResult> UpdateTrainer(int id, [FromBody] UpdateTrainerCommand trainer)       
+        public async Task<IActionResult> UpdateTrainer([FromBody] UpdateTrainerCommand trainer)       
         {
-            await _mediator.Send(new UpdateTrainerInternalCommand(id, trainer));
+            var user = this.User.GetId()!.Value;
+            await _mediator.Send(new UpdateTrainerInternalCommand(user, trainer));
             return Ok();
         }
 
-        [HttpPut("Dietician/{id}")]
-        public async Task<IActionResult> UpdateDietician(int id, [FromBody] UpdateDieticianCommand dietician)       
+        [Authorize(Roles = "4")]
+        [HttpPut("Dietician")]
+        public async Task<IActionResult> UpdateDietician([FromBody] UpdateDieticianCommand dietician)       
         {
-            await _mediator.Send(new UpdateDieticianInternalCommand(id, dietician));
+            var user = this.User.GetId()!.Value;
+            await _mediator.Send(new UpdateDieticianInternalCommand(user, dietician));
             return Ok();
         }
 
-        [HttpGet("Dietician/PersonalInfo/{id}")]
-        public async Task<IActionResult> GetDieticianPersonalInfoById( [FromRoute] int id){
-            var query = new GetDieticianPersonalInfoQuery(id);
+        [Authorize(Roles = "4")]
+        [HttpGet("Dietician/PersonalInfo")]
+        public async Task<IActionResult> GetDieticianPersonalInfoById(){
+            var user = this.User.GetId()!.Value;
+            var query = new GetDieticianPersonalInfoQuery(user);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
-        [HttpPut("DieticianTrainer/{id}")]
-        public async Task<IActionResult> UpdateDieticianTrainer(int id, [FromBody] UpdateDieticianTrainerCommand dieticianTrainer)       
+        [Authorize(Roles = "5")]
+        [HttpPut("DieticianTrainer")]
+        public async Task<IActionResult> UpdateDieticianTrainer([FromBody] UpdateDieticianTrainerCommand dieticianTrainer)       
         {
-            await _mediator.Send(new UpdateDieticianTrainerInternalCommand(id, dieticianTrainer));
+            var user = this.User.GetId()!.Value;
+            await _mediator.Send(new UpdateDieticianTrainerInternalCommand(user, dieticianTrainer));
             return Ok();
         }
 
-        [HttpGet("DieticianTrainer/PersonalInfo/{id}")]
-        public async Task<IActionResult> GetDieticianTrainerPersonalInfoById( [FromRoute] int id){
-            var query = new GetDieticianTrainerPersonalInfoQuery(id);
+        [Authorize(Roles = "5")]
+        [HttpGet("DieticianTrainer/PersonalInfo")]
+        public async Task<IActionResult> GetDieticianTrainerPersonalInfoById(){
+            var user = this.User.GetId()!.Value;
+            var query = new GetDieticianTrainerPersonalInfoQuery(user);
             var result = await _mediator.Send(query);
             return Ok(result);
         }

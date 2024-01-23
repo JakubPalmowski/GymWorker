@@ -14,5 +14,6 @@ namespace TrainingAndDietApp.Application.CQRS.Responses.Trainer
         public decimal? PersonalTrainingPriceFrom { get; set; }
         public decimal? PersonalTrainingPriceTo { get; set; }
         public string? ImageUri {get; set;}
+        public bool IsAccepted { get; set; }
     }
 }

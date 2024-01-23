@@ -29,14 +29,16 @@
         <div class="col-12 d-flex justify-content-center flex-column my-3">
             <div class="d-flex justify-content-center mb-2">
                 <input type="file" id="file" class="file-input" (change)="onFileSelected($event)">
-                <label for="file" class="file-input-label bg-btn-orange rounded-3 fs-5">Wybierz nowe zdjęcie profilowe</label>
+                <div class="label-container btn-custom btn-detail">
+                <label for="file" class="image-label">Wybierz nowe zdjęcie profilowe</label>
+            </div>
             </div>
             <div class="d-flex justify-content-center">
-                <button type="button" class="file-input-label bg-btn-orange rounded-3 fs-5" (click)="deleteImage()">Usuń zdjęcie profilowe</button>
+                <button  type="button" class="btn-custom btn-detail" (click)="deleteImage()">Usuń zdjęcie profilowe</button>
             </div>
         </div>
 
-            <div class="col-12" [ngSwitch]="user.role">
+            <div class="col-12" [ngSwitch]="role">
                 <h2 class="text-center" *ngSwitchCase="'Trainer'">Trener</h2>
                 <h2 class="text-center" *ngSwitchCase="'Dietician'">Dietetyk</h2>
                 <h2 class="text-center" *ngSwitchCase="'Dietician-Trainer'">Trener i dietetyk</h2>
@@ -49,7 +51,7 @@
             <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
     
             <div class="col-6 group">
-                <label>Imię</label>
+                <label>Imię *</label>
                 <input type="text" [(ngModel)]="user.name" name="name" required 
                        maxlength="50" #name="ngModel">
                 <div class="error-container">
@@ -68,7 +70,7 @@
             
     
             <div class="col-6 group">
-                <label>Nazwisko</label>
+                <label>Nazwisko *</label>
                 <input type="text" [(ngModel)]="user.lastName" name="lastName" required 
                        maxlength="50" #lastName="ngModel">
                 <div class="error-container">
@@ -86,7 +88,7 @@
             
     
             <div class="col-6 group">
-                <label>Email</label>
+                <label>Email *</label>
                 <input type="email" [(ngModel)]="user.email" name="email" required
                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #email="ngModel">
                 <div class="error-container">
@@ -108,12 +110,9 @@
     
             <div class="col-6 group" *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
                 <label>Numer Telefonu</label>
-                <input type="tel" [(ngModel)]="user.phoneNumber" name="phoneNumber" required #phoneNumber="ngModel"
+                <input type="tel" [(ngModel)]="user.phoneNumber" name="phoneNumber" #phoneNumber="ngModel"
                        pattern="^\+48\s?(\d{3}[ ]?){3}$|^(\d{3}[ ]?){3}$">
                        <div class="error-container">
-                <span *ngIf="phoneNumber.errors?.['required']" class="validation-error">
-                    Numer telefonu jest wymagany.
-                </span>
                 <span *ngIf="phoneNumber.errors?.['pattern']" class="validation-error">
                     Proszę podać poprawny numer telefonu.
                 </span>
@@ -376,7 +375,7 @@
             <div class="col-12 d-flex flex-column">
                 <div class="w-100 d-flex" style="margin-left: 5%;">
                 <input type="text" style="width:70%;" #autocompleteGyms [appAutocomplete]="allActiveGyms" (selectedOption)="onSelect($event)">
-                <button class="add-gym-button bg-button" type="button" (click)="addGymToUser()">Dodaj siłownię</button>
+                <button class="btn-custom btn-detail ms-2" type="button" (click)="addGymToUser()">Dodaj siłownię</button>
             </div>
                 <div class="gym-error"><span class="validation-error" *ngIf="inputGymsError">{{inputGymsError}}</span></div>
             </div>
@@ -443,7 +442,7 @@
             </div>
 
                 <div class="col-12 d-flex justify-content-center">
-                    <button type="submit" class="text-black text-decoration-none p-2 bg-btn-orange rounded-3 fs-5">Zapisz zmiany</button>
+                    <button type="submit" class="btn-custom btn-detail">Zapisz zmiany</button>
                 </div>
     
     

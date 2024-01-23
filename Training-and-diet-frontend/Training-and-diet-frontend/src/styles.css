@@ -153,10 +153,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     transition: background-color 0.3s ease, color 0.3s ease;
     border-radius: 5px; 
     margin-right: 5px; 
+    font-size: 18px;
   }
   
   .btn-detail {
-    background-color: #000589;
+    background-color: #3244A0;
     color: white;
   }
   
@@ -194,6 +195,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   
   .btn-delete:hover {
     background-color: #d73829;
+  }
+
+  .btn-orange{
+    background-color: #FF8A00;
+    border: 1px solid black;
   }
 
 html, body { height: 100%; }

@@ -10,6 +10,7 @@ import { ActiveGym } from 'src/app/models/gym/activeGym';
 import { DieticianPersonalInfo } from 'src/app/models/MyProfile/dieticianPersonalInfo';
 import { DieticianTrainerPersonalInfo } from 'src/app/models/MyProfile/dieticianTrainerPersonalInfo';
 import { FileService } from 'src/app/services/file.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 @Component({
@@ -20,11 +21,11 @@ import { FileService } from 'src/app/services/file.service';
 export class MyProfileEditComponent implements OnInit {
 
 
-constructor(private userService: UserService, private gymService: GymService, private fileService: FileService) {}
+constructor(private userService: UserService, private gymService: GymService, private fileService: FileService, private authenticationService: AuthenticationService) {}
 
 user: UserPersonalInfo|undefined;
-role: string = "";
-id: string = "";
+role: string |undefined;
+id: string ="";
 formattedDate: string = "";
 @ViewChild('profileForm') profileForm: NgForm | undefined;
 successFlag: string = "";
@@ -67,13 +68,28 @@ deleteImage(){
 }
 
 
-ngOnInit(): void {
-  //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
-  this.role = "Dietician-Trainer"
-  this.id = "6";
 
+ngOnInit(): void {
+
+  const role = this.authenticationService.getRole();
+    switch(role){
+      case "2":
+        this.role = "Pupil";
+        break;
+      case "3":
+        this.role = "Trainer";
+        break;
+      case "4":
+        this.role = "Dietician";
+        break;
+      case "5":
+        this.role = "Dietician-Trainer";
+        break;
+    }
+    this.id = this.authenticationService.getUserId() ?? "";
+if(this.id && this.role){
   if (this.role == "Pupil") {
-    this.userService.GetPupilPersonalInfoById(this.id).subscribe(
+    this.userService.GetPupilPersonalInfo().subscribe(
       {
         next: (pupilInfo) => {
           this.user = pupilInfo;
@@ -81,21 +97,7 @@ ngOnInit(): void {
             this.user.sex = "";
           }
           this.formattedDate = this.formatDate(this.user.dateOfBirth?.toString());
-          if (this.user.imageUri) {
-            this.fileService.getFile(this.user.imageUri).pipe(
-              catchError(error => {
-                this.imageUrl = "assets/images/user.png";
-                return of(null); 
-              })
-            ).subscribe(blob => {
-              if (blob) {
-                const objectUrl = URL.createObjectURL(blob);
-                this.imageUrl = objectUrl;
-              }
-            });
-          } else {
-            this.imageUrl = "assets/images/user.png";
-          }
+          this.handleImage(this.user.imageUri ?? "");
         },
         error: (response) => {
           console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
@@ -106,7 +108,7 @@ ngOnInit(): void {
   }
   else if (this.role == "Trainer") {
     forkJoin({
-      trainerInfo: this.userService.GetTrainerPersonalInfoById(this.id),
+      trainerInfo: this.userService.GetTrainerPersonalInfo(),
       gyms: this.gymService.GetAllActiveMentorGyms(this.id),
       allGyms: this.gymService.GetAllActiveGyms()
     }).pipe(
@@ -117,61 +119,33 @@ ngOnInit(): void {
         this.user = trainerInfo;
         this.user.trainerGyms = gyms;
         this.allActiveGyms = allGyms;
-        if (this.user && this.user.imageUri) {
-          return this.fileService.getFile(this.user.imageUri).pipe(
-            catchError(error => {
-              this.imageUrl="assets/images/user.png";
-              return of(null); 
-            })
-          );
-        } else {
-          this.imageUrl="assets/images/user.png";
-          return of(null);
-        }
+        this.handleImage(this.user.imageUri ?? "");
+      
+        return of(null); 
       }),
     ).subscribe({
-      next: (blob) => {
-        if (blob) {
-          const objectUrl = URL.createObjectURL(blob);
-          this.imageUrl = objectUrl;
-        }
+      next: () => {
       },
-      error: (response) => {
-        console.log('Wystąpił błąd podczas pobierania danych.', response);
+      error: (error) => {
       }
     });
+
   }else if (this.role == "Dietician") {
-    this.userService.GetDieticianPersonalInfoById(this.id).subscribe({
+    this.userService.GetDieticianPersonalInfo().subscribe({
       next: (dieticianInfo) => {
         if (!dieticianInfo) {
-          console.log('Wystąpił błąd podczas pobierania danych ucznia.');
-          return;
+          throw new Error('Wystąpił błąd podczas pobierania danych.');
         }
         this.user = dieticianInfo;
-        if (this.user.imageUri) {
-          this.fileService.getFile(this.user.imageUri).subscribe(
-            blob => {
-              if (blob) {
-                const objectUrl = URL.createObjectURL(blob);
-                this.imageUrl = objectUrl;
-              }
-            },
-            error => {
-              this.imageUrl = "assets/images/user.png";
-            }
-          );
-        } else {
-          this.imageUrl = "assets/images/user.png";
-        }
+        this.handleImage(this.user.imageUri ?? "");
       },
       error: (response) => {
-        console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
       }
     });
   }
   else if (this.role == "Dietician-Trainer") {
     forkJoin({
-      dieticianTrainerInfo: this.userService.GetDieticianTrainerPersonalInfoById(this.id),
+      dieticianTrainerInfo: this.userService.GetDieticianTrainerPersonalInfo(),
       gyms: this.gymService.GetAllActiveMentorGyms(this.id),
       allGyms: this.gymService.GetAllActiveGyms()
     }).pipe(
@@ -182,77 +156,50 @@ ngOnInit(): void {
         this.user = dieticianTrainerInfo;
         this.user.trainerGyms = gyms;
         this.allActiveGyms = allGyms;
-        if (this.user && this.user.imageUri) {
-          return this.fileService.getFile(this.user.imageUri).pipe(
-            catchError(error => {
-              this.imageUrl="assets/images/user.png";
-              return of(null); 
-            })
-          );
-        } else {
-          this.imageUrl="assets/images/user.png";
-          return of(null);
-        }
-      }),
+        this.handleImage(this.user.imageUri ?? "");
+        return of(null);
+      }
+      )
     ).subscribe({
-      next: (blob) => {
-        if (blob) {
-          const objectUrl = URL.createObjectURL(blob);
-          this.imageUrl = objectUrl;
-        }
+      next: () => {
       },
       error: (response) => {
-        console.log('Wystąpił błąd podczas pobierania danych.', response);
       }
     });
   }
 
 }
+}
+
+handleImage(imageUri: string) {
+  if (imageUri) {
+    this.fileService.getFile(imageUri).pipe(
+      catchError(error => {
+        this.imageUrl = "assets/images/user.png";
+        return of(null);
+      })
+    ).subscribe(blob => {
+      if (blob) {
+        const objectUrl = URL.createObjectURL(blob);
+        this.imageUrl = objectUrl;
+      }
+    });
+  } else {
+    this.imageUrl = "assets/images/user.png";
+  }
+}
+
 
 onSubmit() {
   if (this.profileForm?.valid) {
-  if (this.user) {
+  if (this.user && this.id) {
     if (this.role == "Trainer") {
       const trainerInfo: TrainerPersonalInfo = this.mapUserToTrainer(this.user);
-    const handleImage$ = iif(
-      () => !!this.imageFile || this.imageDeleted,
-      iif(
-        () => !!trainerInfo.imageUri,
-        this.fileService.deleteImage(trainerInfo.imageUri as string).pipe(
-          tap((success) => {
-            if (success) {
-              trainerInfo.imageUri = undefined; 
-            }
-          }),
-          catchError(error => {
-            return throwError(() => error);
-          })
-        ),
-        of(null) 
-      ).pipe(
-        switchMap(() => {
-          if (this.imageFile) {
-            return this.fileService.uploadImage(this.imageFile).pipe(
-              tap((uploadedImageUri) => {
-                trainerInfo.imageUri = uploadedImageUri.fileUri;
-                if(this.user)
-                this.user.imageUri = uploadedImageUri.fileUri;
-              })
-            );
-          } else {
-            return of(null);
-          }
-        }),
-        catchError(error => {
-          return throwError(() => error); 
-        })
-      ),
-      of(null) 
-    );
+    const handleImage$ = this.handleImageLogic();
 
 handleImage$.pipe(
   switchMap(() => {
-    return this.userService.UpdateTrainerPersonalInfo(trainerInfo, this.id);
+    return this.userService.UpdateTrainerPersonalInfo(trainerInfo);
   }),
   catchError(error => {
     if (error.status === 400) {
@@ -288,45 +235,11 @@ handleImage$.pipe(
     }else if (this.role == "Pupil") {
     this.user.dateOfBirth = new Date(this.formattedDate);
     const pupilInfo: PupilPersonalInfo = this.mapUserToPupil(this.user);
-    const handleImage$ = iif(
-      () => !!this.imageFile || this.imageDeleted,
-      iif(
-        () => !!pupilInfo.imageUri,
-        this.fileService.deleteImage(pupilInfo.imageUri as string).pipe(
-          tap((success) => {
-            if (success) {
-              pupilInfo.imageUri = undefined; 
-            }
-          }),
-          catchError(error => {
-            return throwError(() => error);
-          })
-        ),
-        of(null) 
-      ).pipe(
-        switchMap(() => {
-          if (this.imageFile) {
-            return this.fileService.uploadImage(this.imageFile).pipe(
-              tap((uploadedImageUri) => {
-                pupilInfo.imageUri = uploadedImageUri.fileUri;
-                if(this.user)
-                this.user.imageUri = uploadedImageUri.fileUri;
-              })
-            );
-          } else {
-            return of(null);
-          }
-        }),
-        catchError(error => {
-          return throwError(() => error); 
-        })
-      ),
-      of(null) 
-    );
+    const handleImage$ = this.handleImageLogic();
 
 handleImage$.pipe(
   switchMap(() => {
-    return this.userService.UpdatePupilPersonalInfo(pupilInfo, this.id);
+    return this.userService.UpdatePupilPersonalInfo(pupilInfo);
   }),
   catchError(error => {
     if (error.status === 400) {
@@ -360,45 +273,11 @@ handleImage$.pipe(
 });
   }else if(this.role=="Dietician"){
     const dieticianInfo: DieticianPersonalInfo = this.mapUserToDietician(this.user);
-    const handleImage$ = iif(
-      () => !!this.imageFile || this.imageDeleted,
-      iif(
-        () => !!dieticianInfo.imageUri,
-        this.fileService.deleteImage(dieticianInfo.imageUri as string).pipe(
-          tap((success) => {
-            if (success) {
-              dieticianInfo.imageUri = undefined; 
-            }
-          }),
-          catchError(error => {
-            return throwError(() => error);
-          })
-        ),
-        of(null) 
-      ).pipe(
-        switchMap(() => {
-          if (this.imageFile) {
-            return this.fileService.uploadImage(this.imageFile).pipe(
-              tap((uploadedImageUri) => {
-                dieticianInfo.imageUri = uploadedImageUri.fileUri;
-                if(this.user)
-                this.user.imageUri = uploadedImageUri.fileUri;
-              })
-            );
-          } else {
-            return of(null);
-          }
-        }),
-        catchError(error => {
-          return throwError(() => error); 
-        })
-      ),
-      of(null) 
-    );
+    const handleImage$ = this.handleImageLogic();
 
 handleImage$.pipe(
   switchMap(() => {
-    return this.userService.UpdateDieticianPersonalInfo(dieticianInfo, this.id);
+    return this.userService.UpdateDieticianPersonalInfo(dieticianInfo);
   }),
   catchError(error => {
     if (error.status === 400) {
@@ -432,47 +311,11 @@ handleImage$.pipe(
 });
   }else if(this.role=="Dietician-Trainer"){
     const dieticianTrainerInfo: DieticianTrainerPersonalInfo = this.mapUserToDieticianTrainer(this.user);
-    const handleImage$ = iif(
-      () => !!this.imageFile || this.imageDeleted,
-      iif(
-        () => !!dieticianTrainerInfo.imageUri,
-        this.fileService.deleteImage(dieticianTrainerInfo.imageUri as string).pipe(
-          tap((success) => {
-            if (success) {
-              console.log(dieticianTrainerInfo.imageUri as string)
-              dieticianTrainerInfo.imageUri = undefined; 
-            }
-          }),
-          catchError(error => {
-            return throwError(() => error);
-          })
-        ),
-        of(null) 
-      ).pipe(
-        switchMap(() => {
-          if (this.imageFile) {
-            return this.fileService.uploadImage(this.imageFile).pipe(
-              tap((uploadedImageUri) => {
-                dieticianTrainerInfo.imageUri = uploadedImageUri.fileUri;
-                if(this.user)
-                this.user.imageUri = uploadedImageUri.fileUri;
-              })
-            );
-          } else {
-            return of(null);
-          }
-        }),
-        catchError(error => {
-          console.error('Error during image operations', error);
-          return throwError(() => error); 
-        })
-      ),
-      of(null)
-    );
+    const handleImage$ = this.handleImageLogic();
 
 handleImage$.pipe(
   switchMap(() => {
-    return this.userService.UpdateDieticianTrainerPersonalInfo(dieticianTrainerInfo, this.id);
+    return this.userService.UpdateDieticianTrainerPersonalInfo(dieticianTrainerInfo);
   }),
   catchError(error => {
     if (error.status === 400) {
@@ -510,6 +353,56 @@ handleImage$.pipe(
 }
 
 }
+
+
+
+
+handleImageLogic() {
+  return iif(
+    () => !!this.imageFile || this.imageDeleted,
+    iif(
+      () => !!this.user?.imageUri && this.imageDeleted && this.imageFile === null,
+      this.fileService.deleteImage(this.user?.imageUri as string).pipe(
+        tap((success) => {
+          if (success && this.user) {
+            this.user.imageUri = undefined; 
+          }
+        }),
+        catchError(error => {
+          return throwError(() => error);
+        })
+      ),
+      of(null) 
+    ).pipe(
+      switchMap(() => {
+        if (this.imageFile) {
+          return this.fileService.uploadImage(this.imageFile).pipe(
+            tap((uploadedImageUri) => {
+              if(this.user)
+              this.user.imageUri = uploadedImageUri.fileUri;
+            })
+          );
+        } else {
+          return of(null);
+        }
+      }),
+      catchError(error => {
+        return throwError(() => error); 
+      })
+    ),
+    of(null)
+  );
+}
+
+
+
+
+
+
+
+
+
+
 
 
 formatDate(date: string | undefined): string {
@@ -692,8 +585,7 @@ mapUserToPupil(user: UserPersonalInfo): PupilPersonalInfo {
     height: user.height,
     dateOfBirth: user.dateOfBirth,
     sex: user.sex,
-    bio: user.bio,
-    imageUri: user.imageUri
+    bio: user.bio
   };
 }
 
@@ -710,8 +602,7 @@ mapUserToTrainer(user: UserPersonalInfo): TrainerPersonalInfo {
     trainingPlanPriceTo: user.trainingPlanPriceTo,
     personalTrainingPriceFrom: user.personalTrainingPriceFrom,
     personalTrainingPriceTo: user.personalTrainingPriceTo,
-    trainerGyms: user.trainerGyms,
-    imageUri: user.imageUri
+    trainerGyms: user.trainerGyms
   };
 }
  mapUserToDietician(user: UserPersonalInfo): DieticianPersonalInfo {
@@ -724,8 +615,7 @@ mapUserToTrainer(user: UserPersonalInfo): TrainerPersonalInfo {
     phoneNumber: user.phoneNumber,
     bio: user.bio,
     dietPriceFrom: user.dietPriceFrom,
-    dietPriceTo: user.dietPriceTo,
-    imageUri: user.imageUri
+    dietPriceTo: user.dietPriceTo
   };
 }
 
@@ -744,8 +634,7 @@ mapUserToDieticianTrainer(user: UserPersonalInfo): DieticianTrainerPersonalInfo 
     personalTrainingPriceTo: user.personalTrainingPriceTo,
     dietPriceFrom: user.dietPriceFrom,
     dietPriceTo: user.dietPriceTo,
-    trainerGyms: user.trainerGyms,
-    imageUri: user.imageUri
+    trainerGyms: user.trainerGyms
   };
 }
 

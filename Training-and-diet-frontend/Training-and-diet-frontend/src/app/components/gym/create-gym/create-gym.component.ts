@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CreateGym } from 'src/app/models/gym/createGym';
 import { GymsAddedByUser } from 'src/app/models/gym/gymsAddedByUser';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GymService } from 'src/app/services/gym.service';
 
 @Component({
@@ -18,18 +19,19 @@ export class CreateGymComponent implements OnInit {
     name: "",
     city: "",
     street: "",
-    postalCode: "",
-    addedBy: 6
+    postalCode: ""
   }
   fieldErrors: { [key: string]: string[] } = {};
   successFlag: string = "";
 
-  constructor(private gymService: GymService) { }
+  constructor(private gymService: GymService, private authenticationService: AuthenticationService) { }
 
   
   ngOnInit(): void {
-    //Po dodaniu uwierzytelnienia trzeba będzie pobrać dane zalogowanego użytkownika z jwt Tokena
-    this.gymService.GetGymsAddedByUser("6").subscribe({
+
+    const userId = this.authenticationService.getUserId();
+    if(userId){
+    this.gymService.GetGymsAddedByUser(userId).subscribe({
       next: (gyms) => {
         this.GymsAddedByUser = gyms;
       },
@@ -37,6 +39,7 @@ export class CreateGymComponent implements OnInit {
         console.log(response);
       }
     })
+  }
   }
   onSubmit() {
     if (this.profileForm?.valid) {
@@ -52,7 +55,7 @@ export class CreateGymComponent implements OnInit {
             status: "Pending"
           };
           this.GymsAddedByUser?.push(gym);
-          this.GymToCreate = { city: "", name: "", postalCode: "", street: "", addedBy: 3};
+          this.GymToCreate = { city: "", name: "", postalCode: "", street: ""};
           this.profileForm?.reset();
         },
         error: (error) => {

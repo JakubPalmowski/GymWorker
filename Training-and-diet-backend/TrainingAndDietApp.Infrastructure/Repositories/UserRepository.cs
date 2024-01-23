@@ -31,10 +31,11 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         public async Task<User?> GetUserWithGymsAndOpinionsAsync(int id, CancellationToken cancellationToken)
         {
             return await _context.Users
+                .Where(u => u.IdUser == id && u.IsAccepted == true)
                 .Include(u=>u.Role)
                 .Include(u => u.MentorOpinions)
                 .ThenInclude(u => u.Pupil)
-                .FirstOrDefaultAsync(u => u.IdUser == id, cancellationToken);
+                .FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<User?> GetByEmailWithRoleAsync(string email, CancellationToken cancellationToken)
@@ -55,6 +56,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         public IQueryable<User> GetUsersWithDetails(string? roleName, string? searchPhrase, CancellationToken cancellationToken)
         {
             return  _context.Users
+                .Where(u => u.IsAccepted == true)
                 .Include(u => u.MentorOpinions)
                 .Include(u => u.Role)
                 .Include(u => u.TrainerGyms)
@@ -68,6 +70,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
 
 
 
+        //to do profilu wiec nie musi byc accepted
         public async Task<User?> GetUserWithDetailsAsync(int id, CancellationToken cancellationToken)
         =>  await _context.Users.Where(u=>u.IdUser==id)
             .Include(u => u.Role)

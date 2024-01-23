@@ -41,19 +41,7 @@ a{
     
 }
 
-.add-gym-button{
-    height:47px; 
-    width: 140px;
-    border-radius: 10px;
-    color: white;
-    text-decoration: none;
-    width: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    padding:10px;
-  }
+
 
 
   

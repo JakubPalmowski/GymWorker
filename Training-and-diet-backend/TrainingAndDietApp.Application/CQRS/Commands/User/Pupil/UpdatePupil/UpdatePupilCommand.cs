@@ -20,7 +20,6 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.UpdatePupil
         public DateTime? DateOfBirth { get; set; }
         public string? Sex { get; set; }
         public string? Bio { get; set; }
-        public string? ImageUri {get; set;}
 
 
     }
