@@ -1,6 +1,6 @@
 <div class="container-fluid mw1500">
  
-    <app-search (searchMentor)="searchMentorByPhrase($event)" [searchInput]="searchPhrase"></app-search>
+    <app-search (searchMentor)="searchMentorByPhrase($event)" [searchInput]="searchPhrase" [placeholderText]="placeholderText"></app-search>
 
     <app-search-options [role]="role" [searchPhrase]="searchPhrase" (deletePhrase)="deletePhrase()" (filterData)="filterData($event)" ></app-search-options>
     

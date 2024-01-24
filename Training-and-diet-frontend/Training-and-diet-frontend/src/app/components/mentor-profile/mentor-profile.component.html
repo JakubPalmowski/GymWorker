@@ -12,9 +12,17 @@
     </div>
     </div>
 
+    <div *ngIf="errorFlag=='error'" class="error-popup" style="z-index: 2000;">
+      Wystapił błąd. Proszę spróbować ponownie.
+    </div>
+    <div *ngIf="errorFlag=='successUpdate' || errorFlag=='successCreate' || errorFlag=='successDelete'" class="success-popup">
+      <ng-container *ngIf="errorFlag=='successCreate'">Dodano opinie</ng-container>
+      <ng-container *ngIf="errorFlag=='successDelete'">Usunięto opinie</ng-container>
+      <ng-container *ngIf="errorFlag=='successUpdate'">Edytowano opinie</ng-container>
+    </div>
+
 
       <div class="row bg-secondary d-flex align-items-center py-4 px-2 rounded-3 mb-3" style="border: 2px solid black;">
-       
           <div class="col-lg-2 col-md-6 col-12 d-flex justify-content-center align-items-center">
             <img width="140px" height="140px" src="{{imageUrl}}" class="round-picture">
           </div>
@@ -27,9 +35,133 @@
               <span class="fs-2" *ngSwitchCase="'Dietician'">Dietetyk</span>
               <span class="fs-2" *ngSwitchCase="'Dietician-Trainer'">Trener i dietetyk</span>
             </ng-container>
-          
-            <button class="btn-custom btn-orange mt-3 m-lg-1" style="width: fit-content;">Napisz wiadomość</button>
+
+            <ng-container *ngIf="isLogged && roleUser=='Pupil'">
+            <span class="fs-5 ms-1" *ngIf="mentor.cooperation" style="color: green;">Współpracujesz z tym mentorem<i class="bi bi-people-fill ms-1"></i></span>
+            <button *ngIf="mentor.cooperation==null" class="btn-custom btn-orange mt-3 m-lg-1" style="width: fit-content;" (click)="sendInvitation()">Zaproś do współpracy</button>
+            <button *ngIf="mentor.cooperation==false" class="btn-custom btn-orange mt-3 m-lg-1" style="width: fit-content;" (click)="cancelInvitation()">Anuluj zaproszenie</button>
+            <button data-bs-toggle="modal" data-bs-target="#createOpinionModal" *ngIf="mentor.cooperation && !mentor.isOpinionExists" class="btn-custom btn-orange mt-3 m-lg-1">Dodaj opinie</button>
+            <button data-bs-toggle="modal" data-bs-target="#updateOpinionModal" *ngIf="mentor.cooperation && mentor.isOpinionExists" class="btn-custom btn-orange mt-3 m-lg-1" >Edytuj opinie</button>
+          </ng-container>
+
+            <button *ngIf="!isLogged" class="btn-custom btn-orange mt-3 m-lg-1" style="width: fit-content;" routerLink="/login">Zaproś do współpracy</button>
           </div>
+
+
+          <div class="modal fade" #createOpinionModal id="createOpinionModal" tabindex="-1" aria-labelledby="opinionModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-button">
+                  <h5 class="modal-title w-100 text-center text-white" id="opinionModalLabel">Dodaj opinie</h5>
+                  <span class="text-white" style="cursor: pointer;" data-bs-dismiss="modal" aria-label="Close">X</span>
+                </div>
+                <div class="modal-body">
+                  <form #profileForm="ngForm" (ngSubmit)="onCreateSubmit()">
+
+                    <div class="group-admin-input">
+                      <label for="content" style="width: 90%;">Treść opinii</label>
+                      <textarea style="width: 90%;"  id="content" rows="3" name="content" required 
+                       maxlength="1000" [(ngModel)]="newOpinion.content" #content="ngModel"></textarea>
+                       <div class="error-container">
+                        <span *ngIf="content.errors?.['required'] && this.submitted" class="validation-error">
+                            Pole jest wymagane
+                        </span>
+                        <span *ngIf="content.errors?.['maxlength'] && this.submitted" class="validation-error">
+                            Pole musi zawierać max 1000 znaków
+                        </span>
+                        <span *ngIf="fieldErrors['Content']" class="validation-error">
+                            {{ fieldErrors['Content'][0] }}
+                        </span>
+                    </div>
+                    </div>
+
+                    <div class="mb-5 group-admin-input">
+                      <label style="width: 90%;" for="rate" class="form-label">Ocena</label>
+                      <select style="width: 90%; border: 1px solid black;" class="form-select" name="rate" id="rate" [(ngModel)]="newOpinion.rate" #rate="ngModel">
+                        <option [ngValue]="1">1.0</option>
+                        <option [ngValue]="2">2.0</option>
+                        <option [ngValue]="3">3.0</option>
+                        <option [ngValue]="4">4.0</option>
+                        <option [ngValue]="5">5.0</option>
+                      </select>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn-custom btn-edit">Zapisz opinie</button>
+                </div>
+                  </form>
+                </div>
+               
+        
+           
+              </div>
+            </div>
+          </div>
+
+
+          <div *ngIf="editOpinion" class="modal fade" #updateOpinionModal id="updateOpinionModal" tabindex="-1" aria-labelledby="updateOpinionModal" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-button">
+                  <h5 class="modal-title w-100 text-center text-white" id="opinionModalLabel">Edytuj opinie</h5>
+                  <span class="text-white" style="cursor: pointer;" data-bs-dismiss="modal" aria-label="Close">X</span>
+                </div>
+                <div class="modal-body">
+                  <form #editForm="ngForm" (ngSubmit)="onEditSubmit()">
+
+                    <div class="group-admin-input">
+                      <label for="content" style="width: 90%;">Treść opinii</label>
+                      <textarea style="width: 90%;"  id="content" rows="3" name="content" required 
+                       maxlength="1000" [(ngModel)]="editOpinion.content" #content="ngModel"></textarea>
+                       <div class="error-container">
+                        <span *ngIf="content.errors?.['required'] && this.submitted" class="validation-error">
+                            Pole jest wymagane
+                        </span>
+                        <span *ngIf="content.errors?.['maxlength'] && this.submitted" class="validation-error">
+                            Pole musi zawierać max 1000 znaków
+                        </span>
+                        <span *ngIf="fieldErrors['Content']" class="validation-error">
+                            {{ fieldErrors['Content'][0] }}
+                        </span>
+                    </div>
+                    </div>
+
+                    <div class="mb-5 group-admin-input">
+                      <label style="width: 90%;" for="rate" class="form-label">Ocena</label>
+                      <select style="width: 90%; border: 1px solid black;" class="form-select" name="rate" id="rate" [(ngModel)]="editOpinion.rate" #rate="ngModel">
+                        <option [ngValue]="1">1.0</option>
+                        <option [ngValue]="2">2.0</option>
+                        <option [ngValue]="3">3.0</option>
+                        <option [ngValue]="4">4.0</option>
+                        <option [ngValue]="5">5.0</option>
+                      </select>
+                    </div>
+                    <div class="d-flex justify-content-evenly">
+                  <button type="submit" class="btn-custom btn-detail">Edytuj opinie</button>
+                  <button type="button" class="btn-custom btn-delete" (click)="deleteOpinion()">Usuń opinie</button>
+                </div>
+                  </form>
+                </div>
+               
+        
+           
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           <div class="col-lg-1 d-none d-lg-block vertical-line" style="height:90%;">
           </div>

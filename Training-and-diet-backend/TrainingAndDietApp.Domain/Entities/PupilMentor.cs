@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Domain.Entities;
 
-namespace TrainingAndDietApp.DAL.EntityModels
+namespace TrainingAndDietApp.Domain.Entities
 {
     public class PupilMentor
     {

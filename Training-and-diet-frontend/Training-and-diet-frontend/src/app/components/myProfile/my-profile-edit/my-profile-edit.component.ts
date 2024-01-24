@@ -366,6 +366,7 @@ handleImageLogic() {
         tap((success) => {
           if (success && this.user) {
             this.user.imageUri = undefined; 
+            this.userService.notifyUserImageChanged();
           }
         }),
         catchError(error => {
@@ -380,6 +381,7 @@ handleImageLogic() {
             tap((uploadedImageUri) => {
               if(this.user)
               this.user.imageUri = uploadedImageUri.fileUri;
+              this.userService.notifyUserImageChanged();
             })
           );
         } else {

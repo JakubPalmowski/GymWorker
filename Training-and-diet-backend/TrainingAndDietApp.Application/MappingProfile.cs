@@ -35,6 +35,8 @@ using TrainingAndDietApp.Application.CQRS.Responses.Admin;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetUserInfoForVerification;
 using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetUserCertificatesById;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateExercise;
+using TrainingAndDietApp.Application.CQRS.Queries.Opinion.GetOpinionById;
+using TrainingAndDietApp.Application.CQRS.Queries.User.Mentor.GetInvitations;
 
 
 namespace TrainingAndDietApp.Application
@@ -216,6 +218,10 @@ namespace TrainingAndDietApp.Application
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ExerciseCommand.Name))
                 .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.ExerciseCommand.Details))
                 .ForMember(dest => dest.ExerciseSteps, opt => opt.MapFrom(src => src.ExerciseCommand.ExerciseSteps));
+
+                CreateMap<Opinion, OpinionEditResponse>();
+
+                CreateMap<User, InvitationsResponse>();
 
                 
        

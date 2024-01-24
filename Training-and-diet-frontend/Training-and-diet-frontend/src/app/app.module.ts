@@ -60,6 +60,7 @@ import { AssignDietComponent } from './components/diets/assign-diet/assign-diet.
 import { EditDietMealComponent } from './components/diets/edit-diet-meal/edit-diet-meal.component';
 import { ExerciseAdminDetailsComponent } from './components/admin/exercise/exerciseAdminDetails/exercise-admin-details/exercise-admin-details.component';
 import { ExerciseAdminEditComponent } from './components/admin/exercise/exerciseAdminEdit/exercise-admin-edit/exercise-admin-edit.component';
+import { InvitationListComponent } from './components/invitationList/invitation-list/invitation-list.component';
 
 
 
@@ -123,7 +124,8 @@ import { ExerciseAdminEditComponent } from './components/admin/exercise/exercise
     AssignDietComponent,
     EditDietMealComponent,
     ExerciseAdminDetailsComponent,
-    ExerciseAdminEditComponent
+    ExerciseAdminEditComponent,
+    InvitationListComponent
   ],
   imports: [
     AppRoutingModule,

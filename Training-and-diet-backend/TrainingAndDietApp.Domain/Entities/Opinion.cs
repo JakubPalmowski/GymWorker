@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using TrainingAndDietApp.Domain.Entities;
 
-namespace Training_and_diet_backend.Models
+namespace TrainingAndDietApp.Domain.Entities
 {
     [Table("Opinion")]
     public class Opinion
@@ -18,7 +18,7 @@ namespace Training_and_diet_backend.Models
         public string Content { get; set; }
 
         [Column(TypeName = "Date")]
-        public DateTime OpinionDate { get; set; }
+        public DateTime OpinionDate { get; set; } = DateTime.UtcNow;
 
         [Column(TypeName = "decimal(2,1)")]
         public decimal Rate { get; set; }

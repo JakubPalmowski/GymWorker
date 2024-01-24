@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Login } from '../models/login';
 import { Register } from '../models/register';
 import { JwtAuth } from '../models/jwtAuth';
@@ -16,9 +16,18 @@ export class AuthenticationService {
 
     
   decodedToken: { [key: string]: string; } | undefined;
+  private loggedIn = new BehaviorSubject<boolean>(false);
  
 
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    const token = localStorage.getItem('accessToken');
+    const isExpired = this.isTokenExpired();
+    this.loggedIn.next(!!token && !isExpired);
+    if (token) {
+      this.decodeToken();
+    }
+  }
+  
 
   public register(register: Register): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(environment.apiUrl + 'Auth/register', register);
@@ -30,7 +39,7 @@ export class AuthenticationService {
 
   public refreshToken(): Observable<JwtAuth> {
     const jwtToken:JwtAuth={
-      accessToken:localStorage.getItem('acessToken')||'',
+      accessToken:localStorage.getItem('accessToken')||'',
       refreshToken:localStorage.getItem('refreshToken')||''
     }
     return this.http.post<JwtAuth>(environment.apiUrl + 'Auth/refresh', jwtToken);
@@ -38,11 +47,12 @@ export class AuthenticationService {
   
 
   public setSession(JwtAuth: JwtAuth) {
-    localStorage.setItem('acessToken', JwtAuth.accessToken);
+    localStorage.setItem('accessToken', JwtAuth.accessToken);
     localStorage.setItem('refreshToken', JwtAuth.refreshToken);
    // console.log("session acessT: "+JwtAuth.accessToken);
   //  console.log("session refT: "+JwtAuth.refreshToken);
     this.decodeToken();
+    this.loggedIn.next(true);
     
     
 
@@ -50,7 +60,7 @@ export class AuthenticationService {
   }
 
   decodeToken() {
-    const token = localStorage.getItem('acessToken');
+    const token = localStorage.getItem('accessToken');
     if (token) {
       this.decodedToken = jwtDecode(token);
     }
@@ -71,12 +81,13 @@ export class AuthenticationService {
 
 
   public logout() {
-    localStorage.removeItem('acessToken');
+    localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     console.log("logout");
     console.log(this.getRole());
     this.decodedToken=undefined;
     console.log(this.getRole());
+    this.loggedIn.next(false);
     this.router.navigateByUrl('/login');
 
     
@@ -93,5 +104,10 @@ export class AuthenticationService {
   getExpiration() {
     return this.decodedToken? this.decodedToken['exp'] : undefined;
   }
+
+  get isLoggedIn() {
+    return this.loggedIn.asObservable();
+  }
+
 
 }

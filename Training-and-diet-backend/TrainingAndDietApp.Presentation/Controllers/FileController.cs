@@ -42,7 +42,8 @@ namespace Training_and_diet_backend.Controllers
         [HttpDelete("delete/{blobFileName}")]
         public async Task<IActionResult> Delete(string blobFileName)
         {
-            var command = new DeleteFileCommand(blobFileName, 6);
+            var user = this.User.GetId()!.Value;
+            var command = new DeleteFileCommand(blobFileName, user);
             var result = await _mediator.Send(command);
 
             if (result)

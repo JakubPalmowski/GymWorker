@@ -22,6 +22,7 @@ export class MentorsListComponent implements OnInit{
     role: string|undefined='';
     totalPages: number=0;
     isDataLoaded: boolean=true;
+    placeholderText: string = 'Wyszukaj mentora';
 
     currentPage: number = 1;
     searchPhrase: string='';
@@ -98,6 +99,7 @@ export class MentorsListComponent implements OnInit{
 
     
   if (this.role == "trainersList") {
+    this.placeholderText = 'Wyszukaj trenera';
     this.userService.GetAllTrainers(this.currentPage, this.searchPhrase, this.sortBy.sort, this.sortBy.sortDirection, this.sortBy.gymCity, this.sortBy.gymName).subscribe({
       next: (response) => {
         this.response = response;
@@ -144,6 +146,7 @@ export class MentorsListComponent implements OnInit{
   
 
   if(this.role=="dieticiansList"){
+    this.placeholderText='Wyszukaj dietetyka';
     this.userService.GetAllDieteticians(this.currentPage, this.searchPhrase, this.sortBy.sort, this.sortBy.sortDirection).subscribe({
       next:(response)=>{
         this.response=response;
