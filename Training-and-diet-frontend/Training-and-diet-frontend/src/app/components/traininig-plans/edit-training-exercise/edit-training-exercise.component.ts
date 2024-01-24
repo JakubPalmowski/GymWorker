@@ -29,7 +29,6 @@ export class EditTrainingExerciseComponent implements OnInit{
     exerciseName:'',
   }
 
-  
 
   repetitions:string[]=[];
 
@@ -38,23 +37,14 @@ export class EditTrainingExerciseComponent implements OnInit{
   previousUrl:string='';
   
   constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute,private router:Router,private previousUrlService: PreviousUrlService){
- 
   }
   
 
-     
-
   ngOnInit(): void {
-
 
     this.route.paramMap.subscribe({
       next:(params)=>{
         const id=params.get('id');
-
-
-      
-
-     
   
     this.previousUrl=this.previousUrlService.getPreviousUrl();
     this.id_training=this.route.snapshot.queryParams['trainingId'];
@@ -77,9 +67,6 @@ export class EditTrainingExerciseComponent implements OnInit{
         console.log(response);
       }
     })
-  
-    
-    
   }
 
   }})
@@ -92,7 +79,6 @@ export class EditTrainingExerciseComponent implements OnInit{
     this.repetitions.length=this.newTrainingExerciseRequest.seriesNumber;
   
     console.log(this.repetitions);
-    
     
   }
 

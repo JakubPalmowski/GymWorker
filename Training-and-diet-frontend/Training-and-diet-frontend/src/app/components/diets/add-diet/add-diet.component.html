@@ -50,16 +50,16 @@
                 </div>
                 <div class="mb-3">
                     <label for="numberOfWeeks" class="form-label-custom">Liczba dni *</label><br>
-                    <input type="number" class="form-input" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="addDietRequest.dietDuration" 
+                    <input type="number" class="form-input" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="addDietRequest.numberOfWeeks" 
                     required min="7" max="2000"  #numberOfWeeks="ngModel" >
                     <div *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
                         Pole jest wymagane
                     </div>
                     <div *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
-                        Ilośc dni musi być większa lub równa 7
+                        Ilośc tygodni musi być większa lub równa 7
                     </div>
                     <div *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
-                        Ilość dni musi być mniejsza od 2000
+                        Ilość tygodni musi być mniejsza od 2000
                     </div>
                 </div>
 

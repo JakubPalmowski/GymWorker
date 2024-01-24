@@ -19,7 +19,7 @@ export class AddDietComponent implements OnInit{
     customName: '',
     type: '',
     startDate: new Date,
-    dietDuration: 0,
+    numberOfWeeks: 0,
     TotalKcal: 0
   }
 
