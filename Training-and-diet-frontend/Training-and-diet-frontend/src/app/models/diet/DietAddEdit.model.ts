@@ -3,6 +3,6 @@ export interface DietAddEdit{
     customName:string;
     type:string;
     startDate:Date;
-    dietDuration:number;
+    numberOfWeeks:number;
     TotalKcal:number;
 }
