@@ -45,6 +45,8 @@ constructor(private userService: UserService, private gymService: GymService, pr
         break;
     }
     this.id = this.authenticationService.getUserId();
+    console.log(this.id);
+    console.log(this.role);
 
     if(this.id){
     if (this.role == "Pupil") {

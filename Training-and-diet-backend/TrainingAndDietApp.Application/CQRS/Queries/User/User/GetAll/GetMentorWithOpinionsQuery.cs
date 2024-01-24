@@ -28,6 +28,7 @@ public class MentorWithOpinionResponse
     public List<OpinionResponse> Opinions { get; set; }
     public List<MentorGymResponse> TrainerGyms { get; set; }
     public bool? Cooperation { get; set; }
+    public bool? IsOpinionExists { get; set; }
 
 }
 

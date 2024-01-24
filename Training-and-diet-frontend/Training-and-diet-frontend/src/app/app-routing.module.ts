@@ -47,6 +47,7 @@ import { NewDietMealComponent } from './components/diets/new-diet-meal/new-diet-
 import { AssignDietComponent } from './components/diets/assign-diet/assign-diet.component';
 import { ExerciseAdminDetailsComponent } from './components/admin/exercise/exerciseAdminDetails/exercise-admin-details/exercise-admin-details.component';
 import { ExerciseAdminEditComponent } from './components/admin/exercise/exerciseAdminEdit/exercise-admin-edit/exercise-admin-edit.component';
+import { InvitationListComponent } from './components/invitationList/invitation-list/invitation-list.component';
 
 
 
@@ -177,6 +178,7 @@ const routes: Routes = [
   {path: 'admin/certificatedUsers/certificateVerification/:id', component: CertificateVerificationComponent},
   {path: 'admin/exercise/details/:id', component: ExerciseAdminDetailsComponent},
   {path: 'admin/exercise/edit/:id', component: ExerciseAdminEditComponent},
+  {path: 'invitationList', component: InvitationListComponent}
   
   
 ];

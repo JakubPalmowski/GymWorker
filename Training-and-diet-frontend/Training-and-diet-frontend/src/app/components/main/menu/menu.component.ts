@@ -3,36 +3,93 @@ import { Router, NavigationEnd, UrlTree, UrlSegment } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { FileService } from 'src/app/services/file.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent{
+export class MenuComponent implements OnInit{
 
 
 
   showSidebar = false;
-
-  userId=this.authService.getUserId();
-  userName?=this.authService.getUserId();//TO DO ZAMIANA NA NAME
+  isLoggedIn = false;
+  userImage: string | undefined;
   role='';
     toggleSidebar() {
         this.showSidebar = !this.showSidebar;
     }
  
   activeRoute: string = '';
-  private firstSegmentSubscription: Subscription;
+  private firstSegmentSubscription: Subscription | undefined;
  
 
-  constructor(private router: Router, private url: PreviousUrlService, private authService: AuthenticationService) {
+  constructor(private router: Router, private url: PreviousUrlService, private authService: AuthenticationService, private userService: UserService, private fileService: FileService) {
+
+  }
+
+  ngOnInit() {
+    this.authService.isLoggedIn.subscribe(loggedIn => {
+      this.isLoggedIn = loggedIn;
+      if(loggedIn){
+      const user = this.authService.getRole();
+      switch(user){
+        case '1':
+          this.role='Admin';
+          break;
+        case '2':
+          this.role='Pupil';
+          break;
+        case '3':
+          this.role='Trainer';
+          break;
+        case '4':
+          this.role='Dietician';
+          break;
+        case '5':
+          this.role='Dietician-Trainer';
+          break;
+      }
+      this.loadUserImage();
+    }
+    });
+
+    this.userService.userImageChangedObservable.subscribe(
+      (changed) => {
+        if (changed) {
+          this.loadUserImage();
+        }
+      }
+    );
+
     this.firstSegmentSubscription = this.url.getFirstSegmentObservable().subscribe(
       (firstSegment) => {
         this.activeRoute=firstSegment;
       }
     );
+  }
+
+  loadUserImage() {
+    this.userService.getUserImage().subscribe(
+      (response)=>{
+        if(response.imageUri!=null){
+          this.fileService.getFile(response.imageUri).subscribe(
+            (blob) => {
+              this.userImage = URL.createObjectURL(blob);
+            },
+            (error) => {
+              this.userImage = 'assets/images/user.png'
+            }
+          );
+        }else{
+          this.userImage = 'assets/images/user.png'
+        }
+      }
+    )
   }
 
 
@@ -88,6 +145,12 @@ goToMainPage() {
     logout(){
         this.authService.logout();
     }
+
+    goToInvitationList() {
+      if(!(this.activeRoute=='invitationList')){
+        this.router.navigateByUrl('invitationList');
+      }
+      }
 
     
 }

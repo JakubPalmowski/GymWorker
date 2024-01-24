@@ -18,7 +18,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
        
         //console.log("check token before"+localStorage.getItem('acessToken'));
         
-        if(localStorage.getItem('acessToken')){
+        if(localStorage.getItem('accessToken')){
 
             request=this.addTokenHeader(request);
         
@@ -60,7 +60,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     addTokenHeader(request: HttpRequest<any>) {
         return request.clone({
             setHeaders: {
-                Authorization: `Bearer ${localStorage.getItem('acessToken')}`
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
         });
     }

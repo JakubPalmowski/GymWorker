@@ -173,15 +173,15 @@
 
     
       
-        <li>
-          <div class="menu-link">
+        <li *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer'">
+          <div class="menu-link" (click)="goToInvitationList()" [ngClass]="{'active': activeRoute=='invitationList'}">
             <img src="../../../assets/icons/record.png" width="20" height="20">
-            <a>Podopieczni</a>
+            <a>Zaproszenia</a>
             </div>
           </li>
 
 
-          <li>
+          <li *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer'">
             <div class="menu-link">
               <img src="../../../assets/icons/record.png" width="20" height="20">
             <a>Moi podopieczni</a>
@@ -204,28 +204,28 @@
 
          
 
-          <li>
+          <li *ngIf="role=='Trainer'">
             <div class="menu-link" (click)="goToExercices()"  [ngClass]="{'active': activeRoute=='exercises'}">
               <img src="../../../assets/icons/record.png" width="20" height="20">
             <a>Ćwiczenia</a>
             </div>
           </li>
 
-          <li>
+          <li *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
             <div class="menu-link" (click)="goToTrainingPlans()"  [ngClass]="{'active': activeRoute=='training-plans'}">
               <img src="../../../assets/icons/record.png" width="20" height="20">
             <a>Moje plany</a>
             </div>
           </li>
 
-          <li>
+          <li *ngIf="role=='Pupil'">
             <div class="menu-link" (click)="goPupilToTrainingPlans()" [ngClass]="{'active': activeRoute=='pupilTrainingPlans'}">
               <img src="../../../assets/icons/record.png" width="20" height="20">
             <a>Mój trening</a>
             </div>
           </li>
 
-          <li>
+          <li *ngIf="role=='Admin'">
             <div class="menu-link" routerLink="/admin/gym/list/Active" [ngClass]="{'active': activeRoute=='admin'}">
               <img src="../../../assets/icons/record.png" width="20" height="20">
             <a>Admin</a>
@@ -237,9 +237,9 @@
 
     </div>
     
-    <div class="d-none d-xxl-flex" style="padding: 15px;">
+    <div *ngIf="isLoggedIn" class="d-none d-xxl-flex" style="padding: 15px;">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2 text-truncate" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" width="40" height="40" class="round-picture">
+          <img src="{{userImage}}" width="40" height="40" class="round-picture">
           <span>Filip</span>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow">

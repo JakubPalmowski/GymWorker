@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Login } from 'src/app/models/login';
 import { Router } from '@angular/router';
+import { PreviousUrlService } from 'src/app/services/previous-url.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent {
   credentialsIncorrect=false;
   submitted=false;
 
-  constructor(private authenticationService:AuthenticationService,private router:Router) {}
+  constructor(private authenticationService:AuthenticationService,private router:Router, private previousUrl: PreviousUrlService) {}
 
 
   login(){
@@ -33,7 +34,7 @@ export class LoginComponent {
         console.log(this.authenticationService.getUserId());
         console.log(this.authenticationService.getExpiration());
         console.log(this.authenticationService.isTokenExpired());
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl(this.previousUrl.getPreviousUrl());
       },
       error:(response)=>{
 

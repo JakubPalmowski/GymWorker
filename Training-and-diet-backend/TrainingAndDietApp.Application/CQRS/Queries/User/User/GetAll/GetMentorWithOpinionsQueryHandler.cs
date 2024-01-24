@@ -14,14 +14,16 @@ public class GetMentorWithOpinionsQueryHandler : IRequestHandler<GetMentorWithOp
     private readonly IUserService _userService;
     private readonly IGymRepository _gymRepository;
     private readonly IPupilMentorRepository _pupilMentorRepository;
+    private readonly IOpinionRepository _opinionRepository;
     private readonly IMapper _mapper;
-    public GetMentorWithOpinionsQueryHandler(IMapper mapper, IUserRepository userRepository, IUserService userService, IGymRepository gymRepository, IPupilMentorRepository pupilMentorRepository)
+    public GetMentorWithOpinionsQueryHandler(IOpinionRepository opinionRepository,IMapper mapper, IUserRepository userRepository, IUserService userService, IGymRepository gymRepository, IPupilMentorRepository pupilMentorRepository)
     {
         _mapper = mapper;
         _userRepository = userRepository;
         _userService = userService;
         _gymRepository = gymRepository;
         _pupilMentorRepository = pupilMentorRepository;
+        _opinionRepository = opinionRepository; 
 
     }
     public async Task<MentorWithOpinionResponse> Handle(GetMentorWithOpinionsQuery request, CancellationToken cancellationToken)
@@ -44,6 +46,13 @@ public class GetMentorWithOpinionsQueryHandler : IRequestHandler<GetMentorWithOp
             if(cooperation!=null){
                 if(cooperation.IsAccepted){
                     mentorWithOpinionsResponse.Cooperation = true;
+                    var opinion = await _opinionRepository.GetPupilMentorOpinionAsync(request.IdLoggedUser.Value, request.Id, cancellationToken);
+                    if(opinion!=null){
+                        mentorWithOpinionsResponse.IsOpinionExists = true;
+                    }
+                    else{
+                        mentorWithOpinionsResponse.IsOpinionExists = false;
+                    }
                 }
                 else{
                     mentorWithOpinionsResponse.Cooperation = false;

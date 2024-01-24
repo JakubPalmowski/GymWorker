@@ -2,7 +2,7 @@
 import { EventEmitter } from '@angular/core';
 import { Mentor } from '../models/mentor';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { MentorProfile } from '../models/mentorProfile';
 import { MentorList } from '../models/mentorList';
@@ -14,6 +14,7 @@ import { DieticianPersonalInfo } from '../models/MyProfile/dieticianPersonalInfo
 import { DieticianTrainerPersonalInfo } from '../models/MyProfile/dieticianTrainerPersonalInfo';
 import { PupilShort } from '../models/pupilShort';
 import { environment } from 'src/environments/environment';
+import { Invitation } from '../models/invitation';
 
 
 @Injectable({
@@ -95,6 +96,33 @@ export class UserService{
       GetMentorPupils():Observable<PupilShort[]>{
         return this.http.get<PupilShort[]>(environment.apiUrl+'MentorPupil/MentorPupils');
       }
+
+      sendInvitation(mentorId: string):Observable<any>{
+        return this.http.post(environment.apiUrl+'User/Pupil/Invitation/'+mentorId, null);
+      }
+
+      deleteInvitation(userId: string):Observable<any>{
+        return this.http.delete(environment.apiUrl+'User/Invitation/'+userId);
+      }
+
+      getUserImage():Observable<any>{
+        return this.http.get<any>(environment.apiUrl+'User/Image');
+      }
+
+      getMentorInvitations():Observable<Invitation[]>{
+        return this.http.get<Invitation[]>(environment.apiUrl+'User/Invitations');
+      }
+
+
+
+      private userImageChangedSubject = new Subject<boolean>();
+
+
+      public userImageChangedObservable = this.userImageChangedSubject.asObservable();
+
+      notifyUserImageChanged(): void {
+      this.userImageChangedSubject.next(true);
+    }
     
 
      

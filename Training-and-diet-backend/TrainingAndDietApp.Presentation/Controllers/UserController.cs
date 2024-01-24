@@ -4,13 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.Extensions;
 using TrainingAndDietApp.Application.CQRS.Commands.User.Dietician.UpdateDietician;
 using TrainingAndDietApp.Application.CQRS.Commands.User.DieticianTrainer.UpdateDieticianTrainer;
+using TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.SendInvitation;
 using TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.UpdatePupil;
 using TrainingAndDietApp.Application.CQRS.Commands.User.Trainer.UpdateTrainer;
+using TrainingAndDietApp.Application.CQRS.Commands.User.User.DeleteInvitation;
 using TrainingAndDietApp.Application.CQRS.Queries.User.Dietician.GetById;
 using TrainingAndDietApp.Application.CQRS.Queries.User.DieticianTrainer.GetById;
+using TrainingAndDietApp.Application.CQRS.Queries.User.Mentor.GetInvitations;
 using TrainingAndDietApp.Application.CQRS.Queries.User.Pupil.GetById;
 using TrainingAndDietApp.Application.CQRS.Queries.User.Trainer.GetById;
 using TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll;
+using TrainingAndDietApp.Application.CQRS.Queries.User.User.GetUserImage;
 using UserQuery = TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll.UserQuery;
 
 
@@ -132,6 +136,43 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "2")]
+        [HttpPost("Pupil/Invitation/{idMentor}")]
+        public async Task<IActionResult> SendInvitation([FromRoute] int idMentor)
+        {
+            var user = this.User.GetId()!.Value;
+            await _mediator.Send(new SendInvitationCommand(user, idMentor));
+            return Ok();
+        }
+
+        [Authorize(Roles = "2,3,4,5")]
+        [HttpDelete("Invitation/{idUser}")]
+        public async Task<IActionResult> DeleteInvitation([FromRoute] int idUser)
+        {
+            var user = this.User.GetId()!.Value;
+            await _mediator.Send(new DeleteInvitationCommand(user, idUser));
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("Image")]
+        public async Task<IActionResult> GetUserImage()
+        {
+            var user = this.User.GetId()!.Value;
+            var query = new GetUserImageQuery(user);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+
        
     }
+        [Authorize(Roles = "3,4,5")]
+        [HttpGet("Invitations")]
+        public async Task<IActionResult> GetMentorInvitations()
+        {
+            var user = this.User.GetId()!.Value;
+            var query = new GetInvitationsQuery(user);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+}
 }
