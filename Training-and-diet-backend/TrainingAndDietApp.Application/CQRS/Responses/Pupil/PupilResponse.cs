@@ -13,8 +13,9 @@ namespace TrainingAndDietApp.Application.CQRS.Responses.Pupil
         public string Email {get; set;}
         public decimal? Weight { get; set; }
         public decimal? Height { get; set; }
-        public int? Age { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string? Sex { get; set; }
         public string? ImageUri { get; set; }
+        public string? Bio { get; set; }
     }
 }

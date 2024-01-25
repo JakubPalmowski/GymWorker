@@ -45,25 +45,26 @@
 }
 
 .name-span{
-    font-weight: bold;
+  font-weight: bold;
 }
 
 
 button{
-    font-size: 80%;
-    font-weight: bold;
+    background-color: #0051ff;
     color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 35px;
     cursor: pointer;
-    width: 70%;
-    height: 30px;
-    background-color: #3244A0;
-    border-radius: 10px 10px 10px 10px;
 }
 
 .bio-container{
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 80%;
-    height: 80px;
+    height: 72px;
     overflow: hidden;
 }
 
@@ -73,7 +74,15 @@ button{
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
     text-overflow: ellipsis;
+    font-size: 1rem;
+  color: #2f2e2e;
 }
 .prices-component{
     height: 80px;
+    
 }
+
+.price {
+    font-size: 1rem;
+    margin: 5px 0;
+  }

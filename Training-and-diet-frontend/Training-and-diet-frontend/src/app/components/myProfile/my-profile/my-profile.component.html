@@ -11,9 +11,9 @@
 
 
     
-    <div class="row p-2 bg-secondary border-profile rounded-bottom-3" >
+    <div class="row p-2 bg-secondary shadow rounded-div rounded-bottom-3 rounded-top-0" >
         <div class="col-12 d-flex justify-content-between">
-            <button class="btn-custom btn-detail" [routerLink]="'/myProfile/edit'">Edytuj profil</button>
+            <button class="btn-primary" [routerLink]="'/myProfile/edit'">Edytuj profil</button>
             <ng-container *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
                 <span class="fs-5 fw-bold" *ngIf="user.isAccepted==false">Status konta: <span class="text-danger">Niezweryfikowane</span></span>
                 <span class="fs-5 fw-bold" *ngIf="user.isAccepted==true">Status konta: <span style="color: green;">Zweryfikowane</span></span>
@@ -26,7 +26,7 @@
         <div class="col-12" [ngSwitch]="role">
             <h2 class="text-center" *ngSwitchCase="'Trainer'">Trener</h2>
             <h2 class="text-center" *ngSwitchCase="'Dietician'">Dietetyk</h2>
-            <h2 class="text-center" *ngSwitchCase="'Dietician-Trainer'">Trener i dietetyk</h2>
+            <h2 class="text-center" *ngSwitchCase="'Dietician-Trainer'">Dietetyk i trener</h2>
             <h2 class="text-center" *ngSwitchCase="'Pupil'">Podopieczny</h2>
         </div>
 
@@ -171,7 +171,7 @@
       
 
       <div class="col-12 d-flex justify-content-center mt-3 ms-3">
-            <button class="btn-custom btn-detail" [routerLink]="'/createGym'">Dodaj siłownie do bazy</button>
+            <button class="btn-primary" [routerLink]="'/createGym'">Dodaj siłownie do bazy</button>
             <div style="position: relative;">
             <i class="bi bi-info-circle-fill info-icon"></i>
             <div class="info-tooltip">
@@ -238,7 +238,7 @@
                       </ng-template>
 
                       <div class="col-12 d-flex justify-content-center">
-                        <button class="btn-custom btn-detail" [routerLink]="'/addCertificate'">Dodaj certyfikat</button>
+                        <button class="btn-primary" [routerLink]="'/addCertificate'">Dodaj certyfikat</button>
                       </div>
                       </ng-container>
 

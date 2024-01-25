@@ -4,10 +4,10 @@
     <div class="row mt-3 mb-3">
       <div class="col">
       <ng-container *ngIf="role=='trainerProfile'">
-        <a class="p-1 rounded-3 text-decoration-none bg-btn-orange text-black" (click)="goToTrainersList()" style="border: 1px solid black; cursor: pointer;"><i class="bi bi-arrow-left"></i> Powrót do listy trenerów</a>
+        <a class="btn-primary" (click)="goToTrainersList()"><i class="bi bi-arrow-left"></i> Powrót do listy trenerów</a>
       </ng-container>
       <ng-container *ngIf="role=='dieticianProfile'">
-        <a class="p-1 rounded-3 text-decoration-none bg-btn-orange text-black" (click)="goToDieticiansList()" style="border: 1px solid black; cursor: pointer;"><i class="bi bi-arrow-left"></i> Powrót do listy dietetyków</a>
+        <a class="btn-primary" (click)="goToDieticiansList()"><i class="bi bi-arrow-left"></i> Powrót do listy dietetyków</a>
       </ng-container>
     </div>
     </div>
@@ -22,7 +22,7 @@
     </div>
 
 
-      <div class="row bg-secondary d-flex align-items-center py-4 px-2 rounded-3 mb-3" style="border: 2px solid black;">
+      <div class="row bg-secondary d-flex align-items-center py-4 px-2 rounded-div mb-3 shadow">
           <div class="col-lg-2 col-md-6 col-12 d-flex justify-content-center align-items-center">
             <img width="140px" height="140px" src="{{imageUrl}}" class="round-picture">
           </div>
@@ -38,13 +38,13 @@
 
             <ng-container *ngIf="isLogged && roleUser=='Pupil'">
             <span class="fs-5 ms-1" *ngIf="mentor.cooperation" style="color: green;">Współpracujesz z tym mentorem<i class="bi bi-people-fill ms-1"></i></span>
-            <button *ngIf="mentor.cooperation==null" class="btn-custom btn-orange mt-3 m-lg-1" style="width: fit-content;" (click)="sendInvitation()">Zaproś do współpracy</button>
-            <button *ngIf="mentor.cooperation==false" class="btn-custom btn-orange mt-3 m-lg-1" style="width: fit-content;" (click)="cancelInvitation()">Anuluj zaproszenie</button>
-            <button data-bs-toggle="modal" data-bs-target="#createOpinionModal" *ngIf="mentor.cooperation && !mentor.isOpinionExists" class="btn-custom btn-orange mt-3 m-lg-1">Dodaj opinie</button>
-            <button data-bs-toggle="modal" data-bs-target="#updateOpinionModal" *ngIf="mentor.cooperation && mentor.isOpinionExists" class="btn-custom btn-orange mt-3 m-lg-1" >Edytuj opinie</button>
+            <button *ngIf="mentor.cooperation==null" class="btn-primary mt-3 m-lg-1" (click)="sendInvitation()">Zaproś do współpracy</button>
+            <button *ngIf="mentor.cooperation==false" class="btn-primary mt-3 m-lg-1"  (click)="cancelInvitation()">Anuluj zaproszenie</button>
+            <button data-bs-toggle="modal" data-bs-target="#createOpinionModal" *ngIf="mentor.cooperation && !mentor.isOpinionExists" class="btn-primary mt-3 m-lg-1">Dodaj opinie</button>
+            <button data-bs-toggle="modal" data-bs-target="#updateOpinionModal" *ngIf="mentor.cooperation && mentor.isOpinionExists" class="btn-primary mt-3 m-lg-1" >Edytuj opinie</button>
           </ng-container>
 
-            <button *ngIf="!isLogged" class="btn-custom btn-orange mt-3 m-lg-1" style="width: fit-content;" routerLink="/login">Zaproś do współpracy</button>
+            <button *ngIf="!isLogged" class="btn-primary mt-3 m-lg-1" routerLink="/login">Zaproś do współpracy</button>
           </div>
 
 
@@ -86,7 +86,7 @@
                       </select>
                     </div>
                     <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn-custom btn-edit">Zapisz opinie</button>
+                  <button type="submit" class="btn-confirm">Zapisz opinie</button>
                 </div>
                   </form>
                 </div>
@@ -136,8 +136,8 @@
                       </select>
                     </div>
                     <div class="d-flex justify-content-evenly">
-                  <button type="submit" class="btn-custom btn-detail">Edytuj opinie</button>
-                  <button type="button" class="btn-custom btn-delete" (click)="deleteOpinion()">Usuń opinie</button>
+                  <button type="submit" class="btn-confirm">Edytuj opinie</button>
+                  <button type="button" class="btn-alert" (click)="deleteOpinion()">Usuń opinie</button>
                 </div>
                   </form>
                 </div>
@@ -168,42 +168,45 @@
           <div class="horizontal-line-black d-lg-none py-5" style="height: 2px;"></div>
     
           <div class="col-lg-5 d-flex flex-column align-items-center align-items-lg-start">
-            <span class="fs-4"><strong>Dane kontaktowe:</strong></span>
-            <span class="fs-4">{{ mentor.phoneNumber}}</span>
-            <span class="fs-4">{{ mentor.email }}</span>
+            <span class="fs-4 fw-bold">Dane kontaktowe:</span>
+            <span class="fs-4"><i class="fas fa-envelope me-2"></i>{{ mentor.email }}</span>
+            <span class="fs-4"><i class="fas fa-phone me-2"></i>{{ mentor.phoneNumber}}</span>
           </div>
    
     </div>
 
-    <div class="row bg-secondary mb-3 rounded-3 py-2" style="border:2px solid black;">
-      <div class="col-12 col-md d-flex flex-column ms-1 align-items-center align-items-md-start">
-        <span><strong>Cennik:</strong></span>
-        <ng-container *ngIf="mentor.role=='Trainer'">
-        <span>Plan treningowy: {{(mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null) ? mentor.trainingPlanPriceFrom + '-' + mentor.trainingPlanPriceTo : '-' }}</span>
-        <span>Trening personalny: {{(mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null) ? mentor.personalTrainingPriceFrom + '-' + mentor.personalTrainingPriceTo : '-' }}</span>
-      </ng-container>
-      <ng-container *ngIf="mentor.role=='Dietician'">
-        <span>Dieta: {{(mentor.dietPriceFrom !== null && mentor.dietPriceTo !== null) ? mentor.dietPriceFrom + '-' + mentor.dietPriceTo: '-' }}</span>
-      </ng-container>
-      <ng-container *ngIf="mentor.role=='Dietician-Trainer'">
-        <span>Plan treningowy: {{(mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null) ? mentor.trainingPlanPriceFrom + '-' + mentor.trainingPlanPriceTo : '-' }}</span>
-        <span>Trening personalny: {{(mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null) ? mentor.personalTrainingPriceFrom + '-' + mentor.personalTrainingPriceTo : '-' }}</span>
-        <span>Dieta: {{(mentor.dietPriceFrom !== null && mentor.dietPriceTo !== null) ? mentor.dietPriceFrom + '-' + mentor.dietPriceTo: '-' }}</span>
-      </ng-container>
+    <div class="row bg-secondary mb-3 rounded-div py-2 shadow-sm">
+      <div class="col-12 col-md d-flex flex-column ms-1 align-items-center align-items-md-start gap-2">
+        <span class="fw-bold fs-4">Cennik:</span>
+        <ng-container *ngIf="mentor.role=='Trainer' || mentor.role=='Dietician-Trainer'">
+          <span class="fs-5 ms-1"><i class="fas fa-clipboard-list  fa-lg me-2"></i> Plan Treningowy: {{ mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null ? mentor.trainingPlanPriceFrom + 'zł - ' + mentor.trainingPlanPriceTo + ' zł' : '-' }}</span>
+          <span class="fs-5"><i class="fas fa-user-friends  fa-lg"></i> Trening personalny: {{ mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null ? mentor.personalTrainingPriceFrom + 'zł - ' + mentor.personalTrainingPriceTo + ' zł' : '-' }}</span>
+        </ng-container>
+        <ng-container *ngIf="mentor.role=='Dietician' || mentor.role=='Dietician-Trainer'">
+          <span class="fs-5"><i class="fas fa-seedling  fa-lg me-1"></i> Dieta: {{ mentor.dietPriceFrom !== null && mentor.dietPriceTo !== null ? mentor.dietPriceFrom  + 'zł - ' + mentor.dietPriceTo + 'zł' : '-' }}</span>
+        </ng-container>
       </div>
-      <div class="col-12 mt-3 mt-md-0 col-md d-flex flex-column align-items-center align-items-md-start">
+      <div class="col-12 mt-3 mt-md-0 col-md d-flex flex-column align-items-center align-items-md-start gap-2">
         <ng-container *ngIf="mentor.trainerGyms!=null && mentor.trainerGyms.length>0">
-        <span><strong>Preferowane siłownie:</strong></span>
-        <span *ngFor="let gym of mentor.trainerGyms">{{ gym.cityName +', '+gym.name}}</span>
-      </ng-container>
+          <span class="fw-bold fs-4">Preferowane siłownie:</span>
+          <span *ngFor="let gym of mentor.trainerGyms" class="fs-5"><i class="fas fa-building fa-lg"></i> {{ gym.cityName }}, {{ gym.name }}</span>
+        </ng-container>
       </div>
     </div>
+    
+    
+
+    
+
+
+    
       
+
     
         <div class="row">
 
           <div class="col-12 col-lg-4 p-0">
-            <div class="bg-secondary d-flex flex-column mb-3 mb-lg-0 me-lg-4 rounded-3 gap-3 p-3" style="border: 2px solid black;">
+            <div class="bg-secondary shadow d-flex flex-column mb-3 mb-lg-0 me-lg-4 rounded-div gap-3 p-3">
           <span class="text-center fs-2 fw-bold">O mnie</span>
           <span class="text-center">{{ mentor.bio }}</span>
         </div>
@@ -211,7 +214,7 @@
     
         <div class="col p-0">
           
-          <div class="d-flex flex-column bg-secondary rounded-3 p-3" style="border: 2px solid black;">
+          <div class="d-flex flex-column bg-secondary rounded-div p-3 shadow">
             <div class="mb-1">
               <span class="fs-2 fw-bold">Opinie</span>
             </div>
@@ -229,7 +232,7 @@
         <ng-container *ngIf="mentor.opinions.length>2">
 
           <div class="d-flex justify-content-center">
-        <a class="px-2 bg-btn-orange rounded-3 text-black text-decoration-none" style="cursor: pointer; border: 1px solid black;" data-bs-toggle="modal" data-bs-target="#opinionModal">Pokaż wszystkie</a>
+        <a class="btn-primary" data-bs-toggle="modal" data-bs-target="#opinionModal">Pokaż wszystkie</a>
       </div>
         <div class="modal fade" id="opinionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -241,7 +244,7 @@
               </div>
             
 
-              <div class="modal-body bg-secondary">
+              <div class="modal-body bg-secondary ">
                 <app-mentor-opinion *ngFor="let opinion of mentor.opinions" [imageUri]="opinion.imageUri" [rate]="opinion.rate" [pupilName]="opinion.pupilName" [content]="opinion.content" [date]="opinion.opinionDate"></app-mentor-opinion>
               </div>
 

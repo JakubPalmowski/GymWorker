@@ -7,6 +7,7 @@ using TrainingAndDietApp.Application.CQRS.Commands.User.DieticianTrainer.UpdateD
 using TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.SendInvitation;
 using TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.UpdatePupil;
 using TrainingAndDietApp.Application.CQRS.Commands.User.Trainer.UpdateTrainer;
+using TrainingAndDietApp.Application.CQRS.Commands.User.User.AcceptInvitation;
 using TrainingAndDietApp.Application.CQRS.Commands.User.User.DeleteInvitation;
 using TrainingAndDietApp.Application.CQRS.Queries.User.Dietician.GetById;
 using TrainingAndDietApp.Application.CQRS.Queries.User.DieticianTrainer.GetById;
@@ -56,9 +57,11 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "3,4,5")]
         [HttpGet("Pupil/{id}")]
         public async Task<IActionResult> GetPupilById( [FromRoute] int id){
-            var query = new GetPupilQuery(id);
+            var user = this.User.GetId()!.Value;
+            var query = new GetPupilQuery(id,user);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
@@ -174,5 +177,14 @@ namespace Training_and_diet_backend.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
-}
+
+        [Authorize(Roles = "3,4,5")]
+        [HttpPut("Invitations/{idPupil}")]
+        public async Task<IActionResult> AcceptInvitation([FromRoute] int idPupil)
+        {
+            var user = this.User.GetId()!.Value;
+            await _mediator.Send(new AcceptInvitationCommand(idPupil, user));
+            return Ok();
+    }   
+    }
 }

@@ -1,0 +1,28 @@
+.bg-secondary {
+    background-color: #6c757d; /* Domyślny szary kolor Bootstrapa dla bg-secondary */
+  }
+  
+  .text-gold {
+    color: #ffd700; /* Złoty kolor tekstu */
+  }
+  
+  .font-weight-bold {
+    font-weight: 700; /* Pogrubienie dla tekstu */
+  }
+  
+  .shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075); /* Subtelny cień */
+  }
+  
+  /* Zastosuj niestandardową czcionkę dla całego komponentu */
+  .custom-font {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Przykład niestandardowej czcionki */
+  }
+  
+  .rounded-div {
+    border-radius: 0.25rem; /* Zaokrąglenie narożników */
+  }
+  
+  /* Dodaj te style do każdego z elementów tekstowych, jeśli potrzebujesz */
+ 
+  

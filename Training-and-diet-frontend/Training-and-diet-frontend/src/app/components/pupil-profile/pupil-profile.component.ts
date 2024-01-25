@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PupilProfile } from 'src/app/models/pupilProfile';
 import { FileService } from 'src/app/services/file.service';
+import { PreviousUrlService } from 'src/app/services/previous-url.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,10 +12,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PupilProfileComponent implements OnInit{
 
+
 pupil: PupilProfile | undefined;
 imageUrl: string = "";
 
-constructor(private route: ActivatedRoute, private userService: UserService, private fileService: FileService) {
+constructor(private route: ActivatedRoute, private userService: UserService, private fileService: FileService, private previousUrl: PreviousUrlService, private router: Router) {
   
 }
   ngOnInit(): void {
@@ -50,6 +52,30 @@ constructor(private route: ActivatedRoute, private userService: UserService, pri
       );
       
     }
+
+    back() {
+      this.router.navigateByUrl(this.previousUrl.getPreviousUrl());
+      }
+
+
+      calculateAge(birthDateInput: Date | undefined): number | undefined{
+        if (!birthDateInput) {
+            return undefined;
+        }
+        const birthDate = birthDateInput instanceof Date ? birthDateInput : new Date(birthDateInput);
+            const currentDate = new Date();
+            let age = currentDate.getFullYear() - birthDate.getFullYear();
+            const monthDifference = currentDate.getMonth() - birthDate.getMonth();
+    
+            if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < birthDate.getDate())) {
+                age--;
+            }
+    
+            return age;
+       
+    }
+  
+    
   
 
 }
