@@ -1,3 +1,49 @@
-<ng-container *ngIf="invitations" >
-    <div *ngFor="let inv of invitations">{{inv.name}}</div>
+<div *ngIf="invitations && invitations.length > 0" class="container-fluid">
+    <div class="row mt-3  d-flex justify-content-center">
+        <h1 class="w-100 text-center bg-primary shadow text-white py-3 rounded-3">Zaproszenia</h1>
+        <div class="col-12 shadow rounded-div bg-secondary py-3 d-flex justify-content-between align-items-center my-2" *ngFor="let inv of invitations">
+            <div class="d-flex align-items-center gap-3">
+                <img src="{{inv.imageSrc}}" class="round-picture" width="100" height="100">
+                <span class="fw-bold fs-3"> {{inv.name + ' ' + inv.lastName}}</span>
+            </div>
+            <div class="button-group">
+                <button class="btn-confirm me-2" (click)="acceptInvitation(inv.idUser)">Akceptuj</button>
+                <button class="btn-alert me-2" (click)="deleteInvitation(inv.idUser)">Odrzuć</button>
+                <a class="btn-primary" routerLink="/pupilProfile/{{inv.idUser}}">Profil</a>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-container *ngIf="!invitations || invitations.length === 0">
+    <h1 class="mt-3 w-100 text-center bg-primary shadow text-white py-3 rounded-3">Brak zaproszeń</h1>
 </ng-container>
+
+<div class="dialog-container" *ngIf="showDialog">
+    <div class="dialog">
+      <h3 class="dialog-header">Potwierdzenie usunięcia</h3>
+      <div class="dialog-body">
+      <span>Czy na pewno chcesz odrzucić zaproszenie od:</span>
+      <br>
+      <span>Użytkownik: <strong>{{selectedInvitation?.name + ' '+ selectedInvitation?.lastName}}</strong></span>
+    </div>
+      <div class="dialog-actions">
+        <button class="btn-primary" (click)="cancelDelete()">Anuluj</button>
+        <button class="btn-alert" (click)="confirmDelete()">Usuń</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-container" *ngIf="showDialogAdd">
+    <div class="dialog">
+      <h3 class="dialog-header" style="background-color: green;">Potwierdzenie</h3>
+      <div class="dialog-body">
+      <span>Czy na pewno chcesz podjąć współpracę z:</span>
+      <br>
+      <span>Użytkownik: <strong>{{selectedInvitation?.name + ' '+ selectedInvitation?.lastName}}</strong></span>
+    </div>
+      <div class="dialog-actions">
+        <button class="btn-primary" (click)="cancelAccept()">Anuluj</button>
+        <button class="btn-confirm" (click)="confirmAccept()">Akceptuj</button>
+      </div>
+    </div>
+  </div>

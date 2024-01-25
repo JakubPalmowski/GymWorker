@@ -16,6 +16,7 @@ export class MenuComponent implements OnInit{
 
 
 
+
   showSidebar = false;
   isLoggedIn = false;
   userImage: string | undefined;
@@ -98,6 +99,12 @@ goToTrainersList(){
   if(!(this.activeRoute=='trainersList')){
     this.router.navigateByUrl('trainersList')
 }
+}
+
+goToMentorPupilsList() {
+  if(!(this.activeRoute=='myPupilsList')){
+    this.router.navigateByUrl('myPupilsList')
+  }
 }
 
 goToMainPage() {

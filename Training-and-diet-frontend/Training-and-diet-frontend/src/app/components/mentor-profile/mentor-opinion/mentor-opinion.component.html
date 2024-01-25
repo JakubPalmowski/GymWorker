@@ -1,27 +1,18 @@
-<div class="bg-white my-3 p-4 rounded-3 container">
-    <div class="row">
-
-
-    <div class="col-sm-2 col-12 d-flex flex-column align-items-center gap-2">
-        <img src="{{imageUrl}}" class="round-picture" width="80px" height="80px">
-        <span>{{ pupilName }}</span>
-        <span style="width:max-content;">{{ date | date:'yyyy-MM-dd' }}</span>
-    </div>
-
-
-    <div class="col">
-
-        <div class="d-flex align-items-center justify-content-center justify-content-sm-start gap-2 mb-2">
-
-        <span>Ocena</span>
-            <img src="../../../assets/icons/star.png" width="40px" height="auto">
-            <span>{{ rate | number:'1.1-1' }}</span>
+<div class="review-container my-3 p-4 rounded-3 shadow">
+    <div class="row g-3">
+        <div class="col-sm-2 col-12 d-flex flex-column align-items-center">
+            <img src="{{imageUrl}}" class="round-picture" style="width: 80px; height: 80px; object-fit: cover;">
+            <span class="pupil-name">{{ pupilName }}</span>
+            <span class="date-label text-muted">{{ date | date:'yyyy-MM-dd' }}</span>
         </div>
 
-            <span>{{ content }}</span>
-
-        </div> 
-        
-        
-</div>  
+        <div class="col">
+            <div class="rating-section d-flex align-items-center mb-2">
+                <span class="rating-label me-2">Ocena</span>
+                <img src="../../../assets/icons/star.png" class="star-icon">
+                <span class="rating-value ms-2">{{ rate | number:'1.1-1' }}</span>
+            </div>
+            <p class="content text-muted">{{ content }}</p>
+        </div>
+    </div>  
 </div>

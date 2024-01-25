@@ -4,7 +4,8 @@ export interface PupilProfile{
     email: string;
     weight?: number;
     height?: number;
-    age?: number;
-    sex: string;
+    dateOfBirth?: Date;
+    sex?: string;
     imageUri?: string;
+    bio?: string;
 }

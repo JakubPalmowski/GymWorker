@@ -3,3 +3,46 @@
     height: 35px;
      border: 1px solid black;
 }
+
+
+
+
+
+.info-box {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    box-sizing: border-box; 
+}
+
+.info-box:hover {
+    transform: translateY(-5px);
+}
+
+.info-box i {
+    margin-right: 1rem;
+
+}
+
+.description-text {
+    max-width: calc(100% - 2rem); 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+
+
+
+
+
+
+
+
+
+
+

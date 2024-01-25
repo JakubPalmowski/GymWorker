@@ -113,6 +113,14 @@ export class UserService{
         return this.http.get<Invitation[]>(environment.apiUrl+'User/Invitations');
       }
 
+      acceptInvitation(userId: string):Observable<any>{
+        return this.http.put(environment.apiUrl+'User/Invitations/'+userId, null);
+      }
+
+      getMentorPupils():Observable<Invitation[]>{
+        return this.http.get<Invitation[]>(environment.apiUrl+'MentorPupil/MentorPupils');
+      }
+
 
 
       private userImageChangedSubject = new Subject<boolean>();

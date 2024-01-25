@@ -1,9 +1,3 @@
-.border-profile {
-    border-right: 2px solid black;
-    border-left: 2px solid black;
-    border-bottom: 2px solid black;
-}
-
 
 .image-label{
     width:auto;
@@ -38,6 +32,7 @@ input, textarea, select{
     padding: 8px;
     border-radius: 10px;
     font-size: 18px;
+    border: 1px solid rgb(85, 85, 85);
 }
 
 
@@ -48,11 +43,11 @@ input:disabled, textarea:disabled {
 
 textarea{
 width: 90%;
-border: 2px solid black;
+border: 1px solid rgb(85, 85, 85);
 }
 
 select{
-    border: 2px solid black;
+  border: 1px solid rgb(85, 85, 85);
 }
 
 a{
@@ -141,11 +136,11 @@ a{
   }
 
   .table thead{
-    border: 1px solid black;
+    border: 1px solid rgb(85, 85, 85);
   }
 
   .table tr{
-    border: 1px solid black;
+    border: 1px solid rgb(85, 85, 85);
   }
   .table th, .table td {
     word-break: break-all; 

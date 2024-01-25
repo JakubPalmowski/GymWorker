@@ -14,7 +14,7 @@
   <ul class="d-flex flex-column text-white p-0 w-100">
     <li>
       <div class="d-flex gap-2 mt-2 mb-3 justify-content-center align-items-center">
-        <img src="../../../assets/icons/dumbbell.png" width="50" height="50">
+        <img src="assets/images/logo.png" width="auto" height="60">
         <span class="text-white" style="font-size: 20px;">GYMWORKER</span>
        <i class="bi bi-x-lg ms-5 ps-5 fs-2" data-bs-dismiss="offcanvas" style="cursor: pointer;"></i>
     </div>
@@ -22,7 +22,7 @@
 
       <li>
           <div class="menu-link" (click)="goToMainPage()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute==''}">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <i class="fas fa-home fa-lg"></i>
             <a>Strona główna</a>
                       </div>    
           
@@ -30,14 +30,14 @@
 
       <li>
         <div class="menu-link" (click)="goToTrainersList()" data-bs-dismiss="offcanvas"  [ngClass]="{'active': activeRoute=='trainersList' || activeRoute=='trainerProfile'}">
-          <img src="../../../assets/icons/record.png" width="20" height="20">
+          <i class="fas fa-running  fa-lg"></i>
         <a>Trenerzy</a>
         </div>
       </li>
 
       <li>
         <div class="menu-link" (click)="goToDieticiansList()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='dieticiansList' || activeRoute=='dieticianProfile'}">
-          <img src="../../../assets/icons/record.png" width="20" height="20">
+           <i class="fas fa-apple-alt fa-lg"></i>
         <a>Dietetycy</a>
         </div>
       </li>
@@ -50,58 +50,58 @@
       
 
       <li>
-        <div class="menu-link" data-bs-dismiss="offcanvas">
-          <img src="../../../assets/icons/record.png" width="20" height="20">
-          <a>Podopieczni</a>
+        <div (click)="goToInvitationList()" [ngClass]="{'active': activeRoute=='invitationList'}" class="menu-link" data-bs-dismiss="offcanvas">
+          <i class="fas fa-envelope-open-text fa-lg"></i>
+          <a>Zaproszenia</a>
           </div>
         </li>
 
 
         <li>
-          <div class="menu-link" data-bs-dismiss="offcanvas">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+          <div class="menu-link" data-bs-dismiss="offcanvas" (click)="goToMentorPupilsList()" [ngClass]="{'active': activeRoute=='myPupilsList'}">
+            <i class="fas fa-user-friends fa-lg"></i>
           <a>Moi podopieczni</a>
           </div>
         </li>
 
         <li>
           <div class="menu-link" (click)="goToMeals()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='meals'}">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <i class="fas fa-utensils fa-lg"></i>
           <a>Posiłki</a>
           </div>
         </li>
 
         <li>
           <div class="menu-link" (click)="goToDiets()"  [ngClass]="{'active': activeRoute=='diet'}">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <i class="fas fa-seedling fa-lg"></i>
           <a>Moje diety</a>
           </div>
         </li>
 
         <li>
           <div class="menu-link" (click)="goToExercices()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='exercises'}">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <i class="fas fa-dumbbell fa-lg"></i>
           <a>Ćwiczenia</a>
           </div>
         </li>
 
         <li>
           <div class="menu-link" (click)="goToTrainingPlans()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='training-plans'}">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <i class="fas fa-clipboard-list fa-lg"></i>
           <a>Moje plany</a>
           </div>
         </li>
 
         <li>
           <div class="menu-link" (click)="goPupilToTrainingPlans()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='pupilTrainingPlans'}">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <i class="fas fa-chart-line fa-lg"></i>
           <a>Mój trening</a>
           </div>
         </li>
 
         <li>
           <div class="menu-link" routerLink="/admin/gym/list/Active" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='admin'}">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <i class="fas fa-user-shield fa-lg"></i>
           <a>Admin</a>
           </div>
         </li>
@@ -110,10 +110,14 @@
 
  </div>
 
- <div style="padding: 15px;">
+ <div *ngIf="isLoggedIn" style="padding: 15px;">
   <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2 text-truncate" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="https://github.com/mdo.png" width="40" height="40" class="round-picture">
-      <span>Filip</span>
+      <img src="{{userImage}}" width="40" height="40" class="round-picture">
+          <span *ngIf="role=='Admin'">Admin</span>
+          <span *ngIf="role=='Pupil'">Podopieczny</span>
+          <span *ngIf="role=='Trainer'">Trener</span>
+          <span *ngIf="role=='Dietician'">Dietetyk</span>
+          <span *ngIf="role=='Dietician-Trainer'">Dietetyk i trener</span>
         </a>
   <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
       <li><a class="dropdown-item" [routerLink]="'/myProfile'" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>
@@ -140,14 +144,14 @@
     <ul class="d-flex flex-column text-white p-0 w-100">
       <li>
         <div class="d-flex gap-2 mt-2 mb-3 justify-content-center align-items-center">
-          <img src="../../../assets/icons/dumbbell.png" width="50" height="50">
+          <img src="../../../assets/images/logo.png" width="auto" height="60">
           <span class="text-white" style="font-size: 20px;">GYMWORKER</span>
       </div>
       </li>
 
         <li>
             <div class="menu-link" (click)="goToMainPage()"  [ngClass]="{'active': activeRoute==''}">
-                <img src="../../../assets/icons/record.png" width="20" height="20">
+                <i class="fas fa-home fa-lg"></i>
                 <a>Strona główna</a>
                             </div>    
             
@@ -155,14 +159,14 @@
 
         <li>
           <div class="menu-link" (click)="goToTrainersList()"  [ngClass]="{'active': activeRoute=='trainersList' || activeRoute=='trainerProfile'}">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <i class="fas fa-running  fa-lg"></i>
           <a>Trenerzy</a>
           </div>
         </li>
 
         <li>
           <div class="menu-link" (click)="goToDieticiansList()"  [ngClass]="{'active': activeRoute=='dieticiansList' || activeRoute=='dieticianProfile'}">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <i class="fas fa-apple-alt fa-lg"></i>
           <a>Dietetycy</a>
           </div>
         </li>
@@ -173,61 +177,61 @@
 
     
       
-        <li *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer'">
+        <li>
           <div class="menu-link" (click)="goToInvitationList()" [ngClass]="{'active': activeRoute=='invitationList'}">
-            <img src="../../../assets/icons/record.png" width="20" height="20">
+            <i class="fas fa-envelope-open-text fa-lg"></i>
             <a>Zaproszenia</a>
             </div>
           </li>
 
 
-          <li *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer'">
-            <div class="menu-link">
-              <img src="../../../assets/icons/record.png" width="20" height="20">
+          <li >
+            <div class="menu-link" (click)="goToMentorPupilsList()" [ngClass]="{'active': activeRoute=='myPupilsList'}">
+              <i class="fas fa-user-friends fa-lg"></i>
             <a>Moi podopieczni</a>
             </div>
           </li>
 
           <li>
             <div class="menu-link" (click)="goToMeals()"  [ngClass]="{'active': activeRoute=='meals'}">
-              <img src="../../../assets/icons/record.png" width="20" height="20">
+              <i class="fas fa-utensils fa-lg"></i>
             <a>Posiłki</a>
             </div>
           </li>
 
           <li>
             <div class="menu-link" (click)="goToDiets()"  [ngClass]="{'active': activeRoute=='diet'}">
-              <img src="../../../assets/icons/record.png" width="20" height="20">
+              <i class="fas fa-seedling fa-lg"></i>
             <a>Moje diety</a>
             </div>
           </li>
 
          
 
-          <li *ngIf="role=='Trainer'">
+          <li>
             <div class="menu-link" (click)="goToExercices()"  [ngClass]="{'active': activeRoute=='exercises'}">
-              <img src="../../../assets/icons/record.png" width="20" height="20">
+              <i class="fas fa-dumbbell fa-lg"></i>
             <a>Ćwiczenia</a>
             </div>
           </li>
 
-          <li *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
+          <li>
             <div class="menu-link" (click)="goToTrainingPlans()"  [ngClass]="{'active': activeRoute=='training-plans'}">
-              <img src="../../../assets/icons/record.png" width="20" height="20">
+              <i class="fas fa-clipboard-list fa-lg"></i>
             <a>Moje plany</a>
             </div>
           </li>
 
-          <li *ngIf="role=='Pupil'">
+          <li >
             <div class="menu-link" (click)="goPupilToTrainingPlans()" [ngClass]="{'active': activeRoute=='pupilTrainingPlans'}">
-              <img src="../../../assets/icons/record.png" width="20" height="20">
+              <i class="fas fa-chart-line fa-lg"></i>
             <a>Mój trening</a>
             </div>
           </li>
 
-          <li *ngIf="role=='Admin'">
+          <li >
             <div class="menu-link" routerLink="/admin/gym/list/Active" [ngClass]="{'active': activeRoute=='admin'}">
-              <img src="../../../assets/icons/record.png" width="20" height="20">
+              <i class="fas fa-user-shield fa-lg"></i>
             <a>Admin</a>
             </div>
           </li>
@@ -240,7 +244,11 @@
     <div *ngIf="isLoggedIn" class="d-none d-xxl-flex" style="padding: 15px;">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2 text-truncate" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="{{userImage}}" width="40" height="40" class="round-picture">
-          <span>Filip</span>
+          <span *ngIf="role=='Admin'">Admin</span>
+          <span *ngIf="role=='Pupil'">Podopieczny</span>
+          <span *ngIf="role=='Trainer'">Trener</span>
+          <span *ngIf="role=='Dietician'">Dietetyk</span>
+          <span *ngIf="role=='Dietician-Trainer'">Dietetyk i trener</span>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
           <li><a class="dropdown-item" [routerLink]="'/myProfile'" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>

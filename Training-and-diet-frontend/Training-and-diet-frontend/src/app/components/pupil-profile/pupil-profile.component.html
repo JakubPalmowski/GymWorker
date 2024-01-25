@@ -1,44 +1,84 @@
 <div class="container-fluid" *ngIf="pupil">
-<div class="row bg-secondary py-4 px-2 rounded-3 my-3 justify-content-center justify-content-lg-start" style="border: 1px solid black">
+    <div class="my-3">
+        <a class="btn-primary" (click)="back()">
+            <i class="bi bi-arrow-left"></i> Powrót
+        </a>
+    </div>
 
-    <div class="col-lg-2 col-md-6 col-12 d-flex justify-content-center align-items-center">
-        <img width="140px" height="140px" src="{{imageUrl}}" class="round-picture">
-      </div>
-      
-        <div class="col-lg-6 col-md-8 col-12 d-flex flex-column align-items-center align-items-lg-start ms-4">
-        <span class="fs-2">{{ pupil.name + ' ' + pupil.lastName}}</span>
-
-          <span class="fs-2">Podopieczny</span>
-          <span class="fs-3">{{pupil.email}}</span>
-        
-      </div>
-
-</div>
-
-<div class="row bg-secondary rounded-3" style="border: 1px solid black;">
-
-    <div class="col-12 mt-3">
-        <h3>Informacje fizyczne</h3>
+    <div class="row bg-secondary rounded-div d-flex align-items-center py-4 px-2  mb-3 shadow">
+        <div class="col-lg-2 col-md-6 col-12 d-flex justify-content-center align-items-center">
+            <img width="140px" height="140px" src="{{imageUrl}}" class="round-picture">
         </div>
-    <div class="col-12 horizontal-line-black mb-3" style="height: 5px;"></div>
-    <div class="col-6 d-flex flex-column align-items-center my-5">
-        <label class="fs-4">Wiek</label>
-        <span class="bg-white rounded-3 text-center fs-4 info-span" >{{pupil.age}}</span>
-    </div>
-    <div class="col-6 d-flex flex-column align-items-center my-5">
-        <label class="fs-4">Płeć</label>
-        <span class="bg-white rounded-3 text-center fs-4 info-span">{{pupil.sex}}</span>
-    </div>
-    <div class="col-6 d-flex flex-column align-items-center pb-5">
-        <label class="fs-4">Waga</label>
-        <span class="bg-white rounded-3 text-center fs-4 info-span">{{pupil.weight}}</span>
-    </div>
-    <div class="col-6 d-flex flex-column align-items-center pb-5">
-        <label class="fs-4">Wzrost</label>
-        <span class="bg-white rounded-3 text-center fs-4 info-span">{{pupil.height}}</span>
+        
+        <div class="col-lg-4 col-md-6 col-12 d-flex flex-column align-items-center align-items-lg-start">
+            <span class="fs-2">{{ pupil.name + ' ' + pupil.lastName}}</span>
+            <span class="fs-2">Podopieczny</span>
+        </div>
+        
+        <div class="col-lg-1 d-none d-lg-block vertical-line" style="height:90%;"></div>
+        <div class="horizontal-line-black d-lg-none py-5" style="height: 2px;"></div>
+  
+        <div class="col-lg-5 d-flex flex-column align-items-center align-items-lg-start">
+            <span class="fs-4"><strong>Dane kontaktowe:</strong></span>
+            <span class="fs-4"><i class="fas fa-envelope me-2"></i>{{ pupil.email }}</span>
+        </div>
     </div>
 
-</div>
+    <div class="row bg-secondary rounded-div shadow">
+        <div class="d-flex flex-lg-row flex-column align-items-center justify-content-center py-3">
+            
+            
+            <div class="info-box">
+                <i class="fas fa-birthday-cake fa-2x"></i>
+                <div class="info-text">
+                    <span class="fs-5">Wiek: </span>
+                    <span>{{ calculateAge(pupil.dateOfBirth) ?? '-' }}</span>
+                </div>
+            </div>
+            
+           
+            <div class="info-box">
+                <i *ngIf="pupil.sex=='Kobieta'" class="fas fa-venus fa-2x"></i>
+                <i *ngIf="pupil.sex=='Mężczyzna'" class="fas fa-mars fa-2x"></i>  
+                <i *ngIf="pupil.sex=='' || pupil.sex==null" class="fas fa-mars fa-2x"></i>  
+                
+                <div class="info-text">
+                    <span class="fs-5">Płeć: </span>
+                    <span>{{ pupil.sex ?? '-'}}</span>
+                </div>
+            </div>
+            
+            
+            <div class="info-box">
+                <i class="fas fa-ruler-vertical fa-2x"></i>
+                <div class="info-text">
+                    <span class="fs-5">Wzrost: </span>
+                    <span>{{ pupil.height ?? '-'}} cm</span>
+                </div>
+            </div>
+            
+        
+            <div class="info-box">
+                <i class="fas fa-weight fa-2x"></i>
+                <div class="info-text">
+                    <span class="fs-5">Waga: </span>
+                    <span>{{ pupil.weight ?? '-' }} kg</span>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div *ngIf="pupil.bio" class="col-12 d-flex flex-column align-items-center justify-content-center py-3">
+            <div class="info-box w-100">
+                <i class="fas fa-align-left fa-2x"></i>
+                <div class="description-text">
+                    <span class="fs-5">O mnie:<br/></span>
+                    <span>{{pupil.bio}}</span>
+                </div>
+            </div>
+        </div>
 
 
+    </div>
+    
 </div>

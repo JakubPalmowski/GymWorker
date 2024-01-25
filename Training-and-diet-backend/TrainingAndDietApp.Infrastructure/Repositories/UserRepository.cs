@@ -21,7 +21,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         {
             return await _context.Users
                 .Where(u => _context.Pupil_mentors
-                    .Where(e => e.IdMentor == idTrainer)
+                    .Where(e => e.IdMentor == idTrainer && e.IsAccepted == true)
                     .Select(e => e.IdPupil)
                     .Contains(u.IdUser))
                 .ToListAsync(cancellationToken);
@@ -88,7 +88,7 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
 
         public async Task<IEnumerable<User>> GetPupilsByMentorIdAsync(int idMentor, CancellationToken cancellationToken)
         {
-            return  await _context.Pupil_mentors.Where(pm => pm.IdMentor == idMentor)
+            return  await _context.Pupil_mentors.Where(pm => pm.IdMentor == idMentor && pm.IsAccepted == true)
                 .Select(pm => pm.Pupil)
                 .ToListAsync(cancellationToken);
         }

@@ -12,6 +12,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class InvitationListComponent implements OnInit{
 
+
+
+showDialog: boolean = false;
+showDialogAdd: boolean = false;
+selectedInvitation: Invitation | null = null;
   invitations: Invitation[] | undefined;
 constructor(private userService: UserService, private fileService: FileService, private authService: AuthenticationService){
 
@@ -28,21 +33,20 @@ ngOnInit(): void {
 
       const imageRequests = invitations.map(invitation => {
         if (invitation.imageUri) {
-          // Pobierz obrazek, jeśli imageUri istnieje.
+
           return this.fileService.getFile(invitation.imageUri).pipe(
             switchMap((imageSrc) => {
-              // Przypisz bezpośrednio URL do obrazka.
+ 
               invitation.imageSrc = URL.createObjectURL(imageSrc); 
-              return of(invitation); // Zwróć zmodyfikowane zaproszenie.
+              return of(invitation); 
             })
           );
         } else {
-          // Użyj domyślnego obrazka, jeśli imageUri jest null.
-          invitation.imageSrc = 'assets/default-image.png';
-          return of(invitation); // Zwróć zaproszenie z domyślnym obrazkiem.
+   
+          invitation.imageSrc = 'assets/images/user.png';
+          return of(invitation); 
         }
       });
-
       return forkJoin(imageRequests);
     })
   ).subscribe(
@@ -54,5 +58,63 @@ ngOnInit(): void {
     }
   );
 }
+
+deleteInvitation(id: number) {
+  this.selectedInvitation = this.invitations?.find(e => e.idUser === id) ?? null;
+        if (this.selectedInvitation) {
+          this.showDialog = true;
+        } else {
+          alert('Zaproszenie nie zostało znalezione.'); 
+        }
+    
+}
+
+
+
+confirmDelete() {
+  if (this.selectedInvitation) {
+    this.userService.deleteInvitation(this.selectedInvitation.idUser.toString()).subscribe({
+      next: () => {
+        this.ngOnInit(); 
+      },
+      error: (error) => {
+        alert('Wystąpił błąd podczas usuwania zaproszenia.');
+      }
+    });
+    this.showDialog = false; 
+  }
+}
+
+cancelDelete() {
+  this.showDialog = false; 
+}
+
+acceptInvitation(id: number) {
+  this.selectedInvitation = this.invitations?.find(e => e.idUser === id) ?? null;
+  if (this.selectedInvitation) {
+    this.showDialogAdd = true;
+  } else {
+    alert('Zaproszenie nie zostało znalezione.'); 
+  }
+}
+
+cancelAccept() {
+  this.showDialogAdd = false; 
+}
+
+confirmAccept() {
+  if (this.selectedInvitation) {
+    this.userService.acceptInvitation(this.selectedInvitation.idUser.toString()).subscribe({
+      next: () => {
+        this.ngOnInit(); 
+      },
+      error: (error) => {
+        alert('Wystąpił błąd podczas akceptowania zaproszenia.');
+      }
+    });
+    this.showDialogAdd = false; 
+  }
+}
+
 
 }

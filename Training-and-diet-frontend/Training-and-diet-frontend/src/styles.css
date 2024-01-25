@@ -20,9 +20,19 @@ body, html{
     background-color: #0F1A50 !important;
 }
 
+.color-primary{
+  color:#0F1A50 ;
+}
+
 .bg-secondary{
     background-color:#D9D9D9 !important;
 }
+
+.rounded-div{
+  border: 1px solid #A6A6A6;
+    border-radius: 10px;
+}
+
 
 .bg-button{
     background-color:#3244A0;
@@ -395,4 +405,62 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-bottom: 10px;
     border-radius: 0px;
   }
+}
+
+
+
+
+
+.btn-primary{
+  padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #0051ff; 
+    color: white; 
+    border: none; 
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem; 
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    font-size: 18px;
+}
+
+
+.btn-confirm{
+  padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #00bd16; 
+    color: white; 
+    border: none; 
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem; 
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    font-size: 18px;
+}
+
+.btn-alert{
+  padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #ff0000; 
+    color: white; 
+    border: none; 
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem; 
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    font-size: 18px;
+
+}
+
+
+
+.rounded-div{
+  border: 1px solid #A6A6A6;
+    border-radius: 10px;
 }

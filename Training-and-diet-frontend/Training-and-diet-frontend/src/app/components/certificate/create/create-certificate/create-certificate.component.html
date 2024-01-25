@@ -1,3 +1,6 @@
+<div class="mt-3">
+    <a class="btn-primary" routerLink="/myProfile"><i class="bi bi-arrow-left"></i> Powrót do profilu</a>
+    </div>
 <div class="container-fluid bg-secondary my-3 h-auto rounded-3 pb-0 pb-4" style="border:2px solid black;">
     <div *ngIf="errorFlag=='error'" class="error-popup">
       Wystapił błąd podczas dodawania certyfikatu. Proszę spróbować ponownie.
@@ -52,9 +55,8 @@
       
 
       <div class="col-12 d-flex justify-content-center mt-4">
-          <div class="d-flex justify-content-around" style="width: 60%;">
-              <button type="button" class="btn-custom btn-back" routerLink="/myProfile">Powrót</button>
-              <button type="submit" class="btn-custom btn-edit">Dodaj</button>
+          <div class="d-flex justify-content-center" style="width: 60%;">
+              <button type="submit" class="btn-primary">Dodaj</button>
           </div>
       </div>
      

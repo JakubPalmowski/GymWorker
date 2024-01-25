@@ -11,7 +11,7 @@
         <ng-container *ngIf="mentors.length>0 && isDataLoaded">
 
     <div class="row d-flex justify-content-center">
-        <div *ngFor="let mentor of mentors" class="col-8 col-sm-7 col-md-6 col-lg-5 col-xl-4 col-xxl-3 window-border m-4 rounded-3 bg-secondary">
+        <div *ngFor="let mentor of mentors" class="col-8 col-sm-7 col-md-6 col-lg-5 col-xl-4 col-xxl-3 m-4 shadow rounded-div bg-secondary">
           <app-mentor-window
             [mentor]="mentor"
             [role]="role"
