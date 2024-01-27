@@ -6,7 +6,6 @@ import { AddTrainingPlanComponent } from './components/traininig-plans/add-train
 import { EditTrainingPlanComponent } from './components/traininig-plans/edit-training-plan/edit-training-plan.component';
 import { NewTrainingExerciseComponent } from './components/traininig-plans/new-training-exercise/new-training-exercise.component';
 import { LoginComponent } from './components/authentication/login/login.component';
-import { PasswordRecoveryComponent } from './components/authentication/password-recovery/password-recovery.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { MentorsListComponent } from './components/mentors-list/mentors-list.component';
 import { MentorProfileComponent } from './components/mentor-profile/mentor-profile.component';
@@ -157,7 +156,6 @@ const routes: Routes = [
   }, 
   {path: '', component: MainPageComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'passwordRecovery', component: PasswordRecoveryComponent},
   {path:'register', component: RegisterComponent},
   {path: 'trainersList', component: MentorsListComponent},
   {path: 'dieticiansList', component: MentorsListComponent},
