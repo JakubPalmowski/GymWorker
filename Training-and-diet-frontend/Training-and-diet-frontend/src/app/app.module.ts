@@ -11,7 +11,6 @@ import { EditTrainingPlanComponent } from './components/traininig-plans/edit-tra
 import { NewTrainingExerciseComponent } from './components/traininig-plans/new-training-exercise/new-training-exercise.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
-import { PasswordRecoveryComponent } from './components/authentication/password-recovery/password-recovery.component';
 import { MenuComponent } from './components/main/menu/menu.component';
 import { SearchComponent } from './components/main/search/search.component';
 import { FooterComponent } from './components/main/footer/footer.component';
@@ -78,7 +77,6 @@ import { MentorPupilsComponent } from './components/mentorPupils/mentor-pupils/m
     NewTrainingExerciseComponent,
     LoginComponent,
     RegisterComponent,
-    PasswordRecoveryComponent,
     MenuComponent,
     SearchComponent,
     FooterComponent,

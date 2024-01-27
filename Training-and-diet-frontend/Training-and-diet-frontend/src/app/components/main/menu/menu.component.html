@@ -42,14 +42,14 @@
         </div>
       </li>
 
-      <li>
+      <li *ngIf="isLoggedIn">
         <div class="horizontal-line w-100 text-white py-3" style="height: 2px;"></div>
       </li>
 
   
       
 
-      <li>
+      <li *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer'">
         <div (click)="goToInvitationList()" [ngClass]="{'active': activeRoute=='invitationList'}" class="menu-link" data-bs-dismiss="offcanvas">
           <i class="fas fa-envelope-open-text fa-lg"></i>
           <a>Zaproszenia</a>
@@ -57,49 +57,62 @@
         </li>
 
 
-        <li>
+        <li *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer'">
           <div class="menu-link" data-bs-dismiss="offcanvas" (click)="goToMentorPupilsList()" [ngClass]="{'active': activeRoute=='myPupilsList'}">
             <i class="fas fa-user-friends fa-lg"></i>
           <a>Moi podopieczni</a>
           </div>
         </li>
 
-        <li>
-          <div class="menu-link" (click)="goToMeals()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='meals'}">
-            <i class="fas fa-utensils fa-lg"></i>
-          <a>Posiłki</a>
-          </div>
-        </li>
-
-        <li>
-          <div class="menu-link" (click)="goToDiets()"  [ngClass]="{'active': activeRoute=='diet'}">
-            <i class="fas fa-seedling fa-lg"></i>
-          <a>Moje diety</a>
-          </div>
-        </li>
-
-        <li>
-          <div class="menu-link" (click)="goToExercices()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='exercises'}">
-            <i class="fas fa-dumbbell fa-lg"></i>
-          <a>Ćwiczenia</a>
-          </div>
-        </li>
-
-        <li>
+        <li *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
           <div class="menu-link" (click)="goToTrainingPlans()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='training-plans'}">
             <i class="fas fa-clipboard-list fa-lg"></i>
           <a>Moje plany</a>
           </div>
         </li>
 
-        <li>
+        <li *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
+          <div class="menu-link" (click)="goToExercices()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='exercises'}">
+            <i class="fas fa-dumbbell fa-lg"></i>
+          <a>Ćwiczenia</a>
+          </div>
+        </li>
+
+        <li *ngIf="role=='Dietician' || role=='Dietician-Trainer'">
+          <div class="menu-link" (click)="goToDiets()"  [ngClass]="{'active': activeRoute=='diet'}">
+            <i class="fas fa-seedling fa-lg"></i>
+          <a>Moje diety</a>
+          </div>
+        </li>
+
+        <li *ngIf="role=='Dietician' || role=='Dietician-Trainer'">
+          <div class="menu-link" (click)="goToMeals()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='meals'}">
+            <i class="fas fa-utensils fa-lg"></i>
+          <a>Posiłki</a>
+          </div>
+        </li>
+
+    
+
+        <li *ngIf="role=='Pupil'">
+          <div class="menu-link" (click)="goToMyDiets()">
+            <i class="fas fa-seedling fa-lg"></i>
+          <a>Moja dieta</a>
+          </div>
+        </li>
+
+      
+
+      
+
+        <li *ngIf="role=='Pupil'">
           <div class="menu-link" (click)="goPupilToTrainingPlans()" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='pupilTrainingPlans'}">
             <i class="fas fa-chart-line fa-lg"></i>
           <a>Mój trening</a>
           </div>
         </li>
 
-        <li>
+        <li *ngIf="role=='Admin'">
           <div class="menu-link" routerLink="/admin/gym/list/Active" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='admin'}">
             <i class="fas fa-user-shield fa-lg"></i>
           <a>Admin</a>
@@ -110,7 +123,7 @@
 
  </div>
 
- <div *ngIf="isLoggedIn" style="padding: 15px;">
+ <div *ngIf="isLoggedIn" class="d-none d-xxl-flex" [ngClass]="{'p-2': role === 'Trainer' || role === 'Dietician' || role === 'Admin' || role === 'Pupil'}">
   <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2 text-truncate" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
       <img src="{{userImage}}" width="40" height="40" class="round-picture">
           <span *ngIf="role=='Admin'">Admin</span>
@@ -120,7 +133,7 @@
           <span *ngIf="role=='Dietician-Trainer'">Dietetyk i trener</span>
         </a>
   <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-      <li><a class="dropdown-item" [routerLink]="'/myProfile'" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>
+      <li *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer' || role=='Pupil'"><a class="dropdown-item" [routerLink]="'/myProfile'" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>
       <li>
           <hr class="dropdown-divider">
       </li>
@@ -171,13 +184,13 @@
           </div>
         </li>
 
-        <li>
+        <li *ngIf="isLoggedIn">
           <div class="horizontal-line w-100 text-white py-3" style="height: 2px;"></div>
         </li>
 
     
       
-        <li>
+        <li *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer'">
           <div class="menu-link" (click)="goToInvitationList()" [ngClass]="{'active': activeRoute=='invitationList'}">
             <i class="fas fa-envelope-open-text fa-lg"></i>
             <a>Zaproszenia</a>
@@ -185,51 +198,63 @@
           </li>
 
 
-          <li >
+          <li *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer'">
             <div class="menu-link" (click)="goToMentorPupilsList()" [ngClass]="{'active': activeRoute=='myPupilsList'}">
               <i class="fas fa-user-friends fa-lg"></i>
             <a>Moi podopieczni</a>
             </div>
           </li>
 
-          <li>
-            <div class="menu-link" (click)="goToMeals()"  [ngClass]="{'active': activeRoute=='meals'}">
-              <i class="fas fa-utensils fa-lg"></i>
-            <a>Posiłki</a>
-            </div>
-          </li>
+          
 
-          <li>
-            <div class="menu-link" (click)="goToDiets()"  [ngClass]="{'active': activeRoute=='diet'}">
+          
+
+          <li *ngIf="role=='Pupil'">
+            <div class="menu-link" (click)="goToMyDiets()">
               <i class="fas fa-seedling fa-lg"></i>
-            <a>Moje diety</a>
+            <a>Moja dieta</a>
             </div>
           </li>
 
          
-
-          <li>
-            <div class="menu-link" (click)="goToExercices()"  [ngClass]="{'active': activeRoute=='exercises'}">
-              <i class="fas fa-dumbbell fa-lg"></i>
-            <a>Ćwiczenia</a>
-            </div>
-          </li>
-
-          <li>
+          <li *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
             <div class="menu-link" (click)="goToTrainingPlans()"  [ngClass]="{'active': activeRoute=='training-plans'}">
               <i class="fas fa-clipboard-list fa-lg"></i>
             <a>Moje plany</a>
             </div>
           </li>
 
-          <li >
+
+          <li *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
+            <div class="menu-link" (click)="goToExercices()"  [ngClass]="{'active': activeRoute=='exercises'}">
+              <i class="fas fa-dumbbell fa-lg"></i>
+            <a>Ćwiczenia</a>
+            </div>
+          </li>
+
+         
+          <li *ngIf="role=='Pupil'">
             <div class="menu-link" (click)="goPupilToTrainingPlans()" [ngClass]="{'active': activeRoute=='pupilTrainingPlans'}">
               <i class="fas fa-chart-line fa-lg"></i>
             <a>Mój trening</a>
             </div>
           </li>
 
-          <li >
+          <li *ngIf="role=='Dietician' || role=='Dietician-Trainer'">
+            <div class="menu-link" (click)="goToDiets()"  [ngClass]="{'active': activeRoute=='diet'}">
+              <i class="fas fa-seedling fa-lg"></i>
+            <a>Moje diety</a>
+            </div>
+          </li>
+
+          <li *ngIf="role=='Dietician' || role=='Dietician-Trainer'">
+            <div class="menu-link" (click)="goToMeals()"  [ngClass]="{'active': activeRoute=='meals'}">
+              <i class="fas fa-utensils fa-lg"></i>
+            <a>Posiłki</a>
+            </div>
+          </li>
+
+          <li *ngIf="role=='Admin'">
             <div class="menu-link" routerLink="/admin/gym/list/Active" [ngClass]="{'active': activeRoute=='admin'}">
               <i class="fas fa-user-shield fa-lg"></i>
             <a>Admin</a>
@@ -241,7 +266,7 @@
 
     </div>
     
-    <div *ngIf="isLoggedIn" class="d-none d-xxl-flex" style="padding: 15px;">
+    <div *ngIf="isLoggedIn" class="d-none d-xxl-flex" [ngClass]="{'p-2': role === 'Trainer' || role === 'Dietician' || role === 'Admin' || role === 'Pupil'}">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2 text-truncate" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="{{userImage}}" width="40" height="40" class="round-picture">
           <span *ngIf="role=='Admin'">Admin</span>
@@ -251,9 +276,9 @@
           <span *ngIf="role=='Dietician-Trainer'">Dietetyk i trener</span>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-          <li><a class="dropdown-item" [routerLink]="'/myProfile'" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>
+          <li *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer' || role=='Pupil'"><a class="dropdown-item" [routerLink]="'/myProfile'" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>
           <li>
-              <hr class="dropdown-divider">
+              <hr *ngIf="role=='Trainer' || role=='Dietician' || role=='Dietician-Trainer' || role=='Pupil'" class="dropdown-divider">
           </li>
           <li><a class="dropdown-item"  (click)="logout()">Wyloguj się</a></li>
       </ul>

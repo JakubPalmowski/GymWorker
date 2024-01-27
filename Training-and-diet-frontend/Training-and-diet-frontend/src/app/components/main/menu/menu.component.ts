@@ -56,6 +56,8 @@ export class MenuComponent implements OnInit{
           break;
       }
       this.loadUserImage();
+    }else{
+      this.role='';
     }
     });
 
@@ -124,6 +126,10 @@ goToMainPage() {
         this.router.navigateByUrl('meals');
       }
     }
+
+    goToMyDiets() {
+     
+      }
 
     goToDiets() {
       if(!(this.activeRoute=='diet')){
