@@ -3,6 +3,6 @@ export interface GymsAddedByUser {
     name: string;
     street: string;
     postalCode: string;
-    status: string; 
+    isAccepted: boolean; 
   }
   

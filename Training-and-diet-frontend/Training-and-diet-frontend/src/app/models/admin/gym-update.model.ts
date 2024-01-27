@@ -3,5 +3,5 @@ export interface GymUpdate {
     name: string;
     street: string;
     postalCode: string;
-    status: string;
+    isAccepted: boolean;
 }
