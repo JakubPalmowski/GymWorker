@@ -221,6 +221,10 @@ namespace TrainingAndDietApp.Application
 
                 CreateMap<User, InvitationsResponse>();
 
+                CreateMap<Diet, DietListResponse>()
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
+
+
                 
        
 
