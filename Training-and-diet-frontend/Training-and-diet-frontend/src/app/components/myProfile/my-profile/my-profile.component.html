@@ -1,7 +1,7 @@
-<ng-container *ngIf="user">
 
 
-<div class="container-fluid">
+
+<div *ngIf="user" class="container-fluid">
     <div class="row d-flex justify-content-center mt-3">
         <div class="col-12 bg-primary rounded-top-5">
             <h1 class="fw-bold text-white text-center">Profil użytkownika</h1>
@@ -11,16 +11,20 @@
 
 
     
-    <div class="row p-2 bg-secondary shadow rounded-div rounded-bottom-3 rounded-top-0" >
-        <div class="col-12 d-flex justify-content-between">
+    <div class="row p-2 bg-secondary  shadow rounded-div rounded-bottom-3 rounded-top-0" >
+        <div class="col-12 col-lg-6 d-flex justify-content-center justify-content-lg-start my-3 mb-lg-0">
             <button class="btn-primary" [routerLink]="'/myProfile/edit'">Edytuj profil</button>
-            <ng-container *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
-                <span class="fs-5 fw-bold" *ngIf="user.isAccepted==false">Status konta: <span class="text-danger">Niezweryfikowane</span></span>
-                <span class="fs-5 fw-bold" *ngIf="user.isAccepted==true">Status konta: <span style="color: green;">Zweryfikowane</span></span>
-            </ng-container>
+            
         </div>
+
+        <div class="col-12 col-lg-6 d-flex justify-content-center justify-content-lg-end my-3 mb-lg-0"><ng-container *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
+            <span class="fs-5 fw-bold" *ngIf="user.isAccepted==false">Status konta: <span class="text-danger">Niezweryfikowane</span></span>
+            <span class="fs-5 fw-bold text-center" *ngIf="user.isAccepted==true">Status konta: <span style="color: green;">Zweryfikowane</span></span>
+        </ng-container></div>
+
+
         <div class="col-12 d-flex justify-content-center">
-            <img src="{{imageUrl}}" width="300px" height="300px" class="round-picture">
+            <img src="{{imageUrl}}" width="250px" height="250px" class="round-picture">
         </div>
         
         <div class="col-12" [ngSwitch]="role">
@@ -35,30 +39,24 @@
         </div>
         <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
 
-        <div class="col-6 group">
+        <div class="col-12 col-lg-6 group">
             <label>Imie</label>
             <input type="text" value="{{user.name}}" disabled>
         </div>
 
-        <div class="col-6 group">
+        <div class="col-12 col-lg-6 group">
             <label>Nazwisko</label>
             <input type="text" value="{{user.lastName}}" disabled>
         </div>
 
-        <div class="col-6 group">
+        <div class="col-12 col-lg-6 group">
             <label>Email</label>
             <input type="text" value="{{user.email}}" disabled>
         </div>
 
-        <div class="col-6 group" *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
+        <div class="col-12 col-lg-6 group" *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
             <label>Numer Telefonu</label>
             <input type="text" value="{{user.phoneNumber}}" disabled>
-        </div>
-
-        <div class="col-6 group">
-            <label>Status weryfikacji Emaila</label>
-            <input *ngIf="user.emailValidated==false" type="text" value="Niezweryfikowany" disabled>
-            <input *ngIf="user.emailValidated==true" type="text" value="Zweryfikowany" disabled>
         </div>
 
 
@@ -70,25 +68,25 @@
 
 
             
-                <div class="col-6 group">
+                <div class="col-12 col-lg-6 group">
                     <label>Waga</label>
                     <input type="number" [value]="user.weight" disabled>
                 </div>
             
             
     
-            <div class="col-6 group">
+            <div class="col-12 col-lg-6group">
                 <label>Wzrost</label>
                 <input type="number" value="{{user.height}}" disabled>
             </div>
     
-            <div class="col-6 group">
+            <div class="col-12 col-lg-6 group">
                 <label>Data urodzenia</label>
                 <input type="date" value="{{user.dateOfBirth | date:'yyyy-MM-dd'}}" disabled>
             </div>
 
     
-            <div class="col-6 group">
+            <div class="col-12 col-lg-6 group">
                 <label>Płeć</label>
                 <input type="text" value="{{user.sex}}" disabled>
             </div>
@@ -104,35 +102,35 @@
         </ng-container> 
 
         <ng-container *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
-        <div class="col-6 group">
+        <div class="col-12 col-xxl-6 mb-3 mb-xxl-0 group">
             <label>Maksymalny koszt planu treningowego(zł)</label>
             <input type="number" value="{{user.trainingPlanPriceFrom}}" disabled>
         </div>
 
-    <div class="col-6 group">
+    <div class="col-12 col-xxl-6 mb-3 mb-xxl-0  group">
         <label>Minimalny koszt planu treningowego(zł)</label>
         <input type="number" value="{{user.trainingPlanPriceTo}}" disabled>
     </div>
 
 
-    <div class="col-6 group">
+    <div class="col-12 col-xxl-6 mb-3 mb-xxl-0 group">
         <label>Minimalny koszt treningu personalnego(zł)</label>
         <input type="number" value="{{user.personalTrainingPriceFrom}}" disabled>
     </div>
 
-    <div class="col-6 group">
+    <div class="col-12 col-xxl-6 mb-3 mb-xxl-0 group">
         <label>Maksymalny koszt treningu personalnego(zł)</label>
         <input type="number" value="{{user.personalTrainingPriceTo}}" disabled>
     </div>
         </ng-container>
 
         <ng-container *ngIf="role=='Dietician' || role=='Dietician-Trainer'">
-            <div class="col-6 group">
+            <div class="col-12 col-xxl-6 mb-3 mb-xxl-0 group">
                 <label>Minimalny koszt diety(zł)</label>
                 <input type="number" value="{{user.dietPriceFrom}}" disabled>
             </div>
     
-        <div class="col-6 group">
+        <div class="col-12 col-xxl-6 mb-3 mb-xxl-0  group">
             <label>Maksymalny koszt diety(zł)</label>
             <input type="number" value="{{user.dietPriceTo}}" disabled>
         </div>
@@ -148,7 +146,7 @@
     <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
     
     <ng-container *ngIf="user.trainerGyms && user.trainerGyms.length > 0; else noGymsTemplate">
-        <table class="table table-striped" style="max-width: 100%;">
+        <table class="table table-striped table-admin" style="max-width: 100%;">
             <thead>
                 <tr>
                     <th scope="col">Miasto</th>
@@ -205,7 +203,7 @@
                     
 
                     <ng-container *ngIf="user.certificates && user.certificates.length > 0; else noCertificatesTemplate">
-                        <table class="table table-striped" style="max-width: 100%;">
+                        <table class="table table-admin table-striped" style="max-width: 100%;">
                             <thead>
                                 <tr>
                                     <th scope="col" style="width: 40%;">Data dodania</th>
@@ -249,4 +247,3 @@
 
 </div>
 
-</ng-container>

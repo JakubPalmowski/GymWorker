@@ -5,7 +5,6 @@ export interface DieticianTrainerPersonalInfo {
     lastName: string;
     role: string;
     email: string;
-    emailValidated: boolean;
     phoneNumber?: string;
     bio?: string;
     trainingPlanPriceFrom?: number;

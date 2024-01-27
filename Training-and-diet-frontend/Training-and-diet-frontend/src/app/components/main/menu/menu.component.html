@@ -1,6 +1,6 @@
 <div class="container bg-primary" style="z-index: 2;">
   <div class="d-flex d-xxl-none justify-content-center mt-3">
-    <i class="bi bi-list text-white" style="font-size: 50px; cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#menu"></i>
+    <i class="bi bi-list text-white" style="font-size: 40px; cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#menu"></i>
 </div>
 
 
@@ -120,7 +120,7 @@
           <span *ngIf="role=='Dietician-Trainer'">Dietetyk i trener</span>
         </a>
   <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-      <li><a class="dropdown-item" [routerLink]="'/myProfile'" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>
+      <li><a class="dropdown-item" [routerLink]="'/myProfile'" data-bs-dismiss="offcanvas" [ngClass]="{'active': activeRoute=='myProfile'}">Mój profil</a></li>
       <li>
           <hr class="dropdown-divider">
       </li>

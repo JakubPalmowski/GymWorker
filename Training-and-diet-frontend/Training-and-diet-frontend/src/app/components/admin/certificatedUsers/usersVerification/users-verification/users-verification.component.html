@@ -53,7 +53,7 @@
             <h2>Certyfikaty użytkownika</h2>
             </div>
             <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
-        <table class="table table-striped" style="max-width: 100%;" *ngIf="certificates">
+        <table class="table table-admin table-striped" *ngIf="certificates">
             <thead>
                 <tr>
                     <th scope="col" style="width: 40%;">Data dodania</th>
@@ -71,15 +71,15 @@
                         <td><i class="bi bi-question-circle-fill"></i></td>
                     </ng-container>
                     <td>
-                        <button class="btn-custom btn-detail" routerLink="/admin/certificatedUsers/certificateVerification/{{certificate.idCertificate}}">Przejdź</button>
+                        <button class="btn-primary" routerLink="/admin/certificatedUsers/certificateVerification/{{certificate.idCertificate}}">Przejdź</button>
                     </td>
             </tbody>
         </table>
         <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
 
         <div class="col-12 d-flex justify-content-around">
-            <button type="button" class="btn-custom btn-back" (click)="back()">Powrót</button>
-            <button type="button" class="btn-custom btn-edit" (click)="verifyUser()">Zapisz zmiany</button>
+            <button type="button" class="btn-primary" (click)="back()">Powrót</button>
+            <button type="button" class="btn-confirm" (click)="verifyUser()">Zapisz zmiany</button>
         </div>
         
         

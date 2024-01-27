@@ -1,99 +1,21 @@
-.container{
+.group-input {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 87vh;
-    justify-content: center;
-
 }
 
-form{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-   
-}
-
-input,select{
-    width: 100%;
-    height: 50px;
+.group-input label {
+    padding-left: 2px;
     font-size: 20px;
-    border-radius: 5px 5px 5px 5px;
-    margin-bottom: 10px;
-}
-
-
-.form-label{
-    font-size: 16px;
     color: white;
-    margin-bottom: 0px;
+    width: 70%;
 }
 
-.checkbox-label{
-    font-weight: bold;
-}
+.group-input input, select{
+    width: 70%;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 18px;
+    border: 1px solid #000;
+} 
 
-.register-container{
-    padding-top: 30px;
-    width: 420px;
-    height: auto;
-    background: #0F1A50;
-    border-radius: 5px 5px 5px 5px;
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-  
-    gap: 20px;
-}
-
-.register-text{
-    font-size: 40px;
-    font-weight: bold;
-}
-
-span{ 
-    color: white;
-    font-weight: bold;
-    text-align: center;
-}
-
-input{
-    width: 100%;
-    height: 50px;
-    font-size: 20px;
-    border-radius: 5px 5px 5px 5px;
-}
-
-button{
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    width: 250px;
-    height: 50px;
-    background-color: #3244A0;
-    border-radius: 10px 10px 10px 10px;
-}
-
-a{
-    font-weight: bold;
-    color: white;
-}
-
-.checkbox{
-    width: 25px;
-    height: 25px;
-}
-
-.checkbox-container{
-    display: flex;
-    flex-direction:row;
-    align-items: center;
-    gap:10px;
-    padding-right: 18%;
-}
-
-.checkbox-span{
-    font-size: 20px;
-}

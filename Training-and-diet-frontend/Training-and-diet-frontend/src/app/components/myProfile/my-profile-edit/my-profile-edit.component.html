@@ -22,8 +22,8 @@
         
         <div class="row p-2 bg-secondary shadow rounded-div rounded-bottom-3 rounded-top-0" >
             <div class="col-12 d-flex justify-content-center" style="height: 300px;">
-            <img *ngIf="newImageUrl" [src]="newImageUrl" width="300px" height="300px" class="round-picture">
-            <img *ngIf="imageUrl&&newImageUrl==null" src="{{imageUrl}}" width="300px" height="300px" class="round-picture">
+            <img *ngIf="newImageUrl" [src]="newImageUrl" width="250px" height="250px" class="round-picture">
+            <img *ngIf="imageUrl&&newImageUrl==null" src="{{imageUrl}}" width="250px" height="250px" class="round-picture">
         </div>
 
         <div class="col-12 d-flex justify-content-center flex-column my-3">
@@ -50,7 +50,7 @@
             </div>
             <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
     
-            <div class="col-6 group">
+            <div class="col-12 col-lg-6 group">
                 <label>Imię *</label>
                 <input type="text" [(ngModel)]="user.name" name="name" required 
                        maxlength="50" #name="ngModel">
@@ -69,7 +69,7 @@
             
             
     
-            <div class="col-6 group">
+            <div class="col-12 col-lg-6 group">
                 <label>Nazwisko *</label>
                 <input type="text" [(ngModel)]="user.lastName" name="lastName" required 
                        maxlength="50" #lastName="ngModel">
@@ -87,7 +87,7 @@
             </div>
             
     
-            <div class="col-6 group">
+            <div class="col-12 col-lg-6 group">
                 <label>Email *</label>
                 <input type="email" [(ngModel)]="user.email" name="email" required
                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #email="ngModel">
@@ -108,7 +108,7 @@
             
             
     
-            <div class="col-6 group" *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
+            <div class="col-12 col-lg-6 group" *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
                 <label>Numer Telefonu</label>
                 <input type="tel" [(ngModel)]="user.phoneNumber" name="phoneNumber" #phoneNumber="ngModel"
                        pattern="^\+48\s?(\d{3}[ ]?){3}$|^(\d{3}[ ]?){3}$">
@@ -132,7 +132,7 @@
                 <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
     
 
-                <div class="col-6 group">
+                <div class="col-12 col-lg-6 group">
                     <label>Waga</label>
                     <input type="number" [(ngModel)]="user.weight" name="weight" 
                            min="0.01" max="300.00" #weight="ngModel">
@@ -150,7 +150,7 @@
                 </div>
                 
         
-                <div class="col-6 group">
+                <div class="col-12 col-lg-6 group">
                     <label>Wzrost</label>
                     <input type="number" [(ngModel)]="user.height" name="height" 
                            min="0.01" max="250.00" #height="ngModel">
@@ -168,7 +168,7 @@
                 </div>
                 
         
-                <div class="col-6 group">
+                <div class="col-12 col-lg-6 group">
                     <label>Data urodzenia</label>
                     <input type="date" [(ngModel)]="formattedDate" name="dateOfBirth" #dateOfBirth="ngModel" (ngModelChange)="onDateChange()">
                     <div class="error-container">
@@ -182,7 +182,7 @@
                 </div>
                 
         
-                <div class="col-6 group">
+                <div class="col-12 col-lg-6 group">
                     <label>Płeć</label>
                     <select [(ngModel)]="user.sex" name="sex" #sex="ngModel">
                         <option value="">Wybierz płeć</option>
@@ -207,7 +207,7 @@
             </ng-container>
 
             <ng-container *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
-                <div class="col-6 group mb-0">
+                <div class="col-12 col-lg-6 group mb-0">
                     <label>Minimalny koszt planu treningowego (zł)</label>
                     <input type="number" [(ngModel)]="user.trainingPlanPriceFrom" 
                            #trainingPlanPriceFrom="ngModel" name="trainingPlanPriceFrom"
@@ -226,7 +226,7 @@
                 </div>
                 
                 
-                <div class="col-6 group mb-0">
+                <div class="col-12 col-lg-6 group mb-0">
                     <label>Maksymalny koszt planu treningowego (zł)</label>
                     <input type="number" [(ngModel)]="user.trainingPlanPriceTo" 
                            #trainingPlanPriceTo="ngModel" name="trainingPlanPriceTo"
@@ -259,7 +259,7 @@
                 
         
         
-            <div class="col-6 group mb-0">
+            <div class="col-12 col-lg-6 group mb-0">
                 <label>Minimalny koszt treningu personalnego(zł)</label>
                 <input type="number" [(ngModel)]="user.personalTrainingPriceFrom" name="personalTrainingPriceFrom"  #personalTrainingPriceFrom="ngModel"
                 min="0" max="99999.99" (change)="validatePriceRange()">
@@ -277,7 +277,7 @@
             </div>
 
         
-            <div class="col-6 group mb-0">
+            <div class="col-12 col-lg-6 group mb-0">
                 <label>Maksymalny koszt treningu personalnego(zł)</label>
                 <input type="number" [(ngModel)]="user.personalTrainingPriceTo" name="personalTrainingPriceTo" #personalTrainingPriceTo="ngModel"
                 min="0" max="99999.99" (change)="validatePriceRange()">
@@ -309,7 +309,7 @@
 
 <ng-container *ngIf="role=='Dietician' || role=='Dietician-Trainer'">
 
-    <div class="col-6 group mb-0">
+    <div class="col-12 col-lg-6 group mb-0">
         <label>Minimalny koszt diety(zł)</label>
         <input type="number" [(ngModel)]="user.dietPriceFrom" 
                #dietPriceFrom="ngModel" name="dietPriceFrom"
@@ -328,7 +328,7 @@
     </div>
     
     
-    <div class="col-6 group mb-0">
+    <div class="col-12 col-lg-6 group mb-0">
         <label>Maksymalny koszt diety(zł)</label>
         <input type="number" [(ngModel)]="user.dietPriceTo" 
                #dietPriceTo="ngModel" name="dietPriceTo"
@@ -381,7 +381,7 @@
             </div>
 
             <ng-container *ngIf="user.trainerGyms && user.trainerGyms.length > 0; else noGymsTemplate">
-                <table class="table table-striped" style="max-width: 100%;">
+                <table class="table table-admin table-striped" style="max-width: 100%;">
                     <thead>
                         <tr>
                             <th scope="col">Miasto</th>

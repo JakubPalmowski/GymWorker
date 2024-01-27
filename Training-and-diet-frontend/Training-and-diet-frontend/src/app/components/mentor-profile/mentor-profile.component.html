@@ -179,17 +179,17 @@
       <div class="col-12 col-md d-flex flex-column ms-1 align-items-center align-items-md-start gap-2">
         <span class="fw-bold fs-4">Cennik:</span>
         <ng-container *ngIf="mentor.role=='Trainer' || mentor.role=='Dietician-Trainer'">
-          <span class="fs-5 ms-1"><i class="fas fa-clipboard-list  fa-lg me-2"></i> Plan Treningowy: {{ mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null ? mentor.trainingPlanPriceFrom + 'zł - ' + mentor.trainingPlanPriceTo + ' zł' : '-' }}</span>
-          <span class="fs-5"><i class="fas fa-user-friends  fa-lg"></i> Trening personalny: {{ mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null ? mentor.personalTrainingPriceFrom + 'zł - ' + mentor.personalTrainingPriceTo + ' zł' : '-' }}</span>
+          <span class="fs-5 ms-1"><i class="fas fa-clipboard-list  fa-lg me-2 d-none d-sm-inline"></i> Plan Treningowy: {{ mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null ? mentor.trainingPlanPriceFrom + 'zł - ' + mentor.trainingPlanPriceTo + ' zł' : '-' }}</span>
+          <span class="fs-5"><i class="fas fa-user-friends fa-lg d-none d-sm-inline"></i> Trening personalny: {{ mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null ? mentor.personalTrainingPriceFrom + 'zł - ' + mentor.personalTrainingPriceTo + ' zł' : '-' }}</span>
         </ng-container>
         <ng-container *ngIf="mentor.role=='Dietician' || mentor.role=='Dietician-Trainer'">
-          <span class="fs-5"><i class="fas fa-seedling  fa-lg me-1"></i> Dieta: {{ mentor.dietPriceFrom !== null && mentor.dietPriceTo !== null ? mentor.dietPriceFrom  + 'zł - ' + mentor.dietPriceTo + 'zł' : '-' }}</span>
+          <span class="fs-5"><i class="fas fa-seedling  fa-lg me-1 d-none d-sm-inline"></i> Dieta: {{ mentor.dietPriceFrom !== null && mentor.dietPriceTo !== null ? mentor.dietPriceFrom  + 'zł - ' + mentor.dietPriceTo + 'zł' : '-' }}</span>
         </ng-container>
       </div>
       <div class="col-12 mt-3 mt-md-0 col-md d-flex flex-column align-items-center align-items-md-start gap-2">
         <ng-container *ngIf="mentor.trainerGyms!=null && mentor.trainerGyms.length>0">
           <span class="fw-bold fs-4">Preferowane siłownie:</span>
-          <span *ngFor="let gym of mentor.trainerGyms" class="fs-5"><i class="fas fa-building fa-lg"></i> {{ gym.cityName }}, {{ gym.name }}</span>
+          <span *ngFor="let gym of mentor.trainerGyms" class="fs-5"><i class="fas fa-building fa-lg d-none d-sm-inline"></i> {{ gym.cityName }}, {{ gym.name }}</span>
         </ng-container>
       </div>
     </div>

@@ -3,7 +3,6 @@ export interface PupilPersonalInfo{
     lastName: string;
     role: string;
     email: string;
-    emailValidated: boolean;
     weight?: number;
     height?: number;
     dateOfBirth?: Date;

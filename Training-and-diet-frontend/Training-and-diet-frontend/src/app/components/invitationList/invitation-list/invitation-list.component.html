@@ -1,15 +1,15 @@
 <div *ngIf="invitations && invitations.length > 0" class="container-fluid">
     <div class="row mt-3  d-flex justify-content-center">
         <h1 class="w-100 text-center bg-primary shadow text-white py-3 rounded-3">Zaproszenia</h1>
-        <div class="col-12 shadow rounded-div bg-secondary py-3 d-flex justify-content-between align-items-center my-2" *ngFor="let inv of invitations">
-            <div class="d-flex align-items-center gap-3">
+        <div class="col-12 flex-column flex-lg-row shadow rounded-div bg-secondary py-3 d-flex justify-content-between align-items-center my-2" *ngFor="let inv of invitations">
+            <div class="d-flex flex-column flex-lg-row align-items-center gap-3 mb-3 mb-lg-0">
                 <img src="{{inv.imageSrc}}" class="round-picture" width="100" height="100">
                 <span class="fw-bold fs-3"> {{inv.name + ' ' + inv.lastName}}</span>
             </div>
-            <div class="button-group">
-                <button class="btn-confirm me-2" (click)="acceptInvitation(inv.idUser)">Akceptuj</button>
-                <button class="btn-alert me-2" (click)="deleteInvitation(inv.idUser)">Odrzuć</button>
-                <a class="btn-primary" routerLink="/pupilProfile/{{inv.idUser}}">Profil</a>
+            <div class="d-flex flex-column flex-sm-row gap-3 gap-sm-0">
+                <button class="btn-confirm me-sm-2" (click)="acceptInvitation(inv.idUser)">Akceptuj</button>
+                <button class="btn-alert me-sm-2" (click)="deleteInvitation(inv.idUser)">Odrzuć</button>
+                <button class="btn-primary" routerLink="/pupilProfile/{{inv.idUser}}">Profil</button>
             </div>
         </div>
     </div>

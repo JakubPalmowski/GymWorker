@@ -15,8 +15,8 @@
             <span>Ulica: <strong>{{gym?.street}}</strong></span>
         </div>
           <div class="dialog-actions">
-            <button class="btn-custom btn-detail" (click)="cancelDelete()">Anuluj</button>
-            <button class="btn-custom btn-delete" (click)="confirmDelete()">Usuń</button>
+            <button class="btn-primary" (click)="cancelDelete()">Anuluj</button>
+            <button class="btn-alert" (click)="confirmDelete()">Usuń</button>
           </div>
         </div>
       </div>
@@ -87,10 +87,10 @@
             
     
             <div class="col-12 d-flex justify-content-center mt-4">
-                <div class="d-flex justify-content-between" style="width: 60%;">
-                    <button type="button" class="btn-custom btn-back" routerLink="/admin/gym/list/Pending">Powrót</button>
-                    <button type="submit" class="btn-custom btn-edit">Zaakceptuj prośbę</button>
-                    <button type="button" class="btn-custom btn-delete" (click)="deleteGym()">Usuń prośbę</button>
+                <div class="d-flex justify-content-between buttons gap-3 flex-column flex-lg-row">
+                    <button type="button" class="btn-primary" routerLink="/admin/gym/list/Pending">Powrót</button>
+                    <button type="submit" class="btn-confirm">Zaakceptuj prośbę</button>
+                    <button type="button" class="btn-alert" (click)="deleteGym()">Usuń prośbę</button>
                 </div>
             </div>
            

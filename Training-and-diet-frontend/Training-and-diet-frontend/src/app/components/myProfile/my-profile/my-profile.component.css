@@ -64,6 +64,7 @@ a{
     top: 0;
     left: 100%;
     width: 250px;
+    z-index: 3;
   }
   
   .info-icon:hover + .info-tooltip {
@@ -82,4 +83,13 @@ a{
     word-break: break-all; 
 }
   
+@media (max-width: 900px) {
+  .info-tooltip {
+      width: 200px;
+      left: auto;
+      right: 100%;
+  }
+}
+
+
   

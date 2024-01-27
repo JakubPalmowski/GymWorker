@@ -12,8 +12,8 @@
           <br>
         </div>
           <div class="dialog-actions">
-            <button class="btn-custom btn-detail" (click)="cancelDelete()">Anuluj</button>
-            <button class="btn-custom btn-delete" (click)="confirmDelete()">Usuń</button>
+            <button class="btn-primary" (click)="cancelDelete()">Anuluj</button>
+            <button class="btn-alert" (click)="confirmDelete()">Usuń</button>
           </div>
         </div>
       </div>
@@ -44,15 +44,15 @@
     
     </div>
     <div class="col-12 group-admin-long-text">
-        <span class="user-data-label">Opis</span>
+        <span class="fw-bold fs-5">Opis</span>
         <div class="description">{{certificate.description}}</div>
     </div>
     
     <div class="col-12 mt-5 d-flex justify-content-center">
-        <div class="d-flex justify-content-around" style="width: 80%;">
-        <button type="button" class="btn-custom btn-back" (click)="back()">Powrót</button>
-       <button *ngIf="certificate.isAccepted==false" type="button" class="btn-custom btn-edit" (click)="acceptCertificate()">Zatwierdź</button>
-       <button type="button" class="btn-custom btn-delete" (click)="deleteCertificate()">Usuń</button>
+        <div class="d-flex flex-column flex-sm-row gap-3 gap-sm-0 justify-content-around buttons">
+        <button type="button" class="btn-primary" (click)="back()">Powrót</button>
+       <button *ngIf="certificate.isAccepted==false" type="button" class="btn-confirm" (click)="acceptCertificate()">Zatwierdź</button>
+       <button type="button" class="btn-alert" (click)="deleteCertificate()">Usuń</button>
     </div>
         </div>
         

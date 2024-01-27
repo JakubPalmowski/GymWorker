@@ -51,14 +51,36 @@
     margin-left: 10px; 
   }
 
-  .error-popup {
-    position: fixed;
-    top: 20px; 
-    left: 40%;
-    background-color: red; 
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    z-index: 1000;
+  .buttons{
+    width: 60%;
+}
+
+  @media (max-width: 900px) {
+    .user-data-row {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+    
+    .user-data-label, .user-data-value, .user-data-select {
+      width: 100%; 
+      margin: 5px 0; 
+    }
+    
+    .user-data-select {
+      text-align: left;
+    }
+
+    .description{
+        width: 100%;
+        margin:0px;
+    }
   }
+
+
+@media (max-width: 768px){
+
+    .buttons{
+        width: 92%;
+    }
+}
