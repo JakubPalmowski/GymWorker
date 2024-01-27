@@ -36,7 +36,7 @@ import { PupilTrainingPlansListComponent } from './components/pupilTrainingPlan/
 import { PupilTrainingPlanDetailsComponent } from './components/pupilTrainingPlan/pupil-training-plan-details/pupil-training-plan-details.component';
 import { PupilTrainingExerciseDetailsComponent } from './components/pupilTrainingPlan/pupil-training-exercise-details/pupil-training-exercise-details.component';
 import { CreateGymComponent } from './components/gym/create-gym/create-gym.component';
-import { AuthenticationInterceptor } from './services/interceptor';
+import { AuthenticationInterceptor } from './services/interceptors/authentication-interceptor';
 import { MainPageComponent } from './components/mainPage/main-page/main-page.component';
 import { GymListComponent } from './components/admin/gym/gymList/gym-list/gym-list.component';
 import { GymDetailsComponent } from './components/admin/gym/gymDetails/gym-details/gym-details.component';

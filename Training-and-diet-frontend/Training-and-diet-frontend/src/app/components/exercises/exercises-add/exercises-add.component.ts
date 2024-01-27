@@ -23,7 +23,6 @@ export class ExercisesAddComponent implements OnInit{
     details:'',
     exerciseSteps:'',
     idTrainer:3,
-    image:''
   }
   
   

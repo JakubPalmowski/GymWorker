@@ -3,6 +3,5 @@ export interface ExerciseFull{
     name: string;
     details:string;
     exerciseSteps:string;
-    image:any; //TODO implement
     idTrainer: number;
 }

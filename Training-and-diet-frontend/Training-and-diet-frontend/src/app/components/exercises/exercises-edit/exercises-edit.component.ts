@@ -22,7 +22,6 @@ export class ExercisesEditComponent implements OnInit{
     name:'',
     details:'',
     exerciseSteps:'',
-    image:'',
     idTrainer:3
   }
   

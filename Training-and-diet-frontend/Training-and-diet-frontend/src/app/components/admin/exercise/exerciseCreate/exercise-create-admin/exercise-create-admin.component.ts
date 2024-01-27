@@ -16,7 +16,6 @@ export class ExerciseCreateAdminComponent {
     details:'',
     exerciseSteps:'',
     idTrainer:3,
-    image:''
   }
   @ViewChild('profileForm') profileForm: NgForm | undefined;
   fieldErrors: { [key: string]: string[] } = {};

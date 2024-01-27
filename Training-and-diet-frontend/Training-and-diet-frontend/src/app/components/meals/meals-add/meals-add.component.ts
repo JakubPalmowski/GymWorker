@@ -24,7 +24,6 @@ export class MealsAddComponent implements OnInit{
     ingredients:'',
     prepareSteps:'',
     kcal:'',
-    image:''
   }
 
   mealKcal:MealKcal={

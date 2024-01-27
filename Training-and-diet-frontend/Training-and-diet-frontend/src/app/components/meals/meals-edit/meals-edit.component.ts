@@ -26,7 +26,6 @@ export class MealsEditComponent implements OnInit{
     ingredients:'',
     prepareSteps:'',
     kcal:'',
-    image:''
   }
 
 
