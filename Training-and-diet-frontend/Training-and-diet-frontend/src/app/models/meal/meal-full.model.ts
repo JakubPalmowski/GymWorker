@@ -4,6 +4,5 @@ export interface MealFull{
     name:string,
     ingredients:string,
     prepareSteps:string,
-    image:any,
     kcal:string,
 }

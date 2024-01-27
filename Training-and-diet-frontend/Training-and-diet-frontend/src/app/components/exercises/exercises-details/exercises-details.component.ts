@@ -22,7 +22,6 @@ export class ExercisesDetailsComponent {
     name:'',
     details:'',
     exerciseSteps:'',
-    image:'',
     idTrainer:1
   }
 

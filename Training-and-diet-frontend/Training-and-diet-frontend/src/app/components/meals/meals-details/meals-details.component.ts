@@ -22,7 +22,6 @@ export class MealsDetailsComponent implements OnInit{
     ingredients:'',
     prepareSteps:'',
     kcal:'',
-    image:''
   }
 
   kcal:string='';
