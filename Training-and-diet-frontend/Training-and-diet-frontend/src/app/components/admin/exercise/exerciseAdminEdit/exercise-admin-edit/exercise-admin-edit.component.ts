@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ExerciseFull } from 'src/app/models/exercise-full';
+import { ExerciseFull } from 'src/app/models/exercise/exercise-full.model';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({

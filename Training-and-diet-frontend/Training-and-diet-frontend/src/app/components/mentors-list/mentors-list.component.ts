@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, forkJoin, of, take } from 'rxjs';
-import { Mentor } from 'src/app/models/mentor';
-import { MentorList } from 'src/app/models/mentorList';
-import { Sort } from 'src/app/models/sort';
+import { Mentor } from 'src/app/models/mentor-pupil/mentor.model';
+import { MentorList } from 'src/app/models/mentor-pupil/mentor-list.model';
+import { Sort } from 'src/app/models/others/sort.model';
 import { FileService } from 'src/app/services/file.service';
 import { UserService } from 'src/app/services/user.service';
 

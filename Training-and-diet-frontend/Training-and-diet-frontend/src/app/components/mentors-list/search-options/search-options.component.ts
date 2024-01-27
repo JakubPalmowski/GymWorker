@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ActiveGym } from 'src/app/models/gym/activeGym';
-import { Sort } from 'src/app/models/sort';
+import { ActiveGym } from 'src/app/models/gym/active-gym.model';
+import { Sort } from 'src/app/models/others/sort.model';
 import { GymService } from 'src/app/services/gym.service';
 
 @Component({

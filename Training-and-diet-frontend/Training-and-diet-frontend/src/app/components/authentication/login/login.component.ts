@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Login } from 'src/app/models/login';
+import { Login } from 'src/app/models/authentication/login.model';
 import { Router } from '@angular/router';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 

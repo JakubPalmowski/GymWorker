@@ -1,14 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { PupilPersonalInfo } from 'src/app/models/MyProfile/pupilPersonalInfo';
+import { PupilPersonalInfo } from 'src/app/models/my-profile/pupil-personal-info.model';
 import { UserService } from 'src/app/services/user.service';
 import { NgForm, NgModel } from '@angular/forms';
-import { UserPersonalInfo } from 'src/app/models/MyProfile/userPersonalInfo';
-import { TrainerPersonalInfo } from 'src/app/models/MyProfile/trainerPersonalInfo';
+import { UserPersonalInfo } from 'src/app/models/my-profile/user-personal-info.model';
+import { TrainerPersonalInfo } from 'src/app/models/my-profile/trainer-personal-info.model';
 import { GymService } from 'src/app/services/gym.service';
 import { catchError, forkJoin, iif, of, switchMap, tap, throwError } from 'rxjs';
-import { ActiveGym } from 'src/app/models/gym/activeGym';
-import { DieticianPersonalInfo } from 'src/app/models/MyProfile/dieticianPersonalInfo';
-import { DieticianTrainerPersonalInfo } from 'src/app/models/MyProfile/dieticianTrainerPersonalInfo';
+import { ActiveGym } from 'src/app/models/gym/active-gym.model';
+import { DieticianPersonalInfo } from 'src/app/models/my-profile/dietician-personal-info.model';
+import { DieticianTrainerPersonalInfo } from 'src/app/models/my-profile/dietician-trainer-personal-info.model';
 import { FileService } from 'src/app/services/file.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 

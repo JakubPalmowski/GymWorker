@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ActiveGym } from '../models/gym/activeGym';
-import { CreateGym } from '../models/gym/createGym';
-import { GymsAddedByUser } from '../models/gym/gymsAddedByUser';
+import { ActiveGym } from '../models/gym/active-gym.model';
+import { CreateGym } from '../models/gym/create-gym.model';
+import { GymsAddedByUser } from '../models/gym/gyms-added-by-user.model';
 
 @Injectable({
   providedIn: 'root'

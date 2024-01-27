@@ -1,5 +1,5 @@
-import { ActiveGym } from "./gym/activeGym";
-import { Opinion } from "./opinion";
+import { ActiveGym } from "../gym/active-gym.model";
+import { Opinion } from "./opinion.model";
 
 export interface MentorProfile{
     id: number;

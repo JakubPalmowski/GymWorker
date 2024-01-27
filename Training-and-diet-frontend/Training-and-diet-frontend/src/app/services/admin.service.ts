@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GymAdminInfo } from '../models/admin/gymAdminInfo';
-import { GymDetailsAdmin } from '../models/admin/gymDetailsAdmin';
-import { GymUpdate } from '../models/admin/gymUpdate';
-import { ExerciseShort } from '../models/exercise-short.model';
-import { NewTrainingExercise } from '../models/new-training-exercise.model';
-import { Exercise } from '../models/exercise';
-import { CertificatedUsersList } from '../models/admin/certificatedUsersList';
-import { UserInfoForVerification } from '../models/admin/userInfoForVerification';
-import { CertificateListVerification } from '../models/admin/certificateListVerification';
-import { CertificateInfoForVeryfication } from '../models/admin/certificateInfoForVeryfication';
-import { UserVerifyPatch } from '../models/admin/userVerifyPatch';
-import { ExerciseFull } from '../models/exercise-full';
-import { UpdateExercise } from '../models/admin/exerciseUpdate';
+import { GymAdminInfo } from '../models/admin/gym-admin-info.model';
+import { GymDetailsAdmin } from '../models/admin/gym-details-admin.model';
+import { GymUpdate } from '../models/admin/gym-update.model';
+import { ExerciseShort } from '../models/exercise/exercise-short.model';
+import { NewTrainingExercise } from '../models/training-plan/new-training-exercise.model';
+import { Exercise } from '../models/exercise/exercise.model';
+import { CertificatedUsersList } from '../models/admin/certificated-users-list.model';
+import { UserInfoForVerification } from '../models/admin/user-info-for-verification.model';
+import { CertificateListVerification } from '../models/admin/certificate-list-verification.model';
+import { CertificateInfoForVeryfication } from '../models/admin/certificate-info-for-veryfication.model';
+import { UserVerifyPatch } from '../models/admin/user-verify-patch.model';
+import { ExerciseFull } from '../models/exercise/exercise-full.model';
+import { UpdateExercise } from '../models/admin/exercise-update.model';
 
 @Injectable({
   providedIn: 'root'

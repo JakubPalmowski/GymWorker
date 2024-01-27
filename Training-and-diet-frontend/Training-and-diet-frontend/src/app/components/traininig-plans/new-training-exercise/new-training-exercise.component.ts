@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExerciseGetById } from 'src/app/models/exercise-get-by-id';
-import { ExerciseShort } from 'src/app/models/exercise-short.model';
-import { NewTrainingExercise } from 'src/app/models/new-training-exercise.model';
+import { ExerciseGetById } from 'src/app/models/exercise/exercise-get-by-id.model';
+import { ExerciseShort } from 'src/app/models/exercise/exercise-short.model';
+import { NewTrainingExercise } from 'src/app/models/training-plan/new-training-exercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'  
 import { delay, timestamp } from 'rxjs';

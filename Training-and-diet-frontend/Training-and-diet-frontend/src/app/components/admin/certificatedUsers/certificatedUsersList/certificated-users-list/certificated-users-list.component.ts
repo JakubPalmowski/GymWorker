@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { of, switchMap } from 'rxjs';
-import { CertificatedUsersList } from 'src/app/models/admin/certificatedUsersList';
+import { CertificatedUsersList } from 'src/app/models/admin/certificated-users-list.model';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({

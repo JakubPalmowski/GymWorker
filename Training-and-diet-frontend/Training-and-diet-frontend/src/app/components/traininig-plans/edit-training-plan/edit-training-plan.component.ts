@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FullTrainingPlanGet } from 'src/app/models/full-training-plan-get';
-import { FullTrainingPlan } from 'src/app/models/full-training-plan.model';
-import { TrainingExerciseFull } from 'src/app/models/training-exercise-full';
-import { TrainingPlan } from 'src/app/models/trainingPlan.model';
-import { TrainingPlanExercise } from 'src/app/models/trainingPlanExercise.model';
+import { FullTrainingPlanGet } from 'src/app/models/training-plan/full-training-plan-get.model';
+import { FullTrainingPlan } from 'src/app/models/diet/full-training-plan.model';
+import { TrainingExerciseFull } from 'src/app/models/training-plan/training-exercise-full.model';
+import { TrainingPlan } from 'src/app/models/training-plan/training-plan.model';
+import { TrainingPlanExercise } from 'src/app/models/training-plan/training-plan-exercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 

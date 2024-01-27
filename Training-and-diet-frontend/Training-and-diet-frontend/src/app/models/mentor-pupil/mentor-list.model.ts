@@ -1,4 +1,4 @@
-import { Mentor } from "./mentor";
+import { Mentor } from "./mentor.model";
 
 export interface MentorList{
     items: Mentor[];

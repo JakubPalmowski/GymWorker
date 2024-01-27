@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PupilProfile } from 'src/app/models/pupilProfile';
+import { PupilProfile } from 'src/app/models/mentor-pupil/pupil-profile.model';
 import { FileService } from 'src/app/services/file.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 import { UserService } from 'src/app/services/user.service';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PupilTraineeExerciseGet } from 'src/app/models/pupilTraineeExerciseGet.model';
+import { PupilTraineeExerciseGet } from 'src/app/models/training-plan/pupil-trainee-exercise-get.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 

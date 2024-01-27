@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, of, switchMap } from 'rxjs';
-import { CertificateInfoForVeryfication } from 'src/app/models/admin/certificateInfoForVeryfication';
+import { CertificateInfoForVeryfication } from 'src/app/models/admin/certificate-info-for-veryfication.model';
 import { AdminService } from 'src/app/services/admin.service';
 import { FileService } from 'src/app/services/file.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';

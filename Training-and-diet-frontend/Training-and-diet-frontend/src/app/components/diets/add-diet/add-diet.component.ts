@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DietAddEdit } from 'src/app/models/diet/DietAddEdit.model';
+import { DietAddEdit } from 'src/app/models/diet/diet-add-edit.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DietService } from 'src/app/services/diet.service';
 

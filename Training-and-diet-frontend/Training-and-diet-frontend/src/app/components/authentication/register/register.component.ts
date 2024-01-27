@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { registerAdditionalFields } from 'src/app/models/registerAdditionalFields';
-import { Register } from 'src/app/models/register';
+import { registerAdditionalFields } from 'src/app/models/others/register-additional-fields.model';
+import { Register } from 'src/app/models/authentication/register.model';
 import { Form } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';

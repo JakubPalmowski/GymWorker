@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationEnd, UrlTree, UrlSegmentGroup, UrlSegment, ActivatedRoute } from '@angular/router';
-import { ListQueryParams } from '../models/listQueryParams';
+import { ListQueryParams } from '../models/others/list-query-params.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({

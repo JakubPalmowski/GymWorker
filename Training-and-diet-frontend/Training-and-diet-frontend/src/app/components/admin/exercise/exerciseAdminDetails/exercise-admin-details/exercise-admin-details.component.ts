@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ExerciseFull } from 'src/app/models/exercise-full';
+import { ExerciseFull } from 'src/app/models/exercise/exercise-full.model';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Exercise } from 'src/app/models/exercise';
+import { Exercise } from 'src/app/models/exercise/exercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { Location } from '@angular/common';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';

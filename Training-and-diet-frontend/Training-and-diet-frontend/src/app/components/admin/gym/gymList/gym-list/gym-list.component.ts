@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { GymAdminInfo } from 'src/app/models/admin/gymAdminInfo';
+import { GymAdminInfo } from 'src/app/models/admin/gym-admin-info.model';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({

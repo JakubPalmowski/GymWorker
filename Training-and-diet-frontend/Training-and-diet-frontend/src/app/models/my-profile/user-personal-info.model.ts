@@ -1,5 +1,5 @@
-import { Certificate } from "../certificate/certificate";
-import { ActiveGym } from "../gym/activeGym";
+import { Certificate } from "../certificate/certificate.model";
+import { ActiveGym } from "../gym/active-gym.model";
 
 export interface UserPersonalInfo{
     name: string;

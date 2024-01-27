@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EditTrainingExercise } from 'src/app/models/editTrainingExercise.model';
-import { ExerciseGetById } from 'src/app/models/exercise-get-by-id';
-import { ExerciseShort } from 'src/app/models/exercise-short.model';
-import { NewTrainingExercise } from 'src/app/models/new-training-exercise.model';
+import { EditTrainingExercise } from 'src/app/models/training-plan/edit-training-exercise.model';
+import { ExerciseGetById } from 'src/app/models/exercise/exercise-get-by-id.model';
+import { ExerciseShort } from 'src/app/models/exercise/exercise-short.model';
+import { NewTrainingExercise } from 'src/app/models/training-plan/new-training-exercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin, of, switchMap } from 'rxjs';
-import { Invitation } from 'src/app/models/invitation';
+import { Invitation } from 'src/app/models/mentor-pupil/invitation.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FileService } from 'src/app/services/file.service';
 import { UserService } from 'src/app/services/user.service';

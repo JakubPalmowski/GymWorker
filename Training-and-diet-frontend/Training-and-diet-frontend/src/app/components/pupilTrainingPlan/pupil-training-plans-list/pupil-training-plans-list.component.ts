@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { TrainingPlanPupilList } from 'src/app/models/TrainingPlanPupilList.model';
-import { TrainingPlan } from 'src/app/models/trainingPlan.model';
+import { TrainingPlanPupilList } from 'src/app/models/training-plan/training-plan-pupil-list.model';
+import { TrainingPlan } from 'src/app/models/training-plan/training-plan.model';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 
 @Component({

@@ -1,6 +1,6 @@
-import { ActiveGym } from "../gym/activeGym";
+import { ActiveGym } from "../gym/active-gym.model";
 
-export interface DieticianTrainerPersonalInfo {
+export interface TrainerPersonalInfo {
     name: string;
     lastName: string;
     role: string;
@@ -11,7 +11,5 @@ export interface DieticianTrainerPersonalInfo {
     trainingPlanPriceTo?: number;
     personalTrainingPriceFrom?: number;
     personalTrainingPriceTo?: number;
-    dietPriceFrom?: number;
-    dietPriceTo?: number;
     trainerGyms : ActiveGym[];
 }

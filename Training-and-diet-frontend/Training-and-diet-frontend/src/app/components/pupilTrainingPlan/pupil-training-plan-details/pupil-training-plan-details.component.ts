@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FullPupilsTrainingPlanGet } from 'src/app/models/FullPupilsTrainingPlanGet';
-import { ExerciseGetById } from 'src/app/models/exercise-get-by-id';
-import { FullTrainingPlanGet } from 'src/app/models/full-training-plan-get';
-import { NewTrainingExercise } from 'src/app/models/new-training-exercise.model';
-import { TrainingExerciseFull } from 'src/app/models/training-exercise-full';
-import { TrainingPlanExercise } from 'src/app/models/trainingPlanExercise.model';
+import { FullPupilsTrainingPlanGet } from 'src/app/models/training-plan/full-pupils-training-plan-get.model';
+import { ExerciseGetById } from 'src/app/models/exercise/exercise-get-by-id.model';
+import { FullTrainingPlanGet } from 'src/app/models/training-plan/full-training-plan-get.model';
+import { NewTrainingExercise } from 'src/app/models/training-plan/new-training-exercise.model';
+import { TrainingExerciseFull } from 'src/app/models/training-plan/training-exercise-full.model';
+import { TrainingPlanExercise } from 'src/app/models/training-plan/training-plan-exercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';

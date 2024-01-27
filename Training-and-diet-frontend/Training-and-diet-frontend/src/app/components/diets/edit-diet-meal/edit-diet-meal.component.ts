@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EditDietMeal } from 'src/app/models/diet/EditDietMeal.model';
-import { MealShort } from 'src/app/models/diet/MealShort.model';
-import { NewMealDiet } from 'src/app/models/diet/NewMealDiet.model';
+import { EditDietMeal } from 'src/app/models/diet/edit-diet-meal.model';
+import { MealShort } from 'src/app/models/meal/meal-short.model';
+import { NewMealDiet } from 'src/app/models/diet/new-meal-diet.model';
 import { MealsService } from 'src/app/services/meals.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 

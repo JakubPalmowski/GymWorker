@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GymDetailsAdmin } from 'src/app/models/admin/gymDetailsAdmin';
+import { GymDetailsAdmin } from 'src/app/models/admin/gym-details-admin.model';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({

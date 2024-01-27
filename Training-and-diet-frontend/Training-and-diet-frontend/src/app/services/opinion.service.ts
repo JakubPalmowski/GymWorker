@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateOpinion } from '../models/Opinion/createOpinion';
+import { CreateOpinion } from '../models/opinion/create-opinion.model';
 import { Observable } from 'rxjs';
 
 @Injectable({

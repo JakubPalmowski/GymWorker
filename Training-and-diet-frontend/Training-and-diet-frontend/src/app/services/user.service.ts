@@ -1,20 +1,20 @@
 
 import { EventEmitter } from '@angular/core';
-import { Mentor } from '../models/mentor';
+import { Mentor } from '../models/mentor-pupil/mentor.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { MentorProfile } from '../models/mentorProfile';
-import { MentorList } from '../models/mentorList';
-import { PupilProfile } from '../models/pupilProfile';
-import { PupilPersonalInfo } from '../models/MyProfile/pupilPersonalInfo';
-import { TrainerPersonalInfo } from '../models/MyProfile/trainerPersonalInfo';
-import { UserPersonalInfo } from '../models/MyProfile/userPersonalInfo';
-import { DieticianPersonalInfo } from '../models/MyProfile/dieticianPersonalInfo';
-import { DieticianTrainerPersonalInfo } from '../models/MyProfile/dieticianTrainerPersonalInfo';
-import { PupilShort } from '../models/pupilShort';
+import { MentorProfile } from '../models/mentor-pupil/mentor-profile.model';
+import { MentorList } from '../models/mentor-pupil/mentor-list.model';
+import { PupilProfile } from '../models/mentor-pupil/pupil-profile.model';
+import { PupilPersonalInfo } from '../models/my-profile/pupil-personal-info.model';
+import { TrainerPersonalInfo } from '../models/my-profile/trainer-personal-info.model';
+import { UserPersonalInfo } from '../models/my-profile/user-personal-info.model';
+import { DieticianPersonalInfo } from '../models/my-profile/dietician-personal-info.model';
+import { DieticianTrainerPersonalInfo } from '../models/my-profile/dietician-trainer-personal-info.model';
+import { PupilShort } from '../models/mentor-pupil/pupil-short.model';
 import { environment } from 'src/environments/environment';
-import { Invitation } from '../models/invitation';
+import { Invitation } from '../models/mentor-pupil/invitation.model';
 
 
 @Injectable({

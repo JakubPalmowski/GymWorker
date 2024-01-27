@@ -3,7 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable, catchError, from, switchMap, throwError } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { data, error } from 'jquery';
-import { JwtAuth } from '../models/jwtAuth';
+import { JwtAuth } from '../models/authentication/jwt-auth.model';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {

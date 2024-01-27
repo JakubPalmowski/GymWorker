@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MealFull } from '../models/meal-full';
+import { MealFull } from '../models/meal/meal-full.model';
 import { environment } from 'src/environments/environment';
-import { NewMealDiet } from '../models/diet/NewMealDiet.model';
-import { EditDietMeal } from '../models/diet/EditDietMeal.model';
+import { NewMealDiet } from '../models/diet/new-meal-diet.model';
+import { EditDietMeal } from '../models/diet/edit-diet-meal.model';
 
 @Injectable({
   providedIn: 'root'

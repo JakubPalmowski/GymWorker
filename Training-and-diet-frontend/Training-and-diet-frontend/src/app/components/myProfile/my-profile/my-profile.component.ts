@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError, forkJoin, of, switchMap } from 'rxjs';
-import { PupilPersonalInfo } from 'src/app/models/MyProfile/pupilPersonalInfo';
-import { TrainerPersonalInfo } from 'src/app/models/MyProfile/trainerPersonalInfo';
-import { UserPersonalInfo } from 'src/app/models/MyProfile/userPersonalInfo';
-import { PupilProfile } from 'src/app/models/pupilProfile';
+import { PupilPersonalInfo } from 'src/app/models/my-profile/pupil-personal-info.model';
+import { TrainerPersonalInfo } from 'src/app/models/my-profile/trainer-personal-info.model';
+import { UserPersonalInfo } from 'src/app/models/my-profile/user-personal-info.model';
+import { PupilProfile } from 'src/app/models/mentor-pupil/pupil-profile.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CertificateService } from 'src/app/services/certificate.service';
 import { FileService } from 'src/app/services/file.service';

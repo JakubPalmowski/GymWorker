@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { GymDetailsAdmin } from 'src/app/models/admin/gymDetailsAdmin';
-import { GymUpdate } from 'src/app/models/admin/gymUpdate';
+import { GymDetailsAdmin } from 'src/app/models/admin/gym-details-admin.model';
+import { GymUpdate } from 'src/app/models/admin/gym-update.model';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({

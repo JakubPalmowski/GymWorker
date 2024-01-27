@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ExerciseShort } from 'src/app/models/exercise-short.model';
+import { ExerciseShort } from 'src/app/models/exercise/exercise-short.model';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({

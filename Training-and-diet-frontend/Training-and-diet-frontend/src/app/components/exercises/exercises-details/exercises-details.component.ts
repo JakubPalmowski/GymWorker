@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExerciseFull } from 'src/app/models/exercise-full';
+import { ExerciseFull } from 'src/app/models/exercise/exercise-full.model';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 
 

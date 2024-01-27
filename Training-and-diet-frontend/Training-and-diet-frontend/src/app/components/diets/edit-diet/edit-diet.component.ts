@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DietMentorGet } from 'src/app/models/diet/DietMentorGet.model';
-import { MealDietMentorList } from 'src/app/models/diet/MealDietMentorList.model';
+import { DietMentorGet } from 'src/app/models/diet/diet-mentor-get.model';
+import { MealDietMentorList } from 'src/app/models/diet/meal-diet-mentor-list.model';
 import { DietService } from 'src/app/services/diet.service';
 import { MealsService } from 'src/app/services/meals.service';
 

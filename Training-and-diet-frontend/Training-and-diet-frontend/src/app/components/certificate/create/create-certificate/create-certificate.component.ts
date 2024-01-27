@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CertificateCreate } from 'src/app/models/certificate/certificateCreate';
+import { CertificateCreate } from 'src/app/models/certificate/certificate-create.model';
 import { CertificateService } from 'src/app/services/certificate.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/autocomplete';
-import { ActiveGym } from '../models/gym/activeGym';
+import { ActiveGym } from '../models/gym/active-gym.model';
 
 
 type AutocompleteData = string[] | ActiveGym[];

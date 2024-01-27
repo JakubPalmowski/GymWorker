@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { TrainingPlanPupilList } from 'src/app/models/TrainingPlanPupilList.model';
-import { PupilShort } from 'src/app/models/pupilShort';
+import { TrainingPlanPupilList } from 'src/app/models/training-plan/training-plan-pupil-list.model';
+import { PupilShort } from 'src/app/models/mentor-pupil/pupil-short.model';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 import { UserService } from 'src/app/services/user.service';
