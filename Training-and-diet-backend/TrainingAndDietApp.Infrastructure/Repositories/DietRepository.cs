@@ -20,6 +20,8 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
 
         public async Task<List<Diet>> GetDieticianDietsAsync(int dieticianId, CancellationToken cancellationToken)
         => await _context.Diets.Where(diet => diet.IdDietician == dieticianId).ToListAsync(cancellationToken);
-        
+
+        public async Task<List<Diet>> GetPupilDietsAsync(int pupilId, CancellationToken cancellationToken)
+        => await _context.Diets.Where(diet => diet.IdPupil == pupilId).Include(d=>d.Dietician).ToListAsync(cancellationToken);
     }
 }

@@ -7,7 +7,7 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.Diet.GetDieticianDiets
 {
-    public class GetDieticianDietsQueryHandler : IRequestHandler<GetDieticianDietsQuery, List<DietListResponse>>
+    public class GetDieticianDietsQueryHandler : IRequestHandler<GetDieticianDietsQuery, List<DietDieticianListResponse>>
     {
         private readonly IDietRepository _dietRepository;
         private readonly IMapper _mapper;
@@ -17,10 +17,10 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Diet.GetDieticianDiets
             _dietRepository = dietRepository;
             _mapper = mapper;
         }
-        public async Task<List<DietListResponse>> Handle(GetDieticianDietsQuery request, CancellationToken cancellationToken)
+        public async Task<List<DietDieticianListResponse>> Handle(GetDieticianDietsQuery request, CancellationToken cancellationToken)
         {
             var diets = await _dietRepository.GetDieticianDietsAsync(request.IdDietician, cancellationToken);
-            var dietsResponse = _mapper.Map<List<DietListResponse>>(diets);
+            var dietsResponse = _mapper.Map<List<DietDieticianListResponse>>(diets);
             return dietsResponse;
         }
     }

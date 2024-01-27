@@ -221,8 +221,13 @@ namespace TrainingAndDietApp.Application
 
                 CreateMap<User, InvitationsResponse>();
 
-                CreateMap<Diet, DietListResponse>()
+                CreateMap<Diet, DietDieticianListResponse>()
                 .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
+
+                CreateMap<Diet, DietPupilListResponse>()
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)))
+                .ForMember(dest => dest.DieticianName, opt => opt.MapFrom(src => src.Dietician.Name))
+                .ForMember(dest => dest.DieticianLastName, opt => opt.MapFrom(src => src.Dietician.LastName));
 
 
                 
