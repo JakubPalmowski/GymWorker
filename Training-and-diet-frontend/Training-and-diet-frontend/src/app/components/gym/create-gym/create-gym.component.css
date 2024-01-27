@@ -50,15 +50,14 @@ input{
     margin-bottom: 10px;
   }
 
-  .table thead{
-    border-bottom: 2px solid black;
-    border-top: 2px solid black;
+  .input-container{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
   }
 
-  .table tr{
-    border-bottom: 1px solid black;
+@media (max-width: 768px) {
+  .input-container{
+    width: 90%;
   }
-  .table th, .table td {
-    width: 20%;
-    word-break: break-all; 
 }

@@ -1,13 +1,9 @@
-input{
-    width: 65%;
-}
 
 input{
     width: 100%;
     height: 50px;
     font-size: 20px;
     border-radius: 5px 5px 5px 5px;
-    margin-bottom: 10px;
 }
 
 
@@ -22,4 +18,7 @@ form{
     flex-direction: column;
     width: 100%;
    
+}
+.error-container{
+    height: 10px;
 }

@@ -6,12 +6,12 @@
           <h1 class="text-center">Szczegóły ćwiczenia</h1>
       </div>
 
-      <div class="col-12 group-admin-input">
+      <div class="col-12 group-admin-input mb-3">
               <label for="name">Nazwa</label>
               <input type="text" id="name" value="{{exercise.name}}" disabled>
       </div>
       
-      <div class="col-12 group-admin-long-text">
+      <div class="col-12 group-admin-long-text mb-3">
               <label for="description">Opis</label>
               <div id="description">{{exercise.details}}</div>
       </div>
@@ -25,9 +25,9 @@
       
 
       <div class="col-12 d-flex justify-content-center mt-4">
-          <div class="d-flex justify-content-around" style="width: 60%;">
-              <button type="button" class="btn-custom btn-back" routerLink="/admin/exercise/list">Powrót</button>
-              <button type="button" class="btn-custom btn-edit" routerLink="/admin/exercise/edit/{{exercise.idExercise}}">Edytuj</button>
+          <div class="d-flex justify-content-around buttons">
+              <button type="button" class="btn-primary" routerLink="/admin/exercise/list">Powrót</button>
+              <button type="button" class="btn-confirm" routerLink="/admin/exercise/edit/{{exercise.idExercise}}">Edytuj</button>
           </div>
       </div>
      

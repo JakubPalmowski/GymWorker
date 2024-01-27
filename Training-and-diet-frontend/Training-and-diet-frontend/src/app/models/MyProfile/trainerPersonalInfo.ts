@@ -5,7 +5,6 @@ export interface TrainerPersonalInfo {
     lastName: string;
     role: string;
     email: string;
-    emailValidated: boolean;
     phoneNumber?: string;
     bio?: string;
     trainingPlanPriceFrom?: number;

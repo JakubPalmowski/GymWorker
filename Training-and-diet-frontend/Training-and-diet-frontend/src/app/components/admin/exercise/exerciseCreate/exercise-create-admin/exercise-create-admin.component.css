@@ -1,0 +1,19 @@
+
+.buttons{
+    width: 60%;
+}
+@media (max-width: 768px){
+    .group-admin-input input, textarea{
+        width: 90%;
+    }
+    .group-admin-input label{
+        width: 90%;
+    }
+    .buttons{
+        width: 92%;
+    }
+
+    .group-admin-long-text label{
+        width: 90%;
+    }
+}

@@ -1,6 +1,6 @@
 <div class="container-fluid mt-5">
     <app-menu-admin></app-menu-admin>
-    <button class="btn-custom btn-back mb-3" style="width: fit-content;" routerLink="/admin/exercise/create">Dodaj ćwiczenie</button>
+    <button class="btn-primary mb-3" style="width: fit-content;" routerLink="/admin/exercise/create">Dodaj ćwiczenie</button>
     <input type="text" class="form-control mb-3 fs-5" placeholder="Szukaj ćwiczeń..." [(ngModel)]="searchTerm" (input)="filterExercices()">
     <ng-container *ngIf="!exercices?.length">
         <h1 class="text-center mt-5">Brak ćwiczeń</h1>
@@ -35,10 +35,10 @@
                     <td>{{ exercise.name }}</td>
                     <td>
     
-                            <div class="btn-container">
-                                <button type="button" class="btn-custom btn-detail" routerLink="/admin/exercise/details/{{exercise.idExercise}}">Szczegóły</button>
-                                <button type="button" class="btn-custom btn-edit" routerLink="/admin/exercise/edit/{{exercise.idExercise}}">Edytuj</button>
-                                <button type="button" class="btn-custom btn-delete" (click)="deleteExercise(exercise.idExercise)">Usuń</button>
+                            <div class="d-flex justify-content-center flex-column flex-sm-row gap-2">
+                                <button type="button" class="btn-primary" routerLink="/admin/exercise/details/{{exercise.idExercise}}">Szczegóły</button>
+                                <button type="button" class="btn-confirm" routerLink="/admin/exercise/edit/{{exercise.idExercise}}">Edytuj</button>
+                                <button type="button" class="btn-alert" (click)="deleteExercise(exercise.idExercise)">Usuń</button>
                             </div>
                     </td>
                 </tr>

@@ -10,6 +10,7 @@
     display: inline-block; 
     margin-right: 15px; 
     padding: 10px 15px; 
+    margin-bottom:0px;
     text-decoration: none; 
     font-weight: bold; 
     color: white; 
@@ -17,3 +18,14 @@
     transition: background-color 0.3s, color 0.3s; 
 }
 
+
+@media (max-width: 1199px) {
+    a{
+        width: 100%;
+        text-align: center;
+    }
+    .admin-link {
+        margin-bottom: 10px; 
+        margin-right: 0px;
+    }
+}

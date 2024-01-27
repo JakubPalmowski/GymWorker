@@ -27,8 +27,8 @@
         <span>Ulica: <strong>{{selectedGym?.street}}</strong></span>
     </div>
       <div class="dialog-actions">
-        <button class="btn-custom btn-detail" (click)="cancelDelete()">Anuluj</button>
-        <button class="btn-custom btn-delete" (click)="confirmDelete()">Usuń</button>
+        <button class="btn-primary" (click)="cancelDelete()">Anuluj</button>
+        <button class="btn-alert" (click)="confirmDelete()">Usuń</button>
       </div>
     </div>
   </div>
@@ -53,14 +53,14 @@
                 <td>{{ gym.street }}</td>
                 <td>
                     <ng-container *ngIf="status === 'Active'">
-                        <div class="btn-container">
-                            <button type="button" class="btn-custom btn-detail" routerLink="/admin/gym/details/{{gym.idGym}}">Szczegóły</button>
-                            <button type="button" class="btn-custom btn-edit" routerLink="/admin/gym/edit/{{gym.idGym}}">Edytuj</button>
-                            <button type="button" class="btn-custom btn-delete" (click)="deleteGym(gym.idGym)">Usuń</button>
+                        <div class="d-flex justify-content-center flex-column flex-sm-row gap-2">
+                            <button type="button" class="btn-primary" routerLink="/admin/gym/details/{{gym.idGym}}">Szczegóły</button>
+                            <button type="button" class="btn-confirm" routerLink="/admin/gym/edit/{{gym.idGym}}">Edytuj</button>
+                            <button type="button" class="btn-alert" (click)="deleteGym(gym.idGym)">Usuń</button>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="status === 'Pending'">
-                        <button type="button" class="btn-custom btn-detail" routerLink="/admin/gym/vetification/{{gym.idGym}}">Zweryfikuj</button>
+                        <button type="button" class="btn-primary" routerLink="/admin/gym/vetification/{{gym.idGym}}">Zweryfikuj</button>
                     </ng-container>
                 </td>
             </tr>

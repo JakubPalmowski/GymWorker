@@ -17,7 +17,7 @@
         </div>
 
         <div class="col-12 group">
-            <div class="d-flex flex-column" style="width: 60%;">
+            <div class="input-container">
                 <label>Nazwa siłowni</label>
                 <input type="text" [(ngModel)]="GymToCreate.name" name="name" #name="ngModel" required maxlength="100">
                 <div class="error-container">
@@ -32,7 +32,7 @@
         </div>
         
         <div class="col-12 group">
-            <div class="d-flex flex-column" style="width: 60%;">
+            <div class="input-container">
                 <label>Miasto</label>
                 <input type="text" [(ngModel)]="GymToCreate.city" name="city" #city="ngModel" required maxlength="85">
                 <div class="error-container">
@@ -47,7 +47,7 @@
         </div>
         
         <div class="col-12 group">
-            <div class="d-flex flex-column" style="width: 60%;">
+            <div class="input-container">
                 <label>Ulica</label>
                 <input type="text" [(ngModel)]="GymToCreate.street" name="street" #street="ngModel" required maxlength="120">
                 <div class="error-container">
@@ -62,7 +62,7 @@
         </div>
         
         <div class="col-12 group">
-            <div class="d-flex flex-column" style="width: 60%;">
+            <div class="input-container">
                 <label>Kod pocztowy</label>
                 <input type="text" [(ngModel)]="GymToCreate.postalCode" name="postalCode" #postalCode="ngModel" required pattern="^\d{2}-\d{3}$">
                 <div class="error-container">
@@ -88,7 +88,7 @@
         <div class="col-12 mt-3"><h2>Moje prośby</h2></div>
 
         <ng-container *ngIf="GymsAddedByUser && GymsAddedByUser.length > 0; else noGymsTemplate">
-            <table class="table table-striped" style="max-width: 100%;">
+            <table class="table table-admin table-striped">
                 <thead>
                     <tr>
                         <th scope="col">Miasto</th>
