@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TrainingAndDietApp.Infrastructure.Context;
@@ -11,9 +12,11 @@ using TrainingAndDietApp.Infrastructure.Context;
 namespace TrainingAndDietApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240127134321_deleteStatusFromGymTable")]
+    partial class deleteStatusFromGymTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,9 +34,12 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdDiet"));
 
-                    b.Property<string>("CustomName")
+                    b.Property<string>("DietDuration")
                         .IsRequired()
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("Date");
 
                     b.Property<int>("IdDietician")
                         .HasColumnType("integer");
@@ -41,22 +47,11 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.Property<int>("IdPupil")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("NumberOfWeeks")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("Date");
 
                     b.Property<int>("TotalKcal")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
 
                     b.HasKey("IdDiet");
 
@@ -70,38 +65,32 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         new
                         {
                             IdDiet = 1,
-                            CustomName = "Plan treningowy dla mirka",
+                            DietDuration = "1",
+                            EndDate = new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdDietician = 1,
                             IdPupil = 2,
-                            Name = "Plan treningowy dla początkujących",
-                            NumberOfWeeks = 4,
                             StartDate = new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalKcal = 3000,
-                            Type = "Siłowy"
+                            TotalKcal = 3000
                         },
                         new
                         {
                             IdDiet = 2,
-                            CustomName = "Plan treningowy dla jacka",
+                            DietDuration = "30",
+                            EndDate = new DateTime(2023, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdDietician = 1,
                             IdPupil = 2,
-                            Name = "Plan treningowy na odchudzanie",
-                            NumberOfWeeks = 4,
                             StartDate = new DateTime(2023, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalKcal = 2000,
-                            Type = "Cardio"
+                            TotalKcal = 2000
                         },
                         new
                         {
                             IdDiet = 3,
-                            CustomName = "Plan treningowy dla Wlodara",
+                            DietDuration = "30",
+                            EndDate = new DateTime(2023, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdDietician = 1,
                             IdPupil = 2,
-                            Name = "Plan treningowy dla początkujących",
-                            NumberOfWeeks = 4,
                             StartDate = new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalKcal = 2500,
-                            Type = "Siłowy"
+                            TotalKcal = 2500
                         });
                 });
 
@@ -1060,12 +1049,8 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("varchar(200)");
 
-                    b.Property<int>("DayOfWeek")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("HourOfMeal")
-                        .IsRequired()
-                        .HasColumnType("varchar(5)");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("Date");
 
                     b.Property<int>("IdMealDiet")
                         .ValueGeneratedOnAdd()
@@ -1085,25 +1070,21 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         {
                             IdMeal = 1,
                             IdDiet = 1,
-                            Comments = "Jedz sobie",
-                            DayOfWeek = 1,
-                            HourOfMeal = "12:00",
+                            Date = new DateTime(2023, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdMealDiet = 1
                         },
                         new
                         {
                             IdMeal = 2,
                             IdDiet = 1,
-                            DayOfWeek = 2,
-                            HourOfMeal = "12:00",
+                            Date = new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdMealDiet = 2
                         },
                         new
                         {
                             IdMeal = 1,
                             IdDiet = 2,
-                            DayOfWeek = 1,
-                            HourOfMeal = "12:00",
+                            Date = new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IdMealDiet = 3
                         });
                 });

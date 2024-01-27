@@ -25,7 +25,7 @@ constructor(private route: ActivatedRoute, private adminService: AdminService) {
     this.gymId = this.route.snapshot.params['id'];
     this.adminService.getGymById(this.gymId).subscribe({
       next: gym => {
-        if(gym.status === "Pending"){
+        if(gym.isAccepted === false){
           this.error = true;
         }else{
         this.gym = gym;

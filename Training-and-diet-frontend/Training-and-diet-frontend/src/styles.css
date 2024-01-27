@@ -195,15 +195,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   line-height: 1.6; 
 }
 
-.btn-dialog {
-  padding: 10px 20px;
-  margin-left: 10px; 
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s; 
-}
   .dialog-actions {
     display: flex;
     justify-content: space-evenly;

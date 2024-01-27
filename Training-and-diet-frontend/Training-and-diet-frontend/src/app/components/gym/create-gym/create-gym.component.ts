@@ -52,7 +52,7 @@ export class CreateGymComponent implements OnInit {
           document.documentElement.scrollTop = 0;
           var gym: GymsAddedByUser = {
             ...this.GymToCreate,
-            status: "Pending"
+            isAccepted: false
           };
           this.GymsAddedByUser?.push(gym);
           this.GymToCreate = { city: "", name: "", postalCode: "", street: ""};

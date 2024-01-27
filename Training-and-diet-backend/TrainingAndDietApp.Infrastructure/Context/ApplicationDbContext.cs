@@ -313,19 +313,21 @@ namespace TrainingAndDietApp.Infrastructure.Context
             );
 
             modelBuilder.Entity<Diet>().HasData(
-                new Diet { IdDiet = 1, IdDietician = 1, IdPupil = 2, StartDate = new DateTime(2023, 12, 20), EndDate = new DateTime(2023, 12, 20), DietDuration = "1", TotalKcal = 3000 },
-                new Diet { IdDiet = 2, IdDietician = 1, IdPupil = 2, StartDate = new DateTime(2023, 10, 20), EndDate = new DateTime(2023, 11, 20), DietDuration = "30", TotalKcal = 2000 },
-                new Diet { IdDiet = 3, IdDietician = 1, IdPupil = 2, StartDate = new DateTime(2023, 11, 30), EndDate = new DateTime(2023, 12, 30), DietDuration = "30", TotalKcal = 2500 }
+                new Diet { IdDiet = 1, IdDietician = 1, IdPupil = 2, StartDate = new DateTime(2023, 12, 20), NumberOfWeeks=4, TotalKcal = 3000, Type="Siłowy", Name="Plan treningowy dla początkujących", CustomName="Plan treningowy dla mirka"},
+                new Diet { IdDiet = 2, IdDietician = 1, IdPupil = 2, StartDate = new DateTime(2023, 10, 20), NumberOfWeeks=4, TotalKcal = 2000, Type="Cardio", Name="Plan treningowy na odchudzanie", CustomName="Plan treningowy dla jacka"},
+                new Diet { IdDiet = 3, IdDietician = 1, IdPupil = 2, StartDate = new DateTime(2023, 11, 30), NumberOfWeeks=4, TotalKcal = 2500, Type="Siłowy", Name="Plan treningowy dla początkujących", CustomName="Plan treningowy dla Wlodara"}
             );
             modelBuilder.Entity<MealDiet>().HasData(
-                new MealDiet { IdMealDiet = 1, IdMeal = 1, IdDiet = 1, Date = new DateTime(2023, 12, 07) },
-                new MealDiet { IdMealDiet = 2, IdMeal = 2, IdDiet = 1, Date = new DateTime(2023, 6, 07) },
+                new MealDiet { IdMealDiet = 1, IdMeal = 1, IdDiet = 1, DayOfWeek = 1, HourOfMeal = "12:00", Comments = "Jedz sobie"},
+                new MealDiet { IdMealDiet = 2, IdMeal = 2, IdDiet = 1, DayOfWeek = 2, HourOfMeal = "12:00"},
                 new MealDiet
                 {
                     IdMealDiet = 3,
                     IdMeal = 1,
                     IdDiet = 2,
-                    Date = new DateTime(2023, 5, 07),
+                    DayOfWeek = 1,
+                    HourOfMeal = "12:00"
+
                 });
 
             //generate 3 records for each model: Gym, Trainer_Gym, give random gym names
@@ -350,9 +352,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 .WithMany(u => u.DietsAsPupil)
                 .HasForeignKey(d => d.IdPupil);
 
-            modelBuilder.Entity<Gym>()
-                .Property(e => e.Status)
-                .HasConversion<string>();
 
             
 

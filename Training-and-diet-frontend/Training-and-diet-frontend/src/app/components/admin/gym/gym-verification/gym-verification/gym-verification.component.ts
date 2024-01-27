@@ -29,7 +29,7 @@ export class GymVerificationComponent {
     this.gymId = this.route.snapshot.params['id'];
     this.adminService.getGymById(this.gymId).subscribe({
       next: gym => {
-        if(gym.status === "Active"){
+        if(gym.isAccepted === true){
           this.error = true;
         }else{
         this.gym = gym;

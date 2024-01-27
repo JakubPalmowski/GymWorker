@@ -27,11 +27,11 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAllGymsAdmin
             var pendingGyms=new List<Domain.Entities.Gym>();
             if (request.status == "Pending")
             {
-                pendingGyms = await _gymRepository.GetAllGymsAdminAsync(Domain.Enums.Status.Pending, cancellationToken);
+                pendingGyms = await _gymRepository.GetAllGymsAdminAsync(false, cancellationToken);
                 
             }else if(request.status == "Active")
             {
-                pendingGyms = await _gymRepository.GetAllGymsAdminAsync(Domain.Enums.Status.Active, cancellationToken);
+                pendingGyms = await _gymRepository.GetAllGymsAdminAsync(true, cancellationToken);
                 
             }
             var response = _mapper.Map<List<GymAdminInfoResponse>>(pendingGyms);

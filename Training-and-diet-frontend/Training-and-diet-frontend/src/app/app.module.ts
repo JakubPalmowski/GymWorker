@@ -32,12 +32,12 @@ import { MyProfileComponent } from './components/my-profile/my-profile/my-profil
 import { MyProfileEditComponent } from './components/my-profile/my-profile-edit/my-profile-edit.component';
 import { EditTrainingExerciseComponent } from './components/traininig-plans/edit-training-exercise/edit-training-exercise.component';
 import { TrainingExerciseListComponent } from './components/traininig-plans/training-exercise-list/training-exercise-list.component';
-import { PupilTrainingPlansListComponent } from './components/pupilTrainingPlan/pupil-training-plans-list/pupil-training-plans-list.component';
-import { PupilTrainingPlanDetailsComponent } from './components/pupilTrainingPlan/pupil-training-plan-details/pupil-training-plan-details.component';
-import { PupilTrainingExerciseDetailsComponent } from './components/pupilTrainingPlan/pupil-training-exercise-details/pupil-training-exercise-details.component';
+import { PupilTrainingPlansListComponent } from './components/pupil-training-plan/pupil-training-plans-list/pupil-training-plans-list.component';
+import { PupilTrainingPlanDetailsComponent } from './components/pupil-training-plan/pupil-training-plan-details/pupil-training-plan-details.component';
+import { PupilTrainingExerciseDetailsComponent } from './components/pupil-training-plan/pupil-training-exercise-details/pupil-training-exercise-details.component';
 import { CreateGymComponent } from './components/gym/create-gym/create-gym.component';
 import { AuthenticationInterceptor } from './services/interceptors/authentication-interceptor';
-import { MainPageComponent } from './components/mainPage/main-page/main-page.component';
+import { MainPageComponent } from './components/main-page/main-page/main-page.component';
 import { GymListComponent } from './components/admin/gym/gym-list/gym-list/gym-list.component';
 import { GymDetailsComponent } from './components/admin/gym/gym-details/gym-details/gym-details.component';
 import { GymEditComponent } from './components/admin/gym/gym-edit/gym-edit/gym-edit.component';
@@ -59,8 +59,8 @@ import { AssignDietComponent } from './components/diets/assign-diet/assign-diet.
 import { EditDietMealComponent } from './components/diets/edit-diet-meal/edit-diet-meal.component';
 import { ExerciseAdminDetailsComponent } from './components/admin/exercise/exercise-admin-details/exercise-admin-details/exercise-admin-details.component';
 import { ExerciseAdminEditComponent } from './components/admin/exercise/exercise-admin-edit/exercise-admin-edit/exercise-admin-edit.component';
-import { InvitationListComponent } from './components/invitationList/invitation-list/invitation-list.component';
-import { MentorPupilsComponent } from './components/mentorPupils/mentor-pupils/mentor-pupils.component';
+import { InvitationListComponent } from './components/invitation-list/invitation-list/invitation-list.component';
+import { MentorPupilsComponent } from './components/mentor-pupils/mentor-pupils/mentor-pupils.component';
 
 
 
