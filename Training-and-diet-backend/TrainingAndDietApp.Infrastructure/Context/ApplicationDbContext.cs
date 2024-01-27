@@ -350,9 +350,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 .WithMany(u => u.DietsAsPupil)
                 .HasForeignKey(d => d.IdPupil);
 
-            modelBuilder.Entity<Gym>()
-                .Property(e => e.Status)
-                .HasConversion<string>();
 
             
 

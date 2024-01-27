@@ -123,8 +123,7 @@ namespace TrainingAndDietApp.Application
             CreateMap<Gym, GetGymByIdAdminQuery>()
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
-                .ForMember(dest=>dest.PostalCode, opt=>opt.MapFrom(src=>src.Address.PostalCode))
-                .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>src.Status.ToString()));
+                .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode));
 
 
             CreateMap<TrainerGym, MentorGymResponse>()
@@ -183,8 +182,7 @@ namespace TrainingAndDietApp.Application
             CreateMap<Gym, GymsAddedByUserResponse>()
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
-                .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode))
-                .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>src.Status.ToString()));
+                .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode));
 
             CreateMap<CreateInternalExerciseCommand, Exercise>()
                 .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.ExerciseCommand.Details))

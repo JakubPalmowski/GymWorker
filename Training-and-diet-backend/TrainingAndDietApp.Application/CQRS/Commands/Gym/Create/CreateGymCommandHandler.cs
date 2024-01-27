@@ -46,7 +46,6 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Gym.Create
                     Name = request.GymCommand.Name,
                     AddedBy = request.IdUser,
                     IdAddress = address.IdAddress,
-                    Status = Domain.Enums.Status.Pending
                 };
                 await _gymBaseRepository.AddAsync(gym, cancellationToken);
                 await _unitOfWork.CommitAsync(cancellationToken);

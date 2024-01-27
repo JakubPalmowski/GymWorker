@@ -32,10 +32,10 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Admin.VerifyGym
             var gym = await _gymRepository.GetGymWithAddressByIdAsync(request.IdGym, cancellationToken);
             if (gym == null)
             {
-                throw new NotFoundException("");
+                throw new NotFoundException("Nie znaleziono siłowni");
             }
-            if(gym.Status == Domain.Enums.Status.Active){
-                throw new BadRequestException("");
+            if(gym.IsAccepted == true){
+                throw new BadRequestException("Nie można weryfikować aktywnej siłowni.");
             }
              var address = gym.Address;
             if(!gym.Address.Gyms.Where(g => g.IdGym != gym.IdGym).Any()){
@@ -60,21 +60,15 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Admin.VerifyGym
                 }
             }
             gym.Name = request.GymCommand.Name;
-            gym.Status = Domain.Enums.Status.Active;
+            gym.IsAccepted = true;
             await _gymBaseRepository.UpdateAsync(gym, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
             await _unitOfWork.CommitTransactionAsync(cancellationToken);
         }catch(Exception e){
             await _unitOfWork.RollbackTransactionAsync(cancellationToken);
-            if(e is BadRequestException){
-                throw new BadRequestException("Nie można weryfikować aktywnej siłowni.");
-            }else if(e is NotFoundException){
-                throw new NotFoundException("Nie znaleziono siłowni");
-            }else{
-                throw new Exception("Nie udało się wykonać operacji.");
+            throw;
+
             }
-                
-        }
            
         }
     }
