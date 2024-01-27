@@ -14,6 +14,7 @@ import { CertificateInfoForVeryfication } from '../models/admin/certificate-info
 import { UserVerifyPatch } from '../models/admin/user-verify-patch.model';
 import { ExerciseFull } from '../models/exercise/exercise-full.model';
 import { UpdateExercise } from '../models/admin/exercise-update.model';
+import { ExerciseCreateAdmin } from '../models/admin/exercise-create-admin';
 
 @Injectable({
   providedIn: 'root'
@@ -46,8 +47,8 @@ export class AdminService {
     return this.http.get<ExerciseShort[]>('https://localhost:7259/api/Admin/Exercises');
   }
 
-  createExercise(exercise: Exercise):Observable<Exercise>{
-    return this.http.post<Exercise>('https://localhost:7259/api/Admin/Exercises', exercise);
+  createExercise(exercise: ExerciseCreateAdmin):Observable<ExerciseCreateAdmin>{
+    return this.http.post<ExerciseCreateAdmin>('https://localhost:7259/api/Admin/Exercises', exercise);
   }
 
   getAllUsersWithAcceptedCertificates():Observable<CertificatedUsersList[]>{

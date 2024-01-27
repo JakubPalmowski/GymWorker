@@ -6,7 +6,6 @@ import { TrainingPlanExercise } from 'src/app/models/training-plan/training-plan
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { Location } from '@angular/common';
 
-import { DeleteDialogComponent } from '../../main/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-exercises-list',
