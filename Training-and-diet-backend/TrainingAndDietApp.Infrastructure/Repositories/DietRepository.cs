@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Abstractions;
+using TrainingAndDietApp.Domain.Entities;
 using TrainingAndDietApp.Infrastructure.Context;
 
 namespace TrainingAndDietApp.Infrastructure.Repositories

@@ -25,7 +25,6 @@ using TrainingAndDietApp.Application.CQRS.Responses.Pupil;
 using TrainingAndDietApp.Application.CQRS.Responses.TraineeExercise;
 using TrainingAndDietApp.Application.CQRS.Responses.Trainer;
 using TrainingAndDietApp.Application.CQRS.Responses.TrainingPlan;
-using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Entities;
 using Gym = TrainingAndDietApp.Domain.Entities.Gym;
 using TrainingPlan = TrainingAndDietApp.Domain.Entities.TrainingPlan;
@@ -37,6 +36,7 @@ using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetUserCertificatesById;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateExercise;
 using TrainingAndDietApp.Application.CQRS.Queries.Opinion.GetOpinionById;
 using TrainingAndDietApp.Application.CQRS.Queries.User.Mentor.GetInvitations;
+using TrainingAndDietApp.Application.CQRS.Commands.Di.Create;
 
 
 namespace TrainingAndDietApp.Application
@@ -228,6 +228,15 @@ namespace TrainingAndDietApp.Application
                 .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)))
                 .ForMember(dest => dest.DieticianName, opt => opt.MapFrom(src => src.Dietician.Name))
                 .ForMember(dest => dest.DieticianLastName, opt => opt.MapFrom(src => src.Dietician.LastName));
+
+                CreateMap<CreateDietInternalCommand, Diet>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CreateDietCommand.Name))
+                .ForMember(dest => dest.CustomName, opt => opt.MapFrom(src => src.CreateDietCommand.CustomName))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.CreateDietCommand.Type))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.CreateDietCommand.StartDate))
+                .ForMember(dest => dest.NumberOfWeeks, opt => opt.MapFrom(src => src.CreateDietCommand.NumberOfWeeks))
+                .ForMember(dest => dest.TotalKcal, opt => opt.MapFrom(src => src.CreateDietCommand.TotalKcal));
+
 
 
                 

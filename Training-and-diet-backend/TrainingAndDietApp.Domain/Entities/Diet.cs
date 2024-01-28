@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Training_and_diet_backend.Models;
 using TrainingAndDietApp.Domain.Entities;
 
-namespace TrainingAndDietApp.DAL.EntityModels
+namespace TrainingAndDietApp.Domain.Entities
 {
     public class Diet
     {
@@ -13,7 +13,7 @@ namespace TrainingAndDietApp.DAL.EntityModels
         [Required]
         public int IdDietician { get; set; }
         [Required]
-        public int IdPupil { get; set; }
+        public int? IdPupil { get; set; }
         [Column(TypeName = "Date")]
         public DateTime StartDate { get; set; }
         //nowe

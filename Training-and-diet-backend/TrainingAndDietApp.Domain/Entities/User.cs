@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.ConstrainedExecution;
 using Training_and_diet_backend.Models;
-using TrainingAndDietApp.DAL.EntityModels;
+
 
 
 namespace TrainingAndDietApp.Domain.Entities
