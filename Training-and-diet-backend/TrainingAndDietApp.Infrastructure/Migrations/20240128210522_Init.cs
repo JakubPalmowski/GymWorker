@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TrainingAndDietApp.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,7 +50,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IdAddress = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false),
+                    IsAccepted = table.Column<bool>(type: "boolean", nullable: false),
                     AddedBy = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -90,6 +90,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     PersonalTrainingPriceTo = table.Column<decimal>(type: "numeric(5,2)", nullable: true),
                     DietPriceFrom = table.Column<decimal>(type: "numeric(5,2)", nullable: true),
                     DietPriceTo = table.Column<decimal>(type: "numeric(5,2)", nullable: true),
+                    IsAccepted = table.Column<bool>(type: "boolean", nullable: false),
                     IdRole = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -104,16 +105,41 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Certificates",
+                columns: table => new
+                {
+                    IdCertificate = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PdfUri = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsAccepted = table.Column<bool>(type: "boolean", nullable: false),
+                    IdMentor = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Certificates", x => x.IdCertificate);
+                    table.ForeignKey(
+                        name: "FK_Certificates_Users_IdMentor",
+                        column: x => x.IdMentor,
+                        principalTable: "Users",
+                        principalColumn: "IdUser",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Diets",
                 columns: table => new
                 {
                     IdDiet = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IdDietician = table.Column<int>(type: "integer", nullable: false),
-                    IdPupil = table.Column<int>(type: "integer", nullable: false),
+                    IdPupil = table.Column<int>(type: "integer", nullable: true),
                     StartDate = table.Column<DateTime>(type: "Date", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "Date", nullable: false),
-                    DietDuration = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "varchar(50)", nullable: false),
+                    CustomName = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Type = table.Column<string>(type: "varchar(50)", nullable: false),
+                    NumberOfWeeks = table.Column<int>(type: "integer", nullable: false),
                     TotalKcal = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -129,8 +155,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         name: "FK_Diets_Users_IdPupil",
                         column: x => x.IdPupil,
                         principalTable: "Users",
-                        principalColumn: "IdUser",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "IdUser");
                 });
 
             migrationBuilder.CreateTable(
@@ -210,7 +235,8 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                 columns: table => new
                 {
                     IdMentor = table.Column<int>(type: "integer", nullable: false),
-                    IdPupil = table.Column<int>(type: "integer", nullable: false)
+                    IdPupil = table.Column<int>(type: "integer", nullable: false),
+                    IsAccepted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -291,7 +317,8 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IdMeal = table.Column<int>(type: "integer", nullable: false),
                     IdDiet = table.Column<int>(type: "integer", nullable: false),
-                    Date = table.Column<DateTime>(type: "Date", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "integer", nullable: false),
+                    HourOfMeal = table.Column<string>(type: "varchar(5)", nullable: false),
                     Comments = table.Column<string>(type: "varchar(200)", nullable: true)
                 },
                 constraints: table =>
@@ -377,54 +404,54 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Gyms",
-                columns: new[] { "IdGym", "AddedBy", "IdAddress", "Name", "Status" },
+                columns: new[] { "IdGym", "AddedBy", "IdAddress", "IsAccepted", "Name" },
                 values: new object[,]
                 {
-                    { 1, 0, 1, "Gym1", "Active" },
-                    { 2, 0, 2, "Gym2", "Active" },
-                    { 3, 0, 3, "Gym3", "Active" }
+                    { 1, 0, 1, false, "Gym1" },
+                    { 2, 0, 2, false, "Gym2" },
+                    { 3, 0, 3, false, "Gym3" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "IdUser", "Bio", "DateOfBirth", "DietPriceFrom", "DietPriceTo", "Email", "EmailConfirmationToken", "HashedPassword", "Height", "IdRole", "ImageUri", "LastName", "Name", "PersonalTrainingPriceFrom", "PersonalTrainingPriceTo", "PhoneNumber", "RefreshToken", "RefreshTokenExpirationDate", "Sex", "TrainingPlanPriceFrom", "TrainingPlanPriceTo", "Weight" },
+                columns: new[] { "IdUser", "Bio", "DateOfBirth", "DietPriceFrom", "DietPriceTo", "Email", "EmailConfirmationToken", "HashedPassword", "Height", "IdRole", "ImageUri", "IsAccepted", "LastName", "Name", "PersonalTrainingPriceFrom", "PersonalTrainingPriceTo", "PhoneNumber", "RefreshToken", "RefreshTokenExpirationDate", "Sex", "TrainingPlanPriceFrom", "TrainingPlanPriceTo", "Weight" },
                 values: new object[,]
                 {
-                    { 1, "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", null, null, null, "michal@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 1, null, "Emczyk", "Michał", null, null, "48777888777", null, null, "Male", null, null, null },
-                    { 2, "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", null, null, null, "anna@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 2, null, "Kowalska", "Anna", null, null, "48666778888", null, null, "Female", null, null, null },
-                    { 3, "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", null, null, null, "john@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Doe", "John", null, null, "48555667777", null, null, "Male", null, null, null },
-                    { 4, "Hi, I'm Charlie. Let's stay active and have fun!", null, null, null, "charlie@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Brown", "Charlie", null, null, "48554567890", null, null, "Male", null, null, null },
-                    { 5, "Hello, I'm Diana. Fitness is my passion!", null, null, null, "diana@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Miller", "Diana", null, null, "48555678901", null, null, "Female", null, null, null },
-                    { 6, "Hi, I'm Frank. Let's achieve our fitness goals together!", null, null, null, "frank@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Davis", "Frank", null, null, "48556789012", null, null, "Male", null, null, null },
-                    { 7, "Hello, I'm Grace. Fitness is my lifestyle!", null, null, null, "grace@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Anderson", "Grace", null, null, "48557890123", null, null, "Female", null, null, null },
-                    { 8, "Hey, I'm Harry. Let's push our limits in every workout!", null, null, null, "harry@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Moore", "Harry", null, null, "48558901234", null, null, "Male", null, null, null },
-                    { 9, "Hi, I'm Ivy. Fitness is my passion and I'm here to inspire!", null, null, null, "ivy@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Turner", "Ivy", null, null, "48559012345", null, null, "Female", null, null, null },
-                    { 10, "Hello, I'm Jack. Let's make every workout count!", null, null, null, "jack@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "White", "Jack", null, null, "48550123456", null, null, "Male", null, null, null },
-                    { 11, "Hi, I'm Kelly. Fitness is the key to a healthy life!", null, null, null, "kelly@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Martin", "Kelly", null, null, "48551234567", null, null, "Female", null, null, null },
-                    { 12, "Hey, I'm Leo. Let's crush our fitness goals!", null, null, null, "leo@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Baker", "Leo", null, null, "48552345678", null, null, "Male", null, null, null },
-                    { 13, "Hello, I'm Mia. Fitness is not just a hobby, it's a way of life!", null, null, null, "mia@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Collins", "Mia", null, null, "48553456789", null, null, "Female", null, null, null },
-                    { 14, "Hi, I'm Nathan. Let's embrace a fit and healthy lifestyle!", null, null, null, "nathan@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Ward", "Nathan", null, null, "48554567890", null, null, "Male", null, null, null },
-                    { 15, "Hey, I'm Olivia. Fitness enthusiast and advocate!", null, null, null, "olivia@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Perry", "Olivia", null, null, "48555678901", null, null, "Female", null, null, null },
-                    { 16, "Hello, I'm Peter. Let's make fitness a fun journey!", null, null, null, "peter@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Cooper", "Peter", null, null, "48556789012", null, null, "Male", null, null, null },
-                    { 17, "Hi, I'm Quinn. Fitness is my daily dose of happiness!", null, null, null, "quinn@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Barnes", "Quinn", null, null, "48557890123", null, null, "Female", null, null, null },
-                    { 18, "Hey, I'm Ryan. Fitness is the key to a balanced life!", null, null, null, "ryan@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Fisher", "Ryan", null, null, "48558901234", null, null, "Male", null, null, null },
-                    { 19, "Hello, I'm Sophie. Let's stay fit and fabulous!", null, null, null, "sophie@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Turner", "Sophie", null, null, "48559012345", null, null, "Female", null, null, null },
-                    { 20, "Hi, I'm Tom. Fitness is my lifestyle choice!", null, null, null, "tom@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "Harris", "Tom", null, null, "48550123456", null, null, "Male", null, null, null },
-                    { 21, "Hi, I'm Filip. Fitness is my hobby!", null, null, null, "filipwgmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 4, null, "W", "Filip", null, null, "48550123456", null, null, "Male", null, null, null },
-                    { 22, "Hi, I'm Jakub. Fitness is my passion!", null, null, null, "jakubs@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "test", "test", null, null, "48550123456", null, null, "Male", null, null, null },
-                    { 23, "Hi, I'm Jakub. Fitness is my passion!", null, null, null, "jakubs@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "test", "test", null, null, "48550123456", null, null, "Male", null, null, null },
-                    { 24, "Hi, I'm Jakub. Fitness is my passion!", null, null, null, "jakubs@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, "test", "test", null, null, "48550123456", null, null, "Male", null, null, null },
-                    { 25, "Hi, I'm Jakub. Fitness is my passion!", null, null, null, "jakubs@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 5, null, "test", "Dietician-Trainer", null, null, "48550123456", null, null, "Male", null, null, null }
+                    { 1, "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", null, null, null, "michal@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 1, null, false, "Emczyk", "Michał", null, null, "48777888777", null, null, "Male", null, null, null },
+                    { 2, "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", null, null, null, "anna@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 2, null, false, "Kowalska", "Anna", null, null, "48666778888", null, null, "Female", null, null, null },
+                    { 3, "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne", null, null, null, "john@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Doe", "John", null, null, "48555667777", null, null, "Male", null, null, null },
+                    { 4, "Hi, I'm Charlie. Let's stay active and have fun!", null, null, null, "charlie@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Brown", "Charlie", null, null, "48554567890", null, null, "Male", null, null, null },
+                    { 5, "Hello, I'm Diana. Fitness is my passion!", null, null, null, "diana@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Miller", "Diana", null, null, "48555678901", null, null, "Female", null, null, null },
+                    { 6, "Hi, I'm Frank. Let's achieve our fitness goals together!", null, null, null, "frank@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Davis", "Frank", null, null, "48556789012", null, null, "Male", null, null, null },
+                    { 7, "Hello, I'm Grace. Fitness is my lifestyle!", null, null, null, "grace@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Anderson", "Grace", null, null, "48557890123", null, null, "Female", null, null, null },
+                    { 8, "Hey, I'm Harry. Let's push our limits in every workout!", null, null, null, "harry@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Moore", "Harry", null, null, "48558901234", null, null, "Male", null, null, null },
+                    { 9, "Hi, I'm Ivy. Fitness is my passion and I'm here to inspire!", null, null, null, "ivy@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Turner", "Ivy", null, null, "48559012345", null, null, "Female", null, null, null },
+                    { 10, "Hello, I'm Jack. Let's make every workout count!", null, null, null, "jack@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "White", "Jack", null, null, "48550123456", null, null, "Male", null, null, null },
+                    { 11, "Hi, I'm Kelly. Fitness is the key to a healthy life!", null, null, null, "kelly@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Martin", "Kelly", null, null, "48551234567", null, null, "Female", null, null, null },
+                    { 12, "Hey, I'm Leo. Let's crush our fitness goals!", null, null, null, "leo@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Baker", "Leo", null, null, "48552345678", null, null, "Male", null, null, null },
+                    { 13, "Hello, I'm Mia. Fitness is not just a hobby, it's a way of life!", null, null, null, "mia@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Collins", "Mia", null, null, "48553456789", null, null, "Female", null, null, null },
+                    { 14, "Hi, I'm Nathan. Let's embrace a fit and healthy lifestyle!", null, null, null, "nathan@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Ward", "Nathan", null, null, "48554567890", null, null, "Male", null, null, null },
+                    { 15, "Hey, I'm Olivia. Fitness enthusiast and advocate!", null, null, null, "olivia@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Perry", "Olivia", null, null, "48555678901", null, null, "Female", null, null, null },
+                    { 16, "Hello, I'm Peter. Let's make fitness a fun journey!", null, null, null, "peter@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Cooper", "Peter", null, null, "48556789012", null, null, "Male", null, null, null },
+                    { 17, "Hi, I'm Quinn. Fitness is my daily dose of happiness!", null, null, null, "quinn@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Barnes", "Quinn", null, null, "48557890123", null, null, "Female", null, null, null },
+                    { 18, "Hey, I'm Ryan. Fitness is the key to a balanced life!", null, null, null, "ryan@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Fisher", "Ryan", null, null, "48558901234", null, null, "Male", null, null, null },
+                    { 19, "Hello, I'm Sophie. Let's stay fit and fabulous!", null, null, null, "sophie@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Turner", "Sophie", null, null, "48559012345", null, null, "Female", null, null, null },
+                    { 20, "Hi, I'm Tom. Fitness is my lifestyle choice!", null, null, null, "tom@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "Harris", "Tom", null, null, "48550123456", null, null, "Male", null, null, null },
+                    { 21, "Hi, I'm Filip. Fitness is my hobby!", null, null, null, "filipwgmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 4, null, false, "W", "Filip", null, null, "48550123456", null, null, "Male", null, null, null },
+                    { 22, "Hi, I'm Jakub. Fitness is my passion!", null, null, null, "jakubs@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "test", "test", null, null, "48550123456", null, null, "Male", null, null, null },
+                    { 23, "Hi, I'm Jakub. Fitness is my passion!", null, null, null, "jakubs@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "test", "test", null, null, "48550123456", null, null, "Male", null, null, null },
+                    { 24, "Hi, I'm Jakub. Fitness is my passion!", null, null, null, "jakubs@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 3, null, false, "test", "test", null, null, "48550123456", null, null, "Male", null, null, null },
+                    { 25, "Hi, I'm Jakub. Fitness is my passion!", null, null, null, "jakubs@gmail.com", null, "adsas321312dasasdasdajgfasdjiasijdasujnasd", null, 5, null, false, "test", "Dietician-Trainer", null, null, "48550123456", null, null, "Male", null, null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Diets",
-                columns: new[] { "IdDiet", "DietDuration", "EndDate", "IdDietician", "IdPupil", "StartDate", "TotalKcal" },
+                columns: new[] { "IdDiet", "CustomName", "IdDietician", "IdPupil", "Name", "NumberOfWeeks", "StartDate", "TotalKcal", "Type" },
                 values: new object[,]
                 {
-                    { 1, "1", new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2, new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 3000 },
-                    { 2, "30", new DateTime(2023, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2, new DateTime(2023, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 2000 },
-                    { 3, "30", new DateTime(2023, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2, new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 2500 }
+                    { 1, "Plan treningowy dla mirka", 1, 2, "Plan treningowy dla początkujących", 4, new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 3000, "Siłowy" },
+                    { 2, "Plan treningowy dla jacka", 1, 2, "Plan treningowy na odchudzanie", 4, new DateTime(2023, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 2000, "Cardio" },
+                    { 3, "Plan treningowy dla Wlodara", 1, 2, "Plan treningowy dla początkujących", 4, new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 2500, "Siłowy" }
                 });
 
             migrationBuilder.InsertData(
@@ -461,11 +488,11 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Pupil_mentors",
-                columns: new[] { "IdMentor", "IdPupil" },
+                columns: new[] { "IdMentor", "IdPupil", "IsAccepted" },
                 values: new object[,]
                 {
-                    { 1, 2 },
-                    { 1, 3 }
+                    { 1, 2, false },
+                    { 1, 3, false }
                 });
 
             migrationBuilder.InsertData(
@@ -489,12 +516,12 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Meal_Diets",
-                columns: new[] { "IdDiet", "IdMeal", "Comments", "Date", "IdMealDiet" },
+                columns: new[] { "IdDiet", "IdMeal", "Comments", "DayOfWeek", "HourOfMeal", "IdMealDiet" },
                 values: new object[,]
                 {
-                    { 1, 1, null, new DateTime(2023, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 2, 1, null, new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
-                    { 1, 2, null, new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 }
+                    { 1, 1, "Jedz sobie", 1, "12:00", 1 },
+                    { 2, 1, null, 1, "12:00", 3 },
+                    { 1, 2, null, 2, "12:00", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -506,6 +533,11 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     { 2, null, 1, 2, 1, "10", 4 },
                     { 3, null, 2, 3, 2, "15", 2 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Certificates_IdMentor",
+                table: "Certificates",
+                column: "IdMentor");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Diets_IdDietician",
@@ -581,6 +613,9 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Certificates");
+
             migrationBuilder.DropTable(
                 name: "Meal_Diets");
 

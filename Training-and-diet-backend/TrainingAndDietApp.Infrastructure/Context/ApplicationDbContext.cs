@@ -348,11 +348,13 @@ namespace TrainingAndDietApp.Infrastructure.Context
 
             modelBuilder.Entity<Diet>()
                 .HasOne(d => d.Pupil)
-                .WithMany(u => u.DietsAsPupil)
-                .HasForeignKey(d => d.IdPupil);
+                .WithMany(u => u.DietsAsPupil) 
+                .HasForeignKey(d => d.IdPupil) 
+                .IsRequired(false);
 
 
-            
+
+
 
             modelBuilder.Entity<Address>().HasData(address, address2, address3);
             modelBuilder.Entity<Opinion>().HasData(opinion, opinion2,opinion3,opinion4,opinion5,opinion6);

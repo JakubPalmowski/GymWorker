@@ -12,8 +12,8 @@ using TrainingAndDietApp.Infrastructure.Context;
 namespace TrainingAndDietApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240118225239_init")]
-    partial class init
+    [Migration("20240128210522_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,40 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.Diet", b =>
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Certificate", b =>
+                {
+                    b.Property<int>("IdCertificate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnOrder(0);
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdCertificate"));
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("IdMentor")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("PdfUri")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("IdCertificate");
+
+                    b.HasIndex("IdMentor");
+
+                    b.ToTable("Certificates");
+                });
+
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Diet", b =>
                 {
                     b.Property<int>("IdDiet")
                         .ValueGeneratedOnAdd()
@@ -34,17 +67,21 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdDiet"));
 
-                    b.Property<string>("DietDuration")
+                    b.Property<string>("CustomName")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("Date");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("IdDietician")
                         .HasColumnType("integer");
 
-                    b.Property<int>("IdPupil")
+                    b.Property<int?>("IdPupil")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("NumberOfWeeks")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("StartDate")
@@ -52,6 +89,10 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
                     b.Property<int>("TotalKcal")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("IdDiet");
 
@@ -65,63 +106,38 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         new
                         {
                             IdDiet = 1,
-                            DietDuration = "1",
-                            EndDate = new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomName = "Plan treningowy dla mirka",
                             IdDietician = 1,
                             IdPupil = 2,
+                            Name = "Plan treningowy dla początkujących",
+                            NumberOfWeeks = 4,
                             StartDate = new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalKcal = 3000
+                            TotalKcal = 3000,
+                            Type = "Siłowy"
                         },
                         new
                         {
                             IdDiet = 2,
-                            DietDuration = "30",
-                            EndDate = new DateTime(2023, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomName = "Plan treningowy dla jacka",
                             IdDietician = 1,
                             IdPupil = 2,
+                            Name = "Plan treningowy na odchudzanie",
+                            NumberOfWeeks = 4,
                             StartDate = new DateTime(2023, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalKcal = 2000
+                            TotalKcal = 2000,
+                            Type = "Cardio"
                         },
                         new
                         {
                             IdDiet = 3,
-                            DietDuration = "30",
-                            EndDate = new DateTime(2023, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomName = "Plan treningowy dla Wlodara",
                             IdDietician = 1,
                             IdPupil = 2,
+                            Name = "Plan treningowy dla początkujących",
+                            NumberOfWeeks = 4,
                             StartDate = new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalKcal = 2500
-                        });
-                });
-
-            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.PupilMentor", b =>
-                {
-                    b.Property<int>("IdMentor")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnOrder(0);
-
-                    b.Property<int>("IdPupil")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnOrder(1);
-
-                    b.HasKey("IdMentor", "IdPupil");
-
-                    b.HasIndex("IdPupil");
-
-                    b.ToTable("Pupil_mentors");
-
-                    b.HasData(
-                        new
-                        {
-                            IdMentor = 1,
-                            IdPupil = 2
-                        },
-                        new
-                        {
-                            IdMentor = 1,
-                            IdPupil = 3
+                            TotalKcal = 2500,
+                            Type = "Siłowy"
                         });
                 });
 
@@ -224,11 +240,10 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.Property<int>("IdAddress")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -244,24 +259,24 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             IdGym = 1,
                             AddedBy = 0,
                             IdAddress = 1,
-                            Name = "Gym1",
-                            Status = "Active"
+                            IsAccepted = false,
+                            Name = "Gym1"
                         },
                         new
                         {
                             IdGym = 2,
                             AddedBy = 0,
                             IdAddress = 2,
-                            Name = "Gym2",
-                            Status = "Active"
+                            IsAccepted = false,
+                            Name = "Gym2"
                         },
                         new
                         {
                             IdGym = 3,
                             AddedBy = 0,
                             IdAddress = 3,
-                            Name = "Gym3",
-                            Status = "Active"
+                            IsAccepted = false,
+                            Name = "Gym3"
                         });
                 });
 
@@ -329,6 +344,117 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Kcal = "{\"kcal\": \"700\", \"Białko\": \"30\", \"Węglowodany\":  \"200\" , \"Tłuszcze\": \"26\" }",
                             Name = "Kanapki z szynką",
                             PrepareSteps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }"
+                        });
+                });
+
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Opinion", b =>
+                {
+                    b.Property<int>("IdPupil")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IdMentor")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<DateTime>("OpinionDate")
+                        .HasColumnType("Date");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(2,1)");
+
+                    b.HasKey("IdPupil", "IdMentor");
+
+                    b.HasIndex("IdMentor");
+
+                    b.ToTable("Opinion");
+
+                    b.HasData(
+                        new
+                        {
+                            IdPupil = 2,
+                            IdMentor = 1,
+                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                            OpinionDate = new DateTime(2023, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Rate = 5m
+                        },
+                        new
+                        {
+                            IdPupil = 3,
+                            IdMentor = 1,
+                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Rate = 2m
+                        },
+                        new
+                        {
+                            IdPupil = 5,
+                            IdMentor = 22,
+                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Rate = 4m
+                        },
+                        new
+                        {
+                            IdPupil = 6,
+                            IdMentor = 22,
+                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Rate = 5m
+                        },
+                        new
+                        {
+                            IdPupil = 7,
+                            IdMentor = 23,
+                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Rate = 2m
+                        },
+                        new
+                        {
+                            IdPupil = 8,
+                            IdMentor = 23,
+                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Rate = 4m
+                        });
+                });
+
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.PupilMentor", b =>
+                {
+                    b.Property<int>("IdMentor")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("IdPupil")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnOrder(1);
+
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("IdMentor", "IdPupil");
+
+                    b.HasIndex("IdPupil");
+
+                    b.ToTable("Pupil_mentors");
+
+                    b.HasData(
+                        new
+                        {
+                            IdMentor = 1,
+                            IdPupil = 2,
+                            IsAccepted = false
+                        },
+                        new
+                        {
+                            IdMentor = 1,
+                            IdPupil = 3,
+                            IsAccepted = false
                         });
                 });
 
@@ -505,6 +631,9 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.Property<string>("ImageUri")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -554,6 +683,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "michal@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 1,
+                            IsAccepted = false,
                             LastName = "Emczyk",
                             Name = "Michał",
                             PhoneNumber = "48777888777",
@@ -566,6 +696,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "anna@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 2,
+                            IsAccepted = false,
                             LastName = "Kowalska",
                             Name = "Anna",
                             PhoneNumber = "48666778888",
@@ -578,6 +709,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "john@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Doe",
                             Name = "John",
                             PhoneNumber = "48555667777",
@@ -590,6 +722,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "charlie@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Brown",
                             Name = "Charlie",
                             PhoneNumber = "48554567890",
@@ -602,6 +735,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "diana@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Miller",
                             Name = "Diana",
                             PhoneNumber = "48555678901",
@@ -614,6 +748,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "frank@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Davis",
                             Name = "Frank",
                             PhoneNumber = "48556789012",
@@ -626,6 +761,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "grace@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Anderson",
                             Name = "Grace",
                             PhoneNumber = "48557890123",
@@ -638,6 +774,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "harry@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Moore",
                             Name = "Harry",
                             PhoneNumber = "48558901234",
@@ -650,6 +787,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "ivy@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Turner",
                             Name = "Ivy",
                             PhoneNumber = "48559012345",
@@ -662,6 +800,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "jack@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "White",
                             Name = "Jack",
                             PhoneNumber = "48550123456",
@@ -674,6 +813,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "kelly@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Martin",
                             Name = "Kelly",
                             PhoneNumber = "48551234567",
@@ -686,6 +826,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "leo@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Baker",
                             Name = "Leo",
                             PhoneNumber = "48552345678",
@@ -698,6 +839,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "mia@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Collins",
                             Name = "Mia",
                             PhoneNumber = "48553456789",
@@ -710,6 +852,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "nathan@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Ward",
                             Name = "Nathan",
                             PhoneNumber = "48554567890",
@@ -722,6 +865,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "olivia@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Perry",
                             Name = "Olivia",
                             PhoneNumber = "48555678901",
@@ -734,6 +878,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "peter@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Cooper",
                             Name = "Peter",
                             PhoneNumber = "48556789012",
@@ -746,6 +891,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "quinn@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Barnes",
                             Name = "Quinn",
                             PhoneNumber = "48557890123",
@@ -758,6 +904,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "ryan@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Fisher",
                             Name = "Ryan",
                             PhoneNumber = "48558901234",
@@ -770,6 +917,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "sophie@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Turner",
                             Name = "Sophie",
                             PhoneNumber = "48559012345",
@@ -782,6 +930,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "tom@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "Harris",
                             Name = "Tom",
                             PhoneNumber = "48550123456",
@@ -794,6 +943,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "filipwgmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 4,
+                            IsAccepted = false,
                             LastName = "W",
                             Name = "Filip",
                             PhoneNumber = "48550123456",
@@ -806,6 +956,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "jakubs@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "test",
                             Name = "test",
                             PhoneNumber = "48550123456",
@@ -818,6 +969,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "jakubs@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "test",
                             Name = "test",
                             PhoneNumber = "48550123456",
@@ -830,6 +982,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "jakubs@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 3,
+                            IsAccepted = false,
                             LastName = "test",
                             Name = "test",
                             PhoneNumber = "48550123456",
@@ -842,6 +995,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             Email = "jakubs@gmail.com",
                             HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
                             IdRole = 5,
+                            IsAccepted = false,
                             LastName = "test",
                             Name = "Dietician-Trainer",
                             PhoneNumber = "48550123456",
@@ -909,8 +1063,12 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("varchar(200)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("Date");
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("HourOfMeal")
+                        .IsRequired()
+                        .HasColumnType("varchar(5)");
 
                     b.Property<int>("IdMealDiet")
                         .ValueGeneratedOnAdd()
@@ -930,97 +1088,26 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         {
                             IdMeal = 1,
                             IdDiet = 1,
-                            Date = new DateTime(2023, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Jedz sobie",
+                            DayOfWeek = 1,
+                            HourOfMeal = "12:00",
                             IdMealDiet = 1
                         },
                         new
                         {
                             IdMeal = 2,
                             IdDiet = 1,
-                            Date = new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayOfWeek = 2,
+                            HourOfMeal = "12:00",
                             IdMealDiet = 2
                         },
                         new
                         {
                             IdMeal = 1,
                             IdDiet = 2,
-                            Date = new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayOfWeek = 1,
+                            HourOfMeal = "12:00",
                             IdMealDiet = 3
-                        });
-                });
-
-            modelBuilder.Entity("Training_and_diet_backend.Models.Opinion", b =>
-                {
-                    b.Property<int>("IdPupil")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("IdMentor")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("varchar(1000)");
-
-                    b.Property<DateTime>("OpinionDate")
-                        .HasColumnType("Date");
-
-                    b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(2,1)");
-
-                    b.HasKey("IdPupil", "IdMentor");
-
-                    b.HasIndex("IdMentor");
-
-                    b.ToTable("Opinion");
-
-                    b.HasData(
-                        new
-                        {
-                            IdPupil = 2,
-                            IdMentor = 1,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 5m
-                        },
-                        new
-                        {
-                            IdPupil = 3,
-                            IdMentor = 1,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 2m
-                        },
-                        new
-                        {
-                            IdPupil = 5,
-                            IdMentor = 22,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 4m
-                        },
-                        new
-                        {
-                            IdPupil = 6,
-                            IdMentor = 22,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 5m
-                        },
-                        new
-                        {
-                            IdPupil = 7,
-                            IdMentor = 23,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 2m
-                        },
-                        new
-                        {
-                            IdPupil = 8,
-                            IdMentor = 23,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 4m
                         });
                 });
 
@@ -1101,7 +1188,18 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.Diet", b =>
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Certificate", b =>
+                {
+                    b.HasOne("TrainingAndDietApp.Domain.Entities.User", "User")
+                        .WithMany("Certificates")
+                        .HasForeignKey("IdMentor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Diet", b =>
                 {
                     b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Dietician")
                         .WithMany("DietsAsDietician")
@@ -1111,30 +1209,9 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
                     b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Pupil")
                         .WithMany("DietsAsPupil")
-                        .HasForeignKey("IdPupil")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdPupil");
 
                     b.Navigation("Dietician");
-
-                    b.Navigation("Pupil");
-                });
-
-            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.PupilMentor", b =>
-                {
-                    b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Mentor")
-                        .WithMany("MentorPupils")
-                        .HasForeignKey("IdMentor")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Pupil")
-                        .WithMany("PupilMentors")
-                        .HasForeignKey("IdPupil")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Mentor");
 
                     b.Navigation("Pupil");
                 });
@@ -1168,6 +1245,44 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Dietician");
+                });
+
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Opinion", b =>
+                {
+                    b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Mentor")
+                        .WithMany("MentorOpinions")
+                        .HasForeignKey("IdMentor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Pupil")
+                        .WithMany("PupilOpinions")
+                        .HasForeignKey("IdPupil")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mentor");
+
+                    b.Navigation("Pupil");
+                });
+
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.PupilMentor", b =>
+                {
+                    b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Mentor")
+                        .WithMany("MentorPupils")
+                        .HasForeignKey("IdMentor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Pupil")
+                        .WithMany("PupilMentors")
+                        .HasForeignKey("IdPupil")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mentor");
+
+                    b.Navigation("Pupil");
                 });
 
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.TraineeExercise", b =>
@@ -1219,7 +1334,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Training_and_diet_backend.Models.MealDiet", b =>
                 {
-                    b.HasOne("TrainingAndDietApp.DAL.EntityModels.Diet", "Diet")
+                    b.HasOne("TrainingAndDietApp.Domain.Entities.Diet", "Diet")
                         .WithMany("MealsInDiet")
                         .HasForeignKey("IdDiet")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1234,25 +1349,6 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.Navigation("Diet");
 
                     b.Navigation("Meal");
-                });
-
-            modelBuilder.Entity("Training_and_diet_backend.Models.Opinion", b =>
-                {
-                    b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Mentor")
-                        .WithMany("MentorOpinions")
-                        .HasForeignKey("IdMentor")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Pupil")
-                        .WithMany("PupilOpinions")
-                        .HasForeignKey("IdPupil")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Mentor");
-
-                    b.Navigation("Pupil");
                 });
 
             modelBuilder.Entity("Training_and_diet_backend.Models.TrainerGym", b =>
@@ -1274,7 +1370,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.Navigation("Trainer");
                 });
 
-            modelBuilder.Entity("TrainingAndDietApp.DAL.EntityModels.Diet", b =>
+            modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Diet", b =>
                 {
                     b.Navigation("MealsInDiet");
                 });
@@ -1301,6 +1397,8 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.User", b =>
                 {
+                    b.Navigation("Certificates");
+
                     b.Navigation("DietsAsDietician");
 
                     b.Navigation("DietsAsPupil");

@@ -72,7 +72,6 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int?>("IdPupil")
-                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -1207,9 +1206,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
 
                     b.HasOne("TrainingAndDietApp.Domain.Entities.User", "Pupil")
                         .WithMany("DietsAsPupil")
-                        .HasForeignKey("IdPupil")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdPupil");
 
                     b.Navigation("Dietician");
 
