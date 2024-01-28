@@ -12,7 +12,6 @@ namespace TrainingAndDietApp.Domain.Entities
         public int IdDiet { get; set; }
         [Required]
         public int IdDietician { get; set; }
-        [Required]
         public int? IdPupil { get; set; }
         [Column(TypeName = "Date")]
         public DateTime StartDate { get; set; }
