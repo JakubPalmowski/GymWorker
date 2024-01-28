@@ -229,13 +229,16 @@ namespace TrainingAndDietApp.Application
                 .ForMember(dest => dest.DieticianName, opt => opt.MapFrom(src => src.Dietician.Name))
                 .ForMember(dest => dest.DieticianLastName, opt => opt.MapFrom(src => src.Dietician.LastName));
 
-                CreateMap<CreateDietInternalCommand, Diet>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CreateDietCommand.Name))
-                .ForMember(dest => dest.CustomName, opt => opt.MapFrom(src => src.CreateDietCommand.CustomName))
-                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.CreateDietCommand.Type))
-                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.CreateDietCommand.StartDate))
-                .ForMember(dest => dest.NumberOfWeeks, opt => opt.MapFrom(src => src.CreateDietCommand.NumberOfWeeks))
-                .ForMember(dest => dest.TotalKcal, opt => opt.MapFrom(src => src.CreateDietCommand.TotalKcal));
+            
+
+                CreateMap<CreateDietCommand, Diet>()
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                    .ForMember(dest => dest.CustomName, opt => opt.MapFrom(src => src.CustomName))
+                    .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
+                    .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate))
+                    .ForMember(dest => dest.NumberOfWeeks, opt => opt.MapFrom(src => src.NumberOfWeeks))
+                    .ForMember(dest => dest.TotalKcal, opt => opt.MapFrom(src => src.TotalKcal));
+
 
 
 
