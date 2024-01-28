@@ -66,8 +66,8 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("{idDiet}")]
         public async Task<IActionResult> UpdateDiet([FromBody] CreateDietCommand command, int idDiet)
         {
-            //var user = User.GetId()!.Value;
-            var query = new UpdateDietInternalCommand(idDiet, 2, command);
+            var user = User.GetId()!.Value;
+            var query = new UpdateDietInternalCommand(idDiet, user, command);
             await _mediator.Send(query);
 
             return NoContent();
