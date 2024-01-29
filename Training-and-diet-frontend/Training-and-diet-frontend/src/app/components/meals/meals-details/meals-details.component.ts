@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MealsService } from 'src/app/services/meals.service';
 import { Location } from '@angular/common';
-import { MealFull } from 'src/app/models/meal-full';
+import { MealFull } from 'src/app/models/meal/meal-full.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 
@@ -22,7 +22,6 @@ export class MealsDetailsComponent implements OnInit{
     ingredients:'',
     prepareSteps:'',
     kcal:'',
-    image:''
   }
 
   kcal:string='';

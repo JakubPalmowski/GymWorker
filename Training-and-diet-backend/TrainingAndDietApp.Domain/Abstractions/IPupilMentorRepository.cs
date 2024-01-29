@@ -1,4 +1,3 @@
-using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Entities;
 
 namespace TrainingAndDietApp.Domain.Abstractions;

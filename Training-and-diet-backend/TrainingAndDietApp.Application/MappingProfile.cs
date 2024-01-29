@@ -25,7 +25,6 @@ using TrainingAndDietApp.Application.CQRS.Responses.Pupil;
 using TrainingAndDietApp.Application.CQRS.Responses.TraineeExercise;
 using TrainingAndDietApp.Application.CQRS.Responses.Trainer;
 using TrainingAndDietApp.Application.CQRS.Responses.TrainingPlan;
-using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Entities;
 using Gym = TrainingAndDietApp.Domain.Entities.Gym;
 using TrainingPlan = TrainingAndDietApp.Domain.Entities.TrainingPlan;
@@ -37,6 +36,10 @@ using TrainingAndDietApp.Application.CQRS.Queries.Admin.GetUserCertificatesById;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateExercise;
 using TrainingAndDietApp.Application.CQRS.Queries.Opinion.GetOpinionById;
 using TrainingAndDietApp.Application.CQRS.Queries.User.Mentor.GetInvitations;
+using TrainingAndDietApp.Application.CQRS.Commands.Di.Create;
+using TrainingAndDietApp.Application.CQRS.Commands.MealDiet.Create;
+using TrainingAndDietApp.Application.CQRS.Commands.MealDiet.Update;
+using TrainingAndDietApp.Application.CQRS.Responses.MealDiet;
 
 
 namespace TrainingAndDietApp.Application
@@ -123,8 +126,7 @@ namespace TrainingAndDietApp.Application
             CreateMap<Gym, GetGymByIdAdminQuery>()
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
-                .ForMember(dest=>dest.PostalCode, opt=>opt.MapFrom(src=>src.Address.PostalCode))
-                .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>src.Status.ToString()));
+                .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode));
 
 
             CreateMap<TrainerGym, MentorGymResponse>()
@@ -183,8 +185,7 @@ namespace TrainingAndDietApp.Application
             CreateMap<Gym, GymsAddedByUserResponse>()
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
-                .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode))
-                .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>src.Status.ToString()));
+                .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode));
 
             CreateMap<CreateInternalExerciseCommand, Exercise>()
                 .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.ExerciseCommand.Details))
@@ -222,6 +223,61 @@ namespace TrainingAndDietApp.Application
                 CreateMap<Opinion, OpinionEditResponse>();
 
                 CreateMap<User, InvitationsResponse>();
+
+                CreateMap<Diet, DietDieticianListResponse>()
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
+
+                CreateMap<Diet, DietPupilListResponse>()
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)))
+                .ForMember(dest => dest.DieticianName, opt => opt.MapFrom(src => src.Dietician.Name))
+                .ForMember(dest => dest.DieticianLastName, opt => opt.MapFrom(src => src.Dietician.LastName));
+
+            
+
+                CreateMap<CreateDietCommand, Diet>()
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                    .ForMember(dest => dest.CustomName, opt => opt.MapFrom(src => src.CustomName))
+                    .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
+                    .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate))
+                    .ForMember(dest => dest.NumberOfWeeks, opt => opt.MapFrom(src => src.NumberOfWeeks))
+                    .ForMember(dest => dest.TotalKcal, opt => opt.MapFrom(src => src.TotalKcal));
+
+                CreateMap<Diet, DietMentorResponse>()
+                    .ForMember(dest => dest.PupilName, opt => opt.MapFrom(src => src.Pupil.Name))
+                    .ForMember(dest => dest.PupilLastName, opt => opt.MapFrom(src => src.Pupil.LastName))
+                    .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
+
+                CreateMap<Diet, DietPupilResponse>()
+                    .ForMember(dest => dest.DieticianName, opt => opt.MapFrom(src => src.Dietician.Name))
+                    .ForMember(dest => dest.DieticianLastName, opt => opt.MapFrom(src => src.Dietician.LastName))
+                    .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
+
+                CreateMap<CreateMealDietInternalCommand, MealDiet>()
+                    .ForMember(dest => dest.IdDiet, opt => opt.MapFrom(src => src.CreateMealDietCommand.IdDiet))
+                    .ForMember(dest => dest.IdMeal, opt => opt.MapFrom(src => src.CreateMealDietCommand.IdMeal))
+                    .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.CreateMealDietCommand.Comments))
+                    .ForMember(dest => dest.DayOfWeek, opt => opt.MapFrom(src => src.CreateMealDietCommand.DayOfWeek))
+                    .ForMember(dest => dest.HourOfMeal, opt => opt.MapFrom(src => src.CreateMealDietCommand.HourOfMeal));
+                
+                CreateMap<UpdateMealDietInternalCommand, MealDiet>()
+                    .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.UpdateMealDietCommand.Comments))
+                    .ForMember(dest => dest.DayOfWeek, opt => opt.MapFrom(src => src.UpdateMealDietCommand.DayOfWeek))
+                    .ForMember(dest => dest.HourOfMeal, opt => opt.MapFrom(src => src.UpdateMealDietCommand.HourOfMeal));
+
+                CreateMap<MealDiet, MealDietMentorListResponse>()
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Meal.Name));
+
+                CreateMap<MealDiet, MealDietForMentorResponse>()
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Meal.Name));
+                
+                CreateMap<MealDiet, MealDietForPupilResponse>()
+                    .ForMember(dest => dest.MealName, opt => opt.MapFrom(src => src.Meal.Name))
+                    .ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => src.Meal.Ingredients))
+                    .ForMember(dest => dest.PrepareSteps, opt => opt.MapFrom(src => src.Meal.PrepareSteps))
+                    .ForMember(dest => dest.Kcal, opt => opt.MapFrom(src => src.Meal.Kcal));
+
+
+
 
                 
        

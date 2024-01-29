@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Login } from '../models/login';
-import { Register } from '../models/register';
-import { JwtAuth } from '../models/jwtAuth';
+import { Login } from '../models/authentication/login.model';
+import { Register } from '../models/authentication/register.model';
+import { JwtAuth } from '../models/authentication/jwt-auth.model';
 import { environment } from 'src/environments/environment.development';
 import { jwtDecode } from "jwt-decode";
 import { Router } from '@angular/router';
+import { get } from 'jquery';
 
 
 @Injectable({
@@ -108,6 +109,8 @@ export class AuthenticationService {
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
+
+ 
 
 
 }

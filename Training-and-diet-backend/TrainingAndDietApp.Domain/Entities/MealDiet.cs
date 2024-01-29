@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using TrainingAndDietApp.DAL.EntityModels;
 using TrainingAndDietApp.Domain.Entities;
 
-namespace Training_and_diet_backend.Models
+namespace TrainingAndDietApp.Domain.Entities
 {
     public class MealDiet
     {
@@ -14,8 +13,12 @@ namespace Training_and_diet_backend.Models
         public int IdMeal { get; set; }
     
         public int IdDiet { get; set; }
-        [Column(TypeName = "Date")]
-        public DateTime Date { get; set; }
+        //nowe
+        public int DayOfWeek { get; set; }
+        //nowe
+        [Column(TypeName = "varchar(5)")]
+        public string HourOfMeal { get; set; }
+
         [Column(TypeName = "varchar(200)")]
         public string? Comments { get; set; }
         [ForeignKey("IdMeal")]

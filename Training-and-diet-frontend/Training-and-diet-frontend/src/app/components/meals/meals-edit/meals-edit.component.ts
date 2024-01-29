@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MealsService } from 'src/app/services/meals.service';
 import { Location } from '@angular/common';
-import { MealFull } from 'src/app/models/meal-full';
+import { MealFull } from 'src/app/models/meal/meal-full.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
-import { MealKcal } from 'src/app/models/meal-kcal';
+import { MealKcal } from 'src/app/models/meal/meal-kcal.model';
 import { Form } from '@angular/forms';
 
 
@@ -26,7 +26,6 @@ export class MealsEditComponent implements OnInit{
     ingredients:'',
     prepareSteps:'',
     kcal:'',
-    image:''
   }
 
 

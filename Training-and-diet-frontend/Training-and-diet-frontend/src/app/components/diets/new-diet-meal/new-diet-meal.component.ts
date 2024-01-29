@@ -1,9 +1,9 @@
 import { query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MealShort } from 'src/app/models/diet/MealShort.model';
-import { NewMealDiet } from 'src/app/models/diet/NewMealDiet.model';
-import { ExerciseGetById } from 'src/app/models/exercise-get-by-id';
+import { MealShort } from 'src/app/models/meal/meal-short.model';
+import { NewMealDiet } from 'src/app/models/diet/new-meal-diet.model';
+import { ExerciseGetById } from 'src/app/models/exercise/exercise-get-by-id.model';
 import { MealsService } from 'src/app/services/meals.service';
 
 @Component({

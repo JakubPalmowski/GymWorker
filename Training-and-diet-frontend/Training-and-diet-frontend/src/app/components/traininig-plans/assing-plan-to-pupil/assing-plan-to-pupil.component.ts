@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { TrainingPlanPupilList } from 'src/app/models/TrainingPlanPupilList.model';
-import { PupilShort } from 'src/app/models/pupilShort';
+import { TrainingPlanPupilList } from 'src/app/models/training-plan/training-plan-pupil-list.model';
+import { PupilShort } from 'src/app/models/mentor-pupil/pupil-short.model';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 import { UserService } from 'src/app/services/user.service';
+import { Invitation } from 'src/app/models/mentor-pupil/invitation.model';
+import { forkJoin, of, switchMap } from 'rxjs';
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-assing-plan-to-pupil',
@@ -15,14 +18,13 @@ export class AssingPlanToPupilComponent implements OnInit{
 
   previousUrl:string='';
 
-  pupils:PupilShort[]=[];
-  filteredPupils:PupilShort[]=[];
+  pupils: Invitation[] | undefined;
   DialogFlag:boolean=false;
   sucessFlag:boolean=false;
 
   planId:string='';
 
-  constructor( private route:ActivatedRoute, private userService:UserService,private previousUrlService: PreviousUrlService, private router:Router, private trainingPlanService:TrainingPlanService) {}
+  constructor(private fileService: FileService, private route:ActivatedRoute, private userService:UserService,private previousUrlService: PreviousUrlService, private router:Router, private trainingPlanService:TrainingPlanService) {}
 
   ngOnInit(): void {
     this.previousUrl=this.previousUrlService.getPreviousUrl();
@@ -33,17 +35,42 @@ export class AssingPlanToPupilComponent implements OnInit{
         if(id)
         this.planId=id;
 
-        this.userService.GetMentorPupils().subscribe({
-          next:(pupils)=>{
-            this.pupils=pupils;
-            this.filteredPupils=this.pupils;
-          },
-          error: (response)=>{
-            console.log(response);
-          }
-        });
+      
+          this.userService.getMentorPupils().pipe(
+            switchMap((pupils) => {
+              this.pupils = pupils;
+        
+              if (pupils.length === 0) {
+                return of([]);
+              }
+        
+              const imageRequests = pupils.map(pupil => {
+                if (pupil.imageUri) {
+        
+                  return this.fileService.getFile(pupil.imageUri).pipe(
+                    switchMap((imageSrc) => {
+         
+                      pupil.imageSrc = URL.createObjectURL(imageSrc); 
+                      return of(pupil); 
+                    })
+                  );
+                } else {
+           
+                  pupil.imageSrc = 'assets/images/user.png';
+                  return of(pupil); 
+                }
+              });
+              return forkJoin(imageRequests);
+            })
+          ).subscribe(
+            () => {
+      
+            },
+            (error) => {
+      
+            }
+          );
 
-        console.log(id);
       }});
 
 
@@ -75,7 +102,7 @@ export class AssingPlanToPupilComponent implements OnInit{
 
 
   back(): void{
-    this.router.navigateByUrl(this.previousUrl);
+    this.router.navigateByUrl('/training-plans/edit/' + this.planId);
   }
 
 

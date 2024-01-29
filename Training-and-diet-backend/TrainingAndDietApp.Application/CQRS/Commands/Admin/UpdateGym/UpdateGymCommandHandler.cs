@@ -33,7 +33,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateGym
             {
                 throw new NotFoundException("Nie znaleziono siłowni");
             }
-            if(gym.Status == Domain.Enums.Status.Pending){
+            if(gym.IsAccepted == false){
                 throw new BadRequestException("Nie można edytować nieaktywnej siłowni.");
             }
             var address = gym.Address;

@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { DietListDietician } from '../models/diet/DietListDietician.model';
+import { DietListDietician } from '../models/diet/diet-list-dietician.model';
 import { Observable } from 'rxjs';
-import { DietAddEdit } from '../models/diet/DietAddEdit.model';
-import { DietMentorGet } from '../models/diet/DietMentorGet.model';
-import { MealDietMentorList } from '../models/diet/MealDietMentorList.model';
+import { DietAddEdit } from '../models/diet/diet-add-edit.model';
+import { DietMentorGet } from '../models/diet/diet-mentor-get.model';
+import { MealDietMentorList } from '../models/diet/meal-diet-mentor-list.model';
 
 
 @Injectable({

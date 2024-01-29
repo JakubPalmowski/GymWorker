@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DietListDietician } from 'src/app/models/diet/DietListDietician.model';
+import { DietListDietician } from 'src/app/models/diet/diet-list-dietician.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DietService } from 'src/app/services/diet.service';
 

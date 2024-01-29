@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MealsService } from 'src/app/services/meals.service';
 import { Location } from '@angular/common';
-import { MealFull } from 'src/app/models/meal-full';
+import { MealFull } from 'src/app/models/meal/meal-full.model';
 
 @Component({
   selector: 'app-meals-list',

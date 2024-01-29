@@ -104,10 +104,10 @@
                         <td>{{gym.name}}</td>
                         <td>{{gym.street}}</td>
                         <td>{{gym.postalCode}}</td>
-                        <ng-container *ngIf="gym.status == 'Active'">
+                        <ng-container *ngIf="gym.isAccepted == true">
                             <td><i class="bi bi-check-circle-fill" style="color: green;"></i></td>
                         </ng-container>
-                        <ng-container *ngIf="gym.status == 'Pending'">
+                        <ng-container *ngIf="gym.isAccepted == false">
                             <td><i class="bi bi-question-circle-fill"></i></td>
                         </ng-container>
                     </tr>

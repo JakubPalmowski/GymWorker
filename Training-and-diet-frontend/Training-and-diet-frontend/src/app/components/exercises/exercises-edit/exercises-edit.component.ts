@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExerciseFull } from 'src/app/models/exercise-full';
+import { ExerciseFull } from 'src/app/models/exercise/exercise-full.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { Location } from '@angular/common';
 
@@ -22,7 +22,6 @@ export class ExercisesEditComponent implements OnInit{
     name:'',
     details:'',
     exerciseSteps:'',
-    image:'',
     idTrainer:3
   }
   

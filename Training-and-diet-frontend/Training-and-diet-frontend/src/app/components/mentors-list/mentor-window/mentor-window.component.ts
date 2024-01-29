@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Mentor } from 'src/app/models/mentor';
+import { Mentor } from 'src/app/models/mentor-pupil/mentor.model';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({

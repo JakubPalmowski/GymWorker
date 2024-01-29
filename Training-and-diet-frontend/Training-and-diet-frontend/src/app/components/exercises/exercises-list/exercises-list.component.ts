@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { response } from 'express';
-import { ExerciseShort } from 'src/app/models/exercise-short.model';
-import { TrainingPlanExercise } from 'src/app/models/trainingPlanExercise.model';
+import { ExerciseShort } from 'src/app/models/exercise/exercise-short.model';
+import { TrainingPlanExercise } from 'src/app/models/training-plan/training-plan-exercise.model';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { Location } from '@angular/common';
 
-import { DeleteDialogComponent } from '../../main/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-exercises-list',

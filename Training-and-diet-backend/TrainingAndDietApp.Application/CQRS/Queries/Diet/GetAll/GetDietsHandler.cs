@@ -14,10 +14,10 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Diet.GetAll
 {
     public class GetDietsHandler : IRequestHandler<GetDietsQuery, IEnumerable<DietResponse>>
     {
-        private readonly IRepository<DAL.EntityModels.Diet> _repository;
+        private readonly IRepository<Domain.Entities.Diet> _repository;
         private readonly IMapper _mapper;
 
-        public GetDietsHandler(IRepository<DAL.EntityModels.Diet> repository, IMapper mapper)
+        public GetDietsHandler(IRepository<Domain.Entities.Diet> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { CreateGym } from 'src/app/models/gym/createGym';
-import { GymsAddedByUser } from 'src/app/models/gym/gymsAddedByUser';
+import { CreateGym } from 'src/app/models/gym/create-gym.model';
+import { GymsAddedByUser } from 'src/app/models/gym/gyms-added-by-user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GymService } from 'src/app/services/gym.service';
 
@@ -52,7 +52,7 @@ export class CreateGymComponent implements OnInit {
           document.documentElement.scrollTop = 0;
           var gym: GymsAddedByUser = {
             ...this.GymToCreate,
-            status: "Pending"
+            isAccepted: false
           };
           this.GymsAddedByUser?.push(gym);
           this.GymToCreate = { city: "", name: "", postalCode: "", street: ""};

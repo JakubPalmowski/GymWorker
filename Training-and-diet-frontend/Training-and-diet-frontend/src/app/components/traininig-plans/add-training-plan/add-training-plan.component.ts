@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Form } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { FullTrainingPlan } from 'src/app/models/full-training-plan.model';
+import { FullTrainingPlan } from 'src/app/models/diet/full-training-plan.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { TrainingPlanService } from 'src/app/services/training-plan.service';
 

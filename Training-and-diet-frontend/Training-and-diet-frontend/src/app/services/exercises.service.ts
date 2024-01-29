@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TrainingPlanExercise } from '../models/trainingPlanExercise.model';
-import { ExerciseShort } from '../models/exercise-short.model';
-import { ExerciseGetById } from '../models/exercise-get-by-id';
-import { NewTrainingExercise } from '../models/new-training-exercise.model';
-import { Exercise } from '../models/exercise';
-import { ExerciseFull } from '../models/exercise-full';
+import { TrainingPlanExercise } from '../models/training-plan/training-plan-exercise.model';
+import { ExerciseShort } from '../models/exercise/exercise-short.model';
+import { ExerciseGetById } from '../models/exercise/exercise-get-by-id.model';
+import { NewTrainingExercise } from '../models/training-plan/new-training-exercise.model';
+import { Exercise } from '../models/exercise/exercise.model';
+import { ExerciseFull } from '../models/exercise/exercise-full.model';
 import { environment } from 'src/environments/environment';
-import { EditTrainingExercise } from '../models/editTrainingExercise.model';
-import { PupilTraineeExerciseGet } from '../models/pupilTraineeExerciseGet.model';
+import { EditTrainingExercise } from '../models/training-plan/edit-training-exercise.model';
+import { PupilTraineeExerciseGet } from '../models/training-plan/pupil-trainee-exercise-get.model';
 
 @Injectable({
   providedIn: 'root'
