@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using TrainingAndDietApp.Domain.Entities;
 
-namespace Training_and_diet_backend.Models
+namespace TrainingAndDietApp.Domain.Entities
 {
     public class MealDiet
     {

@@ -29,6 +29,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IPupilMentorRepository, PupilMentorRepository>();
         services.AddScoped<IOpinionRepository, OpinionRepository>();
         services.AddScoped<IDietRepository, DietRepository>();
+        services.AddScoped<IMealDietRepository, MealDietRepository>();
 
         return services;
     }
