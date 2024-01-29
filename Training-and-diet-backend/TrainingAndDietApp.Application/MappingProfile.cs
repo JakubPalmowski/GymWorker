@@ -239,6 +239,16 @@ namespace TrainingAndDietApp.Application
                     .ForMember(dest => dest.NumberOfWeeks, opt => opt.MapFrom(src => src.NumberOfWeeks))
                     .ForMember(dest => dest.TotalKcal, opt => opt.MapFrom(src => src.TotalKcal));
 
+                CreateMap<Diet, DietMentorResponse>()
+                    .ForMember(dest => dest.PupilName, opt => opt.MapFrom(src => src.Pupil.Name))
+                    .ForMember(dest => dest.PupilLastName, opt => opt.MapFrom(src => src.Pupil.LastName))
+                    .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
+
+                CreateMap<Diet, DietPupilResponse>()
+                    .ForMember(dest => dest.DieticianName, opt => opt.MapFrom(src => src.Dietician.Name))
+                    .ForMember(dest => dest.DieticianLastName, opt => opt.MapFrom(src => src.Dietician.LastName))
+                    .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
+
 
 
 

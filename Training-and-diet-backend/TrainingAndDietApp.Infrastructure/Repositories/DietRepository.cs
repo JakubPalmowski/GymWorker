@@ -21,6 +21,12 @@ namespace TrainingAndDietApp.Infrastructure.Repositories
         public async Task<List<Diet>> GetDieticianDietsAsync(int dieticianId, CancellationToken cancellationToken)
         => await _context.Diets.Where(diet => diet.IdDietician == dieticianId).ToListAsync(cancellationToken);
 
+        public async Task<Diet?> GetMentorDietAsync(int dietId, CancellationToken cancellationToken)
+        => await _context.Diets.Where(diet => diet.IdDiet == dietId).Include(d=>d.Pupil).FirstOrDefaultAsync(cancellationToken);
+
+        public async Task<Diet?> GetPupilDietAsync(int dietId, CancellationToken cancellationToken)
+        => await _context.Diets.Where(diet => diet.IdDiet == dietId).Include(d=>d.Dietician).FirstOrDefaultAsync(cancellationToken);
+
         public async Task<List<Diet>> GetPupilDietsAsync(int pupilId, CancellationToken cancellationToken)
         => await _context.Diets.Where(diet => diet.IdPupil == pupilId).Include(d=>d.Dietician).ToListAsync(cancellationToken);
     }
