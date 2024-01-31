@@ -34,9 +34,6 @@ export class CreateGymComponent implements OnInit {
     this.gymService.GetGymsAddedByUser(userId).subscribe({
       next: (gyms) => {
         this.GymsAddedByUser = gyms;
-      },
-      error: (response) => {
-        console.log(response);
       }
     })
   }
@@ -69,10 +66,8 @@ export class CreateGymComponent implements OnInit {
                     this.fieldErrors[key] = errors[key]; 
                 }
             }
-            console.log(error.error);
   
           }else {
-            console.log(error);
           this.successFlag = "error";
           this.showSuccessPopup(this.successFlag);
           document.documentElement.scrollTop = 0;

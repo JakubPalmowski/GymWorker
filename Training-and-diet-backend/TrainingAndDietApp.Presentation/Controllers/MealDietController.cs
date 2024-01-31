@@ -43,7 +43,7 @@ namespace TrainingAndDietApp.Presentation.Controllers
 
             return Ok();
     }
-        [Authorize(Roles = "4,5")]
+        [Authorize(Roles = "2,4,5")]
         [HttpGet("Meals/{idDiet}")]
         public async Task<IActionResult> GetDietMeals(int idDiet)
         {

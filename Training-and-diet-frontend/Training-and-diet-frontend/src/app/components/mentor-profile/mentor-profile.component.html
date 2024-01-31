@@ -1,6 +1,12 @@
+<div *ngIf="errorFlag=='error'" class="error-popup" style="z-index: 2000;">
+    Wystapił błąd. Proszę spróbować ponownie.
+  </div>
+  <div *ngIf="errorFlag=='successUpdate' || errorFlag=='successCreate' || errorFlag=='successDelete'" class="success-popup">
+    <div *ngIf="errorFlag=='successCreate'">Dodano opinie</div>
+    <div *ngIf="errorFlag=='successDelete'">Usunięto opinie</div>
+    <div *ngIf="errorFlag=='successUpdate'">Edytowano opinie</div>
+  </div>
 <div class="container-fluid" *ngIf="mentor">
-
-
     <div class="row mt-3 mb-3">
       <div class="col">
       <ng-container *ngIf="role=='trainerProfile'">
@@ -12,14 +18,6 @@
     </div>
     </div>
 
-    <div *ngIf="errorFlag=='error'" class="error-popup" style="z-index: 2000;">
-      Wystapił błąd. Proszę spróbować ponownie.
-    </div>
-    <div *ngIf="errorFlag=='successUpdate' || errorFlag=='successCreate' || errorFlag=='successDelete'" class="success-popup">
-      <ng-container *ngIf="errorFlag=='successCreate'">Dodano opinie</ng-container>
-      <ng-container *ngIf="errorFlag=='successDelete'">Usunięto opinie</ng-container>
-      <ng-container *ngIf="errorFlag=='successUpdate'">Edytowano opinie</ng-container>
-    </div>
 
 
       <div class="row bg-secondary d-flex align-items-center py-4 px-2 rounded-div mb-3 shadow">
@@ -29,6 +27,7 @@
           
             <div class="col-lg-4 col-md-6 col-12 d-flex flex-column align-items-center align-items-lg-start">
             <span class="fs-2">{{ mentor.name + ' ' + mentor.lastName}}</span>
+          
 
             <ng-container [ngSwitch]="mentor.role">
               <span class="fs-2" *ngSwitchCase="'Trainer'">Trener</span>
@@ -208,7 +207,7 @@
           <div class="col-12 col-lg-4 p-0">
             <div class="bg-secondary shadow d-flex flex-column mb-3 mb-lg-0 me-lg-4 rounded-div gap-3 p-3">
           <span class="text-center fs-2 fw-bold">O mnie</span>
-          <span class="text-center">{{ mentor.bio }}</span>
+          <span class="text-center bio-text">{{ mentor.bio }}</span>
         </div>
           </div>
     

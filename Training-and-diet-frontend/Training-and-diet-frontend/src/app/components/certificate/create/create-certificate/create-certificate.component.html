@@ -7,15 +7,12 @@
     </div>
 
   <div class="row">
+    <div class="col-12 mb-2 mt-1">
+        <h1 class="text-center">Dodawanie certyfikatu</h1>
+    </div>
       <form #profileForm="ngForm" (ngSubmit)="onSubmit()">
-      <div class="col-12 mb-2 mt-1">
-          <h1 class="text-center">Dodawanie certyfikatu</h1>
-      </div>
-
-      
       
       <div class="col-12 group">
-          <div class="d-flex flex-column" style="width: 60%;">
               <label for="description">Opis *</label>
               <textarea rows="5" id="description" name="description" [(ngModel)]="certificate.description"
                   required minlength="3" maxlength="200" #description="ngModel"></textarea>
@@ -33,14 +30,20 @@
                     {{ fieldErrors['Description'][0] }}
                 </span>
               </div>
-          </div>
       </div>
       
       
-      <div class="col-12 group">
-          <div class="d-flex flex-column" style="width: 60%;">
-              <label for="file">Plik pdf *</label>
-              <input style="border:none;" type="file" id="file" name="file" (change)="onFileSelected($event)" required>
+      <div class="col-12 file-container">
+              <label>Plik pdf *</label>
+              <div>
+              <input style="border:none;" class="file-input" type="file" id="file" name="file" (change)="onFileSelected($event)" required>
+              <div class="btn-primary" style="width: fit-content;">
+                <label for="file" class="image-label">Dodaj plik z certyfikatem</label>
+            </div>
+            <div class="name-container"><span>{{certificate.pdfFile?.name}}</span></div>
+            
+            
+        </div>
               <div class="error-container">
                 <span *ngIf="errorFile && this.submitted" class="validation-error">
                     {{errorFile}}
@@ -50,7 +53,7 @@
                 </span>
                 </div>
           </div>
-      </div>
+
       
       
 

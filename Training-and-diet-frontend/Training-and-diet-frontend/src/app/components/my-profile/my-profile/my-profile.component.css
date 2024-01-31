@@ -24,6 +24,7 @@ input, textarea{
     border-radius: 10px;
     margin-bottom: 10px;
     font-size: 18px;
+    border: 1px solid grey;
 }
 
 
@@ -72,16 +73,6 @@ a{
     opacity: 1;
   }
 
-  .table thead{
-    border: 1px solid black;
-  }
-
-  .table tr{
-    border: 1px solid black;
-  }
-  .table th, .table td {
-    word-break: break-all; 
-}
   
 @media (max-width: 900px) {
   .info-tooltip {

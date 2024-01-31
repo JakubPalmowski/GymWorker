@@ -49,19 +49,19 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, UserResponse<
                     if (request.Query?.SortDirection == SortDirection.ASC)
                     {
                         baseQuery = baseQuery
-                            .OrderBy(u => u.MentorOpinions.Any()
-                                ? u.MentorOpinions.Average(mo => mo.Rate)
-                                : 0);
+                            .OrderBy(u => !u.MentorOpinions.Any() ? 1 : 0) 
+                            .ThenBy(u => u.MentorOpinions.Average(mo => mo.Rate)); 
                     }
                     else
                     {
                         baseQuery = baseQuery
-                            .OrderByDescending(u => u.MentorOpinions.Any()
-                            ? u.MentorOpinions.Average(mo => mo.Rate)
-                                : 0);
+                            .OrderBy(u => !u.MentorOpinions.Any() ? 1 : 0)
+                            .ThenByDescending(u => u.MentorOpinions.Average(mo => mo.Rate)); 
                     }
-
                     break;
+
+
+
 
                 case "PlanPrice":
                     if (request.Query?.SortDirection == SortDirection.ASC)

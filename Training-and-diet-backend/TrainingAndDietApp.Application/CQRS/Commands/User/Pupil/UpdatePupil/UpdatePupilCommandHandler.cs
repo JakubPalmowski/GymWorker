@@ -37,11 +37,8 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.UpdatePupil
             }
             userToUpdate.Name = request.PupilCommand.Name;
             userToUpdate.LastName = request.PupilCommand.LastName;
-            if (!(request.PupilCommand.Email == userToUpdate.Email))
-            {
-                userToUpdate.Email = request.PupilCommand.Email;
-                userToUpdate.EmailConfirmationToken = null;
-            }
+            userToUpdate.Email = request.PupilCommand.Email;
+
             userToUpdate.Weight = request.PupilCommand.Weight;
             userToUpdate.Height = request.PupilCommand.Height;
             userToUpdate.DateOfBirth = request.PupilCommand.DateOfBirth;

@@ -6,3 +6,7 @@
 a{
     cursor: pointer;
 }
+
+.page-item:hover{
+    z-index: 1;
+}

@@ -66,7 +66,7 @@ export class CreateCertificateComponent {
     
     }
 
-    // Komponent TypeScript
+
 onFileSelected(event: Event): void {
   const element = event.target as HTMLInputElement;
   const file = element.files ? element.files[0] : null;

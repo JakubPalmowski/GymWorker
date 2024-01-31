@@ -5,12 +5,13 @@ import { NgForm, NgModel } from '@angular/forms';
 import { UserPersonalInfo } from 'src/app/models/my-profile/user-personal-info.model';
 import { TrainerPersonalInfo } from 'src/app/models/my-profile/trainer-personal-info.model';
 import { GymService } from 'src/app/services/gym.service';
-import { catchError, forkJoin, iif, of, switchMap, tap, throwError } from 'rxjs';
+import { EMPTY, catchError, forkJoin, iif, map, of, switchMap, tap, throwError } from 'rxjs';
 import { ActiveGym } from 'src/app/models/gym/active-gym.model';
 import { DieticianPersonalInfo } from 'src/app/models/my-profile/dietician-personal-info.model';
 import { DieticianTrainerPersonalInfo } from 'src/app/models/my-profile/dietician-trainer-personal-info.model';
 import { FileService } from 'src/app/services/file.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { error } from 'jquery';
 
 
 @Component({
@@ -43,6 +44,8 @@ newImageUrl: string | ArrayBuffer | null = null;
 imageUrl:string="";
 imageFile: File | null = null;
 imageDeleted: boolean = false;
+imageError: boolean = false;
+
 
 onFileSelected(event:any) {
   const file = event.target.files[0];
@@ -52,6 +55,12 @@ onFileSelected(event:any) {
     const reader = new FileReader();
     reader.onload = e => this.newImageUrl = reader.result;
     reader.readAsDataURL(file);
+    const validImageTypes = ['image/jpeg', 'image/png'];
+    if (validImageTypes.includes(file.type)) {
+      this.imageError = false;
+    } else {
+      this.imageError = true;
+    }
   }
 }
 
@@ -64,7 +73,9 @@ deleteImage(){
   if(this.imageFile){
     this.newImageUrl = "assets/images/user.png";
     this.imageFile = null;
+    
   }
+  this.imageError = false;
 }
 
 
@@ -99,8 +110,9 @@ if(this.id && this.role){
           this.formattedDate = this.formatDate(this.user.dateOfBirth?.toString());
           this.handleImage(this.user.imageUri ?? "");
         },
-        error: (response) => {
-          console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
+        error: () => {
+          this.successFlag = "error";
+          this.showSuccessPopup(this.successFlag);
         }
       }
     );
@@ -112,34 +124,28 @@ if(this.id && this.role){
       gyms: this.gymService.GetAllActiveMentorGyms(this.id),
       allGyms: this.gymService.GetAllActiveGyms()
     }).pipe(
-      switchMap(({ trainerInfo, gyms, allGyms }) => {
-        if (!trainerInfo) {
-          throw new Error('Wystąpił błąd podczas pobierania danych.');
-        }
+      map(({ trainerInfo, gyms, allGyms }) => {
         this.user = trainerInfo;
         this.user.trainerGyms = gyms;
         this.allActiveGyms = allGyms;
         this.handleImage(this.user.imageUri ?? "");
-      
-        return of(null); 
       }),
     ).subscribe({
-      next: () => {
-      },
-      error: (error) => {
+      error: () => {
+        this.successFlag = "error";
+        this.showSuccessPopup(this.successFlag);
       }
     });
 
   }else if (this.role == "Dietician") {
     this.userService.GetDieticianPersonalInfo().subscribe({
       next: (dieticianInfo) => {
-        if (!dieticianInfo) {
-          throw new Error('Wystąpił błąd podczas pobierania danych.');
-        }
         this.user = dieticianInfo;
         this.handleImage(this.user.imageUri ?? "");
       },
-      error: (response) => {
+      error: () => {
+        this.successFlag = "error";
+        this.showSuccessPopup(this.successFlag);
       }
     });
   }
@@ -149,21 +155,17 @@ if(this.id && this.role){
       gyms: this.gymService.GetAllActiveMentorGyms(this.id),
       allGyms: this.gymService.GetAllActiveGyms()
     }).pipe(
-      switchMap(({ dieticianTrainerInfo, gyms, allGyms }) => {
-        if (!dieticianTrainerInfo) {
-          throw new Error('Wystąpił błąd podczas pobierania danych.');
-        }
+      map(({ dieticianTrainerInfo, gyms, allGyms }) => {
         this.user = dieticianTrainerInfo;
         this.user.trainerGyms = gyms;
         this.allActiveGyms = allGyms;
         this.handleImage(this.user.imageUri ?? "");
-        return of(null);
       }
       )
     ).subscribe({
-      next: () => {
-      },
-      error: (response) => {
+      error: () => {
+        this.successFlag = "error";
+        this.showSuccessPopup(this.successFlag);
       }
     });
   }
@@ -173,20 +175,21 @@ if(this.id && this.role){
 
 handleImage(imageUri: string) {
   if (imageUri) {
-    this.fileService.getFile(imageUri).pipe(
-      catchError(error => {
+    this.fileService.getFile(imageUri)
+    .subscribe({
+      next: (blob) => {
+        if (blob) {
+          const objectUrl = URL.createObjectURL(blob);
+          this.imageUrl = objectUrl;
+        }
+      },
+      error: () => {
         this.imageUrl = "assets/images/user.png";
-        return of(null);
-      })
-    ).subscribe(blob => {
-      if (blob) {
-        const objectUrl = URL.createObjectURL(blob);
-        this.imageUrl = objectUrl;
       }
     });
-  } else {
-    this.imageUrl = "assets/images/user.png";
-  }
+      }else{
+        this.imageUrl = "assets/images/user.png";
+      }
 }
 
 
@@ -194,7 +197,7 @@ onSubmit() {
   if (this.profileForm?.valid) {
   if (this.user && this.id) {
     if (this.role == "Trainer") {
-      const trainerInfo: TrainerPersonalInfo = this.mapUserToTrainer(this.user);
+    const trainerInfo: TrainerPersonalInfo = this.mapUserToTrainer(this.user);
     const handleImage$ = this.handleImageLogic();
 
 handleImage$.pipe(
@@ -211,24 +214,21 @@ handleImage$.pipe(
           this.fieldErrors[key] = errors[key]; 
         }
       }
-      console.log(error.error);
     } else {
       this.successFlag = "error";
       this.showSuccessPopup(this.successFlag);
       document.documentElement.scrollTop = 0;
       this.fieldErrors = {}; 
     }
-    return throwError(() => error); 
+    return EMPTY; 
   })
 ).subscribe({
-  next: (response) => {
+  next: () => {
+    this.inputGymsError = ''; 
     this.successFlag = "success";
     this.showSuccessPopup(this.successFlag);
     this.fieldErrors = {}; 
     document.documentElement.scrollTop = 0;
-  },
-  error: (error) => {
-    return throwError(() => error); 
   }
 });
  
@@ -251,14 +251,13 @@ handleImage$.pipe(
           this.fieldErrors[key] = errors[key]; 
         }
       }
-      console.log(error.error);
     } else {
       this.successFlag = "error";
       this.showSuccessPopup(this.successFlag);
       document.documentElement.scrollTop = 0;
       this.fieldErrors = {}; 
     }
-    return throwError(() => error); 
+    return EMPTY;
   })
 ).subscribe({
   next: (response) => {
@@ -266,9 +265,6 @@ handleImage$.pipe(
     this.showSuccessPopup(this.successFlag);
     this.fieldErrors = {}; 
     document.documentElement.scrollTop = 0;
-  },
-  error: (error) => {
-    return throwError(() => error); 
   }
 });
   }else if(this.role=="Dietician"){
@@ -289,14 +285,13 @@ handleImage$.pipe(
           this.fieldErrors[key] = errors[key]; 
         }
       }
-      console.log(error.error);
     } else {
       this.successFlag = "error";
       this.showSuccessPopup(this.successFlag);
       document.documentElement.scrollTop = 0;
       this.fieldErrors = {}; 
     }
-    return throwError(() => error); 
+    return EMPTY; 
   })
 ).subscribe({
   next: (response) => {
@@ -304,9 +299,6 @@ handleImage$.pipe(
     this.showSuccessPopup(this.successFlag);
     this.fieldErrors = {}; 
     document.documentElement.scrollTop = 0;
-  },
-  error: (error) => {
-    return throwError(() => error); 
   }
 });
   }else if(this.role=="Dietician-Trainer"){
@@ -327,14 +319,14 @@ handleImage$.pipe(
           this.fieldErrors[key] = errors[key]; 
         }
       }
-      console.log(error.error);
     } else {
+      this.inputGymsError = ''; 
       this.successFlag = "error";
       this.showSuccessPopup(this.successFlag);
       document.documentElement.scrollTop = 0;
       this.fieldErrors = {}; 
     }
-    return throwError(() => error);
+    return EMPTY;
   })
 ).subscribe({
   next: (response) => {
@@ -342,8 +334,6 @@ handleImage$.pipe(
     this.showSuccessPopup(this.successFlag);
     this.fieldErrors = {}; 
     document.documentElement.scrollTop = 0;
-  },
-  error: (error) => {
   }
 });
  
@@ -549,7 +539,7 @@ onSelect(selectedGym: any): void {
 }
 
 addGymToUser(): void {
-  if (this.selectedGym) {
+  if (this.selectedGym && (this.selectedGym.cityName+', '+this.selectedGym.name) === this.autocompleteGyms?.nativeElement.value) {
     const gymExists = this.user?.trainerGyms?.some(gym => gym.idGym === this.selectedGym?.idGym);
     if (!gymExists) {
       this.user?.trainerGyms?.push(this.selectedGym);

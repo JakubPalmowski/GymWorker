@@ -78,11 +78,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Trainer.UpdateTraine
 
             userToUpdate.Name = request.TrainerCommand.Name;
             userToUpdate.LastName = request.TrainerCommand.LastName;
-            if (request.TrainerCommand.Email != userToUpdate.Email)
-            {
-                userToUpdate.Email = request.TrainerCommand.Email;
-                userToUpdate.EmailConfirmationToken = null;
-            }
+            userToUpdate.Email = request.TrainerCommand.Email;
             userToUpdate.PhoneNumber = request.TrainerCommand.PhoneNumber;
             userToUpdate.TrainingPlanPriceFrom = request.TrainerCommand.TrainingPlanPriceFrom;
             userToUpdate.TrainingPlanPriceTo = request.TrainerCommand.TrainingPlanPriceTo;

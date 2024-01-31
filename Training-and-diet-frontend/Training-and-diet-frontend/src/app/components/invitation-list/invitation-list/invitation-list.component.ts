@@ -49,14 +49,7 @@ ngOnInit(): void {
       });
       return forkJoin(imageRequests);
     })
-  ).subscribe(
-    () => {
-      console.log('Wszystkie zaproszenia i obrazy zostały załadowane.');
-    },
-    (error) => {
-      console.error('Wystąpił błąd podczas pobierania zaproszeń lub obrazów', error);
-    }
-  );
+  ).subscribe();
 }
 
 deleteInvitation(id: number) {

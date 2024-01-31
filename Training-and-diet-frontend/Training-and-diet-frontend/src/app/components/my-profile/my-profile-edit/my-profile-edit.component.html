@@ -1,7 +1,14 @@
+<div *ngIf="successFlag=='success'" class="success-popup">
+    Profil został pomyślnie zaktualizowany!
+  </div>
+  <div *ngIf="successFlag=='error'" class="error-popup">
+    Wystapił błąd. Proszę spróbować ponownie.
+  </div>
 <div class="mt-3">
     <a class="btn-primary" routerLink="/myProfile"><i class="bi bi-arrow-left"></i> Powrót do profilu</a>
     </div>
 <ng-container *ngIf="user">
+    
 
     <form #profileForm="ngForm" class="container-fluid" (ngSubmit)="onSubmit()">
         <div class="row d-flex justify-content-center mt-3">
@@ -10,23 +17,20 @@
             </div>
         </div>
 
-        <div *ngIf="successFlag=='success'" class="success-popup">
-            Profil został pomyślnie zaktualizowany!
-          </div>
-          <div *ngIf="successFlag=='error'" class="error-popup">
-            Wystapił błąd podczas aktualizacji profilu. Proszę spróbować ponownie.
-          </div>
     
     
     
         
         <div class="row p-2 bg-secondary shadow rounded-div rounded-bottom-3 rounded-top-0" >
-            <div class="col-12 d-flex justify-content-center" style="height: 300px;">
+            <div class="col-12 d-flex justify-content-center" style="height: 260px;">
             <img *ngIf="newImageUrl" [src]="newImageUrl" width="250px" height="250px" class="round-picture">
             <img *ngIf="imageUrl&&newImageUrl==null" src="{{imageUrl}}" width="250px" height="250px" class="round-picture">
         </div>
+        <div *ngIf="imageError" class="error-container">
+            <span class="validation-error">Plik musi być zdjęciem</span>
+        </div>
 
-        <div class="col-12 d-flex justify-content-center flex-column my-3">
+        <div class="col-12 d-flex justify-content-center flex-column mb-3">
             <div class="d-flex justify-content-center mb-2">
                 <input type="file" id="file" class="file-input" (change)="onFileSelected($event)">
                 <div class="btn-primary">
@@ -55,10 +59,10 @@
                 <input type="text" [(ngModel)]="user.name" name="name" required 
                        maxlength="50" #name="ngModel">
                 <div class="error-container">
-                    <span *ngIf="name.errors?.['required']" class="validation-error error-span">
+                    <span *ngIf="name.errors?.['required']" class="validation-error">
                         Imię jest wymagane.
                     </span>
-                    <span *ngIf="name.errors?.['maxlength']" class="validation-error error-span">
+                    <span *ngIf="name.errors?.['maxlength']" class="validation-error">
                         Imię nie może przekraczać 50 znaków.
                     </span>
                     <span *ngIf="fieldErrors['Name']" class="validation-error">
@@ -74,10 +78,10 @@
                 <input type="text" [(ngModel)]="user.lastName" name="lastName" required 
                        maxlength="50" #lastName="ngModel">
                 <div class="error-container">
-                    <span *ngIf="lastName.errors?.['required']" class="validation-error error-span">
+                    <span *ngIf="lastName.errors?.['required']" class="validation-error">
                         Nazwisko jest wymagane.
                     </span>
-                    <span *ngIf="lastName.errors?.['maxlength']" class="validation-error error-span">
+                    <span *ngIf="lastName.errors?.['maxlength']" class="validation-error">
                         Nazwisko nie może przekraczać 50 znaków.
                     </span>
                     <span *ngIf="fieldErrors['LastName']" class="validation-error">
@@ -92,10 +96,10 @@
                 <input type="email" [(ngModel)]="user.email" name="email" required
                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #email="ngModel">
                 <div class="error-container">
-                    <span *ngIf="email.errors?.['required']" class="validation-error error-span">
+                    <span *ngIf="email.errors?.['required']" class="validation-error">
                         Email jest wymagany.
                     </span>
-                    <span *ngIf="email.errors?.['pattern']" class="validation-error error-span">
+                    <span *ngIf="email.errors?.['pattern']" class="validation-error">
                         Proszę podać poprawny adres email.
                     </span>
                     <span *ngIf="fieldErrors['Email']" class="validation-error">
@@ -373,7 +377,7 @@
             <div class="col-12 horizontal-line-black mb-3" style="height: 1px;"></div>
 
             <div class="col-12 d-flex flex-column">
-                <div class="w-100 d-flex" style="margin-left: 5%;">
+                <div class="d-flex" style="margin-left: 5%;">
                 <input type="text" style="width:70%;" #autocompleteGyms [appAutocomplete]="allActiveGyms" (selectedOption)="onSelect($event)">
                 <button class="btn-primary ms-2" type="button" (click)="addGymToUser()">Dodaj siłownię</button>
             </div>

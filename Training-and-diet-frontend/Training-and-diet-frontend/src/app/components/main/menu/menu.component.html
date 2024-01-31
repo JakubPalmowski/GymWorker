@@ -123,9 +123,9 @@
 
  </div>
 
- <div *ngIf="isLoggedIn"[ngClass]="{'p-2': role === 'Trainer' || role === 'Dietician' || role === 'Admin' || role === 'Pupil'}">
+ <div *ngIf="isLoggedIn" style="cursor: pointer;" [ngClass]="{'p-2': role === 'Trainer' || role === 'Dietician' || role === 'Admin' || role === 'Pupil'}">
   <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2 text-truncate" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="{{userImage}}" width="40" height="40" class="round-picture">
+      <img style="cursor: pointer;" src="{{userImage}}" width="40" height="40" class="round-picture">
           <span *ngIf="role=='Admin'">Admin</span>
           <span *ngIf="role=='Pupil'">Podopieczny</span>
           <span *ngIf="role=='Trainer'">Trener</span>
@@ -266,7 +266,7 @@
 
     </div>
     
-    <div *ngIf="isLoggedIn" class="d-none d-xxl-flex" [ngClass]="{'p-2': role === 'Trainer' || role === 'Dietician' || role === 'Admin' || role === 'Pupil'}">
+    <div *ngIf="isLoggedIn" style="cursor: pointer;" class="d-none d-xxl-flex" [ngClass]="{'p-2': role === 'Trainer' || role === 'Dietician' || role === 'Admin' || role === 'Pupil'}">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2 text-truncate" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="{{userImage}}" width="40" height="40" class="round-picture">
           <span *ngIf="role=='Admin'">Admin</span>

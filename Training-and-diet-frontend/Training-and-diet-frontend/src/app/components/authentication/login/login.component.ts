@@ -19,7 +19,7 @@ export class LoginComponent {
   credentialsIncorrect=false;
   submitted=false;
 
-  constructor(private authenticationService:AuthenticationService,private router:Router, private previousUrl: PreviousUrlService) {}
+  constructor(private authenticationService:AuthenticationService,private router:Router) {}
 
 
   login(){
@@ -34,7 +34,7 @@ export class LoginComponent {
         console.log(this.authenticationService.getUserId());
         console.log(this.authenticationService.getExpiration());
         console.log(this.authenticationService.isTokenExpired());
-        this.router.navigateByUrl(this.previousUrl.getPreviousUrl());
+        this.router.navigateByUrl('/');
       },
       error:(response)=>{
 

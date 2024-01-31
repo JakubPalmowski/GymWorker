@@ -46,6 +46,8 @@
 
 .name-span{
   font-weight: bold;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 
@@ -86,3 +88,5 @@ button{
     font-size: 1rem;
     margin: 5px 0;
   }
+
+

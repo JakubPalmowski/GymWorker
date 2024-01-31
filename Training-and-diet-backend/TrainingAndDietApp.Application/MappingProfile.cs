@@ -264,7 +264,7 @@ namespace TrainingAndDietApp.Application
                     .ForMember(dest => dest.DayOfWeek, opt => opt.MapFrom(src => src.UpdateMealDietCommand.DayOfWeek))
                     .ForMember(dest => dest.HourOfMeal, opt => opt.MapFrom(src => src.UpdateMealDietCommand.HourOfMeal));
 
-                CreateMap<MealDiet, MealDietMentorListResponse>()
+                CreateMap<MealDiet, MealDietListResponse>()
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Meal.Name));
 
                 CreateMap<MealDiet, MealDietForMentorResponse>()
