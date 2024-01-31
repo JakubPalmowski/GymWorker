@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DietMentorGet } from 'src/app/models/diet/diet-mentor-get.model';
-import { MealDietMentorList } from 'src/app/models/diet/meal-diet-mentor-list.model';
+import { MealDietList } from 'src/app/models/diet/meal-diet-list.model';
 import { DietService } from 'src/app/services/diet.service';
 import { MealsService } from 'src/app/services/meals.service';
 
@@ -16,9 +16,9 @@ export class EditDietComponent implements OnInit{
 
 
 
-  filteredDietMeals:MealDietMentorList[]=[];
+  filteredDietMeals:MealDietList[]=[];
 
-  dietMeals:MealDietMentorList[]=[];
+  dietMeals:MealDietList[]=[];
  
   diet:DietMentorGet={
     idDiet: 0,
@@ -145,6 +145,7 @@ export class EditDietComponent implements OnInit{
     this.filteredDietMeals=this.dietMeals.filter(
       dietMeals => dietMeals?.dayOfWeek==day
     )
+    this.filteredDietMeals.sort((a,b)=>a.hourOfMeal.localeCompare(b.hourOfMeal));
   }
 
   changeDietDay(day:number,val:string){

@@ -1,4 +1,4 @@
-export interface DietsPupilList{
+export interface DietPupilList{
     idDiet:number;
     idDietician:number;
     name: string;

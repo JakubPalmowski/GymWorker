@@ -95,7 +95,7 @@
     
 
         <li *ngIf="role=='Pupil'">
-          <div class="menu-link" (click)="goToMyDiets()">
+          <div class="menu-link" (click)="goToMyDiets()" [ngClass]="{'active': activeRoute=='pupilDiets'}">
             <i class="fas fa-seedling fa-lg"></i>
           <a>Moja dieta</a>
           </div>
@@ -210,7 +210,7 @@
           
 
           <li *ngIf="role=='Pupil'">
-            <div class="menu-link" (click)="goToMyDiets()">
+            <div class="menu-link" (click)="goToMyDiets()" [ngClass]="{'active': activeRoute=='pupilDiets'}">
               <i class="fas fa-seedling fa-lg"></i>
             <a>Moja dieta</a>
             </div>

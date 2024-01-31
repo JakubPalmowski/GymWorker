@@ -51,6 +51,9 @@ import { AuthenticationService } from './services/authentication.service';
 import { RoleGuard } from './services/guards/role.guard';
 import { InvitationListComponent } from './components/invitation-list/invitation-list/invitation-list.component';
 import { MentorPupilsComponent } from './components/mentor-pupils/mentor-pupils/mentor-pupils.component';
+import { PupilDietListComponent } from './components/pupil-diet/pupil-diet-list/pupil-diet-list.component';
+import { PupilDietDetailsComponent } from './components/pupil-diet/pupil-diet-details/pupil-diet-details.component';
+import { PupilDietMealDetailsComponent } from './components/pupil-diet/pupil-diet-meal-details/pupil-diet-meal-details.component';
 
 
 
@@ -183,6 +186,21 @@ const routes: Routes = [
     component: MealsDetailsComponent,
     canActivate: [AuthGuard,RoleGuard('4','5')],
   }, 
+  {
+    path: 'pupilDiets',
+    component: PupilDietListComponent,
+    canActivate: [AuthGuard,RoleGuard('2')],
+  },  
+  {
+    path: 'pupilDiets/details/:id',
+    component: PupilDietDetailsComponent,
+    canActivate: [AuthGuard,RoleGuard('2')],
+  },  
+  {
+    path: 'pupilDiets/details/:id/dietMeal/:id',
+    component: PupilDietMealDetailsComponent,
+    canActivate: [AuthGuard,RoleGuard('2')],
+  },
   {
     path: '',
     component: MainPageComponent

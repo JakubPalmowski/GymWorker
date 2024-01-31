@@ -1,0 +1,70 @@
+<div class="">
+    <a [routerLink]='"/pupilDiets"'> < Powrót do listy diet</a>
+    <div class="container-slim">
+        <div >
+        <h3>
+            Szczegóły diety: <br>
+            
+        </h3>
+        <div class="container plan-details">
+            <div class="row">
+                <div class="col plan-info">nazwa: {{diet.name}}</div>
+                <div class="col plan-info">wygasa: {{formEndDate}}</div>
+                <div class="col plan-infoo " ><img id="calendar-icon" src="../../../../assets/icons/calendar.png" /></div>
+            </div>
+            <div class="row">
+                
+                <div class="col plan-info" id="type">typ: {{diet.type}}</div>
+                <div class="col plan-info"><a [routerLink]='["/dieticianProfile",diet.idDietician]'>przygotował: {{diet.dieticianName}} {{diet.dieticianLastName}}</a> </div>
+                <div class="col plan-info"> 
+                <form >
+                    <input type="date" name="trainingDay" (change)="changeTrainingDayByCalendar()" [(ngModel)]="this.dateInputString" #trainingDay="ngModel" />
+                </form> </div>
+            
+            </div>
+            
+            
+                
+                
+               
+        </div>
+
+        </div>
+       
+    </div>
+    <div class="container-table">
+        <div class="days-container">
+            <div class="day" id="pn" (click)="changeTrainingDay(1,'pn')">Pn</div>
+            <div class="day" id="wt" (click)="changeTrainingDay(2,'wt')">Wt</div>
+            <div class="day" id="sr" (click)="changeTrainingDay(3,'sr')">Śr</div>
+            <div class="day" id="czw" (click)="changeTrainingDay(4,'czw')">Czw</div>
+            <div class="day" id="pt" (click)="changeTrainingDay(5,'pt')">Pt</div>
+            <div class="day" id="sob" (click)="changeTrainingDay(6,'sob')">Sob</div>
+            <div class="day" id="nd" (click)="changeTrainingDay(7,'nd')">Nd</div>
+        </div>
+        <table class="table"   *ngIf="dietMeals && dietMeals.length > 0">
+            <thead>
+                <tr>
+                    <th id="name-header">Nazwa</th>
+                    <th>Godzina posiłku</th>
+                    <th >Szczegóły</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let dietMeal of filteredDietMeals" >
+                    <td>{{dietMeal.name}}</td>
+                    <td>{{dietMeal.hourOfMeal}}</td>
+                    <td><a [routerLink]="['dietMeal',dietMeal.idMealDiet]" ><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
+                    
+                </tr>
+                <tr  *ngIf="filteredDietMeals.length<1" >
+                    <td></td>
+                    <td id="regen">Regeneracja</td>
+                    <td></td>
+                    
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="!dietMeals || dietMeals.length <=0" class="empty-paragraph">Ta dieta nie zawiera posiłków</p>
+    </div>
+</div>
