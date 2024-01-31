@@ -22,7 +22,8 @@ export class PupilDietDetailsComponent {
     type: '',
     endDate: new Date(),
     dieticianName: '',
-    dieticianLastName: ''
+    dieticianLastName: '',
+    totalKcal: 0,
   }
 
   formStartDate:string='';

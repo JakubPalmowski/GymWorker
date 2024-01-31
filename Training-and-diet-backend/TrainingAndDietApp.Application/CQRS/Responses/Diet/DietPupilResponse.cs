@@ -8,5 +8,7 @@ public class DietPupilResponse
         public DateTime EndDate { get; set; }
         public string DieticianName { get; set; }
         public string DieticianLastName { get; set; }
-}
+
+        public int TotalKcal { get; set; }
+    }
 }

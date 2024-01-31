@@ -1,5 +1,5 @@
 <div class="container">
-    <a (click)="back()">< Powrót</a>
+    <a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót</a>
     <div class="container-top">
         <div class="col-6">
             <form #form="ngForm" >
@@ -19,7 +19,7 @@
             <span class="button-create">Stwórz nowy posiłek +</span> </a>
     </div>
 
-    <div class="container-table">
+    <div class="container-table shadow">
         <table class="table"  *ngIf="DieteticianMeals">
             <thead>
                 <tr>

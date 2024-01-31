@@ -1,6 +1,6 @@
 <div class="">
-    <a [routerLink]='"/pupilDiets"'> < Powrót do listy diet</a>
-    <div class="container-slim">
+    <a [routerLink]='"/pupilDiets"' class="btn-primary button-back"><i class="bi bi-arrow-left"></i> Powrót do listy diet</a>
+    <div class="container-slim shadow">
         <div >
         <h3>
             Szczegóły diety: <br>
@@ -10,7 +10,8 @@
             <div class="row">
                 <div class="col plan-info">nazwa: {{diet.name}}</div>
                 <div class="col plan-info">wygasa: {{formEndDate}}</div>
-                <div class="col plan-infoo " ><img id="calendar-icon" src="../../../../assets/icons/calendar.png" /></div>
+                <div class="col plan-info " ><img id="calendar-icon" src="../../../../assets/icons/calendar.png" /></div>
+                
             </div>
             <div class="row">
                 
@@ -23,7 +24,7 @@
             
             </div>
             
-            
+            <div class="plan-info">Max. kcal dziennie: {{diet.totalKcal}}</div>
                 
                 
                
@@ -32,7 +33,7 @@
         </div>
        
     </div>
-    <div class="container-table">
+    <div class="container-table shadow">
         <div class="days-container">
             <div class="day" id="pn" (click)="changeTrainingDay(1,'pn')">Pn</div>
             <div class="day" id="wt" (click)="changeTrainingDay(2,'wt')">Wt</div>
