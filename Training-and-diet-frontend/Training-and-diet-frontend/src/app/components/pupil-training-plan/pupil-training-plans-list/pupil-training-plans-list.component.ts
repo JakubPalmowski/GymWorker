@@ -21,6 +21,7 @@ export class PupilTrainingPlansListComponent {
       next:(trainingPlans)=>{
         this.trainingPlans=trainingPlans;
         this.filteredTrainingPlans=this.trainingPlans;
+        
       },
       error: (response)=>{
         console.log(response);

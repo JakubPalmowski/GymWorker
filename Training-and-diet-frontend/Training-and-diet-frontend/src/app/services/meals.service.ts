@@ -34,19 +34,19 @@ export class MealsService {
   }
 
   addDietMeal(addDietMealRequest:NewMealDiet):Observable<NewMealDiet>{
-    return this.http.post<NewMealDiet>(environment.apiUrl+'unimplemented',addDietMealRequest);
+    return this.http.post<NewMealDiet>(environment.apiUrl+'MealDiet',addDietMealRequest);
   }
 
   editDietMeal(editDietMealRequest:NewMealDiet, idMeal:string):Observable<NewMealDiet>{
-    return this.http.put<NewMealDiet>(environment.apiUrl+'unimplemented'+idMeal,editDietMealRequest);
+    return this.http.put<NewMealDiet>(environment.apiUrl+'MealDiet/'+idMeal,editDietMealRequest);
   }
 
   deleteDietMeal(idMeal:string):Observable<string>{
-    return this.http.delete<string>(environment.apiUrl+'unimplemented/'+idMeal);
+    return this.http.delete<string>(environment.apiUrl+'MealDiet/'+idMeal);
   }
 
   getDietMealById(idMeal:string):Observable<EditDietMeal>{
-    return this.http.get<EditDietMeal>(environment.apiUrl+'unimplemented/'+idMeal);
+    return this.http.get<EditDietMeal>(environment.apiUrl+'MealDiet/Mentor/'+idMeal);
   }
 
 

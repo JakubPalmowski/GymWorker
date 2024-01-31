@@ -13,13 +13,13 @@
                 <tr >
                     <th>Nazwa</th>
                     <th>Nazwa robocza</th>
-                    <th>Długość planu(todo: ważny do)</th>
+                    <th>Ważny do</th>
                 </tr>
             </thead>
             <tr *ngFor="let diet of filteredDiets">
                 <td><a [routerLink]="['edit',diet.idDiet]">{{ diet.name}}</a></td>
                 <td><a [routerLink]="['edit',diet.idDiet]">{{ diet.customName}}</a></td>
-                <td><a [routerLink]="['edit',diet.idDiet]">{{ diet.endDate }}tyg.</a></td>
+                <td><a [routerLink]="['edit',diet.idDiet]">{{ this.getEndDate(diet.endDate) }}</a></td>
             </tr>
         </table>
         <p *ngIf="!diets || diets.length <=0" class="no-plans-message">Nie posiadasz diet</p>

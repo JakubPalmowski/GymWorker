@@ -8,7 +8,7 @@ export interface DietMentorGet{
     startDate:Date;
     endDate:Date;
     numberOfWeeks:number;
-    TotalKcal:number;
+    totalKcal:number;
     //na podstawie id Pupil z tabelki users
     pupilName:string;
     pupilLastName:string;

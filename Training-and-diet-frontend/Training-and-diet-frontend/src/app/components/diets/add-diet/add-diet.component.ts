@@ -20,7 +20,7 @@ export class AddDietComponent implements OnInit{
     type: '',
     startDate: new Date,
     numberOfWeeks: 0,
-    TotalKcal: 0
+    totalKcal: 0
   }
 
   dateToday:string='';
@@ -39,7 +39,7 @@ export class AddDietComponent implements OnInit{
       next:(diet)=>{
    
         console.log(localStorage.getItem('acessToken'));
-        this.router.navigate(['/training-plans']);
+        this.router.navigate(['/diet']);
       },
       error: (response)=>{
         console.log(response);
