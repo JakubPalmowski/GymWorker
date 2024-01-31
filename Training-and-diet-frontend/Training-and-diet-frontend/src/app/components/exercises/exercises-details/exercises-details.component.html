@@ -1,26 +1,25 @@
+<div>  <a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót</a></div>
 <div class="container">
-    <a (click)="back()">< Powrót</a>
-        <div class="top-container">
+  
+        <div class="top-container shadow">
               <div class="exercise-name">
                 <span class="span-bold name-text">{{exerciseData.name}}</span>
               </div>
           </div>
           <div class="bottom-container">
-            <div class="bottom-left-container">
+            <div class="bottom-left-container shadow">
               <span class="header-text">Sposób wykonania:</span>
               <span class="bio-text span-center">{{exerciseData.exerciseSteps}}</span>
             </div>
             
-            <div class="bottom-right-container">
+            <div class="bottom-right-container ">
 
-                <div class="bottom-right-details-container">
+                <div class="bottom-right-details-container shadow">
                     <span class="header-text">Opis ćwiczenia:<br></span>
                     <span class="bio-text span-center">{{exerciseData.details}}</span>
                 </div>
 
-                <div class="bottom-right-image-container">
-                 <img class="exercise-image" src="../../../../assets/icons/pompki.jpg">
-                </div>
+             
             </div>
           </div>
 </div>

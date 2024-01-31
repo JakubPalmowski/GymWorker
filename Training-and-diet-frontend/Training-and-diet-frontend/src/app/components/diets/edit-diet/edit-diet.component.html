@@ -1,6 +1,6 @@
 <div class="">
-    <a [routerLink]='"/diet"'> < Powrót do listy diet</a>
-    <div class="container-slim">
+    <a [routerLink]='"/diet"' class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy diet</a>
+    <div class="container-slim shadow">
         <div class="cointainer-header">
             <h3>Szczegóły diety</h3>
             <div class="assignContainer">
@@ -98,7 +98,7 @@
 
         </div>
     </div>
-    <div class="container-table">
+    <div class="container-table shadow">
         <div class="days-container">
             <div class="day" id="pn" (click)="changeDietDay(1,'pn')">Pn</div>
             <div class="day" id="wt" (click)="changeDietDay(2,'wt')">Wt</div>

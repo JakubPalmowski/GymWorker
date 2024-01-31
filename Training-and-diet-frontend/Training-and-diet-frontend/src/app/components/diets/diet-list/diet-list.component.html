@@ -1,5 +1,5 @@
 <div class="row d-flex justify-content-center">
-    <div class="container-head">
+    <div class="container-head shadow">
         <h3>Moje diety</h3>
         <button class="filter-button" type="button" (click)="filterResults(filter.value)">
             <img src="../../../../assets/icons/search.png" class="search-icon">
@@ -7,7 +7,7 @@
         
         <input class="filter-input" type="text" placeholder="Wyszukaj dietę" #filter>
     </div>
-    <div class="container-body">
+    <div class="container-body shadow">
         <table class="table" *ngIf="diets && diets.length > 0" >
             <thead >
                 <tr >

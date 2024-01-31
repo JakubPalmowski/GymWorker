@@ -1,6 +1,6 @@
 <div class="">
-    <a [routerLink]='"/pupilTrainingPlans"'> < Powrót do listy planów</a>
-    <div class="container-slim">
+    <a [routerLink]='"/pupilTrainingPlans"'class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy planów</a>
+    <div class="container-slim shadow">
         <div >
         <h3>
             Szczegóły planu: <br>
@@ -22,17 +22,13 @@
                 </form> </div>
             
             </div>
-            
-            
-                
-                
-               
         </div>
 
         </div>
        
     </div>
-    <div class="container-table">
+               
+    <div class="container-table shadow">
         <div class="days-container">
             <div class="day" id="pn" (click)="changeTrainingDay(1,'pn')">Pn</div>
             <div class="day" id="wt" (click)="changeTrainingDay(2,'wt')">Wt</div>

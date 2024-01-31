@@ -1,1 +1,36 @@
-<p>pupil-diet-meal-details works!</p>
+
+<div>
+    <a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i>  Powrót</a>
+<div class="container">
+
+        <div class="top-container shadow">
+              <div class="exercise-name">
+                <span class="span-bold name-text">{{dietMeal.mealName}}</span>
+              </div>
+          </div>
+          <div class="bottom-container">
+            <div class="bottom-left-container shadow">
+              <span class="header-text">Przepis:</span>
+              <span class="bio-text span-center">{{dietMeal.prepareSteps}}</span>
+            </div>
+            
+            <div class="bottom-right-container">
+
+                <div class="bottom-right-details-container shadow">
+                    <span class="header-text">Składniki: <br></span>
+                    <span class="bio-text span-center">{{dietMeal.ingredients}}</span>
+                </div>
+
+                <div class="bottom-right-info-container shadow">
+               
+                    
+                    <span class="bio-text span-center">Kaloryczność : </span>
+                    <span class="bio-text span-center">Kcal {{kcal}} <br> Białka: {{proteins}}g | Tłuszcze {{fats}}g | Węglowodany {{carbs}} <br><br></span>
+
+                    <span class="bio-text span-center">Komentarz dietetyka: </span>
+                    <span class="bio-text span-center">{{dietMeal.comments}}</span>
+                </div>
+            </div>
+          </div>
+</div>
+</div>

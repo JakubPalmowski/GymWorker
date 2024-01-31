@@ -1,5 +1,5 @@
 <div class="container">
-    <a (click)="back()">< Powrót</a>
+    <a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót</a>
     <div class="container-top">
         <button type="button" class="exercise-button" id="my-exercises" (click)="MyExercises()">Moje ćwiczenia</button>
         <button type="button" class="exercise-button" id="all-exercises" (click)="AllExercises()">Wszystkie ćwiczenia</button>
@@ -21,7 +21,7 @@
             <span class="button-create">Stwórz nowe ćwiczenie +</span> </a>
     </div>
 
-    <div class="container-table">
+    <div class="container-table shadow">
         <table class="table"  *ngIf="trainingPlanExercises ">
             <thead>
                 <tr>

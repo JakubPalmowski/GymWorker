@@ -1,5 +1,5 @@
 export interface DietMealPupilGet{
-    idDietMeal:number;
+    idMealDiet:number;
     idMeal:number;
     idDiet:number;
     comments:string;

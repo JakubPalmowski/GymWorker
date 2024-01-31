@@ -5,6 +5,7 @@ import { MealFull } from '../models/meal/meal-full.model';
 import { environment } from 'src/environments/environment';
 import { NewMealDiet } from '../models/diet/new-meal-diet.model';
 import { EditDietMeal } from '../models/diet/edit-diet-meal.model';
+import { DietMealPupilGet } from '../models/diet/diet-meal-pupil-get.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,10 @@ export class MealsService {
 
   getDietMealById(idMeal:string):Observable<EditDietMeal>{
     return this.http.get<EditDietMeal>(environment.apiUrl+'MealDiet/Mentor/'+idMeal);
+  }
+
+  getPupilDietMealById(idMeal:string):Observable<DietMealPupilGet>{
+    return this.http.get<DietMealPupilGet>(environment.apiUrl+'MealDiet/Pupil/'+idMeal);
   }
 
 

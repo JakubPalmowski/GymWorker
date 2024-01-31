@@ -6,4 +6,5 @@ export interface FullPupilDietGet{
     endDate:Date;
     dieticianName:string;
     dieticianLastName:string;
+    totalKcal:number;
 }

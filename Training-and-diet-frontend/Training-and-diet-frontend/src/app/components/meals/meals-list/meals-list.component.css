@@ -2,7 +2,7 @@
     width: 180px;
     height: 60px;
     background-color: #D9D9D9;
-    border: 1px solid black;
+    border: 1px solid #A6A6A6;
     border-radius: 10px;
     font-weight: bold;
     margin-right: 10px;
@@ -43,7 +43,7 @@
     padding: 5px 10px ;
     background-color: #52CE50;
     color:black;
-    border: 1px solid black;
+    border: 1px solid #A6A6A6;
     border-radius: 10px;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -71,7 +71,7 @@ table {
   }
   
 thead tr th {
-    border-bottom: 2px solid black; 
+    border-bottom: 1px solid #A6A6A6; 
     border-collapse: separate; 
     border-spacing: 5px 5px;
     padding: 10px;
@@ -106,8 +106,6 @@ td{
     background-color: #D9D9D9;
     width: 90%;
     padding-bottom: 10px;
-    border: 2px solid black;
-    border-radius: 10px 10px 10px 10px;
 }
 
 a{
