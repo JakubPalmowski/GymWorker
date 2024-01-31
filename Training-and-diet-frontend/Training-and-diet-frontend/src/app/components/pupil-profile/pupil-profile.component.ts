@@ -46,7 +46,8 @@ constructor(private route: ActivatedRoute, private userService: UserService, pri
               this.imageUrl = "assets/images/user.png";
             }
           },
-          error: (response) => {
+          error: () => {
+            this.router.navigateByUrl('/');
           }
         }
       );

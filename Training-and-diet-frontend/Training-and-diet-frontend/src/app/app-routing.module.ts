@@ -301,6 +301,10 @@ const routes: Routes = [
     component: MentorPupilsComponent,
     canActivate: [AuthGuard,RoleGuard('3','4','5')],
   },
+  {
+    path: '**',
+    redirectTo: '/'
+  }
   
   
 ];
