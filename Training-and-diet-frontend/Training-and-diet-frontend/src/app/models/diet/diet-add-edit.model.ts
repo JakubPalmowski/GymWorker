@@ -4,5 +4,5 @@ export interface DietAddEdit{
     type:string;
     startDate:Date;
     numberOfWeeks:number;
-    TotalKcal:number;
+    totalKcal:number;
 }

@@ -16,22 +16,26 @@ export class DietService {
   constructor(private http: HttpClient) { }
 
   getDieticianDiets():Observable<DietListDietician[]>{
-    return this.http.get<DietListDietician[]>(environment.apiUrl+'unimplemented');
+    return this.http.get<DietListDietician[]>(environment.apiUrl+'Diet/Dietician');
    }
 
    getDieticianDietById(idDiet:string):Observable<DietMentorGet>{
-    return this.http.get<DietMentorGet>(environment.apiUrl+'unimplemented/'+idDiet);
+    return this.http.get<DietMentorGet>(environment.apiUrl+'Diet/Mentor/'+idDiet);
    }
 
    addDiet(addDietRequest: DietAddEdit):Observable<DietAddEdit>{
-    return this.http.post<DietAddEdit>(environment.apiUrl+'unimplemented',addDietRequest);
+    return this.http.post<DietAddEdit>(environment.apiUrl+'Diet',addDietRequest);
   }
 
-  editDiet(editDietRequest: DietAddEdit,idTrainingPlan:string):Observable<DietAddEdit>{
-    return this.http.put<DietAddEdit>(environment.apiUrl+'unimplemented'+idTrainingPlan,editDietRequest);
+  editDiet(editDietRequest: DietAddEdit,idDiet:string):Observable<DietAddEdit>{
+    return this.http.put<DietAddEdit>(environment.apiUrl+'Diet/'+idDiet,editDietRequest);
   }
 
   getDietMealsByDietId(idDiet:string):Observable<MealDietMentorList[]>{
-    return this.http.get<MealDietMentorList[]>(environment.apiUrl+'unimplemented/'+idDiet);
+    return this.http.get<MealDietMentorList[]>(environment.apiUrl+'MealDiet/Meals/'+idDiet);
   }
+
+  assignDiet(dietId:string,pupilId:string){
+    return this.http.put(environment.apiUrl+'Diet/assignPupilToDiet/'+dietId,{  "idPupil": pupilId});
+ }
 }

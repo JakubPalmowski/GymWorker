@@ -18,9 +18,7 @@ export class EditDietComponent implements OnInit{
 
   filteredDietMeals:MealDietMentorList[]=[];
 
-  dietMeals:MealDietMentorList[]=[
-    {idMeal: 0, idMealDiet: 1, dayOfWeek: 1, hourOfMeal: '16:30', name: 'test'}
-  ];
+  dietMeals:MealDietMentorList[]=[];
  
   diet:DietMentorGet={
     idDiet: 0,
@@ -34,7 +32,7 @@ export class EditDietComponent implements OnInit{
     idPupil: 0,
     pupilName: '',
     pupilLastName: '',
-    TotalKcal: 0
+    totalKcal: 0
   }
 
   formStartDate:string='';
@@ -66,7 +64,7 @@ export class EditDietComponent implements OnInit{
           
           this.dietService.getDieticianDietById(this.idDiet).subscribe({
             next:(diet)=>{
-              console.log("get diet by id"+diet.toString());
+              console.log(diet);
               this.diet=diet;
              
               this.formStartDate=this.diet.startDate.toString().split('T')[0];
@@ -93,7 +91,7 @@ export class EditDietComponent implements OnInit{
   getDietMeals(id:string){
     this.dietService.getDietMealsByDietId(id).subscribe({
       next:(dietMeals)=>{
-      //  this.dietMeals=dietMeals;
+        this.dietMeals=dietMeals;
         this.changeDietDay(1,"pn");
 
       
@@ -189,9 +187,10 @@ export class EditDietComponent implements OnInit{
    }
  
    
-   deleteDietMeal(idExercise:number) {
+   deleteDietMeal(idMealDiet:number) {
      console.log("delete");
-     this.mealService.deleteDietMeal(idExercise.toString()).subscribe({
+     console.log(idMealDiet);
+     this.mealService.deleteDietMeal(idMealDiet.toString()).subscribe({
        next:(response)=>{
          console.log(response);
          this.deleteDialogFlag=false;

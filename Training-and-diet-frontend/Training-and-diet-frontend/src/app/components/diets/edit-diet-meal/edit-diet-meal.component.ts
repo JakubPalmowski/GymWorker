@@ -53,12 +53,14 @@ export class EditDietMealComponent implements OnInit{
     this.idMeal=this.route.snapshot.queryParams['mealId'];
     console.log("diet: "+this.idDiet);
     console.log("meal: "+this.idMeal);
+    
     if(id){
       this.idDietMeal=id;
-    this.mealServise.getDietMealById(this.idMeal).subscribe({
+      console.log("diet meal"+this.idDietMeal);
+    this.mealServise.getDietMealById(this.idDietMeal).subscribe({
       next:(meal)=>{
         this.newMealDietRequest=meal;
-        console.log(this.newMealDietRequest.name);
+        console.log(this.newMealDietRequest);
       },
       error: (response)=>{
 
@@ -89,7 +91,7 @@ export class EditDietMealComponent implements OnInit{
     this.newMealDietRequest.idDiet=parseInt(this.idDiet);
     const responseDiv = document.getElementById("edit-resp");
     
-    this.mealServise.addDietMeal(this.newMealDietRequest).subscribe({
+    this.mealServise.editDietMeal(this.newMealDietRequest,this.idDietMeal).subscribe({
       next:(newTrainingExercise)=>{
         this.router.navigate(['/diet/edit/'+this.idDiet]);
       },error:(response)=>{

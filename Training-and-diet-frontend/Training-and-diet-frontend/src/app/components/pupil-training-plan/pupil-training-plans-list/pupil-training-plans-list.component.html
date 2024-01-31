@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tr *ngFor="let trainingPlan of filteredTrainingPlans">
-                <td><a [routerLink]="['details',trainingPlan.idTrainingPlan]">{{ trainingPlan.name }}</a></td>
+                <td><a [routerLink]="['details',trainingPlan.idTrainingPlan]">{{ trainingPlan.name }}{{trainingPlan.idTrainingPlan}}</a></td>
                 <td><a [routerLink]="['/trainerProfile',trainingPlan.idTrainer]">{{ trainingPlan.trainerName}} {{trainingPlan.trainerLastName}}</a></td>
                 <td>{{ trainingPlan.endDate }}</td>
             </tr>

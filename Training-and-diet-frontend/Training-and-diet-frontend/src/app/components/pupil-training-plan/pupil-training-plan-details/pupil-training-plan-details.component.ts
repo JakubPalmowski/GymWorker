@@ -69,11 +69,12 @@ export class PupilTrainingPlanDetailsComponent {
           this.trainingPlanService.getExercisesByPlanId(id).subscribe({
             next:(trainingPlanExercises)=>{
               this.trainingPlanExercises=trainingPlanExercises;
-              this.changeTrainingDay(1,"pn");
+              //this.changeTrainingDay(1,"pn");
+              this.changeTrainingDayByCalendar();
 
             },
             error: (response)=>{
-              console.log("here"+response);
+              this.changeTrainingDayByCalendar();
             }
           })
         }
@@ -89,7 +90,7 @@ export class PupilTrainingPlanDetailsComponent {
     console.log(this.dateInputString);
     var date=new Date(this.dateInputString);
     var dayOfWeek=date.getDay() == 0? 7 : date.getDay();
-    console.log(dayOfWeek);
+    console.log("day:"+dayOfWeek);
     switch(dayOfWeek){
       case 1:
         this.changeTrainingDay(1,'pn');

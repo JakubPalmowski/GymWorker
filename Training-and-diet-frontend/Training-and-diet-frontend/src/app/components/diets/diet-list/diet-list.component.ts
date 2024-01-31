@@ -13,6 +13,8 @@ export class DietListComponent implements OnInit {
   diets:DietListDietician[]=[];
   filteredDiets:DietListDietician[]=[];
 
+
+
   constructor(private dietService:DietService, private authenticationService:AuthenticationService){}
 
   ngOnInit(): void {
@@ -38,6 +40,10 @@ export class DietListComponent implements OnInit {
     this.filteredDiets = this.diets.filter(
       diets => diets?.name.toLowerCase().includes(text.toLowerCase())
     );
+  }
+
+  getEndDate(date:Date){
+    return new Date(date).toISOString().split("T")[0];
   }
 
 }

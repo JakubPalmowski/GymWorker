@@ -4,8 +4,8 @@
         <div class="cointainer-header">
             <h3>Szczegóły diety</h3>
             <div class="assignContainer">
-                <p *ngIf="diet.idPupil!=0">Dieta przypisana do: {{diet.pupilName}} {{diet.pupilLastName}} <button  [routerLink]='"assignDiet"' class="assignPupilButton">Zmień</button></p>
-                <p *ngIf="diet.idPupil==0">Ta dieta nie jest przypisana do podopiecznego <button [routerLink]='"assignDiet"' class="assignPupilButton">Przypisz</button></p>
+                <p *ngIf="diet.idPupil!=null">Dieta przypisana do: {{diet.pupilName}} {{diet.pupilLastName}} <button  [routerLink]='"assignDiet"' class="assignPupilButton">Zmień</button></p>
+                <p *ngIf="diet.idPupil==null">Ta dieta nie jest przypisana do podopiecznego <button [routerLink]='"assignDiet"' class="assignPupilButton">Przypisz</button></p>
             </div> 
         </div>
         <div class="">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="startDate" class="form-label-custom">Data rozpoczęcia *</label><br>
-                    <input type="date" class="form-input" id="startDate" name="startDate" [(ngModel)]="diet.startDate"
+                    <input type="date" class="form-input" id="startDate" name="startDate" [(ngModel)]="this.formStartDate"
                     required min="{{this.dateToday}}" #startDate="ngModel">
                     <div *ngIf="startDate.errors?.['required'] && this.submitted" class="validation-error">
                         Pole jest wymagane
@@ -55,14 +55,14 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="numberOfWeeks" class="form-label-custom">Liczba dni *</label><br>
+                    <label for="numberOfWeeks" class="form-label-custom">Liczba tygodni *</label><br>
                     <input type="number" class="form-input" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="diet.numberOfWeeks" 
-                    required min="7" max="2000"  #numberOfWeeks="ngModel" >
+                    required min="1" max="2000"  #numberOfWeeks="ngModel" >
                     <div *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
                         Pole jest wymagane
                     </div>
                     <div *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
-                        Ilośc tygodni musi być większa lub równa 7
+                        Ilośc tygodni musi być większa od 0
                     </div>
                     <div *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
                         Ilość tygodni musi być mniejsza od 2000
@@ -71,7 +71,7 @@
 
                 <div class="mb-3">
                     <label for="totalKcal" class="form-label-custom">Max. dzienne kalorie *</label><br>
-                    <input type="number" class="form-input" id="totalKcal" name="totalKcal" [(ngModel)]="diet.TotalKcal" 
+                    <input type="number" class="form-input" id="totalKcal" name="totalKcal" [(ngModel)]="diet.totalKcal" 
                     required min="100" max="10000"  #totalKcal="ngModel" >
                     <div *ngIf="totalKcal.errors?.['required'] && this.submitted" class="validation-error">
                         Pole jest wymagane
@@ -131,7 +131,7 @@
                                 <button type="button" class="deleteDialogButton" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
                                 <button type="button" class="deleteDialogButton" id="deleteDialogButtonYes" (click)="deleteDietMeal(dietMeal.idMealDiet)">Usuń</button>
                             </div>
-                            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć ćwiczenia</p>
+                            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć posiłku</p>
                         </div>
                     
                     </div>

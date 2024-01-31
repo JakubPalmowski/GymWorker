@@ -49,14 +49,14 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="numberOfWeeks" class="form-label-custom">Liczba dni *</label><br>
+                    <label for="numberOfWeeks" class="form-label-custom">Liczba tygodni *</label><br>
                     <input type="number" class="form-input" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="addDietRequest.numberOfWeeks" 
-                    required min="7" max="2000"  #numberOfWeeks="ngModel" >
+                    required min="1" max="2000"  #numberOfWeeks="ngModel" >
                     <div *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
                         Pole jest wymagane
                     </div>
                     <div *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
-                        Ilośc tygodni musi być większa lub równa 7
+                        Ilośc tygodni musi być większa od 0
                     </div>
                     <div *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
                         Ilość tygodni musi być mniejsza od 2000
@@ -65,7 +65,7 @@
 
                 <div class="mb-3">
                     <label for="totalKcal" class="form-label-custom">Max. dzienne kalorie *</label><br>
-                    <input type="number" class="form-input" id="totalKcal" name="totalKcal" [(ngModel)]="addDietRequest.TotalKcal" 
+                    <input type="number" class="form-input" id="totalKcal" name="totalKcal" [(ngModel)]="addDietRequest.totalKcal" 
                     required min="100" max="10000"  #totalKcal="ngModel" >
                     <div *ngIf="totalKcal.errors?.['required'] && this.submitted" class="validation-error">
                         Pole jest wymagane

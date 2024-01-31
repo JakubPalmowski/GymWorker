@@ -121,7 +121,7 @@ const routes: Routes = [
   {
     path: 'pupilTrainingPlans/details/:id',
     component: PupilTrainingPlanDetailsComponent,
-    canActivate: [AuthGuard,,RoleGuard('2')],
+    canActivate: [AuthGuard,RoleGuard('2')],
   },  
   {
     path: 'pupilTrainingPlans/details/:id/training-exercise-details/:id',
