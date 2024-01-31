@@ -17,7 +17,7 @@
         </div>
 
         <div class="col-12 col-lg-6 d-flex justify-content-center justify-content-lg-end my-3 mb-lg-0"><ng-container *ngIf="role=='Dietician'||role=='Trainer'|| role=='Dietician-Trainer'">
-            <span class="fs-5 fw-bold" *ngIf="user.isAccepted==false">Status konta: <span class="text-danger">Niezweryfikowane</span></span>
+            <span class="fs-5 fw-bold text-center" *ngIf="user.isAccepted==false">Status konta: <span class="text-danger">Niezweryfikowane</span></span>
             <span class="fs-5 fw-bold text-center" *ngIf="user.isAccepted==true">Status konta: <span style="color: green;">Zweryfikowane</span></span>
         </ng-container></div>
 
@@ -74,14 +74,14 @@
             
             
     
-            <div class="col-12 col-lg-6group">
+            <div class="col-12 col-lg-6 group">
                 <label>Wzrost</label>
                 <input type="number" value="{{user.height}}" disabled>
             </div>
     
             <div class="col-12 col-lg-6 group">
                 <label>Data urodzenia</label>
-                <input type="date" value="{{user.dateOfBirth | date:'yyyy-MM-dd'}}" disabled>
+                <input type="text" value="{{user.dateOfBirth | date:'yyyy-MM-dd'}}" disabled>
             </div>
 
     

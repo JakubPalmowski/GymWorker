@@ -24,7 +24,7 @@ namespace TrainingAndDietApp.Domain.Entities
 
         [Column(TypeName = "varchar(15)")]
         public string? PhoneNumber { get; set; }
-        public string? EmailConfirmationToken { get; set; }
+
         [Column(TypeName = "decimal(5,2)")]
         public decimal? Weight { get; set; }
         [Column(TypeName = "decimal(5,2)")]
@@ -33,20 +33,20 @@ namespace TrainingAndDietApp.Domain.Entities
         public DateTime? DateOfBirth { get; set; }
         [Column(TypeName = "varchar(10)")]
         public string? Sex { get; set; }
-        [Column(TypeName = "varchar(500)")]
+        [Column(TypeName = "varchar(1500)")]
         public string? Bio { get; set; }
 
-        [Column(TypeName = "decimal(5,2)")]
+        [Column(TypeName = "decimal(7,2)")]
         public decimal? TrainingPlanPriceFrom { get; set; }
-        [Column(TypeName = "decimal(5,2)")]
+        [Column(TypeName = "decimal(7,2)")]
         public decimal? TrainingPlanPriceTo { get; set; }
-        [Column(TypeName = "decimal(5,2)")]
+        [Column(TypeName = "decimal(7,2)")]
         public decimal? PersonalTrainingPriceFrom { get; set; }
-        [Column(TypeName = "decimal(5,2)")]
+        [Column(TypeName = "decimal(7,2)")]
         public decimal? PersonalTrainingPriceTo { get; set; }
-        [Column(TypeName = "decimal(5,2)")]
+        [Column(TypeName = "decimal(7,2)")]
         public decimal? DietPriceFrom { get; set; }
-        [Column(TypeName = "decimal(5,2)")]
+        [Column(TypeName = "decimal(7,2)")]
         public decimal? DietPriceTo { get; set; }
         public bool IsAccepted { get; set; } = false;
 

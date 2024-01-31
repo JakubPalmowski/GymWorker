@@ -15,15 +15,10 @@ import { UserService } from 'src/app/services/user.service';
 export class MenuComponent implements OnInit{
 
 
-
-
-  showSidebar = false;
   isLoggedIn = false;
   userImage: string | undefined;
   role='';
-    toggleSidebar() {
-        this.showSidebar = !this.showSidebar;
-    }
+
  
   activeRoute: string = '';
   private firstSegmentSubscription: Subscription | undefined;

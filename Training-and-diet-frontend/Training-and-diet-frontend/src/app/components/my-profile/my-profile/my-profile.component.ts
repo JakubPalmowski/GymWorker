@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { catchError, forkJoin, of, switchMap } from 'rxjs';
+import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { PupilPersonalInfo } from 'src/app/models/my-profile/pupil-personal-info.model';
 import { TrainerPersonalInfo } from 'src/app/models/my-profile/trainer-personal-info.model';
 import { UserPersonalInfo } from 'src/app/models/my-profile/user-personal-info.model';
@@ -53,29 +53,23 @@ constructor(private userService: UserService, private gymService: GymService, pr
       this.userService.GetPupilPersonalInfo().subscribe(
         {
           next: (pupilInfo) => {
-            if (!pupilInfo) {
-              console.log('Wystąpił błąd podczas pobierania danych ucznia.');
-              return;
-            }
             this.user = pupilInfo;
             if (this.user.imageUri) {
-              this.fileService.getFile(this.user.imageUri).subscribe(
-                blob => {
+              this.fileService.getFile(this.user.imageUri).subscribe({
+                next: (blob) => {
                   if (blob) {
                     const objectUrl = URL.createObjectURL(blob);
                     this.imageUrl = objectUrl;
                   }
                 },
-                error => {
+                error: () => {
                   this.imageUrl = "assets/images/user.png";
                 }
+              }
               );
             } else {
               this.imageUrl = "assets/images/user.png";
             }
-          },
-          error: (response) => {
-            console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
           }
         }
       );
@@ -84,20 +78,17 @@ constructor(private userService: UserService, private gymService: GymService, pr
     else if (this.role == "Dietician") {
       forkJoin({
         dieticianInfo: this.userService.GetDieticianPersonalInfo(),
-        certificates: this.certificateService.GetUserCertificates() // Dodaj odpowiedni identyfikator, jeśli jest potrzebny
+        certificates: this.certificateService.GetUserCertificates()
       }).pipe(
         switchMap(({ dieticianInfo, certificates }) => {
-          if (!dieticianInfo) {
-            throw new Error('Wystąpił błąd podczas pobierania danych.');
-          }
+
           this.user = dieticianInfo;
-          this.user.certificates = certificates; // Przypisz certyfikaty do użytkownika
+          this.user.certificates = certificates; 
       
           const fileRequests = certificates.map(certificate => 
             this.fileService.getFile(certificate.pdfUri).pipe(
               catchError(error => {
-                console.log(`Błąd podczas pobierania pliku certyfikatu: ${certificate.pdfUri}`, error);
-                return of(null); // Zwraca null w przypadku błędu, aby forkJoin mógł kontynuować
+                return of(null);
               })
             )
           );
@@ -118,25 +109,22 @@ constructor(private userService: UserService, private gymService: GymService, pr
       ).subscribe({
         next: (responses) => {
           if(this.user && responses) {
-            const blobs = this.user.imageUri ? responses.slice(0, -1) : responses; // wszystkie pobrane bloby PDF, a jeśli jest obraz, ostatni blob to zdjęcie użytkownika
+            const blobs = this.user.imageUri ? responses.slice(0, -1) : responses;
             blobs.forEach((blob, index) => {
               if (blob && this.user) {
                 const objectUrl = URL.createObjectURL(blob);
-                this.user.certificates[index].pdfUrl = objectUrl; // Ustaw URL do pobrania
+                this.user.certificates[index].pdfUrl = objectUrl; 
               }
             });
       
             if (this.user.imageUri) {
-              const imageBlob = responses[responses.length - 1]; // ostatni blob to zdjęcie użytkownika
+              const imageBlob = responses[responses.length - 1];
               if (imageBlob) {
                 const objectUrl = URL.createObjectURL(imageBlob);
                 this.imageUrl = objectUrl;
               }
             }
           }
-        },
-        error: (response) => {
-          console.log('Wystąpił błąd podczas pobierania danych.', response);
         }
       });
       
@@ -148,18 +136,14 @@ constructor(private userService: UserService, private gymService: GymService, pr
         certificates: this.certificateService.GetUserCertificates() 
       }).pipe(
         switchMap(({ trainerInfo, gyms, certificates }) => {
-          if (!trainerInfo) {
-            throw new Error('Wystąpił błąd podczas pobierania danych.');
-          }
           this.user = trainerInfo;
           this.user.trainerGyms = gyms;
-          this.user.certificates = certificates; // Przypisz certyfikaty do użytkownika
+          this.user.certificates = certificates; 
       
           const fileRequests = certificates.map(certificate => 
             this.fileService.getFile(certificate.pdfUri).pipe(
               catchError(error => {
-                console.log(`Błąd podczas pobierania pliku certyfikatu: ${certificate.pdfUri}`, error);
-                return of(null); // Zwraca null w przypadku błędu, aby forkJoin mógł kontynuować
+                return of(null);
               })
             )
           );
@@ -180,25 +164,22 @@ constructor(private userService: UserService, private gymService: GymService, pr
       ).subscribe({
         next: (responses) => {
           if(this.user && responses) {
-            const blobs = this.user.imageUri ? responses.slice(0, -1) : responses; // wszystkie pobrane bloby PDF, a jeśli jest obraz, ostatni blob to zdjęcie użytkownika
+            const blobs = this.user.imageUri ? responses.slice(0, -1) : responses; 
             blobs.forEach((blob, index) => {
               if (blob && this.user) {
                 const objectUrl = URL.createObjectURL(blob);
-                this.user.certificates[index].pdfUrl = objectUrl; // Ustaw URL do pobrania
+                this.user.certificates[index].pdfUrl = objectUrl; 
               }
             });
       
             if (this.user.imageUri) {
-              const imageBlob = responses[responses.length - 1]; // ostatni blob to zdjęcie użytkownika
+              const imageBlob = responses[responses.length - 1]; 
               if (imageBlob) {
                 const objectUrl = URL.createObjectURL(imageBlob);
                 this.imageUrl = objectUrl;
               }
             }
           }
-        },
-        error: (response) => {
-          console.log('Wystąpił błąd podczas pobierania danych.', response);
         }
       });      
     }
@@ -209,9 +190,6 @@ constructor(private userService: UserService, private gymService: GymService, pr
         certificates: this.certificateService.GetUserCertificates()
       }).pipe(
         switchMap(({ dieticianTrainerInfo, gyms, certificates }) => {
-          if (!dieticianTrainerInfo) {
-            throw new Error('Wystąpił błąd podczas pobierania danych.');
-          }
           this.user = dieticianTrainerInfo;
           this.user.trainerGyms = gyms;
           this.user.certificates = certificates;
@@ -240,25 +218,22 @@ constructor(private userService: UserService, private gymService: GymService, pr
       ).subscribe({
         next: (responses) => {
           if(this.user && responses) {
-            const blobs = this.user.imageUri ? responses.slice(0, -1) : responses; // wszystkie pobrane bloby PDF, a jeśli jest obraz, ostatni blob to zdjęcie użytkownika
+            const blobs = this.user.imageUri ? responses.slice(0, -1) : responses; 
             blobs.forEach((blob, index) => {
               if (blob && this.user) {
                 const objectUrl = URL.createObjectURL(blob);
-                this.user.certificates[index].pdfUrl = objectUrl; // Ustaw URL do pobrania
+                this.user.certificates[index].pdfUrl = objectUrl; 
               }
             });
       
             if (this.user.imageUri) {
-              const imageBlob = responses[responses.length - 1]; // ostatni blob to zdjęcie użytkownika
+              const imageBlob = responses[responses.length - 1];
               if (imageBlob) {
                 const objectUrl = URL.createObjectURL(imageBlob);
                 this.imageUrl = objectUrl;
               }
             }
           }
-        },
-        error: (response) => {
-          console.log('Wystąpił błąd podczas pobierania danych.', response);
         }
       });
       

@@ -38,15 +38,12 @@ body, html{
     background-color:#3244A0;
 }
 
-.bg-btn-orange{
-    background-color: #FF8A00;
-}
 
 .container-fluid {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding-bottom: 50px; /* Wysokość stopki */
+    padding-bottom: 50px; 
 }
 
 .validation-error{
@@ -116,28 +113,7 @@ app-root {
     font-weight: bold;
 }
 
-.deleteDialog{
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    border: 2px solid black;
-    border-radius: 10px 10px 10px 10px;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 25px;
-}
 
-.deleteDialogButton {
-    gap: 10px;
-    margin-left: 30px;
-    border: 2px solid black;
-    border-radius: 10px 10px 10px 10px;
-    width: 80px;
-    height: 40px;
-    font-size: 22px;
-    background-color: #3244A0;
-    color: white;
-}
 
 
 
@@ -151,12 +127,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
  
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 
-/*admin*/
 
 .dialog-container {
   position: fixed;
@@ -228,9 +201,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: white;
     color: black;
 }
+.group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 
-
+span{
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 
 .group-admin-long-text label{
     padding-left: 2px;
@@ -254,30 +235,45 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     align-items: center;
 }
 
+.success-popup {
+  position: fixed; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 1000;
+  margin-left: 8vw;
+  margin-top: 30px;
+}
 
 .error-popup {
-    position: fixed;
-    top: 20px; 
-    left: 40%;
-    background-color: red; 
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    z-index: 1000;
-  }
+  position: fixed; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: red;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 1000;
+  margin-left: 8vw;
+  margin-top: 30px;
+}
 
-  .success-popup {
-    position: fixed; 
-    top: 20px; 
-    left: 47%;
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    z-index: 1000;
-  }
+
+
+
+@media (max-width: 1400px) {
+    .success-popup{
+        margin-left: 5vw;
+    }
+    .error-popup{
+        margin-left: 5vw;
+    }
+}
 
   .error-container{
     height: 15px;

@@ -1,5 +1,5 @@
 namespace TrainingAndDietApp.Application.CQRS.Responses.MealDiet{
-public class MealDietMentorListResponse
+public class MealDietListResponse
 {
     public int IdMealDiet { get; set; }
     public int IdMeal { get; set; }

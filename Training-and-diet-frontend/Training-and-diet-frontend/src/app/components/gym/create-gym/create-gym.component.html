@@ -18,8 +18,8 @@
 
         <div class="col-12 group">
             <div class="input-container">
-                <label>Nazwa siłowni</label>
-                <input type="text" [(ngModel)]="GymToCreate.name" name="name" #name="ngModel" required maxlength="100">
+                <label for="name">Nazwa siłowni *</label>
+                <input id="name" type="text" [(ngModel)]="GymToCreate.name" name="name" #name="ngModel" required maxlength="100">
                 <div class="error-container">
                     <span *ngIf="name.touched && name.errors?.['required']" class="validation-error">
                         Nazwa siłowni jest wymagana.
@@ -27,14 +27,17 @@
                     <span *ngIf="name.touched && name.errors?.['maxlength']" class="validation-error">
                         Nazwa siłowni może zawierać maksymalnie 100 znaków.
                     </span>
+                    <span *ngIf="fieldErrors['Name']" class="validation-error">
+                        {{ fieldErrors['Name'][0] }}
+                    </span>
                 </div>
             </div>
         </div>
         
         <div class="col-12 group">
             <div class="input-container">
-                <label>Miasto</label>
-                <input type="text" [(ngModel)]="GymToCreate.city" name="city" #city="ngModel" required maxlength="85">
+                <label for="city">Miasto *</label>
+                <input id="city" type="text" [(ngModel)]="GymToCreate.city" name="city" #city="ngModel" required maxlength="85">
                 <div class="error-container">
                     <span *ngIf="city.touched && city.errors?.['required']" class="validation-error">
                         Nazwa miasta jest wymagana.
@@ -42,14 +45,17 @@
                     <span *ngIf="city.touched && city.errors?.['maxlength']" class="validation-error">
                         Nazwa miasta może zawierać maksymalnie 85 znaków.
                     </span>
+                    <span *ngIf="fieldErrors['City']" class="validation-error">
+                        {{ fieldErrors['City'][0] }}
+                    </span>
                 </div>
             </div>
         </div>
         
         <div class="col-12 group">
             <div class="input-container">
-                <label>Ulica</label>
-                <input type="text" [(ngModel)]="GymToCreate.street" name="street" #street="ngModel" required maxlength="120">
+                <label for="street">Ulica *</label>
+                <input id="street" type="text" [(ngModel)]="GymToCreate.street" name="street" #street="ngModel" required maxlength="120">
                 <div class="error-container">
                     <span *ngIf="street.touched && street.errors?.['required']" class="validation-error">
                         Nazwa ulicy jest wymagana.
@@ -57,20 +63,26 @@
                     <span *ngIf="street.touched && street.errors?.['maxlength']" class="validation-error">
                         Nazwa ulicy może zawierać maksymalnie 120 znaków.
                     </span>
+                    <span *ngIf="fieldErrors['Street']" class="validation-error">
+                        {{ fieldErrors['Street'][0] }}
+                    </span>
                 </div>
             </div>
         </div>
         
         <div class="col-12 group">
             <div class="input-container">
-                <label>Kod pocztowy</label>
-                <input type="text" [(ngModel)]="GymToCreate.postalCode" name="postalCode" #postalCode="ngModel" required pattern="^\d{2}-\d{3}$">
+                <label for="postalCode">Kod pocztowy *</label>
+                <input id="postalCode" type="text" [(ngModel)]="GymToCreate.postalCode" name="postalCode" #postalCode="ngModel" required pattern="^\d{2}-\d{3}$">
                 <div class="error-container">
                     <span *ngIf="postalCode.touched && postalCode.errors?.['required']" class="validation-error">
                         Kod pocztowy jest wymagany.
                     </span>
                     <span *ngIf="postalCode.touched && postalCode.errors?.['pattern']" class="validation-error">
                         Nieprawidłowy format kodu pocztowego. Poprawny format to XX-XXX.
+                    </span>
+                    <span *ngIf="fieldErrors['PostalCode']" class="validation-error">
+                        {{ fieldErrors['PostalCode'][0] }}
                     </span>
                 </div>
             </div>
@@ -87,7 +99,8 @@
 
         <div class="col-12 mt-3"><h2>Moje prośby</h2></div>
 
-        <ng-container *ngIf="GymsAddedByUser && GymsAddedByUser.length > 0; else noGymsTemplate">
+        
+        <div *ngIf="GymsAddedByUser && GymsAddedByUser.length > 0; else noGymsTemplate">
             <table class="table table-admin table-striped">
                 <thead>
                     <tr>
@@ -113,7 +126,7 @@
                     </tr>
                 </tbody>
             </table>
-        </ng-container>
+        </div>
     <ng-template #noGymsTemplate>
         <div class="col-12">
           <span class="fs-4" style="margin-left: 5%;">Nie dodaleś jeszcze żadnej siłowni lub twoja prośba została odrzucona</span>

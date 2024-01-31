@@ -219,12 +219,12 @@ const routes: Routes = [
   {
     path: 'myProfile',
     component: MyProfileComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard('2','3','4','5')],
   },
   {
     path: 'myProfile/edit',
     component: MyProfileEditComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard('2','3','4','5')],
   },
   {
     path: 'createGym',
@@ -264,7 +264,7 @@ const routes: Routes = [
   {
     path: 'addCertificate', 
     component: CreateCertificateComponent,
-    canActivate: [AuthGuard,,RoleGuard('3','4','5')],
+    canActivate: [AuthGuard,RoleGuard('3','4','5')],
   },
   {
     path: 'admin/certificatedUsers/list/:status', 

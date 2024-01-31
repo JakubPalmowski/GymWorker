@@ -43,7 +43,7 @@ namespace TrainingAndDietApp.Presentation.Controllers
 
             return Ok();
     }
-        [Authorize(Roles = "4,5")]
+        [Authorize(Roles = "2,4,5")]
         [HttpGet("Meals/{idDiet}")]
         public async Task<IActionResult> GetDietMeals(int idDiet)
         {
@@ -80,7 +80,7 @@ namespace TrainingAndDietApp.Presentation.Controllers
         public async Task<IActionResult> DeleteMealDiet(int id)
         {
             var user = User.GetId()!.Value;
-            var query = new DeleteMealDietCommand(id, 2);
+            var query = new DeleteMealDietCommand(id, user);
             await _mediator.Send(query);
 
             return Ok();

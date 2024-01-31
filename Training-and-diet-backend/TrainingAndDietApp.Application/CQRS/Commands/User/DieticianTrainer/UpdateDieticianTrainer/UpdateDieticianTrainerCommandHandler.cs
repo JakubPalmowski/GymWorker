@@ -43,11 +43,8 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.DieticianTrainer.Upd
             }
             userToUpdate.Name = request.DieticianTrainerCommand.Name;
             userToUpdate.LastName = request.DieticianTrainerCommand.LastName;
-            if (request.DieticianTrainerCommand.Email != userToUpdate.Email)
-            {
-                userToUpdate.Email = request.DieticianTrainerCommand.Email;
-                userToUpdate.EmailConfirmationToken = null;
-            }
+            userToUpdate.Email = request.DieticianTrainerCommand.Email;
+
             var trainerGyms = await _gymRepository.GetMentorActiveGymsAsync(request.IdUser, cancellationToken);
             var newGyms = _mapper.Map<List<ActiveGymResponse>>(request.DieticianTrainerCommand.TrainerGyms);
             var existingGymIds = trainerGyms.Select(g => g.IdGym).ToList();

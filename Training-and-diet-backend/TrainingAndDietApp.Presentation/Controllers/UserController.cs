@@ -95,7 +95,7 @@ namespace Training_and_diet_backend.Controllers
 
 
         [Authorize(Roles = "3")]
-        [HttpPut("Trainer/{id}")]
+        [HttpPut("Trainer")]
         public async Task<IActionResult> UpdateTrainer([FromBody] UpdateTrainerCommand trainer)       
         {
             var user = this.User.GetId()!.Value;

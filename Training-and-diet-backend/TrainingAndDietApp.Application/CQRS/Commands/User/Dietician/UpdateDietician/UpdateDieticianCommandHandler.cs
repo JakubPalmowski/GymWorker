@@ -38,12 +38,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Dietician.UpdateDiet
             }
             userToUpdate.Name = request.DieticianCommand.Name;
             userToUpdate.LastName = request.DieticianCommand.LastName;
-
-            if (request.DieticianCommand.Email != userToUpdate.Email)
-            {
-                userToUpdate.Email = request.DieticianCommand.Email;
-                userToUpdate.EmailConfirmationToken = null;
-            }
+            userToUpdate.Email = request.DieticianCommand.Email;
             userToUpdate.PhoneNumber = request.DieticianCommand.PhoneNumber;
             userToUpdate.DietPriceFrom = request.DieticianCommand.DietPriceFrom;
             userToUpdate.DietPriceTo = request.DieticianCommand.DietPriceTo;

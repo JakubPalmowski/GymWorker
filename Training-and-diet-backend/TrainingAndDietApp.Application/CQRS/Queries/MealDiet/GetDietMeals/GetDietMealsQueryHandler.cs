@@ -8,7 +8,7 @@ using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.MealDiet.GetDietMeals
 {
-    public class GetDietMealsQueryHandler : IRequestHandler<GetDietMealsQuery, List<MealDietMentorListResponse>>
+    public class GetDietMealsQueryHandler : IRequestHandler<GetDietMealsQuery, List<MealDietListResponse>>
     {
         private readonly IMealDietRepository _mealDietRepository;
         private readonly IMapper _mapper;
@@ -22,15 +22,15 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.MealDiet.GetDietMeals
    
         }
 
-        public async Task<List<MealDietMentorListResponse>> Handle(GetDietMealsQuery request, CancellationToken cancellationToken)
+        public async Task<List<MealDietListResponse>> Handle(GetDietMealsQuery request, CancellationToken cancellationToken)
         {
             var diet = await _dietBaseRepository.GetByIdAsync(request.IdDiet, cancellationToken);
-            if(diet == null || diet.IdDietician != request.IdDietician)
+            if(diet == null || (diet.IdDietician != request.IdUser && diet.IdPupil != request.IdUser))
             {
                 throw new NotFoundException("Diet not found");
             }
             var meals = await _mealDietRepository.GetMealsByDietIdAsync(request.IdDiet, cancellationToken);
-            return _mapper.Map<List<MealDietMentorListResponse>>(meals);
+            return _mapper.Map<List<MealDietListResponse>>(meals);
         }
     }
 }

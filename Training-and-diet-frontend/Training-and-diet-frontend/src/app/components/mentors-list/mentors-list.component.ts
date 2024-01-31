@@ -132,8 +132,6 @@ export class MentorsListComponent implements OnInit{
                   mentorWithImage.imageSrc = objectURL;
                 }
               });
-            },
-            error: err => {
             }
           });
         }
@@ -179,14 +177,11 @@ export class MentorsListComponent implements OnInit{
                   mentorWithImage.imageSrc = objectURL;
                 }
               });
-            },
-            error: err => {
-  
             }
           });
         }
       },
-      error: (response)=>{
+      error: ()=>{
         this.isDataLoaded=false;
       }
     })
