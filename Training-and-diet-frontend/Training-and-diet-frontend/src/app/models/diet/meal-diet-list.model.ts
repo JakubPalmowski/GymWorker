@@ -1,4 +1,4 @@
-export interface MealDietMentorList{
+export interface MealDietList{
     idMealDiet:number;
     idMeal:number;
     dayOfWeek:number;

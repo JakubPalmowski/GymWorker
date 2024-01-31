@@ -128,8 +128,11 @@ goToMainPage() {
     }
 
     goToMyDiets() {
-     
+      if(!(this.activeRoute=='pupilDiets')){
+        this.router.navigateByUrl('pupilDiets');
       }
+    }
+      
 
     goToDiets() {
       if(!(this.activeRoute=='diet')){

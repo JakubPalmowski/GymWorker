@@ -61,6 +61,9 @@ import { ExerciseAdminDetailsComponent } from './components/admin/exercise/exerc
 import { ExerciseAdminEditComponent } from './components/admin/exercise/exercise-admin-edit/exercise-admin-edit/exercise-admin-edit.component';
 import { InvitationListComponent } from './components/invitation-list/invitation-list/invitation-list.component';
 import { MentorPupilsComponent } from './components/mentor-pupils/mentor-pupils/mentor-pupils.component';
+import { PupilDietListComponent } from './components/pupil-diet/pupil-diet-list/pupil-diet-list.component';
+import { PupilDietDetailsComponent } from './components/pupil-diet/pupil-diet-details/pupil-diet-details.component';
+import { PupilDietMealDetailsComponent } from './components/pupil-diet/pupil-diet-meal-details/pupil-diet-meal-details.component';
 
 
 
@@ -125,7 +128,10 @@ import { MentorPupilsComponent } from './components/mentor-pupils/mentor-pupils/
     ExerciseAdminDetailsComponent,
     ExerciseAdminEditComponent,
     InvitationListComponent,
-    MentorPupilsComponent
+    MentorPupilsComponent,
+    PupilDietListComponent,
+    PupilDietDetailsComponent,
+    PupilDietMealDetailsComponent
   ],
   imports: [
     AppRoutingModule,
