@@ -33,6 +33,8 @@ export class EditTrainingExerciseComponent implements OnInit{
   repetitions:string[]=[];
 
   submitted=false;
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
   
   previousUrl:string='';
   
@@ -106,21 +108,35 @@ export class EditTrainingExerciseComponent implements OnInit{
     this.newTrainingExerciseRequest.repetitionsNumber=this.repetitions.toString();
     const responseDiv = document.getElementById("edit-resp");
     
-    
+    this.fieldErrors = {};
+
     this.exerciseServise.editTrainingExercise(this.newTrainingExerciseRequest,this.id_training_exercise).subscribe({
       next:(newTrainingExercise)=>{
         this.router.navigate(['/training-plans/edit/'+this.id_training]);
       },
-      error:(response)=>{
-        console.log(response);
-        if(responseDiv){
-          responseDiv.innerHTML="Podczas edycji wystąpił błąd";
-          
-        }}
+      error:(error)=>{
+        console.log(error);
+        if(error.status===400){
+         const {errors} = error.error;
+         for(const key in errors){
+           if(errors.hasOwnProperty(key)){
+             this.fieldErrors[key] = errors[key]; 
+           }
+         }
+        }else{
+             this.errorFlag = "error";
+             this.showErrorPopup(this.errorFlag);
+             document.documentElement.scrollTop = 0;
+        }
+      }
     });
+  }
 
-    
-
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
   }
 
   back(){

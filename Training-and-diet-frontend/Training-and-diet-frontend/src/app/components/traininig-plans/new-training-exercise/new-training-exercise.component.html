@@ -1,6 +1,10 @@
 <a routerLink="/training-plans/exercise-list" [queryParams]="{id: id_training}" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do wyboru ćwiczenia</a>
 <div class="container-slim shadow">
+    <div *ngIf="errorFlag=='error'" class="error-popup">
+        Wystapił błąd podczas dodawania ćwiczenia do planu. Proszę spróbować ponownie.
+      </div>
     <h3>Dodawanie ćwiczenia: {{exercise.name}} do planu</h3>
+    
     <div class="row">
         <div class="container-form">
             <form  #form="ngForm" (ngSubmit)="onSubmit(form.valid)" >
@@ -13,6 +17,9 @@
                     </div>
                     <div *ngIf="seriesNumber.errors?.['max'] && this.submitted" class="validation-error">
                         Serii nie może być więcej niż 6
+                    </div>
+                    <div *ngFor="let error of fieldErrors['SeriesNumber']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
                 <div class="container-table">
@@ -106,6 +113,9 @@
                     <div *ngIf="comments.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole nie może zawierać więcej niż 300 znaków
                     </div>
+                    <div *ngFor="let error of fieldErrors['Comments']"  class="validation-error">
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label  for="day" class="form-label">Dzień tygodnia</label><br>
@@ -127,6 +137,9 @@
                     </div>
                     <div *ngIf="day.errors?.['required'] && this.submitted" class="validation-error">
                         Dzień tygodnia jest wymagany
+                    </div>
+                    <div *ngFor="let error of fieldErrors['DayOfWeek']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
 

@@ -16,6 +16,8 @@ import { TrainingPlanService } from 'src/app/services/training-plan.service';
 export class EditTrainingPlanComponent implements OnInit{
 
   submitted=false;
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
 
   trainingPlanExercisesTEMP:TrainingPlanExercise[]=[
    
@@ -109,6 +111,7 @@ export class EditTrainingPlanComponent implements OnInit{
     console.log(this.idTraining);
     const responseDiv = document.getElementById("edit-resp");
 
+    this.fieldErrors = {};
 
     this.trainingPlanService.editTrainingPlan(this.trainingPlan,this.idTraining).subscribe({
       next:(plan)=>{
@@ -117,13 +120,29 @@ export class EditTrainingPlanComponent implements OnInit{
         responseDiv.innerHTML="Edycja planu powiodła się";
         }
       },
-      error:(response)=>{
-        console.log(response);
-        if(responseDiv){
-          responseDiv.innerHTML="Podczas edycji wystąpił błąd";
-          
-        }}
+      error:(error)=>{
+        console.log(error);
+        if(error.status===400){
+         const {errors} = error.error;
+         for(const key in errors){
+           if(errors.hasOwnProperty(key)){
+             this.fieldErrors[key] = errors[key]; 
+           }
+         }
+        }else{
+             this.errorFlag = "error";
+             this.showErrorPopup(this.errorFlag);
+             document.documentElement.scrollTop = 0;
+        }
+      }
     });
+  }
+
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
   }
 
   onSubmit(valid:any)

@@ -17,7 +17,8 @@ export class MealsEditComponent implements OnInit{
 
   previousUrl:string='';
   submitted=false;
-
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
 
   editDieteticianMealRequest:MealFull={
     idMeal:0,
@@ -78,18 +79,34 @@ export class MealsEditComponent implements OnInit{
     this.editDieteticianMealRequest.kcal=this.mealKcal.kcal+","+this.mealKcal.proteins+","+this.mealKcal.fats+","+this.mealKcal.carbs;
     console.log(this.editDieteticianMealRequest);
     const responseDiv = document.getElementById("edit-resp");
+    this.fieldErrors = {};
     this.mealService.editDieteticianMeal(this.editDieteticianMealRequest,this.id_meal).subscribe({
       next:(meal)=>{
         this.location.back();
       },
-      error: (response)=>{
-        console.log(response);
-        if(responseDiv){
-          responseDiv.innerHTML="Podczas edycji wystąpił błąd";
-          
+      error: (error)=>{
+        console.log(error);
+       if(error.status===400){
+        const {errors} = error.error;
+        for(const key in errors){
+          if(errors.hasOwnProperty(key)){
+            this.fieldErrors[key] = errors[key]; 
+          }
         }
+       }else{
+            this.errorFlag = "error";
+            this.showErrorPopup(this.errorFlag);
+            document.documentElement.scrollTop = 0;
+       }
       }
     });
+  }
+
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
   }
 
   onSubmit(valid:any,form:Form){

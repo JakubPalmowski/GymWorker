@@ -34,6 +34,8 @@ export class EditDietMealComponent implements OnInit{
    
 
   submitted=false;
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
   
   previousUrl:string='';
 
@@ -90,20 +92,35 @@ export class EditDietMealComponent implements OnInit{
     this.newMealDietRequest.idMeal=parseInt(this.idMeal);
     this.newMealDietRequest.idDiet=parseInt(this.idDiet);
     const responseDiv = document.getElementById("edit-resp");
-    
+    this.fieldErrors = {};
     this.mealServise.editDietMeal(this.newMealDietRequest,this.idDietMeal).subscribe({
       next:(newTrainingExercise)=>{
         this.router.navigate(['/diet/edit/'+this.idDiet]);
-      },error:(response)=>{
-        console.log(response);
-        if(responseDiv){
-          responseDiv.innerHTML="Podczas edycji wystąpił błąd";
-          
+      },error:(error)=>{
+        console.log(error);
+        if(error.status===400){
+         const {errors} = error.error;
+         for(const key in errors){
+           if(errors.hasOwnProperty(key)){
+             this.fieldErrors[key] = errors[key]; 
+           }
+         }
+        }else{
+             this.errorFlag = "error";
+             this.showErrorPopup(this.errorFlag);
+             document.documentElement.scrollTop = 0;
         }
       }
     })
     
 
+  }
+
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
   }
 
   back(){

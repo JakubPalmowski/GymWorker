@@ -1,5 +1,8 @@
 <a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy ćwiczeń</a>
 <div class="container-slim shadow">
+    <div *ngIf="errorFlag=='error'" class="error-popup">
+        Wystapił błąd podczas edycji ćwiczenia. Proszę spróbować ponownie.
+      </div>
     <h3>Edycja ćwiczenia</h3> 
     <div class="row">
         <div class="container-form">
@@ -17,6 +20,9 @@
                     <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 50 znaków
                     </div>
+                    <div *ngFor="let error of fieldErrors['Name']"  class="validation-error">
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label-custom">Opis *</label><br>
@@ -33,6 +39,9 @@
                     <div *ngIf="description.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 200 znaków
                     </div>
+                    <div *ngFor="let error of fieldErrors['Details']"  class="validation-error">
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="steps" class="form-label-custom">Sposób wykonania *</label><br>
@@ -48,6 +57,9 @@
                     </div>
                     <div *ngIf="steps.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 300 znaków
+                    </div>
+                    <div *ngFor="let error of fieldErrors['ExerciseSteps']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
           

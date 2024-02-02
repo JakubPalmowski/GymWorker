@@ -2,6 +2,9 @@
     <a [routerLink]='"/diet"' class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy diet</a>
     <div class="container-slim shadow">
         <div class="cointainer-header">
+            <div *ngIf="errorFlag=='error'" class="error-popup">
+                Wystapił błąd podczas edycji diety. Proszę spróbować ponownie.
+              </div>
             <h3>Szczegóły diety</h3>
             <div class="assignContainer">
                 <p *ngIf="diet.idPupil!=null">Dieta przypisana do: {{diet.pupilName}} {{diet.pupilLastName}} <button  [routerLink]='"assignDiet"' class="assignPupilButton">Zmień</button></p>
@@ -23,6 +26,9 @@
                     <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 50 znaków
                     </div>
+                    <div *ngFor="let error of fieldErrors['Name']"  class="validation-error">
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="input-section">
                     <label for="customName" class="form-label-custom">Nazwa robocza </label><br>
@@ -31,16 +37,25 @@
                     <div *ngIf="customName.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 50 znaków
                     </div>
+                    <div *ngFor="let error of fieldErrors['CustomName']"  class="validation-error">
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="type" class="form-label-custom">Typ </label><br>
                     <input type="text" class="form-input" id="type" name="type" [(ngModel)]="diet.type"
-                    minlength="3" maxlength="50" #type="ngModel" >
+                   required minlength="3" maxlength="50" #type="ngModel" >
+                    <div *ngIf="type.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
                     <div *ngIf="type.errors?.['minlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać min 3 znaki
                     </div>
                     <div *ngIf="type.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 50 znaków
+                    </div>
+                    <div *ngFor="let error of fieldErrors['Type']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
                 <div class="mb-3">
@@ -51,7 +66,10 @@
                         Pole jest wymagane
                     </div>
                     <div *ngIf="startDate.errors?.['min'] && this.submitted" class="validation-error">
-                        TEST
+                        
+                    </div>
+                    <div *ngFor="let error of fieldErrors['StartDate']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
                 <div class="mb-3">
@@ -67,6 +85,9 @@
                     <div *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
                         Ilość tygodni musi być mniejsza od 2000
                     </div>
+                    <div *ngFor="let error of fieldErrors['NumberOfWeeks']"  class="validation-error">
+                        {{ error }}
+                    </div>
                 </div>
 
                 <div class="mb-3">
@@ -81,6 +102,9 @@
                     </div>
                     <div *ngIf="totalKcal.errors?.['max'] && this.submitted" class="validation-error">
                         Ilość kalorii musi być mniejsza od 10000
+                    </div>
+                    <div *ngFor="let error of fieldErrors['TotalKcal']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
 

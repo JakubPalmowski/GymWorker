@@ -1,5 +1,8 @@
 <a [routerLink]='"/training-plans"'class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy planów</a>
 <div class="container-slim shadow">
+    <div *ngIf="errorFlag=='error'" class="error-popup">
+        Wystapił błąd podczas dodawania planu. Proszę spróbować ponownie.
+      </div>
     <h3>Nowy plan</h3> 
     <div class="row">
         <div class="container-form">
@@ -17,6 +20,9 @@
                     <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 50 znaków
                     </div>
+                    <div *ngFor="let error of fieldErrors['Name']"  class="validation-error">
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="input-section">
                     <label for="customName" class="form-label-custom">Nazwa robocza </label><br>
@@ -25,16 +31,25 @@
                     <div *ngIf="customName.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 50 znaków
                     </div>
+                    <div *ngFor="let error of fieldErrors['CustomName']"  class="validation-error">
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="type" class="form-label-custom">Typ </label><br>
                     <input type="text" class="form-input" id="type" name="type" [(ngModel)]="addTrainingPlanRequest.type"
-                    minlength="3" maxlength="50" #type="ngModel" >
+                  required=""  minlength="3" maxlength="50" #type="ngModel" >
+                    <div *ngIf="type.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </div>
                     <div *ngIf="type.errors?.['minlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać min 3 znaki
                     </div>
                     <div *ngIf="type.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 50 znaków
+                    </div>
+                    <div *ngFor="let error of fieldErrors['Type']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
                 <div class="mb-3">
@@ -45,7 +60,10 @@
                         Pole jest wymagane
                     </div>
                     <div *ngIf="startDate.errors?.['min'] && this.submitted" class="validation-error">
-                        TEST
+                        
+                    </div>
+                    <div *ngFor="let error of fieldErrors['StartDate']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
                 <div class="mb-3">
@@ -60,6 +78,9 @@
                     </div>
                     <div *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
                         Ilość tygodni musi być mniejsza od 50
+                    </div>
+                    <div *ngFor="let error of fieldErrors['NumberOfWeeks']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
 

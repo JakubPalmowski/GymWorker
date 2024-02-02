@@ -33,6 +33,8 @@ export class NewDietMealComponent implements OnInit{
    
 
   submitted=false;
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
   
   
   constructor(private mealServise:MealsService, private route:ActivatedRoute,private router:Router){
@@ -78,16 +80,35 @@ export class NewDietMealComponent implements OnInit{
     this.newMealDietRequest.idMeal=parseInt(this.idMeal);
     this.newMealDietRequest.idDiet=parseInt(this.idDiet);
     
-    
+    this.fieldErrors = {};
     this.mealServise.addDietMeal(this.newMealDietRequest).subscribe({
       next:(newTrainingExercise)=>{
         this.router.navigate(['/diet/edit/'+this.idDiet]);
-      },error:(response)=>{
-        console.log(response);
+      },error:(error)=>{
+        console.log(error);
+        if(error.status===400){
+         const {errors} = error.error;
+         for(const key in errors){
+           if(errors.hasOwnProperty(key)){
+             this.fieldErrors[key] = errors[key]; 
+           }
+         }
+        }else{
+             this.errorFlag = "error";
+             this.showErrorPopup(this.errorFlag);
+             document.documentElement.scrollTop = 0;
+        }
       }
     })
     
 
+  }
+
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
   }
 
   back(){
