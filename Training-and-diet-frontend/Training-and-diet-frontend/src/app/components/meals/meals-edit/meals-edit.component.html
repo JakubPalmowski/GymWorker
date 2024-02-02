@@ -1,5 +1,8 @@
 <a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy potraw</a>
 <div class="container-slim shadow">
+    <div *ngIf="errorFlag=='error'" class="error-popup">
+        Wystapił błąd podczas edycji potrawy. Proszę spróbować ponownie.
+      </div>
     <h3>Edycja posiłku</h3> 
     <div class="row">
         <div class="container-form">
@@ -17,6 +20,9 @@
                     <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 50 znaków
                     </div>
+                    <div *ngFor="let error of fieldErrors['Name']"  class="validation-error">
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label-custom">Składniki</label><br>
@@ -31,6 +37,9 @@
                     <div *ngIf="ingredients.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 200 znaków
                     </div>
+                    <div *ngFor="let error of fieldErrors['Ingredients']"  class="validation-error">
+                        {{ error }}
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="steps" class="form-label-custom">Sposób przygotowania</label><br>
@@ -38,6 +47,9 @@
                     maxlength="300" #steps="ngModel"></textarea>
                     <div *ngIf="steps.errors?.['maxlength'] && this.submitted" class="validation-error">
                         Pole musi zawierać max 300 znaków
+                    </div>
+                    <div *ngFor="let error of fieldErrors['PrepareSteps']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
                 <div class="small-inputs">
@@ -101,6 +113,9 @@
                     </div>
                     <div *ngIf="carbs.errors?.['max'] && this.submitted" class="validation-error">
                         Max ilość węglowodanów to 1000
+                    </div>
+                    <div *ngFor="let error of fieldErrors['Kcal']"  class="validation-error">
+                        {{ error }}
                     </div>
                 </div>
             

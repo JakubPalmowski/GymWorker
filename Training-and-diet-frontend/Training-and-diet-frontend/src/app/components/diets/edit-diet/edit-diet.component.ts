@@ -13,7 +13,8 @@ import { MealsService } from 'src/app/services/meals.service';
 export class EditDietComponent implements OnInit{
 
   submitted=false;
-
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
 
 
   filteredDietMeals:MealDietList[]=[];
@@ -110,7 +111,7 @@ export class EditDietComponent implements OnInit{
     console.log(this.diet);
     console.log(this.idDiet);
     const responseDiv = document.getElementById("edit-resp");
-
+    this.fieldErrors = {};
 
     this.dietService.editDiet(this.diet,this.idDiet).subscribe({
       next:(diet)=>{
@@ -119,11 +120,19 @@ export class EditDietComponent implements OnInit{
         responseDiv.innerHTML="Edycja diety powiodła się";
         }
       },
-      error:(response)=>{
-        console.log(response);
-        if(responseDiv){
-          responseDiv.innerHTML="Podczas edycji wystąpił błąd";
-          
+      error:(error)=>{
+        console.log(error);
+        if(error.status===400){
+         const {errors} = error.error;
+         for(const key in errors){
+           if(errors.hasOwnProperty(key)){
+             this.fieldErrors[key] = errors[key]; 
+           }
+         }
+        }else{
+             this.errorFlag = "error";
+             this.showErrorPopup(this.errorFlag);
+             document.documentElement.scrollTop = 0;
         }}
     });
   }
@@ -139,7 +148,12 @@ export class EditDietComponent implements OnInit{
     }
   }
 
-
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
+  }
   
   filterDietDay(day:number){
     this.filteredDietMeals=this.dietMeals.filter(

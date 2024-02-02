@@ -16,6 +16,8 @@ export class AddTrainingPlanComponent implements OnInit{
   
 
   submitted=false;
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
 
   addTrainingPlanRequest: FullTrainingPlan={
     idTrainingPlan:0,
@@ -40,6 +42,9 @@ export class AddTrainingPlanComponent implements OnInit{
   //  console.log(this.addTrainingPlanRequest);
  //   console.log("plans before"+this.authenticationService.isTokenExpired());
    // console.log(localStorage,localStorage.getItem('acessToken'));
+
+   this.fieldErrors = {};
+
     this.trainingPlanService.addTrainingPlan(this.addTrainingPlanRequest).subscribe({
       next:(newTrainingPlan)=>{
       //  console.log(newTrainingPlan);
@@ -47,14 +52,30 @@ export class AddTrainingPlanComponent implements OnInit{
         console.log(localStorage,localStorage.getItem('acessToken'));
         this.router.navigate(['/training-plans']);
       },
-      error: (response)=>{
-        console.log(response);
-       // console.log("plans err"+this.authenticationService.isTokenExpired());
-      //  console.log(localStorage,localStorage.getItem('acessToken'));
+      error: (error)=>{
+        console.log(error);
+       if(error.status===400){
+        const {errors} = error.error;
+        for(const key in errors){
+          if(errors.hasOwnProperty(key)){
+            this.fieldErrors[key] = errors[key]; 
+          }
+        }
+       }else{
+            this.errorFlag = "error";
+            this.showErrorPopup(this.errorFlag);
+            document.documentElement.scrollTop = 0;
+       }
       }
     });
   }
 
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
+  }
 
 
   onSubmit(valid:any){

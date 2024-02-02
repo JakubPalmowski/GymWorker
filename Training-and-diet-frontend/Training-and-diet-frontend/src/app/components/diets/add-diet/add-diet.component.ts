@@ -13,6 +13,8 @@ export class AddDietComponent implements OnInit{
   
 
   submitted=false;
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
 
   addDietRequest: DietAddEdit={
     name: '',
@@ -33,16 +35,28 @@ export class AddDietComponent implements OnInit{
 
   }
 
-  addTrainingPlan(){
-
+  addDiet(){
+    this.fieldErrors = {};
     this.dietService.addDiet(this.addDietRequest).subscribe({
       next:(diet)=>{
    
         console.log(localStorage.getItem('acessToken'));
         this.router.navigate(['/diet']);
       },
-      error: (response)=>{
-        console.log(response);
+      error: (error)=>{
+        console.log(error);
+       if(error.status===400){
+        const {errors} = error.error;
+        for(const key in errors){
+          if(errors.hasOwnProperty(key)){
+            this.fieldErrors[key] = errors[key]; 
+          }
+        }
+       }else{
+            this.errorFlag = "error";
+            this.showErrorPopup(this.errorFlag);
+            document.documentElement.scrollTop = 0;
+       }
 
       }
     });
@@ -55,10 +69,17 @@ export class AddDietComponent implements OnInit{
     if(valid){
       console.log(this.addDietRequest);
       
-      this.addTrainingPlan();
+      this.addDiet();
       
     }
     
+  }
+
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
   }
 
 

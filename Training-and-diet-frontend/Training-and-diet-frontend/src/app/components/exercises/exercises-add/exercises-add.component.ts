@@ -16,6 +16,8 @@ import { from } from 'rxjs';
 export class ExercisesAddComponent implements OnInit{
 
   submitted=false;
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
   previousUrl:string='';
 
   addTrainerExerciseRequest: Exercise={
@@ -36,19 +38,38 @@ export class ExercisesAddComponent implements OnInit{
 
   addTrainerExercise(){
  
-    
+    this.fieldErrors = {};
+
     this.exerciseService.addTrainerExercise(this.addTrainerExerciseRequest).subscribe({
       next:(exercise)=>{
         this.router.navigateByUrl(this.previousUrl);
       },
-      error: (response)=>{
-        console.log(response);
+      error: (error)=>{
+        console.log(error);
+        if(error.status===400){
+         const {errors} = error.error;
+         for(const key in errors){
+           if(errors.hasOwnProperty(key)){
+             this.fieldErrors[key] = errors[key]; 
+           }
+         }
+        }else{
+             this.errorFlag = "error";
+             this.showErrorPopup(this.errorFlag);
+             document.documentElement.scrollTop = 0;
+        }
       }
     });
     
    
   }
 
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
+  }
 
   onSubmit(valid:any){
     this.submitted=true;

@@ -16,6 +16,8 @@ export class MealsAddComponent implements OnInit{
  
   previousUrl:string='';
   submitted=false;
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
 
   addDieteticianMealRequest:MealFull={
     idMeal:0,
@@ -44,13 +46,30 @@ ngOnInit(): void {
   addDieteticanMeal(){
 
      this.addDieteticianMealRequest.kcal+=this.mealKcal.kcal+","+this.mealKcal.proteins+","+this.mealKcal.fats+","+this.mealKcal.carbs; 
-    
+     if(this.mealKcal.kcal=='' || this.mealKcal.proteins=='' || this.mealKcal.fats=='' || this.mealKcal.carbs==''){
+      this.addDieteticianMealRequest.kcal='';
+     }
+
+     console.log("tst: "+this.addDieteticianMealRequest.kcal)
+     this.fieldErrors = {};
     this.mealService.addDieteticanMeal(this.addDieteticianMealRequest).subscribe({
       next:(meal)=>{
         this.location.back();
       },
-      error: (response)=>{
-        console.log(response);
+      error: (error)=>{
+        console.log(error);
+       if(error.status===400){
+        const {errors} = error.error;
+        for(const key in errors){
+          if(errors.hasOwnProperty(key)){
+            this.fieldErrors[key] = errors[key]; 
+          }
+        }
+       }else{
+            this.errorFlag = "error";
+            this.showErrorPopup(this.errorFlag);
+            document.documentElement.scrollTop = 0;
+       }
       }
     });
     
@@ -70,6 +89,12 @@ ngOnInit(): void {
     this.router.navigateByUrl(this.previousUrl);
   }
 
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
+  }
 
 
 
