@@ -11,6 +11,7 @@ namespace TrainingAndDietApp.Domain.Entities
         public int IdGym { get; set; }
 
         public int IdAddress { get; set; }
+        [Column(TypeName = "varchar(100)")]
         public string Name { get; set; }
         public bool IsAccepted { get; set; } = false;
         public int AddedBy { get; set; }

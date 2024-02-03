@@ -12,8 +12,10 @@ namespace TrainingAndDietApp.Domain.Entities
         [Column(TypeName = "varchar(50)")]
         [Required]
         public string Name { get; set; }
+        [Column(TypeName = "varchar(200)")]
         [Required]
         public string Details { get; set; }
+        [Column(TypeName = "varchar(300)")]
         [Required]
         public string ExerciseSteps { get; set; }
 

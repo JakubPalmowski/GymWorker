@@ -15,7 +15,7 @@ namespace TrainingAndDietApp.Domain.Entities
         public int? IdPupil { get; set; }
         [Column(TypeName = "Date")]
         public DateTime StartDate { get; set; }
-        //nowe
+        //nowe==
         [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
         //nowe

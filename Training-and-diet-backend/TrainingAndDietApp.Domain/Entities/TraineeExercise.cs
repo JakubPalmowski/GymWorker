@@ -10,7 +10,7 @@ namespace TrainingAndDietApp.Domain.Entities
         public int IdTraineeExercise { get; set; }
         public int SeriesNumber { get; set; }
         public string RepetitionsNumber { get; set; }
-        [Column(TypeName = "varchar(50)")]
+        [Column(TypeName = "varchar(200)")]
         public string? Comments { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
 

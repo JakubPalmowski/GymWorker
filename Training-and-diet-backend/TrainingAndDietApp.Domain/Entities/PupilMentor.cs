@@ -7,19 +7,15 @@ namespace TrainingAndDietApp.Domain.Entities
 {
     public class PupilMentor
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key, Column(Order = 0)]
-        [ForeignKey("Mentor")]
         public int IdMentor { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key, Column(Order = 1)]
-        [ForeignKey("Pupil")]
         public int IdPupil { get; set; }
+
         public bool IsAccepted { get; set; } = false;
 
+        [ForeignKey("IdMentor")]
         public virtual User Mentor { get; set; }
 
+        [ForeignKey("IdPupil")]
         public virtual User Pupil { get; set; }
     }
 }
