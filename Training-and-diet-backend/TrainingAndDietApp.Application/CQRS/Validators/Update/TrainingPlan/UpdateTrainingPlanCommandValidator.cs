@@ -21,6 +21,7 @@ public class UpdateTrainingPlanCommandValidator : AbstractValidator<UpdateTraini
             .MaximumLength(50).WithMessage("Typ planu treningowego musi zawierać maksymalnie 50 znaków.");
 
         RuleFor(trainingPlan => trainingPlan.NumberOfWeeks)
+            .NotNull().WithMessage("Liczba tygodni planu treningowego jest wymagana")
             .NotEmpty().WithMessage("Liczba tygodni planu treningowego jest wymagana")
             .GreaterThan(0).WithMessage("Liczba tygodni planu treningowego musi być większa od 0.")
             .LessThan(50).WithMessage("Liczba tygodni planu treningowego nie może być większa niż 50.");
