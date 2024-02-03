@@ -73,7 +73,9 @@ namespace TrainingAndDietApp.Application
 
             CreateMap<TrainingPlan, PupilTrainingPlanResponse>()
                 .ForMember(dest => dest.TrainerLastName, opt => opt.MapFrom(src => src.Trainer.LastName))
-                .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name));
+                .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name))
+                .ForMember(dest => dest.EndDate,
+                    opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
 
             CreateMap<TraineeExercise, PupilTraineeExerciseResponse>()
                 .ForMember(dest => dest.ExerciseName, opt => opt.MapFrom(src => src.Exercise.Name))
@@ -83,7 +85,8 @@ namespace TrainingAndDietApp.Application
             CreateMap<CreateTrainingPlanCommand, TrainingPlan>();
 
 
-            CreateMap<TrainingPlan, GetTrainerTrainingPlansResponse>();
+            CreateMap<TrainingPlan, GetTrainerTrainingPlansResponse>()
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
             CreateMap<User, UserResponse<User>>();
 
             CreateMap<CreateExerciseCommand, Exercise>();
@@ -97,7 +100,8 @@ namespace TrainingAndDietApp.Application
 
             CreateMap<TrainingPlan, GetPupilTrainingPlansResponse>()
                 .ForMember(dest => dest.TrainerLastName, opt => opt.MapFrom(src => src.Trainer.LastName))
-                .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name));
+                .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name))
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
 
 
 

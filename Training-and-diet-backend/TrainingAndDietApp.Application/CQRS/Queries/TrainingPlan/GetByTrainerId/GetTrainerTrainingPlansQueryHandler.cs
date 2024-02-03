@@ -23,6 +23,7 @@ public class GetTrainerTrainingPlansQueryHandler : IRequestHandler<GetTrainerTra
         if (!trainingPlans.Any())
             throw new NotFoundException("Trainer has no training plans");
 
+        
         return _mapper.Map<List<GetTrainerTrainingPlansResponse>>(trainingPlans);
 
     }
