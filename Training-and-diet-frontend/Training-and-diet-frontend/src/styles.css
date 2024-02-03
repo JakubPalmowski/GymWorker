@@ -162,6 +162,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-size: 24px;
 }
 
+.dialog-header-success{
+  background-color: #0051ff; 
+}
+
 .dialog-body {
   padding: 20px;
   font-size: 18px; 
@@ -362,6 +366,7 @@ span{
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
     font-size: 18px;
 }
+
 
 
 

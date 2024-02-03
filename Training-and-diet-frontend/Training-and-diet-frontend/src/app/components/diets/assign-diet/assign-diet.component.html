@@ -18,13 +18,13 @@
             </div>
         </div>
     </div>
-    <div class="deleteDialog" *ngIf="this.DialogFlag" >
-        <div class="delete-dialog-container">
-            <p *ngIf="!this.sucessFlag">Nie udało się przypisać</p>
-            <p *ngIf="this.sucessFlag">Udało się przypisać</p>
-            <div class="delete-dialog-buttons">
-                <button *ngIf="!this.sucessFlag" type="button" class="deleteDialogButton" id="deleteDialogButtonCancel" (click)="errorShown()">Ok</button>
-                <button *ngIf="this.sucessFlag" type="button" class="deleteDialogButton" id="deleteDialogButtonCancel" (click)="back()">Ok</button>
+    <div class="dialog-container" *ngIf="this.DialogFlag" >
+        <div class="dialog">
+            <p class="dialog-header" *ngIf="!this.sucessFlag">Nie udało się przypisać</p>
+            <p class="dialog-header dialog-header-success" *ngIf="this.sucessFlag">Udało się przypisać</p>
+            <div class="dialog-actions">
+                <button *ngIf="!this.sucessFlag" type="button" class="btn-alert" id="deleteDialogButtonCancel" (click)="errorShown()">Ok</button>
+                <button *ngIf="this.sucessFlag" type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="back()">Ok</button>
             </div>
         </div>
     
