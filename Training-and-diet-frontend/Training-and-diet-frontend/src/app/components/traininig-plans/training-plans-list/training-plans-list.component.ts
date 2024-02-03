@@ -40,4 +40,8 @@ export class TrainingPlansListComponent implements OnInit{
       trainingPlan => trainingPlan?.name.toLowerCase().includes(text.toLowerCase())
     );
   }
+
+  getEndDate(date:Date){
+    return new Date(date).toISOString().split("T")[0];
+  }
 }

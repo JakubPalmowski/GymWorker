@@ -6,5 +6,6 @@ export interface TrainingPlan{
     customName:string;
     startDate:Date;
     numberOfWeeks:number ;
+    endDate:Date;
     
 }

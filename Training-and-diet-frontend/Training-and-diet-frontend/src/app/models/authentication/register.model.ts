@@ -3,6 +3,5 @@ export interface Register{
     lastName:string;
     email:string;
     password:string;
-    phoneNumber:string;
     roleId:number;
 }
