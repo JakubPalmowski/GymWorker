@@ -11,7 +11,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Di.Update
         public string CustomName { get; set; }
         public string Type { get; set; }
         public DateTime StartDate { get; set; }
-        public int NumberOfWeeks { get; set; }
-        public int TotalKcal { get; set; }
+        public int? NumberOfWeeks { get; set; }
+        public int? TotalKcal { get; set; }
     }
 }
