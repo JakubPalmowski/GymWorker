@@ -16,10 +16,10 @@
                     <th>Ważna do</th>
                 </tr>
             </thead>
-            <tr *ngFor="let diet of filteredDiets">
-                <td><a [routerLink]="['edit',diet.idDiet]">{{ diet.name}}</a></td>
-                <td><a [routerLink]="['edit',diet.idDiet]">{{ diet.customName}}</a></td>
-                <td><a [routerLink]="['edit',diet.idDiet]">{{ this.getEndDate(diet.endDate) }}</a></td>
+            <tr *ngFor="let diet of filteredDiets" [routerLink]="['edit',diet.idDiet]">
+                <td>{{ diet.name}}</td>
+                <td>{{ diet.customName}}</td>
+                <td>{{ this.getEndDate(diet.endDate) }}</td>
             </tr>
         </table>
         <p *ngIf="!diets || diets.length <=0" class="no-plans-message">Nie posiadasz diet</p>
