@@ -11,7 +11,7 @@ public class PupilTrainingPlanResponse
     public int IdTrainingPlan { get; set; }
     public string Name { get; set; }
     public string Type { get; set; }
-    public DateTime? EndDate { get; set; }
+    public DateTime EndDate { get; set; }
     public int IdTrainer { get; set; }
     public string TrainerName { get; set; }
     public string TrainerLastName { get; set; }
