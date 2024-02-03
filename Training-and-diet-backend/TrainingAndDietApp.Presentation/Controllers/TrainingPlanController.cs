@@ -5,7 +5,6 @@ using Training_and_diet_backend.Extensions;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.AssignPupil;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.CreateTrainingPlan;
 using TrainingAndDietApp.Application.CQRS.Commands.TrainingPlan.UpdateTrainingPlan;
-using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById;
 using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById.Pupil;
 using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById.Trainer;
 using TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetByPupilId;
