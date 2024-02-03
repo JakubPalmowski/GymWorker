@@ -11,11 +11,12 @@ namespace TrainingAndDietApp.Domain.Entities
         public int IdMeal { get; set; }
 
         public int IdDietician { get; set; }
+        [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
+        [Column(TypeName = "varchar(200)")]
         public string Ingredients { get; set; }
+        [Column(TypeName = "varchar(300)")]
         public string PrepareSteps { get; set; }
-        public byte[]? Image { get; set; }
-
         public string Kcal { get; set; }
         [ForeignKey("IdDietician")]
         public virtual User Dietician { get; set; }

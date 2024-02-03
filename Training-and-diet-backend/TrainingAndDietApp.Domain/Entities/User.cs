@@ -16,6 +16,7 @@ namespace TrainingAndDietApp.Domain.Entities
         public string Name { get; set; }
         [Column(TypeName = "varchar(50)")]
         public string LastName { get; set; }
+        [Column(TypeName = "varchar(254)")]
         public string Email { get; set; }
         public string HashedPassword { get; set; }
         public string? RefreshToken { get; set; }

@@ -10,6 +10,7 @@ namespace TrainingAndDietApp.Domain.Entities
         [Key, Column(Order = 0)]
         public int IdCertificate { get; set; }
         public string PdfUri { get; set; }
+        [Column(TypeName = "varchar(200)")]
         public string Description { get; set; }
         public DateTime AddedDate { get; set; } = DateTime.UtcNow;
         public bool IsAccepted { get; set; } = false;

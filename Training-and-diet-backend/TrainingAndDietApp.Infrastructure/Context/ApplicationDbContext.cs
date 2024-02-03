@@ -365,7 +365,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
             modelBuilder.Entity<PupilMentor>().HasData(pupilMentor1, pupilMentor2);
             modelBuilder.Entity<PupilMentor>().HasKey(pm => new {Id_Mentor = pm.IdMentor, Id_Pupil = pm.IdPupil });
             modelBuilder.Entity<Opinion>().HasKey(o => new {Id_Pupil = o.IdPupil, Id_Mentor = o.IdMentor });
-            modelBuilder.Entity<TrainerGym>().HasKey(tg => new { tg.IdGym, tg.IdTrainer });
             modelBuilder.Entity<Role>().HasData(roles);
             base.OnModelCreating(modelBuilder);
         }

@@ -9,9 +9,13 @@ namespace TrainingAndDietApp.Domain.Entities
     {
 
         [ForeignKey("Pupil")]
+        [Key]
+        [Column(Order = 0)]
         public int IdPupil { get; set; }
 
         [ForeignKey("Mentor")]
+        [Key]
+        [Column(Order = 1)]
         public int IdMentor { get; set; }
 
         [Column(TypeName = "varchar(1000)")]
