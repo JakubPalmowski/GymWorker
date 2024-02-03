@@ -7,12 +7,7 @@ namespace TrainingAndDietApp.Domain.Entities
 {
     public class PupilMentor
     {
-        [Key]
-        [Column(Order = 0)]
         public int IdMentor { get; set; }
-
-        [Key]
-        [Column(Order = 1)]
         public int IdPupil { get; set; }
 
         public bool IsAccepted { get; set; } = false;
