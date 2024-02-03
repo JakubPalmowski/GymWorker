@@ -7,7 +7,7 @@ public class CreateTraineeExerciseCommand : IRequest<CreateTraineeExerciseRespon
     public int SeriesNumber { get; set; }
     public string RepetitionsNumber { get; set; }
     public string? Comments { get; set; }
-    public DayOfWeek DayOfWeek { get; set; }
+    public int DayOfWeek { get; set; }
     public int IdExercise { get; set; }
     public int IdTrainingPlan { get; set; }
 }
