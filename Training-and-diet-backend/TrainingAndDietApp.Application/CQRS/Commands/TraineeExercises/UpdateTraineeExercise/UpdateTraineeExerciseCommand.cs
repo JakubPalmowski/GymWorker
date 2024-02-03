@@ -15,7 +15,7 @@ public class UpdateTraineeExerciseCommand : IRequest
     public int SeriesNumber { get; set; }
     public string RepetitionsNumber { get; set; }
     public string? Comments { get; set; }
-    public DayOfWeek DayOfWeek { get; set; }
+    public int DayOfWeek { get; set; }
 }
 
 

@@ -16,7 +16,7 @@ public class UpdateTraineeExerciseCommandValidator : AbstractValidator<UpdateTra
 
         RuleFor(traineeExercise => traineeExercise.DayOfWeek)
             .NotEmpty().WithMessage("Dzień tygodnia planu treningowego jest wymagany.")
-            .IsInEnum().WithMessage("Dzień tygodnia planu treningowego jest nieprawidłowy.");
+            .InclusiveBetween(1, 7).WithMessage("Dzień tygodnia musi być w zakresie od 1 do 7.");
 
     }
 }

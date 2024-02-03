@@ -68,7 +68,7 @@ namespace Training_and_diet_backend.Controllers
     }
         [Authorize(Roles = "4,5")]
         [HttpPut("{idDiet}")]
-        public async Task<IActionResult> UpdateDiet([FromBody] CreateDietCommand command, int idDiet)
+        public async Task<IActionResult> UpdateDiet([FromBody] UpdateDietCommand command, int idDiet)
         {
             var user = User.GetId()!.Value;
             var query = new UpdateDietInternalCommand(idDiet, user, command);

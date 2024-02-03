@@ -14,10 +14,12 @@ public class CreateTraineeExerciseCommandValidator : AbstractValidator<CreateTra
         RuleFor(traineeExercise => traineeExercise.Comments)
             .MaximumLength(200).WithMessage("Komentarz do ćwiczenia może zawierać maksymalnie 200 znaków.");
 
-        RuleFor(traineeExercise => traineeExercise.DayOfWeek)
-            .NotEmpty().WithMessage("Dzień tygodnia planu treningowego jest wymagany.")
-            .IsInEnum().WithMessage("Dzień tygodnia planu treningowego jest nieprawidłowy.");
-        
+        RuleFor(command => command.DayOfWeek)
+            .NotEmpty().WithMessage("Dzień tygodnia jest wymagany.")
+            .InclusiveBetween(1, 7)
+            .WithMessage("Dzień tygodnia musi być w zakresie od 1 do 7.");
+
+
         RuleFor(traineeExercise => traineeExercise.IdExercise)
             .NotEmpty().WithMessage("Id ćwiczenia jest wymagane.")
             .GreaterThan(0).WithMessage("Id ćwiczenia musi być większe od 0.");
