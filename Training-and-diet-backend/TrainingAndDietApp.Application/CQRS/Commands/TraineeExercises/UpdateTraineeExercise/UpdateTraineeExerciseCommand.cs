@@ -4,7 +4,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.TraineeExercises.UpdateTr
 
 public class UpdateTraineeExerciseCommand : IRequest
 {
-    public UpdateTraineeExerciseCommand(int seriesNumber, string repetitionsNumber, string? comments, DayOfWeek dayOfWeek)
+    public UpdateTraineeExerciseCommand(int seriesNumber, string repetitionsNumber, string? comments, int dayOfWeek)
     {
         SeriesNumber = seriesNumber;
         RepetitionsNumber = repetitionsNumber;
