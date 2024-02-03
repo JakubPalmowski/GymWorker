@@ -1,37 +1,93 @@
-<div class="containerImg" *ngIf="role=='2'">
-    <div class="imageDiv">
-        <div class="imgLabel">Mój trening</div>
-        <a [routerLink]="'/pupilTrainingPlans'"><img src="../../../../assets/images/dumbell.jpg" alt="Moje plany" ></a>
-    </div>
+<div class="container-fluid pt-3 pt-lg-5" *ngIf="role=='2'">
+    <div class="row d-flex justify-content-between">
+        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+            <h2 class="w-100 text-center fw-bold">Mój trening</h2>
+            <a [routerLink]="'/pupilTrainingPlans'">
+                <img style="max-width: 100%;" src="../../../../assets/images/myWorkoutPupil.jpeg" alt="Mój trening">
+            </a>
+        </div>
 
-    <div class="imageDiv">
-        <div class="imgLabel">Moja dieta</div>
-        <a [routerLink]="'/pupilDiets'"><img src="../../../../assets/images/pupilsTraining.jpg" alt="Moi podopieczni"></a>
-    </div>
-</div>
-
-<div class="containerImg" *ngIf="role=='3' || role=='5'">
-    <div class="imageDiv">
-        <div class="imgLabel">Moje plany</div>
-        <a [routerLink]="'/training-plans'"> <img src="../../../../assets/images/dumbell.jpg" alt="Moje plany" ></a>
-    </div>
-
-    <div class="imageDiv">
-        <div class="imgLabel">Moi podopieczni</div>
-        <img src="../../../../assets/images/pupilsTraining.jpg" alt="Moi podopieczni">
+        <div class="col-12 col-lg-6">
+            <h2 class="w-100 text-center fw-bold">Moja dieta</h2>
+            <a [routerLink]="'/pupilDiets'">
+                <img style="max-width: 100%;" src="../../../../assets/images/myDietPupil.jpeg" alt="Moja dieta">
+            </a>
+        </div>
     </div>
 </div>
 
 
-<div class="containerImg" *ngIf="role=='4' || role=='5'">
-    <div class="imageDiv">
-        <div class="imgLabel">Moje diety</div>
-        <img src="../../../../assets/images/dumbell.jpg" alt="Moje plany" >
-    </div>
+<div class="container-fluid pt-3 pt-lg-5" *ngIf="role=='3'">
+    <div class="row d-flex justify-content-between">
+        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+            <h2 class="w-100 text-center fw-bold">Moje plany</h2>
+            <a [routerLink]="'/training-plans'">
+                <img style="max-width: 100%;" src="../../../../assets/images/myTrainingPlans.jpeg" alt="Moje plany">
+            </a>
+        </div>
 
-    <div class="imageDiv">
-        <div class="imgLabel">Moi podopieczni</div>
-        <img src="../../../../assets/images/pupilsTraining.jpg" alt="Moi podopieczni">
+        <div class="col-12 col-lg-6">
+            <h2 class="w-100 text-center fw-bold">Moi podopieczni</h2>
+            <a [routerLink]="'/myPupilsList'">
+                <img style="max-width: 100%;" src="../../../../assets/images/myPupilsTrainer.jpeg" alt="Moi podopieczni">
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid pt-3 pt-lg-5" *ngIf="role=='4'">
+    <div class="row d-flex justify-content-between">
+        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+            <h2 class="w-100 text-center fw-bold">Moje diety</h2>
+            <a [routerLink]="'/training-plans'">
+                <img style="max-width: 100%;" src="../../../../assets/images/myDietsDietician.jpeg" alt="Moje diety">
+            </a>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <h2 class="w-100 text-center fw-bold">Moi podopieczni</h2>
+            <a [routerLink]="'/myPupilsList'">
+                <img style="max-width: 100%;" src="../../../../assets/images/myPupilsDietician.jpeg" alt="Moi podopieczni">
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid pt-3 pt-lg-5" *ngIf="role=='5'">
+    <div class="row d-flex justify-content-between">
+        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+            <h2 class="w-100 text-center fw-bold">Moje plany</h2>
+            <a [routerLink]="'/training-plans'">
+                <img style="max-width: 100%;" src="../../../../assets/images/myTrainingPlans.jpeg" alt="Moje plany">
+            </a>
+        </div>
+
+        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+            <h2 class="w-100 text-center fw-bold">Moje diety</h2>
+            <a [routerLink]="'/training-plans'">
+                <img style="max-width: 100%;" src="../../../../assets/images/myDietsDietician.jpeg" alt="Moje diety">
+            </a>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <h2 class="w-100 text-center fw-bold mt-lg-3">Moi podopieczni</h2>
+            <a [routerLink]="'/myPupilsList'">
+                <img style="max-width: 100%;" src="../../../../assets/images/myPupilsDietician.jpeg" alt="Moi podopieczni">
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid pt-3 pt-lg-5" *ngIf="role=='1'">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+            <h2 class="w-100 text-center fw-bold">Panel administratora</h2>
+            <a [routerLink]="'/admin/gym/list/Active'">
+                <img style="max-width: 100%;" src="../../../../assets/images/myTrainingPlans.jpeg" alt="Panel administratora">
+            </a>
+        </div>
     </div>
 </div>
 
