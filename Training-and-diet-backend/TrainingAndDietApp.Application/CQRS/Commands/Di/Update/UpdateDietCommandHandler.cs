@@ -15,7 +15,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Di.Update
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public UpdateDietCommandHandler(IRepository<Domain.Entities.Diet> dietBaseRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateDietCommandHandler(IRepository<Diet> dietBaseRepository, IUnitOfWork unitOfWork, IMapper mapper)
        {
         _dietBaseRepository = dietBaseRepository;
         _unitOfWork = unitOfWork;

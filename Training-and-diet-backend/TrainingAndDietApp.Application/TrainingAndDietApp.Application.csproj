@@ -9,12 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="CQRS\Commands\Diet\**" />
-    <EmbeddedResource Remove="CQRS\Commands\Diet\**" />
-    <None Remove="CQRS\Commands\Diet\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="CQRS\Queries\Files\Download\" />
     <Folder Include="CQRS\Queries\TraineeExercise\GetById\Pupil\" />
     <Folder Include="CQRS\Responses\Files\" />
