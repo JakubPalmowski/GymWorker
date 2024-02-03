@@ -37,6 +37,7 @@ using TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateExercise;
 using TrainingAndDietApp.Application.CQRS.Queries.Opinion.GetOpinionById;
 using TrainingAndDietApp.Application.CQRS.Queries.User.Mentor.GetInvitations;
 using TrainingAndDietApp.Application.CQRS.Commands.Di.Create;
+using TrainingAndDietApp.Application.CQRS.Commands.Di.Update;
 using TrainingAndDietApp.Application.CQRS.Commands.MealDiet.Create;
 using TrainingAndDietApp.Application.CQRS.Commands.MealDiet.Update;
 using TrainingAndDietApp.Application.CQRS.Responses.MealDiet;
@@ -102,6 +103,13 @@ namespace TrainingAndDietApp.Application
                 .ForMember(dest => dest.TrainerLastName, opt => opt.MapFrom(src => src.Trainer.LastName))
                 .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name))
                 .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.StartDate.AddDays(src.NumberOfWeeks * 7)));
+
+            CreateMap<UpdateDietCommand, Diet>()
+                .ForMember(dest => dest.NumberOfWeeks, opt => opt.MapFrom(src => src.NumberOfWeeks))
+                .ForMember(dest => dest.CustomName, opt => opt.MapFrom(src => src.CustomName))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.TotalKcal, opt => opt.MapFrom(src => src.TotalKcal))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type));
 
 
 
