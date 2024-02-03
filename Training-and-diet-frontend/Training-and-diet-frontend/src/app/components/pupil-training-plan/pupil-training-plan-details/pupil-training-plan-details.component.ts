@@ -117,6 +117,9 @@ export class PupilTrainingPlanDetailsComponent {
         
   }
 
+  getEndDate(date:Date){
+    return new Date(date).toISOString().split("T")[0];
+  }
 
   defaultType(){
     if(this.trainingPlan.type==""){

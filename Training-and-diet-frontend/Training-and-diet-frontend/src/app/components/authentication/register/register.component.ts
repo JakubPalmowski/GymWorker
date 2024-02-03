@@ -13,13 +13,14 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   submitted=false;
   emailTaken=false;
+  fieldErrors: { [key: string]: string[] } = {};
+  errorFlag: string = "";
 
   registerRequest: Register={
     name:'',
     lastName:'',
     email:'',
     password:'',
-    phoneNumber:'',
     roleId:2
   }
 
@@ -44,16 +45,36 @@ export class RegisterComponent {
         this.router.navigateByUrl('');
         
       },
-      error:(response)=>{
+      error:(error)=>{
 
-        if(response.status==409){
+        if(error.status==409){
           this.emailTaken=true;
           console.log("email taken");
+        }
+        console.log(error);
+        if(error.status===400){
+         const {errors} = error.error;
+         for(const key in errors){
+           if(errors.hasOwnProperty(key)){
+             this.fieldErrors[key] = errors[key]; 
+           }
+         }
+        }else{
+             this.errorFlag = "error";
+             this.showErrorPopup(this.errorFlag);
+             document.documentElement.scrollTop = 0;
         }
       }
     }
     );
     
+  }
+
+  showErrorPopup(status: string) {
+    if(status == "error"){
+      setTimeout(() => this.errorFlag="", 3000); 
+    }
+  
   }
 
   onSubmit(valid:any){
