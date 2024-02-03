@@ -133,7 +133,7 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 IdPupil = 7,
                 IdMentor = 23,
                 Content =
-                    "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
+                    "zne, a jednocześnie przyjazne i motywująmocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
                 OpinionDate = new DateTime(2023, 10, 30),
                 Rate = 2
             };
@@ -147,68 +147,7 @@ namespace TrainingAndDietApp.Infrastructure.Context
                 Rate = 4
             };
 
-            var exercise = new Exercise
-            {
-                IdExercise = 1,
-                Name = "Pompki",
-                Details = "Podstawowe ćwiczenie siłowe, angażuje mięśnie klatki piersiowej, ramion i tricepsa.",
-                ExerciseSteps = "[{\"Step\": 1, \"Description\": \"Połóż się na podłodze na brzuchu, ręce ustawione nieco szerzej niż szerokość ramion.\"}, {\"Step\": 2, \"Description\": \"Wypnij się na rękach i naciskaj ciało do góry, wyprostowując ręce.\"}, {\"Step\": 3, \"Description\": \"Powoli wróć do pozycji wyjściowej, zginając ręce w łokciach.\"}]",
-                IdTrainer = 1
-            };
-
-            var exercise1 = new Exercise
-            {
-                IdExercise = 2,
-                Name = "Przysiady",
-                Details = "Ćwiczenie wzmacniające mięśnie nóg, pośladków i dolnej części pleców.",
-                ExerciseSteps = "Step1: Stań prosto, nogi ustawione na szerokość bioder Step 2:" +
-                                 " Opuszczaj biodra w dół, jakbyś siadał na niewidzialne krzesło " +
-                                 "Step: 3,Powoli wracaj do pozycji wyjściowej, naciskając pięty w podłogę.",
-                IdTrainer = 1
-            };
-
-            var exercise2 = new Exercise
-            {
-                IdExercise = 3,
-                Name = "Plank",
-                Details = "Ćwiczenie wzmacniające mięśnie brzucha, pleców i ramion.",
-                ExerciseSteps = "[{\"Step\": 1, \"Description\": \"Połóż się na brzuchu, opierając się na przedramionach i palcach u stóp.\"}, {\"Step\": 2, \"Description\": \"Utrzymuj prostą linię od głowy do pięt, napinając mięśnie brzucha.\"}, {\"Step\": 3, \"Description\": \"Utrzymuj tę pozycję przez określony czas.\"}]",
-                IdTrainer = null
-            };
-
-            var exercise3 = new Exercise
-            {
-                IdExercise = 14,
-                Name = "Przysiady",
-                Details = "Ćwiczenie wzmacniające mięśnie nóg i pośladków",
-                ExerciseSteps = "1. Stań w rozkroku i ugnij nogi w kolanach",
-                IdTrainer = null
-            };
-            var exercise4 = new Exercise
-            {
-                IdExercise = 15,
-                Name = "Pompki",
-                Details = "Ćwiczenie wzmacniające mięśnie piersiowe, pleców i rąk.",
-                ExerciseSteps = "W podporze przodem ugnij ręcę w łokciach",
-                IdTrainer = null
-            };
-            var exercise5 = new Exercise
-            {
-                IdExercise = 16,
-                Name = "Boczny plank",
-                Details = "Ćwiczenie wzmacniające mięśnie boczne tułowia oraz ramiona.",
-                ExerciseSteps = "Połóż się na boku i podnieś biodra, tworząc prostą linię od stóp do głowy.",
-                IdTrainer = null
-            };
-
-            var exercise6 = new Exercise
-            {
-                IdExercise = 17,
-                Name = "Plank z podnoszeniem nóg",
-                Details = "Ćwiczenie angażujące głębokie mięśnie brzucha oraz stabilizujące biodra.",
-                ExerciseSteps = "W pozycji planku na przedramionach, unieś na przemian każdą nogę.",
-                IdTrainer = null
-            };
+           
 
 
 
@@ -238,35 +177,6 @@ namespace TrainingAndDietApp.Infrastructure.Context
 
 
 
-            var traineeExercise = new TraineeExercise
-            {
-                IdTraineeExercise = 1,
-                SeriesNumber = 3,
-                RepetitionsNumber = "12",
-                DayOfWeek = DayOfWeek.Friday,
-                IdExercise = 1,
-                IdTrainingPlan = 1
-            };
-
-            var traineeExercise1 = new TraineeExercise
-            {
-                IdTraineeExercise = 2,
-                SeriesNumber = 4,
-                RepetitionsNumber = "10",
-                DayOfWeek = DayOfWeek.Monday,
-                IdExercise = 2,
-                IdTrainingPlan = 1
-            };
-
-            var traineeExercise2 = new TraineeExercise
-            {
-                IdTraineeExercise = 3,
-                SeriesNumber = 2,
-                RepetitionsNumber = "15",
-                DayOfWeek = DayOfWeek.Tuesday,
-                IdExercise = 3,
-                IdTrainingPlan = 2
-            };
 
             var pupilMentor1 = new PupilMentor
             {
@@ -359,9 +269,7 @@ namespace TrainingAndDietApp.Infrastructure.Context
             modelBuilder.Entity<Address>().HasData(address, address2, address3);
             modelBuilder.Entity<Opinion>().HasData(opinion, opinion2,opinion3,opinion4,opinion5,opinion6);
             modelBuilder.Entity<User>().HasData(user, user1, user2,user3, user4,user5,user6,user7,user8,user9,user10,user11,user12,user13,user14,user15,user16,user17,user18,user19,user20,user22,user23,user24, user25);
-            modelBuilder.Entity<Exercise>().HasData(exercise, exercise1, exercise2, exercise3, exercise4, exercise5, exercise6);
             modelBuilder.Entity<TrainingPlan>().HasData(trainingPlan, trainingPlan1);
-            modelBuilder.Entity<TraineeExercise>().HasData(traineeExercise, traineeExercise1, traineeExercise2);
             modelBuilder.Entity<PupilMentor>().HasData(pupilMentor1, pupilMentor2);
             modelBuilder.Entity<PupilMentor>().HasKey(pm => new {Id_Mentor = pm.IdMentor, Id_Pupil = pm.IdPupil });
             modelBuilder.Entity<Opinion>().HasKey(o => new {Id_Pupil = o.IdPupil, Id_Mentor = o.IdMentor });
