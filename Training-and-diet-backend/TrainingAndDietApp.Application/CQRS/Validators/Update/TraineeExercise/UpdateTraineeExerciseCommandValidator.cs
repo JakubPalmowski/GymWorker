@@ -8,7 +8,6 @@ public class UpdateTraineeExerciseCommandValidator : AbstractValidator<UpdateTra
     public UpdateTraineeExerciseCommandValidator()
     {
         RuleFor(traineeExercise => traineeExercise.SeriesNumber)
-            .NotEmpty().WithMessage("Ilość serii jest wymagana.")
             .GreaterThanOrEqualTo(0).WithMessage("Ilość serii musi być większa od 0.")
             .LessThan(6).WithMessage("Ilość serii nie może być większa niż 6.");
 
