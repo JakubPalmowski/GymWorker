@@ -130,12 +130,12 @@
                     <td><img (click)="openDeleteDialog(trainingPlanExercise.exerciseName)" src="../../../../assets/icons/delete.png" id="edit-icon"></td>
                     <td><a [routerLink]="['edit-training-exercise',trainingPlanExercise.idTraineeExercise]" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:trainingPlan.idTrainingPlan}"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
                     
-                    <div class="deleteDialog" *ngIf="this.deleteDialogFlag" >
-                        <div class="delete-dialog-container">
-                            <p>Czy na pewno chcesz usunąć ćwiczenie: {{trainingPlanExercise.exerciseName}}?</p>
-                            <div class="delete-dialog-buttons">
-                                <button type="button" class="deleteDialogButton" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
-                                <button type="button" class="deleteDialogButton" id="deleteDialogButtonYes" (click)="deleteExercise(trainingPlanExercise.idTraineeExercise)">Usuń</button>
+                    <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
+                        <div class="dialog">
+                            <p class="dialog-body">Czy na pewno chcesz usunąć ćwiczenie: {{trainingPlanExercise.exerciseName}}?</p>
+                            <div class="dialog-actions">
+                                <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
+                                <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteExercise(trainingPlanExercise.idTraineeExercise)">Usuń</button>
                             </div>
                             <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć ćwiczenia</p>
                         </div>
