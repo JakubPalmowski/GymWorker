@@ -21,6 +21,7 @@
     <Folder Include="CQRS\Validators\Create\TraineeExercise\" />
     <Folder Include="CQRS\Validators\Update\Exercise\" />
     <Folder Include="CQRS\Validators\Update\Meal\" />
+    <Folder Include="CQRS\Validators\Update\Diet\" />
   </ItemGroup>
 
   <ItemGroup>

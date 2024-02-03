@@ -20,10 +20,6 @@ public class UpdateTrainingPlanCommandValidator : AbstractValidator<UpdateTraini
             .MinimumLength(3).WithMessage("Typ planu treningowego musi zawierać minimum 3 znaki.")
             .MaximumLength(50).WithMessage("Typ planu treningowego musi zawierać maksymalnie 50 znaków.");
 
-        RuleFor(trainingPlan => trainingPlan.StartDate)
-            .NotEmpty().WithMessage("Data planu treningowego jest wymagana.")
-            .GreaterThanOrEqualTo(trainingPlan => DateTime.Now).WithMessage("Data rozpoczęcia planu treningowego nie może być wcześniejsza niż dziś.");
-
         RuleFor(trainingPlan => trainingPlan.NumberOfWeeks)
             .NotEmpty().WithMessage("Liczba tygodni planu treningowego jest wymagana")
             .GreaterThan(0).WithMessage("Liczba tygodni planu treningowego musi być większa od 0.")
