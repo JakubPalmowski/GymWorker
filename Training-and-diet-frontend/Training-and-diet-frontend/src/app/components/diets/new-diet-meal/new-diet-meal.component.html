@@ -1,64 +1,91 @@
-<a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do wyboru potrawy</a>
-<div class="container-slim shadow">
-    <div *ngIf="errorFlag=='error'" class="error-popup">
-        Wystapił błąd podczas dodawania potrawy do diety. Proszę spróbować ponownie.
-      </div>
-    <h3>Dodawanie potrawy: {{meal.name}} do diety</h3>
-    <div class="row">
-        <div class="container-form">
-            <form  #form="ngForm" (ngSubmit)="onSubmit(form.valid)" >
+
+<div *ngIf="errorFlag=='error'" class="error-popup">
+    Wystapił błąd podczas dodawania potrawy do diety. Proszę spróbować ponownie.
+  </div>
+
+  <div class="container-fluid">
+    <div class="row my-3">
+        <a (click)="back()" class="btn-primary w-auto" ><i class="bi bi-arrow-left"></i> Powrót do wyboru posiłku</a>
+    </div>
+    <div class="row bg-secondary rounded-div shadow">
+        <div class="col-12 bg-primary rounded-top-3 py-2">
+            <h1 class="text-center text-white">Dodawanie posiłku<br class="d-sm-none"> do diety</h1>
+            <h3 class="text-white text-center">{{meal.name}}</h3>
+        </div>
+
+
+    <form  #form="ngForm" (ngSubmit)="onSubmit(form.valid)" >
                 
                
               
-                <div class="mb-3">
-                    <label for="comments" class="form-label">Komentarz:</label><br>
-                    <textarea class="form-input" id="comments" name="comments" [(ngModel)]="newMealDietRequest.comments" maxlength="300" #comments="ngModel"></textarea>
-                    <div *ngIf="comments.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole nie może zawierać więcej niż 300 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['Comments']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label  for="day" class="form-label">Dzień tygodnia</label><br>
-                    <select type="day" required max="7" min="1" (change)="assignValue()" class="form-input" id="day" name="day" #day="ngModel"  [(ngModel)]="newMealDietRequest.dayOfWeek">
-                        <option value="1">Poniedziałek</option>
-                        <option value="2">Wtorek</option>
-                        <option value="3">Środa</option>
-                        <option value="4">Czwartek</option>
-                        <option value="5">Piątek</option>
-                        <option value="6">Sobota</option>
-                        <option value="7" >Niedziela</option>
-                    </select>
-                    <div *ngIf="day.errors?.['max'] && this.submitted" class="validation-error">
-                        Dzień tygodnia jest wymagany
-                    </div>
-                    <div *ngIf="day.errors?.['min'] && this.submitted" class="validation-error">
-                        Dzień tygodnia jest wymagany
-                    </div>
-                    <div *ngIf="day.errors?.['required'] && this.submitted" class="validation-error">
-                        Dzień tygodnia jest wymagany
-                    </div>
-                    <div *ngFor="let error of fieldErrors['DayOfWeek']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="time" class="form-label">Godzina posiłku:</label><br>
-                    <input type="time" class="form-input" id="time" name="time" [(ngModel)]="newMealDietRequest.hourOfMeal" #time="ngModel" required>
-                    <div *ngIf="time.errors?.['required'] && this.submitted" class="validation-error">
-                        Godzina posiłku jest wymagana
-                    </div>
-                    <div *ngFor="let error of fieldErrors['HourOfMeal']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-
-                <button type="submit" class="button-create">Dodaj</button>
-     
-            </form>
+        <div class="group col-12 mt-3">
+            <div class="input-container">
+            <label for="comments">Komentarz:</label>
+            <textarea id="comments" name="comments" [(ngModel)]="newMealDietRequest.comments" maxlength="300" #comments="ngModel"></textarea>
+            <div class="error-container">
+            <span *ngIf="comments.errors?.['maxlength'] && this.submitted" class="validation-error">
+                Pole nie może zawierać więcej niż 300 znaków
+            </span>
+            <span *ngFor="let error of fieldErrors['Comments']"  class="validation-error">
+                {{ error }}
+            </span>
         </div>
     </div>
+        </div>
+
+
+
+
+        <div class="group col-12 mt-3">
+            <div class="input-container">
+            <label  for="day">Dzień tygodnia *</label>
+            <select type="day" required max="7" min="1" (change)="assignValue()" id="day" name="day" #day="ngModel"  [(ngModel)]="newMealDietRequest.dayOfWeek">
+                <option value="1">Poniedziałek</option>
+                <option value="2">Wtorek</option>
+                <option value="3">Środa</option>
+                <option value="4">Czwartek</option>
+                <option value="5">Piątek</option>
+                <option value="6">Sobota</option>
+                <option value="7" >Niedziela</option>
+            </select>
+            <div class="error-container">
+            <span *ngIf="day.errors?.['max'] && this.submitted" class="validation-error">
+                Dzień tygodnia jest wymagany
+            </span>
+            <span *ngIf="day.errors?.['min'] && this.submitted" class="validation-error">
+                Dzień tygodnia jest wymagany
+            </span>
+            <span *ngIf="day.errors?.['required'] && this.submitted" class="validation-error">
+                Dzień tygodnia jest wymagany
+            </span>
+            <span *ngFor="let error of fieldErrors['DayOfWeek']"  class="validation-error">
+                {{ error }}
+            </span>
+        </div>
+    </div>
+        </div>
+
+
+        <div class="group col-12 mt-3">
+            <div class="input-container">
+            <label for="time">Godzina posiłku *</label>
+            <input type="time" id="time" name="time" [(ngModel)]="newMealDietRequest.hourOfMeal" #time="ngModel" required>
+            <div class="error-container">
+            <span *ngIf="time.errors?.['required'] && this.submitted" class="validation-error">
+                Godzina posiłku jest wymagana
+            </span>
+            <span *ngFor="let error of fieldErrors['HourOfMeal']"  class="validation-error">
+                {{ error }}
+            </span>
+        </div>
+    </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center mb-3">
+            <button type="submit" class="btn-confirm">Stwórz</button>
+        </div>
+
+    </form>
+
 </div>
+  </div>

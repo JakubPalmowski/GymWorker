@@ -23,7 +23,7 @@
       <div class="row mt-auto">
       <nav class="d-flex justify-content-center">
         <ul class="pagination">
-          <li class="page-item"><a class="page-link" [ngClass]="{'disabled': currentPage === 1}" (click)="goToPage(currentPage-1)" >Previous</a></li>
+          <li class="page-item"><a class="page-link" [ngClass]="{'disabled': currentPage === 1}" (click)="goToPage(currentPage-1)" >Poprzednia</a></li>
 
           <ng-container *ngIf="currentPage==totalPages && totalPages>=3">
             <li class="page-item"><a class="page-link" (click)="goToPage(currentPage-2)">{{currentPage-2}}</a></li>
@@ -44,7 +44,7 @@
         </ng-container>
         
 
-          <li class="page-item"><a class="page-link" [ngClass]="{'disabled': currentPage === totalPages}" (click)="goToPage(currentPage+1)">Next</a></li>
+          <li class="page-item"><a class="page-link" [ngClass]="{'disabled': currentPage === totalPages}" (click)="goToPage(currentPage+1)">Następna</a></li>
         </ul>
       </nav>
     </div>

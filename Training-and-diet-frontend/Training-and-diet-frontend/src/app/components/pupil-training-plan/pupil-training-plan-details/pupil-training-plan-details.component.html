@@ -1,66 +1,58 @@
-<div class="">
-    <a [routerLink]='"/pupilTrainingPlans"'class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy planów</a>
-    <div class="container-slim shadow">
-        <div >
-        <h3>
-            Szczegóły planu: <br>
-            
-        </h3>
-        <div class="container plan-details">
-            <div class="row">
-                <div class="col plan-info">nazwa: {{trainingPlan.name}}</div>
-                <div class="col plan-info">wygasa: {{getEndDate(trainingPlan.endDate)}}</div>
-                <div class="col plan-infoo " ><img id="calendar-icon" src="../../../../assets/icons/calendar.png" /></div>
-            </div>
-            <div class="row">
-                
-                <div class="col plan-info" id="type">typ: {{trainingPlan.type}}</div>
-                <div class="col plan-info"><a [routerLink]='["/trainerProfile",trainingPlan.idTrainer]'>przygotował: {{trainingPlan.trainerName}} {{trainingPlan.trainerLastName}}</a> </div>
-                <div class="col plan-info"> 
-                <form >
-                    <input type="date" name="trainingDay" (change)="changeTrainingDayByCalendar()" [(ngModel)]="this.dateInputString" #trainingDay="ngModel" />
-                </form> </div>
-            
-            </div>
+<div class="container-fluid">
+    <div class="row my-3">
+        <a [routerLink]='"/pupilTrainingPlans"' class="btn-primary w-auto" ><i class="bi bi-arrow-left"></i> Powrót do listy planów</a>
+</div>
+    <div class="row bg-secondary rounded-div shadow">
+        <div class="col-12 bg-primary rounded-top-3 py-2">
+            <h1 class="text-center text-white">Szczegóły planu</h1>
         </div>
+        <div class="col-lg-8 col-md-7 d-flex flex-column justify-content-center px-4 py-3">
+            <span class="fs-4 fw-bold">Nazwa: <span class="fw-normal">{{trainingPlan.name}}</span></span>
+            <span class="fs-4 fw-bold">Typ: <span class="fw-normal">{{trainingPlan.type}}</span></span>
+            <span class="fs-4 fw-bold">Data zakończenia: <span class="fw-normal">{{getEndDate(trainingPlan.endDate)}}</span></span>
+            <span class="fs-4 fw-bold">Przygotował: <span class="fw-normal" style="cursor: pointer;" [routerLink]="['/trainerProfile',trainingPlan.idTrainer]">{{trainingPlan.trainerName}} {{trainingPlan.trainerLastName}}</span></span>
+        </div>
+        <div class="col-lg-4 col-md-5 d-flex flex-column align-items-center justify-content-center py-3">
+            <i class="fa-regular fa-calendar-days mb-3" style="color: #000000; font-size: 50px;"></i>
+            <form>
+                <input type="date" name="trainingDay" (change)="changeTrainingDayByCalendar()" [(ngModel)]="this.dateInputString" #trainingDay="ngModel" class="form-control" />
+            </form>
+        </div>
+    </div>
+    
 
-        </div>
-       
+    <div class="row mt-3 bg-secondary shadow rounded-top-3 days">
+        <span class="col-12 d-sm-none text-center" id="pn" (click)="changeTrainingDay(1,'pn')">Poniedziałek</span>
+        <span class="col-12 d-sm-none text-center" id="wt" (click)="changeTrainingDay(2,'wt')">Wtorek</span>
+        <span class="col-12 d-sm-none text-center" id="sr" (click)="changeTrainingDay(3,'sr')">Środa</span>
+        <span class="col-12 d-sm-none text-center" id="czw" (click)="changeTrainingDay(4,'czw')">Czwartek</span>
+        <span class="col-12 d-sm-none text-center" id="pt" (click)="changeTrainingDay(5,'pt')">Piątek</span>
+        <span class="col-12 d-sm-none text-center" id="sob" (click)="changeTrainingDay(6,'sob')">Sobota</span>
+        <span class="col-12 d-sm-none text-center" id="nd" (click)="changeTrainingDay(7,'nd')">Niedziela</span>
+    
+        <span class="col-sm d-none d-sm-block text-center" id="pn-sm" (click)="changeTrainingDay(1,'pn-sm')">Pn</span>
+        <span class="col-sm d-none d-sm-block text-center" id="wt-sm" (click)="changeTrainingDay(2,'wt-sm')">Wt</span>
+        <span class="col-sm d-none d-sm-block text-center" id="sr-sm" (click)="changeTrainingDay(3,'sr-sm')">Śr</span>
+        <span class="col-sm d-none d-sm-block text-center" id="czw-sm" (click)="changeTrainingDay(4,'czw-sm')">Czw</span>
+        <span class="col-sm d-none d-sm-block text-center" id="pt-sm" (click)="changeTrainingDay(5,'pt-sm')">Pt</span>
+        <span class="col-sm d-none d-sm-block text-center" id="sob-sm" (click)="changeTrainingDay(6,'sob-sm')">Sob</span>
+        <span class="col-sm d-none d-sm-block text-center" id="nd-sm" (click)="changeTrainingDay(7,'nd-sm')">Nd</span> 
     </div>
-               
-    <div class="container-table shadow">
-        <div class="days-container">
-            <div class="day" id="pn" (click)="changeTrainingDay(1,'pn')">Pn</div>
-            <div class="day" id="wt" (click)="changeTrainingDay(2,'wt')">Wt</div>
-            <div class="day" id="sr" (click)="changeTrainingDay(3,'sr')">Śr</div>
-            <div class="day" id="czw" (click)="changeTrainingDay(4,'czw')">Czw</div>
-            <div class="day" id="pt" (click)="changeTrainingDay(5,'pt')">Pt</div>
-            <div class="day" id="sob" (click)="changeTrainingDay(6,'sob')">Sob</div>
-            <div class="day" id="nd" (click)="changeTrainingDay(7,'nd')">Nd</div>
-        </div>
-        <table class="table"   *ngIf="trainingPlanExercises && trainingPlanExercises.length > 0">
-            <thead>
-                <tr>
-                    <th id="name-header">Nazwa</th>
-                    <th>Serie i powtórzenia</th>
-                    <th >Szczegóły</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr  *ngFor="let trainingPlanExercise of filteredTrainingPlanExercises" >
-                    <td>{{trainingPlanExercise.exerciseName}}</td>
-                    <td>{{trainingPlanExercise.seriesNumber}}s x {{trainingPlanExercise.repetitionsNumber}} powt.</td>
-                    <td><a [routerLink]="['training-exercise-details/',trainingPlanExercise.idTraineeExercise]" ><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
-                    
-                </tr>
-                <tr  *ngIf="filteredTrainingPlanExercises.length<1" >
-                    <td></td>
-                    <td id="regen">Regeneracja</td>
-                    <td></td>
-                    
-                </tr>
-            </tbody>
-        </table>
-        <p *ngIf="!trainingPlanExercises || trainingPlanExercises.length <=0" class="empty-paragraph">Ten plan treningowy nie zawiera ćwiczeń</p>
+    <div class="row bg-secondary shadow head fs-5">
+        <span class="col-12 col-lg-5 fw-bold ps-lg-3 d-flex justify-content-center justify-content-lg-start">Nazwa</span>
+        <span class="col-12 col-lg-5 fw-bold d-flex justify-content-center justify-content-lg-start">Serie i powtórzenia</span>
+        <div class="col-12 px-0 col-lg-2 fw-bold d-flex justify-content-center justify-content-lg-start pe-lg-3"><span class="w-100 text-center">Szczegóły</span></div>
     </div>
+    <div class="row bg-secondary rounded-bottom-3 shadow details fs-5">
+        <ng-container *ngFor="let trainingPlanExercise of filteredTrainingPlanExercises">
+            <span class="col-lg-5 my-lg-1 ps-2 d-flex align-items-center first">{{trainingPlanExercise.exerciseName}}</span>
+            <span class="col-lg-5 my-lg-1 d-flex align-items-center">{{trainingPlanExercise.seriesNumber}}s x {{trainingPlanExercise.repetitionsNumber}} powt.</span>
+            <span class="col-lg-2 my-lg-1 d-flex align-items-center mb-1 last justify-content-center py-2 py-lg-0"><i class="fas fa-info-circle" [routerLink]="['training-exercise-details/',trainingPlanExercise.idTraineeExercise]" style="color: black; cursor: pointer;"></i></span>
+        </ng-container>
+        <p *ngIf="!trainingPlanExercises || trainingPlanExercises.length <=0" class="empty-paragraph text-center">Ten plan treningowy nie zawiera ćwiczeń</p>
+        <ng-container *ngIf="filteredTrainingPlanExercises.length<1 && trainingPlanExercises.length">
+            <span class="col-12 text-center rounded-2">Regeneracja</span>
+        </ng-container>
+    </div>
+                   
 </div>

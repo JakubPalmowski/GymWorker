@@ -12,6 +12,7 @@ export class DietListComponent implements OnInit {
 
   diets:DietListDietician[]=[];
   filteredDiets:DietListDietician[]=[];
+  searchTerm: string = '';
 
 
 
@@ -32,14 +33,14 @@ export class DietListComponent implements OnInit {
     })
   }
 
-  filterResults(text: string) {
-    if (!text) {
-      this.filteredDiets = this.diets;
+  filterResults() {
+    if (!this.searchTerm) {
+      this.filteredDiets = this.diets; 
+    } else {
+      this.filteredDiets = this.diets?.filter(diet =>
+        diet.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
     }
-  
-    this.filteredDiets = this.diets.filter(
-      diets => diets?.name.toLowerCase().includes(text.toLowerCase())
-    );
   }
 
   getEndDate(date:Date){

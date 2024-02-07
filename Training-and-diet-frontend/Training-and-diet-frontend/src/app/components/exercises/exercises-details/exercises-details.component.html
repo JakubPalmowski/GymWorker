@@ -1,25 +1,28 @@
-<div>  <a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót</a></div>
-<div class="container">
-  
-        <div class="top-container shadow">
-              <div class="exercise-name">
-                <span class="span-bold name-text">{{exerciseData.name}}</span>
-              </div>
-          </div>
-          <div class="bottom-container">
-            <div class="bottom-left-container shadow">
-              <span class="header-text">Sposób wykonania:</span>
-              <span class="bio-text span-center">{{exerciseData.exerciseSteps}}</span>
-            </div>
-            
-            <div class="bottom-right-container ">
 
-                <div class="bottom-right-details-container shadow">
-                    <span class="header-text">Opis ćwiczenia:<br></span>
-                    <span class="bio-text span-center">{{exerciseData.details}}</span>
-                </div>
 
-             
-            </div>
-          </div>
+<div *ngIf="exerciseData" class="container-fluid">
+    <div class="row my-3">
+        <a (click)="back()" class="btn-primary w-auto"><i class="bi bi-arrow-left"></i> Powrót</a>
+      </div>
+  <div class="row bg-secondary rounded-div shadow">
+      <div class="col-12 py-2 rounded-top-3 bg-primary">
+          <h1 class="text-center text-white">{{exerciseData.name}}</h1>
+      </div>
+
+      <div class="col-12 mt-2">
+          <h2>Sposób wykonania</h2>
+      </div>
+      <div class="col-12 horizontal-line-black mb-2 ms-1" style="height: 1px; width: 99%;"></div>
+      <div class="col-12 fs-5 mb-3">
+          <span>{{exerciseData.exerciseSteps}}</span>
+      </div>
+
+      <div class="col-12">
+          <h2>Opis ćwiczenia</h2>
+      </div>
+      <div class="col-12 horizontal-line-black mb-2 ms-1" style="height: 1px; width: 99%;"></div>
+      <div class="col-12 mb-3">
+          <span class="fs-5">{{exerciseData.details}}</span>
+      </div>
+  </div>
 </div>

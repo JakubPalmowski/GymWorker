@@ -30,6 +30,7 @@ export class PupilTrainingPlanDetailsComponent {
     trainerName:'',
     trainerLastName:'',
   }
+  
 
   formStartDate:string='';
   formEndDate:string='';
@@ -133,30 +134,26 @@ export class PupilTrainingPlanDetailsComponent {
     )
   }
 
-  changeTrainingDay(day:number,val:string){
+  changeTrainingDay(day: number, val: string) {
+    const dayIds = ['pn', 'wt', 'sr', 'czw', 'pt', 'sob', 'nd'];
+    dayIds.forEach(dayId => {
+        document.getElementById(dayId)?.classList.remove('selected-day');
+        document.getElementById(dayId + '-sm')?.classList.remove('selected-day');
+    });
 
-    const selectedDay=document.getElementById(val);
 
-    const pn=document.getElementById('pn');
-    const wt=document.getElementById('wt');
-    const sr=document.getElementById('sr');
-    const czw=document.getElementById('czw');
-    const pt=document.getElementById('pt');
-    const sob=document.getElementById('sob');
-    const nd=document.getElementById('nd');
-
-    pn?.classList.remove('selected-day');
-    wt?.classList.remove('selected-day');
-    sr?.classList.remove('selected-day');
-    czw?.classList.remove('selected-day');
-    pt?.classList.remove('selected-day');
-    sob?.classList.remove('selected-day');
-    nd?.classList.remove('selected-day');
+    let smVal, fullVal;
+    if (val.includes('-sm')) {
+        smVal = val;
+        fullVal = val.replace('-sm', ''); 
+    } else {
+        smVal = val + '-sm'; 
+        fullVal = val;
+    }
+    document.getElementById(fullVal)?.classList.add('selected-day');
+    document.getElementById(smVal)?.classList.add('selected-day');
 
     this.filterTrainingDay(day);
+}
 
-    selectedDay?.classList.add('selected-day');
-
-
-  }
 }

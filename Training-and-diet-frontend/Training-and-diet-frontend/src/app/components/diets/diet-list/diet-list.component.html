@@ -1,31 +1,31 @@
-<div class="row d-flex justify-content-center">
-    <div class="container-head shadow">
-        <h3>Moje diety</h3>
-        <button class="filter-button" type="button" (click)="filterResults(filter.value)">
-            <img src="../../../../assets/icons/search.png" class="search-icon">
-        </button>
-        
-        <input class="filter-input" type="text" placeholder="Wyszukaj dietę" #filter>
-    </div>
-    <div class="container-body shadow">
-        <table class="table" *ngIf="diets && diets.length > 0" >
-            <thead >
-                <tr >
-                    <th>Nazwa</th>
-                    <th>Nazwa robocza</th>
-                    <th>Ważna do</th>
-                </tr>
-            </thead>
-            <tr *ngFor="let diet of filteredDiets" [routerLink]="['edit',diet.idDiet]">
-                <td>{{ diet.name}}</td>
-                <td>{{ diet.customName}}</td>
-                <td>{{ this.getEndDate(diet.endDate) }}</td>
-            </tr>
-        </table>
-        <p *ngIf="!diets || diets.length <=0" class="no-plans-message">Nie posiadasz diet</p>
-        <div class="test">
-            <a routerLink="add" class="new-plan-link">
-                <span class="new-plan-span">+<br>Dodaj nową dietę</span> </a>
+<div class="container-fluid mt-3">
+    <div class="row bg-secondary rounded-div shadow">
+        <div class="col-12 bg-primary rounded-top-3 py-2">
+            <h1 class="text-center text-white">Moje Diety</h1>
         </div>
     </div>
+    <div class="row bg-secondary d-flex justify-content-center search">
+        <div class="col-12 col-md-6">
+    <input type="text" class="form-control mb-3 fs-5 w-100 mt-3" placeholder="Szukaj diety..." [(ngModel)]="searchTerm" (input)="filterResults()">
 </div>
+</div>
+
+<div class="row bg-secondary shadow head fs-5 py-2 ps-2">
+    <span class="col-12 col-lg-4 fw-bold ps-lg-2 d-flex justify-content-center justify-content-lg-start px-0">Nazwa</span>
+    <span class="col-12 col-lg-4 fw-bold d-flex justify-content-center justify-content-lg-start px-0 ps-lg-2">Nazwa robocza</span>
+    <span class="col-12 col-lg-4 fw-bold d-flex justify-content-center justify-content-lg-start px-0">Data zakończenia</span>
+</div>
+
+<div class="row bg-secondary rounded-bottom-3 shadow details fs-5 px-0">
+    <div *ngFor="let diet of filteredDiets" class="d-block d-lg-flex" [routerLink]="['edit',diet.idDiet]" style="cursor: pointer;">
+        <span class="col-lg-4 mb-lg-3 ps-2 d-flex align-items-center first">{{diet.name}}</span>
+        <span class="col-lg-4 mb-lg-3 d-flex align-items-center ps-lg-2">{{diet.customName}}</span>
+        <span class="col-lg-4 mb-lg-3 d-flex align-items-center mb-3 last ps-lg-2">{{ getEndDate(diet.endDate) }}</span>
+    </div>
+    <p *ngIf="!filteredDiets || filteredDiets.length <=0" class="text-center">Brak diet</p>
+    <div class="col-12 d-flex justify-content-center">
+        <a routerLink="/diet/add" class="btn-confirm" style="width: fit-content;">Stwórz nową dietę</a>
+    </div>
+</div>
+</div>
+

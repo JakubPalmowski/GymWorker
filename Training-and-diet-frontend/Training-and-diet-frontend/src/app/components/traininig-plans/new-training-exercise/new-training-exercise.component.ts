@@ -6,6 +6,7 @@ import { NewTrainingExercise } from 'src/app/models/training-plan/new-training-e
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'  
 import { delay, timestamp } from 'rxjs';
+import { PreviousUrlService } from 'src/app/services/previous-url.service';
 
 @Component({
   selector: 'app-new-training-exercise',
@@ -13,6 +14,7 @@ import { delay, timestamp } from 'rxjs';
   styleUrls: ['./new-training-exercise.component.css']
 })
 export class NewTrainingExerciseComponent implements OnInit{
+
 
   id_training:string='';
   id_exercise:string='';
@@ -40,7 +42,7 @@ export class NewTrainingExerciseComponent implements OnInit{
   errorFlag: string = "";
 
   
-  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute,private router:Router){
+  constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute,private router:Router, private previousUrl: PreviousUrlService){
  
   }
   
@@ -126,4 +128,8 @@ export class NewTrainingExerciseComponent implements OnInit{
     }
   
   }
+
+  back() {
+    this.router.navigateByUrl(this.previousUrl.getPreviousUrl());
+    }
 }

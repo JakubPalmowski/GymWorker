@@ -1,36 +1,52 @@
 
-<div>
-    <a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i>  Powrót</a>
-<div class="container">
 
-        <div class="top-container shadow">
-              <div class="exercise-name">
-                <span class="span-bold name-text">{{dietMeal.mealName}}</span>
-              </div>
+<div *ngIf="dietMeal" class="container-fluid">
+  <div class="row my-3">
+    <a (click)="back()" class="btn-primary w-auto" ><i class="bi bi-arrow-left"></i> Powrót</a>
+  </div>
+  <div class="row bg-secondary rounded-div shadow">
+      <div class="col-12 py-2 rounded-top-3 bg-primary">
+          <h1 class="text-center text-white">{{dietMeal.mealName}}</h1>
+      </div>
+
+
+      <div class="col-12 mt-2">
+        <h2>Przepis</h2>
+        </div>
+        <div class="col-12 horizontal-line-black mb-2 ms-1" style="height: 1px; width: 99%;"></div>
+        <div class="col-12 fs-5 mb-3">
+          <span>{{dietMeal.prepareSteps}}<br></span>
+        </div>
+
+        <div class="col-12 mt-2">
+          <h2>Składniki</h2>
           </div>
-          <div class="bottom-container">
-            <div class="bottom-left-container shadow">
-              <span class="header-text">Przepis:</span>
-              <span class="bio-text span-center">{{dietMeal.prepareSteps}}</span>
-            </div>
-            
-            <div class="bottom-right-container">
-
-                <div class="bottom-right-details-container shadow">
-                    <span class="header-text">Składniki: <br></span>
-                    <span class="bio-text span-center">{{dietMeal.ingredients}}</span>
-                </div>
-
-                <div class="bottom-right-info-container shadow">
-               
-                    
-                    <span class="bio-text span-center">Kaloryczność : </span>
-                    <span class="bio-text span-center">Kcal {{kcal}} <br> Białka: {{proteins}}g | Tłuszcze {{fats}}g | Węglowodany {{carbs}} <br><br></span>
-
-                    <span class="bio-text span-center">Komentarz dietetyka: </span>
-                    <span class="bio-text span-center">{{dietMeal.comments}}</span>
-                </div>
-            </div>
+          <div class="col-12 horizontal-line-black mb-2 ms-1" style="height: 1px; width: 99%;"></div>
+          <div class="col-12 fs-5 mb-3">
+            <span>{{dietMeal.ingredients}}</span>
           </div>
+
+
+          <div class="col-12 mt-2">
+            <h2>Kaloryczność</h2>
+            </div>
+            <div class="col-12 horizontal-line-black mb-2 ms-1" style="height: 1px; width: 99%;"></div>
+            <div class="col-12 fs-5 mb-3">
+              <span>Kcal {{kcal}} <br> Białka: {{proteins}}g | Tłuszcze {{fats}}g | Węglowodany {{carbs}}</span>
+            </div>
+
+            <ng-container *ngIf="dietMeal.comments">
+              <div class="col-12">
+                <h2>Komentarz dietetyka</h2>
+                </div>
+                <div class="col-12 horizontal-line-black mb-2 ms-1" style="height: 1px; width: 99%;"></div>
+                <div class="col-12 mb-3">
+                  <span class="fs-5">{{dietMeal.comments}}</span>
+                </div>
+              </ng-container>
+
+
+  </div>
 </div>
-</div>
+
+

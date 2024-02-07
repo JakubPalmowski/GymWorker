@@ -36,7 +36,7 @@ li {
 
 
 
-@media (max-width: 1400px) {
+@media (max-width: 1399px) {
     .container{
         position: fixed;
         top: 0;

@@ -1,36 +1,44 @@
-<div>
-  <a (click)="back()"class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót</a>
-<div class="container">
-   
-        <div class="top-container shadow">
-              <div class="exercise-name">
-                <span class="span-bold name-text">{{traineeExercise.exerciseName}}</span>
-              </div>
+
+<div *ngIf="traineeExercise" class="container-fluid">
+  <div class="row my-3">
+    <a (click)="back()" class="btn-primary w-auto" ><i class="bi bi-arrow-left"></i> Powrót</a>
+  </div>
+  <div class="row bg-secondary rounded-div shadow">
+      <div class="col-12 py-2 rounded-top-3 bg-primary">
+          <h1 class="text-center text-white">{{traineeExercise.exerciseName}}</h1>
+      </div>
+ 
+
+
+    <div class="col-12 mt-2">
+      <h2>Sposób wykonania</h2>
+      </div>
+      <div class="col-12 horizontal-line-black mb-2 ms-1" style="height: 1px; width: 99%;"></div>
+      <div class="col-12 fs-5 mb-3">
+        <span>{{traineeExercise.exerciseSteps}}<br></span>
+        <span>Ilość serii: {{traineeExercise.seriesNumber}} <br></span>
+        <span>Ilość powtórzeń: {{traineeExercise.repetitionsNumber}}</span>
+      </div>
+
+
+      <div class="col-12">
+        <h2>Opis ćwiczenia</h2>
+        </div>
+        <div class="col-12 horizontal-line-black mb-2 ms-1" style="height: 1px; width: 99%;"></div>
+        <div class="col-12 mb-3">
+          <span class="fs-5">{{traineeExercise.details}}</span>
+        </div>
+
+        <ng-container *ngIf="traineeExercise.comments">
+        <div class="col-12">
+          <h2>Komentarz trenera</h2>
           </div>
-          <div class="bottom-container">
-            <div class="bottom-left-container shadow">
-              <span class="header-text">Sposób wykonania:</span>
-              <span class="bio-text span-center">{{traineeExercise.exerciseSteps}}</span>
-            </div>
-            
-            <div class="bottom-right-container">
-
-                <div class="bottom-right-details-container shadow">
-                    <span class="header-text">Opis ćwiczenia: <br></span>
-                    <span class="bio-text span-center">{{traineeExercise.details}}</span>
-                </div>
-
-                <div class="bottom-right-info-container shadow">
-                    <span class="bio-text span-center">Ilośc serii: </span>
-                    <span class="bio-text span-center">{{traineeExercise.seriesNumber}} <br></span>
-                    
-                    <span class="bio-text span-center">Ilośc powtórzeń: </span>
-                    <span class="bio-text span-center">{{traineeExercise.repetitionsNumber}} <br><br></span>
-
-                    <span class="bio-text span-center">Komentarz trenera: </span>
-                    <span class="bio-text span-center">{{traineeExercise.comments}}</span>
-                </div>
-            </div>
+          <div class="col-12 horizontal-line-black mb-2 ms-1" style="height: 1px; width: 99%;"></div>
+          <div class="col-12 mb-3">
+            <span class="fs-5">{{traineeExercise.comments}}</span>
           </div>
+        </ng-container>
+
 </div>
 </div>
+

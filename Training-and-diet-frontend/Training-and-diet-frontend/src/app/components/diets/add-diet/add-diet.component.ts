@@ -30,9 +30,6 @@ export class AddDietComponent implements OnInit{
   constructor(private dietService:DietService, private router:Router, private authenticationService:AuthenticationService){}
   ngOnInit(): void {
     this.dateToday=new Date().toISOString().split("T")[0];
-    console.log(document.getElementById("start_date"));
-
-
   }
 
   addDiet(){
@@ -65,6 +62,7 @@ export class AddDietComponent implements OnInit{
 
 
   onSubmit(valid:any){
+    console.log(this.addDietRequest.startDate);
     this.submitted=true;
     if(valid){
       console.log(this.addDietRequest);

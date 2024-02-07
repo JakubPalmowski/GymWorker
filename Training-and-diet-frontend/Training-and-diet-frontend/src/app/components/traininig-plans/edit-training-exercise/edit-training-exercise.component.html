@@ -1,151 +1,185 @@
-<a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i>Powrót do planu</a>
-<div class="container-slim shadow">
-    <div *ngIf="errorFlag=='error'" class="error-popup">
-        Wystapił błąd podczas edycji ćwiczenia w planie. Proszę spróbować ponownie.
-      </div>
-    <h3>Edycja ćwiczenia: {{newTrainingExerciseRequest.exerciseName}} w planie</h3>
-    <div class="row">
-        <div class="container-form">
-            <form  #form="ngForm" (ngSubmit)="onSubmit(form.valid)" >
-                <div class="mb-3">
-                    <label  for="seriesNumber" class="form-label">Liczba serii:</label><br>
-                    <input type="number" max="6" min="0" class="form-input" id="seriesNumber" name="seriesNumber" #seriesNumber="ngModel"
-                    (change)="OnChangeSeriesNumber(newTrainingExerciseRequest.seriesNumber)" [(ngModel)]="newTrainingExerciseRequest.seriesNumber">
-                    <div *ngIf="seriesNumber.errors?.['min'] && this.submitted" class="validation-error">
-                        Serii nie może być mniej niż 0
-                    </div>
-                    <div *ngIf="seriesNumber.errors?.['max'] && this.submitted" class="validation-error">
-                        Serii nie może być więcej niż 6
-                    </div>
-                    <div *ngFor="let error of fieldErrors['SeriesNumber']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="container-table">
-                    <table>
-                        <th>
-                            <label class="form-label">Liczba powtórzeń:</label><br>
-                        </th>
-                        
-                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>0">
-                            <td>
-                                <div class="mb-3" >
-                                    <label for="repetitions1" class="form-label">Dla serii 1</label><br>
-                                    <input type="number" min="0" name="repetitions1" class="form-input" #repetitions1="ngModel"  [(ngModel)]="repetitions[0]">
-                                    <div *ngIf="repetitions1.errors?.['min'] && this.submitted" class="validation-error">
-                                        Powtórzeń nie może być mniej niż 0
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
 
-                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>1">
-                            <td>
-                                <div class="mb-3" >
-                                    <label for="repetitions2" class="form-label">Dla serii 2</label><br>
-                                    <input type="number" min="0" name="repetitions2" class="form-input" #repetitions2="ngModel"  [(ngModel)]="repetitions[1]">
-                                    <div *ngIf="repetitions2.errors?.['min'] && this.submitted" class="validation-error">
-                                        Powtórzeń nie może być mniej niż 0
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+<div *ngIf="errorFlag=='error'" class="error-popup">
+    Wystapił błąd podczas edycji ćwiczenia w planie. Proszę spróbować ponownie.
+  </div>
+  <div class="container-fluid">
+    <div class="row my-3">
+        <a (click)="back()" class="btn-primary w-auto" ><i class="bi bi-arrow-left"></i> Powrót do planu</a>
+    </div>
+    <div class="row bg-secondary rounded-div shadow">
+        <div class="col-12 bg-primary rounded-top-3 py-2">
+            <h1 class="text-center text-white">Edycja ćwiczenia<br class="d-sm-none"> w planie</h1>
+            <h3 class="text-white text-center">{{newTrainingExerciseRequest.exerciseName}}</h3>
+        </div>
 
-                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>2">
-                            <td>
-                                <div class="mb-3" >
-                                    <label for="repetitions3" class="form-label">Dla serii 3</label><br>
-                                    <input type="number" min="0" name="repetitions3" class="form-input" #repetitions3="ngModel"  [(ngModel)]="repetitions[2]">
-                                    <div *ngIf="repetitions3.errors?.['min'] && this.submitted" class="validation-error">
-                                        Powtórzeń nie może być mniej niż 0
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
 
-                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>3">
-                            <td>
-                                <div class="mb-3" >
-                                    <label for="repetitions4" class="form-label">Dla serii 4</label><br>
-                                    <input type="number" min="0" name="repetitions4" class="form-input" #repetitions4="ngModel"  [(ngModel)]="repetitions[3]">
-                                    <div *ngIf="repetitions4.errors?.['min'] && this.submitted" class="validation-error">
-                                        Powtórzeń nie może być mniej niż 0
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+        <form  #form="ngForm" (ngSubmit)="onSubmit(form.valid)" >
 
-                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>4">
-                            <td>
-                                <div class="mb-3" >
-                                    <label for="repetitions5" class="form-label">Dla serii 5</label><br>
-                                    <input type="number" min="0" name="repetitions5" class="form-input" #repetitions5="ngModel"  [(ngModel)]="repetitions[4]">
-                                    <div *ngIf="repetitions5.errors?.['min'] && this.submitted" class="validation-error">
-                                        Powtórzeń nie może być mniej niż 0
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>5">
-                            <td>
-                                <div class="mb-3" >
-                                    <label for="repetitions6" class="form-label">Dla serii 6</label><br>
-                                    <input type="number" min="0" name="repetitions6" class="form-input" #repetitions6="ngModel"  [(ngModel)]="repetitions[5]">
-                                    <div *ngIf="repetitions6.errors?.['min'] && this.submitted" class="validation-error">
-                                        Powtórzeń nie może być mniej niż 0
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        
-                       
-                       
-
-                    </table>
-                </div>
-              
-                <div class="mb-3">
-                    <label for="comments" class="form-label">Komentarz:</label><br>
-                    <textarea class="form-input" id="comments" name="comments" [(ngModel)]="newTrainingExerciseRequest.comments" maxlength="300" #comments="ngModel"></textarea>
-                    <div *ngIf="comments.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole nie może zawierać więcej niż 300 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['Comments']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label  for="day" class="form-label">Dzień tygodnia</label><br>
-                    <select type="day" required max="6" min="0" (change)="assignValue()" class="form-input" id="day" name="day" #day="ngModel"  [(ngModel)]="newTrainingExerciseRequest.dayOfWeek">
-                        <option value="" selected disabled>-- Wybierz dzień --</option>
-                        <option value="1">Poniedziałek</option>
-                        <option value="2">Wtorek</option>
-                        <option value="3">Środa</option>
-                        <option value="4">Czwartek</option>
-                        <option value="5">Piątek</option>
-                        <option value="6">Sobota</option>
-                        <option value="7" selected>Niedziela</option>
-                    </select>
-                    <div *ngIf="day.errors?.['max'] && this.submitted" class="validation-error">
-                        Dzień tygodnia jest wymagany
-                    </div>
-                    <div *ngIf="day.errors?.['min'] && this.submitted" class="validation-error">
-                        Dzień tygodnia jest wymagany
-                    </div>
-                    <div *ngIf="day.errors?.['required'] && this.submitted" class="validation-error">
-                        Dzień tygodnia jest wymagany
-                    </div>
-                    <div *ngFor="let error of fieldErrors['DayOfWeek']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-
-                <button type="submit" class="button-edit">Edytuj</button>
-                <div class="edit-response" id="edit-resp"></div>
-     
-            </form>
+             <div class="group col-12 mt-3">
+            <div class="input-container">
+                <label  for="seriesNumber">Liczba serii:</label>
+                <input type="number" max="6" min="0" id="seriesNumber" name="seriesNumber" #seriesNumber="ngModel"
+                (change)="OnChangeSeriesNumber(newTrainingExerciseRequest.seriesNumber)" [(ngModel)]="newTrainingExerciseRequest.seriesNumber">
+                <div class="error-container">
+                <span *ngIf="seriesNumber.errors?.['min'] && this.submitted" class="validation-error">
+                    Serii nie może być mniej niż 0
+                </span>
+                <span *ngIf="seriesNumber.errors?.['max'] && this.submitted" class="validation-error">
+                    Serii nie może być więcej niż 6
+                </span>
+                <span *ngFor="let error of fieldErrors['SeriesNumber']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
         </div>
     </div>
-</div>
+
+
+            <div class="container-table">
+                <table>
+                    <th>
+                        <label>Liczba powtórzeń:</label><br>
+                    </th>
+                    
+                    <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>0">
+                        <td>
+                            <div class="mb-3" >
+                                <label for="repetitions1">Dla serii 1</label><br>
+                                <input type="number" min="0" name="repetitions1"  #repetitions1="ngModel"  [(ngModel)]="repetitions[0]">
+                                <div *ngIf="repetitions1.errors?.['min'] && this.submitted" class="validation-error">
+                                    Powtórzeń nie może być mniej niż 0
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>1">
+                        <td>
+                            <div class="mb-3" >
+                                <label for="repetitions2">Dla serii 2</label><br>
+                                <input type="number" min="0" name="repetitions2"  #repetitions2="ngModel"  [(ngModel)]="repetitions[1]">
+                                <div *ngIf="repetitions2.errors?.['min'] && this.submitted" class="validation-error">
+                                    Powtórzeń nie może być mniej niż 0
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>2">
+                        <td>
+                            <div class="mb-3" >
+                                <label for="repetitions3">Dla serii 3</label><br>
+                                <input type="number" min="0" name="repetitions3" #repetitions3="ngModel"  [(ngModel)]="repetitions[2]">
+                                <div *ngIf="repetitions3.errors?.['min'] && this.submitted" class="validation-error">
+                                    Powtórzeń nie może być mniej niż 0
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>3">
+                        <td>
+                            <div class="mb-3" >
+                                <label for="repetitions4">Dla serii 4</label><br>
+                                <input type="number" min="0" name="repetitions4" #repetitions4="ngModel"  [(ngModel)]="repetitions[3]">
+                                <div *ngIf="repetitions4.errors?.['min'] && this.submitted" class="validation-error">
+                                    Powtórzeń nie może być mniej niż 0
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>4">
+                        <td>
+                            <div class="mb-3" >
+                                <label for="repetitions5">Dla serii 5</label><br>
+                                <input type="number" min="0" name="repetitions5" #repetitions5="ngModel"  [(ngModel)]="repetitions[4]">
+                                <div *ngIf="repetitions5.errors?.['min'] && this.submitted" class="validation-error">
+                                    Powtórzeń nie może być mniej niż 0
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="this.newTrainingExerciseRequest.seriesNumber>5">
+                        <td>
+                            <div class="mb-3" >
+                                <label for="repetitions6">Dla serii 6</label><br>
+                                <input type="number" min="0" name="repetitions6" #repetitions6="ngModel"  [(ngModel)]="repetitions[5]">
+                                <div *ngIf="repetitions6.errors?.['min'] && this.submitted" class="validation-error">
+                                    Powtórzeń nie może być mniej niż 0
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    
+                   
+                   
+
+                </table>
+            </div>
+          
+            <div class="group col-12 mt-3">
+                <div class="input-container">
+                <label for="comments">Komentarz:</label>
+                <textarea id="comments" name="comments" [(ngModel)]="newTrainingExerciseRequest.comments" maxlength="300" #comments="ngModel"></textarea>
+                <div class="error-container">
+                <span *ngIf="comments.errors?.['maxlength'] && this.submitted" class="validation-error">
+                    Pole nie może zawierać więcej niż 300 znaków
+                </span>
+                <span *ngFor="let error of fieldErrors['Comments']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+        </div>
+
+
+        <div class="group col-12 mt-3">
+            <div class="input-container">
+                <label  for="day">Dzień tygodnia</label>
+                <select type="day" required max="6" min="0" (change)="assignValue()" id="day" name="day" #day="ngModel"  [(ngModel)]="newTrainingExerciseRequest.dayOfWeek">
+                    <option value="" selected disabled>-- Wybierz dzień --</option>
+                    <option value="1">Poniedziałek</option>
+                    <option value="2">Wtorek</option>
+                    <option value="3">Środa</option>
+                    <option value="4">Czwartek</option>
+                    <option value="5">Piątek</option>
+                    <option value="6">Sobota</option>
+                    <option value="7" selected>Niedziela</option>
+                </select>
+                <div class="error-container">
+                <span *ngIf="day.errors?.['max'] && this.submitted" class="validation-error">
+                    Dzień tygodnia jest wymagany
+                </span>
+                <span *ngIf="day.errors?.['min'] && this.submitted" class="validation-error">
+                    Dzień tygodnia jest wymagany
+                </span>
+                <span *ngIf="day.errors?.['required'] && this.submitted" class="validation-error">
+                    Dzień tygodnia jest wymagany
+                </span>
+                <span *ngFor="let error of fieldErrors['DayOfWeek']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center mb-3">
+            <button type="submit" class="btn-primary">Edytuj</button>
+        </div>
+ 
+        </form>
+
+
+
+
+
+
+
+        
+    </div>
+  </div>
+
+

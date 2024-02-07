@@ -17,6 +17,7 @@ export class DietMealsListComponent implements OnInit{
   id_diet:string='';
   deleteDialogFlag: boolean=false;
   deleteErrorFlag: boolean=false;
+  searchTerm: string = '';
 
 
   constructor(private mealServise:MealsService, private route:ActivatedRoute, private location:Location, private router:Router) {}
@@ -40,14 +41,14 @@ export class DietMealsListComponent implements OnInit{
     
    }
 
-   filterResults(text: string){
-    if (!text) {
-      this.DieteticianMealsFiltered = this.DieteticianMeals;
+   filterResults() {
+    if (!this.searchTerm) {
+      this.DieteticianMealsFiltered = this.DieteticianMeals; 
+    } else {
+      this.DieteticianMealsFiltered = this.DieteticianMeals?.filter(meal =>
+        meal.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
     }
-  
-    this.DieteticianMealsFiltered = this.DieteticianMeals.filter(
-      DieteticianMeals => DieteticianMeals?.name.toLowerCase().includes(text.toLowerCase())
-    );
   }
 
   openDeleteDialog(){

@@ -1,22 +1,24 @@
-<div class="row d-flex justify-content-center">
-    <div class="container-head shadow">
-        <h3>Moje plany</h3>
-    </div>
-    <div class="container-body shadow">
-        <table class="table" *ngIf="trainingPlans && trainingPlans.length > 0" >
-            <thead >
-                <tr >
-                    <th>Nazwa</th>
-                    <th>Stworzony przez</th>
-                    <th>Ważny do</th>
-                </tr>
-            </thead>
-            <tr *ngFor="let trainingPlan of filteredTrainingPlans">
-                <td><a [routerLink]="['details',trainingPlan.idTrainingPlan]">{{ trainingPlan.name }}</a></td>
-                <td><a [routerLink]="['/trainerProfile',trainingPlan.idTrainer]">{{ trainingPlan.trainerName}} {{trainingPlan.trainerLastName}}</a></td>
-                <td>{{ getEndDate(trainingPlan.endDate) }}</td>
-            </tr>
-        </table>
-        <p *ngIf="!trainingPlans || trainingPlans.length <=0" class="no-plans-message">Nie posiadasz przypisanych planów treningowych</p>
+
+<div class="container-fluid mt-3">
+<div class="row bg-secondary rounded-div shadow">
+    <div class="col-12 bg-primary rounded-top-3 py-2">
+        <h1 class="text-center text-white">Moje plany</h1>
     </div>
 </div>
+
+<div class="row bg-secondary shadow head fs-5 py-2">
+    <span class="col-12 col-lg-4 fw-bold ps-lg-3 d-flex justify-content-center justify-content-lg-start">Nazwa</span>
+    <span class="col-12 col-lg-4 fw-bold d-flex justify-content-center justify-content-lg-start">Stworzony przez</span>
+    <span class="col-12 col-lg-4 fw-bold d-flex justify-content-center justify-content-lg-start">Data zakończenia</span>
+</div>
+
+<div class="row bg-secondary rounded-bottom-3 shadow details fs-5">
+    <ng-container *ngFor="let trainingPlan of filteredTrainingPlans">
+        <span class="col-lg-4 my-lg-3 ps-2 d-flex align-items-center first" style="cursor: pointer;" [routerLink]="['details',trainingPlan.idTrainingPlan]">{{trainingPlan.name}}</span>
+        <span class="col-lg-4 my-lg-3 d-flex align-items-center" style="cursor: pointer;" [routerLink]="['/trainerProfile',trainingPlan.idTrainer]">{{ trainingPlan.trainerName}} {{trainingPlan.trainerLastName}}</span>
+        <span class="col-lg-4 my-lg-3 d-flex align-items-center mb-3 last">{{ getEndDate(trainingPlan.endDate) }}</span>
+    </ng-container>
+    <p *ngIf="!trainingPlans || trainingPlans.length <=0" class="text-center">Nie posiadasz przypisanych planów treningowych</p>
+</div>
+</div>
+

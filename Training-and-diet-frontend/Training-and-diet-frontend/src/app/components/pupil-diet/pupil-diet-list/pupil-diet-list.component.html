@@ -1,3 +1,29 @@
+
+<div class="container-fluid mt-3">
+    <div class="row bg-secondary rounded-div shadow">
+        <div class="col-12 bg-primary rounded-top-3 py-2">
+            <h1 class="text-center text-white">Moje diety</h1>
+        </div>
+    </div>
+
+    <div class="row bg-secondary shadow head fs-5 py-2">
+        <span class="col-12 col-lg-4 fw-bold ps-lg-3 d-flex justify-content-center justify-content-lg-start">Nazwa</span>
+        <span class="col-12 col-lg-4 fw-bold d-flex justify-content-center justify-content-lg-start">Stworzona przez</span>
+        <span class="col-12 col-lg-4 fw-bold d-flex justify-content-center justify-content-lg-start">Data zakończenia</span>
+    </div>
+
+    <div class="row bg-secondary rounded-bottom-3 shadow details fs-5">
+        <ng-container *ngFor="let diet of diets">
+            <span class="col-lg-4 my-lg-3 ps-2 d-flex align-items-center first" style="cursor: pointer;" [routerLink]="['details',diet.idDiet]">{{diet.name}}</span>
+            <span class="col-lg-4 my-lg-3 d-flex align-items-center" style="cursor: pointer;" [routerLink]="['/dieticianProfile',diet.idDietician]">{{ diet.dieticianName}} {{diet.dieticianLastName}}</span>
+            <span class="col-lg-4 my-lg-3 d-flex align-items-center mb-3 last">{{ getEndDate(diet.endDate) }}</span>
+        </ng-container>
+        <p *ngIf="!diets || diets.length <=0" class="text-center">Nie posiadasz przypisanych diet</p>
+    </div>
+</div>
+
+
+
 <div class="row d-flex justify-content-center">
     <div class="container-head shadow">
         <h3>Moje diety</h3>
