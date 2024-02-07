@@ -1,110 +1,153 @@
-<a [routerLink]='"/diet"' class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy diet</a>
-<div class="container-slim shadow" >
-    <div *ngIf="errorFlag=='error'" class="error-popup">
-        Wystapił błąd podczas dodawania diety. Proszę spróbować ponownie.
-      </div>
-    <h3>Nowa Dieta</h3> 
-    <div class="row">
-        <div class="container-form">
-            <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
-                <div class="mb-3">
-                    <label for="name" class="form-label-custom">Nazwa *</label><br>
-                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="addDietRequest.name"
-                    required minlength="3" maxlength="50" #name="ngModel">
-                    <div *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać min 3 znaki
-                    </div>
-                    <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 50 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['Name']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="input-section">
-                    <label for="customName" class="form-label-custom">Nazwa robocza </label><br>
-                    <input type="text" class="form-input" id="customName" name="customName" [(ngModel)]="addDietRequest.customName"
-                     maxlength="50" #customName="ngModel" >
-                    <div *ngIf="customName.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 50 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['CustomName']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="type" class="form-label-custom">Typ </label><br>
-                    <input type="text" class="form-input" id="type" name="type" [(ngModel)]="addDietRequest.type"
-                    required minlength="3" maxlength="50" #type="ngModel" >
-                    <div *ngIf="type.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="type.errors?.['minlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać min 3 znaki
-                    </div>
-                    <div *ngIf="type.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 50 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['Type']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                    
-                </div>
-                <div class="mb-3">
-                    <label for="startDate" class="form-label-custom">Data rozpoczęcia *</label><br>
-                    <input type="date" class="form-input" id="startDate" name="startDate" [(ngModel)]="addDietRequest.startDate"
-                    required min="{{this.dateToday}}" #startDate="ngModel">
-                    <div *ngIf="startDate.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="startDate.errors?.['min'] && this.submitted" class="validation-error">
-                       
-                    </div>
-                    <div *ngFor="let error of fieldErrors['StartDate']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="numberOfWeeks" class="form-label-custom">Liczba tygodni *</label><br>
-                    <input type="number" class="form-input" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="addDietRequest.numberOfWeeks" 
-                    required min="1" max="2000"  #numberOfWeeks="ngModel" >
-                    <div *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
-                        Ilośc tygodni musi być większa od 0
-                    </div>
-                    <div *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
-                        Ilość tygodni musi być mniejsza od 2000
-                    </div>
-                    <div *ngFor="let error of fieldErrors['NumberOfWeeks']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="totalKcal" class="form-label-custom">Max. dzienne kalorie *</label><br>
-                    <input type="number" class="form-input" id="totalKcal" name="totalKcal" [(ngModel)]="addDietRequest.totalKcal" 
-                    required min="100" max="10000"  #totalKcal="ngModel" >
-                    <div *ngIf="totalKcal.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="totalKcal.errors?.['min'] && this.submitted" class="validation-error">
-                        Ilośc kalorii musi być większa od 100
-                    </div>
-                    <div *ngIf="totalKcal.errors?.['max'] && this.submitted" class="validation-error">
-                        Ilość kalorii musi być mniejsza od 10000
-                    </div>
-                    <div *ngFor="let error of fieldErrors['TotalKcal']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-
-                <button type="submit" class="button-create">Stwórz</button>
-            </form>
+<div class="container-fluid">
+    <div class="row my-3">
+        <a [routerLink]='"/diet"' class="btn-primary w-auto" ><i class="bi bi-arrow-left"></i> Powrót do listy diet</a>
+    </div>
+    <div class="row bg-secondary rounded-div shadow">
+        <div class="col-12 bg-primary rounded-top-3 py-2">
+            <h1 class="text-center text-white">Nowa dieta</h1>
         </div>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
+
+            <div class="group col-12 mt-3">
+                <div class="input-container">
+                <label for="name">Nazwa *</label>
+                <input type="text" id="name" name="name" [(ngModel)]="addDietRequest.name"
+                required minlength="3" maxlength="50" #name="ngModel">
+                <div class="error-container">
+                <span *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
+                    Pole jest wymagane
+                </span>
+                <span *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
+                    Pole musi zawierać min 3 znaki
+                </span>
+                <span *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
+                    Pole musi zawierać max 50 znaków
+                </span>
+                <span *ngFor="let error of fieldErrors['Name']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+            </div>
+
+
+            <div class="group col-12 mt-3">
+                <div class="input-container">
+                <label for="customName">Nazwa robocza </label>
+                <input type="text" id="customName" name="customName" [(ngModel)]="addDietRequest.customName"
+                 maxlength="50" #customName="ngModel" >
+                 <div class="error-container">
+                <span *ngIf="customName.errors?.['maxlength'] && this.submitted" class="validation-error">
+                    Pole musi zawierać max 50 znaków
+                </span>
+                <span *ngFor="let error of fieldErrors['CustomName']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+        </div>
+
+
+
+        <div class="group col-12 mt-3">
+            <div class="input-container">
+                <label for="type">Typ * </label>
+                <input type="text" id="type" name="type" [(ngModel)]="addDietRequest.type"
+                required minlength="3" maxlength="50" #type="ngModel" >
+                <div class="error-container">
+                <span *ngIf="type.errors?.['required'] && this.submitted" class="validation-error">
+                    Pole jest wymagane
+                </span>
+                <span *ngIf="type.errors?.['minlength'] && this.submitted" class="validation-error">
+                    Pole musi zawierać min 3 znaki
+                </span>
+                <span *ngIf="type.errors?.['maxlength'] && this.submitted" class="validation-error">
+                    Pole musi zawierać max 50 znaków
+                </span>
+                <span *ngFor="let error of fieldErrors['Type']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+                
+            </div>
+
+
+            
+            <div class="group col-12 mt-3">
+                <div class="input-container">
+                <label for="startDate">Data rozpoczęcia *</label>
+                <input type="date" id="startDate" name="startDate" [(ngModel)]="addDietRequest.startDate"
+                required min="{{this.dateToday}}" #startDate="ngModel">
+                <div class="error-container">
+                <span *ngIf="startDate.errors?.['required'] && this.submitted" class="validation-error">
+                    Pole jest wymagane
+                </span>
+                <span *ngIf="startDate.errors?.['min'] && this.submitted" class="validation-error">
+                   
+                </span>
+                <span *ngFor="let error of fieldErrors['StartDate']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+            </div>
+
+
+
+
+
+            <div class="group col-12 mt-3">
+                <div class="input-container">
+                <label for="numberOfWeeks">Liczba tygodni *</label>
+                <input type="number" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="addDietRequest.numberOfWeeks" 
+                required min="1" max="2000"  #numberOfWeeks="ngModel" >
+                <div class="error-container">
+                <span *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
+                    Pole jest wymagane
+                </span>
+                <span *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
+                    Ilośc tygodni musi być większa od 0
+                </span>
+                <span *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
+                    Ilość tygodni musi być mniejsza od 2000
+                </span>
+                <span *ngFor="let error of fieldErrors['NumberOfWeeks']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+        </div>
+
+
+
+        <div class="group col-12 mt-3">
+            <div class="input-container">
+                <label for="totalKcal">Max. dzienne kalorie *</label>
+                <input type="number" id="totalKcal" name="totalKcal" [(ngModel)]="addDietRequest.totalKcal" 
+                required min="100" max="10000"  #totalKcal="ngModel" >
+                <div class="error-container">
+                <span *ngIf="totalKcal.errors?.['required'] && this.submitted" class="validation-error">
+                    Pole jest wymagane
+                </span>
+                <span *ngIf="totalKcal.errors?.['min'] && this.submitted" class="validation-error">
+                    Ilośc kalorii musi być większa od 100
+                </span>
+                <span *ngIf="totalKcal.errors?.['max'] && this.submitted" class="validation-error">
+                    Ilość kalorii musi być mniejsza od 10000
+                </span>
+                <span *ngFor="let error of fieldErrors['TotalKcal']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center mb-3">
+            <button type="submit" class="btn-confirm">Stwórz</button>
+        </div>
+        </form>
     </div>
 </div>
+
+

@@ -1,62 +1,89 @@
-<div class="container">
-    <a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót</a>
-    <div class="container-top">
+<div class="container-fluid">
+    <div class="row my-3">
+        <a (click)="back()" class="btn-primary w-auto" ><i class="bi bi-arrow-left"></i> Powrót</a>
+    </div>
+    <div class="row">
+    <div class="col-12 px-0">
         <button type="button" class="exercise-button" id="my-exercises" (click)="MyExercises()">Moje ćwiczenia</button>
         <button type="button" class="exercise-button" id="all-exercises" (click)="AllExercises()">Wszystkie ćwiczenia</button>
-        <div class="col-6">
-            <form #form="ngForm" >
-                <div >
-                    
-                    <button class="filter-button" type="button" (click)="filterResults(filter.value)">
-                        <img src="../../../../assets/icons/search.png" class="search-icon">
-                    </button>
-                    
-                    <input class="filter-input" type="text" placeholder=" Wyszukaj ćwiczenie" #filter>
-                </div>
-
-                
-            </form>
-        </div>
-        <a routerLink="/exercises/add" class="create-exercise-link">
-            <span class="button-create">Stwórz nowe ćwiczenie +</span> </a>
     </div>
-
-    <div class="container-table shadow">
-        <table class="table"  *ngIf="trainingPlanExercises">
-            <thead>
-                <tr>
-                    <th class="table-head-big">Nazwa</th>
-                    <th class="table-head-small" *ngIf="id_training!=undefined">Dodaj do planu</th>
-                    <th *ngIf="this.my_exercises_flag" class="table-head-small">Edycja</th>
-                    <th *ngIf="this.my_exercises_flag" class="table-head-small">Usuń</th>
-                    <th class="table-head-small">Szczegóły</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let trainingPlanExercise of filteredPlanExercises">
-                    <td>{{trainingPlanExercise.name}}</td>
-                    <td *ngIf="id_training!=undefined"><a routerLink="add" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:id_training}">[+]</a></td>
-                    <td *ngIf="this.my_exercises_flag"><a [routerLink]="['/exercises/edit',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
-                    <td *ngIf="this.my_exercises_flag"><img (click)="openDeleteDialog(trainingPlanExercise.name)" src="../../../../assets/icons/delete.png" id="edit-icon"></td>
-                    <td><a [routerLink]="['/exercises/details',trainingPlanExercise.idExercise]"><img src="../../../../assets/icons/details.png" id="edit-icon"></a></td>
-                   
-                    <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
-                        <div class="dialog">
-                            <p class="dialog-header">Czy na pewno chcesz usunąć ćwiczenie: {{trainingPlanExercise.name}}?</p>
-                            <p class="dialog-body">Spowoduje to usunięcie go również z planów treningowych do których jest przypisane!</p>
-                            <div class="dialog-actions">
-                                <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
-                                <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteExercise(trainingPlanExercise.idExercise)">Usuń</button>
-                            </div>
-                            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć ćwiczenia</p>
-                        </div>
-                    
-                    </div>
-                </tr>
-            </tbody>
-        </table>
-        <p *ngIf="!filteredPlanExercises || filteredPlanExercises.length <=0">Nie znaleziono żadnych ćwiczeń</p>
-        
-    </div>
-    
 </div>
+
+<div class="row bg-secondary rounded-div shadow mt-3">
+    <div class="col-12 bg-primary rounded-top-3 py-2">
+        <h1 class="text-center text-white">{{tittle}}</h1>
+    </div>
+</div>
+<div class="row bg-secondary d-flex justify-content-center search">
+    <div class="col-12 col-md-6">
+<input type="text" class="form-control mb-3 fs-5 w-100 mt-3" placeholder="Szukaj ćwiczenia..." [(ngModel)]="searchTerm" (input)="filterResults()">
+</div>
+</div>
+
+<div class="row bg-secondary shadow head fs-5 py-2 ps-0 pe-1">
+    <ng-container *ngIf="this.my_exercises_flag">
+    <span class="col-xl-5 fw-bold d-flex justify-content-center justify-content-xl-start">Nazwa</span>
+    <span class="col-xl-3 fw-bold d-flex justify-content-center">Przypisz do planu</span>
+    <span class="col-xl-1 fw-bold d-flex justify-content-center">Edytuj</span>
+    <span class="col-xl-1 fw-bold d-flex justify-content-center">Usuń</span>
+    <span class="col-xl-2 fw-bold d-flex justify-content-center">Szczegóły</span>
+</ng-container>
+<ng-container *ngIf="!this.my_exercises_flag">
+    <span class="col-xl-6 fw-bold d-flex justify-content-center justify-content-xl-start">Nazwa</span>
+    <span class="col-xl-3 fw-bold d-flex justify-content-center">Przypisz do planu</span>
+    <span class="col-xl-3 fw-bold d-flex justify-content-center">Szczegóły</span>
+</ng-container>
+</div>
+<div class="row bg-secondary rounded-bottom-3 shadow details fs-5 px-2">
+    <ng-container *ngFor="let trainingPlanExercise of filteredPlanExercises">
+        <ng-container *ngIf="this.my_exercises_flag"> 
+        <span class="col-xl-5 mb-xl-3 ps-2 d-flex align-items-center first">{{trainingPlanExercise.name}}</span>
+        <div class="col-xl-3 d-flex align-items-center justify-content-center mb-xl-3 icon-container"  *ngIf="id_training!=undefined" routerLink="add" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:id_training}">
+            <i class="fas fa-calendar-plus" style="color: black;"></i>
+        </div>
+
+
+        <div class="col-xl-1 d-flex align-items-center justify-content-center mb-xl-3 icon-container"  *ngIf="this.my_exercises_flag" [routerLink]="['/exercises/edit',trainingPlanExercise.idExercise]">
+                <i  class="fas fa-edit" style="color: black;"></i>
+        </div>
+
+        <div class="col-xl-1 d-flex align-items-center justify-content-center mb-xl-3 icon-container" (click)="openDeleteDialog(trainingPlanExercise.name)" id="edit-icon">
+                <i *ngIf="this.my_exercises_flag"  class="fas fa-trash-alt" style="color: black;"></i>
+    </div>
+    <div class="col-xl-2 d-flex align-items-center justify-content-center last mb-xl-3 icon-container" [routerLink]="['/exercises/details',trainingPlanExercise.idExercise]">
+                <i class="fas fa-info-circle" style="color: black;"></i>
+    </div>
+
+    <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
+        <div class="dialog">
+            <p class="dialog-header">Czy na pewno chcesz usunąć ćwiczenie: {{trainingPlanExercise.name}}?</p>
+            <p class="dialog-body">Spowoduje to usunięcie go również z planów treningowych do których jest przypisane!</p>
+            <div class="dialog-actions">
+                <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
+                <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteExercise(trainingPlanExercise.idExercise)">Usuń</button>
+            </div>
+            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć ćwiczenia</p>
+        </div>
+    
+    </div>
+        </ng-container>
+
+        <ng-container *ngIf="!this.my_exercises_flag">
+            <span class="col-xl-6 mb-xl-3 ps-2 d-flex align-items-center first">{{trainingPlanExercise.name}}</span>
+        <div class="col-xl-3 d-flex align-items-center justify-content-center mb-xl-3 icon-container"  *ngIf="id_training!=undefined" routerLink="add" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:id_training}">
+            <i class="fas fa-calendar-plus" style="color: black;"></i>
+        </div>
+        <div class="col-xl-3 d-flex align-items-center justify-content-center last mb-xl-3 icon-container" [routerLink]="['/exercises/details',trainingPlanExercise.idExercise]">
+            <i class="fas fa-info-circle" style="color: black;"></i>
+</div>
+        </ng-container>
+    </ng-container>
+    <p *ngIf="!filteredPlanExercises || filteredPlanExercises.length <=0">Nie znaleziono żadnych ćwiczeń</p>
+    <div class="d-flex justify-content-center mt-3" *ngIf="this.my_exercises_flag">
+    <button routerLink="/exercises/add" class="btn-confirm" style="width: fit-content;">Stwórz nowe ćwiczenie</button>
+</div>
+</div>
+</div>
+
+
+               

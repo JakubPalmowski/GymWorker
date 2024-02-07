@@ -1,72 +1,90 @@
-<a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy ćwiczeń</a>
-<div class="container-slim shadow">
+
+
+
+
     <div *ngIf="errorFlag=='error'" class="error-popup">
         Wystapił błąd podczas edycji ćwiczenia. Proszę spróbować ponownie.
       </div>
-    <h3>Edycja ćwiczenia</h3> 
-    <div class="row">
-        <div class="container-form">
-            <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
-                <div class="mb-3">
-                    <label for="name" class="form-label-custom">Nazwa *</label><br>
-                    <input type="text" class="form-input" id="name" name="name" value={{exerciseEdit.name}} [(ngModel)]="exerciseEdit.name" #name="ngModel"
-                    required minlength="3" maxlength="50">
-                    <div *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać min 3 znaki
-                    </div>
-                    <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 50 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['Name']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label-custom">Opis *</label><br>
-                    <textarea class="form-input" id="description" name="description" [(ngModel)]="exerciseEdit.details"
-                    required minlength="3" maxlength="200" #description="ngModel">
-                        {{exerciseEdit.details}}
-                    </textarea>
-                    <div *ngIf="description.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="description.errors?.['minlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać min 3 znaki
-                    </div>
-                    <div *ngIf="description.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 200 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['Details']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="steps" class="form-label-custom">Sposób wykonania *</label><br>
-                    <textarea class="form-input" id="steps" name="steps" [(ngModel)]="exerciseEdit.exerciseSteps"
-                    required minlength="3" maxlength="300" #steps="ngModel">
-                        {{exerciseEdit.exerciseSteps}}
-                    </textarea>
-                    <div *ngIf="steps.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="steps.errors?.['minlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać min 3 znaki
-                    </div>
-                    <div *ngIf="steps.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 300 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['ExerciseSteps']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-          
 
-                <button type="submit" class="button-edit">Edytuj</button>
-                <div class="edit-response" id="edit-resp"></div>
-            </form>
+
+     <div class="container-fluid">
+        <div class="row my-3">
+            <a (click)="back()" class="btn-primary w-auto" ><i class="bi bi-arrow-left"></i> Powrót do listy ćwiczeń</a>
         </div>
+        <div class="row bg-secondary rounded-div shadow">
+            <div class="col-12 bg-primary rounded-top-3 py-2">
+                <h1 class="text-center text-white">Edycja ćwiczenia</h1>
+            </div> 
+    <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
+
+        <div class="group col-12 mt-3">
+            <div class="input-container">
+                <label for="name">Nazwa *</label>
+                <input type="text" id="name" name="name" [(ngModel)]="exerciseEdit.name" required minlength="3" maxlength="50" #name="ngModel">
+                <div class="error-container">
+                    <span *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </span>
+                    <span *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </span>
+                    <span *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 50 znaków
+                    </span>
+                    <span *ngFor="let error of fieldErrors['Name']" class="validation-error">
+                        {{ error }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="group col-12">
+            <div class="input-container">
+                <label for="description">Opis *</label>
+                <textarea id="description" name="description" [(ngModel)]="exerciseEdit.details" required minlength="3" maxlength="200" #description="ngModel"></textarea>
+                <div class="error-container">
+                    <span *ngIf="description.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </span>
+                    <span *ngIf="description.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </span>
+                    <span *ngIf="description.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 200 znaków
+                    </span>
+                    <span *ngFor="let error of fieldErrors['Details']" class="validation-error">
+                        {{ error }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="group col-12">
+            <div class="input-container">
+                <label for="steps">Sposób wykonania *</label>
+                <textarea id="steps" name="steps" [(ngModel)]="exerciseEdit.exerciseSteps" required minlength="3" maxlength="300" #steps="ngModel"></textarea>
+                <div class="error-container">
+                    <span *ngIf="steps.errors?.['required'] && this.submitted" class="validation-error">
+                        Pole jest wymagane
+                    </span>
+                    <span *ngIf="steps.errors?.['minlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać min 3 znaki
+                    </span>
+                    <span *ngIf="steps.errors?.['maxlength'] && this.submitted" class="validation-error">
+                        Pole musi zawierać max 300 znaków
+                    </span>
+                    <span *ngFor="let error of fieldErrors['ExerciseSteps']" class="validation-error">
+                        {{ error }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-12 d-flex justify-content-center mb-3">
+            <button type="submit" class="btn-primary">Edytuj</button>
+        </div>
+        <div class="edit-response" id="edit-resp"></div>
+    
+    </form>
+    
     </div>
-</div>

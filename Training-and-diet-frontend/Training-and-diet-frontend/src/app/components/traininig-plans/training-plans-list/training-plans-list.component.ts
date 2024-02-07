@@ -13,6 +13,7 @@ export class TrainingPlansListComponent implements OnInit{
   
   trainingPlans:TrainingPlan[]=[];
   filteredTrainingPlans:TrainingPlan[]=[];
+  searchTerm: string = '';
 
   constructor(private trainingPlanService:TrainingPlanService, private authenticationService:AuthenticationService){}
 
@@ -31,14 +32,14 @@ export class TrainingPlansListComponent implements OnInit{
     })
   }
 
-  filterResults(text: string) {
-    if (!text) {
-      this.filteredTrainingPlans = this.trainingPlans;
+  filterResults() {
+    if (!this.searchTerm) {
+      this.filteredTrainingPlans = this.trainingPlans; 
+    } else {
+      this.filteredTrainingPlans = this.trainingPlans?.filter(plan =>
+        plan.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
     }
-  
-    this.filteredTrainingPlans = this.trainingPlans.filter(
-      trainingPlan => trainingPlan?.name.toLowerCase().includes(text.toLowerCase())
-    );
   }
 
   getEndDate(date:Date){

@@ -1,161 +1,197 @@
-<div class="">
-    <a [routerLink]='"/training-plans"' class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy planów</a>
-    <div class="container-slim shadow">
-        <div class="cointainer-header ">
-            <div *ngIf="errorFlag=='error'" class="error-popup">
-                Wystapił błąd podczas edycji planu. Proszę spróbować ponownie.
-              </div>
-            <h3>Szczegóły planu</h3>
-            <div class="assignContainer">
-                <p *ngIf="trainingPlan.idPupil!=0">Plan przypisany do: {{trainingPlan.pupilName}} {{trainingPlan.pupilLastName}} <button  [routerLink]='"assignPlan"' class="assignPupilButton">Zmień</button></p>
-                <p *ngIf="trainingPlan.idPupil==0">Ten plan nie jest przypisany do podopiecznego <button [routerLink]='"assignPlan"' class="assignPupilButton">Przypisz</button></p>
-            </div> 
+
+<div *ngIf="successFlag=='success'" class="success-popup">
+    Edytowano plan treningowy!
+  </div>
+  <div *ngIf="successFlag=='error'" class="error-popup">
+    Wystapił błąd podczas edycji. Proszę spróbować ponownie.
+  </div>
+
+
+<div class="container-fluid">
+    <div class="row my-3">
+        <a [routerLink]='"/training-plans"' class="btn-primary w-auto" ><i class="bi bi-arrow-left" style="color:white;"></i> Powrót do listy planów</a>
+    </div>
+<div class="row bg-secondary rounded-div shadow">
+    <div class="col-12 bg-primary rounded-top-3 py-2">
+        <h1 class="text-center text-white">Szczegóły planu</h1>
+    </div>
+    <div class="group col-12 mt-3 fs-4">
+        <p *ngIf="trainingPlan.idPupil!=0">Plan przypisany do: <strong>{{trainingPlan.pupilName}} {{trainingPlan.pupilLastName}}</strong> <button  [routerLink]='"assignPlan"' class="btn-primary ms-2">Zmień</button></p>
+        <p *ngIf="trainingPlan.idPupil==0">Ten plan nie jest przypisany do podopiecznego <button [routerLink]='"assignPlan"' class="btn-primary">Przypisz</button></p>
+    </div> 
+    <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
+
+        <div class="group col-12 mt-3">
+            <div class="input-container">
+            <label for="name">Nazwa *</label>
+            <input type="text" id="name" name="name" [(ngModel)]="trainingPlan.name"
+            required minlength="3" maxlength="50" #name="ngModel">
+            <div class="error-container">
+            <span *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </span>
+            <span *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
+                Pole musi zawierać min 3 znaki
+            </span>
+            <span *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
+                Pole musi zawierać max 50 znaków
+            </span>
+            <span *ngFor="let error of fieldErrors['Name']"  class="validation-error">
+                {{ error }}
+            </span>
         </div>
-        <div class="">
-            <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
-                <div class="mb-3">
-                    <label for="name" class="form-label-custom">Nazwa:</label><br>
-                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="trainingPlan.name" 
-                    required minlength="3" maxlength="50" #name="ngModel">
-                    <div *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać min 3 znaki
-                    </div>
-                    <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 50 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['Name']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="customName" class="form-label-custom">Nazwa robocza:</label><br>
-                    <input type="text" class="form-input" id="customName" name="customName"  [(ngModel)]="trainingPlan.customName"
-                    maxlength="50" #customName="ngModel" >
-                    <div *ngIf="customName.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 50 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['CustomName']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="type" class="form-label-custom">Typ:</label><br>
-                    <input type="text" class="form-input" id="type" name="type" [(ngModel)]="trainingPlan.type" 
-                    required minlength="3" maxlength="50" #type="ngModel" >
-                    <div *ngIf="type.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole musi zawierać min 3 znaki
-                    </div>
-                    <div *ngIf="type.errors?.['minlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać min 3 znaki
-                    </div>
-                    <div *ngIf="type.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 50 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['Type']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="start_date" class="form-label-custom">Data rozpoczęcia:</label><br>
-                    <input type="date" class="form-input" id="start_date" name="start_date" [(ngModel)]="formStartDate" 
-                    required min="{{this.dateToday}}" #startDate="ngModel">
-                    <div *ngIf="startDate.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="startDate.errors?.['min'] && this.submitted" class="validation-error">
-                        
-                    </div>
-                    <div *ngFor="let error of fieldErrors['StartDate']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="numberOfWeeks" class="form-label-custom">Ilość tygodni:</label><br>
-                    <input type="number" class="form-input" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="trainingPlan.numberOfWeeks"
-                    required min="1" max="50"  #numberOfWeeks="ngModel" >
-                    <div *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
-                        Ilośc tygodni musi być większa od 0
-                    </div>
-                    <div *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
-                        Ilość tygodni musi być mniejsza od 50
-                    </div>
-                    <div *ngFor="let error of fieldErrors['NumberOfWeeks']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
+            </div>
+        </div>
 
 
-                <div class="bottomForm">
-                    <div class="buttonContainer">
-                        <button type="submit" class="button-edit">Edytuj</button>
-                    </div> 
-                    
-                </div>
+        <div class="col-12 group">
+            <div class="input-container">
+            <label for="customName">Nazwa robocza </label>
+            <input type="text"  id="customName" name="customName" [(ngModel)]="trainingPlan.customName"
+             maxlength="50" #customName="ngModel" >
+             <div class="error-container">
+            <span *ngIf="customName.errors?.['maxlength'] && this.submitted" class="validation-error">
+                Pole musi zawierać max 50 znaków
+            </span>
+            <span *ngFor="let error of fieldErrors['CustomName']"  class="validation-error">
+                {{ error }}
+            </span>
+            </div>
+        </div>
+        </div>
 
-                <div class="edit-response" id="edit-resp">
-                   
-                </div>
-            </form>
+
+
+
+        <div class="col-12 group">
+            <div class="input-container">
+            <label for="type">Typ * </label>
+            <input type="text" id="type" name="type" [(ngModel)]="trainingPlan.type"
+          required=""  minlength="3" maxlength="50" #type="ngModel" >
+          <div class="error-container">
+            <span *ngIf="type.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </span>
+            <span *ngIf="type.errors?.['minlength'] && this.submitted" class="validation-error">
+                Pole musi zawierać min 3 znaki
+            </span>
+            <span *ngIf="type.errors?.['maxlength'] && this.submitted" class="validation-error">
+                Pole musi zawierać max 50 znaków
+            </span>
+            <span *ngFor="let error of fieldErrors['Type']"  class="validation-error">
+                {{ error }}
+            </span>
+        </div>
         </div>
     </div>
-    <div class="container-table shadow">
-        <div class="days-container">
-            <div class="day" id="pn" (click)="changeTrainingDay(1,'pn')">Pn</div>
-            <div class="day" id="wt" (click)="changeTrainingDay(2,'wt')">Wt</div>
-            <div class="day" id="sr" (click)="changeTrainingDay(3,'sr')">Śr</div>
-            <div class="day" id="czw" (click)="changeTrainingDay(4,'czw')">Czw</div>
-            <div class="day" id="pt" (click)="changeTrainingDay(5,'pt')">Pt</div>
-            <div class="day" id="sob" (click)="changeTrainingDay(6,'sob')">Sob</div>
-            <div class="day" id="nd" (click)="changeTrainingDay(7,'nd')">Nd</div>
-        </div>
-        <table class="table"   *ngIf="trainingPlanExercises && trainingPlanExercises.length > 0">
-            <thead>
-                <tr>
-                    <th id="name-header">Nazwa</th>
-                    <th>Serie i powtórzenia</th>
-                    <th>Usuń</th>
-                    <th >Szczegóły/Edycja</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr  *ngFor="let trainingPlanExercise of filteredTrainingPlanExercises" >
-                    <td>{{trainingPlanExercise.exerciseName}}</td>
-                    <td>{{trainingPlanExercise.seriesNumber}}s x {{trainingPlanExercise.repetitionsNumber}} powt.</td>
-                    <td><img (click)="openDeleteDialog(trainingPlanExercise.exerciseName)" src="../../../../assets/icons/delete.png" id="edit-icon"></td>
-                    <td><a [routerLink]="['edit-training-exercise',trainingPlanExercise.idTraineeExercise]" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:trainingPlan.idTrainingPlan}"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
-                    
-                    <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
-                        <div class="dialog">
-                            <p class="dialog-body">Czy na pewno chcesz usunąć ćwiczenie: {{trainingPlanExercise.exerciseName}}?</p>
-                            <div class="dialog-actions">
-                                <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
-                                <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteExercise(trainingPlanExercise.idTraineeExercise)">Usuń</button>
-                            </div>
-                            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć ćwiczenia</p>
-                        </div>
-                    
-                    </div>
 
-                </tr>
-                <tr  *ngIf="filteredTrainingPlanExercises.length<1" >
-                    <td></td>
-                    <td id="regen">Regeneracja</td>
-                    <td></td>
-                    <td></td>
-                    
-                </tr>
-            </tbody>
-        </table>
-        <p *ngIf="!trainingPlanExercises || trainingPlanExercises.length <=0">Ten plan treningowy nie zawiera ćwiczeń</p>
-        <a routerLink="/training-plans/exercise-list" [queryParams]="{id: idTraining}" class="">
-             <span class="add-exercise-link">+ <br>Dodaj ćwiczenie do planu</span> </a>
-            
+
+    <div class="col-12 group">
+        <div class="input-container">
+            <label for="start_date">Data rozpoczęcia *</label>
+            <input type="date" id="start_date" name="start_date" [(ngModel)]="formStartDate" 
+            required min="{{this.dateToday}}" #startDate="ngModel">
+            <div class="error-container">
+            <span *ngIf="startDate.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </span>
+            <span *ngIf="startDate.errors?.['min'] && this.submitted" class="validation-error">
+                
+            </span>
+            <span *ngFor="let error of fieldErrors['StartDate']"  class="validation-error">
+                {{ error }}
+            </span>
+        </div>
     </div>
+    </div>
+
+
+    <div class="col-12 group">
+        <div class="input-container">
+            <label for="numberOfWeeks">Ilość tygodni *</label>
+            <input type="number" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="trainingPlan.numberOfWeeks" 
+            required min="1" max="50"  #numberOfWeeks="ngModel" >
+            <div class="error-container">
+            <span *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
+                Pole jest wymagane
+            </span>
+            <span *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
+                Ilośc tygodni musi być większa od 0
+            </span>
+            <span *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
+                Ilość tygodni musi być mniejsza od 50
+            </span>
+            <span *ngFor="let error of fieldErrors['NumberOfWeeks']"  class="validation-error">
+                {{ error }}
+            </span>
+        </div>
+    </div>
+    </div>
+        <div class="col-12 d-flex justify-content-center mb-3">
+        <button type="submit" class="btn-primary">Edytuj</button>
+    </div>
+    </form>
+
+</div>
+<div class="row mt-3 bg-secondary shadow rounded-top-3 days">
+    <span class="col-12 d-sm-none text-center" id="pn" (click)="changeTrainingDay(1,'pn')">Poniedziałek</span>
+    <span class="col-12 d-sm-none text-center" id="wt" (click)="changeTrainingDay(2,'wt')">Wtorek</span>
+    <span class="col-12 d-sm-none text-center" id="sr" (click)="changeTrainingDay(3,'sr')">Środa</span>
+    <span class="col-12 d-sm-none text-center" id="czw" (click)="changeTrainingDay(4,'czw')">Czwartek</span>
+    <span class="col-12 d-sm-none text-center" id="pt" (click)="changeTrainingDay(5,'pt')">Piątek</span>
+    <span class="col-12 d-sm-none text-center" id="sob" (click)="changeTrainingDay(6,'sob')">Sobota</span>
+    <span class="col-12 d-sm-none text-center" id="nd" (click)="changeTrainingDay(7,'nd')">Niedziela</span>
+
+    <span class="col-sm d-none d-sm-block text-center" id="pn-sm" (click)="changeTrainingDay(1,'pn-sm')">Pn</span>
+    <span class="col-sm d-none d-sm-block text-center" id="wt-sm" (click)="changeTrainingDay(2,'wt-sm')">Wt</span>
+    <span class="col-sm d-none d-sm-block text-center" id="sr-sm" (click)="changeTrainingDay(3,'sr-sm')">Śr</span>
+    <span class="col-sm d-none d-sm-block text-center" id="czw-sm" (click)="changeTrainingDay(4,'czw-sm')">Czw</span>
+    <span class="col-sm d-none d-sm-block text-center" id="pt-sm" (click)="changeTrainingDay(5,'pt-sm')">Pt</span>
+    <span class="col-sm d-none d-sm-block text-center" id="sob-sm" (click)="changeTrainingDay(6,'sob-sm')">Sob</span>
+    <span class="col-sm d-none d-sm-block text-center" id="nd-sm" (click)="changeTrainingDay(7,'nd-sm')">Nd</span> 
+</div>
+
+<div class="row bg-secondary shadow head fs-5">
+    <span class="col-12 col-lg-4 fw-bold ps-lg-3 d-flex justify-content-center justify-content-lg-start">Nazwa</span>
+    <span class="col-12 col-lg-4 fw-bold d-flex justify-content-center justify-content-lg-start">Serie i powtórzenia</span>
+    <div class="col-12 px-0 col-lg-2 fw-bold d-flex justify-content-center justify-content-lg-start pe-lg-3"><span class="w-100 text-center">Edytuj</span></div>
+    <div class="col-12 px-0 col-lg-2 fw-bold d-flex justify-content-center justify-content-lg-start pe-lg-3"><span class="w-100 text-center">Usuń</span></div>
+</div>
+
+<div class="row bg-secondary rounded-bottom-3 shadow details fs-5">
+    <ng-container *ngFor="let trainingPlanExercise of filteredTrainingPlanExercises">
+        <span class="col-lg-4 my-lg-1 ps-2 d-flex align-items-center first">{{trainingPlanExercise.exerciseName}}</span>
+        <span class="col-lg-4 my-lg-1 d-flex align-items-center">{{trainingPlanExercise.seriesNumber}}s x {{trainingPlanExercise.repetitionsNumber}} powt.</span>
+
+        <span class="col-lg-2 my-lg-1 d-flex align-items-center justify-content-center py-2 py-lg-0">
+        <a [routerLink]="['edit-training-exercise',trainingPlanExercise.idTraineeExercise]" [queryParams]="{exerciseId:trainingPlanExercise.idExercise,trainingId:trainingPlan.idTrainingPlan}">
+            <i class="fas fa-edit"></i>
+        </a>
+    </span>
+        <span class="col-lg-2 my-lg-1 d-flex align-items-center mb-1 justify-content-center py-2 py-lg-0 last">
+        <a (click)="openDeleteDialog(trainingPlanExercise.exerciseName)">
+            <i class="fas fa-trash-alt"></i>
+        </a>
+    </span>
+    <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
+        <div class="dialog">
+            <p class="dialog-body">Czy na pewno chcesz usunąć ćwiczenie: {{trainingPlanExercise.exerciseName}}?</p>
+            <div class="dialog-actions">
+                <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
+                <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteExercise(trainingPlanExercise.idTraineeExercise)">Usuń</button>
+            </div>
+            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć ćwiczenia</p>
+        </div>
     
+    </div>
+    </ng-container>
+    <p *ngIf="!trainingPlanExercises || trainingPlanExercises.length <=0" class="empty-paragraph text-center">Ten plan treningowy nie zawiera ćwiczeń</p>
+    <ng-container *ngIf="filteredTrainingPlanExercises.length<1 && trainingPlanExercises.length">
+        <span class="col-12 text-center rounded-2">Regeneracja</span>
+    </ng-container>
+
+    <div class="col-12 mt-3 d-flex justify-content-center">
+        <a [routerLink]="['/training-plans/exercise-list']" [queryParams]="{id: idTraining}" class="btn-primary">Dodaj ćwiczenie do planu</a>
+    </div>
+</div>
 </div>

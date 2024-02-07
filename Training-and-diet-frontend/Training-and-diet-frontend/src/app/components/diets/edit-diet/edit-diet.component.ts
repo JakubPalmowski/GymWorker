@@ -15,6 +15,7 @@ export class EditDietComponent implements OnInit{
   submitted=false;
   fieldErrors: { [key: string]: string[] } = {};
   errorFlag: string = "";
+  successFlag: string = "";
 
 
   filteredDietMeals:MealDietList[]=[];
@@ -115,10 +116,10 @@ export class EditDietComponent implements OnInit{
 
     this.dietService.editDiet(this.diet,this.idDiet).subscribe({
       next:(diet)=>{
-        console.log(diet);
-        if(responseDiv){
-        responseDiv.innerHTML="Edycja diety powiodła się";
-        }
+        this.successFlag = "success";
+          this.showSuccessPopup(this.successFlag);
+          this.fieldErrors = {}; 
+          document.documentElement.scrollTop = 0;
       },
       error:(error)=>{
         console.log(error);
@@ -135,6 +136,16 @@ export class EditDietComponent implements OnInit{
              document.documentElement.scrollTop = 0;
         }}
     });
+  }
+
+  showSuccessPopup(status: string) {
+    if (status == "success") {
+      setTimeout(() => this.successFlag="", 3000); 
+    }
+    if(status == "error"){
+      setTimeout(() => this.successFlag="", 3000); 
+    }
+  
   }
 
   onSubmit(valid:any)
@@ -164,28 +175,25 @@ export class EditDietComponent implements OnInit{
 
   changeDietDay(day:number,val:string){
 
-    const selectedDay=document.getElementById(val);
+    const dayIds = ['pn', 'wt', 'sr', 'czw', 'pt', 'sob', 'nd'];
+    dayIds.forEach(dayId => {
+        document.getElementById(dayId)?.classList.remove('selected-day');
+        document.getElementById(dayId + '-sm')?.classList.remove('selected-day');
+    });
 
-    const pn=document.getElementById('pn');
-    const wt=document.getElementById('wt');
-    const sr=document.getElementById('sr');
-    const czw=document.getElementById('czw');
-    const pt=document.getElementById('pt');
-    const sob=document.getElementById('sob');
-    const nd=document.getElementById('nd');
 
-    pn?.classList.remove('selected-day');
-    wt?.classList.remove('selected-day');
-    sr?.classList.remove('selected-day');
-    czw?.classList.remove('selected-day');
-    pt?.classList.remove('selected-day');
-    sob?.classList.remove('selected-day');
-    nd?.classList.remove('selected-day');
+    let smVal, fullVal;
+    if (val.includes('-sm')) {
+        smVal = val;
+        fullVal = val.replace('-sm', ''); 
+    } else {
+        smVal = val + '-sm'; 
+        fullVal = val;
+    }
+    document.getElementById(fullVal)?.classList.add('selected-day');
+    document.getElementById(smVal)?.classList.add('selected-day');
 
     this.filterDietDay(day);
-
-
-    selectedDay?.classList.add('selected-day');
 
 
   }

@@ -1,3 +1,5 @@
+
+
 <div *ngIf="errorFlag=='error'" class="error-popup" style="z-index: 2000;">
     Wystapił błąd. Proszę spróbować ponownie.
   </div>
@@ -7,18 +9,16 @@
     <div *ngIf="errorFlag=='successUpdate'">Edytowano opinie</div>
   </div>
 <div class="container-fluid" *ngIf="mentor">
-    <div class="row mt-3 mb-3">
-      <div class="col">
-      <ng-container *ngIf="role=='trainerProfile'">
-        <a class="btn-primary" (click)="goToTrainersList()"><i class="bi bi-arrow-left"></i> Powrót do listy trenerów</a>
-      </ng-container>
-      <ng-container *ngIf="role=='dieticianProfile'">
-        <a class="btn-primary" (click)="goToDieticiansList()"><i class="bi bi-arrow-left"></i> Powrót do listy dietetyków</a>
-      </ng-container>
-    </div>
-    </div>
-
-
+  <div class="row my-3" *ngIf="role=='trainerProfile' && fromList">
+    <a class="btn-primary w-auto" (click)="goToTrainersList()"><i class="bi bi-arrow-left"></i> Powrót do listy trenerów</a>
+  </div>
+  <div class="row my-3" *ngIf="role=='dieticianProfile' && fromList">
+    <a class="btn-primary w-auto" (click)="goToDieticiansList()"><i class="bi bi-arrow-left"></i> Powrót do listy dietetyków</a>
+  </div>
+  
+  <div class="row my-3" *ngIf="!fromList">
+    <a class="btn-primary w-auto" (click)="back()"><i class="bi bi-arrow-left"></i> Powrót</a>
+  </div>
 
       <div class="row bg-secondary d-flex align-items-center py-4 px-2 rounded-div mb-3 shadow">
           <div class="col-lg-2 col-md-6 col-12 d-flex justify-content-center align-items-center">
@@ -35,15 +35,13 @@
               <span class="fs-2" *ngSwitchCase="'Dietician-Trainer'">Trener i dietetyk</span>
             </ng-container>
 
-            <ng-container *ngIf="isLogged && roleUser=='Pupil'">
+            <ng-container *ngIf="roleUser=='Pupil'">
             <span class="fs-5 ms-1" *ngIf="mentor.cooperation" style="color: green;">Współpracujesz z tym mentorem<i class="bi bi-people-fill ms-1"></i></span>
             <button *ngIf="mentor.cooperation==null" class="btn-primary mt-3 m-lg-1" (click)="sendInvitation()">Zaproś do współpracy</button>
             <button *ngIf="mentor.cooperation==false" class="btn-primary mt-3 m-lg-1"  (click)="cancelInvitation()">Anuluj zaproszenie</button>
             <button data-bs-toggle="modal" data-bs-target="#createOpinionModal" *ngIf="mentor.cooperation && !mentor.isOpinionExists" class="btn-primary mt-3 m-lg-1">Dodaj opinie</button>
             <button data-bs-toggle="modal" data-bs-target="#updateOpinionModal" *ngIf="mentor.cooperation && mentor.isOpinionExists" class="btn-primary mt-3 m-lg-1" >Edytuj opinie</button>
           </ng-container>
-
-            <button *ngIf="!isLogged" class="btn-primary mt-3 m-lg-1" routerLink="/login">Zaproś do współpracy</button>
           </div>
 
 
@@ -169,7 +167,7 @@
           <div class="col-lg-5 d-flex flex-column align-items-center align-items-lg-start">
             <span class="fs-4 fw-bold">Dane kontaktowe:</span>
             <span class="fs-4"><i class="fas fa-envelope me-2"></i>{{ mentor.email }}</span>
-            <span class="fs-4"><i class="fas fa-phone me-2"></i>{{ mentor.phoneNumber}}</span>
+            <span *ngIf="mentor.phoneNumber" class="fs-4"><i class="fas fa-phone me-2"></i>{{ mentor.phoneNumber}}</span>
           </div>
    
     </div>
@@ -234,7 +232,7 @@
         <a class="btn-primary" data-bs-toggle="modal" data-bs-target="#opinionModal">Pokaż wszystkie</a>
       </div>
         <div class="modal fade" id="opinionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 700px;">
             <div class="modal-content">
 
               <div class="modal-header">

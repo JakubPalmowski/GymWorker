@@ -1,31 +1,30 @@
-<div class="row d-flex justify-content-center ">
-    <div class="container-head shadow">
-        <h3>Moje plany</h3>
-        <button class="filter-button" type="button" (click)="filterResults(filter.value)">
-            <img src="../../../../assets/icons/search.png" class="search-icon">
-        </button>
-        
-        <input class="filter-input" type="text" placeholder="Wyszukaj plan" #filter>
-    </div>
-    <div class="container-body shadow">
-        <table class="table" *ngIf="trainingPlans && trainingPlans.length > 0" >
-            <thead >
-                <tr >
-                    <th>Nazwa</th>
-                    <th>Nazwa robocza</th>
-                    <th>Ważny do</th>
-                </tr>
-            </thead>
-            <tr *ngFor="let trainingPlan of filteredTrainingPlans" [routerLink]="['edit',trainingPlan.idTrainingPlan]" >
-                <td>{{ trainingPlan.name }}</td>
-                <td>{{ trainingPlan.customName }}</td>
-                <td>{{ getEndDate(trainingPlan.endDate) }}</td>
-            </tr>
-        </table>
-        <p *ngIf="!trainingPlans || trainingPlans.length <=0" class="no-plans-message">Nie posiadasz planów treningowych</p>
-        <div class="test">
-            <a routerLink="/training-plans/add" class="new-plan-link">
-                <span class="new-plan-span">+<br>Dodaj nowy plan</span> </a>
+<div class="container-fluid mt-3">
+    <div class="row bg-secondary rounded-div shadow">
+        <div class="col-12 bg-primary rounded-top-3 py-2">
+            <h1 class="text-center text-white">Moje plany</h1>
         </div>
     </div>
+    <div class="row bg-secondary d-flex justify-content-center search">
+        <div class="col-12 col-md-6">
+    <input type="text" class="form-control mb-3 fs-5 w-100 mt-3" placeholder="Szukaj planu..." [(ngModel)]="searchTerm" (input)="filterResults()">
 </div>
+</div>
+<div class="row bg-secondary shadow head fs-5 py-2 ps-2">
+    <span class="col-12 col-lg-4 fw-bold ps-lg-3 d-flex justify-content-center justify-content-lg-start">Nazwa</span>
+    <span class="col-12 col-lg-4 fw-bold d-flex justify-content-center justify-content-lg-start">Nazwa robocza</span>
+    <span class="col-12 col-lg-4 fw-bold d-flex justify-content-center justify-content-lg-start">Data zakończenia</span>
+</div>
+
+<div class="row bg-secondary rounded-bottom-3 shadow details fs-5">
+    <div *ngFor="let plan of filteredTrainingPlans" class="d-block d-lg-flex" [routerLink]="['edit',plan.idTrainingPlan]" style="cursor: pointer;">
+        <span class="col-lg-4 mb-lg-3 ps-2 d-flex align-items-center first">{{plan.name}}</span>
+        <span class="col-lg-4 mb-lg-3 d-flex align-items-center ps-lg-2">{{plan.customName}}</span>
+        <span class="col-lg-4 mb-lg-3 d-flex align-items-center ps-lg-4 mb-3 last">{{ getEndDate(plan.endDate) }}</span>
+    </div>
+    <p *ngIf="!filteredTrainingPlans || filteredTrainingPlans.length <=0" class="text-center">Brak planów treningowych</p>
+    <div class="col-12 d-flex justify-content-center">
+        <a routerLink="/training-plans/add" class="btn-confirm" style="width: fit-content;">Stwórz nowy plan</a>
+    </div>
+</div>
+</div>
+

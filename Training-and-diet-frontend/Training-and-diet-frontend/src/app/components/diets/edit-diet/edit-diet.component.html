@@ -1,179 +1,224 @@
-<div class="">
-    <a [routerLink]='"/diet"' class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót do listy diet</a>
-    <div class="container-slim shadow">
-        <div class="cointainer-header">
-            <div *ngIf="errorFlag=='error'" class="error-popup">
-                Wystapił błąd podczas edycji diety. Proszę spróbować ponownie.
-              </div>
-            <h3>Szczegóły diety</h3>
-            <div class="assignContainer">
-                <p *ngIf="diet.idPupil!=null">Dieta przypisana do: {{diet.pupilName}} {{diet.pupilLastName}} <button  [routerLink]='"assignDiet"' class="assignPupilButton">Zmień</button></p>
-                <p *ngIf="diet.idPupil==null">Ta dieta nie jest przypisana do podopiecznego <button [routerLink]='"assignDiet"' class="assignPupilButton">Przypisz</button></p>
-            </div> 
-        </div>
-        <div class="">
-            <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
-                <div class="mb-3">
-                    <label for="name" class="form-label-custom">Nazwa *</label><br>
-                    <input type="text" class="form-input" id="name" name="name" [(ngModel)]="diet.name"
-                    required minlength="3" maxlength="50" #name="ngModel">
-                    <div *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać min 3 znaki
-                    </div>
-                    <div *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 50 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['Name']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="input-section">
-                    <label for="customName" class="form-label-custom">Nazwa robocza </label><br>
-                    <input type="text" class="form-input" id="customName" name="customName" [(ngModel)]="diet.customName"
-                     maxlength="50" #customName="ngModel" >
-                    <div *ngIf="customName.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 50 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['CustomName']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="type" class="form-label-custom">Typ </label><br>
-                    <input type="text" class="form-input" id="type" name="type" [(ngModel)]="diet.type"
-                   required minlength="3" maxlength="50" #type="ngModel" >
-                    <div *ngIf="type.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="type.errors?.['minlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać min 3 znaki
-                    </div>
-                    <div *ngIf="type.errors?.['maxlength'] && this.submitted" class="validation-error">
-                        Pole musi zawierać max 50 znaków
-                    </div>
-                    <div *ngFor="let error of fieldErrors['Type']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="startDate" class="form-label-custom">Data rozpoczęcia *</label><br>
-                    <input type="date" class="form-input" id="startDate" name="startDate" [(ngModel)]="this.formStartDate"
-                    required min="{{this.dateToday}}" #startDate="ngModel">
-                    <div *ngIf="startDate.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="startDate.errors?.['min'] && this.submitted" class="validation-error">
-                        
-                    </div>
-                    <div *ngFor="let error of fieldErrors['StartDate']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="numberOfWeeks" class="form-label-custom">Liczba tygodni *</label><br>
-                    <input type="number" class="form-input" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="diet.numberOfWeeks" 
-                    required min="1" max="2000"  #numberOfWeeks="ngModel" >
-                    <div *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
-                        Ilośc tygodni musi być większa od 0
-                    </div>
-                    <div *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
-                        Ilość tygodni musi być mniejsza od 2000
-                    </div>
-                    <div *ngFor="let error of fieldErrors['NumberOfWeeks']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
+<div *ngIf="successFlag=='success'" class="success-popup">
+    Edytowano dietę!
+  </div>
+  <div *ngIf="successFlag=='error'" class="error-popup">
+    Wystapił błąd podczas edycji. Proszę spróbować ponownie.
+  </div>
 
-                <div class="mb-3">
-                    <label for="totalKcal" class="form-label-custom">Max. dzienne kalorie *</label><br>
-                    <input type="number" class="form-input" id="totalKcal" name="totalKcal" [(ngModel)]="diet.totalKcal" 
-                    required min="100" max="10000"  #totalKcal="ngModel" >
-                    <div *ngIf="totalKcal.errors?.['required'] && this.submitted" class="validation-error">
-                        Pole jest wymagane
-                    </div>
-                    <div *ngIf="totalKcal.errors?.['min'] && this.submitted" class="validation-error">
-                        Ilośc kalorii musi być większa od 100
-                    </div>
-                    <div *ngIf="totalKcal.errors?.['max'] && this.submitted" class="validation-error">
-                        Ilość kalorii musi być mniejsza od 10000
-                    </div>
-                    <div *ngFor="let error of fieldErrors['TotalKcal']"  class="validation-error">
-                        {{ error }}
-                    </div>
-                </div>
 
-                <div class="bottomForm">
-                    <div class="buttonContainer">
-                        <button type="submit" class="button-edit">Edytuj</button>
-                    </div> 
-                    
-                </div>
-
-                <div class="edit-response" id="edit-resp">
-                   
-                </div>
-            </form>
-
-        </div>
+<div class="container-fluid">
+    <div class="row my-3">
+        <a [routerLink]='"/diet"' class="btn-primary w-auto" ><i class="bi bi-arrow-left"></i> Powrót do listy diet</a>
     </div>
-    <div class="container-table shadow">
-        <div class="days-container">
-            <div class="day" id="pn" (click)="changeDietDay(1,'pn')">Pn</div>
-            <div class="day" id="wt" (click)="changeDietDay(2,'wt')">Wt</div>
-            <div class="day" id="sr" (click)="changeDietDay(3,'sr')">Śr</div>
-            <div class="day" id="czw" (click)="changeDietDay(4,'czw')">Czw</div>
-            <div class="day" id="pt" (click)="changeDietDay(5,'pt')">Pt</div>
-            <div class="day" id="sob" (click)="changeDietDay(6,'sob')">Sob</div>
-            <div class="day" id="nd" (click)="changeDietDay(7,'nd')">Nd</div>
+    <div class="row bg-secondary rounded-div shadow">
+        <div class="col-12 bg-primary rounded-top-3 py-2">
+            <h1 class="text-center text-white">Szczegóły diety</h1>
         </div>
-        <table class="table"   *ngIf="dietMeals && dietMeals.length > 0">
-            <thead>
-                <tr>
-                    <th id="name-header">Nazwa</th>
-                    <th>Godzina posiłku</th>
-                    <th>Usuń</th>
-                    <th >Szczegóły/Edycja</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr  *ngFor="let dietMeal of filteredDietMeals" >
-                    <td>{{dietMeal.name}}</td>
-                    <td>{{dietMeal.hourOfMeal}}</td>
-                    <td><img (click)="openDeleteDialog(dietMeal.name)" src="../../../../assets/icons/delete.png" id="edit-icon"></td>
-                    <td><a [routerLink]="['dietMeals',dietMeal.idMealDiet]" [queryParams]="{mealId:dietMeal.idMeal,dietId:this.idDiet}"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
-                    
-                    <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
-                        <div class="dialog">
-                            <p class="dialog-body">Czy na pewno chcesz usunąć posiłek: {{dietMeal.name}}?</p>
-                            <div class="dialog-actions">
-                                <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
-                                <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteDietMeal(dietMeal.idMealDiet)">Usuń</button>
-                            </div>
-                            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć posiłku</p>
-                        </div>
-                    
-                    </div>
+        <div class="group col-12 mt-3 fs-4">
+            <p *ngIf="diet.idPupil!=null">Dieta przypisana do: <strong>{{diet.pupilName}} {{diet.pupilLastName}}</strong> <button  [routerLink]='"assignDiet"' class="btn-primary ms-2">Zmień</button></p>
+            <p *ngIf="diet.idPupil==null">Ta dieta nie jest przypisana do podopiecznego <button [routerLink]='"assignDiet"' class="btn-primary">Przypisz</button></p>
+        </div> 
 
-                </tr>
-                <tr  *ngIf="filteredDietMeals.length<1" >
-                    <td></td>
-                    <td id="regen">Regeneracja</td>
-                    <td></td>
-                    <td></td>
-                    
-                </tr>
-            </tbody>
-        </table>
-        <p *ngIf="!dietMeals|| dietMeals.length <=0">Ta dieta nie zawiera posiłków</p>
-        <a routerLink="dietMeals" [queryParams]="{id: idDiet}" class="">
-             <span class="add-exercise-link">+ <br>Dodaj posiłek do diety</span> </a>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form.valid)">
+
+            <div class="group col-12 mt-3">
+                <div class="input-container">
+                <label for="name">Nazwa *</label>
+                <input type="text" id="name" name="name" [(ngModel)]="diet.name"
+                required minlength="3" maxlength="50" #name="ngModel">
+                <div class="error-container">
+                <span *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
+                    Pole jest wymagane
+                </span>
+                <span *ngIf="name.errors?.['minlength'] && this.submitted" class="validation-error">
+                    Pole musi zawierać min 3 znaki
+                </span>
+                <span *ngIf="name.errors?.['maxlength'] && this.submitted" class="validation-error">
+                    Pole musi zawierać max 50 znaków
+                </span>
+                <span *ngFor="let error of fieldErrors['Name']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+            </div>
+
+
+            <div class="group col-12 mt-3">
+                <div class="input-container">
+                <label for="customName">Nazwa robocza </label>
+                <input type="text" id="customName" name="customName" [(ngModel)]="diet.customName"
+                 maxlength="50" #customName="ngModel" >
+                 <div class="error-container">
+                <span *ngIf="customName.errors?.['maxlength'] && this.submitted" class="validation-error">
+                    Pole musi zawierać max 50 znaków
+                </span>
+                <span *ngFor="let error of fieldErrors['CustomName']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+        </div>
+
+
+
+        <div class="group col-12 mt-3">
+            <div class="input-container">
+                <label for="type">Typ * </label>
+                <input type="text" id="type" name="type" [(ngModel)]="diet.type"
+                required minlength="3" maxlength="50" #type="ngModel" >
+                <div class="error-container">
+                <span *ngIf="type.errors?.['required'] && this.submitted" class="validation-error">
+                    Pole jest wymagane
+                </span>
+                <span *ngIf="type.errors?.['minlength'] && this.submitted" class="validation-error">
+                    Pole musi zawierać min 3 znaki
+                </span>
+                <span *ngIf="type.errors?.['maxlength'] && this.submitted" class="validation-error">
+                    Pole musi zawierać max 50 znaków
+                </span>
+                <span *ngFor="let error of fieldErrors['Type']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+                
+            </div>
+
+
             
+            <div class="group col-12 mt-3">
+                <div class="input-container">
+                <label for="start_date">Data rozpoczęcia *</label>
+                <input type="date" id="start_date" name="start_date" [(ngModel)]="formStartDate" 
+                required min="{{this.dateToday}}" #startDate="ngModel">
+                <div class="error-container">
+                <span *ngIf="startDate.errors?.['required'] && this.submitted" class="validation-error">
+                    Pole jest wymagane
+                </span>
+                <span *ngIf="startDate.errors?.['min'] && this.submitted" class="validation-error">
+                   
+                </span>
+                <span *ngFor="let error of fieldErrors['StartDate']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+            </div>
+
+
+
+
+
+            <div class="group col-12 mt-3">
+                <div class="input-container">
+                <label for="numberOfWeeks">Liczba tygodni *</label>
+                <input type="number" id="numberOfWeeks" name="numberOfWeeks" [(ngModel)]="diet.numberOfWeeks" 
+                required min="1" max="2000"  #numberOfWeeks="ngModel" >
+                <div class="error-container">
+                <span *ngIf="numberOfWeeks.errors?.['required'] && this.submitted" class="validation-error">
+                    Pole jest wymagane
+                </span>
+                <span *ngIf="numberOfWeeks.errors?.['min'] && this.submitted" class="validation-error">
+                    Ilośc tygodni musi być większa od 0
+                </span>
+                <span *ngIf="numberOfWeeks.errors?.['max'] && this.submitted" class="validation-error">
+                    Ilość tygodni musi być mniejsza od 2000
+                </span>
+                <span *ngFor="let error of fieldErrors['NumberOfWeeks']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+            </div>
+        </div>
+
+
+
+        <div class="group col-12 mt-3">
+            <div class="input-container">
+                <label for="totalKcal">Max. dzienne kalorie *</label>
+                <input type="number" id="totalKcal" name="totalKcal" [(ngModel)]="diet.totalKcal" 
+                required min="100" max="10000"  #totalKcal="ngModel" >
+                <div class="error-container">
+                <span *ngIf="totalKcal.errors?.['required'] && this.submitted" class="validation-error">
+                    Pole jest wymagane
+                </span>
+                <span *ngIf="totalKcal.errors?.['min'] && this.submitted" class="validation-error">
+                    Ilośc kalorii musi być większa od 100
+                </span>
+                <span *ngIf="totalKcal.errors?.['max'] && this.submitted" class="validation-error">
+                    Ilość kalorii musi być mniejsza od 10000
+                </span>
+                <span *ngFor="let error of fieldErrors['TotalKcal']"  class="validation-error">
+                    {{ error }}
+                </span>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center mb-3">
+            <button type="submit" class="btn-primary">Edytuj</button>
+        </div>
+        </form>
+
     </div>
+    <div class="row mt-3 bg-secondary shadow rounded-top-3 days">
+        <span class="col-12 d-sm-none text-center" id="pn" (click)="changeDietDay(1,'pn')">Poniedziałek</span>
+        <span class="col-12 d-sm-none text-center" id="wt" (click)="changeDietDay(2,'wt')">Wtorek</span>
+        <span class="col-12 d-sm-none text-center" id="sr" (click)="changeDietDay(3,'sr')">Środa</span>
+        <span class="col-12 d-sm-none text-center" id="czw" (click)="changeDietDay(4,'czw')">Czwartek</span>
+        <span class="col-12 d-sm-none text-center" id="pt" (click)="changeDietDay(5,'pt')">Piątek</span>
+        <span class="col-12 d-sm-none text-center" id="sob" (click)="changeDietDay(6,'sob')">Sobota</span>
+        <span class="col-12 d-sm-none text-center" id="nd" (click)="changeDietDay(7,'nd')">Niedziela</span>
     
+        <span class="col-sm d-none d-sm-block text-center" id="pn-sm" (click)="changeDietDay(1,'pn-sm')">Pn</span>
+        <span class="col-sm d-none d-sm-block text-center" id="wt-sm" (click)="changeDietDay(2,'wt-sm')">Wt</span>
+        <span class="col-sm d-none d-sm-block text-center" id="sr-sm" (click)="changeDietDay(3,'sr-sm')">Śr</span>
+        <span class="col-sm d-none d-sm-block text-center" id="czw-sm" (click)="changeDietDay(4,'czw-sm')">Czw</span>
+        <span class="col-sm d-none d-sm-block text-center" id="pt-sm" (click)="changeDietDay(5,'pt-sm')">Pt</span>
+        <span class="col-sm d-none d-sm-block text-center" id="sob-sm" (click)="changeDietDay(6,'sob-sm')">Sob</span>
+        <span class="col-sm d-none d-sm-block text-center" id="nd-sm" (click)="changeDietDay(7,'nd-sm')">Nd</span> 
+    </div>
+
+    <div class="row bg-secondary shadow head fs-5">
+        <span class="col-12 col-lg-4 fw-bold ps-lg-3 d-flex justify-content-center justify-content-lg-start">Nazwa</span>
+        <span class="col-12 col-lg-4 fw-bold d-flex justify-content-center justify-content-lg-start">Godzina posiłku</span>
+        <div class="col-12 px-0 col-lg-2 fw-bold d-flex justify-content-center justify-content-lg-start pe-lg-3"><span class="w-100 text-center">Edytuj</span></div>
+        <div class="col-12 px-0 col-lg-2 fw-bold d-flex justify-content-center justify-content-lg-start pe-lg-3"><span class="w-100 text-center">Usuń</span></div>
+    </div>
+    <div class="row bg-secondary rounded-bottom-3 shadow details fs-5">
+        <ng-container *ngFor="let mealDiet of filteredDietMeals">
+            <span class="col-lg-4 mb-lg-3 ps-2 d-flex align-items-center first">{{mealDiet.name}}</span>
+            <span class="col-lg-4 mb-lg-3 d-flex align-items-center">{{mealDiet.hourOfMeal}}</span>
+            <span class="col-lg-2 mb-lg-3 d-flex align-items-center justify-content-center py-2 py-lg-0">
+            <a [routerLink]="['dietMeals',mealDiet.idMealDiet]" [queryParams]="{mealId:mealDiet.idMeal,dietId:this.idDiet}"><i  class="fas fa-edit" style="color: black;"></i></a>
+        </span>
+        <span class="col-lg-2 mb-lg-3 d-flex align-items-center justify-content-center py-2 py-lg-0 last">
+            <a (click)="openDeleteDialog(mealDiet.name)"><i class="fas fa-trash-alt" style="color: black;"></i></a>
+        </span>
+
+        
+        <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
+            <div class="dialog">
+                <p class="dialog-body">Czy na pewno chcesz usunąć posiłek: {{mealDiet.name}}?</p>
+                <div class="dialog-actions">
+                    <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
+                    <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteDietMeal(mealDiet.idMealDiet)">Usuń</button>
+                </div>
+                <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć posiłku</p>
+            </div>
+        
+        </div>
+        </ng-container>
+        <p *ngIf="!dietMeals || dietMeals.length <=0" class="empty-paragraph text-center">Ta dieta nie zawiera posiłków</p>
+        <ng-container *ngIf="filteredDietMeals.length<1 && dietMeals.length">
+            <span class="col-12 text-center rounded-2">Brak posiłków</span>
+        </ng-container>
+    
+        <div class="col-12 mt-3 d-flex justify-content-center">
+            <a routerLink="dietMeals" [queryParams]="{id: idDiet}" class="btn-primary">Dodaj posiłek do diety</a>
+        </div>
+    </div>
 </div>
+
+

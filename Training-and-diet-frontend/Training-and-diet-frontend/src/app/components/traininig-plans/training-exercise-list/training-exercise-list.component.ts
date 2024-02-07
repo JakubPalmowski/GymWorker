@@ -23,6 +23,8 @@ export class TrainingExerciseListComponent implements OnInit{
   my_exercises_flag:boolean=false;
   deleteDialogFlag: boolean=false;
   deleteErrorFlag: boolean=false;
+  tittle: string='Moje ćwiczenia';
+  searchTerm: string = '';
 
 
   constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location,private router:Router){}
@@ -50,19 +52,20 @@ export class TrainingExerciseListComponent implements OnInit{
     })
   }
 
-  filterResults(text: string){
-    if (!text) {
-      this.filteredPlanExercises = this.trainingPlanExercises;
+  filterResults() {
+    if (!this.searchTerm) {
+      this.filteredPlanExercises = this.trainingPlanExercises; 
+    } else {
+      this.filteredPlanExercises = this.trainingPlanExercises?.filter(exercise =>
+        exercise.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
     }
-  
-    this.filteredPlanExercises = this.trainingPlanExercises.filter(
-      trainingPlanExercises => trainingPlanExercises?.name.toLowerCase().includes(text.toLowerCase())
-    );
   }
   
 
   MyExercises(){
     
+    this.tittle = 'Moje ćwiczenia';
     this.exerciseServise.getTrainerExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.filteredPlanExercises=trainingPlanExercises;
@@ -82,7 +85,7 @@ export class TrainingExerciseListComponent implements OnInit{
   
 
   AllExercises(){
-      
+    this.tittle = 'Wszystkie ćwiczenia';
     this.exerciseServise.getAllExercises().subscribe({
       next:(trainingPlanExercises)=>{
         this.filteredPlanExercises=trainingPlanExercises;

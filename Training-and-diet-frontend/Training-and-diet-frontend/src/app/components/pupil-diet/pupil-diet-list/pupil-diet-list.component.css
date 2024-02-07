@@ -1,106 +1,64 @@
-.container{
-    
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    
+.days span{
+  cursor: pointer;
+}  
+.days{
+  border: 1px solid #A6A6A6;
+}
+.selected-day{
+  color:#3244A0;
+  background-color:#FAFAFA;
+  border-radius: 10px;
+}
+.head{
+  border-right: 1px solid #A6A6A6;
+  border-left: 1px solid #A6A6A6;
+  border-bottom: 1px solid #A6A6A6;
 }
 
-.container-head, .container-body{
-background-color: #D9D9D9;
-border: 1px solid #A6A6A6;
-border-radius: 10px 10px 10px 10px;
-width: 80%;
+.details{
+  border: 1px solid #A6A6A6;
+  border-top: none;
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
 }
 
-.container-head{
-text-align: center;
-padding:20px;
-
+.details span{
+  background-color: whitesmoke;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
-.container-body{
-    margin-top: 1%;
-    text-align: center;
+.first{
+  border-radius: 10px 0 0 10px;
+}
+.last{
+  border-radius: 0 10px 10px 0;
 }
 
-h3{
-    padding-bottom: 1%;
-    font-size: 38px;
-}
 
-table {
-    border: 0; 
-    border-collapse: separate; 
-    border-spacing: 0 5px;
-    width: 100%;
+@media (max-width: 991px) {
+  .first{
+      border-radius: 10px 10px 0 0;
   }
-  
-thead tr th {
-    border-bottom: 1px solid #A6A6A6;
-    border-collapse: separate; 
-    border-spacing: 5px 5px;
-    padding: 10px;
-  } 
-  
-td ,th{
-    text-align: center;
+  .last{
+      border-radius: 0 0 10px 10px;
   }
-  
-th{
-    font-size: 22px;
-}
-
-
-td{
-    background-color: #FAFAFA;
-    font-size: 20px;
-    padding: 5px;
+  .details span{
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid #A6A6A6;
   }
-
-a{
-    color: inherit; 
-    text-decoration: inherit; 
-  }
-
-.search-icon{
-    height: 24px;
-    width: 24px;
-  }
-
-.filter-input{
-    font-size: 24px;
-    background-color: #D9D9D9;
-    border: none;
-    height: 30px;
 }
 
-.filter-button{
-    border: none;
-    background-color: #D9D9D9;
-    padding-left: 70px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
 
-.new-plan-link{
-    background-color: #FAFAFA;
-    width: 180px;
-    height: 60px;
-    font-size: 18px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px 10px 10px 10px;
-}
 
-.no-plans-message{
-    background-color: #FAFAFA;
-    font-size: 22px;
-    padding: 5px;
-    margin-top: 10px;
-}
+
+
+
+
+
+
+
+
 
 

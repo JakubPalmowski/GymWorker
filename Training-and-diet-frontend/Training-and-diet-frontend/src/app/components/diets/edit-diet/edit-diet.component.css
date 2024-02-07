@@ -1,18 +1,4 @@
-.container-slim
-{
-    background-color: #D9D9D9;
-   
-    border-radius: 10px;
-    width: 60%;
-    flex: content;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid #A6A6A6;
-    border-radius: 10px;
-    
-    
-    
-}
+
 
 .dialog-container {
     position: fixed;
@@ -27,67 +13,93 @@
     background-color: rgba(0, 0, 0, 0.4); 
   }
 
-#name-header{
-    width: 35%;
+
+
+  label {
+    padding-left: 2px;
+    font-size: 20px;
+    color: black;
+    width: 80%;
 }
 
-input,label,.validation-error{
-    margin-left: 25%;
-}
-
-
-#regen{
-    font-weight: bold;
-    font-size: 24px;
-    text-align: center;
-}
-
-h3{
-    font-size: 38px;
-    text-align: center;
-}
-
-.assignPupilButton{
-    background-color:#3244A0;
-    color: white;
-    font-weight: bold;
-    border: none;
+input{
+    width: 100%;
+    padding: 8px;
     border-radius: 10px;
-    padding: 5px 10px;
-}
-
-.bottomForm{
-    display: flex;
-    justify-content: center;
-
-}
-
-
-
-.assignContainer{
-   
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
     font-size: 18px;
 }
 
-.button-edit{
-    margin: 10px 0px;
-    font-size: 24px;
-    padding: 10px 20px ;
-    background-color:#3244A0;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+  .input-container{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+  }
 
+@media (max-width: 768px) {
+  .input-container{
+    width: 90%;
+  }
 }
+
+.days span{
+    cursor: pointer;
+}  
+.days{
+    border: 1px solid #A6A6A6;
+}
+.selected-day{
+    color:#3244A0;
+    background-color:#FAFAFA;
+    border-radius: 10px;
+}
+.head{
+    border-right: 1px solid #A6A6A6;
+    border-left: 1px solid #A6A6A6;
+}
+
+.details{
+    border: 1px solid #A6A6A6;
+    border-top: none;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+.details span{
+    background-color: whitesmoke;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.first{
+    border-radius: 10px 0 0 10px;
+}
+.last{
+    border-radius: 0 10px 10px 0;
+}
+
+@media (max-width: 991px) {
+    .first{
+        border-radius: 10px 10px 0 0;
+    }
+    .last{
+        border-radius: 0 0 10px 10px;
+    }
+    .details span{
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid #A6A6A6;
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 .edit-response{
     color:#3244A0;
@@ -142,47 +154,4 @@ table {
     border-radius: 10px;
 
     
-}
-
-thead tr th {
-    border-bottom: 1px solid #A6A6A6;
-    border-collapse: separate; 
-    border-spacing: 5px 5px;
-    padding: 10px;
-  } 
-  
-td ,th{
-    text-align: center;
-  }
-  
-th{
-    font-size: 18px;
-}
-
-
-td{
-    background-color: #FAFAFA;
-    font-size: 16px;
-    padding: 5px;
-  }
-
-.add-exercise-link{
-    background-color: #FAFAFA;
-    width: 180px;
-    height: 80px;
-    font-size: 16px;
-    display: block;
-    margin: 10px auto;
-    border-radius: 10px 10px 10px 10px;
-    
-}
-
-a{
-    color: inherit; 
-    text-decoration: inherit; 
-  }
-
-#edit-icon{
-    height: 20px;
-    width: 20px;
 }

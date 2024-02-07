@@ -19,6 +19,7 @@ import { UserService } from 'src/app/services/user.service';
 export class MentorProfileComponent implements OnInit {
 
 
+
   constructor(private opinionService: OpinionService,private userService: UserService, private route:ActivatedRoute, private previousUrlService: PreviousUrlService, private router: Router, private fileService: FileService, private authenticationService: AuthenticationService){
 
   }
@@ -27,9 +28,10 @@ export class MentorProfileComponent implements OnInit {
   mentor:MentorProfile | undefined;
   role: string|undefined='';
   imageUrl: string = "";
-  isLogged: boolean = false;
   idUser: string|undefined;
   roleUser: string|undefined;
+  fromList: boolean = true;
+
   newOpinion: CreateOpinion = {
     idMentor: 0,
     rate: 5,
@@ -47,30 +49,18 @@ export class MentorProfileComponent implements OnInit {
   @ViewChild('updateOpinionModal') updateOpinionModalRef: ElementRef | undefined;
 
   ngOnInit():void{
-    this.authenticationService.isLoggedIn.subscribe(loggedIn => {
-      this.isLogged = loggedIn;
-    });
-    this.idUser = this.authenticationService.getUserId();
     const role = this.authenticationService.getRole();
     switch (role) {
-      case '1':
-        this.roleUser = 'Admin';
-        break;
       case '2':
         this.roleUser = 'Pupil';
         break;
-      case '3': 
-        this.roleUser = 'Trainer';
-        break;
-      case '4':
-        this.roleUser = 'Dietician';
-        break;
-        case '5':
-          this.roleUser = 'Admin';
-          break;
     }
 
-
+    const previousUrl = this.previousUrlService.getPreviousUrl();
+    if(previousUrl.includes('/pupilDiets')||previousUrl.includes('/pupilTrainingPlans'))
+    {
+      this.fromList = false;
+    }
     
     const mentorId = this.route.snapshot.params['id'];
     this.newOpinion = {
@@ -389,6 +379,9 @@ export class MentorProfileComponent implements OnInit {
       }
     
     }
+    back() {
+      this.router.navigateByUrl(this.previousUrlService.getPreviousUrl())
+      }
 
   
 }

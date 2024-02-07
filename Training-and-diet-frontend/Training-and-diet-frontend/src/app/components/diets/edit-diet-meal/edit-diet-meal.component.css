@@ -1,73 +1,42 @@
-.container-slim
-{
-    background-color: #D9D9D9;
-   
+label {
+    padding-left: 2px;
+    font-size: 20px;
+    color: black;
+    width: 80%;
+}
+
+input{
+    width: 100%;
+    padding: 8px;
     border-radius: 10px;
-    width: 60%;
-    flex: content;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid #A6A6A6;
-    border-radius: 10px;
-    
-    
-    
-}
-
-
-
-input,label,.validation-error,textarea,select{
-    margin-left: 25%;
-}
-
-h3{
-    font-size: 30px;
-    text-align: center;
-}
-
-.form-label{
-    font-weight: bold;
-
-
-}
-
-table{
-    margin-left: 25%;
-    
-}
-
-#comments{
-    height: 150px;
-    font-size: 16px;
-}
-
-.edit-response{
-    color:#3244A0;
-    font-weight: bold;
     font-size: 18px;
-    padding-bottom: 10px;
+}
+textarea{
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 18px;
+    border: 2px solid black;
 }
 
-.container-table{
-    border: 0.5px solid black;
-    border-radius: 20px;
-    width: 50%;
-    margin-left: 25%;
-    margin-bottom: 10px;
+select{
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 18px;
+    border: 2px solid black;
 }
 
-.button-edit{
-    margin: 10px 0px;
-    font-size: 24px;
-    padding: 10px 20px ;
-    background-color:#3244A0;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+  .input-container{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+  }
 
+@media (max-width: 768px) {
+  .input-container{
+    width: 90%;
+  }
 
 }
+

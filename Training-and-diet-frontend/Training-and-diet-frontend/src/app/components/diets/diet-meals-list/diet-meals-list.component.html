@@ -1,62 +1,60 @@
-<div class="container">
-    <a (click)="back()" class="btn-primary" ><i class="bi bi-arrow-left"></i> Powrót</a>
-    <div class="container-top">
-        <div class="col-6">
-            <form #form="ngForm" >
-                <div >
-                    
-                    <button class="filter-button" type="button" (click)="filterResults(filter.value)">
-                        <img src="../../../../assets/icons/search.png" class="search-icon">
-                    </button>
-                    
-                    <input class="filter-input" type="text" placeholder=" Wyszukaj posiłek" #filter>
-                </div>
-
-                
-            </form>
-        </div>
-        <a routerLink="/meals/add" class="create-exercise-link">
-            <span class="button-create">Stwórz nowy posiłek +</span> </a>
+<div class="container-fluid">
+    <div class="row my-3">
+        <a (click)="back()" class="btn-primary w-auto" ><i class="bi bi-arrow-left"></i> Powrót</a>
     </div>
 
-    <div class="container-table shadow">
-        <table class="table"  *ngIf="DieteticianMeals">
-            <thead>
-                <tr>
-                    <th class="table-head-big">Nazwa</th>
-                    <th class="table-head-small" *ngIf="id_diet!=undefined">Dodaj do diety</th>
-                    <th class="table-head-small">Edycja</th>
-                    <th class="table-head-small">Usuń</th>
-                    <th class="table-head-small">Szczegóły</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let meal of DieteticianMealsFiltered">
-                    <td>{{meal.name}}</td>
-                    <td *ngIf="id_diet!=undefined"><a routerLink="add" [queryParams]="{mealId:meal.idMeal,dietId:id_diet}">[+]</a></td>
-                    <td><a [routerLink]="['/meals/edit',meal.idMeal]"><img src="../../../../assets/icons/edit.png" id="edit-icon"></a></td>
-                    <td ><img (click)="openDeleteDialog()" src="../../../../assets/icons/delete.png" id="edit-icon"></td>
-
-                    <td><a [routerLink]="['/meals/details',meal.idMeal]"><img src="../../../../assets/icons/details.png" id="edit-icon"></a></td>
-
-                    <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
-                        <div class="dialog">
-                            <p class="dialog-header">Czy na pewno chcesz usunąć posiłek: {{meal.name}}?</p>
-                            <p class="dialog-body">Spowoduje to usunięcie go również z diet do których jest przypisany!</p>
-                            <div class="dialog-actions">
-                                <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
-                                <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteMeal(meal.idMeal)">Usuń</button>
-                            </div>
-                            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć posiłku</p>
-                        </div>
-                    
-                    </div>
-                    
-                </tr>
-            </tbody>
-        </table>
-        <p *ngIf="!DieteticianMeals || DieteticianMeals.length <=0">Nie znaleziono żadnych posiłków</p>
-        
+<div class="row bg-secondary rounded-div shadow mt-3">
+    <div class="col-12 bg-primary rounded-top-3 py-2">
+        <h1 class="text-center text-white">Moje posiłki</h1>
     </div>
+</div>
+<div class="row bg-secondary d-flex justify-content-center search">
+    <div class="col-12 col-md-6">
+<input type="text" class="form-control mb-3 fs-5 w-100 mt-3" placeholder="Szukaj posiłku..." [(ngModel)]="searchTerm" (input)="filterResults()">
+</div>
+</div>
+<div class="row bg-secondary shadow head fs-5 py-2 ps-0 pe-1">
+    <span class="col-xl-5 fw-bold d-flex justify-content-center justify-content-xl-start">Nazwa</span>
+    <span class="col-xl-3 fw-bold d-flex justify-content-center">Przypisz do diety</span>
+    <span class="col-xl-1 fw-bold d-flex justify-content-center">Edytuj</span>
+    <span class="col-xl-1 fw-bold d-flex justify-content-center">Usuń</span>
+    <span class="col-xl-2 fw-bold d-flex justify-content-center">Szczegóły</span>
+    </div>
+    <div class="row bg-secondary rounded-bottom-3 shadow details fs-5 px-2">
+        <ng-container *ngFor="let meal of DieteticianMealsFiltered">
+            <span class="col-xl-5 mb-xl-3 ps-2 d-flex align-items-center first">{{meal.name}}</span>
+            <div class="col-xl-3 d-flex align-items-center justify-content-center mb-xl-3 icon-container"  *ngIf="id_diet!=undefined" routerLink="add" [queryParams]="{mealId:meal.idMeal,dietId:id_diet}">
+                <i class="fas fa-calendar-plus" style="color: black;"></i>
+            </div>
     
+    
+            <div class="col-xl-1 d-flex align-items-center justify-content-center mb-xl-3 icon-container" [routerLink]="['/meals/edit',meal.idMeal]">
+                    <i  class="fas fa-edit" style="color: black;"></i>
+            </div>
+    
+            <div class="col-xl-1 d-flex align-items-center justify-content-center mb-xl-3 icon-container" (click)="openDeleteDialog()" id="edit-icon">
+                    <i class="fas fa-trash-alt" style="color: black;"></i>
+        </div>
+        <div class="col-xl-2 d-flex align-items-center justify-content-center last mb-xl-3 icon-container" [routerLink]="['/meals/details',meal.idMeal]">
+                    <i class="fas fa-info-circle" style="color: black;"></i>
+        </div>
+    
+        <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
+            <div class="dialog">
+                <p class="dialog-header">Czy na pewno chcesz usunąć posiłek: {{meal.name}}?</p>
+                <p class="dialog-body">Spowoduje to usunięcie go również z diet do których jest przypisany!</p>
+                <div class="dialog-actions">
+                    <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
+                    <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteMeal(meal.idMeal)">Usuń</button>
+                </div>
+                <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć posiłku</p>
+            </div>
+        
+        </div>
+        </ng-container>
+        <p *ngIf="!DieteticianMeals || DieteticianMeals.length <=0">Nie znaleziono żadnych posiłków</p>
+        <div class="d-flex justify-content-center mt-3">
+        <button routerLink="/meals/add" class="btn-confirm" style="width: fit-content;">Stwórz nowy posiłek</button>
+    </div>
+    </div>
 </div>
