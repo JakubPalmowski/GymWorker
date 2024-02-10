@@ -13,7 +13,7 @@
                     <div class="ui-widget size text-center">
                     <label for="city">Miasto</label>
                     <ng-container *ngIf="gymCities.length>0">
-                    <input [appAutocomplete]="gymCities" (selectedOption)="onSelectGymCity($event)" [(ngModel)]="sortOptions.gymCity"  class="w-100" id="city" />
+                    <input [appAutocomplete]="gymCities" [removeDuplicates]="true" (selectedOption)="onSelectGymCity($event)" [(ngModel)]="sortOptions.gymCity"  class="w-100" id="city" />
                     </ng-container>
                     <ng-container *ngIf="gymCities.length==0">
                         <input [appAutocomplete]="gymCities" (selectedOption)="onSelectGymCity($event)" [(ngModel)]="sortOptions.gymCity" class="w-100" id="city" />

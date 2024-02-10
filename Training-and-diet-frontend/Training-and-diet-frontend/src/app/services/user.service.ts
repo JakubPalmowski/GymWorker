@@ -15,6 +15,7 @@ import { DieticianTrainerPersonalInfo } from '../models/my-profile/dietician-tra
 import { PupilShort } from '../models/mentor-pupil/pupil-short.model';
 import { environment } from 'src/environments/environment';
 import { Invitation } from '../models/mentor-pupil/invitation.model';
+import { UserPhoto } from '../models/others/user-photo.model';
 
 
 @Injectable({
@@ -105,8 +106,8 @@ export class UserService{
         return this.http.delete(environment.apiUrl+'User/Invitation/'+userId);
       }
 
-      getUserImage():Observable<any>{
-        return this.http.get<any>(environment.apiUrl+'User/Image');
+      getUserImage():Observable<UserPhoto>{
+        return this.http.get<UserPhoto>(environment.apiUrl+'User/Image');
       }
 
       getMentorInvitations():Observable<Invitation[]>{

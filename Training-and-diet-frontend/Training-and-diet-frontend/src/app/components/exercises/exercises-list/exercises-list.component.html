@@ -39,24 +39,11 @@
                 <i  class="fas fa-edit" style="color: black;"></i>
         </div>
 
-        <div class="col-xl-2 d-flex align-items-center justify-content-center mb-xl-3 icon-container" (click)="openDeleteDialog(trainingPlanExercise.name)" id="edit-icon">
+        <div class="col-xl-2 d-flex align-items-center justify-content-center mb-xl-3 icon-container" (click)="openDeleteDialog(trainingPlanExercise.idExercise)" id="edit-icon">
                 <i *ngIf="this.my_exercises_flag"  class="fas fa-trash-alt" style="color: black;"></i>
     </div>
     <div class="col-xl-3 d-flex align-items-center justify-content-center last mb-xl-3 icon-container" [routerLink]="['/exercises/details',trainingPlanExercise.idExercise]">
                 <i class="fas fa-info-circle" style="color: black;"></i>
-    </div>
-
-    <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
-        <div class="dialog">
-            <p class="dialog-header">Czy na pewno chcesz usunąć ćwiczenie: {{trainingPlanExercise.name}}?</p>
-            <p class="dialog-body">Spowoduje to usunięcie go również z planów treningowych do których jest przypisane!</p>
-            <div class="dialog-actions">
-                <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
-                <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteExercise(trainingPlanExercise.idExercise)">Usuń</button>
-            </div>
-            <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć ćwiczenia</p>
-        </div>
-    
     </div>
         </ng-container>
 
@@ -71,6 +58,19 @@
     <div class="d-flex justify-content-center mt-3" *ngIf="this.my_exercises_flag">
     <button routerLink="/exercises/add" class="btn-confirm" style="width: fit-content;">Stwórz nowe ćwiczenie</button>
 </div>
+</div>
+
+<div class="dialog-container" *ngIf="this.showDialog" >
+    <div class="dialog">
+        <p class="dialog-header">Czy na pewno chcesz usunąć ćwiczenie: {{selectedExercise?.name}}?</p>
+        <p class="dialog-body">Spowoduje to usunięcie go również z planów treningowych do których jest przypisane!</p>
+        <div class="dialog-actions">
+            <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
+            <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="confirmDelete()">Usuń</button>
+        </div>
+        <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć ćwiczenia</p>
+    </div>
+
 </div>
 
 </div>
