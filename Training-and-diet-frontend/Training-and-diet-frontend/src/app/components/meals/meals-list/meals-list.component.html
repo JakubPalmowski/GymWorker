@@ -28,30 +28,31 @@
                         <i  class="fas fa-edit" style="color: black;"></i>
                 </div>
         
-                <div class="col-xl-2 d-flex align-items-center justify-content-center mb-xl-3 icon-container" (click)="openDeleteDialog()" id="edit-icon">
+                <div class="col-xl-2 d-flex align-items-center justify-content-center mb-xl-3 icon-container" (click)="openDeleteDialog(meal.idMeal)" id="edit-icon">
                         <i class="fas fa-trash-alt" style="color: black;"></i>
             </div>
             <div class="col-xl-3 d-flex align-items-center justify-content-center last mb-xl-3 icon-container" [routerLink]="['/meals/details',meal.idMeal]">
                         <i class="fas fa-info-circle" style="color: black;"></i>
             </div>
-        
-            <div class="dialog-container" *ngIf="this.deleteDialogFlag" >
-                <div class="dialog">
-                    <p class="dialog-header">Czy na pewno chcesz usunąć posiłek: {{meal.name}}?</p>
-                    <p class="dialog-body">Spowoduje to usunięcie go również z diet do których jest przypisany!</p>
-                    <div class="dialog-actions">
-                        <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
-                        <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="deleteMeal(meal.idMeal)">Usuń</button>
-                    </div>
-                    <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć posiłku</p>
-                </div>
-            
-            </div>
+    
             </ng-container>
             <p *ngIf="!DieteticianMeals || DieteticianMeals.length <=0">Nie znaleziono żadnych posiłków</p>
             <div class="d-flex justify-content-center mt-3">
             <button routerLink="/meals/add" class="btn-confirm" style="width: fit-content;">Stwórz nowy posiłek</button>
         </div>
+        </div>
+
+        <div class="dialog-container" *ngIf="this.showDialog" >
+            <div class="dialog">
+                <p class="dialog-header">Czy na pewno chcesz usunąć posiłek: {{selectedMeal?.name}}?</p>
+                <p class="dialog-body">Spowoduje to usunięcie go również z diet do których jest przypisany!</p>
+                <div class="dialog-actions">
+                    <button type="button" class="btn-primary" id="deleteDialogButtonCancel" (click)="cancelDelete()">Anuluj</button>
+                    <button type="button" class="btn-alert" id="deleteDialogButtonYes" (click)="confirmDelete()">Usuń</button>
+                </div>
+                <p class="validation-error" *ngIf="deleteErrorFlag">Nie udało się usunąć posiłku</p>
+            </div>
+        
         </div>
 
 </div>  

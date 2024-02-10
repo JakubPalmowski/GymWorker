@@ -22,10 +22,11 @@ export class ExercisesListComponent implements OnInit{
   id_training:string='';
   source:string='';
   my_exercises_flag:boolean=false;
-  deleteDialogFlag: boolean=false;
+  showDialog: boolean = false;
   deleteErrorFlag: boolean=false;
   tittle: string='Moje ćwiczenia';
   searchTerm: string = '';
+  selectedExercise : ExerciseShort | null = null;
 
   constructor(private exerciseServise:ExercisesService, private route:ActivatedRoute, private location:Location){}
 
@@ -103,34 +104,37 @@ export class ExercisesListComponent implements OnInit{
     })
   }
 
-  openDeleteDialog(name:string){
+  openDeleteDialog(id: number){
   
-   console.log("open");
-   this.deleteErrorFlag=false;
-   if(this.deleteDialogFlag!=true){
-    this.deleteDialogFlag=true;
+    this.selectedExercise = this.filteredPlanExercises?.find(g => g.idExercise === id) ?? null;
+    if (this.selectedExercise) {
+      this.showDialog = true;
+    } else {
+      alert('Ćwiczenie nie zostało znalezione.'); 
+    }
    
   }
-  }
+  
 
-  deleteExercise(idExercise:number) {
-    console.log("delete");
-    this.exerciseServise.deleteExercise(idExercise.toString()).subscribe({
-      next:(response)=>{
-        console.log(response);
-        this.deleteDialogFlag=false;
-        this.MyExercises();
-      },
-      error:(response)=>{
-        console.log(response);
-        this.deleteErrorFlag=true;
-      }});
 
+    confirmDelete() {
+      if (this.selectedExercise) {
+        this.exerciseServise.deleteExercise(this.selectedExercise.idExercise.toString()).subscribe({
+          next: () => {
+            this.ngOnInit(); 
+          },
+          error: (error) => {
+            this.deleteErrorFlag=true;
+          }
+        });
+        this.showDialog = false; 
+      }
     }
 
-  cancelDelete(){
-    console.log("cancel");
-    this.deleteDialogFlag=false;
-  }
 
+    cancelDelete() {
+      this.showDialog = false;
+    }
 }
+
+
