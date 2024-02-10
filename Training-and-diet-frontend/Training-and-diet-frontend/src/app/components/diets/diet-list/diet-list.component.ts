@@ -20,7 +20,6 @@ export class DietListComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.authenticationService.getUserId()==undefined){
-     // TODO return this.authenticationService.logout();
     }
     this.dietService.getDieticianDiets().subscribe({
       next:(diets)=>{
@@ -28,7 +27,6 @@ export class DietListComponent implements OnInit {
         this.filteredDiets=this.diets;
       },
       error: (response)=>{
-        console.log(response);
       }
     })
   }

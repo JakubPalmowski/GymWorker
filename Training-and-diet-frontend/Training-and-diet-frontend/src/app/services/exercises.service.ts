@@ -23,27 +23,27 @@ export class ExercisesService {
    }
 
    getExerciseById(idExercise:string):Observable<ExerciseFull>{
-    return this.http.get<ExerciseFull>('https://localhost:7259/api/Exercise/'+idExercise);
+    return this.http.get<ExerciseFull>(environment.apiUrl+'Exercise/'+idExercise);
    }
 
    editExercise(exerciseEdit:ExerciseFull, idExercise:string):Observable<ExerciseFull>{
-    return this.http.put<ExerciseFull>('https://localhost:7259/api/Exercise/'+idExercise,exerciseEdit);
+    return this.http.put<ExerciseFull>(environment.apiUrl+'Exercise/'+idExercise,exerciseEdit);
    }
 
    getAllExercises():Observable<ExerciseShort[]>{
-    return this.http.get<ExerciseShort[]>('https://localhost:7259/api/Exercise');
+    return this.http.get<ExerciseShort[]>(environment.apiUrl+'Exercise');
    }
 
    addTrainingExercise(addTrainingExerciseRequest: NewTrainingExercise):Observable<NewTrainingExercise>{
-    return this.http.post<NewTrainingExercise>('https://localhost:7259/api/TraineeExercises',addTrainingExerciseRequest);
+    return this.http.post<NewTrainingExercise>(environment.apiUrl+'TraineeExercises',addTrainingExerciseRequest);
   }
 
   editTrainingExercise(exerciseEdit:NewTrainingExercise, idTrainingExercise:string):Observable<NewTrainingExercise>{
-    return this.http.put<NewTrainingExercise>('https://localhost:7259/api/TraineeExercises/'+idTrainingExercise,exerciseEdit);
+    return this.http.put<NewTrainingExercise>(environment.apiUrl+'TraineeExercises/'+idTrainingExercise,exerciseEdit);
    }
 
    getTrainingExerciseById(idExercise:string):Observable<EditTrainingExercise>{
-    return this.http.get<EditTrainingExercise>('https://localhost:7259/api/TraineeExercises/trainer/'+idExercise);
+    return this.http.get<EditTrainingExercise>(environment.apiUrl+'TraineeExercises/trainer/'+idExercise);
    }
 
    getTrainingExerciseByIdForPupil(idExercise:string):Observable<PupilTraineeExerciseGet>{
@@ -51,7 +51,7 @@ export class ExercisesService {
    }
 
   addTrainerExercise(addTrainerExerciceRequest: Exercise):Observable<Exercise>{
-    return this.http.post<Exercise>('https://localhost:7259/api/Exercise',addTrainerExerciceRequest);
+    return this.http.post<Exercise>(environment.apiUrl+'Exercise',addTrainerExerciceRequest);
   }
 
   deleteExercise(idExercise:string):Observable<string>{

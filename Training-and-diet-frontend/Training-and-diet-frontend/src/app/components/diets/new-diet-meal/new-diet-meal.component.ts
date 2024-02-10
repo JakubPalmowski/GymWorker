@@ -45,17 +45,12 @@ export class NewDietMealComponent implements OnInit{
   ngOnInit(): void {
     this.idDiet=this.route.snapshot.queryParams['dietId'];
     this.idMeal=this.route.snapshot.queryParams['mealId'];
-    console.log("diet: "+this.idDiet);
-    console.log("meal: "+this.idMeal);
 
     this.mealServise.getMealById(this.idMeal).subscribe({
       next:(meal)=>{
         this.meal=meal;
-        console.log(this.meal.name);
       },
       error: (response)=>{
-
-        console.log(response);
       }
     })
     
@@ -66,8 +61,6 @@ export class NewDietMealComponent implements OnInit{
   onSubmit(valid:any){
     this.submitted=true;
     if(valid){
-      console.log(this.newMealDietRequest);
-      
       this.addDietMeal();
     }
   }
@@ -85,7 +78,6 @@ export class NewDietMealComponent implements OnInit{
       next:(newTrainingExercise)=>{
         this.router.navigate(['/diet/edit/'+this.idDiet]);
       },error:(error)=>{
-        console.log(error);
         if(error.status===400){
          const {errors} = error.error;
          for(const key in errors){

@@ -79,16 +79,13 @@ export class AssignDietComponent implements OnInit{
 
 
   assignDietToPupil(idPupil:number){
-    console.log(idPupil);
     this.dietService.assignDiet(this.dietId,idPupil.toString()).subscribe({
     next:(response)=>{
-      console.log(response);
       this.DialogFlag=true;
       this.sucessFlag=true;
       
     },
     error:(response)=>{
-      console.log(response);
       this.DialogFlag=true;
       this.sucessFlag=false;
     }

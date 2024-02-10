@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Certificate } from '../models/certificate/certificate.model';
 import { CertificateCreate } from '../models/certificate/certificate-create.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CertificateService {
   constructor(private http: HttpClient) { }
 
   public GetUserCertificates():Observable<Certificate[]> {
-    return this.http.get<Certificate[]>(`https://localhost:7259/api/Certificate`);
+    return this.http.get<Certificate[]>(environment.apiUrl+'Certificate');
   }
 
   addCertificate(certificate: CertificateCreate): Observable<any> {
@@ -22,7 +23,7 @@ export class CertificateService {
     }
     formData.append('Description', certificate.description);
 
-    return this.http.post<FormData>('https://localhost:7259/api/Certificate', formData);
+    return this.http.post<FormData>(environment.apiUrl+'Certificate', formData);
 }
 
 

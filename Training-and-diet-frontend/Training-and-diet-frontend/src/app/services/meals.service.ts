@@ -19,15 +19,15 @@ export class MealsService {
   }
 
   getMealById(idMeal:string):Observable<MealFull>{
-    return this.http.get<MealFull>('https://localhost:7259/api/Meal/'+idMeal);
+    return this.http.get<MealFull>(environment.apiUrl+'Meal/'+idMeal);
   }
 
   addDieteticanMeal(addDieteticianMealRequest:MealFull):Observable<MealFull>{
-    return this.http.post<MealFull>('https://localhost:7259/api/Meal',addDieteticianMealRequest);
+    return this.http.post<MealFull>(environment.apiUrl+'Meal',addDieteticianMealRequest);
   }
 
   editDieteticianMeal(editDieteticianMealRequest:MealFull, idMeal:string):Observable<MealFull>{
-    return this.http.put<MealFull>('https://localhost:7259/api/Meal/'+idMeal,editDieteticianMealRequest);
+    return this.http.put<MealFull>(environment.apiUrl+'Meal/'+idMeal,editDieteticianMealRequest);
   }
 
   deleteMeal(idMeal:string):Observable<string>{

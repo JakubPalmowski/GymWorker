@@ -35,11 +35,11 @@ export class UserService{
   
     const options = { params: params };
   
-    return this.http.get<MentorList>('https://localhost:7259/api/User/Trainer', options);
+    return this.http.get<MentorList>(environment.apiUrl+'User/Trainer', options);
   }
   
   GetTrainerWithOpinionsById(id:string):Observable<MentorProfile>{
-    return this.http.get<MentorProfile>('https://localhost:7259/api/User/Trainer/'+id)
+    return this.http.get<MentorProfile>(environment.apiUrl+'User/Trainer/'+id)
   }
 
       GetAllDieteticians(pageNumber: number, searchPhrase: string, sortBy: string, sortDirection: string):Observable<MentorList>{
@@ -50,47 +50,47 @@ export class UserService{
                             .set('SortDirection', sortDirection);
 
         const options = { params: params };
-        return this.http.get<MentorList>('https://localhost:7259/api/User/Dietician', options);
+        return this.http.get<MentorList>(environment.apiUrl+'User/Dietician', options);
       }
 
       GetDieticianWithOpinionsById(id:string):Observable<MentorProfile>{
-        return this.http.get<MentorProfile>('https://localhost:7259/api/User/Dietician/'+id)
+        return this.http.get<MentorProfile>(environment.apiUrl+'User/Dietician/'+id)
       }
 
       GetPupilById(id: string):Observable<PupilProfile>{
-        return this.http.get<PupilProfile>('https://localhost:7259/api/User/Pupil/'+id)
+        return this.http.get<PupilProfile>(environment.apiUrl+'User/Pupil/'+id)
       }
 
       GetPupilPersonalInfo():Observable<UserPersonalInfo>{
-        return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/Pupil/PersonalInfo')
+        return this.http.get<UserPersonalInfo>(environment.apiUrl+'User/Pupil/PersonalInfo')
       }
 
       UpdatePupilPersonalInfo(pupilPersonalInfo: PupilPersonalInfo):Observable<any>{
-        return this.http.put('https://localhost:7259/api/User/Pupil', pupilPersonalInfo);
+        return this.http.put(environment.apiUrl+'User/Pupil', pupilPersonalInfo);
       }
 
       GetTrainerPersonalInfo():Observable<UserPersonalInfo>{
-        return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/Trainer/PersonalInfo')
+        return this.http.get<UserPersonalInfo>(environment.apiUrl+'User/Trainer/PersonalInfo')
       }
 
 
       GetDieticianPersonalInfo():Observable<UserPersonalInfo>{
-        return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/Dietician/PersonalInfo')
+        return this.http.get<UserPersonalInfo>(environment.apiUrl+'User/Dietician/PersonalInfo')
       }
 
       UpdateDieticianPersonalInfo(dieticianPersonalInfo: DieticianPersonalInfo):Observable<any>{
-        return this.http.put('https://localhost:7259/api/User/Dietician', dieticianPersonalInfo);
+        return this.http.put(environment.apiUrl+'User/Dietician', dieticianPersonalInfo);
       }
 
       GetDieticianTrainerPersonalInfo():Observable<UserPersonalInfo>{
-        return this.http.get<UserPersonalInfo>('https://localhost:7259/api/User/DieticianTrainer/PersonalInfo')
+        return this.http.get<UserPersonalInfo>(environment.apiUrl+'User/DieticianTrainer/PersonalInfo')
       }
       UpdateDieticianTrainerPersonalInfo(dieticianTrainerPersonalInfo: DieticianTrainerPersonalInfo):Observable<any>{
-        return this.http.put('https://localhost:7259/api/User/DieticianTrainer', dieticianTrainerPersonalInfo);
+        return this.http.put(environment.apiUrl+'User/DieticianTrainer', dieticianTrainerPersonalInfo);
       }
 
       UpdateTrainerPersonalInfo(trainerPersonalInfo: TrainerPersonalInfo):Observable<any>{
-        return this.http.put('https://localhost:7259/api/User/Trainer', trainerPersonalInfo);
+        return this.http.put(environment.apiUrl+'User/Trainer', trainerPersonalInfo);
       }
       
       GetMentorPupils():Observable<PupilShort[]>{
