@@ -213,7 +213,7 @@
 
             <ng-container *ngIf="role=='Trainer' || role=='Dietician-Trainer'">
                 <div class="col-12 col-lg-6 group mb-0">
-                    <label>Minimalny koszt planu treningowego (zł)</label>
+                    <label>Minimalny koszt planu treningowego(zł)</label>
                     <input type="number" [(ngModel)]="user.trainingPlanPriceFrom" 
                            #trainingPlanPriceFrom="ngModel" name="trainingPlanPriceFrom"
                            min="0" max="99999.99" (change)="validatePriceRange()">
@@ -232,7 +232,7 @@
                 
                 
                 <div class="col-12 col-lg-6 group mb-0">
-                    <label>Maksymalny koszt planu treningowego (zł)</label>
+                    <label>Maksymalny koszt planu treningowego(zł)</label>
                     <input type="number" [(ngModel)]="user.trainingPlanPriceTo" 
                            #trainingPlanPriceTo="ngModel" name="trainingPlanPriceTo"
                            min="0" max="99999.99" (change)="validatePriceRange()">
