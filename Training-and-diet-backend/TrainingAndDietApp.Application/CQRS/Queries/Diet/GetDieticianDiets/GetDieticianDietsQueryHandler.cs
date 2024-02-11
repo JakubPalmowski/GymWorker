@@ -3,6 +3,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using TrainingAndDietApp.Application.CQRS.Responses.Diet;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.Diet.GetDieticianDiets
@@ -20,6 +21,9 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Diet.GetDieticianDiets
         public async Task<List<DietDieticianListResponse>> Handle(GetDieticianDietsQuery request, CancellationToken cancellationToken)
         {
             var diets = await _dietRepository.GetDieticianDietsAsync(request.IdDietician, cancellationToken);
+            if (!diets.Any())
+                throw new NotFoundException("Diets not found");
+            
             var dietsResponse = _mapper.Map<List<DietDieticianListResponse>>(diets);
             return dietsResponse;
         }

@@ -3,6 +3,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using TrainingAndDietApp.Application.CQRS.Responses.Diet;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.Diet.GetPupilDiets
@@ -21,6 +22,9 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Diet.GetPupilDiets
         public async Task<List<DietPupilListResponse>> Handle(GetPupilDietsQuery request, CancellationToken cancellationToken)
         {
             var diets = await _dietRepository.GetPupilDietsAsync(request.IdPupil, cancellationToken);
+            if(!diets.Any())
+                throw new NotFoundException("Diets not found");
+
             var dietsResponse = _mapper.Map<List<DietPupilListResponse>>(diets);
             return dietsResponse;
         }

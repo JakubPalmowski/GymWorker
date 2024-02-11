@@ -40,6 +40,6 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Di.Assign
             diet.IdPupil = request.AssignPupilToDietCommand.IdPupil;
             await _dietBaseRepository.UpdateAsync(diet, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
-                }
+        }
     }
 }
