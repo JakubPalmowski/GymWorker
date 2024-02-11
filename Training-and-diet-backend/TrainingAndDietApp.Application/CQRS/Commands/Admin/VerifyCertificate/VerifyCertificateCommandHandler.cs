@@ -22,12 +22,12 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Admin.VerifyCertificate
         public async Task Handle(VerifyCertificateCommand request, CancellationToken cancellationToken)
         {
             var certificate = await _certificateBaseRepository.GetByIdAsync(request.IdCertificate, cancellationToken);
-            if (certificate == null){
+            if (certificate == null)
                 throw new NotFoundException("Certificate not found");
-            }
-            if (certificate.IsAccepted){
+            
+            if (certificate.IsAccepted)
                 throw new BadRequestException("Certificate is already verified");
-            }
+            
             certificate.IsAccepted = true;
             await _certificateBaseRepository.UpdateAsync(certificate, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

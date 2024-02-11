@@ -22,9 +22,8 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAdminExerciseById
         public async Task<ExerciseResponse> Handle(GetAdminExerciseByIdQuery request, CancellationToken cancellationToken)
         {
             var exercise = await _exerciseBaseRepository.GetByIdAsync(request.IdExercise, cancellationToken);
-            if (exercise == null || exercise.IdTrainer != null){
+            if (exercise == null || exercise.IdTrainer != null)
                 throw new NotFoundException("Exercise not found");
-            }
             
             var response = _mapper.Map<ExerciseResponse>(exercise);
             return response;

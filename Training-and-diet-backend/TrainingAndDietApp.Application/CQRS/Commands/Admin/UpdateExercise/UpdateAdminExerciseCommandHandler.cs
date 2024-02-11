@@ -21,9 +21,9 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Admin.UpdateExercise
         public async Task Handle(UpdateAdminExerciseInternalCommand request, CancellationToken cancellationToken)
         {
             var exerciseToUpdate = await _repository.GetByIdAsync(request.IdExercise, cancellationToken);
-            if (exerciseToUpdate == null || exerciseToUpdate.IdTrainer != null){
+            if (exerciseToUpdate == null || exerciseToUpdate.IdTrainer != null)
                 throw new NotFoundException("Exercise not found");
-            }
+            
             _mapper.Map(request, exerciseToUpdate);
             await _repository.UpdateAsync(exerciseToUpdate, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

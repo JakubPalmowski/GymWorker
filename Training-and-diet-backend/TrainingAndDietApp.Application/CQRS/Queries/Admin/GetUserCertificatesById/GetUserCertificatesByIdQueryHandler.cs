@@ -21,12 +21,11 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Admin.GetUserCertificatesB
         }
         public async Task<List<GetUserCertificatesByIdQuery>> Handle(GetUserCertificatesByIdQuery request, CancellationToken cancellationToken)
         {
-            //sprawdzic jescze czy user jest mentorem???
+            
             var user = await _userBaseRepository.GetByIdAsync(request.IdMentor, cancellationToken);
             if (user == null)
-            {
                 throw new NotFoundException("User not found");
-            }
+            
             var userCertificates = await _certificateRepository.GetCertificatesFromUserAsync(request.IdMentor, cancellationToken);
             var userCertificatesDto  = _mapper.Map<List<GetUserCertificatesByIdQuery>>(userCertificates);
             return userCertificatesDto;

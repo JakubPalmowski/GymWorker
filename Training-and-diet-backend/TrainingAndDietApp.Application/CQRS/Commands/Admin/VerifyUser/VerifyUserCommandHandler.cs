@@ -21,13 +21,12 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Admin.VerifyUser
         {
             var user = await _userBaseRepository.GetByIdAsync(request.IdUser, cancellationToken);
             if (user == null)
-            {
-                throw new NotFoundException("Nie znaleziono użytkownika");
-            }
+                throw new NotFoundException("User not found");
+            
             user.IdRole = request.VerifyUserCommand.IdRole;
             user.IsAccepted = request.VerifyUserCommand.IsAccepted;
             await _userBaseRepository.UpdateAsync(user, cancellationToken);
-            await _unitOfWork.CommitAsync();
+            await _unitOfWork.CommitAsync(cancellationToken);
         }
     }
 }

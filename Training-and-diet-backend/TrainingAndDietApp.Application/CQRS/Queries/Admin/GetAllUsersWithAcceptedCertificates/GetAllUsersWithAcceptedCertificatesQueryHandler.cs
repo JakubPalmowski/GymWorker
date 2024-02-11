@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using TrainingAndDietApp.Application.CQRS.Responses.Admin;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAllUsersWithAcceptedCertificates
@@ -21,7 +22,9 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAllUsersWithAccep
         public async Task<List<GetAllUsersWithCertificatesResponse>> Handle(GetAllUsersWithAcceptedCertificatesQuery request, CancellationToken cancellationToken)
         {
             var users = await _userRepository.GetAllUsersWithCertificatesAsync(true,cancellationToken);
-            return _mapper.Map<List<GetAllUsersWithCertificatesResponse>>(users);
+            return users is null
+                ? throw new NotFoundException("There are no users")
+                : _mapper.Map<List<GetAllUsersWithCertificatesResponse>>(users);
         }
     }
 }
