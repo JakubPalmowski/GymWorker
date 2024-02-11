@@ -28,6 +28,7 @@ namespace Training_and_diet_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+
     public class AdminController : ControllerBase
     {
         private readonly IMediator _mediator;
