@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.CreateExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.DeleteCertificate;
@@ -28,6 +29,7 @@ namespace Training_and_diet_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "1")]
 
     public class AdminController : ControllerBase
     {

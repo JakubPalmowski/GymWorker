@@ -5,10 +5,11 @@ using Training_and_diet_backend.Extensions;
 using TrainingAndDietApp.Application.CQRS.Commands.Certificate.CreateCertificate;
 using TrainingAndDietApp.Application.CQRS.Queries.Certificate.GetUserCertificates;
 
-namespace TrainingAndDietApp.Presentation.Controllers
+namespace Training_and_diet_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "3,4,5")]
     public class CertificateController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,8 +19,11 @@ namespace TrainingAndDietApp.Presentation.Controllers
             _mediator = mediator;
         }
 
-        [Authorize(Roles = "3,4,5")]
+       
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Create([FromForm] CreateCertificateCommand certificateCommand)
         {
             var user = this.User.GetId()!.Value;
@@ -35,7 +39,8 @@ namespace TrainingAndDietApp.Presentation.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "3,4,5")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserCertificates()
         {
             var user = this.User.GetId()!.Value;
