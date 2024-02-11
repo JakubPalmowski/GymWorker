@@ -18,6 +18,8 @@ export class MealsListComponent implements OnInit{
   deleteDialogFlag: boolean=false;
   deleteErrorFlag: boolean=false;
   searchTerm: string = '';
+  selectedMeal : MealFull | null = null;
+  showDialog:boolean = false;
 
 
   constructor(private mealServise:MealsService, private route:ActivatedRoute, private location:Location) {}
@@ -51,34 +53,36 @@ export class MealsListComponent implements OnInit{
     }
   }
 
-  openDeleteDialog(){
-    console.log("open");
-    this.deleteErrorFlag=false;
-    if(this.deleteDialogFlag!=true){
-     this.deleteDialogFlag=true;
-    
-   }
-   }
+
+
+  openDeleteDialog(id: number){
+    this.selectedMeal = this.DieteticianMealsFiltered?.find(g => g.idMeal === id) ?? null;
+    if (this.selectedMeal) {
+      this.showDialog = true;
+    } else {
+      alert('Posiłek nie został znaleziony.'); 
+    }
+  }
  
-   deleteMeal(idMeal:number) {
-     console.log("delete");
-     this.mealServise.deleteMeal(idMeal.toString()).subscribe({
-       next:(response)=>{
-         console.log(response);
-         this.deleteDialogFlag=false;
-         window.location.reload();
-       },
-       error:(response)=>{
-         console.log(response);
-         this.deleteErrorFlag=true;
-       }});
+
+
+    confirmDelete() {
+      if (this.selectedMeal) {
+        this.mealServise.deleteMeal(this.selectedMeal.idMeal.toString()).subscribe({
+          next: () => {
+            this.ngOnInit(); 
+          },
+          error: (error) => {
+            this.deleteErrorFlag=true;
+          }
+        });
+        this.showDialog = false; 
+      }
+    }
  
-     }
- 
-   cancelDelete(){
-     console.log("cancel");
-     this.deleteDialogFlag=false;
-   }
+    cancelDelete() {
+      this.showDialog = false;
+    }
 
 
 }

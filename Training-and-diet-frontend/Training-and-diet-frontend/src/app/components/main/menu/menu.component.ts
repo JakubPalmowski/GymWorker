@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, UrlTree, UrlSegment } from '@angular/router';
+import { error } from 'jquery';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { UserPhoto } from 'src/app/models/others/user-photo.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FileService } from 'src/app/services/file.service';
 import { PreviousUrlService } from 'src/app/services/previous-url.service';
@@ -18,6 +20,7 @@ export class MenuComponent implements OnInit{
   isLoggedIn = false;
   userImage: string | undefined;
   role='';
+  userImageResponse: UserPhoto | undefined;
 
  
   activeRoute: string = '';
@@ -72,9 +75,10 @@ export class MenuComponent implements OnInit{
   }
 
   loadUserImage() {
-    this.userService.getUserImage().subscribe(
-      (response)=>{
-        if(response.imageUri!=null){
+    this.userService.getUserImage().subscribe({
+      next:(response)=>{ 
+        this.userImageResponse = response
+        if(this.userImageResponse?.imageUri!=null){
           this.fileService.getFile(response.imageUri).subscribe(
             (blob) => {
               this.userImage = URL.createObjectURL(blob);
@@ -87,8 +91,10 @@ export class MenuComponent implements OnInit{
           this.userImage = 'assets/images/user.png'
         }
       }
-    )
-  }
+    })
+      }
+    
+  
 
 
 

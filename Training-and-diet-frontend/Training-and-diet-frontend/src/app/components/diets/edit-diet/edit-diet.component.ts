@@ -61,34 +61,24 @@ export class EditDietComponent implements OnInit{
         this.changeDietDay(1,'pn');
         
         if(id){
-          console.log(id);
           this.idDiet=id;
           
           this.dietService.getDieticianDietById(this.idDiet).subscribe({
             next:(diet)=>{
-              console.log(diet);
               this.diet=diet;
-             
               this.formStartDate=this.diet.startDate.toString().split('T')[0];
-            
-              
           
             },
             error: (response)=>{
-             console.log(response);
             }
           })
             this.getDietMeals(id);
         }
         else{
-          console.log("no");
         }
       }
     })
-    
   }
-
-  
 
   getDietMeals(id:string){
     this.dietService.getDietMealsByDietId(id).subscribe({
@@ -100,7 +90,6 @@ export class EditDietComponent implements OnInit{
 
       },
       error: (response)=>{
-        console.log("here"+response);
       }
     })
   }
@@ -108,9 +97,6 @@ export class EditDietComponent implements OnInit{
   
 
   editDiet(){
-    console.log("edit");
-    console.log(this.diet);
-    console.log(this.idDiet);
     const responseDiv = document.getElementById("edit-resp");
     this.fieldErrors = {};
 
@@ -122,7 +108,6 @@ export class EditDietComponent implements OnInit{
           document.documentElement.scrollTop = 0;
       },
       error:(error)=>{
-        console.log(error);
         if(error.status===400){
          const {errors} = error.error;
          for(const key in errors){
@@ -152,7 +137,6 @@ export class EditDietComponent implements OnInit{
   {
     this.submitted=true;
     if(valid){
-      console.log(valid)
       this.diet.startDate=new Date(this.formStartDate);
       this.editDiet();
       
@@ -201,7 +185,6 @@ export class EditDietComponent implements OnInit{
   
 
   openDeleteDialog(name:string){
-    console.log("open");
     this.deleteErrorFlag=false;
     if(this.deleteDialogFlag!=true){
      this.deleteDialogFlag=true;
@@ -211,27 +194,21 @@ export class EditDietComponent implements OnInit{
  
    
    deleteDietMeal(idMealDiet:number) {
-     console.log("delete");
-     console.log(idMealDiet);
      this.mealService.deleteDietMeal(idMealDiet.toString()).subscribe({
        next:(response)=>{
-         console.log(response);
          this.deleteDialogFlag=false;
         window.location.reload(); 
          
       
        },
        error:(response)=>{
-         console.log(response);
          this.deleteErrorFlag=true;
        }});
  
      }
  
    cancelDelete(){
-     console.log("cancel");
      this.deleteDialogFlag=false;
    }
    
-  
 }

@@ -53,20 +53,14 @@ export class EditDietMealComponent implements OnInit{
 
     this.idDiet=this.route.snapshot.queryParams['dietId'];
     this.idMeal=this.route.snapshot.queryParams['mealId'];
-    console.log("diet: "+this.idDiet);
-    console.log("meal: "+this.idMeal);
     
     if(id){
       this.idDietMeal=id;
-      console.log("diet meal"+this.idDietMeal);
     this.mealServise.getDietMealById(this.idDietMeal).subscribe({
       next:(meal)=>{
         this.newMealDietRequest=meal;
-        console.log(this.newMealDietRequest);
       },
       error: (response)=>{
-
-        console.log(response);
       }
     })
   }
@@ -78,7 +72,6 @@ export class EditDietMealComponent implements OnInit{
   onSubmit(valid:any){
     this.submitted=true;
     if(valid){
-      console.log(this.newMealDietRequest);
       
       this.editDietMeal();
     }
@@ -97,7 +90,6 @@ export class EditDietMealComponent implements OnInit{
       next:(newTrainingExercise)=>{
         this.router.navigate(['/diet/edit/'+this.idDiet]);
       },error:(error)=>{
-        console.log(error);
         if(error.status===400){
          const {errors} = error.error;
          for(const key in errors){

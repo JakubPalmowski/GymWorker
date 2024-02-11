@@ -11,7 +11,7 @@
             <div class="group-input col-12 col-lg-6">
             <label for="email" class="text-white">Email</label>
             <input type="email" name="email" id="email" class="searchInput" placeholder="Adres e-mail"
-            [(ngModel)]="registerRequest.email" #email="ngModel" >
+            [(ngModel)]="registerRequest.email" #email="ngModel" required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
             <div class="error-container">
             <span *ngIf="email.errors?.['required'] && this.submitted" class="validation-error">
                 Pole jest wymagane
@@ -42,7 +42,7 @@
     <div class="group-input col-12 col-lg-6">
             <label for="password">Hasło</label>
             <input type="password" name="password" id="password" class="searchInput" placeholder="Hasło"
-            [(ngModel)]="registerRequest.password" #password="ngModel" >
+            [(ngModel)]="registerRequest.password" #password="ngModel"  required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
             <div class="error-container">
             <span *ngIf="password.errors?.['required'] && this.submitted" class="validation-error">
                 Pole jest wymagane
@@ -61,7 +61,7 @@
     <div class="group-input col-12 col-lg-6">
             <label for="password2" class="form-label">Powtórz hasło</label>
             <input type="password" name="password2" id="password2" class="searchInput" placeholder="Powtórz hasło"
-            [(ngModel)]="additionalFields.passwordRepeat" #password2="ngModel">
+            [(ngModel)]="additionalFields.passwordRepeat" #password2="ngModel" required>
             <div class="error-container">
             <span *ngIf="registerRequest.password!=additionalFields.passwordRepeat && this.submitted" class="validation-error">
                 Hasła nie są takie same
@@ -72,7 +72,7 @@
     <div class="group-input col-12 col-lg-6">
             <label for="name" class="form-label">Imie</label>
             <input type="text" name="name" id="name" class="searchInput" placeholder="Imie"
-            [(ngModel)]="registerRequest.name" #name="ngModel" >
+            [(ngModel)]="registerRequest.name" #name="ngModel" required minlength="2" maxlength="50">
             <div class="error-container">
             <span *ngIf="name.errors?.['required'] && this.submitted" class="validation-error">
                 Pole jest wymagane
@@ -92,7 +92,7 @@
         <div class="group-input col-12 col-lg-6">
             <label for="lastName" class="form-label">Nazwisko</label>
             <input type="text" name="lastName" id="lastName" class="searchInput" placeholder="Nazwisko"
-            [(ngModel)]="registerRequest.lastName" #lastName="ngModel" >
+            [(ngModel)]="registerRequest.lastName" #lastName="ngModel" required minlength="2" maxlength="50">
             <div class="error-container">
             <span *ngIf="lastName.errors?.['required'] && this.submitted" class="validation-error">
                 Pole jest wymagane

@@ -5,9 +5,7 @@ input, select{
     border-radius: 5px;
     border: 1px solid rgb(85, 85, 85);
 }
-input::placeholder{
-    padding-left: 10px;
-}
+
 .search-button{
     width:80%;
     cursor: pointer;

@@ -4,10 +4,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Login } from '../models/authentication/login.model';
 import { Register } from '../models/authentication/register.model';
 import { JwtAuth } from '../models/authentication/jwt-auth.model';
-import { environment } from 'src/environments/environment.development';
 import { jwtDecode } from "jwt-decode";
 import { Router } from '@angular/router';
 import { get } from 'jquery';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({

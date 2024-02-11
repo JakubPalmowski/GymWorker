@@ -26,7 +26,6 @@ export class DietMealsListComponent implements OnInit{
   ngOnInit(): void {
  
      this.id_diet=this.route.snapshot.queryParams['id'];
-     console.log(this.id_diet);
     
      this.mealServise.getDieteticianMeals().subscribe({
       next:(meals)=>{
@@ -35,7 +34,6 @@ export class DietMealsListComponent implements OnInit{
 
       },
       error:(response)=>{
-        console.log(response);
       }
      })
     
@@ -52,7 +50,6 @@ export class DietMealsListComponent implements OnInit{
   }
 
   openDeleteDialog(){
-    console.log("open");
     this.deleteErrorFlag=false;
     if(this.deleteDialogFlag!=true){
      this.deleteDialogFlag=true;
@@ -61,22 +58,18 @@ export class DietMealsListComponent implements OnInit{
    }
  
    deleteMeal(idMeal:number) {
-     console.log("delete");
      this.mealServise.deleteMeal(idMeal.toString()).subscribe({
        next:(response)=>{
-         console.log(response);
          this.deleteDialogFlag=false;
          window.location.reload();
        },
        error:(response)=>{
-         console.log(response);
          this.deleteErrorFlag=true;
        }});
  
      }
  
    cancelDelete(){
-     console.log("cancel");
      this.deleteDialogFlag=false;
    }
 

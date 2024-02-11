@@ -36,12 +36,9 @@ export class AddDietComponent implements OnInit{
     this.fieldErrors = {};
     this.dietService.addDiet(this.addDietRequest).subscribe({
       next:(diet)=>{
-   
-        console.log(localStorage.getItem('acessToken'));
         this.router.navigate(['/diet']);
       },
       error: (error)=>{
-        console.log(error);
        if(error.status===400){
         const {errors} = error.error;
         for(const key in errors){
@@ -60,15 +57,10 @@ export class AddDietComponent implements OnInit{
   }
 
 
-
   onSubmit(valid:any){
-    console.log(this.addDietRequest.startDate);
     this.submitted=true;
     if(valid){
-      console.log(this.addDietRequest);
-      
       this.addDiet();
-      
     }
     
   }
@@ -77,7 +69,6 @@ export class AddDietComponent implements OnInit{
     if(status == "error"){
       setTimeout(() => this.errorFlag="", 3000); 
     }
-  
   }
 
 
