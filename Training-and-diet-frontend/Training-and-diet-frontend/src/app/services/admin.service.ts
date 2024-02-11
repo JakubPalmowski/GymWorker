@@ -65,7 +65,7 @@ export class AdminService {
   }
 
   getUserCertificates(userId: string):Observable<CertificateListVerification[]>{
-    return this.http.get<CertificateListVerification[]>(environment.apiUrl+'dmin/Users/Certificates/'+userId);
+    return this.http.get<CertificateListVerification[]>(environment.apiUrl+'Admin/Users/Certificates/'+userId);
   }
 
   getCertificateInfoForVeryfication(certificateId: string):Observable<CertificateInfoForVeryfication>{
