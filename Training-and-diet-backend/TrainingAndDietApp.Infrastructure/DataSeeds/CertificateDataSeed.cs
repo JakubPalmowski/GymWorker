@@ -34,7 +34,7 @@ public class CertificateDataSeed : IEntityTypeConfiguration<Certificate>
                 PdfUri = "f8b22ef7-24d4-4ef5-95be-47a1c83479c5.pdf",
                 Description = "Certyfikat trenera personalnego.",
                 AddedDate = DateTime.UtcNow,
-                IsAccepted = false,
+                IsAccepted = true,
                 IdMentor = 3
             },
             new Certificate
@@ -70,7 +70,7 @@ public class CertificateDataSeed : IEntityTypeConfiguration<Certificate>
                 PdfUri = "b8516244-c04b-408f-8825-ceed297744a2.pdf",
                 Description = "Certyfikat zaawansowanego instruktora fitness.",
                 AddedDate = DateTime.UtcNow,
-                IsAccepted = false,
+                IsAccepted = true,
                 IdMentor = 7
             },
             new Certificate
@@ -106,7 +106,7 @@ public class CertificateDataSeed : IEntityTypeConfiguration<Certificate>
                 PdfUri = "fb6e1e39-8404-4095-a2ce-4f47a870e723.pdf",
                 Description = "Certyfikat zaawansowanego instruktora fitness.",
                 AddedDate = DateTime.UtcNow,
-                IsAccepted = false,
+                IsAccepted = true,
                 IdMentor = 11
             },
             new Certificate
@@ -142,7 +142,7 @@ public class CertificateDataSeed : IEntityTypeConfiguration<Certificate>
                 PdfUri = "b32cfec6-95c3-4d62-a9a5-3e8eeac16b01.pdf",
                 Description = "Certyfikat zaawansowanego instruktora fitness.",
                 AddedDate = DateTime.UtcNow,
-                IsAccepted = false,
+                IsAccepted = true,
                 IdMentor = 15
             },
             new Certificate
