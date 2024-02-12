@@ -22,7 +22,7 @@
         <span class="col-lg-4 mb-lg-3 d-flex align-items-center ps-lg-4 mb-3 last">{{ getEndDate(plan.endDate) }}</span>
     </div>
     <p *ngIf="!filteredTrainingPlans || filteredTrainingPlans.length <=0" class="text-center">Brak planów treningowych</p>
-    <div class="col-12 d-flex justify-content-center">
+    <div class="col-12 d-flex justify-content-center mt-1">
         <a routerLink="/training-plans/add" class="btn-confirm" style="width: fit-content;">Stwórz nowy plan</a>
     </div>
 </div>

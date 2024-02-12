@@ -54,8 +54,8 @@
 </div>
         </ng-container>
     </ng-container>
-    <p *ngIf="!filteredPlanExercises || filteredPlanExercises.length <=0">Nie znaleziono żadnych ćwiczeń</p>
-    <div class="d-flex justify-content-center mt-3" *ngIf="this.my_exercises_flag">
+    <p *ngIf="!filteredPlanExercises || filteredPlanExercises.length <=0" class="text-center">Brak ćwiczeń</p>
+    <div class="d-flex justify-content-center mt-1" *ngIf="this.my_exercises_flag">
     <button routerLink="/exercises/add" class="btn-confirm" style="width: fit-content;">Stwórz nowe ćwiczenie</button>
 </div>
 </div>

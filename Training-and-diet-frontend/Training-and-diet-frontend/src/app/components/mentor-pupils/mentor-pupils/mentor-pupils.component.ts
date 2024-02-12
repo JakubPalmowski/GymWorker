@@ -49,12 +49,6 @@ export class MentorPupilsComponent implements OnInit {
         return forkJoin(imageRequests);
       })
     ).subscribe(
-      () => {
-
-      },
-      (error) => {
-
-      }
     );
   }
 }

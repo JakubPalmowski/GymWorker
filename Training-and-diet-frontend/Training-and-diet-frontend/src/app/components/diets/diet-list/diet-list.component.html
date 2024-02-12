@@ -23,7 +23,7 @@
         <span class="col-lg-4 mb-lg-3 d-flex align-items-center mb-3 last ps-lg-2">{{ getEndDate(diet.endDate) }}</span>
     </div>
     <p *ngIf="!filteredDiets || filteredDiets.length <=0" class="text-center">Brak diet</p>
-    <div class="col-12 d-flex justify-content-center">
+    <div class="col-12 d-flex justify-content-center mt-1">
         <a routerLink="/diet/add" class="btn-confirm" style="width: fit-content;">Stwórz nową dietę</a>
     </div>
 </div>

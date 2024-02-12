@@ -36,8 +36,8 @@
             </div>
     
             </ng-container>
-            <p *ngIf="!DieteticianMeals || DieteticianMeals.length <=0">Nie znaleziono żadnych posiłków</p>
-            <div class="d-flex justify-content-center mt-3">
+            <p *ngIf="!DieteticianMeals || DieteticianMeals.length <=0" class="text-center">Brak posiłków</p>
+            <div class="d-flex justify-content-center mt-1">
             <button routerLink="/meals/add" class="btn-confirm" style="width: fit-content;">Stwórz nowy posiłek</button>
         </div>
         </div>

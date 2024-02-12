@@ -49,7 +49,12 @@ ngOnInit(): void {
       });
       return forkJoin(imageRequests);
     })
-  ).subscribe();
+  ).subscribe({
+    error:()=>{
+    }
+  }
+    
+  );
 }
 
 deleteInvitation(id: number) {
