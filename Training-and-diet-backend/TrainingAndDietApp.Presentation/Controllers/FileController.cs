@@ -35,7 +35,7 @@ namespace Training_and_diet_backend.Controllers
             
             return BadRequest("File upload failed.");
         }
-
+        [AllowAnonymous]
         [HttpGet("{blobFileName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

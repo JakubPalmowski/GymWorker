@@ -16,7 +16,7 @@ public class OpinionDataSeed : IEntityTypeConfiguration<Opinion>
                 IdMentor = 1,
                 Content = "Bardzo profesjonalne podejście do treningu. Czułem się zmotywowany i wspierany przez cały czas. Zdecydowanie polecam tego mentora!",
                 OpinionDate = DateTime.UtcNow,
-                Rate = 4.5m
+                Rate = 4.0m
             },
             new Opinion
             {
@@ -32,7 +32,7 @@ public class OpinionDataSeed : IEntityTypeConfiguration<Opinion>
                 IdMentor = 1,
                 Content = "Trener jest bardzo zaangażowany i posiada ogromną wiedzę. Udało mi się osiągnąć cele, o których wcześniej mogłem tylko marzyć. Polecam z całego serca!",
                 OpinionDate = DateTime.UtcNow,
-                Rate = 4.8m
+                Rate = 5.0m
             },
             new Opinion
             {
