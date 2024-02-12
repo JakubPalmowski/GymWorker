@@ -23,6 +23,8 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "3,5")]
         [HttpGet("trainer/{planId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTrainerTrainingPlanById(int planId)
         {
             var loggedUser = this.User.GetId()!.Value;
@@ -34,6 +36,8 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "2")]
         [HttpGet("pupil/{planId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPupilTrainingPlanById(int planId)
         {
             var loggedUser = this.User.GetId()!.Value;
@@ -45,6 +49,8 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "3,5")]
         [HttpGet("trainerPlans")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTrainerTrainingPlans()
         {
             var user = this.User.GetId()!.Value;
@@ -56,6 +62,8 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "2")]
         [HttpGet("pupilPlans")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPupilTrainingPlans()
         {
             var user = this.User.GetId()!.Value;
@@ -67,6 +75,8 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "3,5")]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PostTrainingPlan(CreateTrainingPlanCommand command)
         {
             var userId = this.User.GetId()!.Value;
@@ -77,6 +87,8 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "3,5")]
         [HttpPut("{idTrainingPlan}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateTrainingPlan(int idTrainingPlan, UpdateTrainingPlanCommand trainingPlan)
         {
             var command = new UpdateTrainingPlanInternalCommand(idTrainingPlan, trainingPlan);
@@ -85,6 +97,9 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "3,5")]
         [HttpPut("assignPupilToTrainingPlan/{idTrainingPlan}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AssignPupilToTrainingPlan(int idTrainingPlan, AssignPupilToTrainingPlanCommand trainingPlan)
         {
             var user = this.User.GetId()!.Value;

@@ -23,7 +23,6 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Dietician.UpdateDiet
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
         }
-        //refactor bez maila
         public async Task Handle(UpdateDieticianInternalCommand request, CancellationToken cancellationToken)
         {
             var userToUpdate = await _userRepository.GetUserWithDetailsAsync(request.IdUser, cancellationToken);

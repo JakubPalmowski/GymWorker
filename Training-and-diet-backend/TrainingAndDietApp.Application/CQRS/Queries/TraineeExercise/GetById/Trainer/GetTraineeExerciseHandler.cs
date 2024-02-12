@@ -22,9 +22,8 @@ public class GetTraineeExerciseHandler : IRequestHandler<GetTrainerTraineeExerci
     public async Task<TrainerTraineeExerciseResponse> Handle(GetTrainerTraineeExerciseQuery request, CancellationToken cancellationToken)
     {
         var traineeExercise = await _traineeExercisesRepository.GetTrainerTraineeExerciseWithExerciseByIdAsync(request.IdTraineeExercise, request.LoggedUser, cancellationToken);
-        if (traineeExercise == null)
-            throw new NotFoundException("TraineeExercise not found");
-        
-        return _mapper.Map<TrainerTraineeExerciseResponse>(traineeExercise);
+        return traineeExercise == null
+            ? throw new NotFoundException("TraineeExercise not found")
+            : _mapper.Map<TrainerTraineeExerciseResponse>(traineeExercise);
     }
 }

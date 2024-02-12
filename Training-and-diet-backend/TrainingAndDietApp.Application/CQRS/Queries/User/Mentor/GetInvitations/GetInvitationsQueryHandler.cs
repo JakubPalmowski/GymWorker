@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.User.Mentor.GetInvitations
@@ -20,8 +21,11 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.User.Mentor.GetInvitations
         public async Task<List<InvitationsResponse>> Handle(GetInvitationsQuery request, CancellationToken cancellationToken)
         {
              var invitations = await _pupilMentorRepository.GetInvitationsAsync(request.IdMentor, cancellationToken);
-            var invitationsResponse = _mapper.Map<List<InvitationsResponse>>(invitations.Select(x => x.Pupil));
-            return invitationsResponse;
+             if (!invitations.Any())
+                 throw new NotFoundException("Invitations not found");
+             
+             var invitationsResponse = _mapper.Map<List<InvitationsResponse>>(invitations.Select(x => x.Pupil));
+             return invitationsResponse;
         }
     }
 }

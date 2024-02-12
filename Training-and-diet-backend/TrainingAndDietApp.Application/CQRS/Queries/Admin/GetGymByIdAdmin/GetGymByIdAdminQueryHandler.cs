@@ -22,7 +22,7 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Admin.GetGymByIdAdmin
             var gym = await _gymRepository.GetGymWithAddressByIdAsync(request.IdGym, cancellationToken);
             if (gym == null)
             {
-                throw new NotFoundException("Nie znaleziono siłowni");
+                throw new NotFoundException("Gym not found");
             }
             var response = _mapper.Map<GetGymByIdAdminQuery>(gym);
             return response;

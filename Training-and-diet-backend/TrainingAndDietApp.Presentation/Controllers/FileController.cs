@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.Extensions;
 using TrainingAndDietApp.Application.CQRS.Commands.Files.Delete;
@@ -9,6 +10,7 @@ namespace Training_and_diet_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "1,2,3,4,5")]
     public class FileController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -20,6 +22,9 @@ namespace Training_and_diet_backend.Controllers
 
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Upload(IFormFile file)
         {
             var user = this.User.GetId()!.Value;
@@ -31,6 +36,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("{blobFileName}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Download(string blobFileName)
         {
            var query = new DownloadBlobQuery(blobFileName);
@@ -40,6 +47,8 @@ namespace Training_and_diet_backend.Controllers
            return File(result.Content, result.ContentType, result.Name);
         }
         [HttpDelete("delete/{blobFileName}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(string blobFileName)
         {
             var user = this.User.GetId()!.Value;

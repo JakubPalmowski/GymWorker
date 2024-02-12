@@ -27,6 +27,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllMeals()
         {
             var query = new GetMealsQuery();
@@ -36,6 +38,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("{mealId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMealById(int mealId)
         {
             var query = new GetMealQuery(mealId);
@@ -45,6 +49,8 @@ namespace Training_and_diet_backend.Controllers
         }
       
         [HttpGet("dietician")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMealsByDieticianId()
         {
             var user = this.User.GetId()!.Value;
@@ -54,6 +60,7 @@ namespace Training_and_diet_backend.Controllers
             return Ok(result);
         }
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> PostMeal(CreateMealCommand meal)
         {
             var user = this.User.GetId()!.Value;
@@ -63,12 +70,16 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpDelete("{mealId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteMeal(int mealId)
         {
             await _mediator.Send(new DeleteMealCommand(mealId));
             return NoContent();
         }
         [HttpPut("{mealId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateMeal (int mealId, UpdateMealCommand meal)       
         {
             await _mediator.Send(new UpdateMealInternalCommand(mealId, meal));

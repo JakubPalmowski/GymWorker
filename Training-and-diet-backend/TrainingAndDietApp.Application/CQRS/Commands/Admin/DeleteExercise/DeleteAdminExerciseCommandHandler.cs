@@ -20,9 +20,9 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Admin.DeleteExercise
         public async Task Handle(DeleteAdminExerciseCommand request, CancellationToken cancellationToken)
         {
             var exercise = await _exerciseBaseRepository.GetByIdAsync(request.IdExercise, cancellationToken);
-            if (exercise == null || exercise.IdTrainer != null){
+            if (exercise == null || exercise.IdTrainer != null)
                 throw new NotFoundException("Exercise not found");
-            }
+
             await _exerciseBaseRepository.DeleteAsync(exercise.IdExercise, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
         }

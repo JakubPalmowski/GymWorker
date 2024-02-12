@@ -28,45 +28,45 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Admin.VerifyGym
         public async Task Handle(VerifyGymInternalCommand request, CancellationToken cancellationToken)
         {
             try{
-            _unitOfWork.BeginTransaction();
-            var gym = await _gymRepository.GetGymWithAddressByIdAsync(request.IdGym, cancellationToken);
-            if (gym == null)
-            {
-                throw new NotFoundException("Nie znaleziono siłowni");
-            }
-            if(gym.IsAccepted == true){
-                throw new BadRequestException("Nie można weryfikować aktywnej siłowni.");
-            }
-             var address = gym.Address;
-            if(!gym.Address.Gyms.Where(g => g.IdGym != gym.IdGym).Any()){
-                gym.Address.City = request.GymCommand.City;
-                gym.Address.Street = request.GymCommand.Street;
-                gym.Address.PostalCode = request.GymCommand.PostalCode;
-                await _addressBaseRepository.UpdateAsync(address, cancellationToken);
-            }else{
-                var updatedAddress = await _addressRepository.CheckIfAddressExistsAsync(request.GymCommand.City, request.GymCommand.Street, request.GymCommand.PostalCode, cancellationToken);
-                if(updatedAddress != null){
-                    gym.IdAddress = updatedAddress.IdAddress;
-                }else{
-                var newAddress = new Address
+                _unitOfWork.BeginTransaction();
+                var gym = await _gymRepository.GetGymWithAddressByIdAsync(request.IdGym, cancellationToken);
+                if (gym == null)
                 {
-                    City = request.GymCommand.City,
-                    Street = request.GymCommand.Street,
-                    PostalCode = request.GymCommand.PostalCode
-                };
-                await _addressBaseRepository.AddAsync(newAddress, cancellationToken);
-                await _unitOfWork.CommitAsync(cancellationToken);
-                gym.IdAddress = newAddress.IdAddress;
+                    throw new NotFoundException("Nie znaleziono siłowni");
                 }
-            }
-            gym.Name = request.GymCommand.Name;
-            gym.IsAccepted = true;
-            await _gymBaseRepository.UpdateAsync(gym, cancellationToken);
-            await _unitOfWork.CommitAsync(cancellationToken);
-            await _unitOfWork.CommitTransactionAsync(cancellationToken);
-        }catch(Exception e){
-            await _unitOfWork.RollbackTransactionAsync(cancellationToken);
-            throw;
+                if(gym.IsAccepted == true){
+                    throw new BadRequestException("Nie można weryfikować aktywnej siłowni.");
+                }
+                var address = gym.Address;
+                if(!gym.Address.Gyms.Where(g => g.IdGym != gym.IdGym).Any()){
+                    gym.Address.City = request.GymCommand.City;
+                    gym.Address.Street = request.GymCommand.Street;
+                    gym.Address.PostalCode = request.GymCommand.PostalCode;
+                    await _addressBaseRepository.UpdateAsync(address, cancellationToken);
+                }else{
+                    var updatedAddress = await _addressRepository.CheckIfAddressExistsAsync(request.GymCommand.City, request.GymCommand.Street, request.GymCommand.PostalCode, cancellationToken);
+                    if(updatedAddress != null){
+                        gym.IdAddress = updatedAddress.IdAddress;
+                    }else{
+                        var newAddress = new Address
+                        {
+                            City = request.GymCommand.City,
+                            Street = request.GymCommand.Street,
+                            PostalCode = request.GymCommand.PostalCode
+                        };
+                        await _addressBaseRepository.AddAsync(newAddress, cancellationToken);
+                        await _unitOfWork.CommitAsync(cancellationToken);
+                        gym.IdAddress = newAddress.IdAddress;
+                    }
+                }
+                gym.Name = request.GymCommand.Name;
+                gym.IsAccepted = true;
+                await _gymBaseRepository.UpdateAsync(gym, cancellationToken);
+                await _unitOfWork.CommitAsync(cancellationToken);
+                await _unitOfWork.CommitTransactionAsync(cancellationToken);
+            }catch(Exception e){
+                await _unitOfWork.RollbackTransactionAsync(cancellationToken);
+                throw;
 
             }
            

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using TrainingAndDietApp.Application.CQRS.Responses.Admin;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
@@ -23,9 +24,8 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Admin.GetCertificateInfoFo
         {
             var certificate = await _certificateBaseRepository.GetByIdAsync(request.IdCertificate, cancellationToken);
             if (certificate == null)
-            {
-                throw new BadRequestException("Certificate does not exist");
-            }
+                throw new NotFoundException("Certificate does not exist");
+
             var response = _mapper.Map<CertificateVerificationResponse>(certificate);
             return response;
         }

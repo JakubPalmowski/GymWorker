@@ -27,14 +27,13 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.UpdatePupil
         public async Task Handle(UpdatePupilInternalCommand request, CancellationToken cancellationToken)
         {
             var userToUpdate = await _userRepository.GetUserWithDetailsAsync(request.IdUser, cancellationToken);
-            if (userToUpdate==null){
+            if (userToUpdate==null)
                 throw new NotFoundException("User not found");
-            }
+            
             var pupilRole = await _userService.CheckIfUserIsPupil(request.IdUser, cancellationToken);
             if (!pupilRole)
-            {
                 throw new BadRequestException("User is not a pupil");
-            }
+            
             userToUpdate.Name = request.PupilCommand.Name;
             userToUpdate.LastName = request.PupilCommand.LastName;
             userToUpdate.Email = request.PupilCommand.Email;

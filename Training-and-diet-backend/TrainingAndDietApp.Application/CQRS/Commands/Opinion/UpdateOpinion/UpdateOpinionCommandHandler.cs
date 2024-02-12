@@ -1,6 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using TrainingAndDietApp.Application.Exceptions;
+using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Commands.Opinion.UpdateOpinion
@@ -25,17 +27,17 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Opinion.UpdateOpinion
            var cooperation = await _pupilMentorRepository.IsPupilCooperatingWithMentor(request.IdPupil, request.UpdateCommand.IdMentor, cancellationToken);
               if (cooperation == null && cooperation?.IsAccepted == false)
               {
-                throw new System.Exception("Nie można dodać opinii dla tego mentora.");
+                throw new BadRequestException("You cannot add opinion for this mentor");
               }
-            var opinion = await _opinionRepository.GetPupilMentorOpinionAsync(request.IdPupil, request.UpdateCommand.IdMentor, cancellationToken);
-            if (opinion == null)
-            {
-                throw new System.Exception("Opinia dla tego mentora nie istnieje.");
-            }
-            opinion.Content = request.UpdateCommand.Content;
-            opinion.Rate = request.UpdateCommand.Rate;
-            await _opinionBaseRepository.UpdateAsync(opinion, cancellationToken);
-            await _unitOfWork.CommitAsync();
+              var opinion = await _opinionRepository.GetPupilMentorOpinionAsync(request.IdPupil, request.UpdateCommand.IdMentor, cancellationToken);
+              if (opinion == null)
+              {
+                  throw new ConflictException("Opinion for this mentor already exists");
+              }
+              opinion.Content = request.UpdateCommand.Content;
+              opinion.Rate = request.UpdateCommand.Rate;
+              await _opinionBaseRepository.UpdateAsync(opinion, cancellationToken);
+              await _unitOfWork.CommitAsync(cancellationToken);
         }
     }
 }

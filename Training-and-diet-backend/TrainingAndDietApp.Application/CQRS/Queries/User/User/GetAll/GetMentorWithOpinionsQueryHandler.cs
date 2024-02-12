@@ -36,12 +36,8 @@ public class GetMentorWithOpinionsQueryHandler : IRequestHandler<GetMentorWithOp
 
         var user = await _userRepository.GetUserWithGymsAndOpinionsAsync(request.Id, cancellationToken);
         //To potrzebne zeby nie przepuszczalo innych niz trenerow i dietetykow
-        if (user!=null && user.IdRole != 3 && user.IdRole != 4 && user.IdRole != 5){
+        if (user!=null && user.IdRole != 3 && user.IdRole != 4 && user.IdRole != 5)
             throw new BadRequestException("User has wrong role");
-        }
-        
-            
-
 
         var mentorWithOpinionsResponse = _mapper.Map<MentorWithOpinionResponse>(user);
 

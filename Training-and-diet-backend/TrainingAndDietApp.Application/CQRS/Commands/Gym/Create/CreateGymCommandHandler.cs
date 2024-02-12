@@ -25,7 +25,6 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Gym.Create
         {
             try
             {
-                // Rozpoczęcie transakcji
                 _unitOfWork.BeginTransaction();
 
                 var address = await _addressRepository.CheckIfAddressExistsAsync(request.GymCommand.City, request.GymCommand.Street, request.GymCommand.PostalCode, cancellationToken);
@@ -62,7 +61,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Gym.Create
             catch (Exception)
             {
                 await _unitOfWork.RollbackTransactionAsync(cancellationToken);
-                throw new Exception("Nie udało się wykonać operacji.");
+                throw new Exception("Something went wrong");
             }
         }
 

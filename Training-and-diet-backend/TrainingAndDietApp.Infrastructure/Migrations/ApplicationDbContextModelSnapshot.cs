@@ -98,44 +98,6 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.HasIndex("IdPupil");
 
                     b.ToTable("Diets");
-
-                    b.HasData(
-                        new
-                        {
-                            IdDiet = 1,
-                            CustomName = "Plan treningowy dla mirka",
-                            IdDietician = 1,
-                            IdPupil = 2,
-                            Name = "Plan treningowy dla początkujących",
-                            NumberOfWeeks = 4,
-                            StartDate = new DateTime(2023, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalKcal = 3000,
-                            Type = "Siłowy"
-                        },
-                        new
-                        {
-                            IdDiet = 2,
-                            CustomName = "Plan treningowy dla jacka",
-                            IdDietician = 1,
-                            IdPupil = 2,
-                            Name = "Plan treningowy na odchudzanie",
-                            NumberOfWeeks = 4,
-                            StartDate = new DateTime(2023, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalKcal = 2000,
-                            Type = "Cardio"
-                        },
-                        new
-                        {
-                            IdDiet = 3,
-                            CustomName = "Plan treningowy dla Wlodara",
-                            IdDietician = 1,
-                            IdPupil = 2,
-                            Name = "Plan treningowy dla początkujących",
-                            NumberOfWeeks = 4,
-                            StartDate = new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalKcal = 2500,
-                            Type = "Siłowy"
-                        });
                 });
 
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Exercise", b =>
@@ -204,7 +166,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             AddedBy = 0,
                             IdAddress = 1,
                             IsAccepted = false,
-                            Name = "Gym1"
+                            Name = "McFit Wołoska"
                         },
                         new
                         {
@@ -212,7 +174,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             AddedBy = 0,
                             IdAddress = 2,
                             IsAccepted = false,
-                            Name = "Gym2"
+                            Name = "CityFit Centrum"
                         },
                         new
                         {
@@ -220,7 +182,7 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             AddedBy = 0,
                             IdAddress = 3,
                             IsAccepted = false,
-                            Name = "Gym3"
+                            Name = "CityFit Wilanów"
                         });
                 });
 
@@ -257,35 +219,6 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.HasIndex("IdDietician");
 
                     b.ToTable("Meals");
-
-                    b.HasData(
-                        new
-                        {
-                            IdMeal = 1,
-                            IdDietician = 1,
-                            Ingredients = "{\"ingredient1\": \"ziemniaki\", \"ingredient2\": \"cebula\", \"ingredient3\":  \"mąka\" }",
-                            Kcal = "{\"kcal\": \"651\", \"Białko\": \"16\", \"Węglowodany\":  \"160\" , \"Tłuszcze\": \"30\" }",
-                            Name = "Placki ziemniaczane",
-                            PrepareSteps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }"
-                        },
-                        new
-                        {
-                            IdMeal = 2,
-                            IdDietician = 1,
-                            Ingredients = "{\"ingredient1\": \"platki owsiane\", \"ingredient2\": \"mleko\", \"ingredient3\":  \"cukier\" }",
-                            Kcal = "{\"kcal\": \"765\", \"Białko\": \"20\", \"Węglowodany\":  \"165\" , \"Tłuszcze\": \"20\" }",
-                            Name = "Owsianka",
-                            PrepareSteps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }"
-                        },
-                        new
-                        {
-                            IdMeal = 3,
-                            IdDietician = 2,
-                            Ingredients = "{\"ingredient1\": \"szynka\", \"ingredient2\": \"chleb\", \"ingredient3\":  \"masło\" }",
-                            Kcal = "{\"kcal\": \"700\", \"Białko\": \"30\", \"Węglowodany\":  \"200\" , \"Tłuszcze\": \"26\" }",
-                            Name = "Kanapki z szynką",
-                            PrepareSteps = "{\"test1\": \"test\", \"test2\": \"test\", \"test3\":  \"test\" }"
-                        });
                 });
 
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.MealDiet", b =>
@@ -320,33 +253,6 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.HasIndex("IdMeal");
 
                     b.ToTable("Meal_Diets");
-
-                    b.HasData(
-                        new
-                        {
-                            IdMealDiet = 1,
-                            Comments = "Jedz sobie",
-                            DayOfWeek = 1,
-                            HourOfMeal = "12:00",
-                            IdDiet = 1,
-                            IdMeal = 1
-                        },
-                        new
-                        {
-                            IdMealDiet = 2,
-                            DayOfWeek = 2,
-                            HourOfMeal = "12:00",
-                            IdDiet = 1,
-                            IdMeal = 2
-                        },
-                        new
-                        {
-                            IdMealDiet = 3,
-                            DayOfWeek = 1,
-                            HourOfMeal = "12:00",
-                            IdDiet = 2,
-                            IdMeal = 1
-                        });
                 });
 
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.Opinion", b =>
@@ -372,56 +278,6 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.HasIndex("IdMentor");
 
                     b.ToTable("Opinion");
-
-                    b.HasData(
-                        new
-                        {
-                            IdPupil = 2,
-                            IdMentor = 1,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 5m
-                        },
-                        new
-                        {
-                            IdPupil = 3,
-                            IdMentor = 1,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 2m
-                        },
-                        new
-                        {
-                            IdPupil = 5,
-                            IdMentor = 22,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 4m
-                        },
-                        new
-                        {
-                            IdPupil = 6,
-                            IdMentor = 22,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 5m
-                        },
-                        new
-                        {
-                            IdPupil = 7,
-                            IdMentor = 23,
-                            Content = "zne, a jednocześnie przyjazne i motywująmocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 2m
-                        },
-                        new
-                        {
-                            IdPupil = 8,
-                            IdMentor = 23,
-                            Content = "Jakub jest nie tylko świetnym trenerem, ale także osobą, która zawsze wierzyła we mnie i wspierała mnie w moich celach. Jego podejście do treningów było zawsze profesjonalne i skuteczne, a jednocześnie przyjazne i motywujące. Potrafił znaleźć w każdym z naszych zawodników mocne strony i pomóc nam w ich rozwijaniu.\nDzięki trenerowi Jakubowi, zdobyłem wiele umiejętności, które pomogły mi w osiągnięciu sukcesów na boisku. Jego wiedza i doświadczenie były bezcenne, a jego pozytywna energia i entuzjazm zawsze motywowały mnie do dalszej pracy i rozwoju.",
-                            OpinionDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rate = 4m
-                        });
                 });
 
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.PupilMentor", b =>
@@ -440,20 +296,6 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.HasIndex("IdPupil");
 
                     b.ToTable("Pupil_mentors");
-
-                    b.HasData(
-                        new
-                        {
-                            IdMentor = 1,
-                            IdPupil = 2,
-                            IsAccepted = false
-                        },
-                        new
-                        {
-                            IdMentor = 1,
-                            IdPupil = 3,
-                            IsAccepted = false
-                        });
                 });
 
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.TraineeExercise", b =>
@@ -533,30 +375,6 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                     b.HasIndex("IdTrainer");
 
                     b.ToTable("Training_plans");
-
-                    b.HasData(
-                        new
-                        {
-                            IdTrainingPlan = 1,
-                            CustomName = "Plan treningowy dla mirka",
-                            IdPupil = 2,
-                            IdTrainer = 1,
-                            Name = "Plan treningowy dla początkujących",
-                            NumberOfWeeks = 0,
-                            StartDate = new DateTime(2023, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Type = "Siłowy"
-                        },
-                        new
-                        {
-                            IdTrainingPlan = 2,
-                            CustomName = "Plan treningowy dla jacka",
-                            IdPupil = 2,
-                            IdTrainer = 1,
-                            Name = "Plan treningowy na odchudzanie",
-                            NumberOfWeeks = 0,
-                            StartDate = new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Type = "Cardio"
-                        });
                 });
 
             modelBuilder.Entity("TrainingAndDietApp.Domain.Entities.User", b =>
@@ -645,10 +463,10 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         new
                         {
                             IdUser = 1,
-                            Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne",
+                            Bio = "Pasjonat zdrowego stylu życia i fitnessu. Z ponad 5-letnim doświadczeniem jako trener personalny, pomogłem wielu osobom osiągnąć ich cele zdrowotne i kondycyjne. Specjalizuję się w treningach siłowych, kondycyjnych oraz w doradztwie żywieniowym.",
                             Email = "michal@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 1,
+                            HashedPassword = "$2a$11$WLvEJW0cgBdb0f81E9tt/uB41IskjQuuNsVFT7eJFpYl.aqSdhlSu",
+                            IdRole = 3,
                             IsAccepted = false,
                             LastName = "Emczyk",
                             Name = "Michał",
@@ -658,10 +476,10 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         new
                         {
                             IdUser = 2,
-                            Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne",
+                            Bio = "Zawodowa trenerka fitness z pasją do jogi i pilatesu. Uwielbiam inspirować innych do prowadzenia zdrowszego trybu życia. Moje sesje treningowe są energiczne, motywujące i dostosowane do indywidualnych potrzeb każdego klienta.",
                             Email = "anna@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 2,
+                            HashedPassword = "$2a$11$WLvEJW0cgBdb0f81E9tt/uB41IskjQuuNsVFT7eJFpYl.aqSdhlSu",
+                            IdRole = 3,
                             IsAccepted = false,
                             LastName = "Kowalska",
                             Name = "Anna",
@@ -671,300 +489,27 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         new
                         {
                             IdUser = 3,
-                            Bio = "Cześć jestem Kuba i dużo trenuje. Zapraszam na treningi indywidualne",
-                            Email = "john@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
+                            Bio = "Dietetyk kliniczny z zamiłowaniem do sportu. Moje podejście łączy naukowe podstawy żywienia z praktycznymi poradami, które pomagają klientom osiągnąć ich cele zdrowotne bez poświęcania przyjemności jedzenia.",
+                            Email = "andrzej@gmail.com",
+                            HashedPassword = "$2a$11$WLvEJW0cgBdb0f81E9tt/uB41IskjQuuNsVFT7eJFpYl.aqSdhlSu",
+                            IdRole = 4,
                             IsAccepted = false,
-                            LastName = "Doe",
-                            Name = "John",
+                            LastName = "Kowalski",
+                            Name = "Andrzej",
                             PhoneNumber = "48555667777",
                             Sex = "Male"
                         },
                         new
                         {
                             IdUser = 4,
-                            Bio = "Hi, I'm Charlie. Let's stay active and have fun!",
-                            Email = "charlie@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Brown",
-                            Name = "Charlie",
-                            PhoneNumber = "48554567890",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 5,
-                            Bio = "Hello, I'm Diana. Fitness is my passion!",
-                            Email = "diana@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Miller",
-                            Name = "Diana",
-                            PhoneNumber = "48555678901",
-                            Sex = "Female"
-                        },
-                        new
-                        {
-                            IdUser = 6,
-                            Bio = "Hi, I'm Frank. Let's achieve our fitness goals together!",
-                            Email = "frank@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Davis",
-                            Name = "Frank",
-                            PhoneNumber = "48556789012",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 7,
-                            Bio = "Hello, I'm Grace. Fitness is my lifestyle!",
-                            Email = "grace@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Anderson",
-                            Name = "Grace",
-                            PhoneNumber = "48557890123",
-                            Sex = "Female"
-                        },
-                        new
-                        {
-                            IdUser = 8,
-                            Bio = "Hey, I'm Harry. Let's push our limits in every workout!",
-                            Email = "harry@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Moore",
-                            Name = "Harry",
-                            PhoneNumber = "48558901234",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 9,
-                            Bio = "Hi, I'm Ivy. Fitness is my passion and I'm here to inspire!",
-                            Email = "ivy@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Turner",
-                            Name = "Ivy",
-                            PhoneNumber = "48559012345",
-                            Sex = "Female"
-                        },
-                        new
-                        {
-                            IdUser = 10,
-                            Bio = "Hello, I'm Jack. Let's make every workout count!",
-                            Email = "jack@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "White",
-                            Name = "Jack",
-                            PhoneNumber = "48550123456",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 11,
-                            Bio = "Hi, I'm Kelly. Fitness is the key to a healthy life!",
-                            Email = "kelly@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Martin",
-                            Name = "Kelly",
-                            PhoneNumber = "48551234567",
-                            Sex = "Female"
-                        },
-                        new
-                        {
-                            IdUser = 12,
-                            Bio = "Hey, I'm Leo. Let's crush our fitness goals!",
-                            Email = "leo@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Baker",
-                            Name = "Leo",
-                            PhoneNumber = "48552345678",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 13,
-                            Bio = "Hello, I'm Mia. Fitness is not just a hobby, it's a way of life!",
-                            Email = "mia@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Collins",
-                            Name = "Mia",
-                            PhoneNumber = "48553456789",
-                            Sex = "Female"
-                        },
-                        new
-                        {
-                            IdUser = 14,
-                            Bio = "Hi, I'm Nathan. Let's embrace a fit and healthy lifestyle!",
-                            Email = "nathan@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Ward",
-                            Name = "Nathan",
-                            PhoneNumber = "48554567890",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 15,
-                            Bio = "Hey, I'm Olivia. Fitness enthusiast and advocate!",
-                            Email = "olivia@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Perry",
-                            Name = "Olivia",
-                            PhoneNumber = "48555678901",
-                            Sex = "Female"
-                        },
-                        new
-                        {
-                            IdUser = 16,
-                            Bio = "Hello, I'm Peter. Let's make fitness a fun journey!",
-                            Email = "peter@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Cooper",
-                            Name = "Peter",
-                            PhoneNumber = "48556789012",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 17,
-                            Bio = "Hi, I'm Quinn. Fitness is my daily dose of happiness!",
-                            Email = "quinn@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Barnes",
-                            Name = "Quinn",
-                            PhoneNumber = "48557890123",
-                            Sex = "Female"
-                        },
-                        new
-                        {
-                            IdUser = 18,
-                            Bio = "Hey, I'm Ryan. Fitness is the key to a balanced life!",
-                            Email = "ryan@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Fisher",
-                            Name = "Ryan",
-                            PhoneNumber = "48558901234",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 19,
-                            Bio = "Hello, I'm Sophie. Let's stay fit and fabulous!",
-                            Email = "sophie@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Turner",
-                            Name = "Sophie",
-                            PhoneNumber = "48559012345",
-                            Sex = "Female"
-                        },
-                        new
-                        {
-                            IdUser = 20,
-                            Bio = "Hi, I'm Tom. Fitness is my lifestyle choice!",
-                            Email = "tom@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "Harris",
-                            Name = "Tom",
-                            PhoneNumber = "48550123456",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 21,
-                            Bio = "Hi, I'm Filip. Fitness is my hobby!",
-                            Email = "filipwgmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
+                            Bio = "Ekspert od wellness i poprawy samopoczucia, z certyfikatem dietetyka. Zajmuję się holistycznym podejściem do zdrowia, łączac odżywianie i mentalność, aby wspierać klientów w osiąganiu zrównoważonego stylu życia.",
+                            Email = "marcin@gmail.com",
+                            HashedPassword = "$2a$11$WLvEJW0cgBdb0f81E9tt/uB41IskjQuuNsVFT7eJFpYl.aqSdhlSu",
                             IdRole = 4,
                             IsAccepted = false,
-                            LastName = "W",
-                            Name = "Filip",
-                            PhoneNumber = "48550123456",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 22,
-                            Bio = "Hi, I'm Jakub. Fitness is my passion!",
-                            Email = "jakubs@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "test",
-                            Name = "test",
-                            PhoneNumber = "48550123456",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 23,
-                            Bio = "Hi, I'm Jakub. Fitness is my passion!",
-                            Email = "jakubs@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "test",
-                            Name = "test",
-                            PhoneNumber = "48550123456",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 24,
-                            Bio = "Hi, I'm Jakub. Fitness is my passion!",
-                            Email = "jakubs@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 3,
-                            IsAccepted = false,
-                            LastName = "test",
-                            Name = "test",
-                            PhoneNumber = "48550123456",
-                            Sex = "Male"
-                        },
-                        new
-                        {
-                            IdUser = 25,
-                            Bio = "Hi, I'm Jakub. Fitness is my passion!",
-                            Email = "jakubs@gmail.com",
-                            HashedPassword = "adsas321312dasasdasdajgfasdjiasijdasujnasd",
-                            IdRole = 5,
-                            IsAccepted = false,
-                            LastName = "test",
-                            Name = "Dietician-Trainer",
-                            PhoneNumber = "48550123456",
+                            LastName = "Michalski",
+                            Name = "Marcin",
+                            PhoneNumber = "48554567890",
                             Sex = "Male"
                         });
                 });
@@ -1000,21 +545,21 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                             IdAddress = 1,
                             City = "Warszawa",
                             PostalCode = "02-222",
-                            Street = "Zlota"
+                            Street = "Wołoska"
                         },
                         new
                         {
                             IdAddress = 2,
-                            City = "Białystok",
+                            City = "Warszawa",
                             PostalCode = "02-324",
-                            Street = "Kryształowa"
+                            Street = "Złota"
                         },
                         new
                         {
                             IdAddress = 3,
-                            City = "Kraków",
+                            City = "Warszawa",
                             PostalCode = "02-421",
-                            Street = "Mendelejewa"
+                            Street = "Syta"
                         });
                 });
 
@@ -1085,13 +630,8 @@ namespace TrainingAndDietApp.Infrastructure.Migrations
                         },
                         new
                         {
-                            IdGym = 2,
+                            IdGym = 1,
                             IdTrainer = 2
-                        },
-                        new
-                        {
-                            IdGym = 3,
-                            IdTrainer = 3
                         });
                 });
 

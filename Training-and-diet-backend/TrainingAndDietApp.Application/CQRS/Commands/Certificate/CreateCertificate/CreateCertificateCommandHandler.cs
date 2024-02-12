@@ -28,9 +28,8 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Certificate.CreateCertifi
         {
             var user = await _userBaseRepository.GetByIdAsync(request.IdMentor, cancellationToken);
             if (user == null)
-            {
                 throw new NotFoundException("User not found");
-            }
+            
             try
             {
                 var uniqueName = await _fileService.UploadPdfAsync(request.CertificateCommand.PdfFile);

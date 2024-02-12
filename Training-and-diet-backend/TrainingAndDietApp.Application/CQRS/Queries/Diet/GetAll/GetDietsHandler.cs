@@ -26,11 +26,10 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Diet.GetAll
         public async Task<IEnumerable<DietResponse>> Handle(GetDietsQuery request, CancellationToken cancellationToken)
         {
             var diets = await _repository.GetAllAsync(cancellationToken);
-            if (diets == null)
-                throw new NotFoundException("No diets found");
 
-            return _mapper.Map<List<DietResponse>>(diets);
-
+            return diets == null
+                ? throw new NotFoundException("No diets found")
+                : _mapper.Map<List<DietResponse>>(diets);
         }
     }
 }

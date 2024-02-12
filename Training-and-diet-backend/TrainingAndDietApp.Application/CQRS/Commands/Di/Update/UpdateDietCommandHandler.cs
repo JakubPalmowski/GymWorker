@@ -27,13 +27,11 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Di.Update
         {
             var diet = await _dietBaseRepository.GetByIdAsync(request.IdDiet, cancellationToken);
             if (diet == null)
-            {
                 throw new NotFoundException("Diet not found");
-            }
+            
             if (diet.IdDietician != request.IdDietician)
-            {
                 throw new BadRequestException("You are not allowed to update this diet");
-            }
+
             _mapper.Map(request.CreateDietCommand, diet);
             await _unitOfWork.CommitAsync(cancellationToken);
         }

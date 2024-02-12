@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
 
@@ -27,15 +28,13 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.MealDiet.Update
         {
             var dietMeal = await _mealDietBaseRepository.GetByIdAsync(request.IdMealDiet, cancellationToken);
             if(dietMeal == null)
-            {
-                throw new Exceptions.NotFoundException("Meal diet not found");
-            }
+                throw new NotFoundException("Meal diet not found");
+            
             var meal = await _mealBaseRepository.GetByIdAsync(dietMeal.IdMeal, cancellationToken);
             var diet = await _dietBaseRepository.GetByIdAsync(dietMeal.IdDiet, cancellationToken);
             if (meal == null || diet == null || meal.IdDietician != request.IdDietician || diet.IdDietician != request.IdDietician)
-            {
-                throw new Exceptions.NotFoundException("Meal or diet not found");
-            }
+                throw new NotFoundException("Meal or diet not found");
+            
             _mapper.Map(request, dietMeal);
             await _mealDietBaseRepository.UpdateAsync(dietMeal, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

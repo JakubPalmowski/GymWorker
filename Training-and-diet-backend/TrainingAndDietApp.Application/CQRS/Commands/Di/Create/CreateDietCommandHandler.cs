@@ -22,7 +22,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Di.Create
 
         public async Task<CreateDietResponse> Handle(CreateDietInternalCommand request, CancellationToken cancellationToken)
         {
-            var diet = _mapper.Map<Domain.Entities.Diet>(request.CreateDietCommand);
+            var diet = _mapper.Map<Diet>(request.CreateDietCommand);
             diet.IdDietician = request.IdDietician;
             await _dietBaseRepository.AddAsync(diet, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

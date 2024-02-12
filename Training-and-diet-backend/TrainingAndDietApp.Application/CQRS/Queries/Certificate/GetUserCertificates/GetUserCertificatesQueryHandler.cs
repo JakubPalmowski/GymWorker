@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.Certificate.GetUserCertificates
@@ -20,7 +21,10 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Certificate.GetUserCertifi
         public async Task<List<GetUserCertificatesQuery>> Handle(GetUserCertificatesQuery request, CancellationToken cancellationToken)
         {
             var certificates = await _certificateRepository.GetCertificatesFromUserAsync(request.IdMentor, cancellationToken);
-            return _mapper.Map<List<GetUserCertificatesQuery>>(certificates);
+
+            return certificates == null
+                ? throw new NotFoundException("Certificate not found")
+                : _mapper.Map<List<GetUserCertificatesQuery>>(certificates);
         }
     }
 }

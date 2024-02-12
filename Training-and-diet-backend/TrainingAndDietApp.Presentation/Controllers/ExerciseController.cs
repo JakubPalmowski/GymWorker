@@ -16,15 +16,15 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class ExerciseController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
-        public ExerciseController(IMapper mapper, IMediator mediator)
+        public ExerciseController(IMediator mediator)
         {
-            _mapper = mapper;
             _mediator = mediator;
         }
 
         [HttpGet("{exerciseId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int exerciseId)
         {
             var request = new GetExerciseQuery(exerciseId);
@@ -34,6 +34,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetSystemExercises()
         {
             var request = new GetSystemExercisesQuery();
@@ -44,6 +46,8 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "3,5")]
         [HttpGet("trainer/exercises")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTrainerExercises()
         {
             var userId = this.User.GetId()!.Value;
@@ -54,6 +58,7 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "3,5")]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> PostExercise(CreateExerciseCommand exercise)
         {
             var userId = this.User.GetId()!.Value; 
@@ -64,6 +69,8 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "3,5")]
         [HttpPut("{exerciseId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutExercise(UpdateExerciseCommand exercise, int exerciseId)
         {
             await _mediator.Send(new UpdateExerciseInternalCommand(exerciseId, exercise));
@@ -73,10 +80,12 @@ namespace Training_and_diet_backend.Controllers
 
         [Authorize(Roles = "3,5")]
         [HttpDelete("{exerciseId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteExercise(int exerciseId)
         {
             await _mediator.Send(new DeleteExerciseCommand(exerciseId));
-            return NoContent();
+            return Ok();
         }
 
     }

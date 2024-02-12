@@ -23,9 +23,10 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Admin.DeleteCertificate
         public async Task Handle(DeleteCertificateCommand request, CancellationToken cancellationToken)
         {
             var certificate = await _certificateBaseRepository.GetByIdAsync(request.IdCertificate, cancellationToken);
-            if (certificate == null){
+
+            if (certificate == null)
                 throw new NotFoundException("Certificate not found");
-            }
+            
             var pdfUri = certificate.PdfUri;
             await _certificateBaseRepository.DeleteAsync(certificate.IdCertificate, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

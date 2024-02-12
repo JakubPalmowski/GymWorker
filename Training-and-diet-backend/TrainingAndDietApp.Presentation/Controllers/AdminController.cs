@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.CreateExercise;
 using TrainingAndDietApp.Application.CQRS.Commands.Admin.DeleteCertificate;
@@ -28,6 +29,8 @@ namespace Training_and_diet_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "1")]
+
     public class AdminController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -38,6 +41,9 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("AllGyms/{status}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetAllGymsAdmin(string status)
         {
             var request = new GetAllGymsAdminQuery(status);
@@ -48,6 +54,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpDelete("Gym/{idGym}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteGym(int idGym)
         {
             var request = new DeleteGymCommand(idGym);
@@ -56,6 +64,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("Gym/{idGym}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetGymById(int idGym)
         {
             var request = new GetGymByIdAdminQuery(idGym);
@@ -64,13 +74,19 @@ namespace Training_and_diet_backend.Controllers
     }
 
         [HttpPut("Gym/{idGym}")]
-        public async Task<IActionResult> EditGym(int idGym, UpdateGymCommand command)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateGym(int idGym, UpdateGymCommand command)
         {   
             await _mediator.Send(new UpdateGymInternalCommand(idGym, command));
             return Ok();
         }
 
         [HttpPut("Gym/Verify/{idGym}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> VerifyGym(int idGym, UpdateGymCommand command)
         {
             await _mediator.Send(new VerifyGymInternalCommand(idGym, command));
@@ -78,6 +94,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("Exercises")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAdminAllExercises()
         {
             var response = await _mediator.Send(new GetAllExercisesAdminQuery());
@@ -86,6 +104,7 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpPost("Exercises")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateExercise(CreateExerciseCommand command)
         {
             var response = await _mediator.Send(new CreateExerciseAdminInternalCommand(command));
@@ -93,6 +112,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("Users/PendingCertificates")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUsersWithPendingCertificates()
         {
             var response = await _mediator.Send(new GetAllUsersWithPendingCertificatesQuery());
@@ -101,6 +122,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("Users/AcceptedCertificates")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUsersWithAcceptedCertificates()
         {
             var response = await _mediator.Send(new GetAllUsersWithAcceptedCertificatesQuery());
@@ -109,6 +132,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("Users/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserInfoForVerification(int id)
         {
             var response = await _mediator.Send(new GetUserInfoForVerificationQuery(id));
@@ -117,6 +142,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("Users/Certificates/{idUser}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserCertificatesById(int idUser)
         {
             var request = new GetUserCertificatesByIdQuery(idUser);
@@ -125,6 +152,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("Certificates/{idCertificate}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCertificateInfoForVerification(int idCertificate)
         {
             var request = new GetCertificateInfoForVerificationQuery(idCertificate);
@@ -133,6 +162,9 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpPatch("Certificates/Verification/{idCertificate}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> VerifyCertificate(int idCertificate)
         {
             var request = new VerifyCertificateCommand(idCertificate);
@@ -141,6 +173,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpDelete("Certificates/{idCertificate}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteCertificate(int idCertificate)
         {
             var request = new DeleteCertificateCommand(idCertificate);
@@ -149,12 +183,16 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpPatch("Users/Verification/{idUser}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> VerifyUser(int idUser, VerifyUserCommand command)
         {
             await _mediator.Send(new VerifyUserInternalCommand(idUser, command));
             return Ok();
         }
         [HttpGet("Exercises/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAdminExercisesById(int id)
         {
             var request = new GetAdminExerciseByIdQuery(id);
@@ -163,6 +201,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpPut("Exercises/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateAdminExercise(int id, UpdateExerciseCommand command)
         {
             await _mediator.Send(new UpdateAdminExerciseInternalCommand(id, command));
@@ -170,6 +210,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpDelete("Exercises/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteAdminExercise(int id)
         {
             await _mediator.Send(new DeleteAdminExerciseCommand(id));

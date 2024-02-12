@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 using TrainingAndDietApp.Domain.Entities;
 
@@ -12,7 +13,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.SendInvitation
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<PupilMentor> _pupilMentorBaseRepository;
 
-        public SendInvitationCommandHandler(IPupilMentorRepository pupilMentorRepository, IUnitOfWork unitOfWork, IRepository<Domain.Entities.PupilMentor> pupilMentorBaseRepository)
+        public SendInvitationCommandHandler(IPupilMentorRepository pupilMentorRepository, IUnitOfWork unitOfWork, IRepository<PupilMentor> pupilMentorBaseRepository)
         {
             _pupilMentorRepository = pupilMentorRepository;
             _unitOfWork = unitOfWork;
@@ -22,10 +23,9 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.User.Pupil.SendInvitation
         {
             var pupilMentor = await _pupilMentorRepository.IsPupilCooperatingWithMentor(request.IdPupil, request.IdMentor, cancellationToken);
             if (pupilMentor != null)
-            {
-                throw new System.Exception("You are already cooperating with this mentor.");
-            }
-            var pupilMentorEntity = new Domain.Entities.PupilMentor
+                throw new BadRequestException("You are already cooperating with this mentor.");
+            
+            var pupilMentorEntity = new PupilMentor
             {
                 IdMentor = request.IdMentor,
                 IdPupil = request.IdPupil,

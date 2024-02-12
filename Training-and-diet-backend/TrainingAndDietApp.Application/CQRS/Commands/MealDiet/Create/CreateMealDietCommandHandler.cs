@@ -30,17 +30,14 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.MealDiet.Create
             var meal = await _mealBaseRepository.GetByIdAsync(request.CreateMealDietCommand.IdMeal, cancellationToken);
             var diet = await _dietBaseRepository.GetByIdAsync(request.CreateMealDietCommand.IdDiet, cancellationToken);
             if (meal == null || diet == null)
-            {
                 throw new NotFoundException("Meal or diet not found");
-            }
+            
             if(meal.IdDietician != request.IdDietician)
-            {
                 throw new BadRequestException("You can't add meal from another dietitian");
-            }
+            
             if(diet.IdDietician != request.IdDietician || meal.IdDietician != request.IdDietician)
-            {
                 throw new BadRequestException("You can't add meal to another dietitian's diet");
-            }
+            
 
             var mealDiet = _mapper.Map<Domain.Entities.MealDiet>(request);
             await _mealDietBaseRepository.AddAsync(mealDiet, cancellationToken);
