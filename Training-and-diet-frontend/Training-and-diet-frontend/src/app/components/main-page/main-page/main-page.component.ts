@@ -16,13 +16,10 @@ export class MainPageComponent implements OnInit{
 
   ngOnInit(): void {
     this.role=this.authenticationService.getRole();
-    //console.log(this.authenticationService.isTokenExpired());
-  //  console.log(this.authenticationService.getRole());
-   // console.log(localStorage.getItem('acessToken'));
+
 
     if(this.authenticationService.getRole()==undefined){
       this.router.navigateByUrl('/login');
-      console.log("");
     }
 
 

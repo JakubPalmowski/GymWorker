@@ -18,7 +18,6 @@ export function RoleGuard(...roles: string[]): CanActivateFn {
     return true;
     }
   }
-    console.log("role guard");
     router.navigate(['']);
     return false;
 

@@ -5,7 +5,6 @@ export interface PupilTrainingExercise{
     comments: string,
     idExercise: number,
     idTrainingPlan:number
-    // join z tabelki exercise
     exerciseName:string;
     details:string;
     ExerciseStep:string;

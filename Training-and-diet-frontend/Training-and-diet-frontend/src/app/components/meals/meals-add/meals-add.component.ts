@@ -50,14 +50,12 @@ ngOnInit(): void {
       this.addDieteticianMealRequest.kcal='';
      }
 
-     console.log("tst: "+this.addDieteticianMealRequest.kcal)
      this.fieldErrors = {};
     this.mealService.addDieteticanMeal(this.addDieteticianMealRequest).subscribe({
       next:(meal)=>{
         this.location.back();
       },
       error: (error)=>{
-        console.log(error);
        if(error.status===400){
         const {errors} = error.error;
         for(const key in errors){
@@ -80,7 +78,6 @@ ngOnInit(): void {
     this.submitted=true;
     if(valid){
       this.addDieteticanMeal();
-      console.log(this.addDieteticianMealRequest);
     }
     
   }

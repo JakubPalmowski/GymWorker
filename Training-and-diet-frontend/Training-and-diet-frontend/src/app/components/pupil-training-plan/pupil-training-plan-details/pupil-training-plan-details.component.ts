@@ -43,34 +43,27 @@ export class PupilTrainingPlanDetailsComponent {
 
   ngOnInit(): void {
     this.dateInputString=new Date().toISOString().split("T")[0];
-    console.log(new Date().toISOString());
-    console.log(new Date().toString());
     
 
     this.route.paramMap.subscribe({
       next:(params)=>{
         const id=params.get('id');
 
-        // do wrzucenie w get cwiczen
         this.changeTrainingDay(1,'pn');
         
         if(id){
-          console.log(id);
           this.idTraining=id;
           this.trainingPlanService.getPupilTrainingPlanById(this.idTraining).subscribe({
             next:(plan)=>{
               this.trainingPlan=plan;
-            //  this.formStartDate=new Date(this.trainingPlan.startDate).toLocaleDateString();
               this.defaultType();
             },
             error: (response)=>{
-             console.log(response);
             }
           })
           this.trainingPlanService.getExercisesByPlanId(id).subscribe({
             next:(trainingPlanExercises)=>{
               this.trainingPlanExercises=trainingPlanExercises;
-              //this.changeTrainingDay(1,"pn");
               this.changeTrainingDayByCalendar();
 
             },
@@ -80,7 +73,6 @@ export class PupilTrainingPlanDetailsComponent {
           })
         }
         else{
-          console.log("no");
         }
       }
     })
@@ -88,10 +80,8 @@ export class PupilTrainingPlanDetailsComponent {
   }
 
   changeTrainingDayByCalendar(){
-    console.log(this.dateInputString);
     var date=new Date(this.dateInputString);
     var dayOfWeek=date.getDay() == 0? 7 : date.getDay();
-    console.log("day:"+dayOfWeek);
     switch(dayOfWeek){
       case 1:
         this.changeTrainingDay(1,'pn');

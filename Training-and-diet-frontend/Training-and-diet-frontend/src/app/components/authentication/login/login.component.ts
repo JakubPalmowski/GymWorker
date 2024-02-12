@@ -23,17 +23,11 @@ export class LoginComponent {
 
 
   login(){
-    console.log("login");
     this.credentialsIncorrect=false;
     
     this.authenticationService.login(this.loginRequest).subscribe({
       next:(response)=>{
-        console.log(response);
         this.authenticationService.setSession(response);
-        console.log(this.authenticationService.getRole());
-        console.log(this.authenticationService.getUserId());
-        console.log(this.authenticationService.getExpiration());
-        console.log(this.authenticationService.isTokenExpired());
         this.router.navigateByUrl('/');
       },
       error:(response)=>{

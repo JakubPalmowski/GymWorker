@@ -12,7 +12,6 @@ export const AuthGuard = () => {
 
     
    if (!isLoggedIn) {
-    console.log("auth guard");
     router.navigate(['/login']);
     return false;
    }

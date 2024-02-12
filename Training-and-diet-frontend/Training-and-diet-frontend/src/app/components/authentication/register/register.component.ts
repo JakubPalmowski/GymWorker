@@ -36,11 +36,9 @@ export class RegisterComponent {
 
 
   register(){
-    console.log("register");
     this.emailTaken=false;
     this.authenticationService.register(this.registerRequest).subscribe({
       next:(response)=>{
-        console.log(response);
         this.authenticationService.setSession(response);
         this.router.navigateByUrl('');
         
@@ -49,9 +47,7 @@ export class RegisterComponent {
 
         if(error.status==409){
           this.emailTaken=true;
-          console.log("email taken");
         }
-        console.log(error);
         if(error.status===400){
          const {errors} = error.error;
          for(const key in errors){

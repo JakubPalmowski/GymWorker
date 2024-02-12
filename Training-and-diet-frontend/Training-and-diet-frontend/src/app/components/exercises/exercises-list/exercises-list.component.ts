@@ -33,11 +33,9 @@ export class ExercisesListComponent implements OnInit{
   ngOnInit(): void {
 
     
-   console.log(this.source);
 
     this.id_training=this.route.snapshot.queryParams['id'];
     this.source=this.route.snapshot.queryParams['source'];
-    console.log(this.id_training);
     
     this.exerciseServise.getTrainerExercises().subscribe({
       next:(trainingPlanExercises)=>{
@@ -49,7 +47,6 @@ export class ExercisesListComponent implements OnInit{
         myExercisesElement?.classList.add("selected-all-my");
       },
       error: (response)=>{
-        console.log(response);
       }
     })
   }
@@ -79,7 +76,6 @@ export class ExercisesListComponent implements OnInit{
         allExercisesElement?.classList.remove("selected-all-my");
       },
       error: (response)=>{
-        console.log(response);
       }
     })
   }
@@ -99,7 +95,6 @@ export class ExercisesListComponent implements OnInit{
         myExercisesElement?.classList.remove("selected-all-my");
       },
       error: (response)=>{
-        console.log(response);
       }
     })
   }

@@ -33,27 +33,21 @@ export class AddTrainingPlanComponent implements OnInit{
   constructor(private trainingPlanService:TrainingPlanService, private router:Router, private authenticationService:AuthenticationService){}
   ngOnInit(): void {
     this.dateToday=new Date().toISOString().split("T")[0];
-    console.log(document.getElementById("start_date"));
 
 
   }
 
   addTrainingPlan(){
-  //  console.log(this.addTrainingPlanRequest);
- //   console.log("plans before"+this.authenticationService.isTokenExpired());
-   // console.log(localStorage,localStorage.getItem('acessToken'));
+
 
    this.fieldErrors = {};
 
     this.trainingPlanService.addTrainingPlan(this.addTrainingPlanRequest).subscribe({
       next:(newTrainingPlan)=>{
-      //  console.log(newTrainingPlan);
-      //  console.log("plans ok"+this.authenticationService.isTokenExpired());
-        console.log(localStorage,localStorage.getItem('acessToken'));
+
         this.router.navigate(['/training-plans']);
       },
       error: (error)=>{
-        console.log(error);
        if(error.status===400){
         const {errors} = error.error;
         for(const key in errors){
@@ -81,7 +75,6 @@ export class AddTrainingPlanComponent implements OnInit{
   onSubmit(valid:any){
     this.submitted=true;
     if(valid){
-      console.log(this.addTrainingPlanRequest);
       
       this.addTrainingPlan();
       

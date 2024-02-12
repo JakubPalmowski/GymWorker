@@ -62,31 +62,23 @@ export class EditTrainingPlanComponent implements OnInit{
       next:(params)=>{
         const id=params.get('id');
         
-        // do wrzucenie w get cwiczen
         this.changeTrainingDay(1,'pn');
         
         if(id){
-          console.log(id);
           this.idTraining=id;
           
           this.trainingPlanService.getTrainerTrainingPlanById(this.idTraining).subscribe({
             next:(plan)=>{
-              console.log("get plan by id"+plan.toString());
               this.trainingPlan=plan;
-             
               this.formStartDate=this.trainingPlan.startDate.toString().split('T')[0];
-            
-              
           
             },
             error: (response)=>{
-             console.log(response);
             }
           })
           this.getTrainingPlanExercises(id);
         }
         else{
-          console.log("no");
         }
       }
     })
@@ -101,15 +93,11 @@ export class EditTrainingPlanComponent implements OnInit{
 
       },
       error: (response)=>{
-        console.log("here"+response);
       }
     })
   }
 
   editTrainingPlan(){
-    console.log("edit");
-    console.log(this.trainingPlan);
-    console.log(this.idTraining);
     const responseDiv = document.getElementById("edit-resp");
 
     this.fieldErrors = {};
@@ -122,7 +110,6 @@ export class EditTrainingPlanComponent implements OnInit{
           document.documentElement.scrollTop = 0;
       },
       error:(error)=>{
-        console.log(error);
         if(error.status===400){
          const {errors} = error.error;
          for(const key in errors){
@@ -150,7 +137,6 @@ export class EditTrainingPlanComponent implements OnInit{
   {
     this.submitted=true;
     if(valid){
-      console.log(valid)
       this.trainingPlan.startDate=new Date(this.formStartDate);
       this.editTrainingPlan();
       
@@ -187,7 +173,6 @@ export class EditTrainingPlanComponent implements OnInit{
 
 
   openDeleteDialog(name:string){
-    console.log("open");
     this.deleteErrorFlag=false;
     if(this.deleteDialogFlag!=true){
      this.deleteDialogFlag=true;
@@ -196,24 +181,20 @@ export class EditTrainingPlanComponent implements OnInit{
    }
  
    deleteExercise(idExercise:number) {
-     console.log("delete");
      this.exerciseService.deleteTraineeExercise(idExercise.toString()).subscribe({
        next:(response)=>{
-         console.log(response);
          this.deleteDialogFlag=false;
         window.location.reload(); 
          
       
        },
        error:(response)=>{
-         console.log(response);
          this.deleteErrorFlag=true;
        }});
  
      }
  
    cancelDelete(){
-     console.log("cancel");
      this.deleteDialogFlag=false;
    }
 

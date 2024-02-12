@@ -52,7 +52,6 @@ export class CreateCertificateComponent {
             this.errorFlag = "error";
             this.showErrorPopup(this.errorFlag);
             document.documentElement.scrollTop = 0;
-            console.log(error);
           }
         }
       });

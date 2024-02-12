@@ -67,7 +67,6 @@ constructor(private route: ActivatedRoute, private adminService: AdminService) {
 
   
           }else {
-            console.log(error);
           this.successFlag = "error";
           this.showSuccessPopup(this.successFlag);
           document.documentElement.scrollTop = 0;

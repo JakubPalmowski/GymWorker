@@ -56,25 +56,16 @@ export class NewTrainingExerciseComponent implements OnInit{
     this.exerciseServise.getExerciseById(this.id_exercise).subscribe({
       next:(exercise)=>{
         this.exercise=exercise;
-        console.log(this.exercise.name);
       },
       error: (response)=>{
 
-        console.log(response);
       }
     })
     
   }
 
   OnChangeSeriesNumber(seriesNumber:number){
-    console.log(seriesNumber.toString());
-    console.log(this.newTrainingExerciseRequest.seriesNumber);
-    
     this.repetitions.length=this.newTrainingExerciseRequest.seriesNumber;
-  
-    console.log(this.repetitions);
-    
-    
   }
 
   refresh()
@@ -85,8 +76,6 @@ export class NewTrainingExerciseComponent implements OnInit{
   onSubmit(valid:any){
     this.submitted=true;
     if(valid){
-      console.log(this.newTrainingExerciseRequest);
-      
       this.addTrainingExercise();
     }
   }
@@ -106,7 +95,6 @@ export class NewTrainingExerciseComponent implements OnInit{
       next:(newTrainingExercise)=>{
         this.router.navigate(['/training-plans/edit/'+this.id_training]);
       },error:(error)=>{
-        console.log(error);
        if(error.status===400){
         const {errors} = error.error;
         for(const key in errors){

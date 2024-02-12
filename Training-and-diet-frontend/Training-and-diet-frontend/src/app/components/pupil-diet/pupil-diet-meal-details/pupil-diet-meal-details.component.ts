@@ -43,7 +43,6 @@ export class PupilDietMealDetailsComponent implements OnInit {
         const id=params.get('id');
         if(id){
         this.idDietMeal=id;
-        console.log(id);  
         }
 
       }});
@@ -51,7 +50,6 @@ export class PupilDietMealDetailsComponent implements OnInit {
       this.mealService.getPupilDietMealById(this.idDietMeal).subscribe({
         next:(response)=>{
           this.dietMeal=response;
-          console.log(response);
           var kpfc=this.dietMeal.kcal.split(',');
               this.kcal=kpfc[0];
               this.proteins=kpfc[1];
@@ -59,7 +57,6 @@ export class PupilDietMealDetailsComponent implements OnInit {
               this.carbs=kpfc[3];
         },
         error:(response)=>{
-          console.log(response);
         }
       })
   }

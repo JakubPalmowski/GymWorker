@@ -12,7 +12,6 @@ import { GymService } from 'src/app/services/gym.service';
 })
 export class CreateGymComponent implements OnInit {
 
-  //Komponent dostepny dla Trainer/Dietician/Dietician-Trainer i moze admin
   @ViewChild('profileForm') profileForm: NgForm | undefined;
   GymsAddedByUser: GymsAddedByUser[] | undefined;
   GymToCreate: CreateGym = {
