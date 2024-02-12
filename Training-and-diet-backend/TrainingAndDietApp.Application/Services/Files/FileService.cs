@@ -3,7 +3,7 @@ using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
-using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Application.Abstractions.Files;
 using TrainingAndDietApp.Application.CQRS.Commands.Files;
 using TrainingAndDietApp.Application.CQRS.Responses.Files;
 using TrainingAndDietApp.Common.Exceptions;

@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Application.Abstractions.Files;
 using TrainingAndDietApp.Application.CQRS.Responses.Certificate;
 using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Common.Exceptions;

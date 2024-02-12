@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using TrainingAndDietApp.Application.CQRS.Commands.Files;
 
-namespace TrainingAndDietApp.Application.Abstractions;
+namespace TrainingAndDietApp.Application.Abstractions.Files;
 
 public interface IFileService
 {

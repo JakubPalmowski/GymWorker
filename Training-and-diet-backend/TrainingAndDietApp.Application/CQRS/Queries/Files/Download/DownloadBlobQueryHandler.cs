@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TrainingAndDietApp.Application.Abstractions;
+using TrainingAndDietApp.Application.Abstractions.Files;
 using TrainingAndDietApp.Application.CQRS.Commands.Files;
 using TrainingAndDietApp.Application.Exceptions;
 
