@@ -21,7 +21,7 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.User.User.GetUserImage
             {
                 throw new NotFoundException("User not found.");
             }
-            UserImageResponse userImage = new UserImageResponse
+            var userImage = new UserImageResponse
             {
                 ImageUri = user.ImageUri
             };

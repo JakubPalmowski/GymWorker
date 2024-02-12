@@ -31,7 +31,7 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.User.Pupil.GetById
         {
                 var pupil = await _userBaseRepository.GetByIdAsync(request.IdPupil, cancellationToken);
                 if (pupil == null)
-                throw new NotFoundException("User not found");
+                    throw new NotFoundException("User not found");
                 if(! await _userService.CheckIfUserIsPupil(pupil.IdUser, cancellationToken))
                     throw new BadRequestException("User is not a pupil");
                 var cooperation = await _pupilMentorRepository.IsPupilCooperatingWithMentor(request.IdPupil,request.IdMentor, cancellationToken);
