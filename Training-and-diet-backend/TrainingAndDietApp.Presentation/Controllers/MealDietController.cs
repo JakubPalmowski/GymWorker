@@ -25,6 +25,9 @@ namespace TrainingAndDietApp.Presentation.Controllers
 
         [Authorize(Roles = "4,5")]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateMealDiet([FromBody] CreateMealDietCommand command)
         {
             var user = User.GetId()!.Value;
@@ -35,6 +38,8 @@ namespace TrainingAndDietApp.Presentation.Controllers
     }
         [Authorize(Roles = "4,5")]
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateMealDiet([FromBody] UpdateMealDietCommand command, int id)
         {
             var user = User.GetId()!.Value;
@@ -45,6 +50,8 @@ namespace TrainingAndDietApp.Presentation.Controllers
     }
         [Authorize(Roles = "2,4,5")]
         [HttpGet("Meals/{idDiet}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDietMeals(int idDiet)
         {
             var user = User.GetId()!.Value;
@@ -55,6 +62,8 @@ namespace TrainingAndDietApp.Presentation.Controllers
     }
         [Authorize(Roles = "4,5")]
         [HttpGet("Mentor/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMealDietForMentor(int id)
         {
             var user = User.GetId()!.Value;
@@ -66,6 +75,8 @@ namespace TrainingAndDietApp.Presentation.Controllers
 
         [Authorize(Roles = "2")]
         [HttpGet("Pupil/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMealDietForPupil(int id)
         {
             var user = User.GetId()!.Value;
@@ -77,6 +88,8 @@ namespace TrainingAndDietApp.Presentation.Controllers
 
         [Authorize(Roles = "4,5")]
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteMealDiet(int id)
         {
             var user = User.GetId()!.Value;

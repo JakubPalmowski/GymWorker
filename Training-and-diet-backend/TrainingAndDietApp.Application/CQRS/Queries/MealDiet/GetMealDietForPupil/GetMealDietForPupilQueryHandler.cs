@@ -25,14 +25,12 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.MealDiet.GetMealDietForPup
         {
             var mealDiet = await _mealDietRepository.GetMealDietByIdAsync(request.IdMealDiet, cancellationToken);
             if (mealDiet == null)
-            {
                 throw new NotFoundException("Meal diet not found");
-            }
+            
             var diet = await _dietBaseRepository.GetByIdAsync(mealDiet.IdDiet, cancellationToken);
             if (diet == null || diet.IdPupil != request.IdPupil)
-            {
                 throw new NotFoundException("Diet not found");
-            }
+            
             return _mapper.Map<MealDietForPupilResponse>(mealDiet);
 
             

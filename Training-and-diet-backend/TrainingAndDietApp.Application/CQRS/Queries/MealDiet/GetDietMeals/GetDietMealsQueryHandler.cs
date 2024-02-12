@@ -26,9 +26,8 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.MealDiet.GetDietMeals
         {
             var diet = await _dietBaseRepository.GetByIdAsync(request.IdDiet, cancellationToken);
             if(diet == null || (diet.IdDietician != request.IdUser && diet.IdPupil != request.IdUser))
-            {
                 throw new NotFoundException("Diet not found");
-            }
+            
             var meals = await _mealDietRepository.GetMealsByDietIdAsync(request.IdDiet, cancellationToken);
             return _mapper.Map<List<MealDietListResponse>>(meals);
         }
