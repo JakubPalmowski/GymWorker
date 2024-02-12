@@ -3,6 +3,7 @@ using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using TrainingAndDietApp.Application.Abstractions.Files;
 using TrainingAndDietApp.Application.CQRS.Commands.Files;
 using TrainingAndDietApp.Application.CQRS.Responses.Files;
@@ -13,18 +14,17 @@ namespace TrainingAndDietApp.Application.Services.Files;
 public class FileService : IFileService
 {
 
-    private readonly string _storageAccount = "s22703";
-
-    private readonly string _key =
-        "VvCIsLVbmd9giiFZEzD1JEtWqGKg5tAATdek5Ba6hLrYVg7U3C6KAlEJkjF0VZGFv2eHnpR0aKVN+AStpv5A3w==";
     private readonly BlobContainerClient _filesContainer;
-
-
-
-    public FileService()
+    public FileService(IConfiguration configuration)
     {
-        var credential = new StorageSharedKeyCredential(_storageAccount, _key);
-        var blobUri = new Uri($"https://{_storageAccount}.blob.core.windows.net");
+        var storageAccount = configuration["FileService:StorageAccount"];
+        var key = configuration["FileService:Key"];
+
+        if (string.IsNullOrEmpty(storageAccount) || string.IsNullOrEmpty(key))
+            throw new InvalidOperationException("Storage account and key must be configured.");
+        
+        var credential = new StorageSharedKeyCredential(storageAccount, key);
+        var blobUri = new Uri($"https://{storageAccount}.blob.core.windows.net");
         var blobServiceClient = new BlobServiceClient(blobUri, credential);
         _filesContainer = blobServiceClient.GetBlobContainerClient("files");
     }
