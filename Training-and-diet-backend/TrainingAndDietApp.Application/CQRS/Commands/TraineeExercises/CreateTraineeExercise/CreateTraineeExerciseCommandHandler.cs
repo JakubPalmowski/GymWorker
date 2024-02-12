@@ -34,7 +34,7 @@ public class CreateTraineeExerciseCommandHandler : IRequestHandler<CreateTrainee
         await _repository.AddAsync(traineeExercises, cancellationToken);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        int createdId = traineeExercises.IdExercise;
+        var createdId = traineeExercises.IdExercise;
 
         return new CreateTraineeExerciseResponse { IdTraineeExercise = createdId };
     }
