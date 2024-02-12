@@ -12,11 +12,9 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById.Train
     {
         private readonly ITrainingPlanRepository _planRepository;
         private readonly IMapper _mapper;
-        private readonly ITrainingPlanAccessService _trainingPlanAccessService;
-        public GetTrainerTrainingPlanQueryHandler(IMapper mapper, ITrainingPlanAccessService trainingPlanAccessService, ITrainingPlanRepository planRepository)
+        public GetTrainerTrainingPlanQueryHandler(IMapper mapper, ITrainingPlanRepository planRepository)
         {
             _mapper = mapper;
-            _trainingPlanAccessService = trainingPlanAccessService;
             _planRepository = planRepository;
         }
         public async Task<TrainerTrainingPlanResponse> Handle(GetTrainerTrainingPlanQuery request, CancellationToken cancellationToken)
@@ -24,10 +22,6 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.TrainingPlan.GetById.Train
             var trainingPlan = await _planRepository.GetByIdWithPupil(request.IdTrainingPlan, cancellationToken);
             if (trainingPlan == null)
                 throw new NotFoundException("Training plan not found");
-
-            var isAccessible = await _trainingPlanAccessService.IsAccessibleByTrainer(request.IdTrainingPlan, request.LoggedUser, cancellationToken);
-            if (!isAccessible)
-                throw new ForbiddenException("You are not allowed to access this training plan");
 
             return _mapper.Map<TrainerTrainingPlanResponse>(trainingPlan);
 
