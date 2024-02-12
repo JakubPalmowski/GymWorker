@@ -1,15 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Training_and_diet_backend.Extensions;
 using TrainingAndDietApp.Application.CQRS.Queries.User.Mentor.GetAll;
-using TrainingAndDietApp.Application.CQRS.Queries.User.User.GetAll;
 
 namespace Training_and_diet_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "3,4,5")]
     public class MentorPupilController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,9 +17,10 @@ namespace Training_and_diet_backend.Controllers
         {
             _mediator = mediator;
         }
-        [Authorize(Roles = "3,4,5")]
+        
         [HttpGet("MentorPupils")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMentorPupils()
         {

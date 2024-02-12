@@ -28,6 +28,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllMeals()
         {
@@ -39,6 +40,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpGet("{mealId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMealById(int mealId)
         {
@@ -50,6 +52,7 @@ namespace Training_and_diet_backend.Controllers
       
         [HttpGet("dietician")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMealsByDieticianId()
         {
@@ -61,6 +64,7 @@ namespace Training_and_diet_backend.Controllers
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> PostMeal(CreateMealCommand meal)
         {
             var user = this.User.GetId()!.Value;
@@ -71,6 +75,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpDelete("{mealId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteMeal(int mealId)
         {
@@ -79,6 +84,7 @@ namespace Training_and_diet_backend.Controllers
         }
         [HttpPut("{mealId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateMeal (int mealId, UpdateMealCommand meal)       
         {

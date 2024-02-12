@@ -24,6 +24,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize(Roles = "3,5")]
         [HttpGet("trainer/{planId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTrainerTrainingPlanById(int planId)
         {
@@ -37,6 +38,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize(Roles = "2")]
         [HttpGet("pupil/{planId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPupilTrainingPlanById(int planId)
         {
@@ -50,6 +52,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize(Roles = "3,5")]
         [HttpGet("trainerPlans")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTrainerTrainingPlans()
         {
@@ -63,6 +66,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize(Roles = "2")]
         [HttpGet("pupilPlans")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPupilTrainingPlans()
         {
@@ -76,6 +80,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize(Roles = "3,5")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PostTrainingPlan(CreateTrainingPlanCommand command)
         {
@@ -88,6 +93,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize(Roles = "3,5")]
         [HttpPut("{idTrainingPlan}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateTrainingPlan(int idTrainingPlan, UpdateTrainingPlanCommand trainingPlan)
         {
@@ -99,6 +105,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("assignPupilToTrainingPlan/{idTrainingPlan}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AssignPupilToTrainingPlan(int idTrainingPlan, AssignPupilToTrainingPlanCommand trainingPlan)
         {

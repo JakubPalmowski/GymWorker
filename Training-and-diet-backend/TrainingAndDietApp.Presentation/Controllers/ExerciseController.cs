@@ -14,6 +14,7 @@ namespace Training_and_diet_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "3,5")]
     public class ExerciseController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -21,9 +22,10 @@ namespace Training_and_diet_backend.Controllers
         {
             _mediator = mediator;
         }
-
+       
         [HttpGet("{exerciseId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetExerciseById(int exerciseId)
         {
@@ -32,9 +34,9 @@ namespace Training_and_diet_backend.Controllers
 
             return Ok(response);
         }
-
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetSystemExercises()
         {
@@ -44,9 +46,9 @@ namespace Training_and_diet_backend.Controllers
             return Ok(response);
 
         }
-        [Authorize(Roles = "3,5")]
         [HttpGet("trainer/exercises")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTrainerExercises()
         {
@@ -56,9 +58,9 @@ namespace Training_and_diet_backend.Controllers
 
             return Ok(response);
         }
-        [Authorize(Roles = "3,5")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> PostExercise(CreateExerciseCommand exercise)
         {
             var userId = this.User.GetId()!.Value; 
@@ -67,9 +69,10 @@ namespace Training_and_diet_backend.Controllers
 
             return Created(locationUri, result);
         }
-        [Authorize(Roles = "3,5")]
+  
         [HttpPut("{exerciseId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutExercise(UpdateExerciseCommand exercise, int exerciseId)
         {
@@ -78,9 +81,9 @@ namespace Training_and_diet_backend.Controllers
         }
 
 
-        [Authorize(Roles = "3,5")]
         [HttpDelete("{exerciseId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteExercise(int exerciseId)
         {

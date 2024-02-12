@@ -17,17 +17,16 @@ namespace Training_and_diet_backend.Controllers
     [ApiController]
     public class DietController : ControllerBase
     {
-
         private readonly IMediator _mediator;
-        
 
         public DietController(IMediator mediator)
         {
             _mediator = mediator;
         }
-
+        [Authorize(Roles = "2,4,5")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllDiets()
         {
@@ -40,6 +39,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize(Roles = "4,5")]
         [HttpGet("Dietician")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDieticianDiets()
         {
@@ -53,6 +53,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize(Roles = "2")]
         [HttpGet("Pupil")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPupilDiets()
         {
@@ -65,6 +66,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize(Roles = "4,5")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateDiet([FromBody] CreateDietCommand command)
         {
             var user = User.GetId()!.Value;
@@ -77,6 +79,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("{idDiet}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         
         public async Task<IActionResult> UpdateDiet([FromBody] UpdateDietCommand command, int idDiet)
@@ -91,6 +94,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("Mentor/{idDiet}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMentorDiet(int idDiet)
         {
@@ -104,6 +108,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("Pupil/{idDiet}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPupilDiet(int idDiet)
         {
@@ -117,6 +122,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("assignPupilToDiet/{idDiet}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AssignPupilToDiet([FromBody] AssignPupilToDietCommand command, int idDiet)
         {

@@ -27,6 +27,7 @@ namespace TrainingAndDietApp.Presentation.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateMealDiet([FromBody] CreateMealDietCommand command)
         {
@@ -39,6 +40,7 @@ namespace TrainingAndDietApp.Presentation.Controllers
         [Authorize(Roles = "4,5")]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateMealDiet([FromBody] UpdateMealDietCommand command, int id)
         {
@@ -51,6 +53,7 @@ namespace TrainingAndDietApp.Presentation.Controllers
         [Authorize(Roles = "2,4,5")]
         [HttpGet("Meals/{idDiet}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDietMeals(int idDiet)
         {
@@ -63,6 +66,7 @@ namespace TrainingAndDietApp.Presentation.Controllers
         [Authorize(Roles = "4,5")]
         [HttpGet("Mentor/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMealDietForMentor(int id)
         {
@@ -76,6 +80,7 @@ namespace TrainingAndDietApp.Presentation.Controllers
         [Authorize(Roles = "2")]
         [HttpGet("Pupil/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMealDietForPupil(int id)
         {
@@ -89,6 +94,7 @@ namespace TrainingAndDietApp.Presentation.Controllers
         [Authorize(Roles = "4,5")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteMealDiet(int id)
         {
