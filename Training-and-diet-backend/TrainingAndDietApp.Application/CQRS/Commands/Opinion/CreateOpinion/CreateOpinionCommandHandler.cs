@@ -1,6 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using TrainingAndDietApp.Application.Exceptions;
+using TrainingAndDietApp.Common.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Commands.Opinion.CreateOpinion
@@ -25,14 +27,12 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Opinion.CreateOpinion
         {
             var cooperation = await _pupilMentorRepository.IsPupilCooperatingWithMentor(request.IdPupil, request.OpinionCommand.IdMentor, cancellationToken);
             if (cooperation == null && cooperation?.IsAccepted == false)
-            {
-                throw new System.Exception("Nie można dodać opinii dla tego mentora.");
-            }
+                throw new BadRequestException("You cannot add opinion for this mentor");
+            
             var opinionExists = await _opinionRepository.GetPupilMentorOpinionAsync(request.IdPupil, request.OpinionCommand.IdMentor, cancellationToken);
             if (opinionExists != null)
-            {
-                throw new System.Exception("Opinia dla tego mentora już istnieje.");
-            }
+                throw new ConflictException("Opinion already exists");
+            
 
 
             var opinion = new Domain.Entities.Opinion()
@@ -43,7 +43,7 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Opinion.CreateOpinion
                 Rate = request.OpinionCommand.Rate
             };
             await _opinionBaseRepository.AddAsync(opinion, cancellationToken);
-            await _unitOfWork.CommitAsync();
+            await _unitOfWork.CommitAsync(cancellationToken);
             
         }
     }

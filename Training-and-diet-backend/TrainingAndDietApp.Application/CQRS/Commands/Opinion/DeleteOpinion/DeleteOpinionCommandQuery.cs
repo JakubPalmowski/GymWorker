@@ -23,9 +23,8 @@ namespace TrainingAndDietApp.Application.CQRS.Commands.Opinion.DeleteOpinion
         {
             var opinion = await _opinionRepository.GetPupilMentorOpinionAsync(request.IdPupil, request.IdMentor, cancellationToken);
             if (opinion is null)
-            {
                 throw new NotFoundException("Opinion not found");
-            }
+            
             await _opinionRepository.DeleteOpinionAsync(opinion, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
         }
