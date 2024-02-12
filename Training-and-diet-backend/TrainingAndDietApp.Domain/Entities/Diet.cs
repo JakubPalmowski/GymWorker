@@ -15,16 +15,16 @@ namespace TrainingAndDietApp.Domain.Entities
         public int? IdPupil { get; set; }
         [Column(TypeName = "Date")]
         public DateTime StartDate { get; set; }
-        //nowe==
+     
         [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
-        //nowe
+      
         [Column(TypeName = "varchar(50)")]
         public string CustomName { get; set; }
-        //nowe
+        
         [Column(TypeName = "varchar(50)")]
         public string Type { get; set; }
-        //refactor
+        
         public int NumberOfWeeks { get; set; }
         public int TotalKcal { get; set; }
 
