@@ -110,7 +110,6 @@ export class MentorProfileComponent implements OnInit {
           }
         },
         error: (response) => {
-          console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
         }
       });
     }
@@ -142,7 +141,6 @@ export class MentorProfileComponent implements OnInit {
             }
           },
           error: (response) => {
-            console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
           }
         }
       );
@@ -295,7 +293,6 @@ export class MentorProfileComponent implements OnInit {
             this.editOpinion.idMentor = this.newOpinion.idMentor;
           },
           error: (response) => {
-            console.log('Wystąpił błąd podczas pobierania danych ucznia.', response);
           }
         });
         }

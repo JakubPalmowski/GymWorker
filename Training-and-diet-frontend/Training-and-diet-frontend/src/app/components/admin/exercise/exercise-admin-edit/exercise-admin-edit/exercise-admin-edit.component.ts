@@ -59,7 +59,6 @@ export class ExerciseAdminEditComponent implements OnInit {
 
   
           }else {
-            console.log(error);
           this.successFlag = "error";
           this.showSuccessPopup(this.successFlag);
           document.documentElement.scrollTop = 0;

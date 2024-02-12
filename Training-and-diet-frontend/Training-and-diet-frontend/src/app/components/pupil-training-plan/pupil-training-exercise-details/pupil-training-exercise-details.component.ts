@@ -37,7 +37,6 @@ export class PupilTrainingExerciseDetailsComponent implements OnInit {
         const id=params.get('id');
         if(id){
         this.idTraineeExercise=id;
-        console.log(id);  
         }
 
       }});
@@ -45,10 +44,8 @@ export class PupilTrainingExerciseDetailsComponent implements OnInit {
       this.exerciseService.getTrainingExerciseByIdForPupil(this.idTraineeExercise).subscribe({
         next:(response)=>{
           this.traineeExercise=response;
-          console.log(response);
         },
         error:(response)=>{
-          console.log(response);
         }
       })
   }

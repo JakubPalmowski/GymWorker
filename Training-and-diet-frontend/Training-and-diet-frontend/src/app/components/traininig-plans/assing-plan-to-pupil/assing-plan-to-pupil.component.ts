@@ -80,16 +80,13 @@ export class AssingPlanToPupilComponent implements OnInit{
 
 
   assignPlanToPupil(idPupil:number){
-    console.log(idPupil);
     this.trainingPlanService.assignPlanToPupil(this.planId,idPupil.toString()).subscribe({
     next:(response)=>{
-      console.log(response);
       this.DialogFlag=true;
       this.sucessFlag=true;
       
     },
     error:(response)=>{
-      console.log(response);
       this.DialogFlag=true;
       this.sucessFlag=false;
     }

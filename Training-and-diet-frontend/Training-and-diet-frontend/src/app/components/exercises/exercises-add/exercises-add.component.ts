@@ -45,7 +45,6 @@ export class ExercisesAddComponent implements OnInit{
         this.router.navigateByUrl(this.previousUrl);
       },
       error: (error)=>{
-        console.log(error);
         if(error.status===400){
          const {errors} = error.error;
          for(const key in errors){
@@ -75,7 +74,6 @@ export class ExercisesAddComponent implements OnInit{
     this.submitted=true;
     if(valid){
       this.addTrainerExercise();
-      console.log(this.addTrainerExerciseRequest);
     }
     
   }

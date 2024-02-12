@@ -51,9 +51,6 @@ export class EditTrainingExerciseComponent implements OnInit{
     this.previousUrl=this.previousUrlService.getPreviousUrl();
     this.id_training=this.route.snapshot.queryParams['trainingId'];
     this.id_exercise=this.route.snapshot.queryParams['exerciseId'];
-    console.log(this.route.snapshot.queryParams);
-    console.log("tr"+this.id_training);
-    console.log("cw"+this.id_exercise);
 
 
     if(id){
@@ -62,11 +59,8 @@ export class EditTrainingExerciseComponent implements OnInit{
       next:(exercise)=>{
         this.newTrainingExerciseRequest=exercise;
         this.repetitions=this.newTrainingExerciseRequest.repetitionsNumber.split(",");
-        console.log(this.newTrainingExerciseRequest);
-        //console.log(this.exercise);
       },
       error: (response)=>{
-        console.log(response);
       }
     })
   }
@@ -75,13 +69,7 @@ export class EditTrainingExerciseComponent implements OnInit{
 }
 
   OnChangeSeriesNumber(seriesNumber:number){
-    console.log(seriesNumber.toString());
-    console.log(this.newTrainingExerciseRequest.seriesNumber);
-    
     this.repetitions.length=this.newTrainingExerciseRequest.seriesNumber;
-  
-    console.log(this.repetitions);
-    
   }
 
   refresh()
@@ -92,7 +80,6 @@ export class EditTrainingExerciseComponent implements OnInit{
   onSubmit(valid:any){
     this.submitted=true;
     if(valid){
-      console.log(this.newTrainingExerciseRequest);
       
       this.editTrainingExercise();
     }
@@ -115,7 +102,6 @@ export class EditTrainingExerciseComponent implements OnInit{
         this.router.navigate(['/training-plans/edit/'+this.id_training]);
       },
       error:(error)=>{
-        console.log(error);
         if(error.status===400){
          const {errors} = error.error;
          for(const key in errors){

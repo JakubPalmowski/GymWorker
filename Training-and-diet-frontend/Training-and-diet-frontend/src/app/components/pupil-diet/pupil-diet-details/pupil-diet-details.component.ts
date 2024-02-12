@@ -43,27 +43,22 @@ export class PupilDietDetailsComponent {
       next:(params)=>{
         const id=params.get('id');
 
-        // do wrzucenie w get cwiczen
         this.changeTrainingDay(1,'pn');
         
         if(id){
-          console.log(id);
           this.idDiet=id;
           this.dietService.getPupilDietById(this.idDiet).subscribe({
             next:(diet)=>{
               this.diet=diet;
-            //  this.formStartDate=new Date(this.trainingPlan.startDate).toLocaleDateString();
             this.formEndDate=diet.endDate.toString().split("T")[0];
               this.defaultType();
             },
             error: (response)=>{
-             console.log(response);
             }
           })
           this.dietService.getDietMealsByDietId(id).subscribe({
             next:(dietMeals)=>{
               this.dietMeals=dietMeals;
-              //this.changeTrainingDay(1,"pn");
               this.changeTrainingDayByCalendar();
 
             },
@@ -73,7 +68,6 @@ export class PupilDietDetailsComponent {
           })
         }
         else{
-          console.log("no");
         }
       }
     })
@@ -81,10 +75,8 @@ export class PupilDietDetailsComponent {
   }
 
   changeTrainingDayByCalendar(){
-    console.log(this.dateInputString);
     var date=new Date(this.dateInputString);
     var dayOfWeek=date.getDay() == 0? 7 : date.getDay();
-    console.log("day:"+dayOfWeek);
     switch(dayOfWeek){
       case 1:
         this.changeTrainingDay(1,'pn');

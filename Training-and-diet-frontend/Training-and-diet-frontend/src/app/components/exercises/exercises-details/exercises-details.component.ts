@@ -38,20 +38,17 @@ export class ExercisesDetailsComponent {
        
  
        if(id){
-         console.log(id);
          this.idExercise=id;
          this.exercisesService.getExerciseById(this.idExercise).subscribe({
            next:(exercise)=>{
              this.exerciseData=exercise;
            },
            error: (response)=>{
-             console.log(response);
            }
          })
        }
        else
        {
-         console.log("no");
        }
      }
     })

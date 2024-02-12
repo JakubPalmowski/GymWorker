@@ -43,20 +43,17 @@ export class ExercisesEditComponent implements OnInit{
       
 
       if(id){
-        console.log(id);
         this.idExercise=id;
         this.exercisesService.getExerciseById(this.idExercise).subscribe({
           next:(exercise)=>{
             this.exerciseEdit=exercise;
           },
           error: (response)=>{
-            console.log(response);
           }
         })
       }
       else
       {
-        console.log("no");
       }
     }
    })
@@ -71,7 +68,6 @@ export class ExercisesEditComponent implements OnInit{
         this.router.navigateByUrl(this.previousUrl);
       },
       error: (error)=>{
-        console.log(error);
        if(error.status===400){
         const {errors} = error.error;
         for(const key in errors){
@@ -92,7 +88,6 @@ export class ExercisesEditComponent implements OnInit{
     this.submitted=true;
     if(valid){
       this.edit();
-      console.log(this.exerciseEdit);
     }
     
   }

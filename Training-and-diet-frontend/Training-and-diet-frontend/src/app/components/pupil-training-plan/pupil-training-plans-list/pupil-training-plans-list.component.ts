@@ -24,7 +24,6 @@ export class PupilTrainingPlansListComponent {
         
       },
       error: (response)=>{
-        console.log(response);
       }
     })
   }

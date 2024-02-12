@@ -52,7 +52,6 @@ export class MealsEditComponent implements OnInit{
 
 
         if(id){
-          console.log(id);
           this.id_meal=id;
 
           this.mealService.getMealById(this.id_meal).subscribe({
@@ -63,11 +62,8 @@ export class MealsEditComponent implements OnInit{
               this.mealKcal.proteins=kpfc[1];
               this.mealKcal.fats=kpfc[2];
               this.mealKcal.carbs=kpfc[3];
-              console.log(kpfc);
-              console.log(this.editDieteticianMealRequest.kcal);
             },
             error:(response)=>{
-              console.log(response);
             }
           })
         }
@@ -77,7 +73,6 @@ export class MealsEditComponent implements OnInit{
 
   edit(){
     this.editDieteticianMealRequest.kcal=this.mealKcal.kcal+","+this.mealKcal.proteins+","+this.mealKcal.fats+","+this.mealKcal.carbs;
-    console.log(this.editDieteticianMealRequest);
     const responseDiv = document.getElementById("edit-resp");
     this.fieldErrors = {};
     this.mealService.editDieteticianMeal(this.editDieteticianMealRequest,this.id_meal).subscribe({
@@ -85,7 +80,6 @@ export class MealsEditComponent implements OnInit{
         this.location.back();
       },
       error: (error)=>{
-        console.log(error);
        if(error.status===400){
         const {errors} = error.error;
         for(const key in errors){
@@ -113,13 +107,7 @@ export class MealsEditComponent implements OnInit{
     this.submitted=true;
     if(valid){
       this.edit();
-      console.log(this.editDieteticianMealRequest);
-      console.log("ok");
     }
-   // console.log(this.editDieteticianMealRequest);
-   console.log(form);
-    
-    
   }
 
   back(): void{

@@ -20,7 +20,6 @@ export class PupilDietListComponent {
         this.diets=diets;
       },
       error: (response)=>{
-        console.log(response);
       }
     })
   }

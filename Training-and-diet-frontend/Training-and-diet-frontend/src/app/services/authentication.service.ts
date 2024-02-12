@@ -50,8 +50,6 @@ export class AuthenticationService {
   public setSession(JwtAuth: JwtAuth) {
     localStorage.setItem('accessToken', JwtAuth.accessToken);
     localStorage.setItem('refreshToken', JwtAuth.refreshToken);
-   // console.log("session acessT: "+JwtAuth.accessToken);
-  //  console.log("session refT: "+JwtAuth.refreshToken);
     this.decodeToken();
     this.loggedIn.next(true);
     
@@ -84,10 +82,7 @@ export class AuthenticationService {
   public logout() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    console.log("logout");
-    console.log(this.getRole());
     this.decodedToken=undefined;
-    console.log(this.getRole());
     this.loggedIn.next(false);
     this.router.navigateByUrl('/login');
 

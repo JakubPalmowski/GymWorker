@@ -31,12 +31,8 @@ export class TrainingExerciseListComponent implements OnInit{
 
   ngOnInit(): void {
     
-
-   console.log(this.source);
-
     this.id_training=this.route.snapshot.queryParams['id'];
     this.source=this.route.snapshot.queryParams['source'];
-    console.log(this.id_training);
     
     this.exerciseServise.getTrainerExercises().subscribe({
       next:(trainingPlanExercises)=>{
@@ -47,7 +43,6 @@ export class TrainingExerciseListComponent implements OnInit{
         myExercisesElement?.classList.add("selected-all-my");
       },
       error: (response)=>{
-        console.log(response);
       }
     })
   }
@@ -78,7 +73,6 @@ export class TrainingExerciseListComponent implements OnInit{
         allExercisesElement?.classList.remove("selected-all-my");
       },
       error: (response)=>{
-        console.log(response);
       }
     })
   }
@@ -98,13 +92,11 @@ export class TrainingExerciseListComponent implements OnInit{
         myExercisesElement?.classList.remove("selected-all-my");
       },
       error: (response)=>{
-        console.log(response);
       }
     })
   }
 
   openDeleteDialog(name:string){
-    console.log("open");
     this.deleteErrorFlag=false;
     if(this.deleteDialogFlag!=true){
      this.deleteDialogFlag=true;
@@ -113,22 +105,17 @@ export class TrainingExerciseListComponent implements OnInit{
    }
  
    deleteExercise(idExercise:number) {
-     console.log("delete");
      this.exerciseServise.deleteExercise(idExercise.toString()).subscribe({
        next:(response)=>{
-         console.log(response);
          this.deleteDialogFlag=false;
          this.MyExercises();
        },
        error:(response)=>{
-         console.log(response);
          this.deleteErrorFlag=true;
        }});
- 
      }
  
    cancelDelete(){
-     console.log("cancel");
      this.deleteDialogFlag=false;
    }
  

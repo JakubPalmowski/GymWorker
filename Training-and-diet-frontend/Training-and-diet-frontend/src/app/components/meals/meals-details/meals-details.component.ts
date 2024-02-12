@@ -42,7 +42,6 @@ export class MealsDetailsComponent implements OnInit{
 
 
         if(id){
-          console.log(id);
           this.id_meal=id;
 
           this.mealService.getMealById(this.id_meal).subscribe({
@@ -55,7 +54,6 @@ export class MealsDetailsComponent implements OnInit{
               this.carbs=kpfc[3];
             },
             error:(response)=>{
-              console.log(response);
             }
           })
         }

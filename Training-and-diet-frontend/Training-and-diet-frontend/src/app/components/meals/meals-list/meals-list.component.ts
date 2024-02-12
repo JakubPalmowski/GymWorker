@@ -28,8 +28,6 @@ export class MealsListComponent implements OnInit{
   ngOnInit(): void {
  
      this.id_diet=this.route.snapshot.queryParams['id'];
-     console.log(this.id_diet);
-    
      this.mealServise.getDieteticianMeals().subscribe({
       next:(meals)=>{
         this.DieteticianMeals=meals;
@@ -37,7 +35,6 @@ export class MealsListComponent implements OnInit{
 
       },
       error:(response)=>{
-        console.log(response);
       }
      })
     
