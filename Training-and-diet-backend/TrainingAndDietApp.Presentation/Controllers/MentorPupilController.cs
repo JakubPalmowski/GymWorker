@@ -20,6 +20,8 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "3,4,5")]
         [HttpGet("MentorPupils")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMentorPupils()
         {
             var userId = this.User.GetId()!.Value;
