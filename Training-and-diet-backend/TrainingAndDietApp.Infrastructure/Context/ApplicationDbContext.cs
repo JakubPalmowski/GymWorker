@@ -37,8 +37,8 @@ namespace TrainingAndDietApp.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new GymDataSeed());
             modelBuilder.ApplyConfiguration(new TrainerGymDataSeed());
             modelBuilder.ApplyConfiguration(new ExerciseDataSeed());
-            //modelBuilder.ApplyConfiguration(new CertificateDataSeed());
-            //modelBuilder.ApplyConfiguration(new OpinionDataSeed());
+            modelBuilder.ApplyConfiguration(new CertificateDataSeed());
+            modelBuilder.ApplyConfiguration(new OpinionDataSeed());
            
 
 
