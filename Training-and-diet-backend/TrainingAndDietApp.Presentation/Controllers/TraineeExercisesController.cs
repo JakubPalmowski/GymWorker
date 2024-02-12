@@ -63,25 +63,26 @@ namespace Training_and_diet_backend.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PostTraineeExercise(CreateTraineeExerciseCommand exercise)
         {
-            var result = await _mediator.Send(exercise);
-            var locationUri = $"api/exercise/{result.IdTraineeExercise}";
-
-            return Created(locationUri, result);
-
+            await _mediator.Send(exercise);
+            return Ok();
         }
         [Authorize(Roles = "3,5")]
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutTraineeExercise(int id, UpdateTraineeExerciseCommand exercise)
         {
             await _mediator.Send(new UpdateTraineeExerciseInternalCommand(id, exercise));
-            return NoContent();
+            return Ok();
         }
         [Authorize(Roles = "3,5")]
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteTraineeExercise(int id)
         {
             await _mediator.Send(new DeleteTraineeExerciseCommand(id));
-            return NoContent();
+            return Ok();
         }
     }
 }
