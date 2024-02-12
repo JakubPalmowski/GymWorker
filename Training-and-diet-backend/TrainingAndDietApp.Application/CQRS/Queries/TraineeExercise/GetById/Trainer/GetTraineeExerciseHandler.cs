@@ -11,13 +11,11 @@ public class GetTraineeExerciseHandler : IRequestHandler<GetTrainerTraineeExerci
 {
     private readonly ITraineeExercisesRepository _traineeExercisesRepository;
     private readonly IMapper _mapper;
-    private readonly ITraineeExerciseAccessService _traineeExerciseAccessService;
 
-    public GetTraineeExerciseHandler(ITraineeExercisesRepository traineeExercisesRepository, IMapper mapper, ITraineeExerciseAccessService traineeExerciseAccessService)
+    public GetTraineeExerciseHandler(ITraineeExercisesRepository traineeExercisesRepository, IMapper mapper)
     {
         _traineeExercisesRepository = traineeExercisesRepository;
         _mapper = mapper;
-        _traineeExerciseAccessService = traineeExerciseAccessService;
     }
     public async Task<TrainerTraineeExerciseResponse> Handle(GetTrainerTraineeExerciseQuery request, CancellationToken cancellationToken)
     {

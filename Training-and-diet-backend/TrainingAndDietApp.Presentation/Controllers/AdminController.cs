@@ -55,6 +55,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpDelete("Gym/{idGym}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteGym(int idGym)
         {
@@ -65,6 +66,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpGet("Gym/{idGym}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetGymById(int idGym)
         {
@@ -76,6 +78,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("Gym/{idGym}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateGym(int idGym, UpdateGymCommand command)
         {   
@@ -86,6 +89,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("Gym/Verify/{idGym}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> VerifyGym(int idGym, UpdateGymCommand command)
         {
@@ -95,6 +99,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpGet("Exercises")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAdminAllExercises()
         {
@@ -105,6 +110,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpPost("Exercises")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> CreateExercise(CreateExerciseCommand command)
         {
             var response = await _mediator.Send(new CreateExerciseAdminInternalCommand(command));
@@ -113,6 +119,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpGet("Users/PendingCertificates")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUsersWithPendingCertificates()
         {
@@ -123,6 +130,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpGet("Users/AcceptedCertificates")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllUsersWithAcceptedCertificates()
         {
@@ -133,6 +141,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpGet("Users/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)] 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserInfoForVerification(int id)
         {
@@ -143,6 +152,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpGet("Users/Certificates/{idUser}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserCertificatesById(int idUser)
         {
@@ -153,6 +163,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpGet("Certificates/{idCertificate}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCertificateInfoForVerification(int idCertificate)
         {
@@ -164,6 +175,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPatch("Certificates/Verification/{idCertificate}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> VerifyCertificate(int idCertificate)
         {
@@ -174,6 +186,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpDelete("Certificates/{idCertificate}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteCertificate(int idCertificate)
         {
@@ -184,6 +197,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpPatch("Users/Verification/{idUser}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> VerifyUser(int idUser, VerifyUserCommand command)
         {
@@ -192,6 +206,7 @@ namespace Training_and_diet_backend.Controllers
         }
         [HttpGet("Exercises/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAdminExercisesById(int id)
         {
@@ -202,6 +217,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpPut("Exercises/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateAdminExercise(int id, UpdateExerciseCommand command)
         {
@@ -211,6 +227,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpDelete("Exercises/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteAdminExercise(int id)
         {

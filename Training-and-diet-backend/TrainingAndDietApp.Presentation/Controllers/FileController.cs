@@ -24,6 +24,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Upload(IFormFile file)
         {
@@ -37,6 +38,7 @@ namespace Training_and_diet_backend.Controllers
 
         [HttpGet("{blobFileName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Download(string blobFileName)
         {
@@ -48,6 +50,7 @@ namespace Training_and_diet_backend.Controllers
         }
         [HttpDelete("delete/{blobFileName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(string blobFileName)
         {

@@ -33,7 +33,7 @@ namespace Training_and_diet_backend.Controllers
             _mediator = mediator;
         }
 
-
+        [AllowAnonymous]
         [HttpGet("{RoleName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -64,6 +64,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("Pupil/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPupilById( [FromRoute] int id){
             var user = this.User.GetId()!.Value;
@@ -76,6 +77,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("Pupil/PersonalInfo")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPupilPersonalInfoById(){
             var user = this.User.GetId()!.Value;
@@ -88,6 +90,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("Pupil")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdatePupil([FromBody] UpdatePupilCommand pupil)       
         {
@@ -100,6 +103,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("Trainer/PersonalInfo")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTrainerPersonalInfoById( ){
             var user = this.User.GetId()!.Value;
@@ -113,6 +117,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("Trainer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateTrainer([FromBody] UpdateTrainerCommand trainer)       
         {
@@ -125,6 +130,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("Dietician")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateDietician([FromBody] UpdateDieticianCommand dietician)       
         {
@@ -137,6 +143,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("Dietician/PersonalInfo")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDieticianPersonalInfoById(){
             var user = this.User.GetId()!.Value;
@@ -149,6 +156,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("DieticianTrainer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateDieticianTrainer([FromBody] UpdateDieticianTrainerCommand dieticianTrainer)       
         {
@@ -161,6 +169,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("DieticianTrainer/PersonalInfo")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDieticianTrainerPersonalInfoById(){
             var user = this.User.GetId()!.Value;
@@ -173,6 +182,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPost("Pupil/Invitation/{idMentor}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> SendInvitation([FromRoute] int idMentor)
         {
@@ -196,6 +206,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize]
         [HttpGet("Image")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserImage()
         {
@@ -209,6 +220,7 @@ namespace Training_and_diet_backend.Controllers
         [Authorize(Roles = "3,4,5")]
         [HttpGet("Invitations")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMentorInvitations()
         {
@@ -222,6 +234,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpPut("Invitations/{idPupil}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AcceptInvitation([FromRoute] int idPupil)
         {
