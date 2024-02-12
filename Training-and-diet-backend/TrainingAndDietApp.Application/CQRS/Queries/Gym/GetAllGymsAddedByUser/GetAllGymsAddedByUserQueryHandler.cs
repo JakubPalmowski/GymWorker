@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using TrainingAndDietApp.Application.Exceptions;
 using TrainingAndDietApp.Domain.Abstractions;
 
 namespace TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAllGymsAddedByUser
@@ -18,6 +19,8 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Gym.GetAllGymsAddedByUser
         public async Task<List<GymsAddedByUserResponse>> Handle(GetAllGymsAddedByUserQuery request, CancellationToken cancellationToken)
         {
             var gyms = await _gymRepository.GetAllGymsAddedByUserAsync(request.idUser, cancellationToken);
+            if (!gyms.Any())
+                throw new NotFoundException("Gym not found");
             var gymsResponse = _mapper.Map<List<GymsAddedByUserResponse>>(gyms);
             return gymsResponse;
         }

@@ -24,14 +24,14 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Uploa
         if (user == null)
             throw new NotFoundException("User not found");
         try{
-        if(user.ImageUri != null){
-            await _fileService.DeleteFileAsync(user.ImageUri);
-        }
-        var uniqueName = await _fileService.UploadImageAsync(request.File);
-        user.ImageUri = uniqueName;
-        await _repository.UpdateAsync(user, cancellationToken);
-        await _unitOfWork.CommitAsync(cancellationToken);
-        }catch{
+            if(user.ImageUri != null){
+                await _fileService.DeleteFileAsync(user.ImageUri);
+            }
+            var uniqueName = await _fileService.UploadImageAsync(request.File);
+            user.ImageUri = uniqueName;
+            await _repository.UpdateAsync(user, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+        } catch {
             throw;
         }
 

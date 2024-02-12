@@ -43,6 +43,7 @@ namespace Training_and_diet_backend.Controllers
         [HttpGet("AllGyms/{status}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetAllGymsAdmin(string status)
         {
             var request = new GetAllGymsAdminQuery(status);

@@ -21,11 +21,11 @@ namespace TrainingAndDietApp.Application.CQRS.Queries.Admin.GetAllGymsAdmin
         }
         public async Task<List<GymAdminInfoResponse>> Handle(GetAllGymsAdminQuery request, CancellationToken cancellationToken)
         {
-            if (request.status != "Pending" && request.status != "Active")
+            if (request.Status != "Pending" && request.Status != "Active")
                 throw new BadRequestException("Wrong status");
 
             var pendingGyms = new List<Domain.Entities.Gym>();
-            switch (request.status)
+            switch (request.Status)
             {
                 case "Pending":
                     pendingGyms = await _gymRepository.GetAllGymsAdminAsync(false, cancellationToken);

@@ -22,6 +22,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetActiveGyms()
         {
             var request = new GetActiveGymsQuery();
@@ -33,6 +35,8 @@ namespace Training_and_diet_backend.Controllers
     
 
         [HttpGet("Mentor/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMentorActiveGyms(int id)
         {
             var response = await _mediator.Send(new GetMentorActiveGymsQuery(id));
@@ -42,6 +46,7 @@ namespace Training_and_diet_backend.Controllers
         }
         [Authorize(Roles = "3,5")]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateGym(CreateGymCommand command)
         {
             var user = this.User.GetId()!.Value;
@@ -50,6 +55,8 @@ namespace Training_and_diet_backend.Controllers
         }
 
         [HttpGet("User/{idUser}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllGymsAddedByUser(int idUser)
         {
             var response = await _mediator.Send(new GetAllGymsAddedByUserQuery(idUser));
