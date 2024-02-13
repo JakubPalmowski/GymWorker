@@ -50,7 +50,11 @@ export class CreateGymComponent implements OnInit {
             ...this.GymToCreate,
             isAccepted: false
           };
-          this.GymsAddedByUser?.push(gym);
+          if(!this.GymsAddedByUser){
+            this.GymsAddedByUser = [gym];
+          }else{
+            this.GymsAddedByUser.push(gym);
+          }
           this.GymToCreate = { city: "", name: "", postalCode: "", street: ""};
           this.profileForm?.reset();
         },
