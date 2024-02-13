@@ -37,6 +37,7 @@ export class RegisterComponent {
 
   register(){
     this.emailTaken=false;
+    if(this.registerRequest.password==this.additionalFields.passwordRepeat)
     this.authenticationService.register(this.registerRequest).subscribe({
       next:(response)=>{
         this.authenticationService.setSession(response);
