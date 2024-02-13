@@ -166,8 +166,8 @@
     
           <div class="col-lg-5 d-flex flex-column align-items-center align-items-lg-start">
             <span class="fs-4 fw-bold">Dane kontaktowe:</span>
-            <span class="fs-4"><i class="fas fa-envelope me-2"></i>{{ mentor.email }}</span>
-            <span *ngIf="mentor.phoneNumber" class="fs-4"><i class="fas fa-phone me-2"></i>{{ mentor.phoneNumber}}</span>
+            <span class="fs-4"><i class="fas fa-envelope me-2 d-none d-sm-inline"></i>{{ mentor.email }}</span>
+            <span *ngIf="mentor.phoneNumber" class="fs-4"><i class="fas fa-phone me-2 d-none d-sm-inline"></i>{{ mentor.phoneNumber}}</span>
           </div>
    
     </div>
@@ -176,8 +176,8 @@
       <div class="col-12 col-md d-flex flex-column ms-1 align-items-center align-items-md-start gap-2">
         <span class="fw-bold fs-4">Cennik:</span>
         <ng-container *ngIf="mentor.role=='Trainer' || mentor.role=='Dietician-Trainer'">
-          <span class="fs-5 ms-1"><i class="fas fa-clipboard-list  fa-lg me-2 d-none d-sm-inline"></i> Plan Treningowy: {{ mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null ? mentor.trainingPlanPriceFrom + 'zł - ' + mentor.trainingPlanPriceTo + ' zł' : '-' }}</span>
-          <span class="fs-5"><i class="fas fa-user-friends fa-lg d-none d-sm-inline"></i> Trening personalny: {{ mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null ? mentor.personalTrainingPriceFrom + 'zł - ' + mentor.personalTrainingPriceTo + ' zł' : '-' }}</span>
+          <span class="fs-5 ms-1"><i class="fas fa-clipboard-list  fa-lg me-2 d-none d-sm-inline"></i> Plan Treningowy: {{ mentor.trainingPlanPriceFrom !== null && mentor.trainingPlanPriceTo !== null ? mentor.trainingPlanPriceFrom + 'zł - ' + mentor.trainingPlanPriceTo + 'zł' : '-' }}</span>
+          <span class="fs-5"><i class="fas fa-user-friends fa-lg d-none d-sm-inline"></i> Trening personalny: {{ mentor.personalTrainingPriceFrom !== null && mentor.personalTrainingPriceTo !== null ? mentor.personalTrainingPriceFrom + 'zł - ' + mentor.personalTrainingPriceTo + 'zł' : '-' }}</span>
         </ng-container>
         <ng-container *ngIf="mentor.role=='Dietician' || mentor.role=='Dietician-Trainer'">
           <span class="fs-5"><i class="fas fa-seedling  fa-lg me-1 d-none d-sm-inline"></i> Dieta: {{ mentor.dietPriceFrom !== null && mentor.dietPriceTo !== null ? mentor.dietPriceFrom  + 'zł - ' + mentor.dietPriceTo + 'zł' : '-' }}</span>
