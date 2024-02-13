@@ -73,6 +73,7 @@ confirmDelete() {
   if (this.selectedInvitation) {
     this.userService.deleteInvitation(this.selectedInvitation.idUser.toString()).subscribe({
       next: () => {
+        this.invitations = [];
         this.ngOnInit(); 
       },
       error: (error) => {
@@ -104,6 +105,7 @@ confirmAccept() {
   if (this.selectedInvitation) {
     this.userService.acceptInvitation(this.selectedInvitation.idUser.toString()).subscribe({
       next: () => {
+        this.invitations = [];
         this.ngOnInit(); 
       },
       error: (error) => {
