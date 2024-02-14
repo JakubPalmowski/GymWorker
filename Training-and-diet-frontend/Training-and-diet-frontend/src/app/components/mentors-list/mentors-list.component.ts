@@ -127,9 +127,13 @@ export class MentorsListComponent implements OnInit{
             next: images => {
               images.forEach((blob, index) => {
                 const mentorWithImage = this.mentors.find(mentor => mentor.imageUri != null && !mentor.imageSrc);
-                if (mentorWithImage) {
-                  const objectURL = URL.createObjectURL(blob as Blob);
-                  mentorWithImage.imageSrc = objectURL;
+                if(mentorWithImage){
+                  try {
+                    const objectURL = URL.createObjectURL(blob as Blob);
+                    mentorWithImage.imageSrc = objectURL;
+                  } catch (error) {
+                    mentorWithImage.imageSrc = 'assets/images/user.png';
+                  }
                 }
               });
             }
@@ -172,9 +176,13 @@ export class MentorsListComponent implements OnInit{
             next: images => {
               images.forEach((blob, index) => {
                 const mentorWithImage = this.mentors.find(mentor => mentor.imageUri != null && !mentor.imageSrc);
-                if (mentorWithImage) {
-                  const objectURL = URL.createObjectURL(blob as Blob);
-                  mentorWithImage.imageSrc = objectURL;
+                if(mentorWithImage){
+                  try {
+                    const objectURL = URL.createObjectURL(blob as Blob);
+                    mentorWithImage.imageSrc = objectURL;
+                  } catch (error) {
+                    mentorWithImage.imageSrc = 'assets/images/user.png';
+                  }
                 }
               });
             }
