@@ -47,4 +47,10 @@ export class MentorOpinionComponent implements OnInit {
       this.imageUrl = "assets/images/user.png";
     }
   }
+  
+  formatDate(dateString: string): string {
+    const dateParts = dateString.split(' ')[0];
+    return dateParts;
+  }
+  
 }
