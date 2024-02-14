@@ -3,7 +3,7 @@
         <div class="col-sm-2 col-12 d-flex flex-column align-items-center">
             <img src="{{imageUrl}}" class="round-picture" style="width: 80px; height: 80px; object-fit: cover;">
             <span class="pupil-name">{{ pupilName }}</span>
-            <span class="date-label text-muted">{{ date | date:'yyyy-MM-dd' }}</span>
+            <span class="date-label text-muted">{{formatDate(date)}}</span>
         </div>
 
         <div class="col">
