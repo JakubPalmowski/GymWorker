@@ -25,7 +25,7 @@ public class TokenService : ITokenService
             new Claim(ClaimTypes.NameIdentifier, user.IdUser.ToString()),
             new Claim(ClaimTypes.Role, user.Role.Id.ToString())
         };
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecretKey"]));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Secret"]));
         var jwt = new JwtSecurityToken( issuer: "https://localhost:5001",
             audience: "https://localhost:5001",
             claims: userClaims,
@@ -47,7 +47,7 @@ public class TokenService : ITokenService
     public int? VerifyAccessToken(string accessToken, bool validateLifetime = true)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecretKey"]));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Secret"]));
         try
         {
             tokenHandler.ValidateToken(accessToken, new TokenValidationParameters
