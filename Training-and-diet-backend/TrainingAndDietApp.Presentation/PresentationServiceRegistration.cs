@@ -37,7 +37,7 @@ public static class PresentationServiceRegistration
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey =
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["SecretKey"])),
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtConfig:Secret"])),
                 ValidateIssuer = true,
                 ValidIssuer = "https://localhost:5001",
                 ValidateAudience = true,
